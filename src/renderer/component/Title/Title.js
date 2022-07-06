@@ -19,7 +19,7 @@ import React from "react";
 import Styled from "styled-components";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { IconInformationBubble } from "../Icon";
+import { IconInformationBubble, IconInformationBubbleSm } from "../Icon";
 import LightWarning from "../../../../static/base/light-warning.png";
 import LightDanger from "../../../../static/base/light-danger.png";
 import LightSuccess from "../../../../static/base/light-success.png";
@@ -157,7 +157,19 @@ h6 {
 }
 
 `;
-const Title = ({ text, headingLevel, size, className, color, type, tooltip, tooltipSize, tooltipPlacement, svgICO }) => {
+const Title = ({
+  text,
+  headingLevel,
+  size,
+  className,
+  color,
+  type,
+  tooltip,
+  tooltipSize,
+  tooltipIconSize,
+  tooltipPlacement,
+  svgICO
+}) => {
   let Tag = "h" + headingLevel;
 
   return (
@@ -180,7 +192,7 @@ const Title = ({ text, headingLevel, size, className, color, type, tooltip, tool
               }
             >
               <span className="tooltipIcon">
-                <IconInformationBubble />
+                {tooltipIconSize == "sm" ? <IconInformationBubbleSm /> : <IconInformationBubble />}
               </span>
             </OverlayTrigger>
           </>

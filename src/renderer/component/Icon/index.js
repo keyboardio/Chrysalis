@@ -31,7 +31,9 @@ import IconCloseXs from "./IconCloseXs";
 import IconDragAndDrop from "./IconDragAndDrop";
 import IconDelete from "./IconDelete";
 import IconEditModeSingleView from "./IconEditModeSingleView";
+import IconEditModeSingleViewSm from "./IconEditModeSingleViewSm";
 import IconEditModeStandardView from "./IconEditModeStandardView";
+import IconEditModeStandardViewSm from "./IconEditModeStandardViewSm";
 import IconEye from "./IconEye";
 import IconFileDownload from "./IconFileDownload";
 import IconKeysPress from "./IconKeysPress";
@@ -147,7 +149,9 @@ export {
   IconDragAndDrop,
   IconDelete,
   IconEditModeSingleView,
+  IconEditModeSingleViewSm,
   IconEditModeStandardView,
+  IconEditModeStandardViewSm,
   IconEye,
   IconFileDownload,
   IconKeysPress,

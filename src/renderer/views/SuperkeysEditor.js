@@ -58,6 +58,9 @@ const Styles = Styled.div`
 &.superkeys {
   display: flex;
   min-height: 100%;
+  .layoutSelector {
+    margin-left: 15px;
+  }
 }
 height: -webkit-fill-available;
 display: flex;
@@ -75,18 +78,11 @@ flex-direction: column;
     margin-top: 0.4rem;
     width: inherit;
   }
- 
-  .save-row {
-    position: absolute;
-    right: 30px;
-    top: 65px;
-  }
-  .button-large {
-    font-size: 2rem;
-    width: -webkit-fill-available;
-    text-align: left;
-  }
-
+.button-large {
+  font-size: 2rem;
+  width: -webkit-fill-available;
+  text-align: left;
+}
 `;
 
 const ModalStyle = Styled.div`

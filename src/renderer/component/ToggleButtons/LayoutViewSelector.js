@@ -23,7 +23,7 @@ import i18n from "../../i18n";
 import Title from "../../component/Title";
 import { ButtonConfig } from "../Button";
 
-import { IconEditModeStandardView, IconEditModeSingleView } from "../../component/Icon";
+import { IconEditModeStandardViewSm, IconEditModeSingleViewSm } from "../../component/Icon";
 
 const Style = Styled.div`
 &.layoutSelector {
@@ -31,11 +31,10 @@ const Style = Styled.div`
   // bottom: 24px;
   // margin-left: 15px;
 
-  margin-left: 15px;
   align-self: self-end;
   margin-top: auto;
   margin-bottom: 24px;
-  padding-top: 24px;
+  padding-top: 16px;
 }
 .toggleButtonsContainer {
   padding: 4px;
@@ -53,12 +52,14 @@ const Style = Styled.div`
   margin-left: 2px;
   margin-right: 2px;
   flex: auto;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 11px;
   color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
   background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
   box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  display: flex;
+  align-items: center;
   &:hover {
     background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
     color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
@@ -71,16 +72,17 @@ const Style = Styled.div`
   }
 }
 h5 {
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.05em;
   color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
   margin-left: 4px;
+  margin-bottom: 6px;
 }
 .icon-right svg {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 .icon-left svg {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 `;
 
@@ -97,12 +99,12 @@ h5 {
 const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled }) => {
   return (
     <Style className={`layoutSelector`}>
-      <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} />
+      <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">
           <ButtonConfig
             onClick={onToogle}
-            icoSVG={<IconEditModeStandardView />}
+            icoSVG={<IconEditModeStandardViewSm />}
             icoPosition="left"
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
@@ -113,7 +115,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled }) =
           <ButtonConfig
             onClick={onToogle}
             icoPosition="left"
-            icoSVG={<IconEditModeSingleView />}
+            icoSVG={<IconEditModeSingleViewSm />}
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}
             size={"sm"}

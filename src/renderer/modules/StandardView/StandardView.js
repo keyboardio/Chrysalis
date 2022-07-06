@@ -268,8 +268,7 @@ export default class StandardView extends React.Component {
                         code={code}
                         onKeyPress={onKeySelect}
                         isStandardView={isStandardView}
-                        action={action}
-                        actions={actions}
+                        superkeyAction={`${actTab == "super" ? keyIndex : 5}`}
                         actTab={actTab}
                       />
                     </Tab.Pane>

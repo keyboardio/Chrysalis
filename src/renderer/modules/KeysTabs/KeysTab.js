@@ -100,8 +100,7 @@ class KeysTab extends Component {
   }
 
   render() {
-    const { action, actions, keyCode, code, isStandardView, actTab } = this.props;
-
+    const { action, actions, keyCode, code, isStandardView, actTab, superkeyAction } = this.props;
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
@@ -124,17 +123,17 @@ class KeysTab extends Component {
             code={isStandardView ? code : { base: 4, modified: 0 }}
             showSelected={isStandardView}
             keyCode={keyCode}
-            // disableMove={false}
+            disableMove={false}
             // disableMods={false}
-            disableMods={[0, 3].includes(action) && actTab == "super"}
-            disableMove={![0, 3].includes(action) && actTab == "super"}
+            disableMods={(superkeyAction == 0 || superkeyAction == 3) && actTab == "super" ? true : false}
+            //disableMove={![0, 3].includes(actions) && actTab == "super"}
             actTab={actTab}
             superName={"superName"}
             selectedlanguage={"english"}
             kbtype={"iso"}
           />
           {isStandardView ? (
-            <div className={`enhanceKeys`}>
+            <div className={`enhanceKeys ${(superkeyAction == 0 || superkeyAction == 3) && actTab == "super" ? "disabled" : ""}`}>
               <Title
                 text={i18n.editor.standardView.keys.enhanceTitle}
                 headingLevel={3}
@@ -146,16 +145,20 @@ class KeysTab extends Component {
                 <p>{i18n.editor.standardView.keys.descriptionModifiers}</p>
                 <ModPicker keyCode={code} onKeySelect={this.props.onKeyPress} isStandardView={isStandardView} />
               </div>
-              <div className="cardButtons cardButtonsDual">
-                <Title text={i18n.editor.standardView.keys.addDualFunction} headingLevel={4} />
-                <p>{i18n.editor.standardView.keys.dualFunctionDescription}</p>
-                <DualFunctionPicker
-                  keyCode={code}
-                  onKeySelect={this.props.onKeyPress}
-                  activeTab={actTab}
-                  isStandardView={isStandardView}
-                />
-              </div>
+              {actTab != "super" ? (
+                <div className="cardButtons cardButtonsDual">
+                  <Title text={i18n.editor.standardView.keys.addDualFunction} headingLevel={4} />
+                  <p>{i18n.editor.standardView.keys.dualFunctionDescription}</p>
+                  <DualFunctionPicker
+                    keyCode={code}
+                    onKeySelect={this.props.onKeyPress}
+                    activeTab={actTab}
+                    isStandardView={isStandardView}
+                  />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : null}
         </div>

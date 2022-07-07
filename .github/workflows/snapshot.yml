@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags-ignore:
+      - v*
 
 jobs:
   build:
@@ -103,6 +105,7 @@ jobs:
         run: |
           gh release delete -y v$(tools/snapshot-tag) || true
           git tag -d v$(tools/snapshot-tag) || true
+          git push origin :v$(tools/snapshot-tag) || true
 
       - name: Recreate the snapshot release
         env:

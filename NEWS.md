@@ -1,3 +1,13 @@
+Chrysalis 0.10.4
+================
+Released on 2022-07-07
+
+## Firmware update
+
+The sole reason for this release is the new firmware shipped for the Keyboardio
+Model 100, which fixes an important bug in the Arduino Core used by the
+firmware.
+
 Chrysalis 0.10.3
 ================
 Released on 2022-07-06

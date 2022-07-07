@@ -43,43 +43,6 @@ import {
 } from "react-icons/ai";
 import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEject } from "react-icons/md";
 
-import { ButtonConfig } from "../../component/Button";
-import {
-  SelectMacro,
-  SelectSuperKey,
-  SelectLayersLock,
-  SelectLayersSwitch,
-  SelectOneShotModifiers,
-  SelectOneShotLayers
-} from "../../component/Select";
-
-import {
-  IconLayers,
-  IconLEDSwitchLeft,
-  IconLEDNextEffect,
-  IconLEDPreviousEffect,
-  IconMediaForward,
-  IconMediaPlayPause,
-  IconMediaRewind,
-  IconMediaShuffle,
-  IconMediaSoundLess,
-  IconMediaSoundMore,
-  IconMediaSoundMute,
-  IconMediaStop,
-  IconNoKey,
-  IconNote,
-  IconMouse,
-  IconOneShot,
-  IconThunder,
-  IconToolsCalculator,
-  IconToolsCamera,
-  IconToolsEject,
-  IconToolsBrightnessLess,
-  IconToolsBrightnessMore,
-  IconRobot,
-  IconWrench
-} from "../../component/Icon";
-
 import Key from "./Key";
 import ES from "./ES.json";
 import ENi from "./ENi.json";

@@ -108,7 +108,8 @@ class MacroEditor extends React.Component {
       listToDelete: [],
       listToDeleteS: [],
       selectedList: 0,
-      freeMemory: 0
+      freeMemory: 0,
+      currentLanguageLayout: store.get("settings.language") || "english"
     };
     this.updateMacros = this.updateMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
@@ -586,7 +587,17 @@ class MacroEditor extends React.Component {
   };
 
   render() {
-    const { macros, maxMacros, modified, selectedList, selectedMacro, listToDelete, freeMemory, showDeleteModal } = this.state;
+    const {
+      macros,
+      maxMacros,
+      modified,
+      selectedList,
+      selectedMacro,
+      listToDelete,
+      freeMemory,
+      showDeleteModal,
+      currentLanguageLayout
+    } = this.state;
     const ListOfMacros = listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
@@ -650,6 +661,7 @@ class MacroEditor extends React.Component {
             addToActions={this.addToActions}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
+            selectedlanguage={currentLanguageLayout}
             kbtype={"iso"}
           />
           <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />

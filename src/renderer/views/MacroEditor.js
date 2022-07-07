@@ -156,6 +156,13 @@ class MacroEditor extends React.Component {
       let deviceLang = { ...focus.device, language: true };
       focus.commands.keymap = new Keymap(deviceLang);
       this.keymapDB = focus.commands.keymap.db;
+      let kbtype = "iso";
+      try {
+        kbtype = focus.device && focus.device.info.keyboardType === "ISO" ? "iso" : "ansi";
+      } catch (error) {
+        console.error("Focus lost connection to Raise: ", error);
+        return false;
+      }
 
       let keymap = await focus.command("keymap");
       let raw = await focus.command("macros.map");
@@ -177,6 +184,7 @@ class MacroEditor extends React.Component {
         macros: parsedMacros,
         superkeys: parsedSuper,
         keymap,
+        kbtype,
         modified: false,
         freeMemory: parsedMacros.map(m => m.actions).flat().length
       });
@@ -596,6 +604,7 @@ class MacroEditor extends React.Component {
       listToDelete,
       freeMemory,
       showDeleteModal,
+      kbtype,
       currentLanguageLayout
     } = this.state;
     const ListOfMacros = listToDelete.map(({ layer, pos, key }, id) => {
@@ -662,7 +671,7 @@ class MacroEditor extends React.Component {
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
             selectedlanguage={currentLanguageLayout}
-            kbtype={"iso"}
+            kbtype={kbtype}
           />
           <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
         </Container>

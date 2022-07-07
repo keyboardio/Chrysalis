@@ -202,22 +202,23 @@ export default class StandardView extends React.Component {
 
   render() {
     const {
-      showStandardView,
-      closeStandardView,
-      layerData,
-      macros,
-      handleSave,
-      keyIndex,
-      kbtype,
-      code,
-      labelInput,
-      id,
-      onKeySelect,
-      superkeys,
       actions,
       action,
       actTab,
-      isStandardView
+      code,
+      closeStandardView,
+      handleSave,
+      id,
+      isStandardView,
+      kbtype,
+      keyIndex,
+      layerData,
+      labelInput,
+      macros,
+      onKeySelect,
+      selectedlanguage,
+      showStandardView,
+      superkeys
     } = this.props;
     let keyCode;
     if (actTab == "super") {
@@ -271,6 +272,7 @@ export default class StandardView extends React.Component {
                         isStandardView={isStandardView}
                         superkeyAction={`${actTab == "super" ? keyIndex : 5}`}
                         actTab={actTab}
+                        selectedlanguage={selectedlanguage}
                         kbtype={kbtype}
                       />
                     </Tab.Pane>

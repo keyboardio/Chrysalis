@@ -100,7 +100,7 @@ class KeysTab extends Component {
   }
 
   render() {
-    const { action, actions, keyCode, code, isStandardView, actTab, superkeyAction, kbtype } = this.props;
+    const { action, actions, keyCode, code, isStandardView, actTab, superkeyAction, selectedlanguage, kbtype } = this.props;
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
@@ -129,7 +129,7 @@ class KeysTab extends Component {
             //disableMove={![0, 3].includes(actions) && actTab == "super"}
             actTab={actTab}
             superName={"superName"}
-            selectedlanguage={"english"}
+            selectedlanguage={selectedlanguage}
             kbtype={kbtype}
           />
           {isStandardView ? (

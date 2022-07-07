@@ -4,9 +4,11 @@ Released on 2022-07-07
 
 ## Firmware update
 
-The sole reason for this release is the new firmware shipped for the Keyboardio
-Model 100, which fixes an important bug in the Arduino Core used by the
-firmware.
+This release is purely a firmware update for both the Keyboardio Model 100 and
+the Keyboardio Atreus. There are no changes other than in the firmware files.
+
+Both of these firmware updates fix important, breaking bugs in the firmware, and
+owners of these keyboards are strongly encouraged to update their firmware.
 
 Chrysalis 0.10.3
 ================

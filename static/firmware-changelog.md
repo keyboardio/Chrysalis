@@ -7,8 +7,14 @@ could result in high-speed serial traffic completely locking up the keyboard to
 the point of it needing a reboot. This deadlock has been observed during normal
 use of Chrysalis, too.
 
-Keyboardio Model 100 owners are strongly encouraged to upgrade their firmware.
-Other keyboards are not affected.
+A bug in the Keyboardio Atreus firmware, which made it try to allocate more
+storage space than what is available, has also been fixed. The bug manifested
+itself in Chrysalis accidentally overwriting the first 32 keys of the first
+layer upon saving an updated keymap. We fixed the issue by decreasing the amount
+of space reserved for Dynamic Macros from 128 bytes to 48.
+
+Keyboardio Model 100 and Atreus owners are strongly encouraged to upgrade their
+firmware. Other keyboards are not affected.
 
 Chrysalis-Firmware-Bundle 0.10.3
 ================================

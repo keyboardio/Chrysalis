@@ -145,7 +145,23 @@ const Styles = Styled.div`
     }
     .KeyVisualizer {
         margin-top: 24px;
+        padding-left: 24px;
     }
+}
+
+@media (max-width: 1460px) and (min-height: 783px) {
+  .standardView{
+    padding: 24px 24px 24px 142px;
+  }
+  .colContentTabs .contentBody {
+    padding: 32px 32px 32px 42px;
+    padding-bottom: 102px;
+  }
+  .counterIndicator:before {
+    left: -24px;
+    bottom: 3px;
+    font-size: 12px;
+  }
 }
 `;
 
@@ -338,7 +354,7 @@ export default class StandardView extends React.Component {
                       onClick={handleSave}
                       style={"outline gradient"}
                       size="sm"
-                      buttonText={i18n.components.save.button}
+                      buttonText={i18n.dialog.applyChanges}
                     />
                   </div>
                 </div>

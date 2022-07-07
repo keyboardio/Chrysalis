@@ -120,13 +120,14 @@ h4 {
 &.standardViewTab {
   .mouseWrapper {
     display: grid;
-    grid-template-columns: 1fr minmax(320px, 500px);
+    //grid-template-columns: 1fr minmax(320px, 500px);
     grid-gap: 24px;
   }
   .buttonsRow {
-    grid-template-columns: 1fr 1fr;
+    // grid-template-columns: 1fr 1fr; 
+    grid-template-columns: minmax(240px, 370px) auto auto; 
     .clickButtons {
-      grid-column: 1 / -1;
+      //grid-column: 1 / -1;
     }
   }
 }
@@ -268,7 +269,7 @@ const MouseTab = ({ isStandardView, keyCode, onAddSpecial }) => {
               </div>
             </div>
           </div>
-          {isStandardView ? <MouseEventsReference /> : ""}
+          {/* {isStandardView ? <MouseEventsReference /> : ""} */}
         </div>
       </div>
     </Styles>

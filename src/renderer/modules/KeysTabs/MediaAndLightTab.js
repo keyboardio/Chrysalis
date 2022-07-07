@@ -68,8 +68,7 @@ h4 {
     grid-gap: 24px;
     .button-config {
         margin-left: 8px;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding: 12px;
     }
     padding-bottom: 12px;
 }

@@ -208,6 +208,7 @@ export default class StandardView extends React.Component {
       macros,
       handleSave,
       keyIndex,
+      kbtype,
       code,
       labelInput,
       id,
@@ -270,6 +271,7 @@ export default class StandardView extends React.Component {
                         isStandardView={isStandardView}
                         superkeyAction={`${actTab == "super" ? keyIndex : 5}`}
                         actTab={actTab}
+                        kbtype={kbtype}
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">

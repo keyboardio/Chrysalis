@@ -650,6 +650,7 @@ class MacroEditor extends React.Component {
             addToActions={this.addToActions}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
+            kbtype={"iso"}
           />
           <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
         </Container>

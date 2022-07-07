@@ -783,7 +783,7 @@ svg text{
     margin-bottom: 8px;
   }
   .groupButtons {
-    display: flex;
+    display: inline-flex;
     padding: 4px 2px;
     flex-wrap: nowrap;
     background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground};
@@ -802,7 +802,7 @@ svg text{
     padding: 0;
     .buttonsGrid {
       display: grid;
-      grid-template-columns: repeat(4, 116px);
+      grid-template-columns: repeat(4, 112px);
       grid-template-rows: repeat(2, 1fr);
       grid-gap: 4px;
       padding: 4px;
@@ -1880,8 +1880,8 @@ div.card.card-preferences .card-body {
 }
 
 @media screen and (max-width: 1240px) {
-  .main-container .layoutEditor,
-  .main-container .superkeys {
+  .main-container .layoutEditor .singleViewMode,
+  .main-container .superkeys .singleViewMode {
     .singleViewWrapper {
       grid-template-columns: 1fr;
       grid-gap: 24px;
@@ -1908,9 +1908,12 @@ div.card.card-preferences .card-body {
     }
   }
 }
-@media screen and (max-width: 1460px) {
+@media (max-width: 1460px) {
   .pageHeader .savingButtons .buttonText span {
     display: none;
+  }
+  .standarViewMode .standardView{
+    padding: 24px 24px 24px 142px;
   }
 }
 @media screen and (max-width: 1520px){
@@ -1920,6 +1923,10 @@ div.card.card-preferences .card-body {
     }
   }
 }
+
+
+/* Standard view responsive */
+
 `;
 
 export default GlobalStyles;

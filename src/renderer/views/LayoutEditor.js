@@ -122,7 +122,8 @@ const Styles = Styled.div`
 }
 .standarView .raiseKeyboard {
   margin: 0 auto;
-  max-height: calc(100vh - 240px);
+  margin-top: 24px;
+  max-height: calc(100vh - 220px);
 }
 .singleView.keyboard .raiseKeyboard {
   margin: 0 auto;
@@ -1791,7 +1792,7 @@ class LayoutEditor extends React.Component {
       <Styles className="layoutEditor">
         <Container
           fluid
-          className={`keyboard-editor ${this.state.modeselect} ${isStandardView ? "standarView" : "singleView"} ${
+          className={`keyboard-editor ${this.state.modeselect} ${isStandardView ? "standarViewMode" : "singleViewMode"} ${
             typeof this.state.selectedPaletteColor == "number" ? "colorSelected" : ""
           }`}
         >

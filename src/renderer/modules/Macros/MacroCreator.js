@@ -633,7 +633,7 @@ class MacroCreator extends Component {
                     <TextTab onAddText={this.onAddText} onTextChange={this.onTextChange} addText={this.state.addText} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabKeys">
-                    <KeysTab onKeyPress={this.onKeyPress} />
+                    <KeysTab onKeyPress={this.onKeyPress} kbtype={this.props.kbtype} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabLayers">
                     <LayersTab onLayerPress={this.onLayerPress} />

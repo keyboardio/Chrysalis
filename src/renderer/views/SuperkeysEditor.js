@@ -768,7 +768,7 @@ class SuperkeysEditor extends React.Component {
     });
     return (
       <Styles className="superkeys">
-        <Container fluid>
+        <Container fluid className={`${isStandardViewSuperkeys ? "standarViewMode" : "singleViewMode"}`}>
           <PageHeader
             text={i18n.app.menu.superkeys}
             showSaving={true}

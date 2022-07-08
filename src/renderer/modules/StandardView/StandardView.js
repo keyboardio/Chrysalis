@@ -172,6 +172,47 @@ const Styles = Styled.div`
   }
 }
 
+@media screen and (max-height: 790px) {
+  .standardView{
+    .KeyVisualizer {
+      margin-top: 16px;
+      padding-left: 24px;
+      padding: 6px 12px 12px 24px;
+      margin-bottom: 8px;
+      min-height: 240px;
+    }
+  }
+}
+@media screen and (max-height: 719px) {
+  .standardView{
+    padding: 24px 24px 24px 112px;
+    .KeyVisualizer {
+      margin-top: 16px;
+    }
+    .colVisualizerTabs .nav-link {
+      padding: 10px 14px;
+    }
+  }
+}
+
+@media screen and (max-height: 710px) {
+  .standardView {
+    overflow-y: auto;
+    .colContentTabs {
+      overflow: initial;
+      .contentBody {
+        padding-bottom: 24px;
+        height: auto;
+      }
+      .contentFooter {
+        position: static;
+        margin-top: 0;
+      }
+    }
+    
+  }
+}
+
 `;
 
 export default class StandardView extends React.Component {

@@ -327,7 +327,7 @@ class KeymapANSI extends React.Component {
           clipRule="evenodd"
           viewBox={this.props.showUnderglow || this.props.isStandardView ? "0 0 1222 705" : "0 0 1222 430"}
           className={this.props.className || "layer"}
-          height={this.props.showUnderglow || this.props.isStandardView ? 705 : 430}
+          height={this.props.showUnderglow || this.props.isStandardView ? 705 : 480}
           width={1222}
         >
           <Neuron

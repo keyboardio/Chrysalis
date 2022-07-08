@@ -96,9 +96,22 @@ h5 {
  * @returns {<LayoutViewSelector>} Badge component.
  */
 
-const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled }) => {
+const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, layoutSelectorPosition }) => {
+  let stylePostition = {};
+  if (!isStandardView) {
+    stylePostition = {
+      position: "absolute",
+      left: layoutSelectorPosition.x,
+      top: layoutSelectorPosition.y - 92
+    };
+  } else {
+    stylePostition = {
+      position: "relative"
+    };
+  }
+
   return (
-    <Style className={`layoutSelector`}>
+    <Style className={`layoutSelector`} style={stylePostition}>
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">

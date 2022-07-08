@@ -138,31 +138,40 @@ const Styles = Styled.div`
                 left: -32px;
             }
         }
+        .KeyVisualizer {
+          margin-top: 24px;
+          padding-left: 24px;
+      }
     }
     .colContentTabs .contentBody {
         padding: 24px 62px 24px 62px;
         padding-bottom: 102px;
-    }
-    .KeyVisualizer {
-        margin-top: 24px;
-        padding-left: 24px;
     }
 }
 
 @media (max-width: 1460px) and (min-height: 783px) {
   .standardView{
     padding: 24px 24px 24px 142px;
-  }
-  .colContentTabs .contentBody {
-    padding: 32px 32px 32px 42px;
-    padding-bottom: 102px;
-  }
-  .counterIndicator:before {
-    left: -24px;
-    bottom: 3px;
-    font-size: 12px;
+    .KeyVisualizer {
+      margin-top: 16px;
+    }
+    .colContentTabs .contentBody {
+      padding: 32px 32px 32px 42px;
+      padding-bottom: 102px;
+    }
+    .counterIndicator:before {
+      left: -24px;
+      bottom: 3px;
+      font-size: 12px;
+    }
   }
 }
+@media (max-width: 1360px) {
+  .dualFuntionWrapper {
+    grid-gap: 16px;
+  }
+}
+
 `;
 
 export default class StandardView extends React.Component {

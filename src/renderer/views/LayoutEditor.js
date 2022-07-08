@@ -390,7 +390,8 @@ class LayoutEditor extends React.Component {
       showMacroModal: false,
       showNeuronModal: false,
       isStandardView: store.get("settings.isStandardView") || true,
-      showStandardView: false
+      showStandardView: false,
+      layoutSelectorPosition: { x: 0, y: 0 }
     };
     this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
@@ -1646,6 +1647,13 @@ class LayoutEditor extends React.Component {
     );
   };
 
+  refreshLayoutSelectorPosition = (x, y) => {
+    this.setState({
+      layoutSelectorPosition: { x: x, y: y }
+    });
+    console.log("Triggered function refresh position :", this.state.layoutSelectorPosition);
+  };
+
   render() {
     const {
       keymap,
@@ -1658,7 +1666,8 @@ class LayoutEditor extends React.Component {
       macros,
       superkeys,
       isStandardView,
-      showStandardView
+      showStandardView,
+      layoutSelectorPosition
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
@@ -1853,6 +1862,8 @@ class LayoutEditor extends React.Component {
                     actTab={"editor"}
                     selectedlanguage={currentLanguageLayout}
                     kbtype={kbtype}
+                    layoutSelectorPosition={layoutSelectorPosition}
+                    refreshLayoutSelectorPosition={this.refreshLayoutSelectorPosition}
                   />
                 </Row>
               ) : null}
@@ -1864,6 +1875,7 @@ class LayoutEditor extends React.Component {
             isStandardView={isStandardView}
             tooltip={i18n.editor.superkeys.tooltip}
             isDisabled={this.state.modeselect != "keyboard"}
+            layoutSelectorPosition={layoutSelectorPosition}
           />
 
           <ConfirmationDialog

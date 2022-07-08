@@ -263,6 +263,8 @@ class KeyPickerKeyboard extends Component {
   constructor(props) {
     super(props);
 
+    this.layoutSelectorWatcherPosition = React.createRef();
+
     this.keymapDB = new KeymapDB();
 
     let tempModifs = Array(5);
@@ -296,6 +298,10 @@ class KeyPickerKeyboard extends Component {
 
     this.parseAction = this.parseAction.bind(this);
     this.changeTab = this.changeTab.bind(this);
+  }
+  componentDidMount() {
+    this.updateSelectorPosition();
+    window.addEventListener("resize", this.updateSelectorPosition);
   }
   componentDidUpdate() {
     let selectdual = 0;
@@ -360,6 +366,14 @@ class KeyPickerKeyboard extends Component {
       });
     }
   }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateSelectorPosition);
+  }
+
+  updateSelectorPosition = () => {
+    const elPosition = this.layoutSelectorWatcherPosition.current.getBoundingClientRect();
+    this.props.refreshLayoutSelectorPosition(elPosition.left, elPosition.top);
+  };
 
   parseKey(keycode) {
     if (keycode >= 53980 && keycode <= 53980 + 128) {
@@ -417,7 +431,7 @@ class KeyPickerKeyboard extends Component {
   };
 
   render() {
-    const { action, actions, showKB, modifs, superName, disable, Keymap } = this.state;
+    const { action, actions, showKB, modifs, superName, disable, Keymap, layoutSelectorPosition } = this.state;
     const { selectedlanguage, kbtype, macros, actTab, superkeys, code, onKeySelect } = this.props;
     const activeTab = actTab != undefined ? actTab : this.state.activeTab;
     const selKey = this.parseKey(code.base + code.modified);
@@ -460,7 +474,7 @@ class KeyPickerKeyboard extends Component {
 
     return (
       <Style>
-        <div className="singleViewWrapper">
+        <div className="singleViewWrapper" ref={this.layoutSelectorWatcherPosition}>
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />

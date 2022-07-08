@@ -110,6 +110,9 @@ const Styles = Styled.div`
   min-width: 680px;
   max-width: 1280px;
 }
+.standarViewMode .LayerHolder {
+  margin-top: 24px;
+}
 .raiseKeyboard {
   overflow: visible;
   margin: 0 auto;
@@ -120,15 +123,22 @@ const Styles = Styled.div`
   //   transform-box: fill-box;
   // }
 }
-.standarView .raiseKeyboard {
+
+.standarViewMode .raiseKeyboard {
   margin: 0 auto;
   margin-top: 24px;
-  max-height: calc(100vh - 220px);
+  max-height: calc(100vh - 240px);
 }
-.singleView.keyboard .raiseKeyboard {
+.singleViewMode.color .raiseKeyboard {
+  margin: 0 auto;
+  margin-top: 24px;
+  max-height: calc(100vh - 300px);
+}
+.singleViewMode.keyboard .raiseKeyboard {
   margin: 0 auto;
   max-height: 45vh;
 }
+
 .NeuronLine {
   stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
 }
@@ -305,6 +315,12 @@ const Styles = Styled.div`
 .layoutEditor.color.colorSelected .keyItem:hover,
 .layoutEditor.color.colorSelected .underGlowStrip:hover {
   cursor: url(${customCursor}) 12 12, auto;
+}
+
+@media screen and (max-height: 900px) {
+  .keyboard.singleViewMode .LayerHolder {
+    max-height: 342px;
+  }
 }
 `;
 

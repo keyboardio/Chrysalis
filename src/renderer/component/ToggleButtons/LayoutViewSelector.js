@@ -98,16 +98,18 @@ h5 {
 
 const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, layoutSelectorPosition }) => {
   let stylePostition = {};
-  if (!isStandardView) {
-    stylePostition = {
-      position: "absolute",
-      left: layoutSelectorPosition.x,
-      top: layoutSelectorPosition.y - 92
-    };
-  } else {
-    stylePostition = {
-      position: "relative"
-    };
+  if (layoutSelectorPosition) {
+    if (!isStandardView) {
+      stylePostition = {
+        position: "absolute",
+        left: layoutSelectorPosition.x,
+        top: layoutSelectorPosition.y - 92
+      };
+    } else {
+      stylePostition = {
+        position: "relative"
+      };
+    }
   }
 
   return (

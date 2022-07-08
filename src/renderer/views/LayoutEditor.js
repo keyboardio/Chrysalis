@@ -1651,7 +1651,7 @@ class LayoutEditor extends React.Component {
     this.setState({
       layoutSelectorPosition: { x: x, y: y }
     });
-    console.log("Triggered function refresh position :", this.state.layoutSelectorPosition);
+    // console.log("Triggered function refresh position :", this.state.layoutSelectorPosition);
   };
 
   render() {

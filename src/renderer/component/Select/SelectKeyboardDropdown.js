@@ -79,7 +79,7 @@ const Style = Styled.div`
 const SelectKeyboardDropdown = ({ selectPort, selectedPortIndex, deviceItems, connected }) => {
   return (
     <Style>
-      <Dropdown className="custom-dropdown">
+      <Dropdown className="custom-dropdown" onSelect={selectPort}>
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
             <div className="dropdownIcon">

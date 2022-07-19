@@ -22,6 +22,8 @@ import Spinner from "react-bootstrap/Spinner";
 
 import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
+import { IconStopWatchXs } from "../../component/Icon";
+import { PreviewMacroModal } from "../../component/Modal";
 
 const Styles = Styled.div`
 background-color: ${({ theme }) => theme.styles.macro.timelineBackground};
@@ -114,6 +116,12 @@ margin-top: 2px;
 .cardTitle {
   color: ${({ theme }) => theme.card.color};
 }
+
+.timelineWrapper {
+  display: grid;
+  grid-template-columns: minmax(auto,270px) 1fr;
+  margin-top: 24px;
+}
 `;
 
 class MacroManager extends Component {
@@ -124,7 +132,8 @@ class MacroManager extends Component {
 
     this.state = {
       open: false,
-      componentWidth: 0
+      componentWidth: 0,
+      rows: []
     };
   }
 
@@ -151,41 +160,48 @@ class MacroManager extends Component {
     const { keymapDB, macro, updateActions } = this.props;
 
     return (
-      <Styles>
-        <div className="timelineHeader" ref={this.trackingWidth}>
-          <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
-          <div id="portalPreviewMacroModal"></div>
-          {/* <PreviewMacroModal>
-            {this.state.rows.length == 0 ? (
-              <></>
-            ) : (
-              this.state.rows.map((item, index) => (
-                <span
-                  key={`literal-${index}`}
-                  className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
-                    item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
-                  }`}
-                >
-                  {item.action == 2 ? <IconStopWatchXs /> : ""}
-                  {item.symbol == "SPACE" ? " " : item.symbol}
-                </span>
-              ))
-            )}
-          </PreviewMacroModal> */}
-        </div>
-        {macro !== null && macro.actions !== null && macro.actions.lenght > 0 ? (
-          <div className="loading marginCenter">
-            <Spinner className="spinner-border" role="status" />
+      <Styles className="timelineWrapper">
+        <div className="timelineHeaderWrapper">
+          <div className="timelineHeader">
+            <div className="timelineHeaderContent">
+              <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
+              {/* <PreviewMacroModal>
+                {this.state.rows.length == 0 ? (
+                  <></>
+                ) : (
+                  "Content"
+                  // this.state.rows.map((item, index) => (
+                  //   <span
+                  //     key={`literal-${index}`}
+                  //     className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
+                  //       item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+                  //     }`}
+                  //   >
+                  //     {item.action == 2 ? <IconStopWatchXs /> : ""}
+                  //     {item.symbol == "SPACE" ? " " : item.symbol}
+                  //   </span>
+                  // ))
+                )}
+              </PreviewMacroModal> */}
+              <div id="portalPreviewMacroModal"></div>
+            </div>
           </div>
-        ) : (
-          <TimelineEditorForm
-            macro={macro}
-            updateActions={updateActions}
-            keymapDB={keymapDB}
-            componentWidth={this.state.componentWidth}
-          />
-        )}
-        <div id="portalMacro"></div>
+        </div>
+        <div className="timelineBodyWrapper" ref={this.trackingWidth}>
+          {macro !== null && macro.actions !== null && macro.actions.lenght > 0 ? (
+            <div className="loading marginCenter">
+              <Spinner className="spinner-border" role="status" />
+            </div>
+          ) : (
+            <TimelineEditorForm
+              macro={macro}
+              updateActions={updateActions}
+              keymapDB={keymapDB}
+              componentWidth={this.state.componentWidth}
+            />
+          )}
+          <div id="portalMacro"></div>
+        </div>
       </Styles>
     );
   }

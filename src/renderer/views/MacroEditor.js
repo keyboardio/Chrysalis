@@ -663,6 +663,7 @@ class MacroEditor extends React.Component {
             inContext={modified}
           />
           <Callout content={i18n.editor.macros.callout} className="mt-md" size="sm" />
+          <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
           <MacroCreator
             macro={JSON.parse(JSON.stringify(macros[selectedMacro]))}
             macros={macros}
@@ -673,9 +674,7 @@ class MacroEditor extends React.Component {
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}
           />
-          <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
         </Container>
-
         <Modal
           show={showDeleteModal}
           onHide={this.toggleDeleteModal}

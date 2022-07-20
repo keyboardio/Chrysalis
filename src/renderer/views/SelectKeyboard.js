@@ -284,7 +284,8 @@ class SelectKeyboard extends Component {
   }
 
   selectPort = event => {
-    this.setState({ selectedPortIndex: event.target.value });
+    console.log(event);
+    this.setState({ selectedPortIndex: event });
   };
 
   onKeyboardConnect = async () => {

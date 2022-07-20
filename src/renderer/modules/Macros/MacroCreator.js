@@ -656,7 +656,7 @@ class MacroCreator extends Component {
                   <Tab.Pane eventKey="tabSpecial">
                     <Tab.Container id="macroCreatorSpecialFunctions" defaultActiveKey="tabLayers">
                       <div className="specialTabsWrapper">
-                        <div classnName="specialTabsCollum">
+                        <div className="specialTabsCollum">
                           <Nav className="flex-column">
                             <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
                             <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />

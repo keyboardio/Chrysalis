@@ -129,6 +129,7 @@ class MacroManager extends Component {
     super(props);
 
     this.trackingWidth = React.createRef();
+    this.portal = React.createRef();
 
     this.state = {
       open: false,
@@ -165,25 +166,29 @@ class MacroManager extends Component {
           <div className="timelineHeader">
             <div className="timelineHeaderContent">
               <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
-              {/* <PreviewMacroModal>
-                {this.state.rows.length == 0 ? (
-                  <></>
-                ) : (
-                  "Content"
-                  // this.state.rows.map((item, index) => (
-                  //   <span
-                  //     key={`literal-${index}`}
-                  //     className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
-                  //       item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
-                  //     }`}
-                  //   >
-                  //     {item.action == 2 ? <IconStopWatchXs /> : ""}
-                  //     {item.symbol == "SPACE" ? " " : item.symbol}
-                  //   </span>
-                  // ))
-                )}
-              </PreviewMacroModal> */}
-              <div id="portalPreviewMacroModal"></div>
+              <div id="portalPreviewMacroModal" ref={this.portal}></div>
+              {this.portal.current !== null ? (
+                <PreviewMacroModal hookref={this.portal}>
+                  {this.state.rows.length == 0 ? (
+                    <></>
+                  ) : (
+                    "Content"
+                    // this.state.rows.map((item, index) => (
+                    //   <span
+                    //     key={`literal-${index}`}
+                    //     className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
+                    //       item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+                    //     }`}
+                    //   >
+                    //     {item.action == 2 ? <IconStopWatchXs /> : ""}
+                    //     {item.symbol == "SPACE" ? " " : item.symbol}
+                    //   </span>
+                    // ))
+                  )}
+                </PreviewMacroModal>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

@@ -7,14 +7,14 @@ import Modal from "react-bootstrap/Modal";
 
 import i18n from "../../i18n";
 
-export default function PreviewMacroModal({ children }) {
+export default function PreviewMacroModal({ children, hookref }) {
   const [show, setShow] = React.useState(false);
 
   const toogleShow = event => {
     setShow(!show);
   };
 
-  console.log("Testing waters", children);
+  console.log("Testing waters", children, hookref);
 
   return ReactDom.createPortal(
     <>
@@ -35,6 +35,6 @@ export default function PreviewMacroModal({ children }) {
         </Modal.Body>
       </Modal>
     </>,
-    document.getElementById("portalPreviewMacroModal")
+    hookref.current
   );
 }

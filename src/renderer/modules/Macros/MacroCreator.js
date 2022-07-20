@@ -33,7 +33,16 @@ import MediaAndLightTab from "../KeysTabs/MediaAndLightTab";
 import MouseTab from "../KeysTabs/MouseTab";
 import { RecordMacroModal } from "../../component/Modal";
 
-import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
+import {
+  IconKeyboard,
+  IconLetterColor,
+  IconMouse,
+  IconLayers,
+  IconRobot,
+  IconNote,
+  IconStopWatch,
+  IconMagicStick
+} from "../../component/Icon";
 import { MdUnfoldLess, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "react-icons/md";
 
 const Styles = Styled.div`
@@ -150,6 +159,14 @@ const Styles = Styled.div`
       display: flex;
       align-self: flex-end;
   }
+}
+.specialTabsWrapper {
+  display: grid;
+  grid-template-columns: minmax(165px, 220px) auto;
+  grid-gap: 24px;
+}
+.specialTabsContent {
+  
 }
 `;
 
@@ -618,8 +635,7 @@ class MacroCreator extends Component {
               <Nav className="flex-column">
                 <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />
                 <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
-                <CustomTab eventKey="tabSpecial" text="Special functions" icon={<IconKeyboard />} />
-
+                <CustomTab eventKey="tabSpecial" text="Special functions" icon={<IconMagicStick />} />
                 <CustomTab eventKey="tabDelay" text="Delay" icon={<IconStopWatch />} />
               </Nav>
             </div>
@@ -639,31 +655,35 @@ class MacroCreator extends Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabSpecial">
                     <Tab.Container id="macroCreatorSpecialFunctions" defaultActiveKey="tabLayers">
-                      <div classnName="specialTabsCollum">
-                        <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
-                        <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />
-                        <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconNote />} />
-                        <CustomTab eventKey="tabMouse" text="Mouse" icon={<IconMouse />} />
-                      </div>
-                      <div className="specialTabsContent">
-                        <Tab.Content>
-                          <Tab.Pane eventKey="tabLayers">
-                            <LayersTab onLayerPress={this.onLayerPress} />
-                          </Tab.Pane>
-                          <Tab.Pane eventKey="tabMacro">
-                            <MacroTab
-                              macros={this.props.macros}
-                              selectedMacro={this.props.selected}
-                              onMacrosPress={this.onMacrosPress}
-                            />
-                          </Tab.Pane>
-                          <Tab.Pane eventKey="tabMedia">
-                            <MediaAndLightTab onAddSpecial={this.onAddSpecial} />
-                          </Tab.Pane>
-                          <Tab.Pane eventKey="tabMouse">
-                            <MouseTab onAddSpecial={this.onAddSpecial} />
-                          </Tab.Pane>
-                        </Tab.Content>
+                      <div className="specialTabsWrapper">
+                        <div classnName="specialTabsCollum">
+                          <Nav className="flex-column">
+                            <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
+                            <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />
+                            <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconNote />} />
+                            <CustomTab eventKey="tabMouse" text="Mouse" icon={<IconMouse />} />
+                          </Nav>
+                        </div>
+                        <div className="specialTabsContent">
+                          <Tab.Content>
+                            <Tab.Pane eventKey="tabLayers">
+                              <LayersTab onLayerPress={this.onLayerPress} />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="tabMacro">
+                              <MacroTab
+                                macros={this.props.macros}
+                                selectedMacro={this.props.selected}
+                                onMacrosPress={this.onMacrosPress}
+                              />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="tabMedia">
+                              <MediaAndLightTab onAddSpecial={this.onAddSpecial} />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="tabMouse">
+                              <MouseTab onAddSpecial={this.onAddSpecial} />
+                            </Tab.Pane>
+                          </Tab.Content>
+                        </div>
                       </div>
                     </Tab.Container>
                   </Tab.Pane>

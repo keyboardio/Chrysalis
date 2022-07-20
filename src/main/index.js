@@ -33,6 +33,7 @@ import {
 import { registerDevtoolsHandlers } from "./ipc_devtools";
 import { registerExitHandlers } from "./ipc_exit";
 import { registerFileIoHandlers } from "./ipc_file_io";
+import { registerFirmwareHandlers } from "./ipc_firmware";
 import { registerLoggingHandlers } from "./ipc_logging";
 import { registerNativeThemeHandlers } from "./ipc_nativetheme";
 import { registerSystemInfoHandlers } from "./ipc_system_info";
@@ -194,6 +195,7 @@ registerBackupHandlers();
 registerDeviceDiscoveryHandlers();
 registerDevtoolsHandlers();
 registerFileIoHandlers();
+registerFirmwareHandlers();
 registerLoggingHandlers();
 registerNativeThemeHandlers();
 registerSystemInfoHandlers();

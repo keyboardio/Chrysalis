@@ -29,7 +29,20 @@ function AutoUpdatePreferences(props) {
   const { t, i18n } = useTranslation();
 
   const [autoUpdateMode, setAutoUpdateMode] = useState("manual");
+  const [firmwareAutoUpdateMode, setFirmwareAutoUpdateMode] =
+    useState("manual");
   const [loaded, setLoaded] = useState(false);
+
+  const toggleFirmwareAutoUpdateMode = (event) => {
+    const mode = event.target.checked ? "automatic" : "manual";
+
+    settings.set("firmwareAutoUpdate.mode", mode);
+    setFirmwareAutoUpdateMode(mode);
+
+    if (mode == "automatic") {
+      ipcRenderer.invoke("firmware-update.check-for-updates", mode);
+    }
+  };
 
   const toggleAutoUpdateMode = (event) => {
     const mode = event.target.checked ? "automatic" : "manual";
@@ -45,6 +58,9 @@ function AutoUpdatePreferences(props) {
   useEffect(() => {
     const initialize = async () => {
       await setAutoUpdateMode(settings.get("autoUpdate.mode", "manual"));
+      await setFirmwareAutoUpdateMode(
+        settings.get("firmwareAutoUpdate.mode", "manual")
+      );
       await setLoaded(true);
     };
 
@@ -58,6 +74,12 @@ function AutoUpdatePreferences(props) {
         option="ui.autoUpdate.mode"
         checked={autoUpdateMode == "automatic"}
         onChange={toggleAutoUpdateMode}
+      />
+      <PreferenceSwitch
+        loaded={loaded}
+        option="ui.autoUpdate.firmwareMode"
+        checked={firmwareAutoUpdateMode == "automatic"}
+        onChange={toggleFirmwareAutoUpdateMode}
       />
     </PreferenceSection>
   );

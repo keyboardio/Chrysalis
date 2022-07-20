@@ -21,6 +21,11 @@
     "downloaded": "Version {{ version }} downloaded, restart Chrysalis to finish installing",
     "error": "Error during update: {{ error }}"
   },
+  "firmwareAutoUpdate": {
+    "available": "New firmware version available: {{ version }}",
+    "downloaded": "Firmware version {{ version }} downloaded, and is available for flashing",
+    "error": "Error while downloading the new firmware version."
+  },
   "dialog": {
     "ok": "Ok",
     "cancel": "Cancel",
@@ -242,6 +247,10 @@
         "mode": {
           "label": "Enable automatic upgrades",
           "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
+        },
+        "firmwareMode": {
+          "label": "Enable automatic firmware file updates",
+          "help": "When enabled, Chrysalis will check for updated firmware files on startup, and automatically download new versions."
         }
       },
       "layoutEditor": {
@@ -396,7 +405,6 @@
     "chooseFirmware": "Update firmware:",
     "defaultFirmwareDescription": "Latest version",
     "defaultFirmwareExplanation": "This is the latest version of the firmware for your keyboard.",
-    
     "custom": "Choose a local firmware build",
     "customChooseFile": "Choose a file...",
     "customFirmwareExplanation": "You can install an alternate firmware build you've downloaded or built locally. As long as it includes support for the 'Focus' keyboard protocol, Chrysalis should work just fine.",

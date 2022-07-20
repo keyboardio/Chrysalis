@@ -17,7 +17,7 @@
 
 import Focus from "@api/focus";
 import path from "path";
-import { getStaticPath } from "@renderer/config";
+import { ipcRenderer } from "electron";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -75,7 +75,7 @@ export function ActiveDevice() {
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(
-      getStaticPath(),
+      ipcRenderer.sendSync("firmware.get-base-directory"),
       cVendor,
       cProduct,
       "default." + firmwareType

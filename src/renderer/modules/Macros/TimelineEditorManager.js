@@ -124,6 +124,10 @@ margin-top: 2px;
   grid-template-columns: minmax(auto,270px) 1fr;
   margin-top: 24px;
 }
+.timelineHeaderContent {
+  display: flex;
+  align-items: center;
+}
 `;
 
 class MacroManager extends Component {

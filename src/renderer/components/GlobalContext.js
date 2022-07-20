@@ -26,6 +26,7 @@ export const GlobalContextProvider = (props) => {
   const [focusDeviceDescriptor, setFocusDeviceDescriptor] = useState(null);
   const [activeDevice, setActiveDevice] = useState(null);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [firmwareUpdateWarning, setFirmwareUpdateWarning] = useState(false);
 
   const getDarkMode = () => {
     if (theme == "system") {
@@ -41,6 +42,7 @@ export const GlobalContextProvider = (props) => {
     focusDeviceDescriptor: [focusDeviceDescriptor, setFocusDeviceDescriptor],
     activeDevice: [activeDevice, setActiveDevice],
     updateAvailable: [updateAvailable, setUpdateAvailable],
+    firmwareUpdateWarning: [firmwareUpdateWarning, setFirmwareUpdateWarning],
   };
 
   return (

@@ -30,6 +30,8 @@ export const useFirmwareAutoUpdate = () => {
 
   const [updateAvailable, setUpdateAvailable] =
     globalContext.state.updateAvailable;
+  const [_, setFirmwareUpdateWarning] =
+    globalContext.state.firmwareUpdateWarning;
   const [updateInfo, setUpdateInfo] = useState(null);
 
   useEffect(() => {
@@ -57,6 +59,7 @@ export const useFirmwareAutoUpdate = () => {
         t("firmwareAutoUpdate.downloaded", { version: info.version })
       );
       setUpdateAvailable(true);
+      setFirmwareUpdateWarning(false);
     };
     const onUpdateError = (event, error) => {
       logger().error("Update error", {
@@ -65,6 +68,7 @@ export const useFirmwareAutoUpdate = () => {
       });
       toast.error(t("firmwareAutoUpdate.error"));
       setUpdateAvailable(false);
+      setFirmwareUpdateWarning(true);
     };
     const onUpdateWarning = (event, error) => {
       logger().warn("Update warning", {
@@ -72,6 +76,7 @@ export const useFirmwareAutoUpdate = () => {
         label: "firmware-update",
       });
       setUpdateAvailable(false);
+      setFirmwareUpdateWarning(true);
     };
 
     ipcRenderer.invoke(

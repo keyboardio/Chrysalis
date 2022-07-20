@@ -24,7 +24,8 @@
   "firmwareAutoUpdate": {
     "available": "New firmware version available: {{ version }}",
     "downloaded": "Firmware version {{ version }} downloaded, and is available for flashing",
-    "error": "Error while downloading the new firmware version."
+    "error": "Error while downloading the new firmware version.",
+    "warning": "Chrysalis was unable to check for a new firmware version. A newer version may be available online."
   },
   "dialog": {
     "ok": "Ok",

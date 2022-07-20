@@ -39,6 +39,7 @@ import { useTranslation } from "react-i18next";
 
 import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
+import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
 
@@ -151,6 +152,7 @@ const FirmwareUpdate = (props) => {
   return (
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
+      <FirmwareUpdateWarning />
       <Container sx={{ my: 4, width: "50%" }}>
         <Typography variant="h6" gutterBottom>
           {t("firmwareUpdate.yourFirmware")}

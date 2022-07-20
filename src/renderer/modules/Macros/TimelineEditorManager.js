@@ -20,6 +20,8 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 import Spinner from "react-bootstrap/Spinner";
 
+import Keymap, { KeymapDB } from "../../../api/keymap";
+
 import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
 import { IconStopWatchXs } from "../../component/Icon";
@@ -136,6 +138,9 @@ class MacroManager extends Component {
       componentWidth: 0,
       rows: []
     };
+    this.keymapDB = new KeymapDB();
+
+    this.parseKey = this.parseKey.bind(this);
   }
 
   updateWidth = () => {
@@ -146,6 +151,24 @@ class MacroManager extends Component {
       componentWidth: this.trackingWidth.current.clientWidth
     });
   };
+
+  parseKey(keycode) {
+    const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
+    let macroName;
+    try {
+      macroName = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)].name.substr(0, 5);
+    } catch (error) {
+      macroName = "*NotFound*";
+    }
+    if (keycode >= 53852 && keycode <= 53852 + 128) {
+      if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
+    }
+    return this.props.code !== null
+      ? this.keymapDB.parse(keycode).extraLabel != undefined
+        ? this.keymapDB.parse(keycode).extraLabel + "." + this.keymapDB.parse(keycode).label
+        : this.keymapDB.parse(keycode).label
+      : "";
+  }
 
   componentDidMount() {
     // Additionally I could have just used an arrow function for the binding `this` to the component...
@@ -158,8 +181,8 @@ class MacroManager extends Component {
   }
 
   render() {
-    const { keymapDB, macro, updateActions } = this.props;
-
+    const { keymapDB, macro, macros, updateActions } = this.props;
+    console.log("Macro on TimelineEditorManager", macro);
     return (
       <Styles className="timelineWrapper">
         <div className="timelineHeaderWrapper">
@@ -169,22 +192,26 @@ class MacroManager extends Component {
               <div id="portalPreviewMacroModal" ref={this.portal}></div>
               {this.portal.current !== null ? (
                 <PreviewMacroModal hookref={this.portal}>
-                  {this.state.rows.length == 0 ? (
-                    <></>
-                  ) : (
-                    "Content"
-                    // this.state.rows.map((item, index) => (
-                    //   <span
-                    //     key={`literal-${index}`}
-                    //     className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
-                    //       item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
-                    //     }`}
-                    //   >
-                    //     {item.action == 2 ? <IconStopWatchXs /> : ""}
-                    //     {item.symbol == "SPACE" ? " " : item.symbol}
-                    //   </span>
-                    // ))
-                  )}
+                  {macro.actions.length > 0
+                    ? macro.actions.map((item, index) => (
+                        <span
+                          key={`literal-${index}`}
+                          className={`previewKey action-${item.actions} keyCode-${item.keyCode} ${
+                            item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+                          }`}
+                        >
+                          {item.type == 2 ? (
+                            <>
+                              <IconStopWatchXs /> {item.keyCode}
+                            </>
+                          ) : this.parseKey(item.keyCode) == "SPACE" ? (
+                            " "
+                          ) : (
+                            this.parseKey(item.keyCode)
+                          )}
+                        </span>
+                      ))
+                    : ""}
                 </PreviewMacroModal>
               ) : (
                 ""

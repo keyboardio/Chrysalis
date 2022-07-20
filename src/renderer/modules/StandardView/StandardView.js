@@ -252,7 +252,7 @@ export default class StandardView extends React.Component {
     } catch (error) {
       macroName = "*NotFound*";
     }
-    if (keycode >= 53852 && keycode <= 53852 + 64) {
+    if (keycode >= 53852 && keycode <= 53852 + 128) {
       if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
     }
     return this.props.code !== null

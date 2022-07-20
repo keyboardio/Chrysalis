@@ -663,7 +663,12 @@ class MacroEditor extends React.Component {
             inContext={modified}
           />
           <Callout content={i18n.editor.macros.callout} className="mt-md" size="sm" />
-          <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
+          <TimelineEditorManager
+            macro={macros[selectedMacro]}
+            macros={macros}
+            keymapDB={this.keymapDB}
+            updateActions={this.updateActions}
+          />
           <MacroCreator
             macro={JSON.parse(JSON.stringify(macros[selectedMacro]))}
             macros={macros}

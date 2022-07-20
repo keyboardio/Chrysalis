@@ -150,7 +150,7 @@ class SuperkeysTab extends Component {
 
     const superk = Array(superkeys.length)
       .fill()
-      .map((_, i) => i + 53916);
+      .map((_, i) => i + 53980);
 
     let adjactions = actions;
     if (adjactions.length < 5) {

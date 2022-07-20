@@ -93,6 +93,7 @@ import IconInformationBubbleSm from "./IconInformationBubbleSm";
 import IconFlashlight from "./IconFLashlight";
 import IconFloppyDisk from "./IconFloppyDisk";
 import IconTypo from "./IconTypo";
+import IconMagicStick from "./IconMagicStick";
 import IconMouse from "./IconMouse";
 import IconMouseSm from "./IconMouseSm";
 import IconMoon from "./IconMoon";
@@ -211,6 +212,7 @@ export {
   IconFlashlight,
   IconFloppyDisk,
   IconTypo,
+  IconMagicStick,
   IconMouse,
   IconMouseSm,
   IconMoon,

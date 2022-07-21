@@ -65,6 +65,7 @@ const Styles = Styled.div`
         padding-bottom: 102px;
         height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     .contentFooter {
       position: absolute;
@@ -101,6 +102,7 @@ const Styles = Styled.div`
     width: 100%;
     h3 {
         margin-bottom: 16px;
+        color: ${({ theme }) => theme.styles.standardView.titleColor};
     }
     h4 {
         flex: 0 0 100%;
@@ -343,7 +345,7 @@ export default class StandardView extends React.Component {
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
-                      <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />
+                      <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabLayers">
                       <LayersTab

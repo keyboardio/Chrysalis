@@ -280,6 +280,7 @@ const Light = {
       background: "rgba(255, 255, 255, 0.6)",
       color: Tokens.colors.gray300,
       titleColor: Tokens.colors.gray500,
+      subTitleColor: Tokens.colors.pink200,
       groupButtonsBackground: "rgba(255,255,255,1)"
     },
     customCheckbox: {
@@ -596,6 +597,7 @@ const Light = {
       modalBackground: "rgba(214, 217, 224, 0.95)",
       contentBackground: Tokens.colors.gray25,
       footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.05),
+      titleColor: Tokens.colors.purple300,
       superkeys: {
         info: {
           background: "#2D3245"

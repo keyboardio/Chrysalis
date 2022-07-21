@@ -284,6 +284,7 @@ const Dark = {
       background: settingColorOpacity(Tokens.colors.gray700, 0.5),
       color: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray50,
+      subTitleColor: Tokens.colors.gray50,
       groupButtonsBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
     customCheckbox: {
@@ -601,6 +602,7 @@ const Dark = {
       modalBackground: "rgba(18, 17, 28, 0.95)",
       contentBackground: Tokens.colors.gray800,
       footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      titleColor: Tokens.colors.gray25,
       superkeys: {
         info: {
           background: "#2D3245"

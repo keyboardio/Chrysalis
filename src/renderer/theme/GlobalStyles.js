@@ -776,6 +776,9 @@ svg text{
     font-size: 14px;
     color: ${({ theme }) => theme.styles.cardButtons.titleColor};
   }
+  h5 {
+    color: ${({ theme }) => theme.styles.cardButtons.subTitleColor};
+  }
   p {
     color: ${({ theme }) => theme.styles.cardButtons.color};
     font-weight: 395; 

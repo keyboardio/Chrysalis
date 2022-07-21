@@ -11,7 +11,7 @@ function IconToolsBrightnessLessSm(props) {
       <path d="M12 5.767v-1.6M16.8 7.912l1.131-1.131" stroke="currentColor" strokeWidth={1.25} />
       <path d="M18.4 12.567H20" stroke="currentColor" />
       <path d="M6.8 7.912L5.669 6.781" stroke="currentColor" strokeWidth={1.25} />
-      <path fill="#E2E4EA" d="M0 14.167h7.2v1.6H0z" />
+      <path fill="currentColor" d="M0 14.167h7.2v1.6H0z" />
     </svg>
   );
 }

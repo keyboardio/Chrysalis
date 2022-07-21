@@ -84,9 +84,9 @@ const Styles = Styled.div`
   margin-top: 42px;
   margin-bottom: 24px;
   width: calc(100% + 20px);
-  background: #25273B;
-  border: 1px solid rgba(63, 66, 90, 0.3);
-  box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
+  background: ${({ theme }) => theme.styles.standardView.keyVisualizer.background};
+  border: ${({ theme }) => theme.styles.standardView.keyVisualizer.border};
+  box-shadow: ${({ theme }) => theme.styles.standardView.keyVisualizer.boxShadow};
   border-radius: 6px;
   min-height: 262px;
   position: relative;

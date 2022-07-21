@@ -6,7 +6,7 @@ import closeButton from "../../../static/light/X.svg";
 import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
 import mouseWheelBackground from "../../../static/light/mouseWheel.png";
-import oldToNew from "../../../static/dark/oldValueToNewValue.svg";
+import oldToNew from "../../../static/light/oldValueToNewValue.svg";
 
 import Tokens from "./Tokens";
 
@@ -366,7 +366,7 @@ const Light = {
     keyVisualizer: {
       background: "linear-gradient(90deg, rgba(196, 201, 213, 0.2) 26.28%, rgba(63, 66, 90, 0.2) 124.24%)",
       border: "2px solid #A29BFE",
-      borderOldValue: Tokens.colors.gray500,
+      borderOldValue: Tokens.colors.gray100,
       color: Tokens.colors.gray300,
       colorSuperkeyAction: Tokens.colors.gray500,
       boxShadow:
@@ -609,6 +609,11 @@ const Light = {
           background: settingColorOpacity(Tokens.colors.gray300, 0.15),
           border: Tokens.colors.gray800
         }
+      },
+      keyVisualizer: {
+        background: Tokens.colors.gray25,
+        border: "none",
+        boxShadow: " 32px 32px 64px -12px rgba(11, 2, 25, 0.1), 32px 32px 72px -32px rgba(26, 17, 46, 0.2)"
       }
     },
     stepsBar: {

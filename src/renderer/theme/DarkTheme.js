@@ -614,6 +614,11 @@ const Dark = {
           background: settingColorOpacity(Tokens.colors.gray300, 0.15),
           border: Tokens.colors.gray800
         }
+      },
+      keyVisualizer: {
+        background: "#25273B",
+        border: "1px solid rgba(63, 66, 90, 0.3)",
+        boxShadow: "32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5)"
       }
     },
     stepsBar: {

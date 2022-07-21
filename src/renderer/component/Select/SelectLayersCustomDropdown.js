@@ -84,6 +84,7 @@ width: 100%;
     background: ${({ theme }) => theme.styles.dropdown.largeDropdown.backgroundInner};
     padding: 8px;
     border-radius: 6px;
+    border: ${({ theme }) => theme.styles.dropdown.largeDropdown.border};
 }
 .dropdown-group {
     border-bottom-left-radius: 0;

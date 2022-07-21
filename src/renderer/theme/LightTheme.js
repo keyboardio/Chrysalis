@@ -311,6 +311,13 @@ const Light = {
         textColor: Tokens.colors.gray400,
         dropdownDivider: Tokens.colors.gray25
       },
+      largeDropdown: {
+        background: "#fff",
+        backgroundInner: settingColorOpacity(Tokens.colors.gray25, 0.4),
+        border: `1px solid ${settingColorOpacity(Tokens.colors.gray50, 0.75)}`,
+        title: Tokens.colors.gray200,
+        titleStrong: Tokens.colors.gray400
+      },
       selector: {
         numberColor: Tokens.colors.gray500,
         separatorColor: settingColorOpacity(Tokens.colors.gray200, 0.5),

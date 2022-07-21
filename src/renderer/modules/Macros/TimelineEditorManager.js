@@ -185,7 +185,7 @@ class MacroManager extends Component {
 
   render() {
     const { keymapDB, macro, macros, updateActions } = this.props;
-    console.log("Macro on TimelineEditorManager", macro);
+    //console.log("Macro on TimelineEditorManager", macro);
     return (
       <Styles className="timelineWrapper">
         <div className="timelineHeaderWrapper">

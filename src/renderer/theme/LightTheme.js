@@ -440,7 +440,7 @@ const Light = {
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,
       tabContentBackground: Tokens.colors.gray25,
-      tabSpecialContentBackground: Tokens.colors.gray50,
+      tabSpecialContentBackground: settingColorOpacity(Tokens.colors.gray50, 0.4),
       tabTile: Tokens.colors.gray500,
       tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray400,
@@ -681,7 +681,7 @@ const Light = {
       svgHover: Tokens.colors.brandDanger
     },
     title: {
-      counterColor: Tokens.colors.gray200
+      counterColor: Tokens.colors.gray100
     },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(

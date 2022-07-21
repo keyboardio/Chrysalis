@@ -229,7 +229,7 @@ export default class StandardView extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
+    //console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
     // if(this.props.actTab == "editor") {
 
     // }

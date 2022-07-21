@@ -66,7 +66,7 @@ import IconMediaShuffleSm from "./IconMediaShuffleSm";
 import IconMediaSoundLess from "./IconMediaSoundLess";
 import IconMediaSoundLessSm from "./IconMediaSoundLessSm";
 import IconMediaSoundMore from "./IconMediaSoundMore";
-import IconMediaSoundMoreSm from "./IconMediaSoundMoresm";
+import IconMediaSoundMoreSm from "./IconMediaSoundMoreSm";
 import IconMediaSoundMute from "./IconMediaSoundMute";
 import IconMediaSoundMuteSm from "./IconMediaSoundMuteSm";
 import IconMediaStop from "./IconMediaStop";

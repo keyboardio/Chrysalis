@@ -170,11 +170,16 @@ const Styles = Styled.div`
 }
 .specialTabsWrapper {
   display: grid;
-  grid-template-columns: minmax(165px, 220px) auto;
-  grid-gap: 24px;
+  grid-template-columns: minmax(125px,170px) auto;
+  grid-gap: 14px;
 }
 .specialTabsContent {
-
+  .tab-content {
+    margin-top: -24px;
+    padding: 24px;
+    border-radius: 4px;
+    background-color: ${({ theme }) => theme.styles.macro.tabSpecialContentBackground};
+  }
 }
 `;
 

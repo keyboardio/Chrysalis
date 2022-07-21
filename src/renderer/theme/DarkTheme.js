@@ -445,6 +445,7 @@ const Dark = {
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,
+      tabSpecialContentBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
       tabTile: Tokens.colors.gray25,
       tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray200,

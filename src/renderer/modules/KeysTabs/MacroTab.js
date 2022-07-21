@@ -7,7 +7,7 @@ import Callout from "../../component/Callout";
 import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 
-import { IconArrowInBoxDown } from "../../component/Icon";
+import { IconArrowInBoxUp } from "../../component/Icon";
 
 const Styles = Styled.div`
 display: flex;
@@ -99,7 +99,7 @@ class MacroTab extends Component {
               buttonText={i18n.editor.macros.textTabs.buttonText}
               style="outline gradient"
               onClick={this.sendMacro}
-              icoSVG={<IconArrowInBoxDown />}
+              icoSVG={<IconArrowInBoxUp />}
               icoPosition="right"
             />
           </div>

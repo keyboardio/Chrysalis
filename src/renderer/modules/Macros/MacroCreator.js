@@ -112,15 +112,16 @@ const Styles = Styled.div`
 
 .tabWrapper {
   display: grid;
-  grid-template-columns: minmax(auto, 270px) 1fr;
+  grid-template-columns: minmax(auto, 240px) 1fr;
+  margin-top: 3px;
   h3 {
     margin-bottom: 16px;
     color: ${({ theme }) => theme.styles.macro.tabTile};
   }
-  margin-top: 24px;
+ 
   .tabCategories {
     padding: 32px 14px 32px 32px;
-    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabCategoriesBackground};
     h5 {
       font-size: 11px; 
@@ -134,7 +135,7 @@ const Styles = Styled.div`
   }
   .tabContent { 
     padding: 32px ;
-    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabContentBackground};
   }
   .tabContentInner {
@@ -158,6 +159,13 @@ const Styles = Styled.div`
       margin-left: auto;
       display: flex;
       align-self: flex-end;
+      .button {
+        font-size: 14px;
+        padding: 12px 24px;
+        .buttonLabel {
+          align-items: center;
+        }
+      }
   }
 }
 .specialTabsWrapper {
@@ -166,7 +174,7 @@ const Styles = Styled.div`
   grid-gap: 24px;
 }
 .specialTabsContent {
-  
+
 }
 `;
 
@@ -629,9 +637,7 @@ class MacroCreator extends Component {
           <div className="tabWrapper">
             <div className="tabCategories">
               <Title headingLevel={3} text={i18n.general.actions} />
-              <Title headingLevel={5} text={i18n.general.record} />
               <RecordMacroModal onAddRecorded={this.onAddRecorded} />
-              <Title headingLevel={5} text={i18n.general.add} />
               <Nav className="flex-column">
                 <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />
                 <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />

@@ -16,7 +16,7 @@ import {
   IconMediaSoundMuteSm,
   IconMediaSoundLessSm,
   IconMediaSoundMoreSm,
-  IconArrowInBoxDown,
+  IconArrowInBoxUp,
   IconToolsBrightnessMoreSm,
   IconToolsBrightnessLessSm,
   IconToolsCameraSm,

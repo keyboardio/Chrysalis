@@ -8,7 +8,7 @@ import Title from "../../component/Title";
 import Callout from "../../component/Callout";
 import { RegularButton } from "../../component/Button";
 
-import { IconArrowInBoxDown } from "../../component/Icon";
+import { IconArrowInBoxUp } from "../../component/Icon";
 
 const Styles = Styled.div`
 display: flex;
@@ -66,7 +66,7 @@ class TextTab extends Component {
             buttonText={i18n.editor.macros.textTabs.buttonText}
             style="outline gradient"
             onClick={this.props.onAddText}
-            icoSVG={<IconArrowInBoxDown />}
+            icoSVG={<IconArrowInBoxUp />}
             icoPosition="right"
           />
         </div>

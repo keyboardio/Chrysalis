@@ -9,7 +9,7 @@ import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import { CustomRadioCheckBox } from "../../component/Form";
 
-import { IconArrowInBoxDown, IconMediaShuffle } from "../../component/Icon";
+import { IconArrowInBoxUp, IconMediaShuffle } from "../../component/Icon";
 
 const Styles = Styled.div`
 display: flex;
@@ -235,7 +235,7 @@ class DelayTab extends Component {
             buttonText={i18n.editor.macros.textTabs.buttonText}
             style="outline gradient"
             onClick={this.addDelay}
-            icoSVG={<IconArrowInBoxDown />}
+            icoSVG={<IconArrowInBoxUp />}
             icoPosition="right"
           />
         </div>

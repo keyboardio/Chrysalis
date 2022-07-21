@@ -600,16 +600,18 @@ const Light = {
       titleColor: Tokens.colors.purple300,
       superkeys: {
         info: {
-          background: "#2D3245"
+          background: "#F9FAFB",
+          titleColor: Tokens.colors.pink300
         },
         item: {
-          titleColor: Tokens.colors.gray25,
-          descriptionColor: Tokens.colors.gray100,
-          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+          titleColor: Tokens.colors.gray400,
+          descriptionColor: Tokens.colors.gray300,
+          background: "#fff",
+          boxShadow: "0px 4px 16px rgba(120, 121, 241, 0.08)"
         },
         key: {
           background: settingColorOpacity(Tokens.colors.gray300, 0.15),
-          border: Tokens.colors.gray800
+          border: Tokens.colors.gray100
         }
       },
       keyVisualizer: {

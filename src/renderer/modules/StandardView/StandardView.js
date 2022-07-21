@@ -109,6 +109,9 @@ const Styles = Styled.div`
         width: 100%;
         margin-top: 24px;
     }
+    .superkeyHint h3 {
+      color: ${({ theme }) => theme.styles.standardView.superkeys.info.titleColor};
+    }
     .description {
         font-size: 14px;
         color: ${({ theme }) => theme.styles.macro.descriptionColor};

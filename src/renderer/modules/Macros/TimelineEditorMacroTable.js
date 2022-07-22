@@ -216,7 +216,7 @@ class TimelineEditorMacroTable extends Component {
     if (this.state.rows.length === 0 && prevState.rows.length !== 0) {
       scrollContainer.removeEventListener("wheel", this.scrollUpdate);
     }
-    console.log("comparing values of scrollpos in update", this.props.scrollPos, scrollContainer.scrollLeft);
+    // console.log("comparing values of scrollpos in update", this.props.scrollPos, scrollContainer.scrollLeft);
     if (scrollContainer.scrollLeft !== this.props.scrollPos) {
       scrollContainer.scrollLeft = this.props.scrollPos;
     }

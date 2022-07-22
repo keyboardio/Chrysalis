@@ -26,6 +26,7 @@ const UnderGlowStrip = ({
   clickAble,
   x,
   y,
+  selectedLED,
   dataLedIndex,
   dataKeyIndex,
   dataLayer,
@@ -47,9 +48,10 @@ const UnderGlowStrip = ({
       data-led-index={dataLedIndex}
       data-key-index={dataKeyIndex}
       data-layer={dataLayer}
-      className={`${stroke == "#fff" || stroke == "#000" ? "keyOnFocus" : "keyOnHold"} underGlowStrip ${
-        clickAble ? "clickAble" : ""
-      }`}
+      // className={`${stroke == "#fff" || stroke == "#000" ? "keyOnFocus" : "keyOnHold"} underGlowStrip ${
+      //   clickAble ? "clickAble" : ""
+      // }`}
+      className={`${selectedLED == dataLedIndex ? "keyOnFocus" : "keyOnHold"} underGlowStrip ${clickAble ? "clickAble" : ""}`}
       transform={`translate(${x},${y})`}
     >
       <path d={path} fill={color} className="underGlowStripShadow" />

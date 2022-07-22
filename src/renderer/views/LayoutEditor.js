@@ -1606,9 +1606,22 @@ class LayoutEditor extends React.Component {
     return this.state.layerNames.length >= index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
   }
   modeSelectToggle = data => {
-    this.setState({
-      modeselect: data
-    });
+    if (this.state.isStandardView) {
+      if (this.state.currentLedIndex > 69) {
+        this.setState({
+          currentKeyIndex: -1
+        });
+      }
+      this.setState({
+        modeselect: data,
+        showStandardView: false,
+        currentLedIndex: -1
+      });
+    } else {
+      this.setState({
+        modeselect: data
+      });
+    }
   };
 
   //Manage Standard/Single view
@@ -1764,6 +1777,7 @@ class LayoutEditor extends React.Component {
           keymap={layerData}
           onKeySelect={this.onKeySelect}
           selectedKey={this.state.currentKeyIndex}
+          selectedLED={this.state.currentLedIndex}
           palette={this.state.palette}
           colormap={this.state.colorMap[this.state.currentLayer]}
           theme={this.props.theme}

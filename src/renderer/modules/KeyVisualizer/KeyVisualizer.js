@@ -86,6 +86,7 @@ const Style = Styled.div`
       .keySelectedBox {
           padding: 8px 16px;   
           border: 2px solid ${({ theme }) => theme.styles.keyVisualizer.borderOldValue};
+          box-shadow: none;
           width: 104px;
           height:52px;
           font-size: 12px;

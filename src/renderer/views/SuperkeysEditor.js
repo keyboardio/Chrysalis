@@ -534,7 +534,7 @@ class SuperkeysEditor extends React.Component {
           icon={<IconFloppyDisk />}
         />,
         {
-          autoClose: 2000
+          autoClose: 20000
         }
       );
     } catch (error) {

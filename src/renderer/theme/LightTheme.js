@@ -6,7 +6,7 @@ import closeButton from "../../../static/light/X.svg";
 import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
 import mouseWheelBackground from "../../../static/light/mouseWheel.png";
-import oldToNew from "../../../static/dark/oldValueToNewValue.svg";
+import oldToNew from "../../../static/light/oldValueToNewValue.svg";
 
 import Tokens from "./Tokens";
 
@@ -280,6 +280,7 @@ const Light = {
       background: "rgba(255, 255, 255, 0.6)",
       color: Tokens.colors.gray300,
       titleColor: Tokens.colors.gray500,
+      subTitleColor: Tokens.colors.pink200,
       groupButtonsBackground: "rgba(255,255,255,1)"
     },
     customCheckbox: {
@@ -310,6 +311,13 @@ const Light = {
         linkColor: Tokens.colors.purple200,
         textColor: Tokens.colors.gray400,
         dropdownDivider: Tokens.colors.gray25
+      },
+      largeDropdown: {
+        background: "#fff",
+        backgroundInner: settingColorOpacity(Tokens.colors.gray25, 0.4),
+        border: `1px solid ${settingColorOpacity(Tokens.colors.gray50, 0.75)}`,
+        title: Tokens.colors.gray200,
+        titleStrong: Tokens.colors.gray400
       },
       selector: {
         numberColor: Tokens.colors.gray500,
@@ -359,7 +367,7 @@ const Light = {
     keyVisualizer: {
       background: "linear-gradient(90deg, rgba(196, 201, 213, 0.2) 26.28%, rgba(63, 66, 90, 0.2) 124.24%)",
       border: "2px solid #A29BFE",
-      borderOldValue: Tokens.colors.gray500,
+      borderOldValue: Tokens.colors.gray100,
       color: Tokens.colors.gray300,
       colorSuperkeyAction: Tokens.colors.gray500,
       boxShadow:
@@ -432,6 +440,7 @@ const Light = {
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,
       tabContentBackground: Tokens.colors.gray25,
+      tabSpecialContentBackground: settingColorOpacity(Tokens.colors.gray50, 0.4),
       tabTile: Tokens.colors.gray500,
       tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray400,
@@ -588,19 +597,27 @@ const Light = {
       modalBackground: "rgba(214, 217, 224, 0.95)",
       contentBackground: Tokens.colors.gray25,
       footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.05),
+      titleColor: Tokens.colors.purple300,
       superkeys: {
         info: {
-          background: "#2D3245"
+          background: "#F9FAFB",
+          titleColor: Tokens.colors.pink300
         },
         item: {
-          titleColor: Tokens.colors.gray25,
-          descriptionColor: Tokens.colors.gray100,
-          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+          titleColor: Tokens.colors.gray400,
+          descriptionColor: Tokens.colors.gray300,
+          background: "#fff",
+          boxShadow: "0px 4px 16px rgba(120, 121, 241, 0.08)"
         },
         key: {
           background: settingColorOpacity(Tokens.colors.gray300, 0.15),
-          border: Tokens.colors.gray800
+          border: Tokens.colors.gray100
         }
+      },
+      keyVisualizer: {
+        background: Tokens.colors.gray25,
+        border: "none",
+        boxShadow: " 32px 32px 64px -12px rgba(11, 2, 25, 0.1), 32px 32px 72px -32px rgba(26, 17, 46, 0.2)"
       }
     },
     stepsBar: {
@@ -666,7 +683,7 @@ const Light = {
       svgHover: Tokens.colors.brandDanger
     },
     title: {
-      counterColor: Tokens.colors.gray200
+      counterColor: Tokens.colors.gray100
     },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(

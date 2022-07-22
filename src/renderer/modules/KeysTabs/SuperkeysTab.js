@@ -72,6 +72,7 @@ h4 {
   padding: 12px;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.styles.standardView.superkeys.item.background};
+  box-shadow: ${({ theme }) => theme.styles.standardView.superkeys.item.boxShadow};
 }
 
 .superkeyItem + .superkeyItem  {

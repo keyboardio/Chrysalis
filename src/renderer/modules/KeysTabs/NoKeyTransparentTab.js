@@ -38,9 +38,9 @@ class NoKeyTransparentTab extends Component {
   }
 
   render() {
-    const { keyCode, onKeySelect } = this.props;
+    const { keyCode, onKeySelect, isStandardView } = this.props;
     return (
-      <Styles>
+      <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsNoKeysTransparent`}>
         <div className="tabContentWrapper">
           <div className="buttonsRow">
             <Title text={i18n.editor.standardView.noKeyTransparent} headingLevel={3} />

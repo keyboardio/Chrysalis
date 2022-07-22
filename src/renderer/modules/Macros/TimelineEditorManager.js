@@ -29,9 +29,9 @@ import { PreviewMacroModal } from "../../component/Modal";
 
 const Styles = Styled.div`
 background-color: ${({ theme }) => theme.styles.macro.timelineBackground};
-border-radius: 0px 0px 16px 16px;
-padding-bottom: 20px;   
-margin-top: 2px;
+border-radius: 0px; 
+margin-top: 0px;
+padding-bottom: 5px;
 .timelineHeader {
     padding: 24px 32px;
     display: flex;
@@ -42,13 +42,16 @@ margin-top: 2px;
         margin: 0;
     }
     .outline-sm {
-      padding: 6px 12px;
+      padding: 2px 12px;
       border: 1px solid ${({ theme }) => theme.styles.button.previewButton.borderColor};
       color:  ${({ theme }) => theme.styles.button.previewButton.color};
-      margin-left: 24px;
-      font-size: 14px;
+      margin-top: 8px;
+      font-size: 13px;
       transition: 300ms ease-in-out;
       transition-property: background, color, border;
+      .buttonLabel {
+        align-items: center;
+      }
       &:hover {
         border: 1px solid  ${({ theme }) => theme.styles.button.previewButton.borderHover};
         color: ${({ theme }) => theme.styles.button.previewButton.colorHover};
@@ -119,14 +122,10 @@ margin-top: 2px;
   color: ${({ theme }) => theme.card.color};
 }
 
-.timelineWrapper {
+&.timelineWrapper {
   display: grid;
-  grid-template-columns: minmax(auto,270px) 1fr;
+  grid-template-columns: minmax(auto,240px) 1fr;
   margin-top: 24px;
-}
-.timelineHeaderContent {
-  display: flex;
-  align-items: center;
 }
 `;
 
@@ -186,7 +185,7 @@ class MacroManager extends Component {
 
   render() {
     const { keymapDB, macro, macros, updateActions } = this.props;
-    console.log("Macro on TimelineEditorManager", macro);
+    //console.log("Macro on TimelineEditorManager", macro);
     return (
       <Styles className="timelineWrapper">
         <div className="timelineHeaderWrapper">

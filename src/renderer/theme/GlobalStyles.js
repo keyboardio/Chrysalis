@@ -776,6 +776,9 @@ svg text{
     font-size: 14px;
     color: ${({ theme }) => theme.styles.cardButtons.titleColor};
   }
+  h5 {
+    color: ${({ theme }) => theme.styles.cardButtons.subTitleColor};
+  }
   p {
     color: ${({ theme }) => theme.styles.cardButtons.color};
     font-weight: 395; 
@@ -1327,7 +1330,7 @@ div.card.card-preferences .card-body {
   }
 }
 .Toastify__toast-container--top-right {
-  top: 126px;
+  top: 92px;
   right: 26px;
 }
 
@@ -1713,7 +1716,7 @@ div.card.card-preferences .card-body {
     padding-right: 30px;
   }
   .Toastify__toast-container--top-right {
-    top: 126px;
+    top: 92px;
     right: 46px;
   }
 }

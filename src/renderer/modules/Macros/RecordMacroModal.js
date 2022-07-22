@@ -21,9 +21,9 @@ const Styles = Styled.div`
 
 .tabButton {
   border-radius: 6px;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 600;
-	padding: 16px 14px;
+	padding: 14px;
   color: ${({ theme }) => theme.styles.tabButton.color};
   background-color: ${({ theme }) => theme.styles.tabButton.background};
   position: relative;
@@ -318,7 +318,7 @@ export default class RecordMacroModal extends React.Component {
       <Styles>
         <RegularButton
           buttonText={i18n.editor.macros.recordMacro}
-          style="tabButton mb-3"
+          style="tabButton"
           icoSVG={<IconRecord />}
           icoPosition="left"
           onClick={this.toggleShow}

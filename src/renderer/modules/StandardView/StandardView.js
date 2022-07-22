@@ -65,6 +65,7 @@ const Styles = Styled.div`
         padding-bottom: 102px;
         height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     .contentFooter {
       position: absolute;
@@ -84,9 +85,9 @@ const Styles = Styled.div`
   margin-top: 42px;
   margin-bottom: 24px;
   width: calc(100% + 20px);
-  background: #25273B;
-  border: 1px solid rgba(63, 66, 90, 0.3);
-  box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
+  background: ${({ theme }) => theme.styles.standardView.keyVisualizer.background};
+  border: ${({ theme }) => theme.styles.standardView.keyVisualizer.border};
+  box-shadow: ${({ theme }) => theme.styles.standardView.keyVisualizer.boxShadow};
   border-radius: 6px;
   min-height: 262px;
   position: relative;
@@ -101,11 +102,15 @@ const Styles = Styled.div`
     width: 100%;
     h3 {
         margin-bottom: 16px;
+        color: ${({ theme }) => theme.styles.standardView.titleColor};
     }
     h4 {
         flex: 0 0 100%;
         width: 100%;
         margin-top: 24px;
+    }
+    .superkeyHint h3 {
+      color: ${({ theme }) => theme.styles.standardView.superkeys.info.titleColor};
     }
     .description {
         font-size: 14px;
@@ -227,7 +232,7 @@ export default class StandardView extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
+    //console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
     // if(this.props.actTab == "editor") {
 
     // }
@@ -343,7 +348,7 @@ export default class StandardView extends React.Component {
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
-                      <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />
+                      <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabLayers">
                       <LayersTab

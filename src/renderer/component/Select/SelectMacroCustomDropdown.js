@@ -62,7 +62,7 @@ width: 100%;
   
   .dropdown-menu.large-dropdown {
       min-width: 362px;
-      background: ${({ theme }) => theme.styles.dropdown.largeDropdown.backgroundInner};
+      background: ${({ theme }) => theme.styles.dropdown.largeDropdown.background};
       &.show {
         height: auto;
       }
@@ -70,6 +70,8 @@ width: 100%;
   .large-dropdown-inner {
     background: ${({ theme }) => theme.styles.dropdown.largeDropdown.backgroundInner};
     padding: 8px;
+    border-radius: 6px;
+    border: ${({ theme }) => theme.styles.dropdown.largeDropdown.border};
   }
   .dropdownHeader {
     font-size: 12px;

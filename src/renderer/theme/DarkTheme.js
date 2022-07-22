@@ -284,6 +284,7 @@ const Dark = {
       background: settingColorOpacity(Tokens.colors.gray700, 0.5),
       color: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray50,
+      subTitleColor: Tokens.colors.gray50,
       groupButtonsBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
     customCheckbox: {
@@ -321,6 +322,7 @@ const Dark = {
       largeDropdown: {
         background: Tokens.colors.gray800,
         backgroundInner: Tokens.colors.gray800,
+        border: "none",
         title: Tokens.colors.gray300,
         titleStrong: Tokens.colors.gray50
       },
@@ -445,6 +447,7 @@ const Dark = {
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,
+      tabSpecialContentBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
       tabTile: Tokens.colors.gray25,
       tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray200,
@@ -599,19 +602,27 @@ const Dark = {
       modalBackground: "rgba(18, 17, 28, 0.95)",
       contentBackground: Tokens.colors.gray800,
       footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      titleColor: Tokens.colors.gray25,
       superkeys: {
         info: {
-          background: "#2D3245"
+          background: "#2D3245",
+          titleColor: Tokens.colors.gray25
         },
         item: {
           titleColor: Tokens.colors.gray25,
           descriptionColor: Tokens.colors.gray100,
-          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+          background: settingColorOpacity(Tokens.colors.gray500, 0.2),
+          boxShadow: "none"
         },
         key: {
           background: settingColorOpacity(Tokens.colors.gray300, 0.15),
           border: Tokens.colors.gray800
         }
+      },
+      keyVisualizer: {
+        background: "#25273B",
+        border: "1px solid rgba(63, 66, 90, 0.3)",
+        boxShadow: "32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5)"
       }
     },
     stepsBar: {

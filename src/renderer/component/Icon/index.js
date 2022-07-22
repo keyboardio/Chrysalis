@@ -17,6 +17,7 @@
 import IconAddNew from "./IconAddNew";
 import IconAddLayer from "./IconAddLayer";
 import IconArrowInBoxDown from "./IconArrowInBoxDown";
+import IconArrowInBoxUp from "./IconArrowInBoxUp";
 import IconArrowsMouseMovement from "./IconArrowsMouseMovement";
 import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
@@ -136,6 +137,7 @@ export {
   IconAddNew,
   IconAddLayer,
   IconArrowInBoxDown,
+  IconArrowInBoxUp,
   IconArrowsSmallSeparating,
   IconArrowsMouseMovement,
   IconArrowsMouseWheel,

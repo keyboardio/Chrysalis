@@ -75,6 +75,7 @@ const Sidebar = (props) => {
         selectedKey={selectedKey}
         selectedLed={selectedLed}
         layer={layer}
+        layerNames={props.layerNames}
         onKeyChange={props.onKeyChange}
         onLedChange={props.onLedChange}
         onPaletteChange={props.onPaletteChange}
@@ -112,6 +113,8 @@ const Sidebar = (props) => {
           selectedLed={selectedLed}
           layer={layer}
           setLayer={props.setLayer}
+          layerNames={props.layerNames}
+          setLayerName={props.setLayerName}
           onKeymapChange={props.onKeymapChange}
           onPaletteChange={props.onPaletteChange}
           onColormapChange={props.onColormapChange}

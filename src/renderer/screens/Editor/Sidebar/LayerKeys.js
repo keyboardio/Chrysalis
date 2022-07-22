@@ -137,7 +137,7 @@ const LayerKeys = (props) => {
               <MenuItem value="-1" disabled></MenuItem>
               {[...Array(max)].map((x, i) => (
                 <MenuItem key={i} name={i} value={i}>
-                  {i}
+                  {props.layerNames?.names[i]}
                 </MenuItem>
               ))}
             </Select>

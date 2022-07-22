@@ -57,7 +57,7 @@ const Key = (props) => {
   const keyIndex = parseInt(props.row) * 16 + parseInt(props.col);
   let extraLabel;
   const key = props.keyObj;
-  const label = key && db.format(key);
+  const label = key && db.format(key, { layerNames: props.layerNames });
 
   if (props.extraLabelTransform && label && label.hint) {
     extraLabel = (

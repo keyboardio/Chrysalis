@@ -42,6 +42,10 @@ const LayoutCard = (props) => {
     palette: [],
     colorMap: [],
   });
+  const [layerNames, setLayerNames] = useState({
+    storageSize: 0,
+    names: [],
+  });
 
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
@@ -51,6 +55,9 @@ const LayoutCard = (props) => {
     try {
       const deviceKeymap = await focus.command("keymap");
       setKeymap(deviceKeymap);
+
+      const deviceLayerNames = await focus.command("layernames");
+      if (deviceLayerNames) setLayerNames(deviceLayerNames);
 
       if (settings.get("ui.layoutCards.colored")) {
         const deviceColormap = await focus.command("colormap");
@@ -110,6 +117,7 @@ const LayoutCard = (props) => {
               keymap={keymap?.custom[i]}
               colormap={colormap?.colorMap[i]}
               palette={colormap?.palette}
+              layerNames={layerNames}
             />
           </Box>
         );

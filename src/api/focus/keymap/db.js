@@ -311,6 +311,16 @@ class KeymapDB {
     }
     if (key.legacy) hint = "Legacy";
 
+    if (options?.layerNames && this.isInCategory(key.code, "layer")) {
+      if (this.isInCategory(key.code, "dualuse")) {
+        hint = options.layerNames.names[key.target]
+          ? options.layerNames.names[key.target] + "/"
+          : hint;
+      } else {
+        label = options.layerNames.names[key.target] || label;
+      }
+    }
+
     const data = {
       main: label,
       hint: hint,

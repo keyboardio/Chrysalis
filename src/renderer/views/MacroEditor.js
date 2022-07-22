@@ -635,9 +635,6 @@ class MacroEditor extends React.Component {
         ))}
       </DropdownButton>
     );
-    if (macros[selectedMacro] === undefined || macros[selectedMacro].actions === undefined) {
-      return <div />;
-    }
     return (
       <Styles className="macroEditor">
         <Container fluid>
@@ -663,22 +660,28 @@ class MacroEditor extends React.Component {
             inContext={modified}
           />
           <Callout content={i18n.editor.macros.callout} className="mt-md" size="sm" />
-          <TimelineEditorManager
-            macro={macros[selectedMacro]}
-            macros={macros}
-            keymapDB={this.keymapDB}
-            updateActions={this.updateActions}
-          />
-          <MacroCreator
-            macro={JSON.parse(JSON.stringify(macros[selectedMacro]))}
-            macros={macros}
-            selected={selectedMacro}
-            addToActions={this.addToActions}
-            changeSelected={this.changeSelected}
-            keymapDB={this.keymapDB}
-            selectedlanguage={currentLanguageLayout}
-            kbtype={kbtype}
-          />
+          {macros[selectedMacro] === undefined || macros[selectedMacro].actions === undefined ? (
+            <div />
+          ) : (
+            <>
+              <TimelineEditorManager
+                macro={macros[selectedMacro]}
+                macros={macros}
+                keymapDB={this.keymapDB}
+                updateActions={this.updateActions}
+              />
+              <MacroCreator
+                macro={JSON.parse(JSON.stringify(macros[selectedMacro]))}
+                macros={macros}
+                selected={selectedMacro}
+                addToActions={this.addToActions}
+                changeSelected={this.changeSelected}
+                keymapDB={this.keymapDB}
+                selectedlanguage={currentLanguageLayout}
+                kbtype={kbtype}
+              />
+            </>
+          )}
         </Container>
         <Modal
           show={showDeleteModal}

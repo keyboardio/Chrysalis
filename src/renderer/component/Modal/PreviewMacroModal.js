@@ -14,7 +14,7 @@ export default function PreviewMacroModal({ children, hookref }) {
     setShow(!show);
   };
 
-  console.log("Testing waters", children, hookref);
+  // console.log("Testing waters", children, hookref);
 
   return ReactDom.createPortal(
     <>

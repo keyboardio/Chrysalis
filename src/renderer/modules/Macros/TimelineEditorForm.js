@@ -75,7 +75,7 @@ class MacroForm extends Component {
   }
 
   render() {
-    const { macro, updateActions, keymapDB, componentWidth } = this.props;
+    const { macro, updateActions, keymapDB, componentWidth, updateScroll, scrollPos } = this.props;
     if (macro.actions === undefined) {
       return <div>{i18n.editor.macros.macroTab.noMacro}</div>;
     }
@@ -87,6 +87,8 @@ class MacroForm extends Component {
           updateActions={updateActions}
           keymapDB={keymapDB}
           componentWidth={componentWidth}
+          updateScroll={updateScroll}
+          scrollPos={scrollPos}
         />
       </Styles>
     );

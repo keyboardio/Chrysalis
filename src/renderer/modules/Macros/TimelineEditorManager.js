@@ -139,21 +139,13 @@ class MacroManager extends Component {
     this.state = {
       open: false,
       componentWidth: 0,
-      rows: []
+      rows: [],
+      scrollPos: 0
     };
     this.keymapDB = new KeymapDB();
 
     this.parseKey = this.parseKey.bind(this);
   }
-
-  updateWidth = () => {
-    this.setState({
-      componentWidth: 50
-    });
-    this.setState({
-      componentWidth: this.trackingWidth.current.clientWidth
-    });
-  };
 
   parseKey(keycode) {
     const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
@@ -172,6 +164,19 @@ class MacroManager extends Component {
         : this.keymapDB.parse(keycode).label
       : "";
   }
+
+  updateWidth = () => {
+    this.setState({
+      componentWidth: 50
+    });
+    this.setState({
+      componentWidth: this.trackingWidth.current.clientWidth
+    });
+  };
+
+  updateScroll = scrollPos => {
+    this.setState({ scrollPos });
+  };
 
   componentDidMount() {
     // Additionally I could have just used an arrow function for the binding `this` to the component...
@@ -233,6 +238,8 @@ class MacroManager extends Component {
               updateActions={updateActions}
               keymapDB={keymapDB}
               componentWidth={this.state.componentWidth}
+              updateScroll={this.updateScroll}
+              scrollPos={this.state.scrollPos}
             />
           )}
           <div id="portalMacro"></div>

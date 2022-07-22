@@ -122,9 +122,11 @@ const Styles = Styled.div`
   max-width: 100%;
   height: auto;
   // max-height: 65vh;
-  // * {
-  //   transform-box: fill-box;
-  // }
+  * {
+    -webkit-backface-visibility: hidden;
+    // -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    //transform: translateZ(0);
+  }
 }
 
 .standarViewMode .raiseKeyboard {
@@ -176,6 +178,14 @@ const Styles = Styled.div`
     flex-wrap: wrap;
     line-height: 1.1em;
     position: relative;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+    * {
+      -webkit-backface-visibility: hidden;
+      -webkit-transform: translateZ(0) scale(1.0, 1.0);
+      transform: translateZ(0);
+    }
     ul {
       list-style: none;
       padding: 0;
@@ -216,7 +226,9 @@ const Styles = Styled.div`
     opacity: 0.4;
   }
   &.keyOnFocus { 
-    filter: drop-shadow(0px 4px 0px ${({ theme }) => theme.styles.raiseKeyboard.keyShadow});
+    .baseShape {
+      filter: drop-shadow(0px 4px 0px ${({ theme }) => theme.styles.raiseKeyboard.keyShadow});
+    }
     .keyOpacityInternal {
       stroke-opacity: 0.7;
       stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
@@ -1594,9 +1606,22 @@ class LayoutEditor extends React.Component {
     return this.state.layerNames.length >= index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
   }
   modeSelectToggle = data => {
-    this.setState({
-      modeselect: data
-    });
+    if (this.state.isStandardView) {
+      if (this.state.currentLedIndex > 69) {
+        this.setState({
+          currentKeyIndex: -1
+        });
+      }
+      this.setState({
+        modeselect: data,
+        showStandardView: false,
+        currentLedIndex: -1
+      });
+    } else {
+      this.setState({
+        modeselect: data
+      });
+    }
   };
 
   //Manage Standard/Single view
@@ -1752,6 +1777,7 @@ class LayoutEditor extends React.Component {
           keymap={layerData}
           onKeySelect={this.onKeySelect}
           selectedKey={this.state.currentKeyIndex}
+          selectedLED={this.state.currentLedIndex}
           palette={this.state.palette}
           colormap={this.state.colorMap[this.state.currentLayer]}
           theme={this.props.theme}

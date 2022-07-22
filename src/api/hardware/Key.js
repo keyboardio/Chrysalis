@@ -96,7 +96,7 @@ const Key = ({
           <g className="shadowHover">
             <rect x={x} y={y + 4} width={width} height={height} rx="4" fill={color} />
           </g>
-          <g>
+          <g className="baseShape">
             <rect x={x} y={y} width={width} height={height} rx="4" fill={`#303949`} />
             <rect x={x} y={y} width={width} height={height} rx="4" fill={`url(#paintGradient${id})`} fillOpacity="0.2" />
             <rect x={x} y={y} width={width} height={height} rx="4" fill={color} className="keyColorOpacity" />
@@ -211,7 +211,7 @@ const Key = ({
               fill={color}
             />
           </g>
-          <g>
+          <g className="baseShape">
             <path
               d="M1.37773 4.98057C-0.325982 3.04224 1.05038 0 3.63103 0H115C117.209 0 119 1.79086 119 4V53C119 55.2091 117.209 57 115 57H49.8154C48.0899 57 46.4479 56.2571 45.3088 54.9611L1.37773 4.98057Z"
               fill={`#303949`}
@@ -330,7 +330,7 @@ const Key = ({
               fill={color}
             />
           </g>
-          <g>
+          <g className="baseShape">
             <path
               d="M118.378 4.98057C120.082 3.04224 118.706 0 116.125 0H4.75611C2.54697 0 0.756104 1.79086 0.756104 4V53C0.756104 55.2091 2.54696 57 4.7561 57H69.9407C71.6662 57 73.3082 56.2571 74.4473 54.9611L118.378 4.98057Z"
               fill={`#303949`}
@@ -450,7 +450,7 @@ const Key = ({
               fill={color}
             />
           </g>
-          <g>
+          <g className="baseShape">
             <path
               xmlns="http://www.w3.org/2000/svg"
               d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"

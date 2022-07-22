@@ -316,6 +316,8 @@ class KeymapANSI extends React.Component {
           getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord + 5, smallKey)
         : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 7), smallKey);
 
+    // console.log("Selected Key: ", this.props.selectedKey);
+    console.log("Selected LED: ", this.props.selectedLED);
     return (
       <>
         <svg
@@ -331,6 +333,7 @@ class KeymapANSI extends React.Component {
           width={1222}
         >
           <Neuron
+            selectedLED={this.props.selectedLED}
             visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
             clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
             color="#b4b4b4"
@@ -1652,6 +1655,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(71, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(71)}
@@ -1669,6 +1673,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(72, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(72)}
@@ -1686,6 +1691,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(73, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(73)}
@@ -1703,6 +1709,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(74, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(74)}
@@ -1720,6 +1727,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(75, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(75)}
@@ -1737,6 +1745,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(76, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(76)}
@@ -1754,6 +1763,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(77, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(77)}
@@ -1771,6 +1781,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(78, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(78)}
@@ -1788,6 +1799,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(79, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(79)}
@@ -1805,6 +1817,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(80, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(80)}
@@ -1822,6 +1835,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(81, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(81)}
@@ -1839,6 +1853,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(82, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(82)}
@@ -1856,6 +1871,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(83, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(83)}
@@ -1873,6 +1889,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(84, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(84)}
@@ -1890,6 +1907,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(85, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(85)}
@@ -1907,6 +1925,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(86, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(86)}
@@ -1925,6 +1944,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(87, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(87)}
@@ -1942,6 +1962,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(88, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(88)}
@@ -1959,6 +1980,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(89, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(89)}
@@ -1977,6 +1999,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(90, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(90)}
@@ -1994,6 +2017,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(91, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(91)}
@@ -2011,6 +2035,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(92, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(92)}
@@ -2028,6 +2053,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(93, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(93)}
@@ -2045,6 +2071,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(94, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(94)}
@@ -2062,6 +2089,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(95, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(95)}
@@ -2080,6 +2108,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(96, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(96)}
@@ -2097,6 +2126,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(97, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(97)}
@@ -2114,6 +2144,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(98, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(98)}
@@ -2131,6 +2162,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(69, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(69)}
@@ -2148,6 +2180,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(70, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(70)}
@@ -2167,6 +2200,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(107, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(107)}
@@ -2184,6 +2218,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(106, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(106)}
@@ -2201,6 +2236,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(105, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(105)}
@@ -2218,6 +2254,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(104, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(104)}
@@ -2235,6 +2272,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(103, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(103)}
@@ -2252,6 +2290,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(102, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(102)}
@@ -2269,6 +2308,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(101, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(101)}
@@ -2286,6 +2326,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(100, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(100)}
@@ -2303,6 +2344,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(99, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(99)}
@@ -2320,6 +2362,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(130, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(130)}
@@ -2337,6 +2380,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(129, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(129)}
@@ -2354,6 +2398,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(128, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(128)}
@@ -2371,6 +2416,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(127, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(127)}
@@ -2388,6 +2434,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(126, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(126)}
@@ -2405,6 +2452,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(125, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(125)}
@@ -2422,6 +2470,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(124, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(124)}
@@ -2439,6 +2488,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(123, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(123)}
@@ -2456,6 +2506,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(122, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(122)}
@@ -2473,6 +2524,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(121, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(121)}
@@ -2491,6 +2543,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(120, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(120)}
@@ -2508,6 +2561,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(119, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(119)}
@@ -2525,6 +2579,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(118, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(118)}
@@ -2542,6 +2597,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(117, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(117)}
@@ -2559,6 +2615,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(116, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(116)}
@@ -2576,6 +2633,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(115, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(115)}
@@ -2593,6 +2651,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(114, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(114)}
@@ -2610,6 +2669,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(113, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(113)}
@@ -2627,6 +2687,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(112, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(112)}
@@ -2644,6 +2705,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(111, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(111)}
@@ -2661,6 +2723,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(110, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(110)}
@@ -2678,6 +2741,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(109, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(109)}
@@ -2695,6 +2759,7 @@ class KeymapANSI extends React.Component {
               onClick={e => {
                 setUndeglowIndex(108, e);
               }}
+              selectedLED={this.props.selectedLED}
               visibility={this.props.showUnderglow || this.props.isStandardView ? true : false}
               clickAble={this.props.isStandardView && !this.props.showUnderglow ? false : true}
               fill={getColor(108)}

@@ -109,6 +109,9 @@ const Styles = Styled.div`
   margin: 0 auto;
   min-width: 680px;
   max-width: 1280px;
+  svg {
+    width: 100%;
+  }
 }
 .standarViewMode .LayerHolder {
   margin-top: 24px;
@@ -317,11 +320,7 @@ const Styles = Styled.div`
   cursor: url(${customCursor}) 12 12, auto;
 }
 
-@media screen and (max-height: 900px) {
-  .keyboard.singleViewMode .LayerHolder {
-    max-height: 342px;
-  }
-}
+
 `;
 
 class LayoutEditor extends React.Component {
@@ -1861,11 +1860,11 @@ class LayoutEditor extends React.Component {
             }}
             inContext={this.state.modified}
           />
-          <Row className="full-height">
+          <Row className="full-height keyboardsWrapper">
             <Col className="raise-editor layer-col">
-              <Row className="m-0">{layer}</Row>
+              <Row className="dygma-keyboard-editor editor m-0">{layer}</Row>
               {this.state.modeselect == "keyboard" && !isStandardView ? (
-                <Row className="full-height m-0">
+                <Row className="ordinary-keyboard-editor m-0">
                   <KeyPickerKeyboard
                     onKeySelect={this.onKeyChange}
                     code={code}

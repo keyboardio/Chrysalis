@@ -1938,7 +1938,7 @@ div.card.card-preferences .card-body {
   body .layoutEditor .singleViewMode.keyboard .keyboardsWrapper {
     height: calc(100vh - 104px);
   }
-  body .dygma-keyboard-editor {
+  body .singleViewMode .dygma-keyboard-editor {
     margin-top: 40px!important;
   }
   body .ordinary-keyboard-editor {

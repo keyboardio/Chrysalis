@@ -272,6 +272,9 @@ const Editor = (props) => {
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
 
+      const customLabels = await focus.command("keymap.labels");
+      k.db.setCustomLabels(customLabels.labels);
+
       const deviceMacros = await focus.command("macros");
       setMacros(deviceMacros);
 

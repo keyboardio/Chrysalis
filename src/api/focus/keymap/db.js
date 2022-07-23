@@ -111,6 +111,17 @@ class KeymapDB {
     }
   }
 
+  setCustomLabels(customLabels) {
+    for (const key of customLabels) {
+      if (this._codetable[key.code]) {
+        const base = this._codetable[key.code];
+        this._codetable[key.code].label = Object.assign({}, key.label);
+      } else {
+        this._codetable[key.code] = Object.assign({}, key);
+      }
+    }
+  }
+
   setLayout(layout) {
     this.resetLayout();
 
@@ -299,7 +310,11 @@ class KeymapDB {
     let label = key.label.base;
     const shifted = key.label.shifted;
     if (typeof label != "string") {
-      label = key.label.base[keycapSize] || key.label.base.full;
+      try {
+        label = key.label.base[keycapSize] || key.label.base.full;
+      } catch (_) {
+        console.log("ZING", key);
+      }
     }
     if (label.length == 1 && autoCase) {
       label = label.toUpperCase();

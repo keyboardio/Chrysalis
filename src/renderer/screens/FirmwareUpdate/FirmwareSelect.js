@@ -29,7 +29,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
@@ -41,6 +41,19 @@ const FirmwareSelect = (props) => {
   const [changelogOpen, setChangelogOpen] = useState(false);
   const [selected, setSelected] = props.selectedFirmware;
   const [firmwareFilename, setFirmwareFilename] = props.firmwareFilename;
+  const [firmwareVersion, setFirmwareVersion] = useState(version);
+  const [firmwareChangelog, setFirmwareChangelog] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const v = await ipcRenderer.sendSync("firmware.get-version");
+      setFirmwareVersion(v);
+
+      const c = await ipcRenderer.sendSync("firmware.get-changelog");
+      setFirmwareChangelog(c);
+    };
+    fetchData();
+  }, []);
 
   const selectFirmware = (event) => {
     setSelected(event.target.value);
@@ -90,7 +103,7 @@ const FirmwareSelect = (props) => {
             />
             <Typography sx={{ color: "text.secondary", ml: 1 }}>
               {t("firmwareUpdate.firmwareVersion", {
-                version: version,
+                version: firmwareVersion,
               })}
             </Typography>
             <Typography variant="subtitle2" sx={{ ml: 1, mt: 1 }}>
@@ -103,7 +116,7 @@ const FirmwareSelect = (props) => {
                   onClick={() => setChangelogOpen(true)}
                 >
                   {t("firmwareUpdate.firmwareChangelog.view", {
-                    version: version,
+                    version: firmwareVersion,
                   })}
                 </Button>
               </Grid>
@@ -134,6 +147,7 @@ const FirmwareSelect = (props) => {
       </FormControl>
       <FirmwareChangesDialog
         open={changelogOpen}
+        changelog={firmwareChangelog}
         onClose={() => setChangelogOpen(false)}
       />
     </>

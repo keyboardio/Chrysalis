@@ -34,11 +34,7 @@ import remarkGfm from "remark-gfm";
 
 const FirmwareChangesDialog = (props) => {
   const { classes } = props;
-
   const { t } = useTranslation();
-
-  const file = path.join(getStaticPath(), "firmware-changelog.md");
-  const [data] = ipcRenderer.sendSync("file.read", file);
 
   return (
     <Dialog open={props.open} fullWidth maxWidth="md" onClose={props.onClose}>
@@ -54,7 +50,7 @@ const FirmwareChangesDialog = (props) => {
       </DialogTitle>
       <DialogContent dividers>
         <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
-          {data}
+          {props.changelog}
         </ReactMarkdown>
       </DialogContent>
       <DialogActions>

@@ -49,6 +49,7 @@ import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
 
 import { useAutoUpdate } from "./hooks/useAutoUpdate";
+import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
 
 const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
@@ -75,6 +76,7 @@ const App = (props) => {
   const [bgColor, setBgColor] = useState(null);
 
   useAutoUpdate();
+  useFirmwareAutoUpdate();
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;

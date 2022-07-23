@@ -1,3 +1,19 @@
+Chrysalis 0.10.5-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+Chrysalis is now able to automatically update not only itself, but the firmware
+files too, separately. This allows us to offer updated firmware without having
+to release a new version of Chrysalis, and without having to ask you to download
+them. The feature is disabled by default, and can be enabled on the Preferences
+screen.
+
+When the running firmware supports it, Chrysalis is now able to set custom layer
+names, which will be displayed throughout the application instead of the default
+layer indexes.
+
 Chrysalis 0.10.4
 ================
 Released on 2022-07-07

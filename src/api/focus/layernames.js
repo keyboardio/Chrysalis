@@ -29,15 +29,11 @@ export default class LayerNames {
     const data = await s.request("keymap.layerNames");
     if (!data) return { storageSize: 0, names: [] };
 
-    const storageSize = data
-      .split(/\n/)
-      .map((x) => x.split(/^(\d+) /).slice(1))
-      .pop()[1]
-      .split(/=/)
-      .pop();
+    const names = data.split(/\n/).map((x) => x.split(/^(\d+) /).slice(1));
+    const storageSize = names.pop()[1].split(/=/).pop();
     return {
       storageSize: parseInt(storageSize),
-      names: data.map((x) => x[1]),
+      names: names.map((x) => x[1]),
     };
   }
 

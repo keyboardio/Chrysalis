@@ -30,7 +30,7 @@ const KeyButton = (props) => {
     };
   };
 
-  const label = db.format(keyObj, "full");
+  const label = db.format(keyObj, { keycapSize: "full" });
   return (
     <Button
       variant="contained"

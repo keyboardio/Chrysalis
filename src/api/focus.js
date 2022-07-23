@@ -25,6 +25,7 @@ import { logger } from "@api/log";
 import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
+import LayerNames from "./focus/layernames";
 
 global.chrysalis_focus_instance = null;
 
@@ -517,6 +518,7 @@ class Focus {
     "settings.defaultLayer",
     "escape_oneshot.cancel_key",
     "idleleds.time_limit",
+    "layernames",
     "led.brightness",
     "led_mode.auto_save",
     "led_mode.default",
@@ -561,6 +563,7 @@ class Focus {
 const focus = new Focus();
 focus.addCommands({ colormap: new Colormap() });
 focus.addMethod("setLayerSize", "colormap");
+focus.addCommands({ layernames: new LayerNames() });
 focus.addCommands({ macros: new Macros() });
 focus.addCommands({
   keymap: new Keymap(),

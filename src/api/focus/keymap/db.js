@@ -292,7 +292,10 @@ class KeymapDB {
     return this._layout;
   }
 
-  format(key, keycapSize = "1u", autoCase = true) {
+  format(key, options) {
+    const keycapSize = options?.keycapSize || "1u";
+    const autoCase = options?.autoCase || true;
+
     let label = key.label.base;
     const shifted = key.label.shifted;
     if (typeof label != "string") {
@@ -307,6 +310,16 @@ class KeymapDB {
       hint = key.label.hint[keycapSize] || key.label.hint.full;
     }
     if (key.legacy) hint = "Legacy";
+
+    if (options?.layerNames && this.isInCategory(key.code, "layer")) {
+      if (this.isInCategory(key.code, "dualuse")) {
+        hint = options.layerNames.names[key.target]
+          ? options.layerNames.names[key.target] + "/"
+          : hint;
+      } else {
+        label = options.layerNames.names[key.target] || label;
+      }
+    }
 
     const data = {
       main: label,

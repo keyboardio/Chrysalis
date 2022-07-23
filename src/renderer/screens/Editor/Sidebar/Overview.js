@@ -20,6 +20,7 @@ import CropSquareIcon from "@mui/icons-material/CropSquare";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -32,6 +33,14 @@ import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import LayoutSharing from "./LayoutSharing";
+
+const LayerNameInput = (props) => {
+  const onChange = (event) => {
+    props.setLayerName(props.index, event.target.value);
+  };
+
+  return <InputBase sx={{ flex: 1 }} value={props.value} onChange={onChange} />;
+};
 
 const Overview = (props) => {
   const [showAll, setShowAll] = useState(false);
@@ -66,7 +75,8 @@ const Overview = (props) => {
 
   if (props.macroEditorOpen) return null;
 
-  const { keymap, selectedKey, selectedLed, layer, colormap } = props;
+  const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } =
+    props;
   const db = new KeymapDB();
 
   const lastUsedLayer = findLastUsedLayer();
@@ -79,7 +89,7 @@ const Overview = (props) => {
   }
 
   const config = usedLayers.map((layerData, index) => {
-    const label = db.format(layerData[selectedKey], "full");
+    const label = db.format(layerData[selectedKey], { keycapSize: "full" });
     let colorWidget;
     if (colormap && colormap.palette.length > 0) {
       const colorIndex = colormap.colorMap[index][selectedLed];
@@ -110,7 +120,11 @@ const Overview = (props) => {
         sx={{ cursor: "pointer" }}
       >
         <TableCell size="small" align="left">
-          #{index}
+          <LayerNameInput
+            value={layerNames.names[index]}
+            index={index}
+            setLayerName={props.setLayerName}
+          />
         </TableCell>
         <TableCell>
           {label.hint} {label.main}

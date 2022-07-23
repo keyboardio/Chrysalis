@@ -99,7 +99,10 @@ const MacroStep = (props) => {
     if (step.type == Step.INTERVAL || step.type == Step.WAIT)
       return t("editor.macros.steps.time_ms", { value: step.value });
     if ([Step.KEYDOWN, Step.KEYUP, Step.TAP].includes(step.type)) {
-      const format = db.format(step.value, "full", false);
+      const format = db.format(step.value, {
+        keycapSize: "full",
+        autoCase: false,
+      });
       return (format.hint ? format.hint + " " : "") + format.main;
     }
     if (

@@ -57,6 +57,11 @@ const Editor = (props) => {
     onlyCustom: false,
   });
 
+  const [layerNames, setLayerNames] = useState({
+    storageSize: 0,
+    names: [],
+  });
+
   const [macros, setMacros] = useState(null);
   const [currentLedIndex, setCurrentLedIndex] = useState(0);
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
@@ -86,6 +91,18 @@ const Editor = (props) => {
     };
     await setMacros(newMacros);
 
+    setModified(true);
+    showContextBar();
+  };
+
+  const setLayerName = async (index, name) => {
+    const newNames = [].concat(layerNames.names);
+    newNames[index] = name;
+
+    setLayerNames({
+      storageSize: layerNames.storageSize,
+      names: newNames,
+    });
     setModified(true);
     showContextBar();
   };
@@ -260,6 +277,20 @@ const Editor = (props) => {
 
       const defLayer = await focus.command("settings.defaultLayer");
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
+
+      const deviceLayerNames = await focus.command("layernames");
+      if (deviceLayerNames) {
+        // We set up default names for the layers here, so that they're easily
+        // editable, without having to keep track of whether it is a default
+        // name we're editing, or a custom one.
+        const names = Array(deviceKeymap.custom.length)
+          .fill()
+          .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
+        setLayerNames({
+          storageSize: deviceLayerNames.storage,
+          names: names,
+        });
+      }
     } catch (e) {
       toast.error(e);
       props.onDisconnect();
@@ -306,6 +337,7 @@ const Editor = (props) => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap);
     await focus.command("macros", macros);
+    await focus.command("layernames", layerNames);
 
     setModified(false);
     logger().info("Changes saved.");
@@ -368,6 +400,7 @@ const Editor = (props) => {
     mainWidget = (
       <KeymapSVG
         className="layer"
+        layerNames={layerNames}
         index={currentLayer}
         keymap={keymap?.custom[currentLayer]}
         onKeySelect={onKeySelect}
@@ -405,6 +438,8 @@ const Editor = (props) => {
         selectedLed={currentLedIndex}
         layer={currentLayer}
         setLayer={setCurrentLayer}
+        layerNames={layerNames}
+        setLayerName={setLayerName}
         onKeyChange={onKeyChange}
         onKeymapChange={onKeymapChange}
         onColormapChange={onColormapChange}

@@ -317,11 +317,6 @@
           "contents": "This will reset the EEPROM to factory defaults. You will lose all customizations made."
         }
       },
-      "flash": {
-        "preferExternal": {
-          "label": "Use an external program for flashing"
-        }
-      },
       "led": {
         "label": "LED preferences",
         "idle": {

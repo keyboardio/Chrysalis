@@ -68,7 +68,6 @@ const Model01 = {
       "restoreEEPROM",
     ];
   },
-  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",

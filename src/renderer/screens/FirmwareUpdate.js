@@ -31,7 +31,6 @@ import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
@@ -44,9 +43,6 @@ import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
-
-const Store = require("electron-store");
-const settings = new Store();
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
@@ -95,9 +91,6 @@ const FirmwareUpdate = (props) => {
       });
     };
 
-    const preferExternalFlasher =
-      (await settings.get("flash.preferExternalFlasher")) &&
-      (await checkExternalFlasher(focusDeviceDescriptor));
     return focusDeviceDescriptor.flash(
       focus._port,
       selectedFirmwareType === "default"
@@ -105,7 +98,6 @@ const FirmwareUpdate = (props) => {
         : firmwareFilename,
 
       Object.assign({}, options, {
-        preferExternalFlasher: preferExternalFlasher,
         device: focusDeviceDescriptor,
         focus: focus,
         callback: nextStep,

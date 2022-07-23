@@ -67,7 +67,6 @@ const Atreus2 = {
       "restoreEEPROM",
     ];
   },
-  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Atreus",

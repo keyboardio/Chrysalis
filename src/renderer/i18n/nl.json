@@ -293,11 +293,6 @@
                     "contents": "Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen."
                 }
             },
-            "flash": {
-                "preferExternal": {
-                    "label": "Gebruik een extern programma om te flashen"
-                }
-            },
             "led": {
                 "label": "LED voorkeuren",
                 "idle": {

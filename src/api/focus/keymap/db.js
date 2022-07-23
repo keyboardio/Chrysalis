@@ -20,6 +20,7 @@ import cldr_data from "./cldr_data";
 import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import { constants } from "./db/constants";
+import { withModifiers } from "./db/modifiers";
 
 import enLangMap from "./cldr_languages/en";
 import nlLangMap from "./cldr_languages/nl";
@@ -116,9 +117,9 @@ class KeymapDB {
 
     if (!this._layouts.hasOwnProperty(layout)) return;
 
-    const table = this._layouts[layout];
+    const codeTable = withModifiers(this._layouts[layout].codetable);
 
-    for (const key of table.codetable) {
+    for (const key of codeTable) {
       if (this._codetable[key.code]) {
         const base = this._codetable[key.code];
         this._codetable[key.code].label = Object.assign(

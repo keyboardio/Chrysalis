@@ -21,14 +21,14 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-export const LegacyAlert = (migrateLegacy) => {
+export const LegacyAlert = (props) => {
   const { t } = useTranslation();
 
   return (
     <Alert
       severity="error"
       action={
-        <Button color="primary" onClick={migrateLegacy}>
+        <Button color="primary" onClick={props.migrateLegacy}>
           {t("editor.legacy.migrate")}
         </Button>
       }

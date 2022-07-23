@@ -118,88 +118,43 @@ class KeymapDB {
 
     const table = this._layouts[layout];
 
-    if (table.codetable instanceof Promise) {
-      table.codetable.then((data) => {
-        for (const key of data) {
-          if (this._codetable[key.code]) {
-            const base = this._codetable[key.code];
-            this._codetable[key.code].label = Object.assign(
-              {},
-              base.label,
-              key.label
-            );
-          } else {
-            this._codetable[key.code] = Object.assign({}, key);
-          }
-          // If there is no dualuse key for this keycode, continue with the next
-          // one.
-          if (!this._codetable[key.code + 49169]?.baseCode) continue;
-          if (key.code >= 256) continue;
+    for (const key of table.codetable) {
+      if (this._codetable[key.code]) {
+        const base = this._codetable[key.code];
+        this._codetable[key.code].label = Object.assign(
+          {},
+          base.label,
+          key.label
+        );
+      } else {
+        this._codetable[key.code] = Object.assign({}, key);
+      }
+      // If there is no dualuse key for this keycode, continue with the next
+      // one.
+      if (!this._codetable[key.code + 49169]?.baseCode) continue;
+      if (key.code >= 256) continue;
 
-          // dual-use modifiers
-          for (const m of [0, 1, 2, 3, 6]) {
-            const dumCode = key.code + 49169 + m * 256;
-            if (this._codetable[dumCode]) {
-              const base = this._codetable[dumCode];
-              this._codetable[dumCode].label = Object.assign(
-                {},
-                { hint: base.label.hint, base: key.label.base }
-              );
-            }
-          }
-
-          // dual-use layers
-          for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
-            const dulCode = key.code + 51218 + l * 256;
-            if (this._codetable[dulCode]) {
-              const base = this._codetable[dulCode];
-              this._codetable[dulCode].label = Object.assign(
-                {},
-                { hint: base.label.hint, base: key.label.base }
-              );
-            }
-          }
-        }
-      });
-    } else {
-      for (const key of table.codetable) {
-        if (this._codetable[key.code]) {
-          const base = this._codetable[key.code];
-          this._codetable[key.code].label = Object.assign(
+      // dual-use modifiers
+      for (const m of [0, 1, 2, 3, 6]) {
+        const dumCode = key.code + 49169 + m * 256;
+        if (this._codetable[dumCode]) {
+          const base = this._codetable[dumCode];
+          this._codetable[dumCode].label = Object.assign(
             {},
-            base.label,
-            key.label
+            { hint: base.label.hint, base: key.label.base }
           );
-        } else {
-          this._codetable[key.code] = Object.assign({}, key);
         }
-        // If there is no dualuse key for this keycode, continue with the next
-        // one.
-        if (!this._codetable[key.code + 49169]?.baseCode) continue;
-        if (key.code >= 256) continue;
+      }
 
-        // dual-use modifiers
-        for (const m of [0, 1, 2, 3, 6]) {
-          const dumCode = key.code + 49169 + m * 256;
-          if (this._codetable[dumCode]) {
-            const base = this._codetable[dumCode];
-            this._codetable[dumCode].label = Object.assign(
-              {},
-              { hint: base.label.hint, base: key.label.base }
-            );
-          }
-        }
-
-        // dual-use layers
-        for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
-          const dulCode = key.code + 51218 + l * 256;
-          if (this._codetable[dulCode]) {
-            const base = this._codetable[dulCode];
-            this._codetable[dulCode].label = Object.assign(
-              {},
-              { hint: base.label.hint, base: key.label.base }
-            );
-          }
+      // dual-use layers
+      for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
+        const dulCode = key.code + 51218 + l * 256;
+        if (this._codetable[dulCode]) {
+          const base = this._codetable[dulCode];
+          this._codetable[dulCode].label = Object.assign(
+            {},
+            { hint: base.label.hint, base: key.label.base }
+          );
         }
       }
     }

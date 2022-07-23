@@ -109,7 +109,7 @@ const LayoutCard = (props) => {
                 marginLeft: 5,
               }}
             >
-              {t("components.layer", { index: i })}
+              {layerNames.names[i] || t("components.layer", { index: i })}
             </Typography>
             <KeymapSVG
               className="layer"

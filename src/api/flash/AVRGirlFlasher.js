@@ -16,10 +16,34 @@
 
 import { logger } from "@api/log";
 import AvrGirl from "avrgirl-arduino";
+const { SerialPort } = require("serialport");
 
 import { toStep } from "./utils";
 
-export const AVRGirlFlasher = async (board, port, filename, options) => {
+const rebootToNormal = async (port, _) => {
+  logger("flash").debug("rebooting to normal mode");
+
+  // To reboot a device using the AVR109 protocol from bootloader to normal
+  // mode, we simply have to exit the bootloader. To do so, we need to connect
+  // to the port, and send `E`, the command for "Exit bootloader".
+  //
+  // Reference: https://ww1.microchip.com/downloads/en/AppNotes/doc1644.pdf, page 9
+
+  try {
+    const serial = new SerialPort({
+      path: port.path,
+      baudRate: 9600,
+    });
+    serial.write("E");
+  } catch (e) {
+    logger("flash").error("error while trying to reboot to normal mode", {
+      path: port.path,
+      error: e,
+    });
+  }
+};
+
+const flash = async (board, port, filename, options) => {
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
@@ -60,3 +84,5 @@ export const AVRGirlFlasher = async (board, port, filename, options) => {
     }
   });
 };
+
+export const AVRGirlFlasher = { flash, rebootToNormal };

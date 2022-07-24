@@ -380,14 +380,24 @@
     },
     "flashing": {
       "error": "Error flashing the firmware",
-      "releasePROG": "Bootloader detected. If you're holding a key down, please release it.",
       "success": "Firmware flashed successfully!",
       "button": "Update",
       "factoryResetButton": "Factory reset",
+      "notifications": {
+        "title": "Problem encountered while flashing",
+        "enter": {
+          "stillNormal": "The keyboard has not entered programmable mode yet. Please make sure to follow the instructions below.",
+          "notFound": "Unable to find the keyboard. Please file an issue."
+        },
+        "reconnect": {
+          "stillBootloader": "The keyboard is still in programmable mode. Please release any keys you may be holding.",
+          "notFound": "Unable to find the keyboard. Please file an issue."
+        },
+        "unknownMessage": "Unknown message received during flashing: {{ message }}"
+      },
       "steps": {
         "factoryRestore": "Restoring factory defaults",
-        "bootloaderTrigger": "Triggering bootloader",
-        "bootloaderWait": "Waiting for bootloader",
+        "bootloader": "Entering programmable mode",
         "saveEEPROM": "Saving EEPROM contents",
         "restoreEEPROM": "Restoring EEPROM contents",
         "reconnect": "Reconnecting",

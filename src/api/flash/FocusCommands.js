@@ -21,13 +21,17 @@ import { v4 as uuidv4 } from "uuid";
 import { delay } from "./utils";
 
 export function FocusCommands(options) {
-  this.reboot = async () => {
+  this.reboot = async (devicePort, focusDeviceDescriptor) => {
     const focus = options.focus;
     const timeouts = options?.timeouts || {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
       bootLoaderUp: 4000, // Time to wait for the boot loader to come up
     };
-    const port = focus._port;
+    let port = focus._port;
+
+    if (devicePort && focusDeviceDescriptor) {
+      port = await focus.open(devicePort.path, focusDeviceDescriptor);
+    }
 
     const baudUpdate = () => {
       return new Promise((resolve) => {
@@ -50,7 +54,12 @@ export function FocusCommands(options) {
     };
 
     // Attempt calling device.reset first, if present.
-    const commands = await focus.supported_commands();
+    let commands;
+    try {
+      commands = await focus.supported_commands();
+    } catch (_) {
+      commands = [];
+    }
     if (commands.includes("device.reset")) {
       try {
         await focus.request("device.reset");

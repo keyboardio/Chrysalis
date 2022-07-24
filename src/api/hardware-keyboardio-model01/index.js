@@ -44,6 +44,7 @@ const Model01 = {
     bootloader: {
       vendorId: 0x1209,
       productId: 0x2300,
+      protocol: "avr109",
     },
   },
   keyboard: {
@@ -56,17 +57,10 @@ const Model01 = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "bootloaderTrigger", "bootloaderWait", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return [
-      "saveEEPROM",
-      "bootloaderTrigger",
-      "bootloaderWait",
-      "flash",
-      "reconnect",
-      "restoreEEPROM",
-    ];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     const board = {
@@ -107,7 +101,7 @@ const Model100 = {
     bootloader: {
       vendorId: 0x3496,
       productId: 0x0005,
-      type: "dfu",
+      protocol: "dfu",
     },
   },
   keyboard: {
@@ -120,17 +114,10 @@ const Model100 = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "bootloaderTrigger", "bootloaderWait", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return [
-      "saveEEPROM",
-      "bootloaderTrigger",
-      "bootloaderWait",
-      "flash",
-      "reconnect",
-      "restoreEEPROM",
-    ];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     return flash(flashers.dfuUtil, null, port, filename, options);
@@ -164,7 +151,7 @@ const Model100Bootloader = {
     bootloader: {
       vendorId: 0x3496,
       productId: 0x0005,
-      type: "dfu",
+      protocol: "dfu",
     },
   },
   keyboard: {

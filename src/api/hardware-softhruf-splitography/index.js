@@ -32,6 +32,11 @@ const Splitography = {
   usb: {
     vendorId: 0xfeed,
     productId: 0x6060,
+    bootloader: {
+      vendorId: 0x03eb,
+      productId: 0x2ff4,
+      protocol: "flip",
+    },
   },
   keyboard: {
     rows: 4,
@@ -43,10 +48,10 @@ const Splitography = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     return await flash(flashers.dfuProgrammer, null, port, filename, options);

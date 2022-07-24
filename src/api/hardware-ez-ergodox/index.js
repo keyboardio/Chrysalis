@@ -32,6 +32,11 @@ const ErgoDox = {
   usb: {
     vendorId: 0xfeed,
     productId: 0x1307,
+    bootloader: {
+      vendorId: 0x16c0,
+      productId: 0x0478,
+      protocol: "teensy",
+    },
   },
   keyboard: {
     rows: 14,
@@ -43,10 +48,10 @@ const ErgoDox = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     return flash(flashers.teensy, null, port, filename, options);

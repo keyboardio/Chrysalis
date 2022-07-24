@@ -43,6 +43,7 @@ const Atreus2 = {
     bootloader: {
       vendorId: 0x1209,
       productId: 0x2302,
+      protocol: "avr109",
     },
   },
   keyboard: {
@@ -55,17 +56,10 @@ const Atreus2 = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "bootloaderTrigger", "bootloaderWait", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return [
-      "saveEEPROM",
-      "bootloaderTrigger",
-      "bootloaderWait",
-      "flash",
-      "reconnect",
-      "restoreEEPROM",
-    ];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     const board = {

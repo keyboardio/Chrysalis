@@ -76,12 +76,16 @@ export const flash = async (flasher, board, port, filename, options) => {
     saveKey = await focusCommands.saveEEPROM();
   } else {
     await toStep(callback)("factoryRestore");
-    try {
-      await focusCommands.eraseEEPROM();
-    } catch (e) {
-      if (e != "Communication timeout") {
-        throw new Error(e);
-      }
+  }
+
+  // Clear the EEPROM after saving. We do this so that if the layout changed,
+  // any space that changed owners will not have garbage in it, but either
+  // uninitialized bytes, or whatever the restore later restores.
+  try {
+    await focusCommands.eraseEEPROM();
+  } catch (e) {
+    if (e != "Communication timeout") {
+      throw new Error(e);
     }
   }
 

@@ -172,24 +172,24 @@ export const loadAllKeymaps = async () => {
   const windowsFiles = fs.readdirSync(path.join(cldrDir, "keyboards/windows/"));
   // There are some layouts that aren't available in CLDR's windows layouts, but
   // are on others. We slurp those up here in addition. We can't just slurp up
-  // all of the osx layouts and filter out the duplicates, because naming is
-  // inconsistent, so we go on a case-by-case basis for now.
-  const osxFiles = fs
-    .readdirSync(path.join(cldrDir, "keyboards/osx"))
+  // all of the chromeos layouts and filter out the duplicates, because naming
+  // is inconsistent, so we go on a case-by-case basis for now.
+  const chromeosFiles = fs
+    .readdirSync(path.join(cldrDir, "keyboards/chromeos"))
     .filter((fn) => fn.match("^hr-t-k0"));
-  const files = windowsFiles.concat(osxFiles);
+  const files = windowsFiles.concat(chromeosFiles);
 
   // Load the default layout for each language
   let languages = [];
   for (const f of files) {
-    if (f.match("^...?-t-k0-(windows|osx)\\.xml") && !f.startsWith("en-")) {
+    if (f.match("^...?-t-k0-(windows|osx|chromeos)\\.xml") && !f.startsWith("en-")) {
       languages.push(f);
     }
   }
 
   const db = {};
   for (const l of languages) {
-    const os = l.match("-(windows|osx)")[1];
+    const os = l.match("-(windows|osx|chromeos)")[1];
     const layout = await loadKeyboard(
       l.match("^(...?)-t-")[1],
       true,
@@ -203,7 +203,7 @@ export const loadAllKeymaps = async () => {
   languages = [];
   for (const f of files) {
     if (
-      !f.match("^...?-t-k0-(windows|osx)\\.xml") &&
+      !f.match("^...?-t-k0-(windows|osx|chromeos)\\.xml") &&
       f.match("-(windows|osx)")
     ) {
       languages.push(f);
@@ -211,7 +211,7 @@ export const loadAllKeymaps = async () => {
   }
 
   for (const l of languages) {
-    const os = l.match("-(windows|osx)")[1];
+    const os = l.match("-(windows|osx|chromeos)")[1];
     const layout = await loadKeyboard(
       l.match("^(...?)-")[1],
       false,

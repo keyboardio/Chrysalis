@@ -28,8 +28,6 @@ export const useFirmwareAutoUpdate = () => {
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
 
-  const [updateAvailable, setUpdateAvailable] =
-    globalContext.state.updateAvailable;
   const [_, setFirmwareUpdateWarning] =
     globalContext.state.firmwareUpdateWarning;
   const [updateInfo, setUpdateInfo] = useState(null);
@@ -47,7 +45,6 @@ export const useFirmwareAutoUpdate = () => {
       ipcRenderer.invoke("firmware-update.download");
     };
     const onDownloadProgress = (event, progress) => {
-      console.log("download-progress", progress);
       toast.progress(progress.percent);
     };
     const onUpdateDownloaded = (event, info) => {
@@ -58,7 +55,6 @@ export const useFirmwareAutoUpdate = () => {
       toast.success(
         t("firmwareAutoUpdate.downloaded", { version: info.version })
       );
-      setUpdateAvailable(true);
       setFirmwareUpdateWarning(false);
     };
     const onUpdateError = (event, error) => {
@@ -67,7 +63,6 @@ export const useFirmwareAutoUpdate = () => {
         label: "firmware-update",
       });
       toast.error(t("firmwareAutoUpdate.error"));
-      setUpdateAvailable(false);
       setFirmwareUpdateWarning(true);
     };
     const onUpdateWarning = (event, error) => {
@@ -75,7 +70,6 @@ export const useFirmwareAutoUpdate = () => {
         warning: error,
         label: "firmware-update",
       });
-      setUpdateAvailable(false);
       setFirmwareUpdateWarning(true);
     };
 
@@ -106,7 +100,7 @@ export const useFirmwareAutoUpdate = () => {
       ipcRenderer.removeListener("firmware-update.error", onUpdateError);
       ipcRenderer.removeListener("firmware-update.warning", onUpdateWarning);
     };
-  }, [setUpdateAvailable, t]);
+  }, [setFirmwareUpdateWarning, t]);
 
   return updateInfo;
 };

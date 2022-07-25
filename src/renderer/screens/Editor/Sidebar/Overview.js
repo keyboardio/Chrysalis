@@ -32,12 +32,20 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
 import LayoutSharing from "./LayoutSharing";
 
 const LayerNameInput = (props) => {
+  const [loaded, plugins] = useCheckDeviceSupportsPlugins(["LayerNames"]);
+
   const onChange = (event) => {
     props.setLayerName(props.index, event.target.value);
   };
+
+  if (!loaded || !plugins["LayerNames"]) {
+    return `${props.value}`;
+  }
 
   return <InputBase sx={{ flex: 1 }} value={props.value} onChange={onChange} />;
 };

@@ -16,6 +16,7 @@
  */
 
 import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
@@ -32,7 +33,11 @@ const FirmwareVersion = (props) => {
   useEffectOnce(() => {
     const fetchData = async () => {
       const v = await activeDevice.focus.command("version");
-      if (v) setFwVersion(v);
+      if (v) {
+        setFwVersion(v);
+      } else {
+        setFwVersion(t("firmwareUpdate.currentFirmwareVersionUnavailable"));
+      }
     };
     fetchData();
   });
@@ -43,7 +48,7 @@ const FirmwareVersion = (props) => {
         {t("firmwareUpdate.currentFirmwareVersion")}
       </Typography>
       <Typography color="secondary" sx={{ ml: 3 }}>
-        {fwVersion}
+        {fwVersion || <Skeleton variant="rectangle" width={120} height={24} />}
       </Typography>
     </Box>
   );

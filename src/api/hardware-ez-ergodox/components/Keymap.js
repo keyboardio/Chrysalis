@@ -34,14 +34,15 @@ const Keymap = (props) => {
     return row * 6 + col;
   };
 
-  const Key = (props) => {
+  const Key = (kprops) => {
     if (!keymap) return null;
-    const { x, y, row, col, transform } = props;
-    const width = props.width || 1,
-      height = props.height || 1,
+    const { x, y, row, col, transform } = kprops;
+    const width = kprops.width || 1,
+      height = kprops.height || 1,
       bottom = y + height * 40 - 4;
     const key = keymap[keyIndex(row, col)],
       stroke = selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
+    const legend = key && db.format(key, { layerNames: props.layerNames });
     return (
       <g
         transform={transform}
@@ -61,10 +62,10 @@ const Keymap = (props) => {
           fill="#ffffff"
         />
         <text x={x + 3} y={y + 14}>
-          {key && key.label && key.label.hint}
+          {legend?.hint}
         </text>
         <text x={x + 3} y={bottom}>
-          {key && key.label && db.format(key).main}
+          {legend?.main}
         </text>
       </g>
     );

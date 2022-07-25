@@ -26,6 +26,7 @@ const Key = (props) => {
   const stroke = props.active ? "#f3b3b3" : "#b3b3b3";
   const height = props.height || 48;
   const bottom = y + height - 16;
+  const legend = keyObj && db.format(keyObj, { layerNames: props.layerNames });
   return (
     <g
       onClick={onClick}
@@ -44,10 +45,10 @@ const Key = (props) => {
         fill="#ffffff"
       />
       <text x={x + 3} y={y + 14}>
-        {keyObj && keyObj.label && keyObj.label.hint}
+        {legend?.hint}
       </text>
       <text x={x + 3} y={bottom}>
-        {keyObj && keyObj.label && db.format(keyObj).main}
+        {legend?.main}
       </text>
     </g>
   );

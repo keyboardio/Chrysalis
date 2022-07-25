@@ -78,7 +78,7 @@ const Keymap = (props) => {
     let textColor = "#ffffff";
     const buttonColor = "transparent";
     let legendClass = "";
-    const legend = key && db.format(key);
+    const legend = key && db.format(key, { layerNames: props.layerNames });
     if (key && (legend.main || "").length <= 1 && !legend.hint)
       legendClass = "short-legend";
     if (key && key.code == 0) textColor = "#888888";
@@ -100,10 +100,10 @@ const Keymap = (props) => {
           fill={buttonColor}
         />
         <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-          {key && db.format(key).hint}
+          {legend?.hint}
         </text>
         <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
-          {key && db.format(key).main}
+          {legend?.main}
         </text>
       </g>
     );
@@ -124,61 +124,61 @@ const Keymap = (props) => {
     >
       <g transform="translate(80,0)">
         <g transform="rotate(10)">
-          <Key row={0} col={0} />
-          <Key row={0} col={1} />
-          <Key row={0} col={2} />
-          <Key row={0} col={3} />
-          <Key row={0} col={4} />
+          <Key layerNames={props.layerNames} row={0} col={0} />
+          <Key layerNames={props.layerNames} row={0} col={1} />
+          <Key layerNames={props.layerNames} row={0} col={2} />
+          <Key layerNames={props.layerNames} row={0} col={3} />
+          <Key layerNames={props.layerNames} row={0} col={4} />
 
-          <Key row={1} col={0} />
-          <Key row={1} col={1} />
-          <Key row={1} col={2} />
-          <Key row={1} col={3} />
-          <Key row={1} col={4} />
+          <Key layerNames={props.layerNames} row={1} col={0} />
+          <Key layerNames={props.layerNames} row={1} col={1} />
+          <Key layerNames={props.layerNames} row={1} col={2} />
+          <Key layerNames={props.layerNames} row={1} col={3} />
+          <Key layerNames={props.layerNames} row={1} col={4} />
 
-          <Key row={2} col={0} />
-          <Key row={2} col={1} />
-          <Key row={2} col={2} />
-          <Key row={2} col={3} />
-          <Key row={2} col={4} />
-          <Key row={2} col={5} />
+          <Key layerNames={props.layerNames} row={2} col={0} />
+          <Key layerNames={props.layerNames} row={2} col={1} />
+          <Key layerNames={props.layerNames} row={2} col={2} />
+          <Key layerNames={props.layerNames} row={2} col={3} />
+          <Key layerNames={props.layerNames} row={2} col={4} />
+          <Key layerNames={props.layerNames} row={2} col={5} />
 
-          <Key row={3} col={0} />
-          <Key row={3} col={1} />
-          <Key row={3} col={2} />
-          <Key row={3} col={3} />
-          <Key row={3} col={4} />
+          <Key layerNames={props.layerNames} row={3} col={0} />
+          <Key layerNames={props.layerNames} row={3} col={1} />
+          <Key layerNames={props.layerNames} row={3} col={2} />
+          <Key layerNames={props.layerNames} row={3} col={3} />
+          <Key layerNames={props.layerNames} row={3} col={4} />
 
-          <Key row={3} col={5} />
+          <Key layerNames={props.layerNames} row={3} col={5} />
         </g>
 
         <g transform="rotate(-10)">
           <g transform="translate(0, 120.5)">
-            <Key row={0} col={7} />
-            <Key row={0} col={8} />
-            <Key row={0} col={9} />
-            <Key row={0} col={10} />
-            <Key row={0} col={11} />
+            <Key layerNames={props.layerNames} row={0} col={7} />
+            <Key layerNames={props.layerNames} row={0} col={8} />
+            <Key layerNames={props.layerNames} row={0} col={9} />
+            <Key layerNames={props.layerNames} row={0} col={10} />
+            <Key layerNames={props.layerNames} row={0} col={11} />
 
-            <Key row={1} col={7} />
-            <Key row={1} col={8} />
-            <Key row={1} col={9} />
-            <Key row={1} col={10} />
-            <Key row={1} col={11} />
+            <Key layerNames={props.layerNames} row={1} col={7} />
+            <Key layerNames={props.layerNames} row={1} col={8} />
+            <Key layerNames={props.layerNames} row={1} col={9} />
+            <Key layerNames={props.layerNames} row={1} col={10} />
+            <Key layerNames={props.layerNames} row={1} col={11} />
 
-            <Key row={2} col={6} />
-            <Key row={2} col={7} />
-            <Key row={2} col={8} />
-            <Key row={2} col={9} />
-            <Key row={2} col={10} />
-            <Key row={2} col={11} />
+            <Key layerNames={props.layerNames} row={2} col={6} />
+            <Key layerNames={props.layerNames} row={2} col={7} />
+            <Key layerNames={props.layerNames} row={2} col={8} />
+            <Key layerNames={props.layerNames} row={2} col={9} />
+            <Key layerNames={props.layerNames} row={2} col={10} />
+            <Key layerNames={props.layerNames} row={2} col={11} />
 
-            <Key row={3} col={6} />
-            <Key row={3} col={7} />
-            <Key row={3} col={8} />
-            <Key row={3} col={9} />
-            <Key row={3} col={10} />
-            <Key row={3} col={11} />
+            <Key layerNames={props.layerNames} row={3} col={6} />
+            <Key layerNames={props.layerNames} row={3} col={7} />
+            <Key layerNames={props.layerNames} row={3} col={8} />
+            <Key layerNames={props.layerNames} row={3} col={9} />
+            <Key layerNames={props.layerNames} row={3} col={10} />
+            <Key layerNames={props.layerNames} row={3} col={11} />
           </g>
         </g>
       </g>

@@ -46,6 +46,7 @@ const Keymap = (props) => {
       <g transform="translate(10,10)">
         <g transform="translate(5,5)">
           <Key
+            layerNames={props.layerNames}
             x={109}
             y={1}
             row={0}
@@ -56,6 +57,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={55}
             y={19.9}
             row={0}
@@ -66,6 +68,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={163}
             y={19.9}
             row={0}
@@ -76,6 +79,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={1}
             y={33.4}
             row={0}
@@ -86,6 +90,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={217}
             y={33.4}
             row={0}
@@ -97,6 +102,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={109}
             y={55}
             row={1}
@@ -107,6 +113,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={55}
             y={73.9}
             row={1}
@@ -117,6 +124,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={163}
             y={73.9}
             row={1}
@@ -127,6 +135,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={1}
             y={87.4}
             row={1}
@@ -137,6 +146,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={217}
             y={87.4}
             row={1}
@@ -148,6 +158,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={109}
             y={109}
             row={2}
@@ -158,6 +169,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={55}
             y={127.9}
             row={2}
@@ -168,6 +180,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={163}
             y={127.9}
             row={2}
@@ -178,6 +191,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={1}
             y={141.4}
             row={2}
@@ -188,6 +202,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={217}
             y={141.4}
             row={2}
@@ -198,6 +213,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={271}
             y={154.9}
             row={2}
@@ -210,6 +226,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={109}
             y={163}
             row={3}
@@ -220,6 +237,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={55}
             y={181.9}
             row={3}
@@ -230,6 +248,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={163}
             y={181.9}
             row={3}
@@ -240,6 +259,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={1}
             y={195.4}
             row={3}
@@ -250,6 +270,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={217}
             y={195.4}
             row={3}
@@ -261,6 +282,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={500.5}
             y={1}
             row={0}
@@ -271,6 +293,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={446.5}
             y={19.9}
             row={0}
@@ -281,6 +304,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={554.5}
             y={19.9}
             row={0}
@@ -291,6 +315,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={392.5}
             y={33.4}
             row={0}
@@ -301,6 +326,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={608.5}
             y={33.4}
             row={0}
@@ -312,6 +338,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={500.5}
             y={55}
             row={1}
@@ -322,6 +349,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={446.5}
             y={73.9}
             row={1}
@@ -332,6 +360,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={554.5}
             y={73.9}
             row={1}
@@ -342,6 +371,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={392.5}
             y={87.4}
             row={1}
@@ -352,6 +382,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={608.5}
             y={87.4}
             row={1}
@@ -363,6 +394,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={500.5}
             y={109}
             row={2}
@@ -373,6 +405,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={446.5}
             y={127.9}
             row={2}
@@ -383,6 +416,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={554.5}
             y={127.9}
             row={2}
@@ -393,6 +427,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={392.5}
             y={141.4}
             row={2}
@@ -403,6 +438,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={608.5}
             y={141.4}
             row={2}
@@ -413,6 +449,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={338.5}
             y={154.9}
             row={3}
@@ -425,6 +462,7 @@ const Keymap = (props) => {
           />
 
           <Key
+            layerNames={props.layerNames}
             x={500.5}
             y={163}
             row={3}
@@ -435,6 +473,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={446.5}
             y={181.9}
             row={3}
@@ -445,6 +484,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={554.5}
             y={181.9}
             row={3}
@@ -455,6 +495,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={392.5}
             y={195.4}
             row={3}
@@ -465,6 +506,7 @@ const Keymap = (props) => {
             onClick={props.onKeySelect}
           />
           <Key
+            layerNames={props.layerNames}
             x={608.5}
             y={195.4}
             row={3}

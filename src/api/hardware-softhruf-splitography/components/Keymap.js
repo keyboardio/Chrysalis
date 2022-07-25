@@ -41,6 +41,7 @@ const Keymap = (props) => {
       bottom = y + height * 40 - 4;
     const key = keymap[keyIndex(row, col)],
       stroke = selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
+    const legend = key && db.format(key, { layerNames: props.layerNames });
     return (
       <g
         transform={transform}
@@ -60,10 +61,10 @@ const Keymap = (props) => {
           fill="#ffffff"
         />
         <text x={x + 3} y={y + 14}>
-          {key && key.label && key.label.hint}
+          {legend?.hint}
         </text>
         <text x={x + 3} y={bottom}>
-          {key && key.label && db.format(key).main}
+          {legend?.main}
         </text>
       </g>
     );
@@ -76,49 +77,49 @@ const Keymap = (props) => {
       className={props.className || "layer"}
     >
       <g>
-        <Key x={1} y={1} row={0} col={0} />
-        <Key x={55} y={1} row={0} col={1} />
-        <Key x={109} y={1} row={0} col={2} />
-        <Key x={163} y={1} row={0} col={3} />
-        <Key x={217} y={1} row={0} col={4} />
-        <Key x={271} y={1} row={0} col={5} />
-        <Key x={379} y={1} row={0} col={6} />
-        <Key x={433} y={1} row={0} col={7} />
-        <Key x={487} y={1} row={0} col={8} />
-        <Key x={541} y={1} row={0} col={9} />
-        <Key x={595} y={1} row={0} col={10} />
-        <Key x={649} y={1} row={0} col={11} />
+        <Key layerNames={props.layerNames} x={1} y={1} row={0} col={0} />
+        <Key layerNames={props.layerNames} x={55} y={1} row={0} col={1} />
+        <Key layerNames={props.layerNames} x={109} y={1} row={0} col={2} />
+        <Key layerNames={props.layerNames} x={163} y={1} row={0} col={3} />
+        <Key layerNames={props.layerNames} x={217} y={1} row={0} col={4} />
+        <Key layerNames={props.layerNames} x={271} y={1} row={0} col={5} />
+        <Key layerNames={props.layerNames} x={379} y={1} row={0} col={6} />
+        <Key layerNames={props.layerNames} x={433} y={1} row={0} col={7} />
+        <Key layerNames={props.layerNames} x={487} y={1} row={0} col={8} />
+        <Key layerNames={props.layerNames} x={541} y={1} row={0} col={9} />
+        <Key layerNames={props.layerNames} x={595} y={1} row={0} col={10} />
+        <Key layerNames={props.layerNames} x={649} y={1} row={0} col={11} />
 
-        <Key x={1} y={55} row={1} col={0} />
-        <Key x={55} y={55} row={1} col={1} />
-        <Key x={109} y={55} row={1} col={2} />
-        <Key x={163} y={55} row={1} col={3} />
-        <Key x={217} y={55} row={1} col={4} />
-        <Key x={271} y={55} row={1} col={5} />
-        <Key x={379} y={55} row={1} col={6} />
-        <Key x={433} y={55} row={1} col={7} />
-        <Key x={487} y={55} row={1} col={8} />
-        <Key x={541} y={55} row={1} col={9} />
-        <Key x={595} y={55} row={1} col={10} />
-        <Key x={649} y={55} row={1} col={11} />
+        <Key layerNames={props.layerNames} x={1} y={55} row={1} col={0} />
+        <Key layerNames={props.layerNames} x={55} y={55} row={1} col={1} />
+        <Key layerNames={props.layerNames} x={109} y={55} row={1} col={2} />
+        <Key layerNames={props.layerNames} x={163} y={55} row={1} col={3} />
+        <Key layerNames={props.layerNames} x={217} y={55} row={1} col={4} />
+        <Key layerNames={props.layerNames} x={271} y={55} row={1} col={5} />
+        <Key layerNames={props.layerNames} x={379} y={55} row={1} col={6} />
+        <Key layerNames={props.layerNames} x={433} y={55} row={1} col={7} />
+        <Key layerNames={props.layerNames} x={487} y={55} row={1} col={8} />
+        <Key layerNames={props.layerNames} x={541} y={55} row={1} col={9} />
+        <Key layerNames={props.layerNames} x={595} y={55} row={1} col={10} />
+        <Key layerNames={props.layerNames} x={649} y={55} row={1} col={11} />
 
-        <Key x={1} y={109} row={2} col={0} />
-        <Key x={55} y={109} row={2} col={1} />
-        <Key x={109} y={109} row={2} col={2} />
-        <Key x={163} y={109} row={2} col={3} />
-        <Key x={217} y={109} row={2} col={4} />
-        <Key x={271} y={109} row={2} col={5} />
-        <Key x={379} y={109} row={2} col={6} />
-        <Key x={433} y={109} row={2} col={7} />
-        <Key x={487} y={109} row={2} col={8} />
-        <Key x={541} y={109} row={2} col={9} />
-        <Key x={595} y={109} row={2} col={10} />
-        <Key x={649} y={109} row={2} col={11} />
+        <Key layerNames={props.layerNames} x={1} y={109} row={2} col={0} />
+        <Key layerNames={props.layerNames} x={55} y={109} row={2} col={1} />
+        <Key layerNames={props.layerNames} x={109} y={109} row={2} col={2} />
+        <Key layerNames={props.layerNames} x={163} y={109} row={2} col={3} />
+        <Key layerNames={props.layerNames} x={217} y={109} row={2} col={4} />
+        <Key layerNames={props.layerNames} x={271} y={109} row={2} col={5} />
+        <Key layerNames={props.layerNames} x={379} y={109} row={2} col={6} />
+        <Key layerNames={props.layerNames} x={433} y={109} row={2} col={7} />
+        <Key layerNames={props.layerNames} x={487} y={109} row={2} col={8} />
+        <Key layerNames={props.layerNames} x={541} y={109} row={2} col={9} />
+        <Key layerNames={props.layerNames} x={595} y={109} row={2} col={10} />
+        <Key layerNames={props.layerNames} x={649} y={109} row={2} col={11} />
 
-        <Key x={190} y={163} row={3} col={4} />
-        <Key x={244} y={163} row={3} col={5} />
-        <Key x={406} y={163} row={3} col={6} />
-        <Key x={460} y={163} row={3} col={7} />
+        <Key layerNames={props.layerNames} x={190} y={163} row={3} col={4} />
+        <Key layerNames={props.layerNames} x={244} y={163} row={3} col={5} />
+        <Key layerNames={props.layerNames} x={406} y={163} row={3} col={6} />
+        <Key layerNames={props.layerNames} x={460} y={163} row={3} col={7} />
       </g>
     </svg>
   );

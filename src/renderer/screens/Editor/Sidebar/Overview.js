@@ -89,7 +89,10 @@ const Overview = (props) => {
   }
 
   const config = usedLayers.map((layerData, index) => {
-    const label = db.format(layerData[selectedKey], { keycapSize: "full" });
+    const label = db.format(layerData[selectedKey], {
+      keycapSize: "full",
+      layerNames: props.layerNames,
+    });
     let colorWidget;
     if (colormap && colormap.palette.length > 0) {
       const colorIndex = colormap.colorMap[index][selectedLed];

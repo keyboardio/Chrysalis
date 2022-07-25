@@ -160,7 +160,9 @@ const Overview = (props) => {
           <Tooltip title={t("editor.sidebar.overview.help")}>
             <TableHead>
               <TableRow>
-                <TableCell size="small">{t("components.layerRaw")}</TableCell>
+                <TableCell size="small" width="33%">
+                  {t("components.layerRaw")}
+                </TableCell>
                 <TableCell>
                   {t("editor.sidebar.overview.key", {
                     index: selectedKey,

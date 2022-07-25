@@ -14,6 +14,32 @@ When the running firmware supports it, Chrysalis is now able to set custom layer
 names, which will be displayed throughout the application instead of the default
 layer indexes.
 
+## UI/UX
+
+When Chrysalis can't identify the firmware version running on the connected
+keyboard, it will say so on the firmware update screen, rather than leaving the
+area blank.
+
+After printing something, Chrysalis will now display a notification whether the
+operation succeeded or failed (to the best of its knowledge).
+
+The layer name column of the Overview panel on the Editor sidebar has been
+narrowed a little, as it was often taking up half of the width, while completely
+unnecessary.
+
+## Bugfixes
+
+When Chrysalis is configured to use an operating system-side layout other than
+the default US QWERTY, keys that are augmented by modifiers will now display
+correctly, respecting the selected layout, rather than displaying the modifier
+and the US QWERTY label.
+
+Some time ago, we had to move some of the keycodes around to fix a bug, and
+Chrysalis was taught to offer a migration path if it encountered the old, legacy
+keycodes. A bug in the migration code that prevented it from running when
+clicking the "Migrate" button was squashed, and the functionality works again
+now.
+
 Chrysalis 0.10.4
 ================
 Released on 2022-07-07

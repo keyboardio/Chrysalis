@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 var electron_notarize = require("electron-notarize");
 
-module.exports = async function(params) {
+module.exports = async function (params) {
   // Only notarize the app on Mac OS only.
   if (process.platform !== "darwin") {
     return;
@@ -14,10 +14,7 @@ module.exports = async function(params) {
   // Same appId in electron-builder.
   let appId = "com.dygmalab.bazecor";
 
-  let appPath = path.join(
-    params.appOutDir,
-    `${params.packager.appInfo.productFilename}.app`
-  );
+  let appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`);
   if (!fs.existsSync(appPath)) {
     throw new Error(`Cannot find application at: ${appPath}`);
   }
@@ -28,8 +25,8 @@ module.exports = async function(params) {
     await electron_notarize.notarize({
       appBundleId: appId,
       appPath: appPath,
-      appleId: process.env.appleId,
-      appleIdPassword: process.env.appleIdPassword,
+      appleId: process.env.APPLEID,
+      appleIdPassword: process.env.APPLEIDPASS
     });
   } catch (error) {
     console.error(error);

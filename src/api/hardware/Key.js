@@ -31,6 +31,7 @@ const Key = ({
   dataLedIndex,
   dataKeyIndex,
   dataLayer,
+  selectedKey,
   contrastText,
   centerPrimary,
   centerExtra
@@ -41,6 +42,7 @@ const Key = ({
   const widthShape2 = width - 8;
   const heightShape2 = height - 8;
   const [extraLabelClass, setExtraLabelClass] = React.useState(false);
+  const [isActive, setIsActive] = React.useState(false);
   const setExtralabel = React.useRef(null);
 
   const [altApplied, setAltApplied] = React.useState(false);
@@ -78,6 +80,14 @@ const Key = ({
       ? setHyperApplied(true)
       : setHyperApplied(false);
   }, [centerPrimary, centerExtra]);
+
+  // React.useEffect(() => {
+  //   console.log("selectedKey internal: ", parseInt(selectedKey));
+  //   console.log("dataKeyIndex internal: ", dataKeyIndex);
+  //   if (parseInt(selectedKey) === parseInt(dataKeyIndex)) {
+  //     setIsActive(true);
+  //   }
+  // }, [selectedKey]);
 
   return (
     <>

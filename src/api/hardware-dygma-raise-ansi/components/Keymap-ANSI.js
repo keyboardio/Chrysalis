@@ -317,7 +317,7 @@ class KeymapANSI extends React.Component {
         : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 7), smallKey);
 
     // console.log("Selected Key: ", this.props.selectedKey);
-    console.log("Selected LED: ", this.props.selectedLED);
+    // console.log("Selected LED: ", this.props.selectedLED);
     return (
       <>
         <svg
@@ -360,6 +360,7 @@ class KeymapANSI extends React.Component {
               height={57}
               x={84}
               y={keysRowsPosition.row1}
+              selectedKey={this.props.selectedKey}
               fill={getColor(0, 0)}
               stroke={stroke(0, 0)}
               strokeWidth={getStrokeWidth(0, 0)}
@@ -379,6 +380,7 @@ class KeymapANSI extends React.Component {
               height={57}
               x={151}
               y={keysRowsPosition.row1}
+              selectedKey={this.props.selectedKey}
               fill={getColor(0, 1)}
               stroke={stroke(0, 1)}
               strokeWidth={getStrokeWidth(0, 1)}
@@ -398,6 +400,7 @@ class KeymapANSI extends React.Component {
               height={57}
               x={218}
               y={keysRowsPosition.row1}
+              selectedKey={this.props.selectedKey}
               fill={getColor(0, 2)}
               stroke={stroke(0, 2)}
               strokeWidth={getStrokeWidth(0, 2)}
@@ -417,6 +420,7 @@ class KeymapANSI extends React.Component {
               height={57}
               x={285}
               y={keysRowsPosition.row1}
+              selectedKey={this.props.selectedKey}
               fill={getColor(0, 3)}
               stroke={stroke(0, 3)}
               strokeWidth={getStrokeWidth(0, 3)}

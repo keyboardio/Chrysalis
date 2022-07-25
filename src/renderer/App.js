@@ -114,6 +114,17 @@ const App = (props) => {
     setTheme("system");
   };
 
+  const handlePrintFeedback = (event, feedback) => {
+    logger().debug("print feedback received", { feedback });
+    if (feedback === "success") {
+      toast.success(t("print.feedback.success"), {
+        autoHideDuration: 5000,
+      });
+    } else if (feedback !== "canceled") {
+      toast.error(t("print.feedback.error"));
+    }
+  };
+
   useEffect(() => {
     async function setupLayout() {
       const layoutSetting = await settings.get(
@@ -131,11 +142,13 @@ const App = (props) => {
   useEffect(() => {
     ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
     ipcRenderer.on("native-theme.updated", handleNativeThemeUpdate);
+    ipcRenderer.on("print.feedback", handlePrintFeedback);
 
     setTheme(settings.get("ui.theme", "system"));
 
     // Specify how to clean up after this effect:
     return function cleanup() {
+      ipcRenderer.removeListener("print.feedback", handlePrintFeedback);
       ipcRenderer.removeListener(
         "native-theme.updated",
         handleNativeThemeUpdate

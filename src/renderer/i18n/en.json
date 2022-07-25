@@ -4,6 +4,12 @@
     "deviceDisconnected": "Keyboard disconnected",
     "saveFile": "Error saving a file: {{ error }}"
   },
+  "print": {
+    "feedback": {
+      "success": "Successfully printed!",
+      "error": "Error encountered while printing."
+    }
+  },
   "components": {
     "layer": "Layer {{index}}",
     "layerRaw": "Layer",

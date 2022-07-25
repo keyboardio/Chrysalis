@@ -15,6 +15,7 @@
  */
 
 import { app, BrowserWindow, Menu } from "electron";
+import { sendToRenderer } from "./utils";
 
 const isMac = process.platform === "darwin";
 export const buildMenu = (mainWindow) => {
@@ -48,10 +49,19 @@ export const buildMenu = (mainWindow) => {
           accelerator: "CmdOrCtrl+P",
 
           click: () => {
-            BrowserWindow.getFocusedWindow().webContents.print({
-              color: true,
-              printBackground: true,
-            });
+            BrowserWindow.getFocusedWindow().webContents.print(
+              {
+                color: true,
+                printBackground: true,
+              },
+              (success, errorType) => {
+                if (success) {
+                  sendToRenderer("print.feedback", "success");
+                } else {
+                  sendToRenderer("print.feedback", errorType);
+                }
+              }
+            );
           },
         },
       ],

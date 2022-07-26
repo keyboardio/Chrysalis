@@ -159,18 +159,23 @@ class Focus {
     const bootloader = focusDeviceDescriptor.usb.bootloader;
 
     for (let attempt = 0; attempt < 10; attempt++) {
-      const found = await ipcRenderer.invoke(
+      const deviceList = await ipcRenderer.invoke(
         "usb.scan-for-devices",
         bootloader.productId,
         bootloader.vendorId
       );
-      if (found) {
-        logger("focus").info("bootloader found", {
-          vid: bootloader.vendorId,
-          pid: bootloader.productId,
-          function: "waitForDFUBootloader",
-        });
-        return true;
+
+      for (const device of deviceList) {
+        const pid = device.deviceDescriptor.idProduct,
+          vid = device.deviceDescriptor.idVendor;
+
+        if (pid == bootloader.productId && vid == bootloader.vendorId) {
+          logger("focus").info("bootloader found", {
+            device: bootloader,
+            function: "waitForDFUBootloader",
+          });
+          return true;
+        }
       }
 
       logger("focus").debug("bootloader not found, waiting 2s", {

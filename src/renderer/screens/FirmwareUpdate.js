@@ -35,6 +35,8 @@ import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
+import { ipcRenderer } from "electron";
+import path from "path";
 import { useTranslation } from "react-i18next";
 
 import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
@@ -63,6 +65,18 @@ const FirmwareUpdate = (props) => {
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
+  const defaultFirmwareFilename = () => {
+    const { vendor, product } = focusDeviceDescriptor.info;
+    const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
+    const cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", "");
+    return path.join(
+      ipcRenderer.sendSync("firmware.get-base-directory"),
+      cVendor,
+      cProduct,
+      "default." + firmwareType
+    );
+  };
   const _flash = async (options) => {
     const focus = new Focus();
 
@@ -87,7 +101,7 @@ const FirmwareUpdate = (props) => {
     return focusDeviceDescriptor.flash(
       focus._port,
       selectedFirmwareType === "default"
-        ? activeDevice.defaultFirmwareFilename()
+        ? defaultFirmwareFilename()
         : firmwareFilename,
 
       Object.assign({}, options, {

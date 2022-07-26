@@ -16,8 +16,6 @@
  */
 
 import Focus from "@api/focus";
-import path from "path";
-import { ipcRenderer } from "electron";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -67,18 +65,5 @@ export function ActiveDevice() {
     } else {
       return false;
     }
-  };
-  this.defaultFirmwareFilename = () => {
-    const { vendor, product } = this.focus.focusDeviceDescriptor.info;
-    const firmwareType =
-      this.focus.focusDeviceDescriptor.info.firmwareType || "hex";
-    const cVendor = vendor.replace("/", ""),
-      cProduct = product.replace("/", "");
-    return path.join(
-      ipcRenderer.sendSync("firmware.get-base-directory"),
-      cVendor,
-      cProduct,
-      "default." + firmwareType
-    );
   };
 }

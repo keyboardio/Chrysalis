@@ -123,7 +123,8 @@ function MainMenu({ open, closeMenu, classes }) {
 
               "/editor"
             )}
-          {listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
+          {activeDevice &&
+            listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
 
           {listItem(
             <CloudUploadIcon />,

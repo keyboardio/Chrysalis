@@ -20,35 +20,42 @@ import Hardware from "@api/hardware";
 import { ipcRenderer } from "electron";
 
 const findNonSerialKeyboards = async (deviceList) => {
-  return ipcRenderer.invoke("usb.scan-for-devices").then((devicesConnected) => {
-    const devices = devicesConnected.map((device) => device.deviceDescriptor);
-    devices.forEach((desc) => {
-      Hardware.nonSerial.forEach((port) => {
-        if (
-          desc.idVendor == port.usb.vendorId &&
-          desc.idProduct == port.usb.productId
-        ) {
-          let found = false;
-          deviceList.forEach((port) => {
-            if (
-              port.focusDeviceDescriptor.usb.vendorId == desc.idVendor &&
-              port.focusDeviceDescriptor.usb.productId == desc.idProduct
-            ) {
-              found = true;
-            }
-          });
-          if (!found) {
-            deviceList.push({
-              accessible: true,
-              focusDeviceDescriptor: port,
-            });
-          }
-        }
-      });
-    });
+  const connected = (await ipcRenderer.invoke("usb.scan-for-devices")).map(
+    (device) => device.deviceDescriptor
+  );
 
-    return deviceList;
-  });
+  for (const device of connected) {
+    const dVid = device.idVendor,
+      dPid = device.idProduct;
+
+    for (const hw of Hardware.nonSerial) {
+      let found = false;
+      let bootloader = false;
+      if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
+        found = true;
+      } else if (
+        dVid == hw.usb.bootloader?.vendorId &&
+        dPid == hw.usb.bootloader?.productId
+      ) {
+        found = true;
+        bootloader = true;
+      }
+      if (!found) continue;
+
+      if (
+        !deviceList.some((d) => {
+          const usb = d.focusDeviceDescriptor.usb;
+          return usb.vendorId == dVid && usb.productId == dPid;
+        })
+      ) {
+        deviceList.push({
+          accessible: true,
+          focusDeviceDescriptor: Object.assign({}, hw, { bootloader }),
+        });
+      }
+    }
+  }
+  return deviceList;
 };
 
 export const findKeyboards = async () => {

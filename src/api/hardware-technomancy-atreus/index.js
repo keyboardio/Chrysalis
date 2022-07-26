@@ -32,6 +32,11 @@ const Atreus = {
   usb: {
     vendorId: 0x1209,
     productId: 0xa1e5,
+    bootloader: {
+      vendorId: 0x16c0,
+      productId: 0x0478,
+      protocol: "teensy",
+    },
   },
   keyboard: {
     rows: 4,
@@ -43,10 +48,10 @@ const Atreus = {
 
   flashSteps: (options) => {
     if (options?.factoryReset) {
-      return ["factoryRestore", "flash"];
+      return ["factoryRestore", "bootloader", "flash"];
     }
 
-    return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
+    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
     return flash(flashers.teensy, null, port, filename, options);

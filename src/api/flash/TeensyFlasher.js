@@ -20,7 +20,21 @@ import TeensyLoader from "teensy-loader";
 
 import { delay, toStep } from "./utils";
 
-export const TeensyFlasher = async (board, port, filename, options) => {
+const HalfKayUSBDescriptor = {
+  vendorId: 0x16c0,
+  productId: 0x0478,
+};
+
+const rebootToNormal = async (port) => {
+  logger("flash").debug("rebooting to normal mode");
+  const device = await TeensyLoader.open(
+    HalfKayUSBDescriptor.vendorId,
+    HalfKayUSBDescriptor.productId
+  );
+  await TeensyLoader.reboot(device);
+};
+
+const flash = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -28,5 +42,12 @@ export const TeensyFlasher = async (board, port, filename, options) => {
       };
 
   await toStep(callback)("flash");
-  await TeensyLoader.upload(0x16c0, 0x0478, filename);
+  const device = await TeensyLoader.open(
+    HalfKayUSBDescriptor.vendorId,
+    HalfKayUSBDescriptor.productId
+  );
+  await TeensyLoader.upload(device, filename);
+  await TeensyLoader.reboot(device);
 };
+
+export const TeensyFlasher = { rebootToNormal, flash };

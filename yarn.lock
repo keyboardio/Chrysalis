@@ -10387,13 +10387,13 @@ tar@^6.1.11:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-teensy-loader@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/teensy-loader/-/teensy-loader-0.2.0.tgz#be9af49c8c06985e2deb0b999efb86f6157fb603"
-  integrity sha512-rV0VK19aV+iP8t5L5weYCF8HMSTd7kK4JOt5T3CQpjCLDSLRfWTL9PDNEHC2WB2CVSOgsEnVLp1LPA0N0od++g==
+teensy-loader@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/teensy-loader/-/teensy-loader-0.3.1.tgz#5de6a88c2ed85b910116b6f1289d025be548fb28"
+  integrity sha512-VYj96zMcYQhIj/MYLVlemh33RNWm++wbLQipLjXEmuiVhcxKHtvnHC7Nad6tvBpC/C0jWh/jd3TC7B8bA/PO9w==
   dependencies:
     intel-hex "^0.1.1"
-    usb "^2.1.3"
+    usb "^2.4.2"
 
 temp-file@^3.4.0:
   version "3.4.0"
@@ -10947,7 +10947,7 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-usb@^2.1.3, usb@^2.4.2:
+usb@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/usb/-/usb-2.4.2.tgz#f2230d594fded7924fd9e922a4afcca7a8e114dd"
   integrity sha512-GzxxhFbH0TnjutDXRb7HhjNUCfcg3L6rC0Ya6oveiGeNbs0saQbCZh0G71xd8TKOyI9KKWzcZprsqnDoTFZRTw==

@@ -117,7 +117,7 @@
     "source-map-support": "^0.5.16",
     "sudo-prompt": "^9.2.1",
     "systeminformation": "^5.3.1",
-    "teensy-loader": "^0.2.0",
+    "teensy-loader": "^0.3.1",
     "tmp": "^0.2.1",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",

@@ -21,18 +21,7 @@ import path from "path";
 
 import { delay, toStep } from "./utils";
 
-export const DFUUtilFlasher = async (board, port, filename, options) => {
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-  const device = options.device;
-
-  const formatID = (desc) => {
-    return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
-  };
-
+const runDFUUtil = async (args) => {
   const dfuUtil = path.join(
     getStaticPath(),
     "dfu-util",
@@ -40,53 +29,67 @@ export const DFUUtilFlasher = async (board, port, filename, options) => {
     "dfu-util"
   );
 
-  let dyld_library_path = "";
-  // dfu-util on darwin needs to know where its custom libusb is
-  if (process.platform === "darwin") {
-    dyld_library_path = path.join(
-      getStaticPath(),
-      "dfu-util",
-      process.platform
-    );
-  }
+  const maxFlashingTime = 1000 * 60 * 5;
 
-  const runCommand = async (args) => {
-    const timeout = 1000 * 60 * 5;
-    return new Promise((resolve, reject) => {
-      logger("flash").debug("running dfu-util", { args: args });
-      const child = spawn(dfuUtil, args, {
-        env: { ...process.env, DYLD_LIBRARY_PATH: dyld_library_path },
-      });
-      child.stdout.on("data", (data) => {
-        logger("flash").debug("dfu-util:stdout:", { data: data.toString() });
-      });
-      child.stderr.on("data", (data) => {
-        logger("flash").debug("dfu-util:stderr:", { data: data.toString() });
-      });
-      const timer = setTimeout(() => {
-        child.kill();
-        logger("flash").error("dfu-util timed out");
-        reject("dfu-util timed out");
-      }, timeout);
-      child.on("exit", (code) => {
-        clearTimeout(timer);
-        if (code == 0 || code == 251) {
-          logger("flash").debug("dfu-util done");
-          resolve();
-        } else {
-          logger("flash").error("dfu-util exited abnormally", {
-            exitCode: code,
-          });
-          reject("dfu-util exited abnormally with an error code of " + code);
-        }
-      });
+  return new Promise((resolve, reject) => {
+    logger("flash").debug("running dfu-util", { args: args });
+    const child = spawn(dfuUtil, args);
+    child.stdout.on("data", (data) => {
+      logger("flash").debug("dfu-util:stdout:", { data: data.toString() });
     });
-  };
+    child.stderr.on("data", (data) => {
+      logger("flash").debug("dfu-util:stderr:", { data: data.toString() });
+    });
+    const timer = setTimeout(() => {
+      child.kill();
+      logger("flash").error("dfu-util timed out");
+      reject("dfu-util timed out");
+    }, maxFlashingTime);
+    child.on("exit", (code) => {
+      clearTimeout(timer);
+      if (code == 0 || code == 251) {
+        logger("flash").debug("dfu-util done");
+        resolve();
+      } else {
+        logger("flash").error("dfu-util exited abnormally", {
+          exitCode: code,
+        });
+        reject("dfu-util exited abnormally with an error code of " + code);
+      }
+    });
+  });
+};
+
+const formatDeviceUSBId = (desc) => {
+  return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
+};
+
+const rebootToNormal = async (port, device) => {
+  logger("flash").debug("rebooting to normal mode");
+  await runDFUUtil([
+    "--device",
+    formatDeviceUSBId(device.usb) +
+      "," +
+      formatDeviceUSBId(device.usb.bootloader),
+    "--reset",
+    "--detach",
+  ]);
+};
+
+const flash = async (board, port, filename, options) => {
+  const callback = options
+    ? options.callback
+    : function () {
+        return;
+      };
+  const device = options.device;
 
   await toStep(callback)("flash");
-  await runCommand([
+  await runDFUUtil([
     "--device",
-    formatID(device.usb) + "," + formatID(device.usb.bootloader),
+    formatDeviceUSBId(device.usb) +
+      "," +
+      formatDeviceUSBId(device.usb.bootloader),
     "--alt",
     "0",
     "--intf",
@@ -96,3 +99,5 @@ export const DFUUtilFlasher = async (board, port, filename, options) => {
     filename,
   ]);
 };
+
+export const DFUUtilFlasher = { rebootToNormal, flash };

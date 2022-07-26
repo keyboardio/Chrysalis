@@ -15,90 +15,35 @@
  */
 
 import { logger } from "@api/log";
-import { getStaticPath } from "@renderer/config";
 import AvrGirl from "avrgirl-arduino";
-import path from "path";
-import { spawn } from "child_process";
+const { SerialPort } = require("serialport");
 
-import { delay, toStep } from "./utils";
+import { toStep } from "./utils";
 
-const AvrDude = async (_, port, filename, options) => {
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-  const device = options.device;
-  const timeout = 1000 * 60 * 5;
+const rebootToNormal = async (port, _) => {
+  logger("flash").debug("rebooting to normal mode");
 
-  const runCommand = async (args) => {
-    await toStep(callback)("flash");
-    return new Promise((resolve, reject) => {
-      const avrdude = path.join(
-        getStaticPath(),
-        "avrdude",
-        process.platform,
-        "avrdude"
-      );
-      logger("flash").debug("running avrdude", { args: args });
-      const child = spawn(avrdude, args);
-      child.stdout.on("data", (data) => {
-        logger("flash").debug("avrdude:stdout:", { data: data.toString() });
-      });
-      child.stderr.on("data", (data) => {
-        logger("flash").debug("avrdude:stderr:", { data: data.toString() });
-      });
-      const timer = setTimeout(() => {
-        child.kill();
-        logger("flash").debug("avrdude timed out");
-        reject("avrdude timed out");
-      }, timeout);
-      child.on("exit", (code) => {
-        clearTimeout(timer);
-        if (code == 0) {
-          logger("flash").debug("avrdude done");
-          resolve();
-        } else {
-          logger("flash").error("avrdude exited abnormally", {
-            errorCode: code,
-          });
-          reject("avrdude exited abnormally");
-        }
-      });
-    });
-  };
+  // To reboot a device using the AVR109 protocol from bootloader to normal
+  // mode, we simply have to exit the bootloader. To do so, we need to connect
+  // to the port, and send `E`, the command for "Exit bootloader".
+  //
+  // Reference: https://ww1.microchip.com/downloads/en/AppNotes/doc1644.pdf, page 9
 
   try {
-    await port.close();
-  } catch (_) {
-    /* ignore the error */
+    const serial = new SerialPort({
+      path: port.path,
+      baudRate: 9600,
+    });
+    serial.write("E");
+  } catch (e) {
+    logger("flash").error("error while trying to reboot to normal mode", {
+      path: port.path,
+      error: e,
+    });
   }
-  await delay(1000);
-
-  const configFile = path.join(getStaticPath(), "avrdude", "avrdude.conf");
-  await runCommand([
-    "-C",
-    configFile,
-    "-v",
-    "-v",
-    "-patmega32u4",
-    "-cavr109",
-    "-D",
-    "-P",
-    port.path,
-    "-b57600",
-    "-Uflash:w:" + filename + ":i",
-  ]);
 };
 
-export const AVRGirlFlasher = async (board, port, filename, options) => {
-  // We do not check if the external flasher exists here. The caller is
-  // responsible for doing that.
-  const preferExternalFlasher = options && options.preferExternalFlasher;
-  if (preferExternalFlasher) {
-    return AvrDude(board, port, filename, options);
-  }
-
+const flash = async (board, port, filename, options) => {
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
@@ -139,3 +84,5 @@ export const AVRGirlFlasher = async (board, port, filename, options) => {
     }
   });
 };
+
+export const AVRGirlFlasher = { flash, rebootToNormal };

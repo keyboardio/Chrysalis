@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { RebootMessage } from "@api/flash";
 import Focus from "@api/focus";
 import { logger } from "@api/log";
 import CheckIcon from "@mui/icons-material/Check";
@@ -31,7 +32,6 @@ import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
@@ -44,9 +44,7 @@ import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
-
-const Store = require("electron-store");
-const settings = new Store();
+import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
@@ -55,6 +53,9 @@ const FirmwareUpdate = (props) => {
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
+
+  const [flashNotificationOpen, setFlashNotificationOpen] = useState(false);
+  const [flashNotificationMsg, setFlashNotificationMsg] = useState(null);
 
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -82,11 +83,6 @@ const FirmwareUpdate = (props) => {
 
     const nextStep = async (desiredState) => {
       const steps = focusDeviceDescriptor.flashSteps(options);
-      if (desiredState == "bootloaderWait") {
-        toast.info(t("firmwareUpdate.flashing.releasePROG"), {
-          autoHideDuration: 5000,
-        });
-      }
       setActiveStep(Math.min(activeStep + 1, steps.length));
       steps.forEach((step, index) => {
         if (step == desiredState) {
@@ -95,9 +91,13 @@ const FirmwareUpdate = (props) => {
       });
     };
 
-    const preferExternalFlasher =
-      (await settings.get("flash.preferExternalFlasher")) &&
-      (await checkExternalFlasher(focusDeviceDescriptor));
+    const onError = (msg) => {
+      if (msg !== RebootMessage.clear) {
+        setFlashNotificationMsg(msg);
+      }
+      setFlashNotificationOpen(msg !== RebootMessage.clear);
+    };
+
     return focusDeviceDescriptor.flash(
       focus._port,
       selectedFirmwareType === "default"
@@ -105,10 +105,10 @@ const FirmwareUpdate = (props) => {
         : firmwareFilename,
 
       Object.assign({}, options, {
-        preferExternalFlasher: preferExternalFlasher,
         device: focusDeviceDescriptor,
         focus: focus,
         callback: nextStep,
+        onError: onError,
       })
     );
   };
@@ -235,6 +235,10 @@ const FirmwareUpdate = (props) => {
         </Typography>
         {instructions}
       </ConfirmationDialog>
+      <FlashNotification
+        open={flashNotificationOpen}
+        message={flashNotificationMsg}
+      />
     </>
   );
 };

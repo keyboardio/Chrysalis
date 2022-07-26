@@ -19,19 +19,13 @@ import { FocusCommands } from "@api/flash/FocusCommands";
 import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Divider from "@mui/material/Divider";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
-import PreferenceSwitch from "../components/PreferenceSwitch";
-
-const Store = require("electron-store");
-const settings = new Store();
 
 const AdvancedKeyboardPreferences = (props) => {
   const { t } = useTranslation();
@@ -40,9 +34,6 @@ const AdvancedKeyboardPreferences = (props) => {
   const [activeDevice] = globalContext.state.activeDevice;
   const [EEPROMResetConfirmationOpen, setEEPROMResetConfirmationOpen] =
     useState(false);
-  const [externalFlasherAvailable, setExternalFlasherAvailable] =
-    useState(false);
-  const [preferExternalFlasher, _setPreferExternalFlasher] = useState(false);
   const [working, setWorking] = useState(false);
 
   const focusCommands = new FocusCommands({ focus: activeDevice.focus });
@@ -63,37 +54,8 @@ const AdvancedKeyboardPreferences = (props) => {
     setEEPROMResetConfirmationOpen(false);
   };
 
-  const setPreferExternalFlasher = async (event) => {
-    settings.set("flash.preferExternalFlasher", event.target.checked);
-    _setPreferExternalFlasher(event.target.checked);
-  };
-
-  useEffect(() => {
-    const check = async () => {
-      const descriptor = activeDevice.focus.focusDeviceDescriptor;
-      const available = await checkExternalFlasher(descriptor);
-
-      setExternalFlasherAvailable(available);
-      _setPreferExternalFlasher(
-        await settings.get("flash.preferExternalFlasher")
-      );
-    };
-
-    check();
-  }, [activeDevice]);
-
   return (
     <PreferenceSection name="keyboard.advanced">
-      {externalFlasherAvailable && (
-        <>
-          <PreferenceSwitch
-            option="keyboard.flash.preferExternal"
-            checked={preferExternalFlasher}
-            onChange={setPreferExternalFlasher}
-          />
-          <Divider sx={{ mx: -2, my: 2 }} />
-        </>
-      )}
       <Button
         disabled={working}
         variant="outlined"

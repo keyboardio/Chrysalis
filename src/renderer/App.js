@@ -92,7 +92,7 @@ const App = (props) => {
     // However, it only renders a blank screen. New route is rendered below.
     await navigate("./");
 
-    if (!focus._port.isOpen) {
+    if (!focus?._port?.isOpen) {
       toast.warning(t("errors.deviceDisconnected"));
     }
 

@@ -293,11 +293,6 @@
                     "contents": "Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen."
                 }
             },
-            "flash": {
-                "preferExternal": {
-                    "label": "Gebruik een extern programma om te flashen"
-                }
-            },
             "led": {
                 "label": "LED voorkeuren",
                 "idle": {
@@ -356,13 +351,10 @@
         },
         "flashing": {
             "error": "Fout bij het flashen van de firmware",
-            "releasePROG": "Bootloader gedetecteerd. Als je een toets ingedrukt houdt, laat hem dan los.",
             "success": "Firmware successvol geflasht!",
             "button": "Update",
             "steps": {
                 "factoryRestore": "Terugzetten naar fabrieksinstellingen",
-                "bootloaderTrigger": "Bootloader triggeren",
-                "bootloaderWait": "Wachten op bootloader",
                 "saveEEPROM": "EEPROM inhoud opslaan",
                 "restoreEEPROM": "EEPROM inhoud terugzetten",
                 "reconnect": "Opnieuw verbinden",

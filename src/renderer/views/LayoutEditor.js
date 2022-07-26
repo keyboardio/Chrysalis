@@ -1603,7 +1603,7 @@ class LayoutEditor extends React.Component {
   }
 
   layerName(index) {
-    return this.state.layerNames.length >= index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
+    return this.state.layerNames.length > index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
   }
   modeSelectToggle = data => {
     if (this.state.isStandardView) {

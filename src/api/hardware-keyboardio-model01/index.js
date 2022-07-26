@@ -22,7 +22,7 @@ const Model01 = {
   info: {
     vendor: "Keyboardio",
     product: "Model01",
-    displayName: "Keyboardio Model01",
+    displayName: "Keyboardio Model 01",
     urls: [
       {
         name: "Homepage",
@@ -79,7 +79,7 @@ const Model100 = {
     vendor: "Keyboardio",
     product: "Model100",
     firmwareType: "bin",
-    displayName: "Keyboardio Model100",
+    displayName: "Keyboardio Model 100",
     urls: [
       {
         name: "Homepage",
@@ -129,7 +129,7 @@ const Model100Bootloader = {
     vendor: "Keyboardio",
     product: "Model100",
     firmwareType: "bin",
-    displayName: "Keyboardio Model100",
+    displayName: "Keyboardio Model 100",
     urls: [
       {
         name: "Homepage",

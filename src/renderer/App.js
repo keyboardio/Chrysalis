@@ -224,9 +224,11 @@ const App = (props) => {
   };
 
   const onKeyboardDisconnect = async () => {
-    logger().info("Disconnecting from keyboard", {
-      path: await activeDevice.devicePath(),
-    });
+    if (activeDevice) {
+      logger().info("Disconnecting from keyboard", {
+        path: await activeDevice.devicePath(),
+      });
+    }
     await navigate("./");
 
     await focus.close();

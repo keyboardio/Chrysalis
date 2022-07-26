@@ -295,11 +295,6 @@
                     "contents": "这将把EEPROM重置为出厂默认值。你将失去所有的自定义设置。"
                 }
             },
-            "flash": {
-                "preferExternal": {
-                    "label": "使用外部程序进行闪烁"
-                }
-            },
             "led": {
                 "label": "LED选项",
                 "idle": {
@@ -369,13 +364,11 @@
         },
         "flashing": {
             "error": "刷写固件时出错",
-            "releasePROG": "检测到启动器如果你按住一个键，请释放它。",
             "success": "固件刷写成功!",
             "button": "更新",
             "factoryResetButton": "恢复出厂设置",
             "steps": {
                 "factoryRestore": "恢复出厂默认值",
-                "bootloaderTrigger": "触发引导加载程序",
                 "bootloaderWait": "等待引导加载程序",
                 "saveEEPROM": "保存EEPROM内容",
                 "restoreEEPROM": "恢复EEPROM内容",

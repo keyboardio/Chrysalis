@@ -32,6 +32,11 @@ const FirmwareVersion = (props) => {
 
   useEffectOnce(() => {
     const fetchData = async () => {
+      if (!activeDevice?.focus) {
+        setFwVersion(t("firmwareUpdate.currentFirmwareVersionUnavailable"));
+        return;
+      }
+
       const v = await activeDevice.focus.command("version");
       if (v) {
         setFwVersion(v);

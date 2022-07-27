@@ -27,6 +27,7 @@ export const GlobalContextProvider = (props) => {
   const [activeDevice, setActiveDevice] = useState(null);
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [firmwareUpdateWarning, setFirmwareUpdateWarning] = useState(false);
+  const [hideHeaderInPrint, setHideHeaderInPrint] = useState(false);
 
   const getDarkMode = () => {
     if (theme == "system") {
@@ -43,6 +44,7 @@ export const GlobalContextProvider = (props) => {
     activeDevice: [activeDevice, setActiveDevice],
     updateAvailable: [updateAvailable, setUpdateAvailable],
     firmwareUpdateWarning: [firmwareUpdateWarning, setFirmwareUpdateWarning],
+    hideHeaderInPrint: [hideHeaderInPrint, setHideHeaderInPrint],
   };
 
   return (

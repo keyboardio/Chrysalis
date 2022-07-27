@@ -14,6 +14,14 @@ When the running firmware supports it, Chrysalis is now able to set custom layer
 names, which will be displayed throughout the application instead of the default
 layer indexes.
 
+We have completely redesigned the flashing process, to be safer, more reliable,
+and more durable. The process is now able to recover from a *lot* of scenarios
+where it previously either errored out, or was futilely trying to do the same
+thing forever, without changing anything. Most issues were around steps that
+involved rebooting the keyboard, and Chrysalis is now able to retry reboots,
+rather than just wait for the keyboard to magically transition to the desired
+state.
+
 ## UI/UX
 
 When Chrysalis can't identify the firmware version running on the connected

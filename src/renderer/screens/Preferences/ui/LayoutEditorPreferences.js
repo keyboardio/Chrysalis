@@ -19,12 +19,14 @@ import KeymapDB from "@api/focus/keymap/db";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import Keyboard104 from "@renderer/screens/Editor/Keyboard104";
 import PreferenceSection from "../components/PreferenceSection";
 import PreferenceSwitch from "../components/PreferenceSwitch";
 import PreferenceWithHeading from "../components/PreferenceWithHeading";
@@ -111,6 +113,9 @@ function LayoutEditorPreferences(props) {
           <Skeleton variant="rectangular" />
         )}
       </PreferenceWithHeading>
+      <Paper variant="outlined" square sx={{ p: 2, mt: 1 }}>
+        <Keyboard104 onKeySelect={() => null} layout={layout} />
+      </Paper>
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         loaded={loaded}

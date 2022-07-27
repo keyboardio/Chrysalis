@@ -265,7 +265,11 @@
                     "label": "Zet automatische upgrades aan",
                     "help": "Wanneer ingeschakeld zal Chrysalis tijdens het opstarten zoeken naar updates en automatisch nieuwe versies downloaden."
                 },
-                "label": "Pas aan hoe Chrysalis moet bijgewerkt worden"
+                "label": "Pas aan hoe Chrysalis moet bijgewerkt worden",
+                "firmwareMode": {
+                    "label": "Zet automatische firmware bestandsupdates aan",
+                    "help": "Wanneer aangezet, zal Chrysalis tijdens het opstarten nagaan of er nieuwe firmware bestanden zijn en zal het automatisch nieuwe versies downloaden."
+                }
             },
             "oneLayerPerPage": {
                 "label": "Print één laag per pagina",
@@ -359,9 +363,22 @@
                 "restoreEEPROM": "EEPROM inhoud terugzetten",
                 "reconnect": "Opnieuw verbinden",
                 "flash": "Flashen",
-                "reboot": "Opnieuw opstarten"
+                "reboot": "Opnieuw opstarten",
+                "bootloader": "Naar programmeerbare modus aan het gaan"
             },
-            "factoryResetButton": "Terugzetten naar fabrieksinstellingen"
+            "factoryResetButton": "Terugzetten naar fabrieksinstellingen",
+            "notifications": {
+                "enter": {
+                    "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
+                    "stillNormal": "Het toetsenbord staat nog niet in programmeerbare modus. Gelieve de onderstaande instructies te volgen."
+                },
+                "reconnect": {
+                    "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
+                    "stillBootloader": "Het toetsenbord staat nog altijd in programmeerbare modus. Gelieve alle eventueel ingedrukte toetsen los te laten."
+                },
+                "title": "Er trad een probleem op tijdens het flashen",
+                "unknownMessage": "Onbekende boodschap ontvangen tijdens het flashen: {{ message }}"
+            }
         },
         "confirmDialog": {
             "title": "Ben je zeker dat je de firmware wil updaten?",
@@ -386,7 +403,8 @@
         "firmwareSources": "Broncode",
         "yourFirmware": "Update de firmware van je toetsenbord",
         "chooseFirmware": "Firmware updaten:",
-        "customFirmwareExplanation": "Je kan een alternative firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd. Zo lang als het ondersteuning biedt voor het 'Focus' toetsenbord protocol zou Chrysalis goed moeten werken."
+        "customFirmwareExplanation": "Je kan een alternative firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd. Zo lang als het ondersteuning biedt voor het 'Focus' toetsenbord protocol zou Chrysalis goed moeten werken.",
+        "currentFirmwareVersionUnavailable": "Firmware versie niet beschikbaar"
     },
     "focus-not-detected": {
         "title": "Welkom bij Chrysalis",
@@ -431,5 +449,17 @@
     },
     "changelog": {
         "title": "Changelog"
+    },
+    "print": {
+        "feedback": {
+            "success": "Succesvol afgedrukt!",
+            "error": "Er trad een fout op tijdens het printen."
+        }
+    },
+    "firmwareAutoUpdate": {
+        "available": "Nieuwe firmware versie beschikbaar: {{ version }}",
+        "downloaded": "Firmware versie {{ version }} is gedownload en beschikbaar om te flashen",
+        "error": "Er trad een fout op tijdens het downloaden van de nieuwe firmware versie.",
+        "warning": "Chrysalis kon niet nagaan of er een nieuwe firmware versie is. Een nieuwe versie kan online beschikbaar zijn."
     }
 }

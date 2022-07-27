@@ -112,6 +112,7 @@ width: 100%;
     color: ${({ theme }) => theme.styles.firmwareUpdatePanel.disclaimerTitle};
   }
 }
+.buttonActions .button.outline,
 .buttonActions .button.primary {
   margin-right: -32px;
 }

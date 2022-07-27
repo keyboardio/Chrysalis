@@ -70,10 +70,12 @@ class KeymapDB {
       this.supported_layouts[i18n.language].sort((a, b) => {
         const l1 = a;
         const l2 = b;
+        const l1g = l1.language || l1.group;
+        const l2g = l2.language || l2.group;
 
         // Sort on group first
-        if (l1.group < l2.group) return -1;
-        if (l1.group > l2.group) return 1;
+        if (l1g < l2g) return -1;
+        if (l1g > l2g) return 1;
 
         // If in the same group, sort the default one higher
         if (l1.default) return -1;

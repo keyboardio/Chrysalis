@@ -33,8 +33,19 @@ const addModifier = (keyCode, mod) => {
   return keyCode + modMap[mod];
 };
 
-const cldr2keycode = {
-  E00: 53,
+// Our display code assumes a physical layout that is used on Windows and Linux.
+// However, macOS assumes a slightly different one, with two keys swapped: the
+// E00 and B00 positions.
+//
+// As we do load layouts from the macOS (osx) set too, we want to flip these
+// positions here, so our display code can remain oblivious about where the
+// layout was sourced from.
+//
+// The function itself maps CLDR's physical key positions to keycodes used by
+// our keymap database. For reference, please see the ISO position diagram at:
+//   https://www.unicode.org/reports/tr35/tr35-keyboards.html#Definitions
+const cldr2keycode = (os) => ({
+  E00: (os == "osx") ? 100 : 53,
   E01: 30,
   E02: 31,
   E03: 32,
@@ -76,7 +87,7 @@ const cldr2keycode = {
   C11: 52,
   C12: 49,
 
-  B00: 100,
+  B00: (os == "osx") ? 53 : 100,
   B01: 29,
   B02: 27,
   B03: 6,
@@ -89,7 +100,7 @@ const cldr2keycode = {
   B10: 56,
 
   A03: 44,
-};
+});
 
 const decode = (code) => {
   if (code.match(/^\\u/)) {
@@ -99,13 +110,16 @@ const decode = (code) => {
   return code;
 };
 
-const loadKeyboard = async (group, isDefault, file) => {
+const loadKeyboard = async (group, isDefault, file, os) => {
   const data = fs.readFileSync(file);
   const cldrKeyboard = (await xml2js.parseStringPromise(data)).keyboard;
   const cldrKeymap = cldrKeyboard.keyMap;
 
   const hasAltRmods = (mods) =>
     mods.split(/ /).some((v) => v.match(/^altR(\+caps\?)*$/));
+
+  const hasShiftmods = (mods) =>
+    mods.split(/ /).some((v) => v.match(/^shift(\+(caps|cmd)\?)*$/));
 
   const name = cldrKeyboard.names[0].name[0]["$"].value;
 
@@ -116,18 +130,19 @@ const loadKeyboard = async (group, isDefault, file) => {
     if (!map["$"]) {
       for (const key of map.map) {
         keymap[key["$"].iso] = {
-          code: cldr2keycode[key["$"].iso] || 0,
+          code: cldr2keycode(os)[key["$"].iso] || 0,
           label: {
             base: decode(key["$"].to),
           },
         };
       }
-    } else if (map["$"].modifiers == "shift") {
+    } else if (hasShiftmods(map["$"].modifiers)) {
       for (const key of map.map) {
+        if (!keymap[key["$"].iso]) continue;
         keymap[key["$"].iso].label.shifted = decode(key["$"].to);
 
         // Add the label to the modified keycode too
-        const code = cldr2keycode[key["$"].iso] || 0;
+        const code = cldr2keycode(os)[key["$"].iso] || 0;
         const moddedCode = addModifier(code, "shift");
         keymap[moddedCode] = {
           code: moddedCode,
@@ -143,7 +158,7 @@ const loadKeyboard = async (group, isDefault, file) => {
         keymap[key["$"].iso].label.altgr = decode(key["$"].to);
 
         // Add the label to the modified keycode too.
-        const code = cldr2keycode[key["$"].iso] || 0;
+        const code = cldr2keycode(os)[key["$"].iso] || 0;
         const moddedCode = addModifier(code, "altgr");
         keymap[moddedCode] = {
           code: moddedCode,
@@ -193,7 +208,8 @@ export const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-t-")[1],
       true,
-      path.join(cldrDir, "keyboards", os, l)
+      path.join(cldrDir, "keyboards", os, l),
+      os
     );
 
     db[layout.name] = layout;
@@ -215,7 +231,8 @@ export const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-")[1],
       false,
-      path.join(cldrDir, "keyboards", os, l)
+      path.join(cldrDir, "keyboards", os, l),
+      os
     );
 
     db[layout.name] = layout;

@@ -369,7 +369,6 @@
             "factoryResetButton": "恢复出厂设置",
             "steps": {
                 "factoryRestore": "恢复出厂默认值",
-                "bootloaderWait": "等待引导加载程序",
                 "saveEEPROM": "保存EEPROM内容",
                 "restoreEEPROM": "恢复EEPROM内容",
                 "reconnect": "重新连接",

@@ -31,6 +31,10 @@ area blank.
 After printing something, Chrysalis will now display a notification whether the
 operation succeeded or failed (to the best of its knowledge).
 
+When printing the Layout Cards, the header will not appear in the print anymore.
+This only happens for the layout cards screen, the header will show up in print
+everywhere else.
+
 The layer name column of the Overview panel on the Editor sidebar has been
 narrowed a little, as it was often taking up half of the width, while completely
 unnecessary.
@@ -41,6 +45,19 @@ When Chrysalis is configured to use an operating system-side layout other than
 the default US QWERTY, keys that are augmented by modifiers will now display
 correctly, respecting the selected layout, rather than displaying the modifier
 and the US QWERTY label.
+
+The way Chrysalis processes the data source we use for keyboard layouts (Unicode
+CLDR) has been improved, to pick up more symbols - shifted symbols, in
+particular. This fixes the labels for a number of layouts where the shifted
+symbols on some keys were wrong.
+
+We also improved the data loading process to take into account differences
+between macOS and Windows physical key layouts. Layouts that are loaded from the
+macOS set (only Croatian and Croatian-PC as of this writing) account for these
+small, but important differences.
+
+The layouts are now properly alphabetically sorted too, including the groups
+they're in. English no longer sorts before Chinese.
 
 Some time ago, we had to move some of the keycodes around to fix a bug, and
 Chrysalis was taught to offer a migration path if it encountered the old, legacy

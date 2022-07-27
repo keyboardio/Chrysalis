@@ -23,9 +23,11 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { ipcRenderer } from "electron";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
@@ -34,12 +36,16 @@ import { contextBarChangesDiscarded } from "./ContextBar";
 import MainMenu from "./MainMenu/MainMenu";
 
 function Header({ device }) {
+  const globalContext = useContext(GlobalContext);
+  const [hideHeaderInPrint] = globalContext.state.hideHeaderInPrint;
+
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
   const [contextBarVisibility, setContextBarVisibility] = useState(false);
   const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] =
     useState(false);
   const [quitNotifyChannel, setQuitNotifyChannel] = useState(false);
+  const isPrinting = useMediaQuery("print");
 
   const { t } = useTranslation();
 
@@ -120,6 +126,8 @@ function Header({ device }) {
       ipcRenderer.invoke(quitNotifyChannel);
     }
   };
+
+  if (hideHeaderInPrint && isPrinting) return null;
 
   return (
     <>

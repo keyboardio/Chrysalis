@@ -20,11 +20,12 @@ import { logger } from "@api/log";
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
 const Store = require("electron-store");
 const settings = new Store();
@@ -47,9 +48,21 @@ const LayoutCard = (props) => {
     names: [],
   });
 
+  const globalContext = useContext(GlobalContext);
+
+  const [_, setHideHeaderInPrint] = globalContext.state.hideHeaderInPrint;
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
+
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setHideHeaderInPrint(true);
+
+    return function cleanup() {
+      setHideHeaderInPrint(false);
+    };
+  });
 
   const scanKeyboard = async () => {
     try {

@@ -107,6 +107,9 @@ const loadKeyboard = async (group, isDefault, file) => {
   const hasAltRmods = (mods) =>
     mods.split(/ /).some((v) => v.match(/^altR(\+caps\?)*$/));
 
+  const hasShiftmods = (mods) =>
+    mods.split(/ /).some((v) => v.match(/^shift(\+(caps|cmd)\?)*$/));
+
   const name = cldrKeyboard.names[0].name[0]["$"].value;
 
   const keymap = {};
@@ -122,8 +125,9 @@ const loadKeyboard = async (group, isDefault, file) => {
           },
         };
       }
-    } else if (map["$"].modifiers == "shift") {
+    } else if (hasShiftmods(map["$"].modifiers)) {
       for (const key of map.map) {
+        if (!keymap[key["$"].iso]) continue;
         keymap[key["$"].iso].label.shifted = decode(key["$"].to);
 
         // Add the label to the modified keycode too

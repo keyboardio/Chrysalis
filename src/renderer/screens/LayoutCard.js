@@ -72,13 +72,18 @@ const LayoutCard = (props) => {
     }
   };
 
-  useEffectOnce(async () => {
-    await scanKeyboard();
+  useEffectOnce(() => {
+    const initialize = async () => {
+      await scanKeyboard();
 
-    setOneLayerPerPage(settings.get("ui.layoutCards.oneLayerPerPage", false));
+      setOneLayerPerPage(settings.get("ui.layoutCards.oneLayerPerPage", false));
 
-    setLoading(false);
+      setLoading(false);
+    };
+
+    initialize();
   });
+
   if (loading) {
     return <LoadingScreen />;
   }

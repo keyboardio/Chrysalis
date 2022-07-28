@@ -127,10 +127,15 @@ class SuperkeysTab extends Component {
   }
 
   translateSuperKeyAction = superkeysSelected => {
-    if (superkeysSelected === undefined || superkeysSelected < 2) {
+    let aux;
+    if (superkeysSelected === undefined) {
       return null;
     }
-    let aux = this.keymapDB.parse(superkeysSelected);
+    if (superkeysSelected === 1) {
+      aux = this.keymapDB.parse(0);
+    } else {
+      aux = this.keymapDB.parse(superkeysSelected);
+    }
     let translatedAction = "";
     // console.log("Try to translate superkey actions inside SuperKeiItem: ", aux);
 

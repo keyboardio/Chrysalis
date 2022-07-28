@@ -185,7 +185,12 @@ const SuperkeyPicker = ({
       setKeyContent(keymapDB.parse(0).label);
       return;
     }
-    let aux = keymapDB.parse(superkeys[selected].actions[index]);
+    let aux;
+    if (superkeys[selected].actions[index] === 1) {
+      aux = keymapDB.parse(0);
+    } else {
+      aux = keymapDB.parse(superkeys[selected].actions[index]);
+    }
     //setKeyContent(aux.label);
     if (superkeys[selected].actions[index]) {
       setControlDeleteButton(true);

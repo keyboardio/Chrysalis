@@ -191,7 +191,7 @@ const App = (props) => {
 
   const onKeyboardConnect = async (port) => {
     focus.close();
-    if (!port.path) {
+    if (port.connectionType !== "kaleidoscope") {
       setConnected(true);
       setFocusDeviceDescriptor(port.focusDeviceDescriptor);
       i18n.refreshHardware(port.focusDeviceDescriptor);
@@ -208,10 +208,8 @@ const App = (props) => {
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
 
-    if (!port.focusDeviceDescriptor.bootloader) {
-      logger().info("Probing for focus support...");
-      focus.setLayerSize(focus.focusDeviceDescriptor);
-    }
+    logger().info("Probing for focus support...");
+    focus.setLayerSize(focus.focusDeviceDescriptor);
 
     setConnected(true);
     i18n.refreshHardware(port.focusDeviceDescriptor);

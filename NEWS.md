@@ -65,6 +65,10 @@ keycodes. A bug in the migration code that prevented it from running when
 clicking the "Migrate" button was squashed, and the functionality works again
 now.
 
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own changelog](static/firmware-changelog.md) for more details.
+
 Chrysalis 0.10.4
 ================
 Released on 2022-07-07

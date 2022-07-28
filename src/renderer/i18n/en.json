@@ -357,7 +357,11 @@
     }
   },
   "keyboardSelect": {
-    "unknown": "Unknown",
+    "connectionType": {
+      "kaleidoscope": "{{path}}",
+      "bootloader": "{{path}} (bootloader)",
+      "default": ""
+    },
     "noDevices": "No keyboards found.",
     "connect": "Connect",
     "disconnect": "Disconnect",

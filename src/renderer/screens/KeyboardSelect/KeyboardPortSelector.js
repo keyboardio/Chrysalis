@@ -41,7 +41,12 @@ export const KeyboardPortSelector = (props) => {
         label = (
           <ListItemText
             primary={option.focusDeviceDescriptor.info.displayName}
-            secondary={option.path || t("keyboardSelect.unknown")}
+            secondary={t(
+              `keyboardSelect.connectionType.${option.connectionType}`,
+              {
+                path: option.path,
+              }
+            )}
           />
         );
       } else if (option.info) {

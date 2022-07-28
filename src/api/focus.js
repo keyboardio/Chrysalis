@@ -167,76 +167,13 @@ class Focus {
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
-    const portList = await SerialPort.list();
-    logger("focus").debug("serial port list obtained", {
-      portList: portList,
-      device: usbInfo,
-      function: "checkForSerialDevice",
-    });
-
-    for (const port of portList) {
-      const pid = parseInt("0x" + port.productId),
-        vid = parseInt("0x" + port.vendorId);
-
-      if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
-        const newPort = Object.assign({}, port);
-        newPort.focusDeviceDescriptor = focusDeviceDescriptor;
-        newPort.focusDeviceDescriptor.bootloader = true;
-        logger("focus").info("serial port found", {
-          port: newPort,
-          device: usbInfo,
-          function: "checkForSerialDevice",
-        });
-        return newPort;
-      }
-    }
-    logger("focus").debug("serial device not found", {
-      function: "checkForSerialDevice",
-      device: usbInfo,
-    });
-
-    return null;
-  }
-
-  async checkSerialBootloader(focusDeviceDescriptor) {
-    return await this.checkSerialDevice(
-      focusDeviceDescriptor,
-      focusDeviceDescriptor.usb.bootloader
-    );
-  }
-
-  async checkNonSerialBootloader(focusDeviceDescriptor) {
-    const bootloader = focusDeviceDescriptor.usb.bootloader;
-
-    const deviceList = await ipcRenderer.invoke(
-      "usb.scan-for-devices",
-      bootloader.productId,
-      bootloader.vendorId
+    const devices = (await this.listDevices()).filter(
+      (device) =>
+        device.vendorId === usbInfo.vendorId &&
+        device.productId === usbInfo.productId
     );
 
-    for (const device of deviceList) {
-      const pid = device.deviceDescriptor.idProduct,
-        vid = device.deviceDescriptor.idVendor;
-
-      if (pid == bootloader.productId && vid == bootloader.vendorId) {
-        const newPort = Object.assign({}, device);
-        newPort.focusDeviceDescriptor = focusDeviceDescriptor;
-        newPort.focusDeviceDescriptor.bootloader = true;
-
-        logger("focus").info("bootloader found", {
-          device: bootloader,
-          function: "checkNonSerialBootloader",
-        });
-        return newPort;
-      }
-    }
-
-    logger("focus").debug("bootloader not found", {
-      function: "checkNonSerialBootloader",
-      device: bootloader,
-    });
-
-    return null;
+    return devices && devices[0];
   }
 
   async checkBootloader(focusDeviceDescriptor) {
@@ -250,11 +187,10 @@ class Focus {
       descriptor: focusDeviceDescriptor,
     });
 
-    if (focusDeviceDescriptor.usb.bootloader.protocol !== "avr109") {
-      return await this.checkNonSerialBootloader(focusDeviceDescriptor);
-    } else {
-      return await this.checkSerialBootloader(focusDeviceDescriptor);
-    }
+    return await this.checkSerialDevice(
+      focusDeviceDescriptor,
+      focusDeviceDescriptor.usb.bootloader
+    );
   }
 
   async reconnectToKeyboard(focusDeviceDescriptor) {

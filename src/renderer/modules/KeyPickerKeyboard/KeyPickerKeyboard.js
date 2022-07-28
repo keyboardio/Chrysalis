@@ -414,12 +414,12 @@ class KeyPickerKeyboard extends Component {
   }
 
   translateSuperKeyAction = superkeysSelected => {
-    if (superkeysSelected === undefined) {
+    if (superkeysSelected === undefined || superkeysSelected < 2) {
       return null;
     }
     let aux = this.keymapDB.parse(superkeysSelected);
     let translatedAction = "";
-    console.log("Try to translate superkey actions inside SuperKeiItem: ", aux);
+    // console.log("Try to translate superkey actions inside SuperKeiItem: ", aux);
 
     if (aux.extraLabel == "MACRO") {
       if (this.props.macros.length > parseInt(aux.label) && this.props.macros[parseInt(aux.label)].name.substr(0, 5) != "") {

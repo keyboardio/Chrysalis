@@ -179,7 +179,7 @@ class KeyVisualizer extends React.Component {
               <Title text={`${rows ? rows[superkeyAction].title : "Selected value"}`} headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{oldValue}</div>
-                <ListModifiers keyCode={oldKeyCode.base ? oldKeyCode.base + oldKeyCode.modified : oldKeyCode} size="sm" />
+                <ListModifiers keyCode={oldKeyCode?.base ? oldKeyCode.base + oldKeyCode.modified : oldKeyCode} size="sm" />
               </div>
             </div>
           ) : (
@@ -190,7 +190,7 @@ class KeyVisualizer extends React.Component {
               <Title text="New value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{newValue}</div>
-                <ListModifiers keyCode={keyCode.base ? keyCode.base + keyCode.modified : keyCode} />
+                <ListModifiers keyCode={keyCode?.base ? keyCode.base + keyCode.modified : keyCode} />
               </div>
             </div>
           ) : (
@@ -201,7 +201,7 @@ class KeyVisualizer extends React.Component {
               <Title text="New value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{newValue}</div>
-                <ListModifiers keyCode={keyCode.base ? keyCode.base + keyCode.modified : keyCode} />
+                <ListModifiers keyCode={keyCode?.base ? keyCode.base + keyCode.modified : keyCode} />
               </div>
             </div>
           ) : (

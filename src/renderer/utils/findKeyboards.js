@@ -41,6 +41,6 @@ export const findKeyboards = async () => {
 
   // We log the devices here, rather than the keyboards, because we don't want
   // to log the focusDeviceDescriptors all the time.
-  logger().info("connected keyboards", { devices });
+  logger().debug("connected keyboards", { devices });
   return keyboards;
 };

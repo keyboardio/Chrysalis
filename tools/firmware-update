@@ -21,8 +21,7 @@ esac
 URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
 
 wget -q -O - ${URL} | tar -C static -xzf -
-git add static/**/default.{hex,bin} static/firmware-changelog.md
-rm static/build-info.yml
+git add static/**/default.{hex,bin} static/firmware-changelog.md static/build-info.yml
 
 TMP=$(mktemp)
 cat >${TMP} <<EOF

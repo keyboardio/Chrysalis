@@ -1,6 +1,6 @@
-Chrysalis 0.11.0-snapshot
-=========================
-**UNRELEASED**
+Chrysalis 0.11.0
+================
+Released on 2022-07-28
 
 ## New features
 

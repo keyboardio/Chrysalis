@@ -17,6 +17,8 @@
 const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
 
+import Hardware from "@api/hardware";
+
 import fs from "fs";
 import stream from "stream";
 
@@ -109,6 +111,59 @@ class Focus {
     }
 
     return global.chrysalis_focus_instance;
+  }
+
+  async listDevices() {
+    const portList = (await SerialPort.list())
+      .map((port) => ({
+        path: port.path,
+        vendorId: parseInt(`0x${port.vendorId}`),
+        productId: parseInt(`0x${port.productId}`),
+      }))
+      .filter((port) => port.vendorId && port.productId)
+      .reduce((coll, port) => {
+        const key = `${port.vendorId}:${port.productId}`;
+        return Object.assign({}, coll, {
+          [key]: port,
+        });
+      }, {});
+    const connectionTypeMap = Hardware.devices.reduce((coll, device) => {
+      const deviceKey = `${device.usb.vendorId}:${device.usb.productId}`,
+        bootKey = `${device.usb.bootloader.vendorId}:${device.usb.bootloader.productId}`;
+
+      return Object.assign({}, coll, {
+        [deviceKey]: "kaleidoscope",
+        [bootKey]: "bootloader",
+      });
+    }, {});
+    const connectedDevices = (await ipcRenderer.invoke("usb.scan-for-devices"))
+      .filter((device) => {
+        const desc = device.deviceDescriptor;
+        return connectionTypeMap[`${desc.idVendor}:${desc.idProduct}`];
+      })
+      .map((device) => {
+        const vid = device.deviceDescriptor.idVendor,
+          pid = device.deviceDescriptor.idProduct,
+          path = portList[`${vid}:${pid}`]?.path,
+          connType = connectionTypeMap[`${vid}:${pid}`],
+          displayName = Hardware.getDeviceDescriptorByUsbIds(vid, pid).info
+            .displayName;
+
+        return {
+          displayName: displayName,
+          path: path,
+          connectionType:
+            connType == "kaleidoscope"
+              ? path
+                ? connType
+                : "default"
+              : connType,
+          vendorId: vid,
+          productId: pid,
+        };
+      });
+
+    return connectedDevices;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
@@ -217,66 +272,6 @@ class Focus {
     await this.plugins();
 
     return true;
-  }
-
-  async find(...device_descriptors) {
-    const portList = await SerialPort.list();
-
-    const found_devices = [];
-
-    logger("focus").debug("serial port list obtained", {
-      portList: portList,
-      function: "find",
-    });
-
-    for (const port of portList) {
-      for (const device_descriptor of device_descriptors) {
-        const pid = parseInt("0x" + port.productId),
-          vid = parseInt("0x" + port.vendorId);
-
-        if (
-          pid == device_descriptor.usb.productId &&
-          vid == device_descriptor.usb.vendorId
-        ) {
-          const newPort = Object.assign({}, port);
-          newPort.focusDeviceDescriptor = device_descriptor;
-          newPort.focusDeviceDescriptor.bootloader = false;
-          found_devices.push(newPort);
-        }
-        if (
-          device_descriptor.usb.bootloader &&
-          pid == device_descriptor.usb.bootloader.productId &&
-          vid == device_descriptor.usb.bootloader.vendorId
-        ) {
-          const newPort = Object.assign({}, port);
-          newPort.focusDeviceDescriptor = device_descriptor;
-          newPort.focusDeviceDescriptor.bootloader = true;
-          found_devices.push(newPort);
-        }
-      }
-    }
-
-    // We do not wish to have the device SVG data appear in logs, that's not
-    // useful information, and just clutters the log. So we filter them out.
-    const logged_devices = found_devices.map((d) => {
-      const device = Object.assign({}, d);
-      device.focusDeviceDescriptor = Object.assign({}, d.focusDeviceDescriptor);
-      delete device.focusDeviceDescriptor["components"];
-      return device;
-    });
-
-    if (logged_devices.length > 0) {
-      logger("focus").debug("supported devices found", {
-        devices: logged_devices,
-        function: "find",
-      });
-    } else {
-      logger("focus").warn("no supported devices found", {
-        function: "find",
-      });
-    }
-
-    return found_devices;
   }
 
   async open(device_identifier, info) {

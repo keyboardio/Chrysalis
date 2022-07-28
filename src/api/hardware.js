@@ -24,9 +24,27 @@ import {
 import { Splitography } from "@api/hardware-softhruf-splitography";
 import { Atreus } from "@api/hardware-technomancy-atreus";
 
-const Hardware = {
-  serial: [Model01, Model100, Atreus2, ErgoDox, Atreus, Splitography],
-  nonSerial: [Model100Bootloader, ErgoDox, Atreus, Splitography],
+const devices = [Model100, Model01, Atreus2, ErgoDox, Atreus, Splitography];
+
+const getDeviceDescriptorByUsbIds = (vid, pid) => {
+  for (const device of devices) {
+    if (device.usb.vendorId === vid && device.usb.productId === pid) {
+      return device;
+    }
+    if (
+      device.usb.bootloader.vendorId === vid &&
+      device.usb.bootloader.productId === pid
+    ) {
+      const r = Object.assign({}, device);
+      r.bootloader = true;
+      return r;
+    }
+  }
+
+  return null;
 };
 
-export { Hardware as default };
+export default {
+  getDeviceDescriptorByUsbIds,
+  devices,
+};

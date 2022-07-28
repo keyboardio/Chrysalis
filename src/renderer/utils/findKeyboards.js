@@ -19,70 +19,28 @@ import { logger } from "@api/log";
 import Hardware from "@api/hardware";
 import { ipcRenderer } from "electron";
 
-const findNonSerialKeyboards = async (deviceList) => {
-  const connected = (await ipcRenderer.invoke("usb.scan-for-devices")).map(
-    (device) => device.deviceDescriptor
-  );
-
-  for (const device of connected) {
-    const dVid = device.idVendor,
-      dPid = device.idProduct;
-
-    for (const hw of Hardware.nonSerial) {
-      let found = false;
-      let bootloader = false;
-      if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
-        found = true;
-      } else if (
-        dVid == hw.usb.bootloader?.vendorId &&
-        dPid == hw.usb.bootloader?.productId
-      ) {
-        found = true;
-        bootloader = true;
-      }
-      if (!found) continue;
-
-      if (
-        !deviceList.some((d) => {
-          const usb = d.focusDeviceDescriptor.usb;
-          return usb.vendorId == dVid && usb.productId == dPid;
-        })
-      ) {
-        deviceList.push({
-          accessible: true,
-          focusDeviceDescriptor: Object.assign({}, hw, { bootloader }),
-        });
-      }
-    }
-  }
-  return deviceList;
-};
-
 export const findKeyboards = async () => {
   const focus = new Focus();
+  const devices = await focus.listDevices();
 
-  return new Promise((resolve) => {
-    focus
-      .find(...Hardware.serial)
-      .then(async (devices) => {
-        const supported_devices = [];
-        for (const device of devices) {
-          device.accessible = await focus.isDeviceAccessible(device);
-          if (device.accessible && (await focus.isDeviceSupported(device))) {
-            supported_devices.push(device);
-          } else if (!device.accessible) {
-            supported_devices.push(device);
-          }
-        }
-        const list = await findNonSerialKeyboards(supported_devices);
-        resolve(list);
-      })
-      .catch(async (e) => {
-        logger().warn("(non-fatal) error while finding keyboards", {
-          error: e,
-        });
-        const list = await findNonSerialKeyboards([]);
-        resolve(list);
+  const keyboards = devices.map((device) => {
+    const n = Object.assign({}, device);
+    if (device.connectionType === "kaleidoscope") {
+      focus.isDeviceAccessible(device).then((r) => {
+        n.accessible = r;
       });
+    } else {
+      n.accessible = true;
+    }
+    n.focusDeviceDescriptor = Hardware.getDeviceDescriptorByUsbIds(
+      device.vendorId,
+      device.productId
+    );
+    return n;
   });
+
+  // We log the devices here, rather than the keyboards, because we don't want
+  // to log the focusDeviceDescriptors all the time.
+  logger().info("connected keyboards", { devices });
+  return keyboards;
 };

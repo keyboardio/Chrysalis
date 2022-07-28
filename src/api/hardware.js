@@ -16,11 +16,7 @@
 
 import { ErgoDox } from "@api/hardware-ez-ergodox";
 import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
-import {
-  Model01,
-  Model100,
-  Model100Bootloader,
-} from "@api/hardware-keyboardio-model01";
+import { Model01, Model100 } from "@api/hardware-keyboardio-model01";
 import { Splitography } from "@api/hardware-softhruf-splitography";
 import { Atreus } from "@api/hardware-technomancy-atreus";
 

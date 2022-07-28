@@ -7,7 +7,7 @@ package_version() {
 }
 
 URL_BASE="https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases"
-TARBALL_FN="firmware-files.tar"
+TARBALL_FN="firmware-files.tar.gz"
 
 case "$(package_version)" in
     *-snapshot)
@@ -20,7 +20,7 @@ esac
 
 URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
 
-wget -q -O - ${URL} | tar -C static -xf -
+wget -q -O - ${URL} | tar -C static -xzf -
 git add static/**/default.{hex,bin} static/firmware-changelog.md
 rm static/build-info.yml
 

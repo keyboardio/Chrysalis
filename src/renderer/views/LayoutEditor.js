@@ -248,8 +248,8 @@ const Styles = Styled.div`
   &:hover {
     cursor: pointer;
     .shadowHover {
-      filter: blur(16px);
-      opacity: 0.6;
+      // filter: blur(16px);
+      // opacity: 0.6;
     }
   }
 }

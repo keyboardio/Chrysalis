@@ -162,7 +162,7 @@ const Key = ({
               strokeOpacity="0"
             />
           </g>
-          <g xmlns="http://www.w3.org/2000/svg">
+          <g xmlns="http://www.w3.org/2000/svg" className="contentForeignObject">
             <foreignObject x={xShape2} y={yShape2} width={widthShape2} height={heightShape2}>
               <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
                 <ul>

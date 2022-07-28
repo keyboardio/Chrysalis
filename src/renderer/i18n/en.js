@@ -336,6 +336,7 @@ const English = {
       selectSuperkey: "Select a Superkey",
       selectMouseFunction: "Select Mouse Function",
       title: "Superkeys Editor",
+      successFlashTitle: "The Superkeys have been saved",
       successFlash: "Succesfully sent the superkeys to the Raise",
       createModal: {
         createNew: "Create new Superkey name",

@@ -529,8 +529,8 @@ class SuperkeysEditor extends React.Component {
       this.bkp.SaveBackup(backup);
       toast.success(
         <ToastMessage
-          title="The Superkeys have been saved"
-          content={i18n.editor.macros.successFlash}
+          title={i18n.editor.superkeys.successFlashTitle}
+          content={i18n.editor.superkeys.successFlash}
           icon={<IconFloppyDisk />}
         />,
         {

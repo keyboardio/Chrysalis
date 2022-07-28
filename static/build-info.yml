@@ -1,19 +1,19 @@
 ---
-build: 5
-version: 0.10.4+5
+version: 0.11.0+27
+build: 27
 
 dependencies:
   cores:
     avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@a9165613d1aab35d8be365b54976460165d790f9
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@3de303acb1bc2b5e70db745232611112ba2261bc
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@1e5db7e472b9aa3c3f80ff306e96fcfb89616d4a
   libraries:
     avr:
       - keyboardio/KeyboardioHID@b274575c3f3adb529df409d3f5b10a4ae2e3eb53
     gd32:
       - keyboardio/KeyboardioHID@35cb0a704f51953512222334396b58fedef039fe
     common:
-      - keyboardio/Kaleidoscope@dde7caeee9e82f4398b165ca21879751677b10b3
-      - keyboardio/Chrysalis-Firmware-Bundle@b4d7f560e229807ce2ecebb3b73ad2a4787b784b
+      - keyboardio/Kaleidoscope@8f3fab579b5116747b2d3c6735adff3ab08f96f8
+      - keyboardio/Chrysalis-Firmware-Bundle@5cd869a05f49eac4eadd358d864d5408472c9af6
 
 firmware:
   Keyboardio:
@@ -28,6 +28,7 @@ firmware:
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
+        - LayerNames
         - Macros
         - MouseKeys
         - OneShot
@@ -57,6 +58,7 @@ firmware:
         - LEDPaletteTheme
         - LEDRainbowEffect
         - LEDRainbowWaveEffect
+        - LayerNames
         - Macros
         - MagicCombo
         - MouseKeys

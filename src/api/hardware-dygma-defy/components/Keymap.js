@@ -121,6 +121,15 @@ const led_map = [
 const no_key_led_map = [...Array.apply(0, Array(63)).map((_, i) => i + UNDERGLOW)];
 
 const keysRowsPosition = {
+  row1: 35,
+  row2: 102,
+  row3: 169,
+  row4: 236,
+  row5: 303,
+  row6: 370
+};
+
+const keysRowsDefyPosition = {
   row1: {
     y0: 111,
     y1: 88,
@@ -360,9 +369,9 @@ class KeymapANSI extends React.Component {
           strokeLinejoin="round"
           strokeMiterlimit="1.5"
           clipRule="evenodd"
-          viewBox={this.props.showUnderglow || this.props.isStandardView ? "0 0 1270 790" : "0 0 1270 430"}
+          viewBox={this.props.showUnderglow || this.props.isStandardView ? "0 0 1222 705" : "0 0 1222 430"}
           className={this.props.className || "layer"}
-          height={this.props.showUnderglow || this.props.isStandardView ? 790 : 480}
+          height={this.props.showUnderglow || this.props.isStandardView ? 705 : 480}
           width={1222}
         >
           <Neuron
@@ -392,7 +401,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x0}
-              y={keysRowsPosition.row1.y0}
+              y={keysRowsDefyPosition.row1.y0}
               selectedKey={this.props.selectedKey}
               fill={getColor(0, 0)}
               stroke={stroke(0, 0)}
@@ -412,7 +421,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x1}
-              y={keysRowsPosition.row1.y0}
+              y={keysRowsDefyPosition.row1.y0}
               selectedKey={this.props.selectedKey}
               fill={getColor(0, 1)}
               stroke={stroke(0, 1)}
@@ -432,7 +441,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x2}
-              y={keysRowsPosition.row1.y1}
+              y={keysRowsDefyPosition.row1.y1}
               selectedKey={this.props.selectedKey}
               fill={getColor(0, 2)}
               stroke={stroke(0, 2)}
@@ -452,7 +461,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x3}
-              y={keysRowsPosition.row1.y2}
+              y={keysRowsDefyPosition.row1.y2}
               selectedKey={this.props.selectedKey}
               fill={getColor(0, 3)}
               stroke={stroke(0, 3)}
@@ -472,7 +481,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x4}
-              y={keysRowsPosition.row1.y1}
+              y={keysRowsDefyPosition.row1.y1}
               fill={getColor(0, 4)}
               stroke={stroke(0, 4)}
               strokeWidth={getStrokeWidth(0, 4)}
@@ -491,7 +500,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x5}
-              y={keysRowsPosition.row1.y1}
+              y={keysRowsDefyPosition.row1.y1}
               fill={getColor(0, 5)}
               stroke={stroke(0, 5)}
               strokeWidth={getStrokeWidth(0, 5)}
@@ -504,13 +513,52 @@ class KeymapANSI extends React.Component {
             />
             <Key
               keyType="regularKey"
-              id="R0C6_keyshape"
+              id="R0C15_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
               x={keysColumnsPosition.x6}
-              y={keysRowsPosition.row1.y3}
+              y={keysRowsDefyPosition.row1.y3}
+              fill={getColor(0, 15)}
+              stroke={stroke(0, 15)}
+              strokeWidth={getStrokeWidth(0, 15)}
+              dataLedIndex={getLEDIndex(0, 15)}
+              dataKeyIndex={keyIndex(0, 15)}
+              dataLayer={layer}
+              contrastText={getContrastText(getColor(0, 15))}
+              centerPrimary={getCenterPrimary(0, 15, 0, 0, true)}
+              centerExtra={getCenterExtra(0, 15, 0, 0, true)}
+            />
+
+            <Key
+              keyType="regularKey"
+              id="R0C13_keyshape"
+              onClick={onClick}
+              className="key"
+              width={57}
+              height={57}
+              x={keysColumnsPosition.x7}
+              y={keysRowsDefyPosition.row1.y3}
+              fill={getColor(0, 13)}
+              stroke={stroke(0, 13)}
+              strokeWidth={getStrokeWidth(0, 13)}
+              dataLedIndex={getLEDIndex(0, 13)}
+              dataKeyIndex={keyIndex(0, 13)}
+              dataLayer={layer}
+              contrastText={getContrastText(getColor(0, 13))}
+              centerPrimary={getCenterPrimary(0, 13, 0, 0, true)}
+              centerExtra={getCenterExtra(0, 13, 0, 0, true)}
+            />
+            <Key
+              keyType="regularKey"
+              id="R0C6_keyshape"
+              onClick={onClick}
+              className="key"
+              width={57}
+              height={57}
+              x={keysColumnsPosition.x8}
+              y={keysRowsDefyPosition.row1.y1}
               fill={getColor(0, 6)}
               stroke={stroke(0, 6)}
               strokeWidth={getStrokeWidth(0, 6)}
@@ -521,23 +569,24 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(0, 6, 0, 0, true)}
               centerExtra={getCenterExtra(0, 6, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
-              id="R0C7_keyshape"
+              id="R0C9_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x7}
-              y={keysRowsPosition.row1.y3}
-              fill={getColor(0, 7)}
-              stroke={stroke(0, 7)}
-              strokeWidth={getStrokeWidth(0, 7)}
-              dataLedIndex={getLEDIndex(0, 7)}
-              dataKeyIndex={keyIndex(0, 7)}
+              x={keysColumnsPosition.x9}
+              y={keysRowsDefyPosition.row1.y1}
+              fill={getColor(0, 9)}
+              stroke={stroke(0, 9)}
+              strokeWidth={getStrokeWidth(0, 9)}
+              dataLedIndex={getLEDIndex(0, 9)}
+              dataKeyIndex={keyIndex(0, 9)}
               dataLayer={layer}
-              contrastText={getContrastText(getColor(0, 7))}
-              centerPrimary={getCenterPrimary(0, 7, 0, 0, true)}
+              contrastText={getContrastText(getColor(0, 9))}
+              centerPrimary={getCenterPrimary(0, 9, 0, 0, true)}
               centerExtra={getCenterExtra(0, 9, 0, 0, true)}
             />
             <Key
@@ -547,8 +596,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x8}
-              y={keysRowsPosition.row1.y1}
+              x={keysColumnsPosition.x10}
+              y={keysRowsDefyPosition.row1.y2}
               fill={getColor(0, 10)}
               stroke={stroke(0, 10)}
               strokeWidth={getStrokeWidth(0, 10)}
@@ -566,8 +615,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x9}
-              y={keysRowsPosition.row1.y1}
+              x={keysColumnsPosition.x11}
+              y={keysRowsDefyPosition.row1.y1}
               fill={getColor(0, 11)}
               stroke={stroke(0, 11)}
               strokeWidth={getStrokeWidth(0, 11)}
@@ -585,8 +634,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x10}
-              y={keysRowsPosition.row1.y2}
+              x={keysColumnsPosition.x12}
+              y={keysRowsDefyPosition.row1.y0}
               fill={getColor(0, 12)}
               stroke={stroke(0, 12)}
               strokeWidth={getStrokeWidth(0, 12)}
@@ -597,25 +646,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(0, 12, 0, 0, true)}
               centerExtra={getCenterExtra(0, 12, 0, 0, true)}
             />
-            <Key
-              keyType="regularKey"
-              id="R0C13_keyshape"
-              onClick={onClick}
-              className="key"
-              width={57}
-              height={57}
-              x={keysColumnsPosition.x11}
-              y={keysRowsPosition.row1.y1}
-              fill={getColor(0, 13)}
-              stroke={stroke(0, 13)}
-              strokeWidth={getStrokeWidth(0, 13)}
-              dataLedIndex={getLEDIndex(0, 13)}
-              dataKeyIndex={keyIndex(0, 13)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(0, 13))}
-              centerPrimary={getCenterPrimary(0, 13, 0, 0, true)}
-              centerExtra={getCenterExtra(0, 13, 0, 0, true)}
-            />
+
             <Key
               keyType="regularKey"
               id="R0C14_keyshape"
@@ -623,8 +654,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x12}
-              y={keysRowsPosition.row1.y0}
+              x={keysColumnsPosition.x13}
+              y={keysRowsDefyPosition.row1.y0}
               fill={getColor(0, 14)}
               stroke={stroke(0, 14)}
               strokeWidth={getStrokeWidth(0, 14)}
@@ -635,25 +666,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(0, 14, 0, 0, true)}
               centerExtra={getCenterExtra(0, 14, 0, 0, true)}
             />
-            <Key
-              keyType="regularKey"
-              id="R0C15_keyshape"
-              onClick={onClick}
-              className="key"
-              width={57}
-              height={57}
-              x={keysColumnsPosition.x13}
-              y={keysRowsPosition.row1.y0}
-              fill={getColor(0, 15)}
-              stroke={stroke(0, 15)}
-              strokeWidth={getStrokeWidth(0, 15)}
-              dataLedIndex={getLEDIndex(0, 15)}
-              dataKeyIndex={keyIndex(0, 15)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(0, 15))}
-              centerPrimary={getCenterPrimary(0, 15, 0, 0, true)}
-              centerExtra={getCenterExtra(0, 15, 0, 0, true)}
-            />
+
             <Key
               keyType="regularKey"
               id="R1C0_keyshape"
@@ -662,7 +675,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x0}
-              y={keysRowsPosition.row2.y0}
+              y={keysRowsDefyPosition.row2.y0}
               fill={getColor(1, 0)}
               stroke={stroke(1, 0)}
               strokeWidth={getStrokeWidth(1, 0)}
@@ -681,7 +694,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x1}
-              y={keysRowsPosition.row2.y0}
+              y={keysRowsDefyPosition.row2.y0}
               fill={getColor(1, 1)}
               stroke={stroke(1, 1)}
               strokeWidth={getStrokeWidth(1, 1)}
@@ -700,7 +713,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x2}
-              y={keysRowsPosition.row2.y1}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 2)}
               stroke={stroke(1, 2)}
               strokeWidth={getStrokeWidth(1, 2)}
@@ -719,7 +732,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x3}
-              y={keysRowsPosition.row2.y2}
+              y={keysRowsDefyPosition.row2.y2}
               fill={getColor(1, 3)}
               stroke={stroke(1, 3)}
               strokeWidth={getStrokeWidth(1, 3)}
@@ -738,7 +751,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x4}
-              y={keysRowsPosition.row2.y1}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 4)}
               stroke={stroke(1, 4)}
               strokeWidth={getStrokeWidth(1, 4)}
@@ -749,6 +762,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(1, 4, 0, 0, true)}
               centerExtra={getCenterExtra(1, 4, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R1C5_keyshape"
@@ -757,7 +771,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x5}
-              y={keysRowsPosition.row2.y1}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 5)}
               stroke={stroke(1, 5)}
               strokeWidth={getStrokeWidth(1, 5)}
@@ -775,8 +789,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x6}
-              y={keysRowsPosition.row2.y3}
+              x={keysColumnsPosition.x8}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 8)}
               stroke={stroke(1, 8)}
               strokeWidth={getStrokeWidth(1, 8)}
@@ -787,6 +801,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(1, 8, 0, 0, true)}
               centerExtra={getCenterExtra(1, 8, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R1C9_keyshape"
@@ -794,8 +809,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x7}
-              y={keysRowsPosition.row2.y3}
+              x={keysColumnsPosition.x9}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 9)}
               stroke={stroke(1, 9)}
               strokeWidth={getStrokeWidth(1, 9)}
@@ -813,8 +828,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x8}
-              y={keysRowsPosition.row2.y1}
+              x={keysColumnsPosition.x10}
+              y={keysRowsDefyPosition.row2.y2}
               fill={getColor(1, 10)}
               stroke={stroke(1, 10)}
               strokeWidth={getStrokeWidth(1, 10)}
@@ -832,8 +847,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x9}
-              y={keysRowsPosition.row2.y1}
+              x={keysColumnsPosition.x11}
+              y={keysRowsDefyPosition.row2.y1}
               fill={getColor(1, 11)}
               stroke={stroke(1, 11)}
               strokeWidth={getStrokeWidth(1, 11)}
@@ -851,8 +866,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x10}
-              y={keysRowsPosition.row2.y2}
+              x={keysColumnsPosition.x12}
+              y={keysRowsDefyPosition.row2.y0}
               fill={getColor(1, 12)}
               stroke={stroke(1, 12)}
               strokeWidth={getStrokeWidth(1, 12)}
@@ -870,8 +885,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x11}
-              y={keysRowsPosition.row2.y1}
+              x={keysColumnsPosition.x6}
+              y={keysRowsDefyPosition.row2.y3}
               fill={getColor(1, 13)}
               stroke={stroke(1, 13)}
               strokeWidth={getStrokeWidth(1, 13)}
@@ -889,8 +904,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x12}
-              y={keysRowsPosition.row2.y0}
+              x={keysColumnsPosition.x13}
+              y={keysRowsDefyPosition.row2.y0}
               fill={getColor(1, 14)}
               stroke={stroke(1, 14)}
               strokeWidth={getStrokeWidth(1, 14)}
@@ -906,10 +921,10 @@ class KeymapANSI extends React.Component {
               id="R1C15_keyshape"
               onClick={onClick}
               className="key"
-              width={69}
+              width={57}
               height={57}
-              x={keysColumnsPosition.x13}
-              y={keysRowsPosition.row2.y0}
+              x={keysColumnsPosition.x7}
+              y={keysRowsDefyPosition.row2.y3}
               fill={getColor(2, 15)}
               stroke={stroke(2, 15)}
               strokeWidth={getStrokeWidth(2, 15)}
@@ -920,6 +935,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(2, 15, 0, 0, true)}
               centerExtra={getCenterExtra(2, 15, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R2C0_keyshape"
@@ -928,7 +944,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x0}
-              y={keysRowsPosition.row3.y0}
+              y={keysRowsDefyPosition.row3.y0}
               fill={getColor(2, 0)}
               stroke={stroke(2, 0)}
               strokeWidth={getStrokeWidth(2, 0)}
@@ -947,7 +963,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x1}
-              y={keysRowsPosition.row3.y0}
+              y={keysRowsDefyPosition.row3.y0}
               fill={getColor(2, 1)}
               stroke={stroke(2, 1)}
               strokeWidth={getStrokeWidth(2, 1)}
@@ -966,7 +982,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x2}
-              y={keysRowsPosition.row3.y1}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 2)}
               stroke={stroke(2, 2)}
               strokeWidth={getStrokeWidth(2, 2)}
@@ -985,7 +1001,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x3}
-              y={keysRowsPosition.row3.y2}
+              y={keysRowsDefyPosition.row3.y2}
               fill={getColor(2, 3)}
               stroke={stroke(2, 3)}
               strokeWidth={getStrokeWidth(2, 3)}
@@ -1004,7 +1020,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x4}
-              y={keysRowsPosition.row3.y1}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 4)}
               stroke={stroke(2, 4)}
               strokeWidth={getStrokeWidth(2, 4)}
@@ -1015,6 +1031,7 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(2, 4, 0, 0, true)}
               centerExtra={getCenterExtra(2, 4, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R2C5_keyshape"
@@ -1023,7 +1040,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x5}
-              y={keysRowsPosition.row3.y1}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 5)}
               stroke={stroke(2, 5)}
               strokeWidth={getStrokeWidth(2, 5)}
@@ -1041,8 +1058,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x6}
-              y={keysRowsPosition.row3.y3}
+              x={keysColumnsPosition.x8}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 9)}
               stroke={stroke(2, 9)}
               strokeWidth={getStrokeWidth(2, 9)}
@@ -1060,8 +1077,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x7}
-              y={keysRowsPosition.row3.y3}
+              x={keysColumnsPosition.x9}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 10)}
               stroke={stroke(2, 10)}
               strokeWidth={getStrokeWidth(2, 10)}
@@ -1079,8 +1096,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x8}
-              y={keysRowsPosition.row3.y1}
+              x={keysColumnsPosition.x10}
+              y={keysRowsDefyPosition.row3.y2}
               fill={getColor(2, 11)}
               stroke={stroke(2, 11)}
               strokeWidth={getStrokeWidth(2, 11)}
@@ -1098,8 +1115,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x9}
-              y={keysRowsPosition.row3.y1}
+              x={keysColumnsPosition.x11}
+              y={keysRowsDefyPosition.row3.y1}
               fill={getColor(2, 12)}
               stroke={stroke(2, 12)}
               strokeWidth={getStrokeWidth(2, 12)}
@@ -1117,8 +1134,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x10}
-              y={keysRowsPosition.row3.y2}
+              x={keysColumnsPosition.x12}
+              y={keysRowsDefyPosition.row3.y0}
               fill={getColor(2, 13)}
               stroke={stroke(2, 13)}
               strokeWidth={getStrokeWidth(2, 13)}
@@ -1136,8 +1153,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x11}
-              y={keysRowsPosition.row3.y1}
+              x={keysColumnsPosition.x13}
+              y={keysRowsDefyPosition.row3.y0}
               fill={getColor(2, 14)}
               stroke={stroke(2, 14)}
               strokeWidth={getStrokeWidth(2, 14)}
@@ -1148,6 +1165,11 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(2, 14, 0, 0, true)}
               centerExtra={getCenterExtra(2, 14, 0, 0, true)}
             />
+            {/* 
+            //
+            Extra keys
+            //
+            */}
             <Key
               keyType="regularKey"
               id="R2C15_keyshape"
@@ -1155,8 +1177,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x12}
-              y={keysRowsPosition.row3.y3}
+              x={keysColumnsPosition.x7}
+              y={keysRowsDefyPosition.row3.y3}
               fill={getColor(1, 15)}
               stroke={stroke(1, 15)}
               strokeWidth={getStrokeWidth(1, 15)}
@@ -1167,9 +1189,28 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(1, 15, 0, 0, true)}
               centerExtra={getCenterExtra(1, 15, 0, 0, true)}
             />
+            <Key
+              keyType="regularKey"
+              id="R3C15_keyshape"
+              onClick={onClick}
+              className="key"
+              width={57}
+              height={57}
+              x={keysColumnsPosition.x6}
+              y={keysRowsDefyPosition.row3.y3}
+              fill={getColor(3, 15)}
+              stroke={stroke(3, 15)}
+              strokeWidth={getStrokeWidth(3, 15)}
+              dataLedIndex={getLEDIndex(3, 15)}
+              dataKeyIndex={keyIndex(3, 15)}
+              dataLayer={layer}
+              contrastText={getContrastText(getColor(3, 15))}
+              centerPrimary={getCenterPrimary(3, 15, 0, 0, true)}
+              centerExtra={getCenterExtra(3, 15, 0, 0, true)}
+            />
             {/* 
             //
-            Add here the last key of the third row 
+            Extra keys
             //
             */}
             <Key
@@ -1180,7 +1221,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x0}
-              y={keysRowsPosition.row4.y0}
+              y={keysRowsDefyPosition.row4.y0}
               fill={getColor(3, 0)}
               stroke={stroke(3, 0)}
               strokeWidth={getStrokeWidth(3, 0)}
@@ -1199,7 +1240,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x1}
-              y={keysRowsPosition.row4.y0}
+              y={keysRowsDefyPosition.row4.y0}
               fill={getColor(3, 2)}
               stroke={stroke(3, 2)}
               strokeWidth={getStrokeWidth(3, 2)}
@@ -1218,7 +1259,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x2}
-              y={keysRowsPosition.row4.y1}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 3)}
               stroke={stroke(3, 3)}
               strokeWidth={getStrokeWidth(3, 3)}
@@ -1237,7 +1278,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x3}
-              y={keysRowsPosition.row4.y2}
+              y={keysRowsDefyPosition.row4.y2}
               fill={getColor(3, 4)}
               stroke={stroke(3, 4)}
               strokeWidth={getStrokeWidth(3, 4)}
@@ -1256,7 +1297,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x4}
-              y={keysRowsPosition.row4.y1}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 5)}
               stroke={stroke(3, 5)}
               strokeWidth={getStrokeWidth(3, 5)}
@@ -1275,7 +1316,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={keysColumnsPosition.x5}
-              y={keysRowsPosition.row4.y1}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 6)}
               stroke={stroke(3, 6)}
               strokeWidth={getStrokeWidth(3, 6)}
@@ -1293,8 +1334,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x6}
-              y={keysRowsPosition.row4.y1}
+              x={keysColumnsPosition.x8}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 10)}
               stroke={stroke(3, 10)}
               strokeWidth={getStrokeWidth(3, 10)}
@@ -1312,8 +1353,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x7}
-              y={keysRowsPosition.row4.y1}
+              x={keysColumnsPosition.x9}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 11)}
               stroke={stroke(3, 11)}
               strokeWidth={getStrokeWidth(3, 11)}
@@ -1331,8 +1372,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x8}
-              y={keysRowsPosition.row4.y2}
+              x={keysColumnsPosition.x10}
+              y={keysRowsDefyPosition.row4.y2}
               fill={getColor(3, 12)}
               stroke={stroke(3, 12)}
               strokeWidth={getStrokeWidth(3, 12)}
@@ -1350,8 +1391,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x9}
-              y={keysRowsPosition.row4.y1}
+              x={keysColumnsPosition.x11}
+              y={keysRowsDefyPosition.row4.y1}
               fill={getColor(3, 13)}
               stroke={stroke(3, 13)}
               strokeWidth={getStrokeWidth(3, 13)}
@@ -1369,8 +1410,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={57}
               height={57}
-              x={keysColumnsPosition.x10}
-              y={keysRowsPosition.row4.y0}
+              x={keysColumnsPosition.x12}
+              y={keysRowsDefyPosition.row4.y0}
               fill={getColor(3, 14)}
               stroke={stroke(3, 14)}
               strokeWidth={getStrokeWidth(3, 14)}
@@ -1381,34 +1422,16 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(3, 14, 0, 0, true)}
               centerExtra={getCenterExtra(3, 14, 0, 0, true)}
             />
-            <Key
-              keyType="regularKey"
-              id="R3C15_keyshape"
-              onClick={onClick}
-              className="key"
-              width={151}
-              height={57}
-              x={keysColumnsPosition.x11}
-              y={keysRowsPosition.row4.y0}
-              fill={getColor(3, 15)}
-              stroke={stroke(3, 15)}
-              strokeWidth={getStrokeWidth(3, 15)}
-              dataLedIndex={getLEDIndex(3, 15)}
-              dataKeyIndex={keyIndex(3, 15)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(3, 15))}
-              centerPrimary={getCenterPrimary(3, 15, 0, 0, true)}
-              centerExtra={getCenterExtra(3, 15, 0, 0, true)}
-            />
+
             <Key
               keyType="regularKey"
               id="R4C0_keyshape"
               onClick={onClick}
               className="key"
-              width={67}
+              width={57}
               height={57}
-              x={84}
-              y={keysRowsPosition.row5}
+              x={keysColumnsPosition.x13}
+              y={keysRowsDefyPosition.row4.y0}
               fill={getColor(4, 0)}
               stroke={stroke(4, 0)}
               strokeWidth={getStrokeWidth(4, 0)}
@@ -1419,15 +1442,16 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(4, 0, 0, 0, true)}
               centerExtra={getCenterExtra(4, 0, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R4C1_keyshape"
               onClick={onClick}
               className="key"
-              width={67}
+              width={57}
               height={57}
               x={162}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 1)}
               stroke={stroke(4, 1)}
               strokeWidth={getStrokeWidth(4, 1)}
@@ -1443,10 +1467,10 @@ class KeymapANSI extends React.Component {
               id="R4C2_keyshape"
               onClick={onClick}
               className="key"
-              width={67}
+              width={57}
               height={57}
               x={239}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 2)}
               stroke={stroke(4, 2)}
               strokeWidth={getStrokeWidth(4, 2)}
@@ -1462,10 +1486,10 @@ class KeymapANSI extends React.Component {
               id="R4C3_keyshape"
               onClick={onClick}
               className="key"
-              width={115}
+              width={57}
               height={57}
               x={316}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 3)}
               stroke={stroke(4, 3)}
               strokeWidth={getStrokeWidth(4, 3)}
@@ -1481,10 +1505,10 @@ class KeymapANSI extends React.Component {
               id="R4C4_keyshape"
               onClick={onClick}
               className="key"
-              width={81}
+              width={57}
               height={57}
               x={441}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 4)}
               stroke={stroke(4, 4)}
               strokeWidth={getStrokeWidth(4, 4)}
@@ -1500,10 +1524,10 @@ class KeymapANSI extends React.Component {
               id="R4C10_keyshape"
               onClick={onClick}
               className="key"
-              width={66}
+              width={57}
               height={57}
               x={645}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 10)}
               stroke={stroke(4, 10)}
               strokeWidth={getStrokeWidth(4, 10)}
@@ -1519,10 +1543,10 @@ class KeymapANSI extends React.Component {
               id="R4C11_keyshape"
               onClick={onClick}
               className="key"
-              width={115}
+              width={57}
               height={57}
               x={719}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 11)}
               stroke={stroke(4, 11)}
               strokeWidth={getStrokeWidth(4, 11)}
@@ -1533,15 +1557,16 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(4, 11, 0, 0, true)}
               centerExtra={getCenterExtra(4, 11, 0, 0, true)}
             />
+
             <Key
               keyType="regularKey"
               id="R4C12_keyshape"
               onClick={onClick}
               className="key"
-              width={66}
+              width={57}
               height={57}
               x={844}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 12)}
               stroke={stroke(4, 12)}
               strokeWidth={getStrokeWidth(4, 12)}
@@ -1557,10 +1582,10 @@ class KeymapANSI extends React.Component {
               id="R4C13_keyshape"
               onClick={onClick}
               className="key"
-              width={66}
+              width={57}
               height={57}
               x={920}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 13)}
               stroke={stroke(4, 13)}
               strokeWidth={getStrokeWidth(4, 13)}
@@ -1576,10 +1601,10 @@ class KeymapANSI extends React.Component {
               id="R4C14_keyshape"
               onClick={onClick}
               className="key"
-              width={66}
+              width={57}
               height={57}
               x={996}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 14)}
               stroke={stroke(4, 14)}
               strokeWidth={getStrokeWidth(4, 14)}
@@ -1595,10 +1620,10 @@ class KeymapANSI extends React.Component {
               id="R4C15_keyshape"
               onClick={onClick}
               className="key"
-              width={66}
+              width={57}
               height={57}
               x={1072}
-              y={keysRowsPosition.row5}
+              y={keysRowsDefyPosition.row5}
               fill={getColor(4, 15)}
               stroke={stroke(4, 15)}
               strokeWidth={getStrokeWidth(4, 15)}
@@ -1609,31 +1634,6 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(4, 15, 0, 0, true)}
               centerExtra={getCenterExtra(4, 15, 0, 0, true)}
             />
-            {/* 
-            //
-            Thumbs keys
-            //
-             */}
-            <Key
-              keyType="t5"
-              id="R4C6_keyshape"
-              onClick={onClick}
-              className="key"
-              width={123}
-              height={57}
-              x={334}
-              y={keysRowsPosition.row6}
-              fill={getColor(4, 6)}
-              stroke={stroke(4, 6)}
-              strokeWidth={getStrokeWidth(4, 6)}
-              dataLedIndex={getLEDIndex(4, 6)}
-              dataKeyIndex={keyIndex(4, 6)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(4, 6))}
-              centerPrimary={getCenterPrimary(4, 6, 0, 0, true)}
-              centerExtra={getCenterExtra(4, 6, 0, 0, true)}
-            />
-
             <Key
               keyType="regularKey"
               id="R4C7_keyshape"
@@ -1642,7 +1642,7 @@ class KeymapANSI extends React.Component {
               width={57}
               height={57}
               x={464}
-              y={keysRowsPosition.row6}
+              y={keysRowsDefyPosition.row6}
               fill={getColor(4, 7)}
               stroke={stroke(4, 7)}
               strokeWidth={getStrokeWidth(4, 7)}
@@ -1653,44 +1653,11 @@ class KeymapANSI extends React.Component {
               centerPrimary={getCenterPrimary(4, 7, 0, 0, true)}
               centerExtra={getCenterExtra(4, 7, 0, 0, true)}
             />
-            <Key
-              keyType="regularKey"
-              id="R4C8_keyshape"
-              onClick={onClick}
-              className="key"
-              width={57}
-              height={57}
-              x={644}
-              y={keysRowsPosition.row6}
-              fill={getColor(4, 8)}
-              stroke={stroke(4, 8)}
-              strokeWidth={getStrokeWidth(4, 8)}
-              dataLedIndex={getLEDIndex(4, 8)}
-              dataKeyIndex={keyIndex(4, 8)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(4, 8))}
-              centerPrimary={getCenterPrimary(4, 8, 0, 0, true)}
-              centerExtra={getCenterExtra(4, 8, 0, 0, true)}
-            />
-            <Key
-              keyType="t8"
-              id="R4C9_keyshape"
-              onClick={onClick}
-              className="key"
-              width={113}
-              height={57}
-              x={710}
-              y={keysRowsPosition.row6}
-              fill={getColor(4, 9)}
-              stroke={stroke(4, 9)}
-              strokeWidth={getStrokeWidth(4, 9)}
-              dataLedIndex={getLEDIndex(4, 9)}
-              dataKeyIndex={keyIndex(4, 9)}
-              dataLayer={layer}
-              contrastText={getContrastText(getColor(4, 9))}
-              centerPrimary={getCenterPrimary(4, 9, 0, 0, true)}
-              centerExtra={getCenterExtra(4, 9, 0, 0, true)}
-            />
+            {/* 
+            //
+            Thumbs keys
+            //
+             */}
           </g>
           <g id="Areas">
             {/* Left side */}

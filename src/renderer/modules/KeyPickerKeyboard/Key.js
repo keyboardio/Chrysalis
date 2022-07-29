@@ -7,9 +7,9 @@ const Style = Styled.g`
 .keycap {
   .baseKey {
     fill: ${({ theme }) => theme.styles.keyPicker.keyFill};
-    will-change: fill, fill-opacity;
+    // will-change: fill, fill-opacity;
     transition-property: fill, fill-opacity;
-    transition: 200ms ease-in-out;
+    transition: 100ms ease-in-out;
     
   }
   .shapeKey {

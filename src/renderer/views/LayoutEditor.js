@@ -217,7 +217,7 @@ const Styles = Styled.div`
     text-anchor: start;
   }
   .shadowHover {
-    transition: all 300ms ease-in-out;
+    //transition: all 300ms ease-in-out;
     filter: blur(16px);
     opacity: 0.2;
   }
@@ -242,7 +242,7 @@ const Styles = Styled.div`
       opacity: 0.6;
     }
     .keyAnimation {
-      animation: pulse-black 2s linear infinite;
+      //animation: pulse-black 2s linear infinite;
     }
   }
   &:hover {
@@ -304,7 +304,7 @@ const Styles = Styled.div`
       stroke-opacity: 0.5;
   }
   .underGlowStripShadow {
-    transition: all 300ms ease-in-out;
+    //transition: all 300ms ease-in-out;
     filter: blur(12px);
     opacity: 0.8;
   }

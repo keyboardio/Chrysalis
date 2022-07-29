@@ -431,5 +431,14 @@
                 "updateInstructions": "按住键盘左上角的键（在默认布局中，这个键是PROG键）当你点击更新按钮时，继续按住它。一旦按键开始在电路板的第一列上闪烁绿色，请释放该键，因为保持时间过长可能会妨碍闪烁成功。"
             }
         }
+    },
+    "print": {
+        "feedback": {
+            "success": "打印成功！",
+            "error": "打印时遇到错误。"
+        }
+    },
+    "firmwareAutoUpdate": {
+        "available": "可用的新固件版本： {{ version }}"
     }
 }

@@ -80,6 +80,9 @@
         "to": "launcher.sh"
       },
       "static",
+      "!static/cldr",
+      "!static/dfu-util",
+      "static/dfu-util/${platform}-*",
       "NEWS.md"
     ]
   },
@@ -92,7 +95,6 @@
     "@mui/system": "^5.5.2",
     "archiver": "^5.0.2",
     "avrgirl-arduino": "keyboardio/avrgirl-arduino#serialport-10",
-    "cldr": "^7.1.1",
     "electron-devtools-installer": "^3.1.1",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
@@ -108,7 +110,6 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.8.5",
-    "react-localization": "^1.0.15",
     "react-markdown": "^7.1.0",
     "react-rnd": "^10.3.7",
     "remark-emoji": "^3.0.2",
@@ -121,11 +122,9 @@
     "tmp": "^0.2.1",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
-    "unraw": "^2.0.0",
     "usb": "^2.4.2",
     "uuid": "^8.3.1",
-    "winston": "^3.7.2",
-    "xml2js": "^0.4.23"
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
@@ -135,6 +134,7 @@
     "@spotxyz/universal": "",
     "app-builder-lib": "^23.0.3",
     "babel-plugin-module-resolver": "^4.1.0",
+    "cldr": "^7.1.1",
     "core-js": "^3.21.1",
     "electron": "17",
     "electron-builder": "^23.0.3",
@@ -157,8 +157,10 @@
     "prettier": "^2.6.1",
     "stylelint": "^14.6.1",
     "stylelint-config-standard": "^25.0.0",
+    "unraw": "^2.0.0",
     "webpack": "4.46.0",
-    "yarn": "^1.22.0"
+    "yarn": "^1.22.0",
+    "xml2js": "^0.4.23"
   },
   "resolutions": {
     "teensy-loader/usb": "^2.4.2",

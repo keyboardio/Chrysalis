@@ -38,7 +38,6 @@
     "react-color",
     "react-dom",
     "react-i18next",
-    "react-localization",
     "react-toastify",
     "react-markdown",
     "remark-emoji",

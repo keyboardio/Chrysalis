@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    tags-ignore:
-      - v*
 
 jobs:
   build:
@@ -98,34 +96,52 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Delete the snapshot release
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
-        shell: bash
-        run: |
-          gh release delete -y v$(tools/snapshot-tag) || true
-          git tag -d v$(tools/snapshot-tag) || true
-          git push origin :v$(tools/snapshot-tag) || true
-
-      - name: Recreate the snapshot release
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
-        shell: bash
-        run: |
-          gh release create -p -t "Chrysalis $(tools/snapshot-tag)" \
-                            -n "Development snapshot." \
-                            v$(tools/snapshot-tag)
+      - name: Discover the version tag
+        id: version
+        run: echo ::set-output name=tag::$(tools/snapshot-tag)
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           path: artifacts
 
-      - name: Publish a snapshot
+      - name: Delete the snapshot release
+        if: ${{ contains(steps.version.outputs.tag, 'snapshot') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          TAG: v${{steps.version.outputs.tag}}
+        shell: bash
+        run: |
+          gh release delete -y ${TAG} || true
+          git tag -d ${TAG} || true
+          git push origin :${TAG} || true
+
+      - name: Recreate the snapshot release
+        if: ${{ contains(steps.version.outputs.tag, 'snapshot') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          VERSION: ${{steps.version.outputs.tag}}
+        shell: bash
+        run: |
+          gh release create -p -t "Chrysalis ${VERSION}" \
+                            -n "Development snapshot." \
+                            v${VERSION}
+
+      - name: Create the new release
+        if: ${{ !contains(steps.version.outputs.tag, 'snapshot') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          VERSION: ${{ steps.version.outputs.tag }}
+        run: |
+          tools/release/news.sh >.news
+          gh release create -t "Chrysalis ${VERSION}" -F .news v${VERSION}
+
+      - name: Upload artifacts to the release
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
+          TAG: v${{steps.version.outputs.tag}}
         run: |
-          gh release upload v$(tools/snapshot-tag) \
+          gh release upload ${TAG} \
                      artifacts/*/Chrysalis-* \
                      artifacts/*/latest*.yml

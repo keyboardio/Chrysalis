@@ -356,7 +356,10 @@ const withModifiers = (keys) => {
   ];
 
   for (const key of keys) {
-    newKeys.push(key);
+    if (newKeys[key.code]) continue;
+    newKeys[key.code] = Object.assign({}, key);
+
+    if (key.code > 255) continue;
 
     for (const mod of mods) {
       const newKey = Object.assign({}, key, {
@@ -365,11 +368,11 @@ const withModifiers = (keys) => {
         baseCode: key.code,
         label: mod.label(key),
       });
-      newKeys.push(newKey);
+      newKeys[key.code + mod.offset] = newKey;
     }
   }
 
-  return newKeys;
+  return newKeys.filter((x) => x !== null);
 };
 
 export { addModifier, removeModifier, withModifiers };

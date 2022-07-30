@@ -80,6 +80,7 @@
         "to": "launcher.sh"
       },
       "static",
+      "!static/cldr",
       "NEWS.md"
     ]
   },

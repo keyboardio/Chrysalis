@@ -18,8 +18,13 @@
 import React, { useState, useEffect } from "react";
 
 import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";
+import { useTranslation } from "react-i18next";
+
+import { navigate } from "@renderer/routerHistory";
 
 const toast_channel = new BroadcastChannel("notifications");
 
@@ -51,6 +56,7 @@ export const toast = {
 };
 
 export default function Toast() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [variant, setVariant] = useState("warning");
   const [autoHideDuration, setAutoHideDuration] = useState(null);
@@ -85,8 +91,34 @@ export default function Toast() {
     };
   });
 
-  return (
-    <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={onClose}>
+  let alert;
+  if (variant === "error") {
+    alert = (
+      <Alert
+        elevation={6}
+        variant="filled"
+        onClose={!progress && onClose}
+        severity={variant}
+        sx={{ width: "100%" }}
+      >
+        <AlertTitle>{message}</AlertTitle>
+        <Button
+          variant="contained"
+          size="small"
+          disableElevation
+          color="warning"
+          onClick={async () => {
+            setOpen(false);
+            await navigate("/system-info");
+          }}
+        >
+          {t("errors.reportAProblem")}
+        </Button>
+        {progress && <LinearProgress variant="determinate" value={progress} />}
+      </Alert>
+    );
+  } else {
+    alert = (
       <Alert
         elevation={6}
         variant="filled"
@@ -97,6 +129,12 @@ export default function Toast() {
         {message}
         {progress && <LinearProgress variant="determinate" value={progress} />}
       </Alert>
+    );
+  }
+
+  return (
+    <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={onClose}>
+      {alert}
     </Snackbar>
   );
 }

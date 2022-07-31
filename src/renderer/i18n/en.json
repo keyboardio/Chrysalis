@@ -2,7 +2,8 @@
   "language": "English",
   "errors": {
     "deviceDisconnected": "Keyboard disconnected",
-    "saveFile": "Error saving a file: {{ error }}"
+    "saveFile": "Error saving a file: {{ error }}",
+    "reportAProblem": "Report the problem"
   },
   "print": {
     "feedback": {

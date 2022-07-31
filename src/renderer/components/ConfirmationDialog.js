@@ -36,10 +36,10 @@ const ConfirmationDialog = (props) => {
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
         <Button onClick={props.onCancel} color="primary">
-          {t("dialog.cancel")}
+          {props.cancelLabel || t("dialog.cancel")}
         </Button>
         <Button onClick={props.onConfirm} color="primary">
-          {t("dialog.ok")}
+          {props.confirmLabel || t("dialog.ok")}
         </Button>
       </DialogActions>
     </Dialog>

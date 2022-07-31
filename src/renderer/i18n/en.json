@@ -36,7 +36,8 @@
   "dialog": {
     "ok": "Ok",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "continue": "Continue"
   },
   "app": {
     "menu": {

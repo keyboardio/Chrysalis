@@ -229,6 +229,7 @@ const FirmwareUpdate = (props) => {
         open={confirmationOpen}
         onConfirm={() => upload()}
         onCancel={() => setConfirmationOpen(false)}
+        confirmLabel={t("dialog.continue")}
       >
         <Typography component="p" sx={{ mb: 2 }}>
           {t("firmwareUpdate.confirmDialog.description")}

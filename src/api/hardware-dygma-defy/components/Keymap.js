@@ -1452,11 +1452,11 @@ class KeymapANSI extends React.Component {
              */}
             {/* LEFT SIDE */}
             <Key
-              keyType="regularKey"
+              keyType="defy-t1"
               id="R4C1_keyshape"
               onClick={onClick}
               className="key"
-              width={57}
+              width={82}
               height={57}
               x={236}
               y={370}

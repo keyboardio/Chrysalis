@@ -572,6 +572,129 @@ const Key = ({
         ""
       )}
 
+      {/* DEFY THUMBS KEYS */}
+      {keyType == "defy-t1" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              fill={`#303949`}
+            />
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M0 4.989a4 4 0 014-4h74.202a4 4 0 013.994 4.217l-2.39 43.81a4 4 0 01-3.994 3.783H4a4 4 0 01-4-4V4.989z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M.826 4.989a4 4 0 014-4h68.522a4 4 0 013.992 4.244l-2.336 38.158a4 4 0 01-3.993 3.756H4.826a4 4 0 01-4-4V4.989z"
+              className="keyBase"
+            />
+            <path
+              d="M.826 4.989a4 4 0 014-4h68.522a4 4 0 013.992 4.244l-2.336 38.158a4 4 0 01-3.993 3.756H4.826a4 4 0 01-4-4V4.989z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M.826 4.989a4 4 0 014-4h68.522a4 4 0 013.992 4.244l-2.336 38.158a4 4 0 01-3.993 3.756H4.826a4 4 0 01-4-4V4.989z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M.826 4.989a4 4 0 014-4h68.522a4 4 0 013.992 4.244l-2.336 38.158a4 4 0 01-3.993 3.756H4.826a4 4 0 01-4-4V4.989z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M.826 4.989a4 4 0 014-4h68.522a4 4 0 013.992 4.244l-2.336 38.158a4 4 0 01-3.993 3.756H4.826a4 4 0 01-4-4V4.989z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+            <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+              <ul>
+                <li
+                  ref={setExtralabel}
+                  className={`${extraLabelClass ? "extraLabel" : ""} ${
+                    altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                      ? "hidden-extraLabel"
+                      : ""
+                  }`}
+                >
+                  {centerExtra}
+                </li>
+                <li
+                  className={`labelClass ${
+                    altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                      ? "labelClass-withModifiers"
+                      : ""
+                  }`}
+                >
+                  {centerPrimary}
+                </li>
+              </ul>
+            </div>
+          </foreignObject>
+          <foreignObject x={0} y={1} width={width} height={height}>
+            <ListModifiersKey
+              mehApplied={mehApplied}
+              hyperApplied={hyperApplied}
+              altApplied={altApplied}
+              altGrApplied={altGrApplied}
+              ctrlApplied={ctrlApplied}
+              shiftApplied={shiftApplied}
+              osApplied={osApplied}
+            />
+          </foreignObject>
+        </g>
+      ) : (
+        ""
+      )}
+
+      {/* END DEFY THUMBS KEYS */}
+
       <defs>
         <linearGradient
           id={`paintGradient${id}`}

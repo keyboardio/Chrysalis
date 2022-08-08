@@ -1458,8 +1458,8 @@ class KeymapANSI extends React.Component {
               className="key"
               width={82}
               height={57}
-              x={236}
-              y={370}
+              x={302}
+              y={350}
               fill={getColor(4, 1)}
               stroke={stroke(4, 1)}
               strokeWidth={getStrokeWidth(4, 1)}
@@ -1471,14 +1471,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 1, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t2"
               id="R4C2_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={301}
-              y={370}
+              x={390}
+              y={350}
               fill={getColor(4, 2)}
               stroke={stroke(4, 2)}
               strokeWidth={getStrokeWidth(4, 2)}
@@ -1490,14 +1490,13 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 2, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
-              id="R4C3_keyshape"
+              keyType="defy-t3"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={366}
-              y={370}
+              x={449}
+              y={351}
               fill={getColor(4, 3)}
               stroke={stroke(4, 3)}
               strokeWidth={getStrokeWidth(4, 3)}
@@ -1509,14 +1508,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 3, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t4"
               id="R4C4_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={431}
-              y={370}
+              x={497}
+              y={373}
               fill={getColor(4, 4)}
               stroke={stroke(4, 4)}
               strokeWidth={getStrokeWidth(4, 4)}
@@ -1528,14 +1527,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 4, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t8"
               id="R4C7_keyshape"
               onClick={onClick}
               className="key"
               width={57}
-              height={57 * 2 + 9}
-              x={497}
-              y={370}
+              height={116}
+              x={477}
+              y={434}
               fill={getColor(4, 7)}
               stroke={stroke(4, 7)}
               strokeWidth={getStrokeWidth(4, 7)}
@@ -1547,14 +1546,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 7, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t5"
               id="R4C10_keyshape"
               onClick={onClick}
               className="key"
-              width={57}
+              width={65}
               height={57}
-              x={301}
-              y={435}
+              x={305}
+              y={411}
               fill={getColor(4, 10)}
               stroke={stroke(4, 10)}
               strokeWidth={getStrokeWidth(4, 10)}
@@ -1566,14 +1565,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 10, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t6"
               id="R4C11_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={366}
-              y={435}
+              x={387}
+              y={411}
               fill={getColor(4, 11)}
               stroke={stroke(4, 11)}
               strokeWidth={getStrokeWidth(4, 11)}
@@ -1585,14 +1584,14 @@ class KeymapANSI extends React.Component {
               centerExtra={getCenterExtra(4, 11, 0, 0, true)}
             />
             <Key
-              keyType="regularKey"
+              keyType="defy-t7"
               id="R4C12_keyshape"
               onClick={onClick}
               className="key"
               width={57}
               height={57}
-              x={431}
-              y={435}
+              x={441}
+              y={421}
               fill={getColor(4, 12)}
               stroke={stroke(4, 12)}
               strokeWidth={getStrokeWidth(4, 12)}

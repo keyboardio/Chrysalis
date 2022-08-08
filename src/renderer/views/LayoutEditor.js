@@ -332,7 +332,24 @@ const Styles = Styled.div`
   cursor: url(${customCursor}) 12 12, auto;
 }
 
-
+.defy-t2 .keyContentLabelRotate {
+  transform: rotate(3deg) translate(1px,-1px);
+}
+.defy-t3 .keyContentLabelRotate {
+  transform: rotate(10deg) translate(9px, -1px);
+}
+.defy-t4 .keyContentLabelRotate {
+  transform: rotate(37deg) translate(26px,-18px);
+}
+.defy-t6 .keyContentLabelRotate {
+  transform: rotate(5deg) translate(2px,-5px);
+}
+.defy-t7 .keyContentLabelRotate {
+  transform: rotate(15deg) translate(12px,-5px);
+}
+.defy-t8 .keyContentLabelRotate {
+  transform: rotate(54deg) translate(52px,-77px);
+}
 `;
 
 class LayoutEditor extends React.Component {

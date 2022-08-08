@@ -692,6 +692,855 @@ const Key = ({
       ) : (
         ""
       )}
+      {keyType == "defy-t2" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M45.102 55.67a335.167 335.167 0 00-41.705-3.605 3.486 3.486 0 01-3.39-3.698L2.88 3.743A4 4 0 016.872 0h51.252c2.635 0 4.55 2.503 3.861 5.046L49.014 52.943a3.461 3.461 0 01-3.912 2.726z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M45.102 55.67a335.167 335.167 0 00-41.705-3.605 3.486 3.486 0 01-3.39-3.698L2.88 3.743A4 4 0 016.872 0h51.252c2.635 0 4.55 2.503 3.861 5.046L49.014 52.943a3.461 3.461 0 01-3.912 2.726z"
+              fill={`#303949`}
+            />
+            <path
+              d="M45.102 55.67a335.167 335.167 0 00-41.705-3.605 3.486 3.486 0 01-3.39-3.698L2.88 3.743A4 4 0 016.872 0h51.252c2.635 0 4.55 2.503 3.861 5.046L49.014 52.943a3.461 3.461 0 01-3.912 2.726z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M45.102 55.67a335.167 335.167 0 00-41.705-3.605 3.486 3.486 0 01-3.39-3.698L2.88 3.743A4 4 0 016.872 0h51.252c2.635 0 4.55 2.503 3.861 5.046L49.014 52.943a3.461 3.461 0 01-3.912 2.726z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M45.102 55.67a335.167 335.167 0 00-41.705-3.605 3.486 3.486 0 01-3.39-3.698L2.88 3.743A4 4 0 016.872 0h51.252c2.635 0 4.55 2.503 3.861 5.046L49.014 52.943a3.461 3.461 0 01-3.912 2.726z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              className="keyBase"
+            />
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+      {keyType == "defy-t3" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M2.662 57.508a160.536 160.536 0 0134.165 12.66 3.438 3.438 0 004.481-1.256l31.202-49.79a3.507 3.507 0 00-1.376-4.954C53.5 5.164 35.095.958 15.318.007a3.51 3.51 0 00-3.652 2.774L.078 53.406a3.485 3.485 0 002.513 4.102h.071z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M2.662 57.508a160.536 160.536 0 0134.165 12.66 3.438 3.438 0 004.481-1.256l31.202-49.79a3.507 3.507 0 00-1.376-4.954C53.5 5.164 35.095.958 15.318.007a3.51 3.51 0 00-3.652 2.774L.078 53.406a3.485 3.485 0 002.513 4.102h.071z"
+              fill={`#303949`}
+            />
+            <path
+              d="M2.662 57.508a160.536 160.536 0 0134.165 12.66 3.438 3.438 0 004.481-1.256l31.202-49.79a3.507 3.507 0 00-1.376-4.954C53.5 5.164 35.095.958 15.318.007a3.51 3.51 0 00-3.652 2.774L.078 53.406a3.485 3.485 0 002.513 4.102h.071z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M2.662 57.508a160.536 160.536 0 0134.165 12.66 3.438 3.438 0 004.481-1.256l31.202-49.79a3.507 3.507 0 00-1.376-4.954C53.5 5.164 35.095.958 15.318.007a3.51 3.51 0 00-3.652 2.774L.078 53.406a3.485 3.485 0 002.513 4.102h.071z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M2.662 57.508a160.536 160.536 0 0134.165 12.66 3.438 3.438 0 004.481-1.256l31.202-49.79a3.507 3.507 0 00-1.376-4.954C53.5 5.164 35.095.958 15.318.007a3.51 3.51 0 00-3.652 2.774L.078 53.406a3.485 3.485 0 002.513 4.102h.071z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M3.373 52.798c10.562 2.114 19.562 5.316 28.455 9.835a3.438 3.438 0 004.48-1.257l29.376-43.195a3.51 3.51 0 00-1.375-4.956C44.42 4.053 30.29 1.228 14.143.95a3.51 3.51 0 00-3.651 2.774L.789 48.696a3.485 3.485 0 002.513 4.102h.07z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M3.373 52.798c10.562 2.114 19.562 5.316 28.455 9.835a3.438 3.438 0 004.48-1.257l29.376-43.195a3.51 3.51 0 00-1.375-4.956C44.42 4.053 30.29 1.228 14.143.95a3.51 3.51 0 00-3.651 2.774L.789 48.696a3.485 3.485 0 002.513 4.102h.07z"
+              className="keyBase"
+            />
+            <path
+              d="M3.373 52.798c10.562 2.114 19.562 5.316 28.455 9.835a3.438 3.438 0 004.48-1.257l29.376-43.195a3.51 3.51 0 00-1.375-4.956C44.42 4.053 30.29 1.228 14.143.95a3.51 3.51 0 00-3.651 2.774L.789 48.696a3.485 3.485 0 002.513 4.102h.07z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M3.373 52.798c10.562 2.114 19.562 5.316 28.455 9.835a3.438 3.438 0 004.48-1.257l29.376-43.195a3.51 3.51 0 00-1.375-4.956C44.42 4.053 30.29 1.228 14.143.95a3.51 3.51 0 00-3.651 2.774L.789 48.696a3.485 3.485 0 002.513 4.102h.07z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M3.373 52.798c10.562 2.114 19.562 5.316 28.455 9.835a3.438 3.438 0 004.48-1.257l29.376-43.195a3.51 3.51 0 00-1.375-4.956C44.42 4.053 30.29 1.228 14.143.95a3.51 3.51 0 00-3.651 2.774L.789 48.696a3.485 3.485 0 002.513 4.102h.07z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M40.217 49.017c-12.96-1.506-24.553-2.312-36.052-2.604a3.484 3.484 0 01-3.39-3.698L2.753 3.797A4 4 0 016.749 0h45.455c2.663 0 4.582 2.554 3.842 5.112L44.129 46.291a3.461 3.461 0 01-3.912 2.726z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+
+      {keyType == "defy-t4" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M1.484 56.77a113.488 113.488 0 0125.225 23.891 3.368 3.368 0 004.71.666l42.113-29.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C68.256 33.426 52.758 12.032 35.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 52.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M1.484 56.77a113.488 113.488 0 0125.225 23.891 3.368 3.368 0 004.71.666l42.113-29.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C68.256 33.426 52.758 12.032 35.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 52.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={`#303949`}
+            />
+            <path
+              d="M1.484 56.77a113.488 113.488 0 0125.225 23.891 3.368 3.368 0 004.71.666l42.113-29.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C68.256 33.426 52.758 12.032 35.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 52.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M1.484 56.77a113.488 113.488 0 0125.225 23.891 3.368 3.368 0 004.71.666l42.113-29.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C68.256 33.426 52.758 12.032 35.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 52.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M1.484 56.77a113.488 113.488 0 0125.225 23.891 3.368 3.368 0 004.71.666l42.113-29.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C68.256 33.426 52.758 12.032 35.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 52.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              className="keyBase"
+            />
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M1.484 51.77C10.5 58.106 15 62 23.709 71.661a3.368 3.368 0 004.71.666l37.113-25.81a3.447 3.447 0 001.355-1.953 3.476 3.476 0 00-.225-2.374C54 22.5 49.5 14.5 31.99.574a3.445 3.445 0 00-2.656-.49 3.482 3.482 0 00-2.197 1.583L.519 47.063a3.522 3.522 0 00-.446 2.548c.18.876.685 1.648 1.412 2.16z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+      {keyType == "defy-t5" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M23.3 52h46.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L75.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0072.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 45.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 52z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M23.3 52h46.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L75.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0072.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 45.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 52z"
+              fill={`#303949`}
+            />
+            <path
+              d="M23.3 52h46.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L75.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0072.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 45.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 52z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M23.3 52h46.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L75.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0072.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 45.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 52z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M23.3 52h46.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L75.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0072.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 45.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 52z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              className="keyBase"
+            />
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M23.3 46h40.985a3.527 3.527 0 002.404-.962 3.476 3.476 0 001.086-2.335L69.996 3.63a3.465 3.465 0 00-.969-2.55A3.514 3.514 0 0066.508 0H3.488c-.58.004-1.15.15-1.658.426S.89 1.098.573 1.579a3.47 3.47 0 00-.288 3.284l19.812 39.073a3.494 3.494 0 001.294 1.502A3.532 3.532 0 0023.3 46z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={16} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={12} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+      {keyType == "defy-t6" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M41.715 56.918c-12.026-2.652-25.035-3.56-37.484-3.626-2.298-.013-4.14-1.924-4.032-4.218L2.35 3.367A3.546 3.546 0 013.43.952 3.388 3.388 0 015.852.001a305.77 305.77 0 0151.374 5.747c.477.098.928.298 1.324.587.396.288.728.66.974 1.088a3.592 3.592 0 01.311 2.87l-14.1 44.22a3.499 3.499 0 01-1.55 2.007 3.364 3.364 0 01-2.47.398z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M41.715 56.918c-12.026-2.652-25.035-3.56-37.484-3.626-2.298-.013-4.14-1.924-4.032-4.218L2.35 3.367A3.546 3.546 0 013.43.952 3.388 3.388 0 015.852.001a305.77 305.77 0 0151.374 5.747c.477.098.928.298 1.324.587.396.288.728.66.974 1.088a3.592 3.592 0 01.311 2.87l-14.1 44.22a3.499 3.499 0 01-1.55 2.007 3.364 3.364 0 01-2.47.398z"
+              fill={`#303949`}
+            />
+            <path
+              d="M41.715 56.918c-12.026-2.652-25.035-3.56-37.484-3.626-2.298-.013-4.14-1.924-4.032-4.218L2.35 3.367A3.546 3.546 0 013.43.952 3.388 3.388 0 015.852.001a305.77 305.77 0 0151.374 5.747c.477.098.928.298 1.324.587.396.288.728.66.974 1.088a3.592 3.592 0 01.311 2.87l-14.1 44.22a3.499 3.499 0 01-1.55 2.007 3.364 3.364 0 01-2.47.398z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M41.715 56.918c-12.026-2.652-25.035-3.56-37.484-3.626-2.298-.013-4.14-1.924-4.032-4.218L2.35 3.367A3.546 3.546 0 013.43.952 3.388 3.388 0 015.852.001a305.77 305.77 0 0151.374 5.747c.477.098.928.298 1.324.587.396.288.728.66.974 1.088a3.592 3.592 0 01.311 2.87l-14.1 44.22a3.499 3.499 0 01-1.55 2.007 3.364 3.364 0 01-2.47.398z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M41.715 56.918c-12.026-2.652-25.035-3.56-37.484-3.626-2.298-.013-4.14-1.924-4.032-4.218L2.35 3.367A3.546 3.546 0 013.43.952 3.388 3.388 0 015.852.001a305.77 305.77 0 0151.374 5.747c.477.098.928.298 1.324.587.396.288.728.66.974 1.088a3.592 3.592 0 01.311 2.87l-14.1 44.22a3.499 3.499 0 01-1.55 2.007 3.364 3.364 0 01-2.47.398z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              className="keyBase"
+            />
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M35.715 49.918c-8.629-1.26-20.638-2.347-31.624-2.574-2.244-.047-4.049-1.89-3.998-4.135L1 3.499a3.546 3.546 0 011.079-2.414A3.388 3.388 0 014.502.133c17.148 1 29.234 2.017 46.174 5.38.477.098.928.298 1.324.587s.728.66.974 1.089a3.613 3.613 0 01.31 2.87l-13.55 37.454a3.498 3.498 0 01-1.55 2.007 3.364 3.364 0 01-2.469.398z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+      {keyType == "defy-t7" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M2.415 51.18A86.227 86.227 0 0127.432 71.66a3.401 3.401 0 002.22 1.305 3.37 3.37 0 002.487-.635L74.29 42.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.54 3.54 0 00-.636-1.269C67.793 28.233 50.543 10.527 18.96.166a3.406 3.406 0 00-2.687.253 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.632 1.244L.886 47.231a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M2.415 51.18A86.227 86.227 0 0127.432 71.66a3.401 3.401 0 002.22 1.305 3.37 3.37 0 002.487-.635L74.29 42.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.54 3.54 0 00-.636-1.269C67.793 28.233 50.543 10.527 18.96.166a3.406 3.406 0 00-2.687.253 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.632 1.244L.886 47.231a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={`#303949`}
+            />
+            <path
+              d="M2.415 51.18A86.227 86.227 0 0127.432 71.66a3.401 3.401 0 002.22 1.305 3.37 3.37 0 002.487-.635L74.29 42.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.54 3.54 0 00-.636-1.269C67.793 28.233 50.543 10.527 18.96.166a3.406 3.406 0 00-2.687.253 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.632 1.244L.886 47.231a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M2.415 51.18A86.227 86.227 0 0127.432 71.66a3.401 3.401 0 002.22 1.305 3.37 3.37 0 002.487-.635L74.29 42.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.54 3.54 0 00-.636-1.269C67.793 28.233 50.543 10.527 18.96.166a3.406 3.406 0 00-2.687.253 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.632 1.244L.886 47.231a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M2.415 51.18A86.227 86.227 0 0127.432 71.66a3.401 3.401 0 002.22 1.305 3.37 3.37 0 002.487-.635L74.29 42.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.54 3.54 0 00-.636-1.269C67.793 28.233 50.543 10.527 18.96.166a3.406 3.406 0 00-2.687.253 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.632 1.244L.886 47.231a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              className="keyBase"
+            />
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M2.415 48.18c8.84 5.42 13.34 8.82 21.017 16.481a3.37 3.37 0 004.707.67L66.29 40.47c.386-.277.712-.631.958-1.04a3.555 3.555 0 00.384-2.764 3.538 3.538 0 00-.636-1.269C59.793 26.233 40.255 8.926 15.755 1a3.406 3.406 0 00-2.688.254 3.474 3.474 0 00-1.059.895 3.54 3.54 0 00-.631 1.244L.886 44.23a3.548 3.548 0 00.107 2.237 3.479 3.479 0 001.422 1.711z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+      {keyType == "defy-t8" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              d="M.536 71.853l24.591 35.646a3.504 3.504 0 004.642 1.022c14.57-8.626 52.897-31.321 59.8-35.266 19.188-11.027 23.521-36.05 12.403-70.842A3.474 3.474 0 0096.664.631L1.44 67.17a3.493 3.493 0 00-.904 4.682z"
+              fill={color}
+            />
+          </g>
+
+          <g className="baseShape">
+            <path
+              d="M.536 71.853l24.591 35.646a3.504 3.504 0 004.642 1.022c14.57-8.626 52.897-31.321 59.8-35.266 19.188-11.027 23.521-36.05 12.403-70.842A3.474 3.474 0 0096.664.631L1.44 67.17a3.493 3.493 0 00-.904 4.682z"
+              fill={`#303949`}
+            />
+            <path
+              d="M.536 71.853l24.591 35.646a3.504 3.504 0 004.642 1.022c14.57-8.626 52.897-31.321 59.8-35.266 19.188-11.027 23.521-36.05 12.403-70.842A3.474 3.474 0 0096.664.631L1.44 67.17a3.493 3.493 0 00-.904 4.682z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M.536 71.853l24.591 35.646a3.504 3.504 0 004.642 1.022c14.57-8.626 52.897-31.321 59.8-35.266 19.188-11.027 23.521-36.05 12.403-70.842A3.474 3.474 0 0096.664.631L1.44 67.17a3.493 3.493 0 00-.904 4.682z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              d="M.536 71.853l24.591 35.646a3.504 3.504 0 004.642 1.022c14.57-8.626 52.897-31.321 59.8-35.266 19.188-11.027 23.521-36.05 12.403-70.842A3.474 3.474 0 0096.664.631L1.44 67.17a3.493 3.493 0 00-.904 4.682z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${0},${12})`}>
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              fill={color}
+            />
+          </g>
+          <g transform={`translate(${4},${0})`}>
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              className="keyBase"
+            />
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+
+            <path
+              d="M.536 67.853L23.127 98.5a3.5 3.5 0 004.642 1.021c14.57-8.626 46.897-28.321 53.8-32.266C100.757 56.228 105.5 36.5 96.972 2.413A3.467 3.467 0 0094.77.181a3.481 3.481 0 00-3.106.45L1.44 63.17a3.493 3.493 0 00-.904 4.682z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
+          </g>
+          <g className="keyContentLabelRotate">
+            <foreignObject x={3} y={1} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li
+                    ref={setExtralabel}
+                    className={`${extraLabelClass ? "extraLabel" : ""} ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "hidden-extraLabel"
+                        : ""
+                    }`}
+                  >
+                    {centerExtra}
+                  </li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
+                </ul>
+              </div>
+            </foreignObject>
+            <foreignObject x={0} y={1} width={width} height={height}>
+              <ListModifiersKey
+                mehApplied={mehApplied}
+                hyperApplied={hyperApplied}
+                altApplied={altApplied}
+                altGrApplied={altGrApplied}
+                ctrlApplied={ctrlApplied}
+                shiftApplied={shiftApplied}
+                osApplied={osApplied}
+              />
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
 
       {/* END DEFY THUMBS KEYS */}
 

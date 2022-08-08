@@ -350,6 +350,31 @@ const Styles = Styled.div`
 .defy-t8 .keyContentLabelRotate {
   transform: rotate(54deg) translate(52px,-77px);
 }
+
+
+.defy-tR2 .keyContentLabelRotate {
+  transform: rotate(-5deg) translate(5px,1px);
+}
+
+.defy-tR2 .keyContentLabelRotate {
+  transform: rotate(-5deg) translate(5px,1px);
+}
+.defy-tR3 .keyContentLabelRotate {
+  transform: rotate(-25deg) translate(-2px,18px);
+}
+.defy-tR4 .keyContentLabelRotate {
+  transform: rotate(-54deg) translate(-36px,26px);
+}
+.defy-tR6 .keyContentLabelRotate {
+  transform: rotate(-8deg) translate(4px,4px);
+}
+.defy-tR7 .keyContentLabelRotate {
+  transform: rotate(-46deg) translate(-24px,24px);
+}
+.defy-tR8 .keyContentLabelRotate {
+  transform: rotate(-60deg) translate(-47px,8px)
+}
+
 `;
 
 class LayoutEditor extends React.Component {

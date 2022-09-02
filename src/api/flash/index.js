@@ -211,8 +211,8 @@ export default class FlashRaise {
       "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
       dtrToggle: 1000, // Time to wait (ms) between toggling DTR
-      waitingClose: 500, // Time to wait for boot loader
-      bootLoaderUp: 500 // Time to wait for the boot loader to come up
+      waitingClose: 2000, // Time to wait for boot loader
+      bootLoaderUp: 1000 // Time to wait for the boot loader to come up
     };
     console.log("loaded backup: ", backup);
     this.backup = backup;
@@ -228,7 +228,7 @@ export default class FlashRaise {
       stateUpdate(2, 20);
       try {
         await this.delay(timeouts.waitingClose);
-        let bootCount = 8;
+        let bootCount = 10;
         while (bootCount > 0) {
           if (await this.foundDevices(Hardware.bootloader, "Bootloader detected", true)) {
             resolve("Detected Bootloader mode");

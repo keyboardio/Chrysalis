@@ -1,3 +1,37 @@
+Chrysalis 0.11.1-snapshot
+=========================
+**UNRELEASED**
+
+## Known issues
+
+There is an as of yet unsolved bug in recent firmware built for the Keyboardio
+Model 100, which can result in the keyboard locking up and becoming unresponsive
+when larger amounts of data is sent to it via Focus. Chrysalis includes a
+workaround for this, but the side effect of that is that saving changes on a
+Model 100 is considerably slower than it should be.
+
+## New features
+
+When selecting the key layout you use on your computer, Chrysalis will now show
+a preview of the selected layout, so you do not have to visit the Layout Editor
+screen just to verify it is the correct one.
+
+## Bugfixes
+
+In Chrysalis 0.11.0, we fixed a bug that affected keys that are augmented by
+modifiers. The fix applied then ended up being too eager, and resulted in some
+keys being processed twice, and ending up with the wrong modifiers displayed.
+This has been addressed, and all modifier augmented labels should be correct
+now.
+
+The confirmation dialog that appears during flashing will now show a "Continue"
+button, rather than one with an "Ok" label, because the new label fits the
+wording of the instructions better.
+
+## Miscellaneous
+
+We have reduced the size of the pre-built binaries by a good few megabytes.
+
 Chrysalis 0.11.0
 ================
 Released on 2022-07-28

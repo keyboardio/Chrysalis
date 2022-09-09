@@ -1,6 +1,6 @@
-Chrysalis 0.11.1-snapshot
-=========================
-**UNRELEASED**
+Chrysalis 0.11.1
+================
+Released on 2022-09-09
 
 ## Known issues
 

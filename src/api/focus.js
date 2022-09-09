@@ -477,7 +477,9 @@ class Focus {
          */
         this._write_parts(request);
       } else {
-        this._port.write(request);
+        //        this._port.write(request);
+        // Temporary hack to deal with the Model 100 getting wedged on Linux and Windows when we write large amounts of data at once.
+        this._write_parts(request);
       }
     });
   }

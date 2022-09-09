@@ -91,6 +91,8 @@ jobs:
   publish:
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: publish
 
     steps:
       - name: Check out Git repository

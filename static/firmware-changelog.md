@@ -1,3 +1,19 @@
+Chrysalis-Firmware-Bundle 0.11.1
+================================
+Released on 2022-09-09
+
+No changes in the sketches themselves, but all of them have been rebuilt with
+current Kaleidoscope.
+
+Known issues
+------------
+
+We are aware of an as of yet unsolved issue with the Model 100 firmware, where
+sending data over Focus to it too fast can result in the keyboard locking up,
+and becoming unresponsive. Chrysalis 0.11.1 has a workaround for this, but
+saving anything to the keyboard will be a substantially longer process than
+necessary.
+
 Chrysalis-Firmware-Bundle 0.11.0
 ================================
 Released on 2022-07-28

@@ -1,6 +1,6 @@
 ---
-version: 0.11.0+27
-build: 27
+version: 0.11.1+29
+build: 29
 
 dependencies:
   cores:
@@ -12,28 +12,37 @@ dependencies:
     gd32:
       - keyboardio/KeyboardioHID@35cb0a704f51953512222334396b58fedef039fe
     common:
-      - keyboardio/Kaleidoscope@8f3fab579b5116747b2d3c6735adff3ab08f96f8
-      - keyboardio/Chrysalis-Firmware-Bundle@5cd869a05f49eac4eadd358d864d5408472c9af6
+      - keyboardio/Kaleidoscope@f3fe7c9023eefc69aed5574504bf2e73f6105db3
+      - keyboardio/Chrysalis-Firmware-Bundle@5dbd9176698b6756a58d7e93f2d642351c0c5b15
 
 firmware:
   Keyboardio:
-    Atreus:
+    Model01:
       plugins:
+        - BootGreetingEffect
+        - ColormapEffect
         - DynamicMacros
         - EEPROMKeymap
         - EEPROMSettings
-        - EscapeOneShot
-        - EscapeOneShotConfig
         - FirmwareVersion
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
-        - LayerNames
+        - HardwareTestMode
+        - HostPowerManagement
+        - LEDBreatheEffect
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
         - Macros
+        - MagicCombo
         - MouseKeys
-        - OneShot
+        - NumPad
         - Qukeys
-        - SpaceCadet
+        - USBQuirks
     Model100:
       plugins:
         - AlphaSquareEffect
@@ -69,32 +78,23 @@ firmware:
         - SpaceCadet
         - StalkerEffect
         - USBQuirks
-    Model01:
+    Atreus:
       plugins:
-        - BootGreetingEffect
-        - ColormapEffect
         - DynamicMacros
         - EEPROMKeymap
         - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
         - FirmwareVersion
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
-        - HardwareTestMode
-        - HostPowerManagement
-        - LEDBreatheEffect
-        - LEDChaseEffect
-        - LEDControl
-        - LEDOff
-        - LEDPaletteTheme
-        - LEDRainbowEffect
-        - LEDRainbowWaveEffect
+        - LayerNames
         - Macros
-        - MagicCombo
         - MouseKeys
-        - NumPad
+        - OneShot
         - Qukeys
-        - USBQuirks
+        - SpaceCadet
   EZ:
     ErgoDox:
       plugins:

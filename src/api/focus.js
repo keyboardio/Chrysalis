@@ -312,6 +312,37 @@ class Focus {
       data = data.toString("utf-8");
       logger("focus").debug("incoming data", { data: data });
 
+      /*
+       * Chrysalis tries its best to serialize requests and responses, but under
+       * some circumstances (more on that later), we can end up with receiving
+       * data out of band. When that happened, and we did not have a callback
+       * set - which we didn't -, then our `data` event handler ended up
+       * erroring, which bubbled up as an unhandled exception.
+       *
+       * This was most noticeable when upgrading a 0.10.4 (or earlier) firmware
+       * on a Keyboardio Atreus to 0.11 or later. We dropped one layer in 0.11,
+       * so when upgrading and restoring layers, Chrysalis sent a 480 item
+       * keymap to the firmware, but the firmware replied with a `.` after 432
+       * items. This - for reasons I do not understand at this time - resulted
+       * in Chrysalis emitting a number empty responses, not just one, thus,
+       * triggering the scenario where we were missing callbacks.
+       *
+       * In this particular scenario, dropping the data is fine, the keyboard
+       * does the right thing, and once we have a callback, things will line up
+       * again, and we're all good. I have not found another way to trigger the
+       * issue, so I believe that this workaround is safe, but Chrysalis will
+       * log it nevertheless, so if it ends up causing issues later, we'll know.
+       *
+       * TODO(anyone): Figure out *why* we receive multiple end of data markers,
+       * and fix the root cause.
+       */
+      if (this.callbacks.length == 0) {
+        logger("focus").warn(
+          "Input received while no callbacks are present. Discarding.",
+          { data }
+        );
+        return;
+      }
       const [resolve] = this.callbacks?.shift();
       this._parser.endTimer();
       if (data == ".") {

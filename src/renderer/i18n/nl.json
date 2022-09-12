@@ -264,13 +264,10 @@
             },
             "autoUpdate": {
                 "mode": {
-                    "label": "Zet automatische upgrades aan",
                     "help": "Wanneer ingeschakeld zal Chrysalis tijdens het opstarten zoeken naar updates en automatisch nieuwe versies downloaden."
                 },
-                "label": "Pas aan hoe Chrysalis moet bijgewerkt worden",
                 "firmwareMode": {
-                    "label": "Zet automatische firmware bestandsupdates aan",
-                    "help": "Wanneer aangezet, zal Chrysalis tijdens het opstarten nagaan of er nieuwe firmware bestanden zijn en zal het automatisch nieuwe versies downloaden."
+                    "label": "Zet automatische firmware bestandsupdates aan"
                 }
             },
             "oneLayerPerPage": {

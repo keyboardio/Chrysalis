@@ -238,10 +238,8 @@
         "ui": {
             "autoUpdate": {
                 "mode": {
-                    "label": "启用自动升级功能",
                     "help": "启用后，Chrysalis 将在启动时检查更新，并自动下载新版本。"
-                },
-                "label": "自定义Chrysalis应该如何升级"
+                }
             },
             "layoutEditor": {
                 "label": "自定义布局编辑器"

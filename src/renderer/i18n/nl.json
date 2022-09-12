@@ -19,7 +19,8 @@
     "dialog": {
         "ok": "Ok",
         "cancel": "Annuleer",
-        "close": "Sluiten"
+        "close": "Sluiten",
+        "continue": "Doorgaan"
     },
     "app": {
         "menu": {
@@ -232,20 +233,20 @@
         },
         "ui": {
             "layoutEditor": {
-                "label": "Indeling Editor aanpassen"
+                "label": "Indeling Editor"
             },
             "layoutCards": {
-                "label": "Indeling Kaarten aanpassen"
+                "label": "Indeling Kaarten"
             },
             "hideUnavailableFeatures": {
                 "label": "Verberg functies die niet worden ondersteund door de huidige firmware van je toetsenbord",
-                "help": "Wanneer aangezet zal Chrysalis configuratieopties verbergen van functies die niet ondersteund worden door de huidige firmware van je toetsenbord."
+                "help": "Wanneer dit is ingeschakeld zal Chrysalis configuratieopties verbergen van functies die niet ondersteund worden door de huidige firmware van je toetsenbord."
             },
             "lookNFeel": {
-                "label": "Pas uiterlijk aan"
+                "label": "Uiterlijk"
             },
             "theme": {
-                "label": "Algemeen uiterlijk",
+                "label": "Thema",
                 "system": "Systeem default",
                 "dark": "Donker",
                 "light": "Licht"
@@ -256,33 +257,30 @@
             },
             "coloredLayoutCards": {
                 "label": "Laat kleuren toe op de indelingskaarten",
-                "help": "Wanneer aangezet zullen de indelingskaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren."
+                "help": "Wanneer dit is ingeschakeld zullen de indelingskaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren."
             },
             "host": {
                 "label": "Toetsenbordindeling",
                 "help": "Selecteer de toetsenbordindeling die je gebruikt op je computer"
             },
             "autoUpdate": {
-                "mode": {
-                    "help": "Wanneer ingeschakeld zal Chrysalis tijdens het opstarten zoeken naar updates en automatisch nieuwe versies downloaden."
-                },
                 "firmwareMode": {
                     "label": "Zet automatische firmware bestandsupdates aan"
                 }
             },
             "oneLayerPerPage": {
                 "label": "Print één laag per pagina",
-                "help": "Wanneer ingeschakeld zal Chrysalis de layout kaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."
+                "help": "Wanneer dit is ingeschakeld zal Chrysalis de indelingskaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."
             }
         },
         "keyboard": {
             "title": "Mijn toetsenbord",
             "advanced": {
-                "label": "Geavanceerde Tools & Voorkeuren",
+                "label": "Geavanceerde Tools",
                 "description": "Dit zijn gevaarlijke tools, zorg ervoor dat je weet wat ze doen voordat je ze gebruikt."
             },
             "layers": {
-                "label": "Laag voorkeuren"
+                "label": "Lagen"
             },
             "defaultLayer": {
                 "label": "Standaard laag",
@@ -297,7 +295,7 @@
                 }
             },
             "led": {
-                "label": "LED voorkeuren",
+                "label": "LEDs",
                 "idle": {
                     "label": "Inactieve tijd waarna LEDs worden uitgeschakeld",
                     "help": "Tenzij dit uitgezet is, zullen de LEDs uitgaan na een ingestelde tijd.",
@@ -320,18 +318,29 @@
                 "default": {
                     "autoSave": {
                         "label": "Zet het automatisch opslaan van de default LED mode aan",
-                        "help": "Wanneer dit is aangezet, wordt de LED mode automatisch als default opgeslagen elke keer ze wordt aangepast."
+                        "help": "Wanneer dit is ingeschakeld, wordt de LED mode automatisch als default opgeslagen elke keer ze wordt aangepast."
                     },
                     "label": "Default LED mode",
                     "help": "Selecteer de LED mode waarmee het toetsenbord moet opstarten."
                 }
             },
             "plugins": {
-                "label": "Plugin voorkeuren",
+                "label": "Plugins",
                 "escOneShot": {
                     "label": "Laat Escape one-shot toetsen annuleren",
-                    "help": "Wanneer dit is aangezet zal de \"Escape\" toets one-shot toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
+                    "help": "Wanneer dit is ingeschakeld zal de \"Escape\" toets one-shot toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
                 }
+            }
+        },
+        "autoUpdate": {
+            "firmwareMode": {
+                "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn voor de firmware files en automatisch nieuwe versies downloaden.",
+                "label": "Download nieuwe firmware versies automatisch"
+            },
+            "label": "Automatisch bijwerken",
+            "mode": {
+                "label": "Download nieuwe versies van Chrysalis automatisch",
+                "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn en automatisch nieuwe versies downloaden."
             }
         }
     },

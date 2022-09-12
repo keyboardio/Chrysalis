@@ -54,10 +54,10 @@
       "selectAnotherKeyboard": "Select another keyboard",
       "chat": "Discord chat",
       "exit": "Exit",
-      "restart": "Apply update & restart",
+      "restart": "Update & restart",
+      "connectionSection": "Connection",
       "keyboardSection": "Keyboard",
       "chrysalisSection": "Chrysalis",
-      "miscSection": "Miscellaneous",
       "changelog": "Changelog"
     },
     "deviceMenu": {

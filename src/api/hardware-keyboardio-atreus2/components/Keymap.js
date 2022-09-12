@@ -78,9 +78,12 @@ const Keymap = (props) => {
     let textColor = "#ffffff";
     const buttonColor = "transparent";
     let legendClass = "";
+    let mainLegendClass = "";
     const legend = key && db.format(key, { layerNames: props.layerNames });
     if (key && (legend.main || "").length <= 1 && !legend.hint)
       legendClass = "short-legend";
+    if (key && (legend.main || "").length <= 1)
+      mainLegendClass = "short-legend";
     if (key && key.code == 0) textColor = "#888888";
     return (
       <g
@@ -102,7 +105,7 @@ const Keymap = (props) => {
         <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
           {legend?.hint}
         </text>
-        <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
+        <text x={x + 5} y={bottom} fill={textColor} className={mainLegendClass}>
           {legend?.main}
         </text>
       </g>

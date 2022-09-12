@@ -217,6 +217,7 @@ const FirmwareUpdate = (props) => {
         open={factoryConfirmationOpen}
         onConfirm={() => upload({ factoryReset: true })}
         onCancel={() => setFactoryConfirmationOpen(false)}
+        confirmLabel={t("dialog.continue")}
       >
         <Typography component="p" sx={{ mb: 2 }}>
           {t("firmwareUpdate.factoryConfirmDialog.contents")}

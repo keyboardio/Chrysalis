@@ -17,10 +17,12 @@
 
 import { ipcRenderer } from "electron";
 import React, { useState, useEffect } from "react";
+import Divider from "@mui/material/Divider";
+
 import { useTranslation } from "react-i18next";
 
-import PreferenceSection from "../components/PreferenceSection";
-import PreferenceSwitch from "../components/PreferenceSwitch";
+import PreferenceSection from "./components/PreferenceSection";
+import PreferenceSwitch from "./components/PreferenceSwitch";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -68,16 +70,17 @@ function AutoUpdatePreferences(props) {
   }, [loaded]);
 
   return (
-    <PreferenceSection name="ui.autoUpdate">
+    <PreferenceSection name="autoUpdate">
       <PreferenceSwitch
         loaded={loaded}
-        option="ui.autoUpdate.mode"
+        option="autoUpdate.mode"
         checked={autoUpdateMode == "automatic"}
         onChange={toggleAutoUpdateMode}
       />
+      <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         loaded={loaded}
-        option="ui.autoUpdate.firmwareMode"
+        option="autoUpdate.firmwareMode"
         checked={firmwareAutoUpdateMode == "automatic"}
         onChange={toggleFirmwareAutoUpdateMode}
       />
@@ -85,4 +88,4 @@ function AutoUpdatePreferences(props) {
   );
 }
 
-export { AutoUpdatePreferences as default };
+export { AutoUpdatePreferences };

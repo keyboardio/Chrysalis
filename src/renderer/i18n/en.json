@@ -249,23 +249,25 @@
         "help": "The developer console lets you peek inside Chrysalis. Use with care."
       }
     },
-    "ui": {
-      "autoUpdate": {
-        "label": "Customize how Chrysalis should be upgraded",
+
+    "autoUpdate": {
+        "label": "Automatic updates",
         "mode": {
-          "label": "Enable automatic upgrades",
+          "label": "Download new versions of Chrysalis automatically",
           "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
         },
         "firmwareMode": {
-          "label": "Enable automatic firmware file updates",
+          "label": "Download new firmware versions automatically",
           "help": "When enabled, Chrysalis will check for updated firmware files on startup, and automatically download new versions."
         }
       },
+      "ui": {
+
       "layoutEditor": {
-        "label": "Customize the Layout Editor"
+        "label": "Layout Editor"
       },
       "layoutCards": {
-        "label": "Customize Layout Cards"
+        "label": "Layout Cards"
       },
       "oneLayerPerPage": {
         "label": "Print one layer per page",
@@ -276,10 +278,10 @@
         "help": "When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support."
       },
       "lookNFeel": {
-        "label": "Customize appearance"
+        "label": "Appearance"
       },
       "theme": {
-        "label": "Overall appearance",
+        "label": "Theme",
         "system": "System default",
         "dark": "Dark",
         "light": "Light"
@@ -300,11 +302,11 @@
     "keyboard": {
       "title": "My Keyboard",
       "advanced": {
-        "label": "Advanced Tools & Preferences",
+        "label": "Advanced Tools",
         "description": "These are dangerous tools, please make sure you know what they do before using any of them."
       },
       "layers": {
-        "label": "Layer preferences"
+        "label": "Layers"
       },
       "defaultLayer": {
         "label": "Default layer",
@@ -319,7 +321,7 @@
         }
       },
       "led": {
-        "label": "LED preferences",
+        "label": "LEDs",
         "idle": {
           "label": "Idle time before LEDs turn off",
           "help": "Unless disabled, LEDs will turn off after a configured amount of time.",
@@ -349,7 +351,7 @@
         }
       },
       "plugins": {
-        "label": "Plugin preferences",
+        "label": "Plugins",
         "escOneShot": {
           "label": "Let Escape cancel one-shot keys",
           "help": "When enabled, \"Escape\" will cancel one-shot keys, otherwise a dedicated cancel key can do so."

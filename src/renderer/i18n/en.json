@@ -302,11 +302,11 @@
     "keyboard": {
       "title": "My Keyboard",
       "advanced": {
-        "label": "Advanced Tools & Preferences",
+        "label": "Advanced Tools",
         "description": "These are dangerous tools, please make sure you know what they do before using any of them."
       },
       "layers": {
-        "label": "Layer preferences"
+        "label": "Layers"
       },
       "defaultLayer": {
         "label": "Default layer",
@@ -321,7 +321,7 @@
         }
       },
       "led": {
-        "label": "LED preferences",
+        "label": "LEDs",
         "idle": {
           "label": "Idle time before LEDs turn off",
           "help": "Unless disabled, LEDs will turn off after a configured amount of time.",
@@ -351,7 +351,7 @@
         }
       },
       "plugins": {
-        "label": "Plugin preferences",
+        "label": "Plugins",
         "escOneShot": {
           "label": "Let Escape cancel one-shot keys",
           "help": "When enabled, \"Escape\" will cancel one-shot keys, otherwise a dedicated cancel key can do so."

@@ -36,34 +36,36 @@ export function ActiveDevice() {
     return this.focus.supported_commands();
   };
 
-  this.focusDetected = async () => {
+  this.focusDetected = () => {
     if (this.hasCustomizableKeymaps() || this.hasCustomizableLEDMaps()) {
       return true;
     } else {
       return false;
     }
   };
-  this.hasCustomizableKeymaps = async () => {
-    const commands = await this.focus.supported_commands();
-    if (
-      commands.includes("keymap.custom") > 0 ||
-      commands.includes("keymap.map") > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  this.hasCustomizableKeymaps = () => {
+    this.focus.supported_commands().then((commands) => {
+      if (
+        commands.includes("keymap.custom") > 0 ||
+        commands.includes("keymap.map") > 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   };
 
-  this.hasCustomizableLEDMaps = async () => {
-    const commands = await this.focus.supported_commands();
-    if (
-      commands.includes("colormap.map") > 0 &&
-      commands.includes("palette") > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  this.hasCustomizableLEDMaps = () => {
+    this.focus.supported_commands().then((commands) => {
+      if (
+        commands.includes("colormap.map") > 0 &&
+        commands.includes("palette") > 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   };
 }

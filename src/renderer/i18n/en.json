@@ -249,18 +249,20 @@
         "help": "The developer console lets you peek inside Chrysalis. Use with care."
       }
     },
-    "ui": {
-      "autoUpdate": {
-        "label": "Customize how Chrysalis should be upgraded",
+
+    "autoUpdate": {
+        "label": "Automatic updates",
         "mode": {
-          "label": "Enable automatic upgrades",
+          "label": "Download new versions of Chrysalis automatically",
           "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
         },
         "firmwareMode": {
-          "label": "Enable automatic firmware file updates",
+          "label": "Download new firmware versions automatically",
           "help": "When enabled, Chrysalis will check for updated firmware files on startup, and automatically download new versions."
         }
       },
+      "ui": {
+
       "layoutEditor": {
         "label": "Customize the Layout Editor"
       },

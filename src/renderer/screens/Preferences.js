@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
+import { AutoUpdatePreferences } from "./Preferences/AutoUpdate";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -105,10 +106,11 @@ function Preferences(props) {
           {...a11yProps(1)}
           disabled={!connected}
         />
+        <Tab label={t("preferences.autoUpdate.label")} {...a11yProps(2)} />
         <Tab
           label={t("preferences.devtools.main.label")}
           disabled={inContext}
-          {...a11yProps(2)}
+          {...a11yProps(3)}
         />
       </Tabs>
       <Box
@@ -128,6 +130,9 @@ function Preferences(props) {
           />
         </TabPanel>
         <TabPanel value={value} index={2}>
+          <AutoUpdatePreferences />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
           <DevtoolsPreferences />
         </TabPanel>
       </Box>

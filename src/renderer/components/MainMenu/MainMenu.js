@@ -81,6 +81,106 @@ function MainMenu({ open, closeMenu, classes }) {
     );
   };
 
+  const menuHeaderIcon = (
+    <div className="toolbarIcon">
+      <IconButton onClick={() => setCurrentPage(homePage)} size="large">
+        <img src={logo} alt={t("components.logo.altText")} />
+      </IconButton>
+    </div>
+  );
+
+  const menuSectionChrysalis = (
+    <List
+      subheader={
+        <ListSubheader disableSticky>
+          {t("app.menu.chrysalisSection")}
+        </ListSubheader>
+      }
+    >
+      {listItem(<ChatIcon />, t("app.menu.chat"), null, () =>
+        openExternalPage("https://keyboard.io/discord-invite")
+      )}
+
+      {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
+      {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
+      {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}
+
+      {updateAvailable &&
+        listItem(<RestartAltIcon />, t("app.menu.restart"), null, () => {
+          ipcRenderer.send("app.restart");
+        })}
+      {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
+        ipcRenderer.send("app.exit")
+      )}
+    </List>
+  );
+
+  const menuFooter = (
+    <List>
+      <ListItem disabled>
+        <ListItemText
+          primary={`Chrysalis ${version}`}
+          sx={{ textAlign: "right" }}
+        />
+      </ListItem>
+    </List>
+  );
+
+  const menuSectionDeviceConnected = (
+    <>
+      <List
+        subheader={
+          <ListSubheader disableSticky>
+            {t("app.menu.keyboardSection")}
+          </ListSubheader>
+        }
+      >
+        {!activeDevice?.focusDetected() &&
+          listItem(
+            <InfoIcon />,
+            t("app.menu.focus-not-detected"),
+            "/focus-not-detected"
+          )}
+        {activeDevice?.hasCustomizableKeymaps() &&
+          listItem(
+            <KeyboardIcon />,
+            activeDevice?.hasCustomizableLEDMaps()
+              ? t("app.menu.editor")
+              : t("app.menu.layoutEditor"),
+
+            "/editor"
+          )}
+        {activeDevice &&
+          listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
+
+        {listItem(
+          <CloudUploadIcon />,
+          t("app.menu.firmwareUpdate"),
+          "/firmware-update"
+        )}
+      </List>
+      <Divider />
+    </>
+  );
+
+  const menuSectionConnection = (
+    <>
+      <List
+        subheader={
+          <ListSubheader disableSticky>
+            {t("app.menu.connectionSection")}
+          </ListSubheader>
+        }
+      >
+        {listItem(
+          <KeyboardIcon />,
+          t("app.menu.selectAKeyboard"),
+          "/keyboard-select"
+        )}
+      </List>
+      <Divider />
+    </>
+  );
   return (
     <Drawer
       open={open}
@@ -94,93 +194,15 @@ function MainMenu({ open, closeMenu, classes }) {
         },
       }}
     >
-      <div className="toolbarIcon">
-        <IconButton onClick={() => setCurrentPage(homePage)} size="large">
-          <img src={logo} alt={t("components.logo.altText")} />
-        </IconButton>
-      </div>
-      {connected && (
-        <List
-          subheader={
-            <ListSubheader disableSticky>
-              {t("app.menu.keyboardSection")}
-            </ListSubheader>
-          }
-        >
-          {activeDevice &&
-            !activeDevice.focusDetected() &&
-            listItem(
-              <InfoIcon />,
-              t("app.menu.focus-not-detected"),
-              "/focus-not-detected"
-            )}
-          {activeDevice?.hasCustomizableKeymaps() &&
-            listItem(
-              <KeyboardIcon />,
-              activeDevice?.hasCustomizableLEDMaps()
-                ? t("app.menu.editor")
-                : t("app.menu.layoutEditor"),
+      {menuHeaderIcon}
+      {connected && menuSectionDeviceConnected}
 
-              "/editor"
-            )}
-          {activeDevice &&
-            listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
+      {menuSectionConnection}
 
-          {listItem(
-            <CloudUploadIcon />,
-            t("app.menu.firmwareUpdate"),
-            "/firmware-update"
-          )}
-        </List>
-      )}
-      {connected && <Divider />}
-      <List
-        subheader={
-          <ListSubheader disableSticky>
-            {t("app.menu.chrysalisSection")}
-          </ListSubheader>
-        }
-      >
-        {listItem(
-          <KeyboardIcon />,
-          connected
-            ? t("app.menu.selectAnotherKeyboard")
-            : t("app.menu.selectAKeyboard"),
-          "/keyboard-select"
-        )}
-        {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}
-      </List>
+      {menuSectionChrysalis}
+
       <Divider />
-      <List
-        subheader={
-          <ListSubheader disableSticky>
-            {t("app.menu.miscSection")}
-          </ListSubheader>
-        }
-      >
-        {listItem(<ChatIcon />, t("app.menu.chat"), null, () =>
-          openExternalPage("https://keyboard.io/discord-invite")
-        )}
-
-        {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
-        {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
-        {updateAvailable &&
-          listItem(<RestartAltIcon />, t("app.menu.restart"), null, () => {
-            ipcRenderer.send("app.restart");
-          })}
-        {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
-          ipcRenderer.send("app.exit")
-        )}
-      </List>
-      <Divider />
-      <List>
-        <ListItem disabled>
-          <ListItemText
-            primary={`Chrysalis ${version}`}
-            sx={{ textAlign: "right" }}
-          />
-        </ListItem>
-      </List>
+      {menuFooter}
     </Drawer>
   );
 }

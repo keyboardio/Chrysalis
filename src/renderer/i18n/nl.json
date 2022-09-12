@@ -263,11 +263,6 @@
                 "label": "Toetsenbordindeling",
                 "help": "Selecteer de toetsenbordindeling die je gebruikt op je computer"
             },
-            "autoUpdate": {
-                "firmwareMode": {
-                    "label": "Zet automatische firmware bestandsupdates aan"
-                }
-            },
             "oneLayerPerPage": {
                 "label": "Print één laag per pagina",
                 "help": "Wanneer dit is ingeschakeld zal Chrysalis de indelingskaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."

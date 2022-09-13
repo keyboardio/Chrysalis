@@ -26,8 +26,7 @@ const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
   const { sidebarWidth, onKeyChange, keymap } = props;
-
-  const [key, setKey] = useState(props.currentKey);
+  const [key, setKey] = useState(null);
   const [visible, setVisible] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(260);
@@ -38,6 +37,10 @@ export const FloatingKeyPicker = (props) => {
     height: window.innerHeight,
   });
   const theme = useTheme();
+
+  useEffect(() => {
+    setKey(props.currentKey);
+  }, [props.currentKey]);
 
   const windowSize = useWindowSize();
 

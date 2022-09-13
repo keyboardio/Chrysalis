@@ -26,8 +26,8 @@ const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
   const { sidebarWidth, onKeyChange, keymap } = props;
-  const key = props.currentKey;
 
+  const [key, setKey] = useState(props.currentKey);
   const [visible, setVisible] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(260);
@@ -55,6 +55,28 @@ export const FloatingKeyPicker = (props) => {
         setVisible(true);
       } else if (event.data == "hide") {
         setVisible(false);
+      }
+    };
+  });
+
+  useEffect(() => {
+    function handleKeyEvent(ev) {
+      setKey(ev.keyCode);
+      onKeyChange(ev.keyCode);
+      console.log(ev);
+    }
+
+    if (typeof document !== "undefined") {
+      document.addEventListener("keydown", handleKeyEvent, false);
+      document.addEventListener("keyup", handleKeyEvent, false);
+      document.addEventListener("keypress", handleKeyEvent, false);
+    }
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      if (typeof document !== "undefined") {
+        document.removeEventListener("keydown", handleKeyEvent, false);
+        document.removeEventListener("keyup", handleKeyEvent, false);
+        document.removeEventListener("keypress", handleKeyEvent, false);
       }
     };
   });

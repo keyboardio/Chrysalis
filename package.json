@@ -159,8 +159,8 @@
     "stylelint-config-standard": "^25.0.0",
     "unraw": "^2.0.0",
     "webpack": "4.46.0",
-    "yarn": "^1.22.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.4.23",
+    "yarn": "^1.22.0"
   },
   "resolutions": {
     "teensy-loader/usb": "^2.5.1",

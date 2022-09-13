@@ -19,6 +19,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
+
 const db = new KeymapDB();
 
 const keycapunit = 56;
@@ -129,6 +130,7 @@ const KeySelector = (props) => {
     const textColor = theme.palette.getContrastText(buttonColor);
 
     const onClick = (event) => {
+      console.log(event.currentTarget);
       return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
     };
 

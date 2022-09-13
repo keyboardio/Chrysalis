@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { lookupDomKey } from "@api/focus/keymap/domToHid";
 import Box from "@mui/material/Box";
 import useTheme from "@mui/material/styles/useTheme";
 import { useWindowSize } from "@renderer/hooks/useWindowSize";
@@ -64,21 +65,22 @@ export const FloatingKeyPicker = (props) => {
 
   useEffect(() => {
     function handleKeyEvent(ev) {
-      setKey(ev.keyCode);
-      onKeyChange(ev.keyCode);
-      console.log(ev);
+      const hidKeyCode = lookupDomKey(ev.code);
+      setKey(hidKeyCode.code);
+      onKeyChange(hidKeyCode.code);
+      console.log(ev, hidKeyCode);
     }
 
     if (typeof document !== "undefined") {
-      document.addEventListener("keydown", handleKeyEvent, false);
-      document.addEventListener("keyup", handleKeyEvent, false);
+      //document.addEventListener("keydown", handleKeyEvent, false);
+      //document.addEventListener("keyup", handleKeyEvent, false);
       document.addEventListener("keypress", handleKeyEvent, false);
     }
     // Specify how to clean up after this effect:
     return function cleanup() {
       if (typeof document !== "undefined") {
-        document.removeEventListener("keydown", handleKeyEvent, false);
-        document.removeEventListener("keyup", handleKeyEvent, false);
+        //document.removeEventListener("keydown", handleKeyEvent, false);
+        //document.removeEventListener("keyup", handleKeyEvent, false);
         document.removeEventListener("keypress", handleKeyEvent, false);
       }
     };

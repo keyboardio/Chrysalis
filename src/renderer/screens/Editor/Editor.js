@@ -89,7 +89,7 @@ const Editor = (props) => {
         return m;
       }),
     };
-    await setMacros(newMacros);
+    setMacros(newMacros);
 
     setModified(true);
     showContextBar();
@@ -117,23 +117,23 @@ const Editor = (props) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
-    await setCurrentKeyIndex(keyIndex);
-    await setCurrentLedIndex(ledIndex);
+    setCurrentKeyIndex(keyIndex);
+    setCurrentLedIndex(ledIndex);
 
     const key = keymap.custom[currentLayer][keyIndex];
-    await setSelectorKey(key);
+    setSelectorKey(key);
     if (db.isInCategory(key, "dynmacros")) {
       const macroId = key.code - key.rangeStart;
 
-      await setCurrentMacroId(macroId);
+      setCurrentMacroId(macroId);
     }
   };
 
   const onMacroEditorClose = async () => {
     const key = keymap.custom[currentLayer][currentKeyIndex];
 
-    await setSelectorKey(key);
-    await setOpenMacroEditor(false);
+    setSelectorKey(key);
+    setOpenMacroEditor(false);
   };
 
   const onKeyChangeForKeymap = (keyCode) => {
@@ -187,15 +187,15 @@ const Editor = (props) => {
         return m;
       }),
     };
-    await setMacros(newMacros);
-    await setSelectorKey(newKey);
+    setMacros(newMacros);
+    setSelectorKey(newKey);
   };
 
   const onKeyChange = async (keyCode) => {
     if (openMacroEditor) {
       await onKeyChangeForMacros(keyCode);
     } else {
-      await onKeyChangeForKeymap(keyCode);
+      onKeyChangeForKeymap(keyCode);
     }
 
     setModified(true);

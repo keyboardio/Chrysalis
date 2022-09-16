@@ -22,23 +22,47 @@ import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
 import EscapeOneShotPreferences from "./plugins/EscapeOneShot";
+import SpaceCadetPreferences from "./plugins/SpaceCadet";
 
 const PluginPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
 
-  const [loaded, plugins] = useCheckDeviceSupportsPlugins(["EscapeOneShot"]);
+  const [loaded, plugins] = useCheckDeviceSupportsPlugins([
+    "EscapeOneShot",
+    "spacecadet.mode",
+  ]);
 
   const foundSomePlugins = Object.values(plugins).some((v) => v);
   if (loaded && !foundSomePlugins) return null;
 
-  return (
-    <PreferenceSection name="keyboard.plugins" loaded={loaded}>
-      {plugins["EscapeOneShot"] && (
-        <EscapeOneShotPreferences onSaveChanges={onSaveChanges} />
-      )}
-    </PreferenceSection>
-  );
+  const sections = [
+    {
+      name: "oneshot",
+      plugin: "EscapeOneShot",
+      Component: EscapeOneShotPreferences,
+    },
+    {
+      name: "spacecadet",
+      plugin: "spacecadet.mode",
+      Component: SpaceCadetPreferences,
+    },
+  ];
+  return sections.map(({ name, plugin, Component }, index) => {
+    if (!plugins[plugin]) return null;
+
+    const key = `preferences.plugins.${name}`;
+
+    return (
+      <PreferenceSection
+        name={`keyboard.plugins.${name}`}
+        loaded={loaded}
+        key={`${key}/${index}`}
+      >
+        <Component onSaveChanges={onSaveChanges} />
+      </PreferenceSection>
+    );
+  });
 };
 
 export { PluginPreferences as default };

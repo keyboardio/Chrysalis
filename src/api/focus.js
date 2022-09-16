@@ -569,6 +569,8 @@ class Focus {
     "typingbreaks.lockLength",
     "typingbreaks.leftMaxKeys",
     "typingbreaks.rightMaxKeys",
+    "spacecadet.mode",
+    "spacecadet.timeout",
   ];
 
   eepromBackupCommands = [

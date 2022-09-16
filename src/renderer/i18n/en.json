@@ -4,6 +4,9 @@
     "deviceDisconnected": "Keyboard disconnected",
     "saveFile": "Error saving a file: {{ error }}"
   },
+  "units": {
+    "in_ms": "ms"
+  },
   "print": {
     "feedback": {
       "success": "Successfully printed!",
@@ -355,6 +358,23 @@
         "escOneShot": {
           "label": "Let Escape cancel one-shot keys",
           "help": "When enabled, \"Escape\" will cancel one-shot keys, otherwise a dedicated cancel key can do so."
+        },
+        "oneshot": {
+          "label": "OneShot"
+        },
+        "spacecadet": {
+          "label": "SpaceCadet",
+          "mode": {
+            "label": "Enable SpaceCadet shifts",
+            "help": "When enabled, the left and right shifts on your keyboard will turn into parens when tapped, but remain shifts when held.",
+            "enabled": "Enabled",
+            "disabled": "Disabled",
+            "enabled_without_delay": "Enabled (without delay)"
+          },
+          "timeout": {
+            "label": "Timeout",
+            "help": "The number of milliseconds to wait before considering a held SpaceCadet key as shift on its own."
+          }
         }
       }
     }

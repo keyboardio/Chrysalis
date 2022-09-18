@@ -356,11 +356,11 @@
       "plugins": {
         "label": "Plugins",
         "escOneShot": {
-          "label": "Let Escape cancel one-shot keys",
-          "help": "When enabled, \"Escape\" will cancel one-shot keys, otherwise a dedicated cancel key can do so."
+          "label": "Let Escape cancel sticky keys",
+          "help": "When enabled, \"Escape\" will cancel sticky keys, otherwise a dedicated cancel key can do so."
         },
         "oneshot": {
-          "label": "OneShot"
+          "label": "Sticky keys"
         },
         "spacecadet": {
           "label": "SpaceCadet",

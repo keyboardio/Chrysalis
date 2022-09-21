@@ -40,17 +40,6 @@ EOF
     esac
 }
 
-verify_firmware_version() {
-    if [ "$(firmware_version)" != "$(package_version)" ]; then
-        cat >&2 <<EOF
-Package version ($(package_version)) does not match the version in  static/firmware-changelog.md ($(firmware_version)).
-
-Please update the shipped firmware, and make sure the versions align.
-EOF
-        exit 1
-    fi
-}
-
 prompt_for_screenshot() {
     echo -n "Is the screenshot up to date? (Y/n) "
 
@@ -83,7 +72,7 @@ prompt_for_package_version() {
 }
 
 update_shipped_firmware() {
-    echo -n "Do the firmware files need updating? (Y/n) "
+    echo -n "Do the firmware files ($(firmware_version)) need updating? (Y/n) "
     read a
     case "$a" in
         n|N)
@@ -146,7 +135,6 @@ prompt_for_package_version serialport
 update_version
 update_release_date
 update_shipped_firmware
-verify_firmware_version
 commit_preparations
 push_changes
 create_and_push_tag

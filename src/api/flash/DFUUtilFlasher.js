@@ -32,19 +32,24 @@ const runDFUUtil = async (args) => {
   const maxFlashingTime = 1000 * 60 * 5;
 
   return new Promise((resolve, reject) => {
-    logger("flash").debug("running dfu-util", { args: args });
+    logger("flash").debug("running dfu-util", { dfuUtil, args });
     const child = spawn(dfuUtil, args);
+    const timer = setTimeout(() => {
+      child.kill();
+      logger("flash").error("dfu-util timed out");
+      reject("dfu-util timed out");
+    }, maxFlashingTime);
+    child.on("error", (err) => {
+      clearTimeout(timer);
+      logger("flash").error("error starting dfu-util", { err: err.toString() });
+      reject("error starting dfu-util");
+    });
     child.stdout.on("data", (data) => {
       logger("flash").debug("dfu-util:stdout:", { data: data.toString() });
     });
     child.stderr.on("data", (data) => {
       logger("flash").debug("dfu-util:stderr:", { data: data.toString() });
     });
-    const timer = setTimeout(() => {
-      child.kill();
-      logger("flash").error("dfu-util timed out");
-      reject("dfu-util timed out");
-    }, maxFlashingTime);
     child.on("exit", (code) => {
       clearTimeout(timer);
       if (code == 0 || code == 251) {

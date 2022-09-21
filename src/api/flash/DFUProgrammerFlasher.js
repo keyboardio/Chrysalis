@@ -31,6 +31,18 @@ const runDFUProgrammer = async (args) => {
   return new Promise((resolve, reject) => {
     logger("flash").debug("Running dfu-programmer", { args: args });
     const child = spawn("dfu-programmer", args);
+    const timer = setTimeout(() => {
+      child.kill();
+      logger("flash").error("dfu-programmer timed out");
+      reject("dfu-programmer timed out");
+    }, maxFlashingTime);
+    child.on("error", (err) => {
+      clearTimeout(timer);
+      logger("flash").error("error starting dfu-programmer", {
+        err: err.toString(),
+      });
+      reject("error starting dfu-programmer");
+    });
     child.stdout.on("data", (data) => {
       logger("flash").debug("dfu-programmer:stdout:", {
         data: data.toString(),
@@ -41,11 +53,6 @@ const runDFUProgrammer = async (args) => {
         data: data.toString(),
       });
     });
-    const timer = setTimeout(() => {
-      child.kill();
-      logger("flash").error("dfu-programmer timed out");
-      reject("dfu-programmer timed out");
-    }, maxFlashingTime);
     child.on("exit", (code) => {
       clearTimeout(timer);
       if (code == 0) {

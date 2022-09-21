@@ -1,3 +1,43 @@
+Chrysalis 0.11.2-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+Chrysalis now supports configuring a few SpaceCadet-related settings, such as
+whether it should be enabled by default or not. This feature requires
+firmware-side support too, and the firmwares shipped with Chrysalis do not have
+the necessary plugin enabled yet. Custom firmware with the `SpaceCadetConfig`
+plugin will let Chrysalis configure the plugin, however.
+
+## Bugfixes
+
+Due to an oversight, Chrysalis 0.11.1 shipped without bundling the `dfu-util`
+tool, which we use for flashing new firmware onto the Keyboardio Model 100. As
+such, firmware flashing was broken. This release corrects that, and we now ship
+with `dfu-util` again.
+
+The floating key picker Chrysalis displays on the Layout Editor screen was using
+a very non-standard layout, neither ISO, nor ANSI, in an attempt to show all
+possible keys that can appear on a standard keyboard. However, we went too far
+with that, and ended up including a key (just to the left of the `Return` key)
+that was unnecessary. It wasn't just unnecessary, it was a frequent source of
+confusion and mistakes. That key has now been removed. No functionality should
+be lost as a result, because it wasn't working properly to begin with.
+
+Similar to how the confirmation dialog that appears during flashing, the one
+that appears during a factory reset and flashing combo, will now show a
+"Continue" button rather than one with an "Ok" label.
+
+## UI/UX
+
+The Keyboardio Atreus image will now display one-letter labels in a large font,
+even if the label has a text on the top of the key, too.
+
+The auto-update preferences have been lifted out from the "User Interface"
+section onto their own.
+
+
 Chrysalis 0.11.1
 ================
 Released on 2022-09-09

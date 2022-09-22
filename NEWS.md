@@ -1,3 +1,20 @@
+Chrysalis 0.11.3-snapshot
+=========================
+**UNRELEASED**
+
+## Bugfixes
+
+The workaround we introduced in 0.11.1 to combat the firmware issue we're still
+investigating had an unfortunate side effect of interacting badly with the
+firmware in certain, frequently occurring cases. This could result in corrupted
+data being saved to the keyboard. We have squashed this bug in this release of
+Chrysalis.
+
+## Miscellaneous
+
+Chrysalis now ships with a Colemak DH layout for the Keyboardio Model 100 to
+match the keycaps also available for the keyboard.
+
 Chrysalis 0.11.2
 ================
 Released on 2022-09-21

@@ -426,7 +426,6 @@ class Focus {
     for (let index = 0; index < request.length; index += 32) {
       this._port.write(request.slice(index, index + 32));
       await new Promise((timeout) => setTimeout(timeout, 50));
-      await this._port.drain();
     }
   }
 

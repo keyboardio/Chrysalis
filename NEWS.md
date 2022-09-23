@@ -1,3 +1,13 @@
+Chrysalis 0.11.4-snapshot
+=========================
+**UNRELEASED**
+
+## Bugfixes
+
+Chrysalis will now correctly detect if the `Steno` plugin is enabled, and will
+display the associated keys on the Editor screen's sidebar if the plugin is
+present.
+
 Chrysalis 0.11.3
 ================
 Released on 2022-09-22

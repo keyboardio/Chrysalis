@@ -22,7 +22,8 @@ import CategorySelector from "../components/CategorySelector";
 
 const StenoKeys = (props) => {
   const { t } = useTranslation();
-  const pluginVisible = usePluginVisibility("Steno");
+  const pluginVisible = usePluginVisibility("GeminiPR");
+
   if (!pluginVisible) return null;
   if (props.macroEditorOpen) return null;
 

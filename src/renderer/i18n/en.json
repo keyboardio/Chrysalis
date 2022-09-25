@@ -1,5 +1,12 @@
 {
   "language": "English",
+  "breakingNews": {
+    "firmware0_90_1": {
+      "title": "Attention Keyboardio Model 100 owners!",
+      "description": "Firmware before version 0.90.1 contains a bug that leads to data loss and corrupted data saved on the keyboard. If you're already running newer firmware, you can dismiss this warning with the close button.",
+      "button": "Upgrade instructions"
+    }
+  },
   "errors": {
     "deviceDisconnected": "Keyboard disconnected",
     "saveFile": "Error saving a file: {{ error }}"

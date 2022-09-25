@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem. If possible, please also include the debug bundle you can create on the "System Information" screen. If, for some reason, you are unable to access that screen, please press `Control + Shift + I` to bring up the developer console. Right-clicking inside it will allow you to save its contents to a file - please attach that to the bug report.
+If applicable, add screenshots to help explain your problem. If possible, please also include the debug bundle you can create on the "Report a problem" screen. If, for some reason, you are unable to access that screen, please press `Control + Shift + I` (Windows or Linux) or `Command + Option + I` (macOS) to bring up the developer console. Right-clicking inside it will allow you to save its contents to a file - please attach that to the bug report.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]

@@ -2,27 +2,18 @@
 
 set -e
 
-package_version() {
-    jq -r .version <package.json
-}
-
 URL_BASE="https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases"
 TARBALL_FN="firmware-files.tar.gz"
 
-case "$(package_version)" in
-    *-snapshot)
-        TAG="snapshot"
-        ;;
-    *)
-        TAG="v$(package_version)"
-        ;;
-esac
+TAG="$1"
 
-TAG=${1:-${TAG}}
+if [ -z "${TAG}" ]; then
+    TAG=$(curl -s -I "${URL_BASE}/latest" | grep "^location: " | sed -e "s,.*/releases/tag/,," | tr -d "\r\n")
+fi
 
 URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
 
-wget -q -O - ${URL} | tar -C static -xzf -
+curl -s -L "${URL}" | tar -C static -xzf -
 git add static/**/default.{hex,bin} static/firmware-changelog.md static/build-info.yml
 
 TMP=$(mktemp)

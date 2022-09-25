@@ -1,3 +1,48 @@
+Chrysalis-Firmware-Bundle 0.90.1
+================================
+Released on 2022-09-24
+
+We have fixed a bug in the Arduino core used by the Keyboardio Model 100 which
+often led to data loss and/or data corruption when using the keyboard with
+Chrysalis.
+
+Keyboardio Model 100 owners are highly encouraged to upgrade to this version.
+Other keyboards are unaffected.
+
+Chrysalis-Firmware-Bundle 0.90.0
+================================
+Released on 2022-09-23
+
+We are decoupling the firmware version from Chrysalis, to make it more
+straightforward to update them independently of each other. As such, the
+firmware version has been bumped to 0.90.0.
+
+Bugfixes
+--------
+
+We fixed a bug in the `LayerNames` plugin that would lead to data corruption
+when setting custom layer names with Chrysalis. Even if not using custom layer
+names, we strongly recommend upgrading your firmware if you are using the
+Keyboardio Model 100, or the Keyboardio Atreus (where the plugin is enabled).
+
+Keyboardio Model 100
+--------------------
+
+The Keyboardio Model 100 firmware had the following plugins added:
+
+- [DefaultLEDModeConfig][plugin:default-led-mode-config], which lets Chrysalis
+  configure a default LED mode for the keyboard to start up with.
+- [Steno][plugin:steno], making it possible to create a Steno layer via
+  Chrysalis, and use it with [Plover][plover].
+- [SpaceCadetConfig][plugin:spacecadet], that makes it possible to permanently
+  enable the SpaceCadet feature via Chrysalis, making it practical to use the
+  plugin which has been included with the firmware for a while.
+
+ [plugin:default-led-mode-config]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-DefaultLEDModeConfig.html
+ [plugin:steno]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Steno.html
+ [plover]: https://www.openstenoproject.org/plover/
+ [plugin:spacecadet]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-SpaceCadet.html
+
 Chrysalis-Firmware-Bundle 0.11.1
 ================================
 Released on 2022-09-09

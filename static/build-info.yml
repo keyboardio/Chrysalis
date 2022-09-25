@@ -1,19 +1,19 @@
 ---
-version: 0.11.1+29
-build: 29
+version: 0.90.1+42
+build: 42
 
 dependencies:
   cores:
     avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@a9165613d1aab35d8be365b54976460165d790f9
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@1e5db7e472b9aa3c3f80ff306e96fcfb89616d4a
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@4fcce930d09ff9069649f17de9a497a9163b8f95
   libraries:
     avr:
       - keyboardio/KeyboardioHID@b274575c3f3adb529df409d3f5b10a4ae2e3eb53
     gd32:
       - keyboardio/KeyboardioHID@35cb0a704f51953512222334396b58fedef039fe
     common:
-      - keyboardio/Kaleidoscope@f3fe7c9023eefc69aed5574504bf2e73f6105db3
-      - keyboardio/Chrysalis-Firmware-Bundle@5dbd9176698b6756a58d7e93f2d642351c0c5b15
+      - keyboardio/Kaleidoscope@96fbfb0628ce8b3a46b60fbc29bc5c09407b01b3
+      - keyboardio/Chrysalis-Firmware-Bundle@9cc0a06c61d5eccb2972e6585dda4f4962349bce
 
 firmware:
   Keyboardio:
@@ -48,6 +48,7 @@ firmware:
         - AlphaSquareEffect
         - BootGreetingEffect
         - ColormapEffect
+        - DefaultLEDModeConfig
         - DynamicMacros
         - EEPROMKeymap
         - EEPROMSettings
@@ -57,6 +58,7 @@ firmware:
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
+        - GeminiPR
         - HardwareTestMode
         - HostPowerManagement
         - IdleLEDs
@@ -76,6 +78,7 @@ firmware:
         - PersistentIdleLEDs
         - Qukeys
         - SpaceCadet
+        - SpaceCadetConfig
         - StalkerEffect
         - USBQuirks
     Atreus:

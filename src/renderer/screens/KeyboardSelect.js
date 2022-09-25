@@ -36,7 +36,6 @@ import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
-import { BreakingNews } from "@renderer/components/BreakingNews";
 
 import { Firmware0_90_1 } from "@renderer/breaking-news";
 
@@ -151,9 +150,7 @@ const KeyboardSelect = (props) => {
             }}
           />
         )}
-        <BreakingNews tag="firmware.0.90.1">
-          <Firmware0_90_1 />
-        </BreakingNews>
+        <Firmware0_90_1 devices={devices} />
         <LinuxPermissionsWarning selectedDevicePort={selectedDevicePort} />
         <Card
           sx={{

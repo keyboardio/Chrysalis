@@ -22,9 +22,19 @@ import openURL from "@renderer/utils/openURL";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-export const Firmware0_90_1 = () => {
+import { BreakingNews } from "@renderer/components/BreakingNews";
+
+export const Firmware0_90_1 = (props) => {
   const { t } = useTranslation();
   const trn = (key) => t(`breakingNews.firmware0_90_1.${key}`);
+
+  const hasModel100 = props?.devices?.some((device) => {
+    const info = device.focusDeviceDescriptor?.info;
+
+    return info?.vendor == "Keyboardio" && info?.product == "Model100";
+  });
+
+  if (!hasModel100) return null;
 
   const openInstructions = () => {
     openURL(
@@ -33,7 +43,7 @@ export const Firmware0_90_1 = () => {
   };
 
   return (
-    <>
+    <BreakingNews tag="firmware.0.90.1">
       <AlertTitle>{trn("title")}</AlertTitle>
       <Typography component="p" gutterBottom>
         {trn("description")}
@@ -41,6 +51,6 @@ export const Firmware0_90_1 = () => {
       <Button variant="contained" color="warning" onClick={openInstructions}>
         {trn("button")}
       </Button>
-    </>
+    </BreakingNews>
   );
 };

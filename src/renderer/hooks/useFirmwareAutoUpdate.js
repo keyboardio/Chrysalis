@@ -75,7 +75,7 @@ export const useFirmwareAutoUpdate = () => {
 
     ipcRenderer.invoke(
       "firmware-update.check-for-updates",
-      settings.get("firmwareAutoUpdate.mode", "manual")
+      settings.get("firmwareAutoUpdate.mode", "automatic")
     );
 
     ipcRenderer.on("firmware-update.update-available", onUpdateAvailable);

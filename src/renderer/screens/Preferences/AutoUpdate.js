@@ -32,7 +32,7 @@ function AutoUpdatePreferences(props) {
 
   const [autoUpdateMode, setAutoUpdateMode] = useState("manual");
   const [firmwareAutoUpdateMode, setFirmwareAutoUpdateMode] =
-    useState("manual");
+    useState("automatic");
   const [loaded, setLoaded] = useState(false);
 
   const toggleFirmwareAutoUpdateMode = (event) => {
@@ -61,7 +61,7 @@ function AutoUpdatePreferences(props) {
     const initialize = async () => {
       await setAutoUpdateMode(settings.get("autoUpdate.mode", "manual"));
       await setFirmwareAutoUpdateMode(
-        settings.get("firmwareAutoUpdate.mode", "manual")
+        settings.get("firmwareAutoUpdate.mode", "automatic")
       );
       await setLoaded(true);
     };

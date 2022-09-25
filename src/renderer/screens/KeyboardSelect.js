@@ -37,6 +37,8 @@ import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 
+import { Firmware0_90_1 } from "@renderer/breaking-news";
+
 const { ipcRenderer } = require("electron");
 
 const KeyboardSelect = (props) => {
@@ -148,6 +150,7 @@ const KeyboardSelect = (props) => {
             }}
           />
         )}
+        <Firmware0_90_1 devices={devices} />
         <LinuxPermissionsWarning selectedDevicePort={selectedDevicePort} />
         <Card
           sx={{

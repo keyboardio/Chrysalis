@@ -58,7 +58,7 @@ function SystemInfo(props) {
     const error = await ipcRenderer.sendSync("file.save-with-dialog", {
       content: stringify(info, { maxLength: 1024 }),
       title: t("systeminfo.dialog.title"),
-      defaultPath: "chrysalis-debug.bundle.json",
+      defaultPath: "chrysalis-debug.json.txt",
     });
     if (error) {
       logger().error("Error saving the debug bundle", { error: error });

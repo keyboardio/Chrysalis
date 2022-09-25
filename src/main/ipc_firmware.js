@@ -217,7 +217,7 @@ export const registerFirmwareHandlers = () => {
     const settings = new Store();
 
     let baseDir = __static;
-    if (settings.get("firmwareAutoUpdate.mode", "manual") == "automatic") {
+    if (settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic") {
       try {
         fs.accessSync(path.join(firmwarePath, "build-info.yml"));
         baseDir = firmwarePath;

@@ -2,11 +2,32 @@ Chrysalis 0.11.4-snapshot
 =========================
 **UNRELEASED**
 
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog](static/firmware-changelog.md) for more details. The new firmware
+should fix both the firmware issues mentioned in previous Chrysalis releases,
+and the data corruption people were seeing on the Model 100. Upgrading the
+firmware is highly recommended.
+
+Additionally, the firmware version is now completely decoupled from Chrysalis'
+version, and we recommend keeping the firmware auto-update feature enabled.
+
+Due to the severity of the firmware bug, if Chrysalis detects a Model 100, it
+will display a message on the keyboard selection screen, urging you to upgrade
+your firmware. If you've already done that, this message can be dismissed with
+the close button, and will not appear again.
+
 ## Bugfixes
 
 Chrysalis will now correctly detect if the `Steno` plugin is enabled, and will
 display the associated keys on the Editor screen's sidebar if the plugin is
 present.
+
+## Miscellaneous
+
+Chrysalis now defaults to enabling firmware auto-update by default. You can
+still opt out of it, and existing settings will not be overwritten.
 
 Chrysalis 0.11.3
 ================

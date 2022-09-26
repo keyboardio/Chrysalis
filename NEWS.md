@@ -1,6 +1,6 @@
-Chrysalis 0.11.4-snapshot
-=========================
-**UNRELEASED**
+Chrysalis 0.11.4
+================
+Released on 2022-09-26
 
 ## Firmware update
 

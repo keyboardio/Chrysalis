@@ -22,7 +22,20 @@ const clearEEPROM = async () => {
 
   const commands = await focus.command("help");
   if (commands.includes("eeprom.erase")) {
-    return await focus.command("eeprom.erase");
+    try {
+      focus.command("eeprom.erase");
+    } catch (_) {
+      /* ignore any errors */
+    }
+
+    // Once we sent the eeprom.erase command, the device will eventually reboot.
+    // Wait 10 seconds, and then reboot, to pretend we got something back.
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 10000);
+    });
+    return;
   }
 
   let eeprom = await focus.command("eeprom.contents");

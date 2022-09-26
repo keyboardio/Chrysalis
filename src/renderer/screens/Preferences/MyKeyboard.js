@@ -90,7 +90,7 @@ const MyKeyboardPreferences = (props) => {
       <KeyboardLayerPreferences onSaveChanges={onSaveChanges} />
       <KeyboardLEDPreferences onSaveChanges={onSaveChanges} />
       <PluginPreferences onSaveChanges={onSaveChanges} />
-      <AdvancedKeyboardPreferences />
+      <AdvancedKeyboardPreferences onDisconnect={props.onDisconnect} />
 
       <SaveChangesButton
         onClick={saveChanges}

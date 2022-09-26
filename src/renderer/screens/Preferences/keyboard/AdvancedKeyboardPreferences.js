@@ -43,9 +43,14 @@ const AdvancedKeyboardPreferences = (props) => {
     closeEEPROMResetConfirmation();
 
     await clearEEPROM();
-    await focusCommands.reboot();
+    try {
+      focusCommands.reboot();
+    } catch (_) {
+      /* ignore any errors */
+    }
 
     setWorking(false);
+    props.onDisconnect();
   };
   const openEEPROMResetConfirmation = () => {
     setEEPROMResetConfirmationOpen(true);

@@ -223,6 +223,9 @@
       "fixItButton": "Switch to custom layers only",
       "openFR": "Open a feature request"
     },
+    "layernames": {
+      "out_of_space": "Your layer names are {{ overflow }} bytes too long to save to your keyboard."
+    },
     "macros": {
       "title": "Macro #{{ index }}",
       "edit": "Edit macro",

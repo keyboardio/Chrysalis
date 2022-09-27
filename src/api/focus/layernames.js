@@ -37,10 +37,17 @@ export default class LayerNames {
     };
   }
 
+  _serialize(data) {
+    return data.names.flatMap((n) => [n.length, n]).join(" ") + " 0";
+  }
+
   async _push(s, data) {
-    const serialized =
-      data.names.flatMap((n) => [n.length, n]).join(" ") + " 0";
+    const serialized = this._serialize(data);
     await s.request("keymap.layerNames", serialized);
+  }
+
+  getStoredSize(data) {
+    return this._serialize(data).length;
   }
 
   async focus(s, data) {

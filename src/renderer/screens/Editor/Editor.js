@@ -19,6 +19,7 @@ import Focus from "@api/focus";
 import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
+import LayerNames from "@api/focus/layernames";
 import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import {
@@ -35,6 +36,7 @@ import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
 import { MacroStorageAlert } from "./components/MacroStorageAlert";
+import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import MacroEditor from "./Macros/MacroEditor";
 import Sidebar, { sidebarWidth } from "./Sidebar";
@@ -287,7 +289,7 @@ const Editor = (props) => {
           .fill()
           .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
         setLayerNames({
-          storageSize: deviceLayerNames.storage,
+          storageSize: deviceLayerNames.storageSize,
           names: names,
         });
       }
@@ -412,8 +414,11 @@ const Editor = (props) => {
   }
 
   const M = new Macros();
+  const L = new LayerNames();
   const saveChangesDisabled =
-    !modified || M.getStoredSize(macros) > macros.storageSize;
+    !modified ||
+    M.getStoredSize(macros) > macros.storageSize ||
+    L.getStoredSize(layerNames) > layerNames.storageSize;
 
   return (
     <React.Fragment>
@@ -427,6 +432,9 @@ const Editor = (props) => {
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
+        {layerNames.storageSize > 0 && (
+          <LayerNamesStorageAlert layerNames={layerNames} />
+        )}
         {mainWidget}
       </Box>
       <Sidebar

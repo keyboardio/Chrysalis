@@ -56,18 +56,24 @@ const Key = (props) => {
   const keyIndex = parseInt(props.row) * 16 + parseInt(props.col);
   let extraLabel;
   const key = props.keyObj;
-  const label = key && db.format(key, { layerNames: props.layerNames });
 
-  if (props.extraLabelTransform && label && label.hint) {
+  let legendClass = "";
+  let mainLegendClass = "";
+  const legend = key && db.format(key, { layerNames: props.layerNames });
+  if (key && (legend.main || "").length <= 1 && !legend.hint)
+    legendClass = "short-legend";
+  if (key && (legend.main || "").length <= 1) mainLegendClass = "short-legend";
+
+  if (props.extraLabelTransform && legend?.hint) {
     extraLabel = (
       <g transform={props.extraLabelTransform}>
         <text
           x={props.x}
           y={props.y - 3}
-          className="extra-key"
+          className={legendClass}
           fill={theme.palette.getContrastText(props.color)}
         >
-          {label.hint}
+          {legend?.hint}
         </text>
       </g>
     );
@@ -87,8 +93,9 @@ const Key = (props) => {
           x={props.x}
           y={props.y}
           fill={theme.palette.getContrastText(props.color)}
+          className={mainLegendClass}
         >
-          {label && label.main}
+          {legend?.main}
         </text>
       </g>
       {extraLabel}

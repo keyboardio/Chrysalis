@@ -17,18 +17,17 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
+import useTheme from "@mui/material/styles/useTheme";
 
 const db = new KeymapDB();
 
 const Key = (props) => {
-  let shape,
-    stroke = "#b3b3b3";
+  const theme = useTheme();
 
-  if (props.active) {
-    stroke = "#f3b3b3";
-  }
-
-  const { getContrastText } = props;
+  let shape;
+  const stroke = props.active
+    ? theme.palette.primary.light
+    : theme.palette.grey[500];
 
   if (props.palmKey) {
     shape = (
@@ -66,7 +65,7 @@ const Key = (props) => {
           x={props.x}
           y={props.y - 3}
           className="extra-key"
-          fill={getContrastText(props.color)}
+          fill={theme.palette.getContrastText(props.color)}
         >
           {label.hint}
         </text>
@@ -84,7 +83,11 @@ const Key = (props) => {
     >
       {shape}
       <g transform={props.primaryLabelTransform}>
-        <text x={props.x} y={props.y} fill={getContrastText(props.color)}>
+        <text
+          x={props.x}
+          y={props.y}
+          fill={theme.palette.getContrastText(props.color)}
+        >
           {label && label.main}
         </text>
       </g>

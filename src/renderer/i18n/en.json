@@ -406,6 +406,9 @@
     },
     "firmwareSources": "Source code",
     "calloutTitle": "Important!",
+    "factoryResetTitle": "Factory reset",
+    "factoryResetDescription": "Erase all settings and layouts on your keyboard, restoring it to factory defaults.",
+"factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
     "dialog": {
       "selectFirmware": "Select a firmware",
       "firmwareFiles": "Firmware files",
@@ -415,7 +418,6 @@
       "error": "Error flashing the firmware",
       "success": "Firmware flashed successfully!",
       "button": "Update",
-      "factoryResetButton": "Factory reset",
       "notifications": {
         "title": "Problem encountered while flashing",
         "enter": {
@@ -447,7 +449,7 @@
       "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
     },
     "yourFirmware": "Update your keyboard's firmware",
-    "chooseFirmware": "Update firmware:",
+    "chooseFirmware": "Update firmware",
     "defaultFirmwareDescription": "Latest version",
     "defaultFirmwareExplanation": "This is the latest version of the firmware for your keyboard.",
     "custom": "Choose a local firmware build",
@@ -480,18 +482,18 @@
   "devices": {
     "SOFT/HRUF": {
       "Splitography": {
-        "updateInstructions": "After clicking the Update button, reset your keyboard (by pressing the small\nreset button beside the USB port) to put it into programmable mode, within ten\nseconds."
+        "updateInstructions": "After clicking the Continue button, reset your keyboard (by pressing the small\nreset button beside the USB port) to put it into programmable mode, within ten\nseconds."
       }
     },
     "Keyboardio": {
       "Atreus": {
-        "updateInstructions": "Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Update button."
+        "updateInstructions": "Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Continue button."
       },
       "Model01": {
-        "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key."
+        "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Continue button. Once the keys start flashing red across the board, you can release the key."
       },
       "Model100": {
-        "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing green across the first column of the board, please release the key, as holding it too long may prevent flashing from succeeding."
+        "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Continue button. Once the keys start flashing green across the first column of the board, please release the key, as holding it too long may prevent flashing from succeeding."
       }
     }
   }

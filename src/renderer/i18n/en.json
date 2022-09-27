@@ -449,7 +449,7 @@
       "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
     },
     "yourFirmware": "Update your keyboard's firmware",
-    "chooseFirmware": "Update firmware:",
+    "chooseFirmware": "Update firmware",
     "defaultFirmwareDescription": "Latest version",
     "defaultFirmwareExplanation": "This is the latest version of the firmware for your keyboard.",
     "custom": "Choose a local firmware build",

@@ -407,7 +407,7 @@
     "firmwareSources": "Source code",
     "calloutTitle": "Important!",
     "factoryResetTitle": "Factory reset",
-    "factoryResetDescription": "Erase all settings layouts on your keyboard, restoring it to factory defaults.",
+    "factoryResetDescription": "Erase all settings and layouts on your keyboard, restoring it to factory defaults.",
 "factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
     "dialog": {
       "selectFirmware": "Select a firmware",

@@ -24,7 +24,6 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
@@ -34,7 +33,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-
+import Switch from "@mui/material/Switch";
 import { ipcRenderer } from "electron";
 import path from "path";
 import { useTranslation } from "react-i18next";
@@ -49,7 +48,6 @@ import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
   const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
@@ -62,9 +60,15 @@ const FirmwareUpdate = (props) => {
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
+  const [factoryReset, setFactoryReset] = useState(false);
+
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+
+  const toggleFactoryReset = () => {
+    setFactoryReset(!factoryReset);
+  };
 
   const defaultFirmwareFilename = () => {
     const { vendor, product } = focusDeviceDescriptor.info;
@@ -163,6 +167,13 @@ const FirmwareUpdate = (props) => {
     progress == "flashing" ||
     (selectedFirmwareType == "custom" && !firmwareFilename);
 
+  const onUpdateClick = () => {
+    if (factoryReset) {
+      setFactoryConfirmationOpen(true);
+    } else {
+      setConfirmationOpen(true);
+    }
+  };
   return (
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
@@ -179,26 +190,29 @@ const FirmwareUpdate = (props) => {
             selectedFirmware={[selectedFirmwareType, setSelectedFirmwareType]}
             firmwareFilename={[firmwareFilename, setFirmwareFilename]}
           />
+
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="h6">
+              {t("firmwareUpdate.factoryResetTitle")}
+            </Typography>
+            <Typography sx={{ ml: 3 }}>
+              <Switch checked={factoryReset} onChange={toggleFactoryReset} />
+              {t("firmwareUpdate.factoryResetDescription")}
+            </Typography>
+            <Typography variant="subtitle2" sx={{ ml: 3, mt: 1 }}>
+              {t("firmwareUpdate.factoryResetWarning")}
+            </Typography>
+          </Box>
+
           <Divider sx={{ my: 2 }} />
           <Box sx={{ p: 2, display: "flex" }}>
-            <Button
-              variant="outlined"
-              onClick={() => setFactoryConfirmationOpen(true)}
-              disabled={buttonsDisabled}
-              color={
-                ((progress == "success" || progress == "error") && progress) ||
-                "primary"
-              }
-            >
-              {t("firmwareUpdate.flashing.factoryResetButton")}
-            </Button>
             <Box sx={{ flexGrow: 1 }} />
             <Button
               startIcon={
                 progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
               }
               variant="contained"
-              onClick={() => setConfirmationOpen(true)}
+              onClick={onUpdateClick}
               disabled={buttonsDisabled}
               color={
                 ((progress == "success" || progress == "error") && progress) ||

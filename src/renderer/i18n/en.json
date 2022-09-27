@@ -406,6 +406,9 @@
     },
     "firmwareSources": "Source code",
     "calloutTitle": "Important!",
+    "factoryResetTitle": "Factory reset",
+    "factoryResetDescription": "Erase all settings layouts on your keyboard, restoring it to factory defaults.",
+"factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
     "dialog": {
       "selectFirmware": "Select a firmware",
       "firmwareFiles": "Firmware files",
@@ -415,7 +418,6 @@
       "error": "Error flashing the firmware",
       "success": "Firmware flashed successfully!",
       "button": "Update",
-      "factoryResetButton": "Factory reset",
       "notifications": {
         "title": "Problem encountered while flashing",
         "enter": {

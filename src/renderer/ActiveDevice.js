@@ -28,8 +28,17 @@ export function ActiveDevice() {
     return this.focus._port?.settings.path;
   };
 
-  this.plugins = () => {
-    return this.focus.plugins();
+  this.plugins = async () => {
+    return await this.focus.plugins();
+  };
+
+  // This method is called when the device is connected.
+  // it probes for help and plugins using focus, which lets us cache
+  // that information, reducing repeated calls for the same data from the device
+  // on connect.
+  this.loadConfigFromDevice = async () => {
+    await this.focus.supported_commands();
+    await this.plugins();
   };
 
   this.supported_commands = () => {

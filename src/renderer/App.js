@@ -213,9 +213,10 @@ const App = (props) => {
       focus.setLayerSize(focus.focusDeviceDescriptor);
     }
 
-    setConnected(true);
     i18n.refreshHardware(port.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
+    await newActiveDevice.loadConfigFromDevice();
+    setConnected(true);
 
     await navigate(
       newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected"

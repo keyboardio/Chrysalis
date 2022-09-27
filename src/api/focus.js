@@ -103,12 +103,16 @@ class Focus {
         help: this._help,
       };
       this.timeout = 30000;
-      this._supported_commands = [];
-      this._plugins = [];
-      this._request_id = 0;
+      this.resetDeviceState();
     }
 
     return global.chrysalis_focus_instance;
+  }
+
+  resetDeviceState() {
+    this._supported_commands = [];
+    this._plugins = [];
+    this._request_id = 0;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
@@ -369,8 +373,7 @@ class Focus {
       this.close();
     });
 
-    this._supported_commands = [];
-    this._plugins = [];
+    this.resetDeviceState();
     return this._port;
   }
 
@@ -381,8 +384,7 @@ class Focus {
     this._port = null;
     this._parser = null;
     this.focusDeviceDescriptor = null;
-    this._supported_commands = [];
-    this._plugins = [];
+    this.resetDeviceState();
   }
 
   async isDeviceAccessible(port) {

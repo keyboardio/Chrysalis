@@ -104,6 +104,7 @@ class Focus {
       };
       this.timeout = 30000;
       this.resetDeviceState();
+      this._request_id = 0;
     }
 
     return global.chrysalis_focus_instance;
@@ -112,7 +113,6 @@ class Focus {
   resetDeviceState() {
     this._supported_commands = [];
     this._plugins = [];
-    this._request_id = 0;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {

@@ -287,7 +287,7 @@ const Editor = (props) => {
           .fill()
           .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
         setLayerNames({
-          storageSize: deviceLayerNames.storage,
+          storageSize: deviceLayerNames.storageSize,
           names: names,
         });
       }

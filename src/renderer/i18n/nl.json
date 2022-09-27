@@ -369,7 +369,6 @@
                 "reboot": "Opnieuw opstarten",
                 "bootloader": "Naar programmeerbare modus aan het gaan"
             },
-            "factoryResetButton": "Terugzetten naar fabrieksinstellingen",
             "notifications": {
                 "enter": {
                     "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",

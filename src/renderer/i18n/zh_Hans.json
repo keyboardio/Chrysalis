@@ -359,7 +359,6 @@
             "error": "刷写固件时出错",
             "success": "固件刷写成功!",
             "button": "更新",
-            "factoryResetButton": "恢复出厂设置",
             "steps": {
                 "factoryRestore": "恢复出厂默认值",
                 "saveEEPROM": "保存EEPROM内容",

@@ -1,19 +1,19 @@
 ---
-version: 0.90.1+42
-build: 42
+version: 0.90.2+44
+build: 44
 
 dependencies:
   cores:
-    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@a9165613d1aab35d8be365b54976460165d790f9
+    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@7d68bb7745b61d2d9637b9513d06a2cca685b595
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@4fcce930d09ff9069649f17de9a497a9163b8f95
   libraries:
     avr:
-      - keyboardio/KeyboardioHID@b274575c3f3adb529df409d3f5b10a4ae2e3eb53
+      - keyboardio/KeyboardioHID@35cb0a704f51953512222334396b58fedef039fe
     gd32:
       - keyboardio/KeyboardioHID@35cb0a704f51953512222334396b58fedef039fe
     common:
-      - keyboardio/Kaleidoscope@96fbfb0628ce8b3a46b60fbc29bc5c09407b01b3
-      - keyboardio/Chrysalis-Firmware-Bundle@9cc0a06c61d5eccb2972e6585dda4f4962349bce
+      - keyboardio/Kaleidoscope@9bf6eba010dd61fc56da377eda87aded43f4a8ad
+      - keyboardio/Chrysalis-Firmware-Bundle@046c7245347c52bfd49151e0333703af8f7583e4
 
 firmware:
   Keyboardio:

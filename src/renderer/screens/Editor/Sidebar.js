@@ -38,6 +38,7 @@ import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
 import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
 import VolumeKeys from "./Sidebar/VolumeKeys";
+import PlatformAppleKeys from "./Sidebar/PlatformAppleKeys";
 
 const sidebarWidth = 360;
 
@@ -55,6 +56,7 @@ const Sidebar = (props) => {
     MediaKeys,
     MouseKeys,
     LEDKeys,
+    PlatformAppleKeys,
     DynamicMacroKeys,
     MacroKeys,
     TapDanceKeys,

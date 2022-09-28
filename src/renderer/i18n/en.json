@@ -118,6 +118,10 @@
         "help": "Lets you assign a custom key code to a key, or a code not currently known to Chrysalis.",
         "label": "Custom key code"
       },
+      "platform_apple": {
+        "title": "Mac / iPad keys",
+        "help": "Keycodes specific to Apple devices."
+      },
       "blanks": {
         "title": "Blanks",
         "help": "Blocked & transparent keys."

@@ -34,6 +34,7 @@ import { oneshot } from "./base/oneshot";
 import { layers } from "./base/layers";
 import { dualuse } from "./base/dualuse";
 import { platform_apple } from "./base/platform_apple";
+import { lang_intl } from "./base/lang_intl";
 
 const layout = [
   [41, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69],
@@ -70,7 +71,8 @@ const keyCodeTable = []
   .concat(oneshot)
   .concat(dualuse)
   .concat(layers)
-  .concat(platform_apple);
+  .concat(platform_apple)
+  .concat(lang_intl);
 
 const Base = {
   codetable: keyCodeTable,

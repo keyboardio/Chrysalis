@@ -89,50 +89,53 @@ const FirmwareSelect = (props) => {
   return (
     <>
       <FormControl fullWidth>
-        <FormLabel>
-          <Typography variant="h6">
-            {t("firmwareUpdate.chooseFirmware")}
-          </Typography>
-        </FormLabel>
-        <Box sx={{ display: "flex" }}>
-          <RadioGroup sx={{ ml: 2 }} value={selected} onChange={selectFirmware}>
-            <FormControlLabel
-              value="default"
-              control={<Radio />}
-              label={t("firmwareUpdate.defaultFirmwareDescription")}
-            />
-            <Typography sx={{ color: "text.secondary", ml: 1 }}>
-              {t("firmwareUpdate.firmwareVersion", {
-                version: firmwareVersion,
-              })}
-            </Typography>
-            <Typography variant="subtitle2" sx={{ ml: 1, mt: 1 }}>
-              {t("firmwareUpdate.defaultFirmwareExplanation")}
+        <Typography variant="h6">
+          {t("firmwareUpdate.chooseFirmware")}
+        </Typography>
+        <Box sx={{ display: "flex", width: "100%" }}>
+          <RadioGroup
+            sx={{ ml: 2, width: "100%" }}
+            value={selected}
+            onChange={selectFirmware}
+          >
+            <Grid container justifyContent="flex">
+              <FormControlLabel
+                value="default"
+                control={<Radio />}
+                label={
+                  <Typography sx={{ ml: 0 }}>
+                    {t("firmwareUpdate.defaultFirmwareDescription")} ({""}
+                    {t("firmwareUpdate.firmwareVersion", {
+                      version: firmwareVersion,
+                    })}
+                    )
+                  </Typography>
+                }
+              />
+              <Box sx={{ width: "1rem" }} />
 
-              <Grid container justifyContent="flex-end">
-                <Button
-                  sx={{}}
-                  color="info"
-                  onClick={() => setChangelogOpen(true)}
-                >
-                  {t("firmwareUpdate.firmwareChangelog.view", {
-                    version: firmwareVersion,
-                  })}
-                </Button>
-              </Grid>
-            </Typography>
-            <FormControlLabel
-              value="custom"
-              control={<Radio />}
-              label={t("firmwareUpdate.custom")}
-            />
-            <Typography sx={{ color: "text.secondary", ml: 1 }}>
-              {filename}
-            </Typography>
-            <Typography variant="subtitle2" sx={{ ml: 1, mt: 1 }}>
-              {t("firmwareUpdate.customFirmwareExplanation")}
-            </Typography>
-            <Grid container justifyContent="flex-end">
+              <Button
+                sx={{}}
+                color="info"
+                onClick={() => setChangelogOpen(true)}
+              >
+                {t("firmwareUpdate.firmwareChangelog.view", {
+                  version: firmwareVersion,
+                })}
+              </Button>
+            </Grid>
+            <Grid container justifyContent="flex">
+              <FormControlLabel
+                value="custom"
+                control={<Radio />}
+                label={
+                  <Typography sx={{ ml: 0 }}>
+                    {t("firmwareUpdate.custom")}{" "}
+                    {filename ? `(${filename})` : ""}
+                  </Typography>
+                }
+              />
+              <Box sx={{ width: "1rem" }} />
               <Button
                 href="https://kaleidoscope.readthedocs.io/"
                 color="info"

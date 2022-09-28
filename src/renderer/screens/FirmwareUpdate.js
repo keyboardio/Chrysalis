@@ -178,7 +178,7 @@ const FirmwareUpdate = (props) => {
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
       <FirmwareUpdateWarning />
-      <Container sx={{ my: 4, width: "50%" }}>
+      <Container sx={{ my: 4, minWidth: "600px", width: "80%" }}>
         <Typography variant="h6" gutterBottom>
           {t("firmwareUpdate.yourFirmware")}
         </Typography>
@@ -198,9 +198,6 @@ const FirmwareUpdate = (props) => {
             <Typography sx={{ ml: 3 }}>
               <Switch checked={factoryReset} onChange={toggleFactoryReset} />
               {t("firmwareUpdate.factoryResetDescription")}
-            </Typography>
-            <Typography variant="subtitle2" sx={{ ml: 3, mt: 1 }}>
-              {t("firmwareUpdate.factoryResetWarning")}
             </Typography>
           </Box>
 

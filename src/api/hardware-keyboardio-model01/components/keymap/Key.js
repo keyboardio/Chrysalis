@@ -34,7 +34,7 @@ const Key = (props) => {
       <ellipse
         fill={props.color}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="5.5"
         cx="610.765"
         cy="953.469"
         rx="75.6"
@@ -47,7 +47,7 @@ const Key = (props) => {
       <path
         fill={props.color}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="3.5"
         d={props.shape}
       />
     );

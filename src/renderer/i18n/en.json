@@ -152,7 +152,7 @@
       },
       "colors": {
         "title": "Colors",
-        "help": "Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker."
+        "help": "Assign a color to the selected key by clicking one of the palette squares below. To change the color of a palette entry, use the color picker."
       },
       "consumer": {
         "volume": "Volume",

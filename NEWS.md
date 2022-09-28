@@ -33,6 +33,13 @@ alert notifying you about it.
 The instructions for the Keyboardio Model 01 and Model 100 have been updated to
 match the most recent version of the flashing process.
 
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.90.2] for more details.
+
+ [fw:0.90.2]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.2
+
 Chrysalis 0.11.4
 ================
 Released on 2022-09-26

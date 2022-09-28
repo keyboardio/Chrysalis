@@ -397,7 +397,6 @@
             "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
             "contents": "Dit zal de huidige firmware vervangen op het toestel en alle instellingen terugzetten naar fabrieksinstellingen. Je zal alle aanpassingen verliezen. Eens de nieuwe firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
         },
-        "defaultFirmwareExplanation": "Dit is de recentste versie van de firmware voor je toetsenbord.",
         "customChooseFile": "Kies een bestand...",
         "currentFirmwareVersion": "Huidige firmware versie",
         "customFirmwareLinkText": "Meer informatie over firmware compileren",

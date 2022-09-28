@@ -375,7 +375,6 @@
         "yourFirmware": "更新您的键盘固件。",
         "chooseFirmware": "更新固件:",
         "defaultFirmwareDescription": "最新版本",
-        "defaultFirmwareExplanation": "这是您键盘的最新固件版本。",
         "custom": "选择一个本地的固件构建",
         "customChooseFile": "选择一个文件...",
         "customFirmwareExplanation": "你可以安装你下载或在本地建立的另一个固件版本只要它包括对'Focus'键盘协议的支持Chrysalis就应该能正常工作。",

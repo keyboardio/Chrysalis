@@ -1,3 +1,38 @@
+Chrysalis 0.11.5-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+Chrysalis now knows about Apple's Screen Lock, Globe, Exposé, and Mission
+Control keys, and allows putting them onto the keymap.
+
+## UI/UX
+
+The Keyboardio Model 100 and Model 01 keyboards now display single-character
+labels on the keyboard in a larger font. Additionally, the active key is now
+highlighted with a more visible border now, matching the theme used by
+Chrysalis.
+
+The Firmware Update screen has received significant changes: the explanation of
+the update options have been removed, the buttons provided along them should
+hold all the required information. Furthermore, the way to do a factory reset
+along with a firmware update has been made easier, and more discoverable: you
+can now select that method with a prominently displayed switch, rather than a
+separate button.
+
+## Bugfixes
+
+Resetting the EEPROM to factory defaults via the Preferences menu no longer
+spins forever.
+
+Chrysalis no longer allows saving changes on the Layout & Colormap Editor screen
+if the layer names set would overflow the available space, and will display an
+alert notifying you about it.
+
+The instructions for the Keyboardio Model 01 and Model 100 have been updated to
+match the most recent version of the flashing process.
+
 Chrysalis 0.11.4
 ================
 Released on 2022-09-26

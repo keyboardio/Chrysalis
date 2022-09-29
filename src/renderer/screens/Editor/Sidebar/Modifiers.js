@@ -88,7 +88,9 @@ const KeyPicker = (props) => {
 
     return (
       <Switch
-        checked={db.isInCategory(key, mod)}
+        checked={
+          db.isInCategory(key, mod) && !db.isInCategory(key.code, "dualuse")
+        }
         color="primary"
         onChange={toggleModifier(mod)}
       />

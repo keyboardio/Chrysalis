@@ -418,7 +418,8 @@ const Editor = (props) => {
   const saveChangesDisabled =
     !modified ||
     M.getStoredSize(macros) > macros.storageSize ||
-    L.getStoredSize(layerNames) > layerNames.storageSize;
+    (layerNames.storageSize > 0 &&
+      L.getStoredSize(layerNames) > layerNames.storageSize);
 
   return (
     <React.Fragment>

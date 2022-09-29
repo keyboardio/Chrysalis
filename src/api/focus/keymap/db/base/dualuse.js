@@ -59,9 +59,21 @@ const duMods = {
     index: 3,
     name: GuiLabel.full,
   },
+  rctrl: {
+    index: 4,
+    name: "Right Control",
+  },
+  rshift: {
+    index: 5,
+    name: "Right Shift",
+  },
   altgr: {
     index: 6,
     name: "AltGr",
+  },
+  rgui: {
+    index: 7,
+    name: `Right ${GuiLabel.full}`,
   },
 };
 
@@ -116,6 +128,9 @@ const dualuse = []
   .concat(dum("shift"))
   .concat(dum("alt"))
   .concat(dum("gui"))
-  .concat(dum("altgr"));
+  .concat(dum("rctrl"))
+  .concat(dum("rshift"))
+  .concat(dum("altgr"))
+  .concat(dum("rgui"));
 
 export { dualuse, addDUM, addDUL };

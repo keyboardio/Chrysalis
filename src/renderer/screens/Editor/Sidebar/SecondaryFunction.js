@@ -118,8 +118,17 @@ const SecondaryFunction = (props) => {
               <MenuItem value="gui" selected={modifier == "gui"}>
                 {GuiLabel.full}
               </MenuItem>
+              <MenuItem value="rctrl" selected={modifier == "rctrl"}>
+                Right Control
+              </MenuItem>
+              <MenuItem value="rshift" selected={modifier == "rshift"}>
+                Right Shift
+              </MenuItem>
               <MenuItem value="altgr" selected={modifier == "altgr"}>
                 AltGr
+              </MenuItem>
+              <MenuItem value="rgui" selected={modifier == "rgui"}>
+                Right {GuiLabel.full}
               </MenuItem>
             </Select>
           </FormGroup>

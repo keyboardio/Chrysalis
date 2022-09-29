@@ -7,6 +7,12 @@
       "button": "Upgrade instructions"
     }
   },
+  "sanity-check": {
+    "title": "Running environment verification",
+    "header": "Environment verification failed",
+    "message": "Chrysalis has detected that it is running in an unsupported environment, such as with an Electron version other than the one supported upstream. If you are using Chrysalis through a distribution's package repository, please consider using the official builds instead.",
+    "download-latest": "Download the official release"
+  },
   "errors": {
     "deviceDisconnected": "Keyboard disconnected",
     "saveFile": "Error saving a file: {{ error }}"

@@ -370,7 +370,6 @@ class Focus {
         const [_, reject] = this.callbacks.shift();
         reject("Device disconnected");
       }
-      this.close();
     });
 
     this.resetDeviceState();

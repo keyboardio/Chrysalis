@@ -47,6 +47,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
+import SanityCheck from "./screens/SanityCheck";
 
 import { useAutoUpdate } from "./hooks/useAutoUpdate";
 import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
@@ -269,6 +270,7 @@ const App = (props) => {
                   }}
                 >
                   <Router id="router">
+                    <SanityCheck path="/sanity-check" />
                     <FocusNotDetected
                       path="/focus-not-detected"
                       focusDeviceDescriptor={focusDeviceDescriptor}

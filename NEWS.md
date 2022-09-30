@@ -1,3 +1,37 @@
+Chrysalis 0.11.6-snapshot
+=========================
+**UNRELEASED**
+
+## Bugfixes
+
+When Chrysalis detects that an USB device has disconnected, it now correctly
+propagates that event, and properly records the disconnect event at all levels.
+This fixes an issue where disconnecting a device had Chrysalis not act upon it
+until one tried to communicate with the keyboard, resulting in a wide variety of
+seemingly random errors.
+
+When connected to keyboards that do not have the `LayerNames` plugin enabled -
+such as the firmware for the Keyboardio Model 01 Chrysalis ships with - do not
+erroneously disable saving changes to the keymap.
+
+When a key that has a modifier as its secondary action set is selected,
+Chrysalis no longer shows the key being augmented with the same modifier, it
+only shows the secondary action.
+
+The instructions for how to assign colors and use the color picker have been
+corrected.
+
+## UI/UX
+
+Key outlines on the Keyboardio Model 01 and Model 100 have been improved, the
+borders around the keys are slightly more visible now. The palm keys' border
+stroke has been further increased, to account for their angle.
+
+## New features
+
+Chrysalis now allows selecting the rest of the right-side modifiers to be used
+as secondary action, not just `AltGr`.
+
 Chrysalis 0.11.5
 ================
 Released on 2022-09-28

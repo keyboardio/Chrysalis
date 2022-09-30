@@ -72,6 +72,7 @@ const Editor = (props) => {
   const [macros, setMacros] = useState(null);
   const [currentLedIndex, setCurrentLedIndex] = useState(0);
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
+  const [currentPaletteIndex, setCurrentPaletteIndex] = useState(15);
   const [modified, setModified] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -160,6 +161,13 @@ const Editor = (props) => {
 
       setModified(true);
       showContextBar();
+    } else if (tool == "color-paint") {
+      const newColormap = { ...colormap };
+      newColormap.colorMap[currentLayer][ledIndex] = currentPaletteIndex;
+      setModified(true);
+      setColormap(newColormap);
+
+      showContextBar();
     }
   };
 
@@ -238,6 +246,7 @@ const Editor = (props) => {
   const onLedChange = (index) => {
     const newColormap = { ...colormap };
     newColormap.colorMap[currentLayer][currentLedIndex] = index;
+    setCurrentPaletteIndex(index);
     setModified(true);
     setColormap(newColormap);
 

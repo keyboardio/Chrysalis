@@ -16,6 +16,7 @@
  */
 
 import FormatColorResetIcon from "@mui/icons-material/FormatColorReset";
+import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import Box from "@mui/material/Box";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -43,6 +44,11 @@ export const ToolBox = (props) => {
         <ToggleButton value="eraser">
           <Tooltip title={t("editor.toolbox.eraser")}>
             <FormatColorResetIcon />
+          </Tooltip>
+        </ToggleButton>
+        <ToggleButton value="color-paint">
+          <Tooltip title={t("editor.toolbox.color-paint")}>
+            <FormatPaintIcon />
           </Tooltip>
         </ToggleButton>
       </ToggleButtonGroup>

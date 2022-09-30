@@ -33,6 +33,7 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ToolBox } from "./ToolBox";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
 import { MacroStorageAlert } from "./components/MacroStorageAlert";
@@ -79,6 +80,7 @@ const Editor = (props) => {
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
   const [selectorKey, setSelectorKey] = useState(null);
+  const [tool, setTool] = useState("select");
 
   const { t } = useTranslation();
 
@@ -133,12 +135,31 @@ const Editor = (props) => {
     await setCurrentKeyIndex(keyIndex);
     await setCurrentLedIndex(ledIndex);
 
-    const key = keymap.custom[currentLayer][keyIndex];
-    await setSelectorKey(key);
-    if (db.isInCategory(key, "dynmacros")) {
-      const macroId = key.code - key.rangeStart;
+    if (tool == "select") {
+      const key = keymap.custom[currentLayer][keyIndex];
+      await setSelectorKey(key);
+      if (db.isInCategory(key, "dynmacros")) {
+        const macroId = key.code - key.rangeStart;
 
-      await setCurrentMacroId(macroId);
+        await setCurrentMacroId(macroId);
+      }
+    } else if (tool == "eraser") {
+      if (hasColormap()) {
+        const newColormap = { ...colormap };
+        newColormap.colorMap[currentLayer][ledIndex] = 15;
+        setColormap(newColormap);
+      }
+
+      if (hasKeymap()) {
+        const newKeymap = { ...keymap };
+        const newKey = db.lookup(65535);
+        newKeymap.custom[currentLayer][keyIndex] = newKey;
+        setSelectorKey(newKey);
+        setKeymap(newKeymap);
+      }
+
+      setModified(true);
+      showContextBar();
     }
   };
 
@@ -151,7 +172,6 @@ const Editor = (props) => {
 
   const onKeyChangeForKeymap = (keyCode) => {
     const newKeymap = { ...keymap };
-    //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
     const newKey = db.lookup(keyCode);
     newKeymap.custom[currentLayer][currentKeyIndex] = newKey;
 
@@ -478,6 +498,7 @@ const Editor = (props) => {
         {layerNames.storageSize > 0 && (
           <LayerNamesStorageAlert layerNames={layerNames} />
         )}
+        <ToolBox setTool={setTool} tool={tool} />
         {mainWidget}
       </Box>
       <Sidebar
@@ -502,12 +523,14 @@ const Editor = (props) => {
         setOpenMacroEditor={maybeOpenMacroEditor}
         currentKey={currentKey}
       />
-      <FloatingKeyPicker
-        sidebarWidth={sidebarWidth}
-        onKeyChange={onKeyChange}
-        keymap={keymap}
-        currentKey={currentKey}
-      />
+      {tool == "select" && (
+        <FloatingKeyPicker
+          sidebarWidth={sidebarWidth}
+          onKeyChange={onKeyChange}
+          keymap={keymap}
+          currentKey={currentKey}
+        />
+      )}
       <SaveChangesButton
         onClick={onApply}
         onError={onApplyError}

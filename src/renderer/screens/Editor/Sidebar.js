@@ -132,7 +132,25 @@ const Sidebar = (props) => {
           tool={props.tool}
           hasColormap={props.hasColormap}
         />
-        {categories}
+        {props.tool == "select" && categories}
+        {props.tool == "color-paint" && (
+          <Colormap
+            macroEditorOpen={macroEditorOpen}
+            keymap={keymap}
+            colormap={colormap}
+            selectedKey={selectedKey}
+            selectedLed={selectedLed}
+            layer={layer}
+            layerNames={props.layerNames}
+            onKeyChange={props.onKeyChange}
+            onLedChange={props.onLedChange}
+            onPaletteChange={props.onPaletteChange}
+            macros={props.macros}
+            setOpenMacroEditor={props.setOpenMacroEditor}
+            currentKey={props.currentKey}
+            sx={{ p: 2 }}
+          />
+        )}
       </Box>
     </Drawer>
   );

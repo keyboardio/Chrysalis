@@ -120,6 +120,13 @@ const Editor = (props) => {
     setLoading(false);
   };
 
+  const onLayerChange = async (layer) => {
+    await setCurrentLayer(layer);
+
+    const key = keymap.custom[layer][currentKeyIndex];
+    await setSelectorKey(key);
+  };
+
   const onKeySelect = async (event) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
@@ -451,7 +458,7 @@ const Editor = (props) => {
         selectedKey={currentKeyIndex}
         selectedLed={currentLedIndex}
         layer={currentLayer}
-        setLayer={setCurrentLayer}
+        setLayer={onLayerChange}
         layerNames={layerNames}
         setLayerName={setLayerName}
         onKeyChange={onKeyChange}

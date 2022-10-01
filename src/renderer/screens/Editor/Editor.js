@@ -273,7 +273,7 @@ const Editor = (props) => {
     try {
       let deviceKeymap = await activeDevice.keymap();
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
-      const deviceColormap = await focus.command("colormap");
+      const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
@@ -342,7 +342,7 @@ const Editor = (props) => {
 
   const onApply = async () => {
     await activeDevice.keymap(keymap);
-    await focus.command("colormap", colormap);
+    await activeDevice.colormap(colormap);
     await focus.command("macros", macros);
     await focus.command("layernames", layerNames);
 

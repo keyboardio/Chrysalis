@@ -76,7 +76,7 @@ const LayoutCard = (props) => {
       if (deviceLayerNames) setLayerNames(deviceLayerNames);
 
       if (settings.get("ui.layoutCards.colored")) {
-        const deviceColormap = await focus.command("colormap");
+        const deviceColormap = await activeDevice.colormap();
         setColormap(deviceColormap);
       }
     } catch (e) {

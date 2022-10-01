@@ -99,4 +99,15 @@ export function ActiveDevice() {
     }
     return this._keymap;
   };
+
+  this.colormap = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("colormap", newValue);
+      this._colormap = undefined;
+    }
+    if (this._colormap === undefined) {
+      this._colormap = await this.focus.command("colormap");
+    }
+    return this._colormap;
+  };
 }

@@ -85,7 +85,7 @@ function SystemInfo(props) {
         path: focus._port.path,
         commands: await activeDevice.supported_commands(),
         keymap: await activeDevice.keymap(),
-        colormap: await focus.command("colormap"),
+        colormap: await activeDevice.colormap(),
       };
     }
 

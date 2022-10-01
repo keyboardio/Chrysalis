@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import React from "react";
+import { ToolBox } from "./ToolBox";
 import BlankKeys from "./Sidebar/BlankKeys";
 import BrightnessKeys from "./Sidebar/BrightnessKeys";
 import Colormap from "./Sidebar/Colormap";
@@ -125,6 +126,11 @@ const Sidebar = (props) => {
           onKeymapChange={props.onKeymapChange}
           onPaletteChange={props.onPaletteChange}
           onColormapChange={props.onColormapChange}
+        />
+        <ToolBox
+          setTool={props.setTool}
+          tool={props.tool}
+          hasColormap={props.hasColormap}
         />
         {categories}
       </Box>

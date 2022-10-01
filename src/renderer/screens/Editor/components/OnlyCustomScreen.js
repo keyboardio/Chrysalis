@@ -23,19 +23,27 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { navigate } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
 import React from "react";
+
 import { useTranslation } from "react-i18next";
 
 const OnlyCustomScreen = (props) => {
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
+
   const { t } = useTranslation();
 
   const enableOnlyCustom = async () => {
-    const focus = new Focus();
+    const focus = activeDevice.focus;
     await focus.command("keymap.onlyCustom", true);
-    await focus.command("settings.defaultLayer", 0);
+    await activeDevice.defaultLayer(0);
+
     await navigate("/editor");
   };
 

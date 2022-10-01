@@ -15,7 +15,6 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import { collectLogs, logger } from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
@@ -32,6 +31,7 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
@@ -42,6 +42,11 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 function SystemInfo(props) {
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
+
   const [collecting, setCollecting] = useState(false);
   const [collected, setCollected] = useState(false);
   const [info, setInfo] = useState({});
@@ -72,16 +77,16 @@ function SystemInfo(props) {
 
   const createBundle = async () => {
     setCollecting(true);
-    const focus = new Focus();
 
     const sysInfo = ipcRenderer.sendSync("system-info.get");
     if (focus.focusDeviceDescriptor) {
       sysInfo.device = {
         info: focus.focusDeviceDescriptor.info,
         path: focus._port.path,
-        commands: await focus.command("help"),
-        keymap: await focus.command("keymap"),
-        colormap: await focus.command("colormap"),
+        commands: await activeDevice.supported_commands(),
+        keymap: await activeDevice.keymap(),
+        colormap: await activeDevice.colormap(),
+        version: await activeDevice.version(),
       };
     }
 

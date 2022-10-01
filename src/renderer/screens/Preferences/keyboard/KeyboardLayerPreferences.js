@@ -21,6 +21,7 @@ import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -31,6 +32,11 @@ const KeyboardLayerPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
 
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
+
   const [keymap, setKeymap] = useState({
     custom: [],
     default: [],
@@ -38,10 +44,11 @@ const KeyboardLayerPreferences = (props) => {
   });
   const [defaultLayer, setDefaultLayer] = useState(126);
 
-  const initialize = async (focus) => {
-    setKeymap(await focus.command("keymap"));
+  const initialize = async () => {
+    setKeymap(await activeDevice.keymap());
 
-    let layer = await focus.command("settings.defaultLayer");
+    let layer = await activeDevice.defaultLayer();
+
     layer = layer ? parseInt(layer) : 126;
     setDefaultLayer(layer <= 126 ? layer : layer);
   };
@@ -50,7 +57,9 @@ const KeyboardLayerPreferences = (props) => {
   const selectDefaultLayer = async (event) => {
     const layer = event.target.value;
     await setDefaultLayer(layer);
-    await onSaveChanges("settings.defaultLayer", layer);
+    await onSaveChanges("default layer", function () {
+      return activeDevice.defaultLayer(layer);
+    });
   };
 
   const layers = keymap.custom.map((_, index) => {

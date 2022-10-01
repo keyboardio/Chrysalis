@@ -75,4 +75,68 @@ export function ActiveDevice() {
       return false;
     }
   };
+
+  this.defaultLayer = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("settings.defaultLayer", newValue);
+      this._settings_defaultLayer = undefined;
+    }
+    if (this._settings_defaultLayer === undefined) {
+      this._settings_defaultLayer = await this.focus.command(
+        "settings.defaultLayer"
+      );
+    }
+    return this._settings_defaultLayer;
+  };
+
+  this.keymap = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("keymap", newValue);
+      this._keymap = undefined;
+    }
+    if (this._keymap === undefined) {
+      this._keymap = await this.focus.command("keymap");
+    }
+    return this._keymap;
+  };
+
+  this.colormap = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("colormap", newValue);
+      this._colormap = undefined;
+    }
+    if (this._colormap === undefined) {
+      this._colormap = await this.focus.command("colormap");
+    }
+    return this._colormap;
+  };
+
+  this.macros = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("macros", newValue);
+      this._macros = undefined;
+    }
+    if (this._macros === undefined) {
+      this._macros = await this.focus.command("macros");
+    }
+    return this._macros;
+  };
+
+  this.layernames = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("layernames", newValue);
+      this._layernames = undefined;
+    }
+    if (this._layernames === undefined) {
+      this._layernames = await this.focus.command("layernames");
+    }
+    return this._layernames;
+  };
+
+  this.version = async () => {
+    if (this._version === undefined) {
+      this._version = await this.focus.command("version");
+    }
+    return this._version;
+  };
 }

@@ -26,6 +26,7 @@ import {
   hideContextBar,
   showContextBar,
 } from "@renderer/components/ContextBar";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
@@ -45,9 +46,13 @@ const Store = require("electron-store");
 const settings = new Store();
 
 const db = new KeymapDB();
-const focus = new Focus();
 
 const Editor = (props) => {
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
+
   const [colormap, setColormap] = useState({
     palette: [],
     colorMap: [],
@@ -259,28 +264,28 @@ const Editor = (props) => {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
       deviceKeymap.onlyCustom = true;
-      await focus.command("keymap", deviceKeymap);
+      await activeDevice.keymap(deviceKeymap);
     }
     return deviceKeymap;
   };
 
   const scanKeyboard = async () => {
     try {
-      let deviceKeymap = await focus.command("keymap");
+      let deviceKeymap = await activeDevice.keymap();
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
-      const deviceColormap = await focus.command("colormap");
+      const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
 
-      const deviceMacros = await focus.command("macros");
+      const deviceMacros = await activeDevice.macros();
       setMacros(deviceMacros);
 
-      const defLayer = await focus.command("settings.defaultLayer");
+      const defLayer = await activeDevice.defaultLayer();
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
 
-      const deviceLayerNames = await focus.command("layernames");
+      const deviceLayerNames = await activeDevice.layernames();
       if (deviceLayerNames) {
         // We set up default names for the layers here, so that they're easily
         // editable, without having to keep track of whether it is a default
@@ -336,10 +341,10 @@ const Editor = (props) => {
   };
 
   const onApply = async () => {
-    await focus.command("keymap", keymap);
-    await focus.command("colormap", colormap);
-    await focus.command("macros", macros);
-    await focus.command("layernames", layerNames);
+    await activeDevice.keymap(keymap);
+    await activeDevice.colormap(colormap);
+    await activeDevice.macros(macros);
+    await activeDevice.layernames(layerNames);
 
     setModified(false);
     logger().info("Changes saved.");

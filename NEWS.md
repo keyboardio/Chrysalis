@@ -21,11 +21,16 @@ only shows the secondary action.
 The instructions for how to assign colors and use the color picker have been
 corrected.
 
+It is no longer possible to accidentally select the text of multiple keys on the
+keymap.
+
 ## UI/UX
 
 Key outlines on the Keyboardio Model 01 and Model 100 have been improved, the
 borders around the keys are slightly more visible now. The palm keys' border
 stroke has been further increased, to account for their angle.
+
+The "Layout Cards" screen now has a "Print" button.
 
 ## New features
 

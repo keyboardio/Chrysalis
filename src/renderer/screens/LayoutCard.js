@@ -20,6 +20,9 @@ import { logger } from "@api/log";
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import PrintIcon from "@mui/icons-material/Print";
+import Fab from "@mui/material/Fab";
+import Tooltip from "@mui/material/Tooltip";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
@@ -162,6 +165,26 @@ const LayoutCard = (props) => {
           <div>{keymap_pix}</div>
         </Box>
       </Box>
+      <Tooltip title={t("layoutCards.printTooltip")}>
+        <Box
+          role="button"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            position: "fixed",
+            bottom: 32,
+            left: 32,
+            zIndex: (theme) => theme.zIndex.drawer - 1,
+          }}
+        >
+          <Box sx={{ position: "relative" }}>
+            <Fab color="primary" onClick={window.print}>
+              <PrintIcon />
+            </Fab>
+          </Box>
+        </Box>
+      </Tooltip>
     </React.Fragment>
   );
 };

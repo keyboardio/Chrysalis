@@ -21,6 +21,8 @@ export function ActiveDevice() {
   this.port = undefined;
   this.connected = false;
   this.focusConnection = undefined;
+  this._cache = {};
+  this._storage = {};
 
   this.focus = new Focus();
 
@@ -79,64 +81,64 @@ export function ActiveDevice() {
   this.defaultLayer = async (newValue) => {
     if (newValue !== undefined) {
       await this.focus.command("settings.defaultLayer", newValue);
-      this._settings_defaultLayer = undefined;
+      this._cache.settings_defaultLayer = undefined;
     }
-    if (this._settings_defaultLayer === undefined) {
-      this._settings_defaultLayer = await this.focus.command(
+    if (this._cache.settings_defaultLayer === undefined) {
+      this._cache.settings_defaultLayer = await this.focus.command(
         "settings.defaultLayer"
       );
     }
-    return this._settings_defaultLayer;
+    return this._cache.settings_defaultLayer;
   };
 
   this.keymap = async (newValue) => {
     if (newValue !== undefined) {
       await this.focus.command("keymap", newValue);
-      this._keymap = undefined;
+      this._cache.keymap = undefined;
     }
-    if (this._keymap === undefined) {
-      this._keymap = await this.focus.command("keymap");
+    if (this._cache.keymap === undefined) {
+      this._cache.keymap = await this.focus.command("keymap");
     }
-    return this._keymap;
+    return this._cache.keymap;
   };
 
   this.colormap = async (newValue) => {
     if (newValue !== undefined) {
       await this.focus.command("colormap", newValue);
-      this._colormap = undefined;
+      this._cache.colormap = undefined;
     }
-    if (this._colormap === undefined) {
-      this._colormap = await this.focus.command("colormap");
+    if (this._cache.colormap === undefined) {
+      this._cache.colormap = await this.focus.command("colormap");
     }
-    return this._colormap;
+    return this._cache.colormap;
   };
 
   this.macros = async (newValue) => {
     if (newValue !== undefined) {
       await this.focus.command("macros", newValue);
-      this._macros = undefined;
+      this._cache.macros = undefined;
     }
-    if (this._macros === undefined) {
-      this._macros = await this.focus.command("macros");
+    if (this._cache.macros === undefined) {
+      this._cache.macros = await this.focus.command("macros");
     }
-    return this._macros;
+    return this._cache.macros;
   };
 
   this.layernames = async (newValue) => {
     if (newValue !== undefined) {
       await this.focus.command("layernames", newValue);
-      this._layernames = undefined;
+      this._cache.layernames = undefined;
     }
-    if (this._layernames === undefined) {
-      this._layernames = await this.focus.command("layernames");
+    if (this._cache.layernames === undefined) {
+      this._cache.layernames = await this.focus.command("layernames");
     }
-    return this._layernames;
+    return this._cache.layernames;
   };
 
   this.version = async () => {
-    if (this._version === undefined) {
-      this._version = await this.focus.command("version");
+    if (this._storage.version === undefined) {
+      this._storage.version = await this.focus.command("version");
     }
-    return this._version;
+    return this._storage.version;
   };
 }

@@ -57,7 +57,9 @@ const KeyboardLayerPreferences = (props) => {
   const selectDefaultLayer = async (event) => {
     const layer = event.target.value;
     await setDefaultLayer(layer);
-    await onSaveChanges("settings.defaultLayer", layer);
+    await onSaveChanges("default layer", function () {
+      return activeDevice.defaultLayer(layer);
+    });
   };
 
   const layers = keymap.custom.map((_, index) => {

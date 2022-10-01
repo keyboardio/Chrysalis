@@ -61,8 +61,14 @@ const MyKeyboardPreferences = (props) => {
 
   const saveChanges = async () => {
     for (const cmd of Object.keys(changes)) {
-      const args = changes[cmd];
-      await activeDevice.focus.command(cmd, args);
+      const content = changes[cmd];
+      // If the change was a function, run the function
+      // otherwise assume it's a focus command
+      if (content instanceof Function) {
+        await content();
+      } else {
+        await activeDevice.focus.command(cmd, content);
+      }
     }
     setChanges({});
 

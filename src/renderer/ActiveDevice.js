@@ -75,4 +75,17 @@ export function ActiveDevice() {
       return false;
     }
   };
+
+  this.defaultLayer = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("settings.defaultLayer", newValue);
+      this._settings_defaultLayer = undefined;
+    }
+    if (this._settings_defaultLayer === undefined) {
+      this._settings_defaultLayer = await this.focus.command(
+        "settings.defaultLayer"
+      );
+    }
+    return this._settings_defaultLayer;
+  };
 }

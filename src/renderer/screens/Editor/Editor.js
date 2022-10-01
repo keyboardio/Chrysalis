@@ -26,6 +26,7 @@ import {
   hideContextBar,
   showContextBar,
 } from "@renderer/components/ContextBar";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
@@ -45,9 +46,13 @@ const Store = require("electron-store");
 const settings = new Store();
 
 const db = new KeymapDB();
-const focus = new Focus();
 
 const Editor = (props) => {
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
+
   const [colormap, setColormap] = useState({
     palette: [],
     colorMap: [],
@@ -277,7 +282,7 @@ const Editor = (props) => {
       const deviceMacros = await focus.command("macros");
       setMacros(deviceMacros);
 
-      const defLayer = await focus.command("settings.defaultLayer");
+      const defLayer = await activeDevice.defaultLayer();
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
 
       const deviceLayerNames = await focus.command("layernames");

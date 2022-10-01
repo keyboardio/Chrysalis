@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import cloneDeep from "lodash.clonedeep";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -93,7 +94,7 @@ export function ActiveDevice() {
         "settings.defaultLayer"
       );
     }
-    return this._cache.settings_defaultLayer;
+    return cloneDeep(this._cache.settings_defaultLayer);
   };
 
   this.keymap = async (newValue) => {
@@ -104,7 +105,7 @@ export function ActiveDevice() {
     if (this._cache.keymap === undefined) {
       this._cache.keymap = await this.focus.command("keymap");
     }
-    return this._cache.keymap;
+    return cloneDeep(this._cache.keymap);
   };
 
   this.colormap = async (newValue) => {
@@ -115,7 +116,7 @@ export function ActiveDevice() {
     if (this._cache.colormap === undefined) {
       this._cache.colormap = await this.focus.command("colormap");
     }
-    return this._cache.colormap;
+    return cloneDeep(this._cache.colormap);
   };
 
   this.macros = async (newValue) => {
@@ -126,7 +127,7 @@ export function ActiveDevice() {
     if (this._cache.macros === undefined) {
       this._cache.macros = await this.focus.command("macros");
     }
-    return this._cache.macros;
+    return cloneDeep(this._cache.macros);
   };
 
   this.layernames = async (newValue) => {
@@ -137,7 +138,7 @@ export function ActiveDevice() {
     if (this._cache.layernames === undefined) {
       this._cache.layernames = await this.focus.command("layernames");
     }
-    return this._cache.layernames;
+    return cloneDeep(this._cache.layernames);
   };
 
   this.version = async () => {

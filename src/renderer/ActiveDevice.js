@@ -121,4 +121,11 @@ export function ActiveDevice() {
     }
     return this._macros;
   };
+
+  this.version = async () => {
+    if (this._version === undefined) {
+      this._version = await this.focus.command("version");
+    }
+    return this._version;
+  };
 }

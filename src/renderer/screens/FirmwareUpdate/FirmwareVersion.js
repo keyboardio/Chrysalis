@@ -37,7 +37,7 @@ const FirmwareVersion = (props) => {
         return;
       }
 
-      const v = await activeDevice.focus.command("version");
+      const v = await activeDevice.version();
       if (v) {
         setFwVersion(v);
       } else {

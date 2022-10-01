@@ -86,6 +86,7 @@ function SystemInfo(props) {
         commands: await activeDevice.supported_commands(),
         keymap: await activeDevice.keymap(),
         colormap: await activeDevice.colormap(),
+        version: await activeDevice.version(),
       };
     }
 

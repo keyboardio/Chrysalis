@@ -102,6 +102,7 @@
     "immutability-helper": "^3.1.1",
     "js-yaml": "^4.1.0",
     "json-stringify-pretty-compact": "^3.0.0",
+    "lodash.clonedeep": "^4.5.0",
     "react": "^17.0.2",
     "react-color": "^2.14.1",
     "react-dnd": "^16.0.1",
@@ -157,8 +158,8 @@
     "stylelint-config-standard": "^25.0.0",
     "unraw": "^2.0.0",
     "webpack": "4.46.0",
-    "yarn": "^1.22.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.4.23",
+    "yarn": "^1.22.0"
   },
   "resolutions": {
     "teensy-loader/usb": "^2.5.1",

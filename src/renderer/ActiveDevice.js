@@ -110,4 +110,15 @@ export function ActiveDevice() {
     }
     return this._colormap;
   };
+
+  this.macros = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("macros", newValue);
+      this._macros = undefined;
+    }
+    if (this._macros === undefined) {
+      this._macros = await this.focus.command("macros");
+    }
+    return this._macros;
+  };
 }

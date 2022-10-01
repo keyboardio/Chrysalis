@@ -279,7 +279,7 @@ const Editor = (props) => {
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
 
-      const deviceMacros = await focus.command("macros");
+      const deviceMacros = await activeDevice.macros();
       setMacros(deviceMacros);
 
       const defLayer = await activeDevice.defaultLayer();
@@ -343,7 +343,7 @@ const Editor = (props) => {
   const onApply = async () => {
     await activeDevice.keymap(keymap);
     await activeDevice.colormap(colormap);
-    await focus.command("macros", macros);
+    await activeDevice.macros(macros);
     await focus.command("layernames", layerNames);
 
     setModified(false);

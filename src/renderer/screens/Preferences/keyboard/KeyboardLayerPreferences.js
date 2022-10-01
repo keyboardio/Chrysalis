@@ -45,7 +45,7 @@ const KeyboardLayerPreferences = (props) => {
   const [defaultLayer, setDefaultLayer] = useState(126);
 
   const initialize = async () => {
-    setKeymap(await focus.command("keymap"));
+    setKeymap(await activeDevice.keymap());
 
     let layer = await activeDevice.defaultLayer();
 

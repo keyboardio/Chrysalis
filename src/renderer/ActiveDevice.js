@@ -88,4 +88,15 @@ export function ActiveDevice() {
     }
     return this._settings_defaultLayer;
   };
+
+  this.keymap = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("keymap", newValue);
+      this._keymap = undefined;
+    }
+    if (this._keymap === undefined) {
+      this._keymap = await this.focus.command("keymap");
+    }
+    return this._keymap;
+  };
 }

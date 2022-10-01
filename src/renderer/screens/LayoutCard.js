@@ -53,6 +53,9 @@ const LayoutCard = (props) => {
   const [_, setHideHeaderInPrint] = globalContext.state.hideHeaderInPrint;
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
+  const [activeDevice, __] = globalContext.state.activeDevice;
+
+  const focus = activeDevice.focus;
 
   const { t } = useTranslation();
 
@@ -66,7 +69,7 @@ const LayoutCard = (props) => {
 
   const scanKeyboard = async () => {
     try {
-      const deviceKeymap = await focus.command("keymap");
+      const deviceKeymap = await activeDevice.keymap();
       setKeymap(deviceKeymap);
 
       const deviceLayerNames = await focus.command("layernames");

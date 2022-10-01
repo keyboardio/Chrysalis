@@ -264,14 +264,14 @@ const Editor = (props) => {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
       deviceKeymap.onlyCustom = true;
-      await focus.command("keymap", deviceKeymap);
+      await activeDevice.keymap(deviceKeymap);
     }
     return deviceKeymap;
   };
 
   const scanKeyboard = async () => {
     try {
-      let deviceKeymap = await focus.command("keymap");
+      let deviceKeymap = await activeDevice.keymap();
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
       const deviceColormap = await focus.command("colormap");
       const k = new Keymap();
@@ -341,7 +341,7 @@ const Editor = (props) => {
   };
 
   const onApply = async () => {
-    await focus.command("keymap", keymap);
+    await activeDevice.keymap(keymap);
     await focus.command("colormap", colormap);
     await focus.command("macros", macros);
     await focus.command("layernames", layerNames);

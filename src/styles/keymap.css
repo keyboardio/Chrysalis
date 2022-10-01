@@ -105,4 +105,14 @@ button {
   * {
     -webkit-print-color-adjust: exact;
   }
+
+  /* default black text, so layernames are not printed white on white. */
+  body {
+    color: black;
+  }
+
+  /* don't print toasts such as "Successfully printed" */
+  .MuiSnackbar-root { /* stylelint-disable-line selector-class-pattern */
+    display: none;
+  }
 }

@@ -15,15 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormatColorResetIcon from "@mui/icons-material/FormatColorReset";
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import Box from "@mui/material/Box";
+import SvgIcon from "@mui/material/SvgIcon";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Tooltip from "@mui/material/Tooltip";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+// Sourced from: https://materialdesignicons.com/icon/eraser
+const EraserIcon = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <path d="M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L13.41,3.56C14.2,2.78 15.46,2.78 16.24,3.56M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z" />
+    </SvgIcon>
+  );
+};
 
 export const ToolBox = (props) => {
   const { t } = useTranslation();
@@ -43,7 +52,7 @@ export const ToolBox = (props) => {
       >
         <ToggleButton value="eraser">
           <Tooltip title={t("editor.toolbox.eraser")}>
-            <FormatColorResetIcon />
+            <EraserIcon />
           </Tooltip>
         </ToggleButton>
         <ToggleButton value="color-paint">

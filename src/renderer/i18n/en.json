@@ -260,6 +260,9 @@
       }
     }
   },
+  "layoutCards": {
+    "printTooltip": "Print"
+  },
   "preferences": {
     "interface": "User Interface",
     "devtools": {

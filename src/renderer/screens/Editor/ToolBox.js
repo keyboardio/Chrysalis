@@ -55,11 +55,13 @@ export const ToolBox = (props) => {
             <EraserIcon />
           </Tooltip>
         </ToggleButton>
-        <ToggleButton value="color-paint">
-          <Tooltip title={t("editor.toolbox.color-paint")}>
-            <FormatPaintIcon />
-          </Tooltip>
-        </ToggleButton>
+        {props.hasColormap && (
+          <ToggleButton value="color-paint">
+            <Tooltip title={t("editor.toolbox.color-paint")}>
+              <FormatPaintIcon />
+            </Tooltip>
+          </ToggleButton>
+        )}
       </ToggleButtonGroup>
     </Box>
   );

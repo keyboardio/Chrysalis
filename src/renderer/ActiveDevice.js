@@ -84,61 +84,35 @@ export function ActiveDevice() {
     }
   };
 
-  this.defaultLayer = async (newValue) => {
+  this._cachedDeviceData = async (command, newValue) => {
     if (newValue !== undefined) {
-      await this.focus.command("settings.defaultLayer", newValue);
-      this._cache.settings_defaultLayer = undefined;
+      await this.focus.command(command, newValue);
+      this._cache[command] = undefined;
     }
-    if (this._cache.settings_defaultLayer === undefined) {
-      this._cache.settings_defaultLayer = await this.focus.command(
-        "settings.defaultLayer"
-      );
+    if (!(command in this._cache)) {
+      this._cache[command] = await this.focus.command(command);
     }
-    return cloneDeep(this._cache.settings_defaultLayer);
+    return cloneDeep(this._cache[command]);
+  };
+
+  this.defaultLayer = async (newValue) => {
+    return await this._cachedDeviceData("settings.defaultLayer", newValue);
   };
 
   this.keymap = async (newValue) => {
-    if (newValue !== undefined) {
-      await this.focus.command("keymap", newValue);
-      this._cache.keymap = undefined;
-    }
-    if (this._cache.keymap === undefined) {
-      this._cache.keymap = await this.focus.command("keymap");
-    }
-    return cloneDeep(this._cache.keymap);
+    return await this._cachedDeviceData("keymap", newValue);
   };
 
   this.colormap = async (newValue) => {
-    if (newValue !== undefined) {
-      await this.focus.command("colormap", newValue);
-      this._cache.colormap = undefined;
-    }
-    if (this._cache.colormap === undefined) {
-      this._cache.colormap = await this.focus.command("colormap");
-    }
-    return cloneDeep(this._cache.colormap);
+    return await this._cachedDeviceData("colormap", newValue);
   };
 
   this.macros = async (newValue) => {
-    if (newValue !== undefined) {
-      await this.focus.command("macros", newValue);
-      this._cache.macros = undefined;
-    }
-    if (this._cache.macros === undefined) {
-      this._cache.macros = await this.focus.command("macros");
-    }
-    return cloneDeep(this._cache.macros);
+    return await this._cachedDeviceData("macros", newValue);
   };
 
   this.layernames = async (newValue) => {
-    if (newValue !== undefined) {
-      await this.focus.command("layernames", newValue);
-      this._cache.layernames = undefined;
-    }
-    if (this._cache.layernames === undefined) {
-      this._cache.layernames = await this.focus.command("layernames");
-    }
-    return cloneDeep(this._cache.layernames);
+    return await this._cachedDeviceData("layernames", newValue);
   };
 
   this.version = async () => {

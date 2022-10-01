@@ -17,6 +17,7 @@
 
 import Focus from "@api/focus";
 import cloneDeep from "lodash.clonedeep";
+import isEqual from "lodash.isequal";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -86,6 +87,11 @@ export function ActiveDevice() {
 
   this._cachedDeviceData = async (command, newValue) => {
     if (newValue !== undefined) {
+      if (isEqual(newValue, this._cache[command])) {
+        // If the values are the same, don't bother sending it to the device.
+        return cloneDeep(this._cache[command]);
+      }
+
       await this.focus.command(command, newValue);
       this._cache[command] = undefined;
     }

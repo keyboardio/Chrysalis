@@ -39,6 +39,11 @@ export function ActiveDevice() {
   // that information, reducing repeated calls for the same data from the device
   // on connect.
   this.loadConfigFromDevice = async () => {
+    // When connecting to a keyboard, clear *both* the cache, and the persistent
+    // storage, because the keyboard we're connecting to might be an entirely
+    // different one.
+    this._cache = {};
+    this._storage = {};
     await this.focus.supported_commands();
     await this.plugins();
   };

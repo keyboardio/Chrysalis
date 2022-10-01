@@ -122,6 +122,17 @@ export function ActiveDevice() {
     return this._macros;
   };
 
+  this.layernames = async (newValue) => {
+    if (newValue !== undefined) {
+      await this.focus.command("layernames", newValue);
+      this._layernames = undefined;
+    }
+    if (this._layernames === undefined) {
+      this._layernames = await this.focus.command("layernames");
+    }
+    return this._layernames;
+  };
+
   this.version = async () => {
     if (this._version === undefined) {
       this._version = await this.focus.command("version");

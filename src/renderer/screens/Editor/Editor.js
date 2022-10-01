@@ -285,7 +285,7 @@ const Editor = (props) => {
       const defLayer = await activeDevice.defaultLayer();
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
 
-      const deviceLayerNames = await focus.command("layernames");
+      const deviceLayerNames = await activeDevice.layernames();
       if (deviceLayerNames) {
         // We set up default names for the layers here, so that they're easily
         // editable, without having to keep track of whether it is a default
@@ -344,7 +344,7 @@ const Editor = (props) => {
     await activeDevice.keymap(keymap);
     await activeDevice.colormap(colormap);
     await activeDevice.macros(macros);
-    await focus.command("layernames", layerNames);
+    await activeDevice.layernames(layerNames);
 
     setModified(false);
     logger().info("Changes saved.");

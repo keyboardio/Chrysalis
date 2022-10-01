@@ -72,7 +72,7 @@ const LayoutCard = (props) => {
       const deviceKeymap = await activeDevice.keymap();
       setKeymap(deviceKeymap);
 
-      const deviceLayerNames = await focus.command("layernames");
+      const deviceLayerNames = await activeDevice.layernames();
       if (deviceLayerNames) setLayerNames(deviceLayerNames);
 
       if (settings.get("ui.layoutCards.colored")) {

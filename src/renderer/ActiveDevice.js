@@ -110,6 +110,7 @@ export function ActiveDevice() {
     escape_oneshot_cancel_key: "escape_oneshot.cancel_key",
     spacecadet_timeout: "spacecadet.timeout",
     spacecadet_mode: "spacecadet.mode",
+    led_brightness: "led.brightness",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

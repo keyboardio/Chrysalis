@@ -112,6 +112,7 @@ export function ActiveDevice() {
     spacecadet_mode: "spacecadet.mode",
     led_brightness: "led.brightness",
     led_mode_default: "led_mode.default",
+    idleleds_time_limit: "idleleds.time_limit",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

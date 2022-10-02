@@ -21,8 +21,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
@@ -31,10 +32,12 @@ const IdleTimeLimit = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
 
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
+
   const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
 
-  const initialize = async (focus) => {
-    let limit = await focus.command("idleleds.time_limit");
+  const initialize = async () => {
+    let limit = await activeDevice.idleleds_time_limit();
     limit = parseInt(limit);
 
     setLedIdleTimeLimit(limit);
@@ -44,7 +47,9 @@ const IdleTimeLimit = (props) => {
   const onChange = async (event) => {
     const limit = event.target.value;
     await setLedIdleTimeLimit(limit);
-    await onSaveChanges("idleleds.time_limit", limit);
+    await onSaveChanges("idleleds.time_limit", function () {
+      activeDevice.idleleds_time_limit(limit);
+    });
   };
 
   return (

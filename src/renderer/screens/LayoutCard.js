@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import { logger } from "@api/log";
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
@@ -34,7 +33,6 @@ const Store = require("electron-store");
 const settings = new Store();
 
 const db = new KeymapDB();
-const focus = new Focus();
 
 const LayoutCard = (props) => {
   const [keymap, setKeymap] = useState({
@@ -57,8 +55,6 @@ const LayoutCard = (props) => {
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
   const [activeDevice, __] = globalContext.state.activeDevice;
-
-  const focus = activeDevice.focus;
 
   const { t } = useTranslation();
 
@@ -107,7 +103,7 @@ const LayoutCard = (props) => {
     return <LoadingScreen />;
   }
 
-  const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
+  const KeymapSVG = activeDevice.focus.focusDeviceDescriptor.components.keymap;
 
   const keymap_pix = [];
   const title = t("Keyboard layout");

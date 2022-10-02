@@ -15,14 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import InputAdornment from "@mui/material/InputAdornment";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
@@ -39,7 +34,7 @@ const SpaceCadetPreferences = (props) => {
   const [scMode, setScMode] = useState(0);
   const [scTimeOut, setScTimeOut] = useState(200);
 
-  const initialize = async (focus) => {
+  const initialize = async () => {
     const timeout = await activeDevice.spacecadet_timeout();
     const mode = await activeDevice.spacecadet_mode();
 

@@ -45,8 +45,6 @@ function SystemInfo(props) {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
-  const focus = activeDevice.focus;
-
   const [collecting, setCollecting] = useState(false);
   const [collected, setCollected] = useState(false);
   const [info, setInfo] = useState({});
@@ -79,10 +77,11 @@ function SystemInfo(props) {
     setCollecting(true);
 
     const sysInfo = ipcRenderer.sendSync("system-info.get");
-    if (focus.focusDeviceDescriptor) {
+
+    if (activeDevice.focus.focusDeviceDescriptor) {
       sysInfo.device = {
-        info: focus.focusDeviceDescriptor.info,
-        path: focus._port.path,
+        info: activeDevice.focus.focusDeviceDescriptor.info,
+        path: activeDevice.focus._port.path,
         commands: await activeDevice.supported_commands(),
         keymap: await activeDevice.keymap(),
         colormap: await activeDevice.colormap(),

@@ -108,6 +108,8 @@ export function ActiveDevice() {
     macros: "macros",
     layernames: "layernames",
     escape_oneshot_cancel_key: "escape_oneshot.cancel_key",
+    spacecadet_timeout: "spacecadet.timeout",
+    spacecadet_mode: "spacecadet.mode",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

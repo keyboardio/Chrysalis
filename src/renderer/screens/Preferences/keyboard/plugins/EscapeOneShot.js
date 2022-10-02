@@ -17,11 +17,6 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
-
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -37,7 +32,7 @@ const EscapeOneShotPreferences = (props) => {
 
   const [escOneShot, setEscOneShot] = useState(true);
 
-  const initialize = async (focus) => {
+  const initialize = async () => {
     const doesEscCancelOneShot = (value) => {
       if (value.length == 0) {
         return false;

@@ -19,10 +19,10 @@ import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
-import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const DefaultLedMode = (props) => {
@@ -37,9 +37,10 @@ const DefaultLedMode = (props) => {
   const { onSaveChanges } = props;
 
   const [ledModeDefault, setLedModeDefault] = useState(0);
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
-  const initialize = async (focus) => {
-    const def = await focus.command("led_mode.default");
+  const initialize = async () => {
+    const def = await activeDevice.led_mode_default();
 
     setLedModeDefault(parseInt(def));
   };
@@ -52,7 +53,9 @@ const DefaultLedMode = (props) => {
       Math.min(maxIndex, v == "" ? minIndex : parseInt(v))
     );
     await setLedModeDefault(mode);
-    await onSaveChanges("led_mode.default", mode);
+    await onSaveChanges("led_mode.default", function () {
+      activeDevice.led_mode_default(mode);
+    });
   };
 
   return (

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -32,16 +31,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const OnlyCustomScreen = (props) => {
-  const globalContext = React.useContext(GlobalContext);
-  const [activeDevice, _] = globalContext.state.activeDevice;
-
-  const focus = activeDevice.focus;
+  const [activeDevice] = React.useContext(GlobalContext).state.activeDevice;
 
   const { t } = useTranslation();
 
   const enableOnlyCustom = async () => {
-    const focus = activeDevice.focus;
-    await focus.command("keymap.onlyCustom", true);
+    await activeDevice.keymap_onlyCustom(true);
     await activeDevice.defaultLayer(0);
 
     await navigate("/editor");

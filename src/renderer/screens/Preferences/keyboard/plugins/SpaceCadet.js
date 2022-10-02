@@ -15,32 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import InputAdornment from "@mui/material/InputAdornment";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
-
-import React, { useState } from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 const SpaceCadetPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
   const [scMode, setScMode] = useState(0);
   const [scTimeOut, setScTimeOut] = useState(200);
 
-  const initialize = async (focus) => {
-    const timeout = await focus.command("spacecadet.timeout");
-    const mode = await focus.command("spacecadet.mode");
+  const initialize = async () => {
+    const timeout = await activeDevice.spacecadet_timeout();
+    const mode = await activeDevice.spacecadet_mode();
 
     setScTimeOut(parseInt(timeout));
     setScMode(parseInt(mode));
@@ -51,12 +47,16 @@ const SpaceCadetPreferences = (props) => {
   const onModeChange = async (event) => {
     const mode = event.target.checked ? 0 : 1;
     setScMode(mode);
-    onSaveChanges("spacecadet.mode", mode);
+    onSaveChanges("spacecadet.mode", function () {
+      activeDevice.spacecadet_mode(mode);
+    });
   };
 
   const onTimeOutChange = async (event) => {
     setScTimeOut(parseInt(event.target.value));
-    onSaveChanges("spacecadet.timeout", event.target.value);
+    onSaveChanges("spacecadet.timeout", function () {
+      activeDevice.spacecadet_timeout(event.target.value);
+    });
   };
 
   return (

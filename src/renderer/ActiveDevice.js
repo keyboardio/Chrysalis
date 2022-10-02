@@ -101,25 +101,29 @@ export function ActiveDevice() {
     return cloneDeep(this._cache[command]);
   };
 
-  this.defaultLayer = async (newValue) => {
-    return await this._cachedDeviceData("settings.defaultLayer", newValue);
+  const cacheableFocusCommands = {
+    defaultLayer: "settings.defaultLayer",
+    keymap: "keymap",
+    colormap: "colormap",
+    macros: "macros",
+    layernames: "layernames",
+    escape_oneshot_cancel_key: "escape_oneshot.cancel_key",
+    spacecadet_timeout: "spacecadet.timeout",
+    spacecadet_mode: "spacecadet.mode",
+    led_brightness: "led.brightness",
+    led_mode_default: "led_mode.default",
+    idleleds_time_limit: "idleleds.time_limit",
+    keymap_onlyCustom: "keymap.onlyCustom",
   };
 
-  this.keymap = async (newValue) => {
-    return await this._cachedDeviceData("keymap", newValue);
-  };
-
-  this.colormap = async (newValue) => {
-    return await this._cachedDeviceData("colormap", newValue);
-  };
-
-  this.macros = async (newValue) => {
-    return await this._cachedDeviceData("macros", newValue);
-  };
-
-  this.layernames = async (newValue) => {
-    return await this._cachedDeviceData("layernames", newValue);
-  };
+  Object.keys(cacheableFocusCommands).forEach((command) => {
+    this[command] = async (newValue) => {
+      return await this._cachedDeviceData(
+        cacheableFocusCommands[command],
+        newValue
+      );
+    };
+  });
 
   this.version = async () => {
     if (this._storage.version === undefined) {

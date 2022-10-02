@@ -18,9 +18,10 @@
 
 import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
@@ -30,9 +31,10 @@ const Brightness = (props) => {
   const { onSaveChanges } = props;
 
   const [ledBrightness, setLedBrightness] = useState(255);
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
-  const initialize = async (focus) => {
-    let brightness = await focus.command("led.brightness");
+  const initialize = async () => {
+    let brightness = await activeDevice.led_brightness();
     brightness = parseInt(brightness);
 
     setLedBrightness(brightness);
@@ -46,7 +48,9 @@ const Brightness = (props) => {
   const onChange = async (event) => {
     const brightness = event.target.value;
     await setLedBrightness(brightness);
-    await onSaveChanges("led.brightness", brightness);
+    await onSaveChanges("led.brightness", function () {
+      activeDevice.led_brightness(brightness);
+    });
   };
 
   return (

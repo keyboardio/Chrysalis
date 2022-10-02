@@ -35,8 +35,6 @@ const KeyboardLayerPreferences = (props) => {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
-  const focus = activeDevice.focus;
-
   const [keymap, setKeymap] = useState({
     custom: [],
     default: [],

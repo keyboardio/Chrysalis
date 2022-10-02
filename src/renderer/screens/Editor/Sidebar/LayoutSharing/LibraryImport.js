@@ -24,20 +24,23 @@ import Typography from "@mui/material/Typography";
 import { getStaticPath } from "@renderer/config";
 import fs from "fs";
 import path from "path";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+
 import { loadLayout } from "./LoadLayout";
 
 export const LibraryImport = (props) => {
   const { t } = useTranslation();
-  const focus = new Focus();
+
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
   const selectLibraryItem = (item) => () => {
     loadFromLibrary(item);
   };
 
   const loadFromLibrary = (layoutName) => {
-    const { vendor, product } = focus.focusDeviceDescriptor.info;
+    const { vendor, product } = activeDevice.focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutPath = (layout) =>
@@ -51,7 +54,7 @@ export const LibraryImport = (props) => {
   const { layoutName } = props;
 
   const findAvailableLayouts = () => {
-    const { vendor, product } = focus.focusDeviceDescriptor.info;
+    const { vendor, product } = activeDevice.focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutDirPath = path.join(

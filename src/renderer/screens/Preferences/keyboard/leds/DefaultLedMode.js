@@ -39,7 +39,7 @@ const DefaultLedMode = (props) => {
   const [ledModeDefault, setLedModeDefault] = useState(0);
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
-  const initialize = async (focus) => {
+  const initialize = async () => {
     const def = await activeDevice.led_mode_default();
 
     setLedModeDefault(parseInt(def));

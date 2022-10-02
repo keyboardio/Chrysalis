@@ -113,6 +113,7 @@ export function ActiveDevice() {
     led_brightness: "led.brightness",
     led_mode_default: "led_mode.default",
     idleleds_time_limit: "idleleds.time_limit",
+    keymap_onlyCustom: "keymap.onlyCustom",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

@@ -107,6 +107,7 @@ export function ActiveDevice() {
     colormap: "colormap",
     macros: "macros",
     layernames: "layernames",
+    escape_oneshot_cancel_key: "escape_oneshot.cancel_key",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

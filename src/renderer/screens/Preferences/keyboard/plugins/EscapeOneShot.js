@@ -24,8 +24,8 @@ import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
-
-import React, { useState } from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 const db = new KeymapDB();
@@ -33,6 +33,7 @@ const db = new KeymapDB();
 const EscapeOneShotPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
   const [escOneShot, setEscOneShot] = useState(true);
 
@@ -45,7 +46,7 @@ const EscapeOneShotPreferences = (props) => {
       return parseInt(value) == db.constants.codes.ESCAPE;
     };
 
-    const key = await focus.command("escape_oneshot.cancel_key");
+    const key = await activeDevice.escape_oneshot_cancel_key();
     setEscOneShot(doesEscCancelOneShot(key));
   };
 
@@ -54,11 +55,10 @@ const EscapeOneShotPreferences = (props) => {
   const onChange = async (event) => {
     const v = event.target.checked;
     const c = db.constants.codes;
-    await setEscOneShot(v);
-    await onSaveChanges(
-      "escape_oneshot.cancel_key",
-      v ? c.ESCAPE : c.ONESHOT_CANCEL
-    );
+    setEscOneShot(v);
+    await onSaveChanges("escape_oneshot.cancel_key", function () {
+      activeDevice.escape_oneshot_cancel_key(v ? c.ESCAPE : c.ONESHOT_CANCEL);
+    });
   };
 
   return (

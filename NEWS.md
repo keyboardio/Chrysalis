@@ -24,6 +24,10 @@ corrected.
 It is no longer possible to accidentally select the text of multiple keys on the
 keymap.
 
+When changing layers in the Layout Editor, the Sidebar will now properly reflect
+the key on the target layer, rather than be stuck with the data of the key on
+the previously selected layer.
+
 ## UI/UX
 
 Key outlines on the Keyboardio Model 01 and Model 100 have been improved, the
@@ -32,10 +36,28 @@ stroke has been further increased, to account for their angle.
 
 The "Layout Cards" screen now has a "Print" button.
 
+## Miscellaneous
+
+We have made huge improvements to how Chrysalis communicates with the keyboard,
+it does so much more efficiently now. This is most clearly noticeable when
+canceling pending changes on the Layout Editor screen, which is now almost
+instantaneous.
+
+Chrysalis also remembers the keyboard state between screens, so switching away
+from the layout editor and back will not pull data from the keyboard again,
+making the process a lot faster.
+
 ## New features
 
 Chrysalis now allows selecting the rest of the right-side modifiers to be used
 as secondary action, not just `AltGr`.
+
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.90.3] for more details.
+
+ [fw:0.90.3]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.3
 
 Chrysalis 0.11.5
 ================

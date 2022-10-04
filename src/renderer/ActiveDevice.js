@@ -54,6 +54,10 @@ export function ActiveDevice() {
     return this.focus.supported_commands();
   };
 
+  this.focusDeviceDescriptor = () => {
+    return this.focus.focusDeviceDescriptor;
+  };
+
   this.supportsFocusCommand = async (command) => {
     const commands = await this.supported_commands();
     return commands.includes(command);

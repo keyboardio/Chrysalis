@@ -103,7 +103,7 @@ const LayoutCard = (props) => {
     return <LoadingScreen />;
   }
 
-  const KeymapSVG = activeDevice.focus.focusDeviceDescriptor.components.keymap;
+  const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
   const keymap_pix = [];
   const title = t("Keyboard layout");

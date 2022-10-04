@@ -153,6 +153,9 @@ const Overview = (props) => {
         <TableCell
           colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
           align="right"
+          sx={{
+            borderBottom: "none",
+          }}
         >
           <Button onClick={() => props.copyLayer(layer)}>
             {t("editor.sidebar.overview.copyLayer")}
@@ -167,9 +170,6 @@ const Overview = (props) => {
       </TableRow>
       <TableRow>
         <TableCell
-          sx={{
-            borderBottom: "none",
-          }}
           colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
           align="right"
         >

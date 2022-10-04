@@ -54,7 +54,7 @@ const LayoutCard = (props) => {
   const [_, setHideHeaderInPrint] = globalContext.state.hideHeaderInPrint;
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
-  const [activeDevice, __] = globalContext.state.activeDevice;
+  const [activeDevice] = globalContext.state.activeDevice;
 
   const { t } = useTranslation();
 

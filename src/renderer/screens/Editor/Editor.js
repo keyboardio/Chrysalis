@@ -70,7 +70,7 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
-  const [copiedLayerIndex, setCopiedLayerIndex] = useState(0);
+  const [copiedLayerIndex, setCopiedLayerIndex] = useState(-1);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
@@ -391,6 +391,7 @@ const Editor = (props) => {
     setKeymap(newKeymap);
     setColormap(newColormap);
 
+    setCopiedLayerIndex(-1);
     setModified(true);
   };
 
@@ -480,6 +481,7 @@ const Editor = (props) => {
         layer={currentLayer}
         setLayer={onLayerChange}
         copyLayer={copyLayer}
+        copiedLayerIndex={copiedLayerIndex}
         pasteLayer={pasteLayer}
         layerNames={layerNames}
         setLayerName={setLayerName}

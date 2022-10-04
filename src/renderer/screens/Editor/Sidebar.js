@@ -118,6 +118,7 @@ const Sidebar = (props) => {
           layer={layer}
           setLayer={props.setLayer}
           copyLayer={props.copyLayer}
+          copiedLayerIndex={props.copiedLayerIndex}
           pasteLayer={props.pasteLayer}
           layerNames={props.layerNames}
           setLayerName={props.setLayerName}

@@ -172,7 +172,10 @@ const Overview = (props) => {
           <Button onClick={() => props.copyLayer(layer)}>
             {t("editor.sidebar.overview.copyLayer")}
           </Button>
-          <Button onClick={() => props.pasteLayer()}>
+          <Button
+            onClick={() => props.pasteLayer()}
+            disabled={props.copiedLayerIndex < 0}
+          >
             {t("editor.sidebar.overview.pasteLayer")}
           </Button>
         </TableCell>

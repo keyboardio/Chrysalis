@@ -374,7 +374,7 @@ const Editor = (props) => {
     return <OnlyCustomScreen />;
   }
 
-  const KeymapSVG = activeDevice.focus.focusDeviceDescriptor.components.keymap;
+  const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
   let title;
   if (openMacroEditor) {

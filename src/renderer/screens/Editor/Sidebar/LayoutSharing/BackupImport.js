@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -23,30 +22,32 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { ipcRenderer } from "electron";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
-
-const focus = new Focus();
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 export const BackupImport = (props) => {
   const { t } = useTranslation();
 
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
+  const deviceDescriptor = activeDevice.focusDeviceDescriptor();
+
   const library = ipcRenderer.sendSync(
     "backups.list-library",
-    focus.focusDeviceDescriptor.info
+    deviceDescriptor.info
   );
   const selectBackupItem = (item) => () => {
     const [layoutFileData, error] = ipcRenderer.sendSync(
       "backups.load-file",
-      focus.focusDeviceDescriptor.info,
+      deviceDescriptor.info,
       item
     );
 
     if (error) {
       // TODO(anyone): show toast
       logger().error("error loading a layout file", {
-        device: focus.focusDeviceDescriptor.info,
+        device: deviceDescriptor.info,
         fileName: item,
         error: error,
       });

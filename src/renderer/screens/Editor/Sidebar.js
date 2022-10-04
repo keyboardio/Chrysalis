@@ -117,6 +117,9 @@ const Sidebar = (props) => {
           selectedLed={selectedLed}
           layer={layer}
           setLayer={props.setLayer}
+          copyLayer={props.copyLayer}
+          hasCopiedLayer={props.hasCopiedLayer}
+          pasteLayer={props.pasteLayer}
           layerNames={props.layerNames}
           setLayerName={props.setLayerName}
           onKeymapChange={props.onKeymapChange}

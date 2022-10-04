@@ -96,6 +96,8 @@
                 "color": "Kleur",
                 "hideEmptyLayers": "Verberg lege lagen...",
                 "showEmptyLayers": "Toon lege lagen...",
+                "copyLayer": "Kopieer laag",
+                "pasteLayer": "Plak laag",
                 "sharing": "Backup & Terugzetten",
                 "help": "Een overzicht van de mappings voor de huidige geselecteerde toets. Om de getoonde laag te veranderen, klik op de overeenkomstige rij."
             },

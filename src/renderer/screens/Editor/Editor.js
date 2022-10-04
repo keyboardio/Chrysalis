@@ -58,6 +58,11 @@ const Editor = (props) => {
     onlyCustom: false,
   });
 
+  const [copiedLayer, setCopiedLayer] = useState({
+    keymap: [],
+    colorMap: [],
+  });
+
   const [layerNames, setLayerNames] = useState({
     storageSize: 0,
     names: [],
@@ -313,6 +318,10 @@ const Editor = (props) => {
     return colormap.colorMap.length > 0;
   };
 
+  const hasCopiedLayer = () => {
+    return copiedLayer.keymap.length > 0 && copiedLayer.colorMap.length > 0;
+  };
+
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -366,6 +375,33 @@ const Editor = (props) => {
     logger().info("Legacy keycodes migrated to new ones.");
 
     showContextBar();
+  };
+
+  const copyLayer = (index) => {
+    setCopiedLayer({
+      keymap: keymap.custom[index].slice(0),
+      colorMap: colormap.colorMap[index].slice(0),
+    });
+  };
+
+  const pasteLayer = () => {
+    if (!hasCopiedLayer()) return;
+
+    const newKeymap = { ...keymap };
+    newKeymap.custom[currentLayer] = copiedLayer.keymap;
+
+    const newColormap = { ...colormap };
+    newColormap.colorMap[currentLayer] = copiedLayer.colorMap;
+
+    setKeymap(newKeymap);
+    setColormap(newColormap);
+
+    setCopiedLayer({
+      keymap: [],
+      colorMap: [],
+    });
+
+    setModified(true);
   };
 
   if (loading) {
@@ -453,6 +489,9 @@ const Editor = (props) => {
         selectedLed={currentLedIndex}
         layer={currentLayer}
         setLayer={onLayerChange}
+        copyLayer={copyLayer}
+        hasCopiedLayer={hasCopiedLayer}
+        pasteLayer={pasteLayer}
         layerNames={layerNames}
         setLayerName={setLayerName}
         onKeyChange={onKeyChange}

@@ -151,6 +151,9 @@ const Overview = (props) => {
     <TableFooter>
       <TableRow>
         <TableCell
+          sx={{
+            borderBottom: "none",
+          }}
           colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
           align="right"
         >
@@ -158,6 +161,19 @@ const Overview = (props) => {
             {showAll
               ? t("editor.sidebar.overview.hideEmptyLayers")
               : t("editor.sidebar.overview.showEmptyLayers")}
+          </Button>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell
+          colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
+          align="right"
+        >
+          <Button onClick={() => props.copyLayer(layer)}>
+            {t("editor.sidebar.overview.copyLayer")}
+          </Button>
+          <Button onClick={() => props.pasteLayer()}>
+            {t("editor.sidebar.overview.pasteLayer")}
           </Button>
         </TableCell>
       </TableRow>

@@ -70,6 +70,7 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
+  const [copiedLayerIndex, setCopiedLayerIndex] = useState(0);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
@@ -368,6 +369,31 @@ const Editor = (props) => {
     showContextBar();
   };
 
+  const copyLayer = (index) => {
+    logger().info(`Copy layer ${index}`);
+    setCopiedLayerIndex(index);
+  };
+
+  const pasteLayer = () => {
+    logger().info(`Paste layer ${copiedLayerIndex}`);
+
+    if (copiedLayerIndex < 0) return;
+
+    const copiedKeymap = keymap.custom[copiedLayerIndex].slice(0);
+    const copiedColormap = colormap.colorMap[copiedLayerIndex].slice(0);
+
+    const newKeymap = { ...keymap };
+    newKeymap.custom[currentLayer] = copiedKeymap;
+
+    const newColormap = { ...colormap };
+    newColormap.colorMap[currentLayer] = copiedColormap;
+
+    setKeymap(newKeymap);
+    setColormap(newColormap);
+
+    setModified(true);
+  };
+
   if (loading) {
     return <LoadingScreen />;
   } else if (!keymap.onlyCustom) {
@@ -453,6 +479,8 @@ const Editor = (props) => {
         selectedLed={currentLedIndex}
         layer={currentLayer}
         setLayer={onLayerChange}
+        copyLayer={copyLayer}
+        pasteLayer={pasteLayer}
         layerNames={layerNames}
         setLayerName={setLayerName}
         onKeyChange={onKeyChange}

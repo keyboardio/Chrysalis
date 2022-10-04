@@ -162,7 +162,7 @@ const Overview = (props) => {
           </Button>
           <Button
             onClick={() => props.pasteLayer()}
-            disabled={props.copiedLayerIndex < 0}
+            disabled={!props.hasCopiedLayer()}
           >
             {t("editor.sidebar.overview.pasteLayer")}
           </Button>

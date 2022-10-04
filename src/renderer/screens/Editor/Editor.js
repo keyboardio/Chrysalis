@@ -58,6 +58,11 @@ const Editor = (props) => {
     onlyCustom: false,
   });
 
+  const [copiedLayer, setCopiedLayer] = useState({
+    keymap: [],
+    colorMap: [],
+  });
+
   const [layerNames, setLayerNames] = useState({
     storageSize: 0,
     names: [],
@@ -70,7 +75,6 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
-  const [copiedLayerIndex, setCopiedLayerIndex] = useState(-1);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
@@ -314,6 +318,10 @@ const Editor = (props) => {
     return colormap.colorMap.length > 0;
   };
 
+  const hasCopiedLayer = () => {
+    return copiedLayer.keymap.length > 0 && copiedLayer.colorMap.length > 0;
+  };
+
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -370,28 +378,29 @@ const Editor = (props) => {
   };
 
   const copyLayer = (index) => {
-    logger().info(`Copy layer ${index}`);
-    setCopiedLayerIndex(index);
+    setCopiedLayer({
+      keymap: keymap.custom[index].slice(0),
+      colorMap: colormap.colorMap[index].slice(0),
+    });
   };
 
   const pasteLayer = () => {
-    logger().info(`Paste layer ${copiedLayerIndex}`);
-
-    if (copiedLayerIndex < 0) return;
-
-    const copiedKeymap = keymap.custom[copiedLayerIndex].slice(0);
-    const copiedColormap = colormap.colorMap[copiedLayerIndex].slice(0);
+    if (!hasCopiedLayer()) return;
 
     const newKeymap = { ...keymap };
-    newKeymap.custom[currentLayer] = copiedKeymap;
+    newKeymap.custom[currentLayer] = copiedLayer.keymap;
 
     const newColormap = { ...colormap };
-    newColormap.colorMap[currentLayer] = copiedColormap;
+    newColormap.colorMap[currentLayer] = copiedLayer.colorMap;
 
     setKeymap(newKeymap);
     setColormap(newColormap);
 
-    setCopiedLayerIndex(-1);
+    setCopiedLayer({
+      keymap: [],
+      colorMap: [],
+    });
+
     setModified(true);
   };
 
@@ -481,7 +490,7 @@ const Editor = (props) => {
         layer={currentLayer}
         setLayer={onLayerChange}
         copyLayer={copyLayer}
-        copiedLayerIndex={copiedLayerIndex}
+        hasCopiedLayer={hasCopiedLayer}
         pasteLayer={pasteLayer}
         layerNames={layerNames}
         setLayerName={setLayerName}

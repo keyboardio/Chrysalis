@@ -117,7 +117,19 @@ const FirmwareUpdate = (props) => {
   };
 
   const upload = async (options) => {
-    setFlashSteps(focusDeviceDescriptor.flashSteps(options));
+    let steps = [
+      "saveEEPROM",
+      "bootloader",
+      "flash",
+      "reconnect",
+      "restoreEEPROM",
+    ];
+    if (options?.bootloader) {
+      steps = ["flash"];
+    } else if (options?.factoryReset) {
+      steps = ["factoryRestore", "bootloader", "flash"];
+    }
+    setFlashSteps(steps);
 
     setConfirmationOpen(false);
     setFactoryConfirmationOpen(false);

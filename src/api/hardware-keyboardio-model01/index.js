@@ -55,13 +55,6 @@ const Model01 = {
     keymap: Keymap,
   },
 
-  flashSteps: (options) => {
-    if (options?.factoryReset) {
-      return ["factoryRestore", "bootloader", "flash"];
-    }
-
-    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
-  },
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",
@@ -112,13 +105,6 @@ const Model100 = {
     keymap: Keymap,
   },
 
-  flashSteps: (options) => {
-    if (options?.factoryReset) {
-      return ["factoryRestore", "bootloader", "flash"];
-    }
-
-    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
-  },
   flash: async (port, filename, options) => {
     return flash(flashers.dfuUtil, null, port, filename, options);
   },
@@ -162,9 +148,6 @@ const Model100Bootloader = {
     keymap: Keymap,
   },
 
-  flashSteps: () => {
-    return ["flash"];
-  },
   flash: async (port, filename, options) => {
     const opts = Object.assign({}, options);
     opts.device.bootloader = true;

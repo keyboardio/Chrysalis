@@ -388,6 +388,25 @@
           "label": "Let Escape cancel sticky keys",
           "help": "When enabled, \"Escape\" will cancel sticky keys, otherwise a dedicated cancel key can do so."
         },
+        "mousekeys": {
+          "label": "Mouse keys",
+          "init_speed": {
+            "label": "Initial mouse cursor speed",
+            "help": "The higher the value, the faster the initial mouse cursor movement speed."
+          },
+          "base_speed": {
+            "label": "Top mouse cursor speed",
+            "help": "The top speed the mouse cursor is allowed to reach."
+          },
+          "accel_duration": {
+            "label": "Duration to reach top cursor speed",
+            "help": "Duration in which the cursor goes from initial to top speed."
+          },
+          "scroll_interval": {
+            "label": "Scrolling speed",
+            "help": "Time between scroll events. The higher the delay, the slower scrolling is."
+          }
+        },
         "oneshot": {
           "label": "Sticky keys"
         },

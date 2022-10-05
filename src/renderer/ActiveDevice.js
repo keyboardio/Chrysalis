@@ -124,6 +124,10 @@ export function ActiveDevice() {
     led_mode_default: "led_mode.default",
     idleleds_time_limit: "idleleds.time_limit",
     keymap_onlyCustom: "keymap.onlyCustom",
+    mousekeys_scroll_interval: "mousekeys.scroll_interval",
+    mousekeys_init_speed: "mousekeys.init_speed",
+    mousekeys_base_speed: "mousekeys.base_speed",
+    mousekeys_accel_duration: "mousekeys.accel_duration",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

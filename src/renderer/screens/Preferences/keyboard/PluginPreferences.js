@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
 import EscapeOneShotPreferences from "./plugins/EscapeOneShot";
+import MouseKeysPreferences from "./plugins/MouseKeys";
 import SpaceCadetPreferences from "./plugins/SpaceCadet";
 
 const PluginPreferences = (props) => {
@@ -31,6 +32,7 @@ const PluginPreferences = (props) => {
   const [loaded, plugins] = useCheckDeviceSupportsPlugins([
     "EscapeOneShot",
     "spacecadet.mode",
+    "mousekeys.base_speed",
   ]);
 
   const foundSomePlugins = Object.values(plugins).some((v) => v);
@@ -46,6 +48,11 @@ const PluginPreferences = (props) => {
       name: "spacecadet",
       plugin: "spacecadet.mode",
       Component: SpaceCadetPreferences,
+    },
+    {
+      name: "mousekeys",
+      plugin: "mousekeys.base_speed",
+      Component: MouseKeysPreferences,
     },
   ];
   return sections.map(({ name, plugin, Component }, index) => {

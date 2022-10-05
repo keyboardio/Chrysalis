@@ -116,7 +116,7 @@
             },
             "colors": {
                 "title": "Kleuren",
-                "help": "Ken kleuren toe door te selecteren van het pallet en op een toets te klikken. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet."
+                "help": "Ken een kleur toe aan de geselecteerde toets door te klikken op één van de pallet vierkanten hieronder. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet."
             },
             "consumer": {
                 "volume": "Volume",
@@ -179,6 +179,14 @@
             "tapdance": {
                 "title": "TapDance",
                 "help": "Tap-dance toetsen zijn algemeen inzetbare, multifunctionele toetsen, die een verschillende actie uitvoeren, gebaseerd op het aantal keer dat je ze hebt ingedrukt."
+            },
+            "language_intl": {
+                "title": "Taal / Internationaal",
+                "help": "Taal-specifieke extra toetsen."
+            },
+            "platform_apple": {
+                "title": "Mac / iPad toetsen",
+                "help": "Toetscodes specifiek voor Apple toestellen."
             }
         },
         "layerswitch": {
@@ -213,6 +221,9 @@
                 "SEND_REPORT": "Zend nu een rapport",
                 "unsupported": "Niet ondersteund"
             }
+        },
+        "layernames": {
+            "out_of_space": "Je laag namen zijn {{ overflow }} bytes te lang om op te slaan op je toetsenbord."
         }
     },
     "preferences": {
@@ -322,8 +333,25 @@
             "plugins": {
                 "label": "Plugins",
                 "escOneShot": {
-                    "label": "Laat Escape one-shot toetsen annuleren",
-                    "help": "Wanneer dit is ingeschakeld zal de \"Escape\" toets one-shot toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
+                    "label": "Laat Escape sticky toetsen annuleren",
+                    "help": "Wanneer dit is ingeschakeld zal de \"Escape\" toets sticky toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
+                },
+                "spacecadet": {
+                    "mode": {
+                        "enabled_without_delay": "Ingeschakeld (zonder vertraging)",
+                        "disabled": "Uitgeschakeld",
+                        "label": "Schakel SpaceCadet shifts in",
+                        "help": "Wanneer dit is ingeschakeld, zullen de linker en rechter shifts op je toetsenbord veranderen in haakjes wanneer ze kort ingedrukt worden, maar zullen ze shifts blijven wanneer ze langdurig ingedrukt worden.",
+                        "enabled": "Ingeschakeld"
+                    },
+                    "timeout": {
+                        "label": "Timeout",
+                        "help": "Het aantal milliseconden waarop gewacht moet worden voordat een ingedrukte SpaceCadet toets wordt beschouwd als een shift apart."
+                    },
+                    "label": "SpaceCadet"
+                },
+                "oneshot": {
+                    "label": "Sticky toetsen"
                 }
             }
         },
@@ -386,9 +414,9 @@
             "title": "Ben je zeker dat je de firmware wil updaten?",
             "description": "Nieuwe firmware installeren zal de huidige firmware vervangen op het toestel. Eens de firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
         },
-        "defaultFirmwareDescription": "Recentste versie",
-        "custom": "Kies een lokale firmware implementatie",
-        "description": "Updaten van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis kan een versie van de firmware installeren die met je toestenbord meegeleverd werd of een aangepaste firmware die je zelf aanlevert.",
+        "defaultFirmwareDescription": "Recentste versie voor jouw toetsenbord",
+        "custom": "Eigen firmware",
+        "description": "Door de firmware van je toetsenbord te updaten kunnen we het nieuwe kunstjes leren. Je kan Chrysalis gebruiken om de recentste firmware voor je toetsenbord te installeren of een aangepaste firmware die je zelf gecompileerd hebt.",
         "firmwareChangelog": {
             "view": "Wat is er nieuw in {{version}}?",
             "title": "Firmware Changelog"
@@ -403,9 +431,12 @@
         "firmwareVersion": "{{version}}",
         "firmwareSources": "Broncode",
         "yourFirmware": "Update de firmware van je toetsenbord",
-        "chooseFirmware": "Firmware updaten:",
-        "customFirmwareExplanation": "Je kan een alternative firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd. Zo lang als het ondersteuning biedt voor het 'Focus' toetsenbord protocol zou Chrysalis goed moeten werken.",
-        "currentFirmwareVersionUnavailable": "Firmware versie niet beschikbaar"
+        "chooseFirmware": "Firmware updaten",
+        "customFirmwareExplanation": "Je kan een firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd.",
+        "currentFirmwareVersionUnavailable": "Firmware versie niet beschikbaar",
+        "factoryResetTitle": "Reset naar fabrieksinstellingen",
+        "factoryResetWarning": "Bij het selecteren van deze optie zal er geen backup van je huidige layout of instellingen gemaakt worden.",
+        "factoryResetDescription": "Verwijder alles op je toetsenbord, waardoor het teruggezet wordt naar fabrieksinstellingen."
     },
     "focus-not-detected": {
         "title": "Welkom bij Chrysalis",
@@ -428,18 +459,18 @@
     "devices": {
         "SOFT/HRUF": {
             "Splitography": {
-                "updateInstructions": "Na het klikken op de Update knop moet je je toetsenbord herstarten\nbinnen de 10 seconden om het in programmeerbare modus te zetten.\nDit kan door de kleine reset knop naast de USB poort kort in te drukken."
+                "updateInstructions": "Na het klikken op de \"Doorgaan\" knop moet je je toetsenbord herstarten\nbinnen de 10 seconden om het in programmeerbare modus te zetten.\nDit kan door de kleine reset knop naast de USB poort kort in te drukken."
             }
         },
         "Keyboardio": {
             "Atreus": {
-                "updateInstructions": "Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt."
+                "updateInstructions": "Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt."
             },
             "Model01": {
-                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten."
+                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten."
             },
             "Model100": {
-                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
+                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
             }
         }
     },
@@ -462,5 +493,24 @@
         "downloaded": "Firmware versie {{ version }} is gedownload en beschikbaar om te flashen",
         "error": "Er trad een fout op tijdens het downloaden van de nieuwe firmware versie.",
         "warning": "Chrysalis kon niet nagaan of er een nieuwe firmware versie is. Een nieuwe versie kan online beschikbaar zijn."
+    },
+    "layoutCards": {
+        "printTooltip": "Afdrukken"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "breakingNews": {
+        "firmware0_90_1": {
+            "description": "Firmware voor versie 0.90.1 bevat een fout die leidt tot het verlies van data en aangetaste data die wordt opgeslagen op het toetsenbord. Indien je reeds nieuwere firmware loopt, mag je deze waarschuwing negeren met de sluit-knop.",
+            "title": "Aandacht Keyboardio Model 100 eigenaars!",
+            "button": "Upgrade instructies"
+        }
+    },
+    "sanity-check": {
+        "download-latest": "Download de officiële release",
+        "title": "Omgevingsverificatie aan het uitvoeren",
+        "header": "Omgevingsverificatie gefaald",
+        "message": "Chrysalis heeft gemerkt dat het uitgevoerd wordt in een niet-ondersteunde omgeving, zoals met een Electron versie verschillend van degene die upstream ondersteund wordt. Indien je Chrysalis gebruikt via een package repository van een distributie, overweeg dan om de officiële builds te gebruiken."
     }
 }

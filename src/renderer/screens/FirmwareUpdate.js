@@ -126,8 +126,11 @@ const FirmwareUpdate = (props) => {
     ];
     if (options?.bootloader) {
       steps = ["flash"];
+      if (options.factoryReset) {
+        steps.concat(["reconnect", "factoryRestore"]);
+      }
     } else if (options?.factoryReset) {
-      steps = ["factoryRestore", "bootloader", "flash"];
+      steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
     }
     setFlashSteps(steps);
 

@@ -54,6 +54,15 @@ export function ActiveDevice() {
     return this.focus.supported_commands();
   };
 
+  this.focusDeviceDescriptor = () => {
+    return this.focus.focusDeviceDescriptor;
+  };
+
+  this.supportsFocusCommand = async (command) => {
+    const commands = await this.supported_commands();
+    return commands.includes(command);
+  };
+
   this.focusDetected = async () => {
     if (this.hasCustomizableKeymaps() || this.hasCustomizableLEDMaps()) {
       return true;
@@ -62,10 +71,9 @@ export function ActiveDevice() {
     }
   };
   this.hasCustomizableKeymaps = async () => {
-    const commands = await this.focus.supported_commands();
     if (
-      commands.includes("keymap.custom") > 0 ||
-      commands.includes("keymap.map") > 0
+      this.supportsFocusCommand("keymap.custom") ||
+      this.supportsFocusCommand("keymap.map")
     ) {
       return true;
     } else {
@@ -74,10 +82,9 @@ export function ActiveDevice() {
   };
 
   this.hasCustomizableLEDMaps = async () => {
-    const commands = await this.focus.supported_commands();
     if (
-      commands.includes("colormap.map") > 0 &&
-      commands.includes("palette") > 0
+      this.supportsFocusCommand("colormap.map") ||
+      this.supportsFocusCommand("palette")
     ) {
       return true;
     } else {

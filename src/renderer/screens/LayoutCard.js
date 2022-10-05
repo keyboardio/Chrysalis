@@ -54,7 +54,7 @@ const LayoutCard = (props) => {
   const [_, setHideHeaderInPrint] = globalContext.state.hideHeaderInPrint;
   const [loading, setLoading] = useState(true);
   const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
-  const [activeDevice, __] = globalContext.state.activeDevice;
+  const [activeDevice] = globalContext.state.activeDevice;
 
   const { t } = useTranslation();
 
@@ -103,7 +103,7 @@ const LayoutCard = (props) => {
     return <LoadingScreen />;
   }
 
-  const KeymapSVG = activeDevice.focus.focusDeviceDescriptor.components.keymap;
+  const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
   const keymap_pix = [];
   const title = t("Keyboard layout");

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -40,7 +39,7 @@ export const LibraryImport = (props) => {
   };
 
   const loadFromLibrary = (layoutName) => {
-    const { vendor, product } = activeDevice.focus.focusDeviceDescriptor.info;
+    const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutPath = (layout) =>
@@ -54,7 +53,7 @@ export const LibraryImport = (props) => {
   const { layoutName } = props;
 
   const findAvailableLayouts = () => {
-    const { vendor, product } = activeDevice.focus.focusDeviceDescriptor.info;
+    const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutDirPath = path.join(

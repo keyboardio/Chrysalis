@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -27,19 +26,22 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+
 import { t } from "i18next";
-import React from "react";
+import React, { useContext } from "react";
+
 import { BackupImport } from "./LayoutSharing/BackupImport";
 import { ExportToFile } from "./LayoutSharing/ExportToFile";
 import { FileImport } from "./LayoutSharing/FileImport";
 import { LibraryImport } from "./LayoutSharing/LibraryImport";
 
-const focus = new Focus();
-
 const LayoutSharing = (props) => {
   const [importConfirmOpen, setImportConfirmOpen] = React.useState(false);
   const [layout, _setLayout] = React.useState({});
   const [layoutName, setLayoutName] = React.useState(null);
+
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
   const setLayout = (layoutName, layout) => {
     _setLayout(layout);
@@ -76,7 +78,7 @@ const LayoutSharing = (props) => {
   const { open, onClose, theme, keymap, colormap, ...others } = props;
   const sidebarWidth = 300;
 
-  const Keymap = focus.focusDeviceDescriptor.components.keymap;
+  const Keymap = activeDevice.focusDeviceDescriptor().components.keymap;
   const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
   const palette = layout.palette || colormap.palette;
   const previewColormap = layout.colormaps

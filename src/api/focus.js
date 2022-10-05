@@ -633,6 +633,10 @@ class Focus {
     "typingbreaks.rightMaxKeys",
     "spacecadet.mode",
     "spacecadet.timeout",
+    "mousekeys.scroll_interval",
+    "mousekeys.init_speed",
+    "mousekeys.base_speed",
+    "mousekeys.accel_duration",
   ];
 
   eepromBackupCommands = [

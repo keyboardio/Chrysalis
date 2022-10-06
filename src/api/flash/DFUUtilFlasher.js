@@ -19,7 +19,7 @@ import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
-import { delay, toStep } from "./utils";
+import { delay, reportUpdateStatus } from "./utils";
 
 const runDFUUtil = async (args) => {
   const dfuUtil = path.join(
@@ -89,7 +89,7 @@ const flash = async (board, port, filename, options) => {
       };
   const device = options.device;
 
-  await toStep(callback)("flash");
+  await reportUpdateStatus(callback)("flash");
   await runDFUUtil([
     "--device",
     formatDeviceUSBId(device.usb) +

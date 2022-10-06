@@ -18,7 +18,7 @@ import { logger } from "@api/log";
 
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-export const toStep = (callback) => async (step) => {
+export const reportUpdateStatus = (callback) => async (step) => {
   logger("flash").info("executing step", { step: step });
   return callback(step);
 };

@@ -18,7 +18,7 @@ import { logger } from "@api/log";
 import AvrGirl from "avrgirl-arduino";
 const { SerialPort } = require("serialport");
 
-import { toStep } from "./utils";
+import { reportUpdateStatus } from "./utils";
 
 const rebootToNormal = async (port, _) => {
   logger("flash").debug("rebooting to normal mode");
@@ -56,7 +56,7 @@ const flash = async (board, port, filename, options) => {
         return;
       };
 
-  await toStep(callback)("flash");
+  await reportUpdateStatus(callback)("flash");
   return new Promise((resolve, reject) => {
     try {
       if (port.isOpen) {

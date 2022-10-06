@@ -16,7 +16,7 @@
 
 import { logger } from "@api/log";
 import { FocusCommands } from "./flash/FocusCommands";
-import { delay, toStep } from "./flash/utils";
+import { delay, reportUpdateStatus } from "./flash/utils";
 
 import { AVRGirlFlasher } from "./flash/AVRGirlFlasher";
 import { DFUUtilFlasher } from "./flash/DFUUtilFlasher";
@@ -70,7 +70,7 @@ export const flash = async (flasher, board, port, filename, options) => {
      * - Otherwise proceed.
      ***/
     if (!options.factoryReset) {
-      await toStep(callback)("saveEEPROM");
+      await reportUpdateStatus(callback)("saveEEPROM");
       saveKey = await focusCommands.saveEEPROM();
     }
 
@@ -82,7 +82,7 @@ export const flash = async (flasher, board, port, filename, options) => {
      * - If not found, try again
      * - If not found for N attempts, show a notification
      ***/
-    await toStep(callback)("bootloader");
+    await reportUpdateStatus(callback)("bootloader");
     let bootloaderFound = false;
     let attempts = 0;
     while (!bootloaderFound) {
@@ -142,7 +142,7 @@ export const flash = async (flasher, board, port, filename, options) => {
    * - If we do, try to reboot to normal mode.
    * - In either case, wait and try again.
    ***/
-  await toStep(callback)("reconnect");
+  await reportUpdateStatus(callback)("reconnect");
 
   const doReconnect = async () => {
     let kb = false;
@@ -182,9 +182,9 @@ export const flash = async (flasher, board, port, filename, options) => {
    * - restore the structured EEPROM save.
    ***/
   if (options.factoryReset) {
-    await toStep(callback)("factoryRestore");
+    await reportUpdateStatus(callback)("factoryRestore");
   } else {
-    await toStep(callback)("restoreEEPROM");
+    await reportUpdateStatus(callback)("restoreEEPROM");
   }
 
   // Clear the EEPROM before restoring. We do this so that if the layout

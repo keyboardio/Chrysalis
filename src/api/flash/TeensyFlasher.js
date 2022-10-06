@@ -18,7 +18,7 @@ import { logger } from "@api/log";
 import { getStaticPath } from "@renderer/config";
 import TeensyLoader from "teensy-loader";
 
-import { delay, toStep } from "./utils";
+import { delay, reportUpdateStatus } from "./utils";
 
 const HalfKayUSBDescriptor = {
   vendorId: 0x16c0,
@@ -41,7 +41,7 @@ const flash = async (board, port, filename, options) => {
         return;
       };
 
-  await toStep(callback)("flash");
+  await reportUpdateStatus(callback)("flash");
   const device = await TeensyLoader.open(
     HalfKayUSBDescriptor.vendorId,
     HalfKayUSBDescriptor.productId

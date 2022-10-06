@@ -69,8 +69,8 @@ const formatDeviceUSBId = (desc) => {
   return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
 };
 
-const rebootToNormal = async (port, device) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port, device) => {
+  logger("flash").debug("rebooting to application mode");
   await runDFUUtil([
     "--device",
     formatDeviceUSBId(device.usb) +
@@ -105,4 +105,4 @@ const flash = async (board, port, filename, options) => {
   ]);
 };
 
-export const DFUUtilFlasher = { rebootToNormal, flash };
+export const DFUUtilFlasher = { rebootToApplicationMode, flash };

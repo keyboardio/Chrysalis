@@ -25,8 +25,8 @@ const HalfKayUSBDescriptor = {
   productId: 0x0478,
 };
 
-const rebootToNormal = async (port) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port) => {
+  logger("flash").debug("rebooting to application mode");
   const device = await TeensyLoader.open(
     HalfKayUSBDescriptor.vendorId,
     HalfKayUSBDescriptor.productId
@@ -50,4 +50,4 @@ const flash = async (board, port, filename, options) => {
   await TeensyLoader.reboot(device);
 };
 
-export const TeensyFlasher = { rebootToNormal, flash };
+export const TeensyFlasher = { rebootToApplicationMode, flash };

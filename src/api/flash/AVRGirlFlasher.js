@@ -20,10 +20,10 @@ const { SerialPort } = require("serialport");
 
 import { reportUpdateStatus } from "./utils";
 
-const rebootToNormal = async (port, _) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port, _) => {
+  logger("flash").debug("rebooting to application mode");
 
-  // To reboot a device using the AVR109 protocol from bootloader to normal
+  // To reboot a device using the AVR109 protocol from bootloader to application
   // mode, we simply have to exit the bootloader. To do so, we need to connect
   // to the port, and send `E`, the command for "Exit bootloader".
   //
@@ -36,7 +36,7 @@ const rebootToNormal = async (port, _) => {
     });
     serial.write("E");
   } catch (e) {
-    logger("flash").error("error while trying to reboot to normal mode", {
+    logger("flash").error("error while trying to reboot to application mode", {
       path: port.path,
       error: e,
     });
@@ -85,4 +85,4 @@ const flash = async (board, port, filename, options) => {
   });
 };
 
-export const AVRGirlFlasher = { flash, rebootToNormal };
+export const AVRGirlFlasher = { flash, rebootToApplicationMode };

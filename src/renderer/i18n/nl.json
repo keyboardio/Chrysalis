@@ -372,7 +372,7 @@
             "notifications": {
                 "enter": {
                     "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
-                    "stillNormal": "Het toetsenbord staat nog niet in programmeerbare modus. Gelieve de onderstaande instructies te volgen."
+                    "stillApplication": "Het toetsenbord staat nog niet in programmeerbare modus. Gelieve de onderstaande instructies te volgen."
                 },
                 "reconnect": {
                     "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",

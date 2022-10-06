@@ -21,8 +21,8 @@ import path from "path";
 
 import { delay, reportUpdateStatus } from "./utils";
 
-const rebootToNormal = async (port, _) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port, _) => {
+  logger("flash").debug("rebooting to application mode");
   await runDFUProgrammer(["atmega32u4", "start"]);
 };
 
@@ -90,4 +90,4 @@ const flash = async (board, port, filename, options) => {
   await runDFUProgrammer([mcu, "start"]);
 };
 
-export const DFUProgrammerFlasher = { rebootToNormal, flash };
+export const DFUProgrammerFlasher = { rebootToApplicationMode, flash };

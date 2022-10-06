@@ -33,7 +33,7 @@ export const flashers = {
 
 export const RebootMessage = {
   enter: {
-    stillNormal: "ENTER_STILL_NORMAL",
+    stillApplication: "ENTER_STILL_APPLICATION",
     notFound: "ENTER_NOT_FOUND",
   },
   reconnect: {
@@ -85,13 +85,13 @@ export const flash = async (flasher, board, port, filename, options) => {
     let bootloaderFound = false;
     let attempts = 0;
     while (!bootloaderFound) {
-      const normalDevice = await options.focus.checkSerialDevice(
+      const deviceInApplicationMode = await options.focus.checkSerialDevice(
         options.device,
         options.device.usb
       );
 
       try {
-        await focusCommands.reboot(normalDevice, options.device);
+        await focusCommands.reboot(deviceInApplicationMode, options.device);
       } catch (_) {
         // ignore any errors here
       }
@@ -105,8 +105,8 @@ export const flash = async (flasher, board, port, filename, options) => {
       if (bootloaderFound) break;
 
       if (attempts == NOTIFICATION_THRESHOLD) {
-        if (normalDevice) {
-          onError(RebootMessage.enter.stillNormal);
+        if (deviceInApplicationMode) {
+          onError(RebootMessage.enter.stillApplication);
         } else {
           onError(RebootMessage.enter.notFound);
         }
@@ -140,7 +140,7 @@ export const flash = async (flasher, board, port, filename, options) => {
    * - Periodically scan for the keyboard
    * - If found, we're done with the step
    * - If not found, see if we have a bootloader.
-   * - If we do, try to reboot to normal mode.
+   * - If we do, try to reboot to application mode.
    * - In either case, wait and try again.
    ***/
   await reportUpdateStatus(callback)("reconnect");
@@ -166,7 +166,7 @@ export const flash = async (flasher, board, port, filename, options) => {
       }
 
       if (bootloaderFound) {
-        flasher.rebootToNormal(bootloaderFound, options.device);
+        flasher.rebootToApplicationMode(bootloaderFound, options.device);
       }
 
       // Wait a few seconds to not overwhelm the system with rapid reboot

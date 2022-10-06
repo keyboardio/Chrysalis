@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
 import { FocusCommands } from "./flash/FocusCommands";
 import { delay, reportUpdateStatus } from "./flash/utils";
 

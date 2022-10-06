@@ -23,7 +23,7 @@ import { DFUUtilFlasher } from "./flash/DFUUtilFlasher";
 import { DFUProgrammerFlasher } from "./flash/DFUProgrammerFlasher";
 import { TeensyFlasher } from "./flash/TeensyFlasher";
 
-const NOTIFY_THRESHOLD = 5;
+const NOTIFICATION_THRESHOLD = 5;
 
 export const flashers = {
   avr109: AVRGirlFlasher,
@@ -103,7 +103,7 @@ export const flash = async (flasher, board, port, filename, options) => {
 
       if (bootloaderFound) break;
 
-      if (attempts == NOTIFY_THRESHOLD) {
+      if (attempts == NOTIFICATION_THRESHOLD) {
         if (normalDevice) {
           onError(RebootMessage.enter.stillNormal);
         } else {
@@ -156,7 +156,7 @@ export const flash = async (flasher, board, port, filename, options) => {
         options.device
       );
 
-      if (attempts == NOTIFY_THRESHOLD) {
+      if (attempts == NOTIFICATION_THRESHOLD) {
         if (bootloaderFound) {
           onError(RebootMessage.reconnect.stillBootloader);
         } else {

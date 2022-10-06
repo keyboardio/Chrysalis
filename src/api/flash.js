@@ -95,6 +95,8 @@ export const flash = async (flasher, board, port, filename, options) => {
       } catch (_) {
         // ignore any errors here
       }
+      // Wait a few seconds to let the device properly reboot into bootloader
+      // mode, and enumerate.
       await delay(2000);
 
       bootloaderFound = await options.focus.checkBootloader(options.device);
@@ -167,6 +169,8 @@ export const flash = async (flasher, board, port, filename, options) => {
         flasher.rebootToNormal(bootloaderFound, options.device);
       }
 
+      // Wait a few seconds to not overwhelm the system with rapid reboot
+      // attempts.
       await delay(2000);
     }
     onError(RebootMessage.clear);
@@ -201,6 +205,8 @@ export const flash = async (flasher, board, port, filename, options) => {
   if (options.factoryReset) return;
 
   await doReconnect();
+  // Wait a few seconds to give time for the keyboard to boot up into
+  // application mode properly.
   await delay(2000);
   await focusCommands.restoreEEPROM(saveKey);
 };

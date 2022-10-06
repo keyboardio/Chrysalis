@@ -146,11 +146,11 @@ export const flash = async (flasher, board, port, filename, options) => {
   await reportUpdateStatus(callback)("reconnect");
 
   const doReconnect = async () => {
-    let kb = false;
+    let device_detected = false;
     let attempts = 0;
-    while (!kb) {
-      kb = await options.focus.reconnectToKeyboard(device);
-      if (kb) break;
+    while (!device_detected) {
+      device_detected = await options.focus.reconnectToKeyboard(device);
+      if (device_detected) break;
       attempts += 1;
 
       const bootloaderFound = await options.focus.checkBootloader(

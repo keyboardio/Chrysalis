@@ -19,10 +19,10 @@ import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
-import { delay, toStep } from "./utils";
+import { delay, reportUpdateStatus } from "./utils";
 
-const rebootToNormal = async (port, _) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port, _) => {
+  logger("flash").debug("rebooting to application mode");
   await runDFUProgrammer(["atmega32u4", "start"]);
 };
 
@@ -76,7 +76,7 @@ const flash = async (board, port, filename, options) => {
       };
   const mcu = options.mcu || "atmega32u4";
 
-  await toStep(callback)("flash");
+  await reportUpdateStatus(callback)("flash");
   for (let i = 0; i < 10; i++) {
     try {
       await runDFUProgrammer([mcu, "erase"]);
@@ -90,4 +90,4 @@ const flash = async (board, port, filename, options) => {
   await runDFUProgrammer([mcu, "start"]);
 };
 
-export const DFUProgrammerFlasher = { rebootToNormal, flash };
+export const DFUProgrammerFlasher = { rebootToApplicationMode, flash };

@@ -54,13 +54,6 @@ const Atreus2 = {
     keymap: Keymap,
   },
 
-  flashSteps: (options) => {
-    if (options?.factoryReset) {
-      return ["factoryRestore", "bootloader", "flash"];
-    }
-
-    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
-  },
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Atreus",

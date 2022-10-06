@@ -55,13 +55,6 @@ const Model01 = {
     keymap: Keymap,
   },
 
-  flashSteps: (options) => {
-    if (options?.factoryReset) {
-      return ["factoryRestore", "bootloader", "flash"];
-    }
-
-    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
-  },
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",
@@ -112,65 +105,9 @@ const Model100 = {
     keymap: Keymap,
   },
 
-  flashSteps: (options) => {
-    if (options?.factoryReset) {
-      return ["factoryRestore", "bootloader", "flash"];
-    }
-
-    return ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
-  },
   flash: async (port, filename, options) => {
     return flash(flashers.dfuUtil, null, port, filename, options);
   },
 };
 
-const Model100Bootloader = {
-  info: {
-    vendor: "Keyboardio",
-    product: "Model100",
-    firmwareType: "bin",
-    displayName: "Keyboardio Model 100",
-    urls: [
-      {
-        name: "Homepage",
-        url: "https://shop.keyboard.io/",
-      },
-      {
-        name: "Forum",
-        url: "https://community.keyboard.io/",
-      },
-      {
-        name: "Chat",
-        url: "https://keyboard.io/discord-invite",
-      },
-    ],
-  },
-  usb: {
-    vendorId: 0x3496,
-    productId: 0x0005,
-    bootloader: {
-      vendorId: 0x3496,
-      productId: 0x0005,
-      protocol: "dfu",
-    },
-  },
-  keyboard: {
-    rows: 4,
-    columns: 16,
-  },
-  components: {
-    keymap: Keymap,
-  },
-
-  flashSteps: () => {
-    return ["flash"];
-  },
-  flash: async (port, filename, options) => {
-    const opts = Object.assign({}, options);
-    opts.device.bootloader = true;
-
-    return flash(flashers.dfuUtil, null, port, filename, opts);
-  },
-};
-
-export { Model01, Model100, Model100Bootloader };
+export { Model01, Model100 };

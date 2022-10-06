@@ -216,7 +216,10 @@ const App = (props) => {
 
     i18n.refreshHardware(port.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
-    await newActiveDevice.loadConfigFromDevice();
+
+    if (!port.focusDeviceDescriptor.bootloader) {
+      await newActiveDevice.loadConfigFromDevice();
+    }
     setConnected(true);
 
     await navigate(

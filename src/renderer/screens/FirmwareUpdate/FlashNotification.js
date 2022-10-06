@@ -41,11 +41,11 @@ export const FlashNotification = (props) => {
     </Alert>
   );
 
-  if (props.message === RebootMessage.enter.stillNormal) {
+  if (props.message === RebootMessage.enter.stillApplication) {
     contents = (
       <>
         <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareUpdate.flashing.notifications.enter.stillNormal")}
+          {t("firmwareUpdate.flashing.notifications.enter.stillApplication")}
         </Typography>
         {instructions}
       </>

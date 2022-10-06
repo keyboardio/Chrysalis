@@ -30,6 +30,14 @@ export function FocusCommands(options) {
     let port = focus._port;
 
     if (devicePort && focusDeviceDescriptor) {
+      if (port?.isOpen) {
+        try {
+          await port.close();
+        } catch (_) {
+          /* ignore the error */
+        }
+      }
+      focus._port = undefined;
       port = await focus.open(devicePort.path, focusDeviceDescriptor);
     }
 

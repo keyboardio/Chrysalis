@@ -18,15 +18,15 @@ import { logger } from "@api/log";
 import { getStaticPath } from "@renderer/config";
 import TeensyLoader from "teensy-loader";
 
-import { delay, toStep } from "./utils";
+import { delay, reportUpdateStatus } from "./utils";
 
 const HalfKayUSBDescriptor = {
   vendorId: 0x16c0,
   productId: 0x0478,
 };
 
-const rebootToNormal = async (port) => {
-  logger("flash").debug("rebooting to normal mode");
+const rebootToApplicationMode = async (port) => {
+  logger("flash").debug("rebooting to application mode");
   const device = await TeensyLoader.open(
     HalfKayUSBDescriptor.vendorId,
     HalfKayUSBDescriptor.productId
@@ -41,7 +41,7 @@ const flash = async (board, port, filename, options) => {
         return;
       };
 
-  await toStep(callback)("flash");
+  await reportUpdateStatus(callback)("flash");
   const device = await TeensyLoader.open(
     HalfKayUSBDescriptor.vendorId,
     HalfKayUSBDescriptor.productId
@@ -50,4 +50,4 @@ const flash = async (board, port, filename, options) => {
   await TeensyLoader.reboot(device);
 };
 
-export const TeensyFlasher = { rebootToNormal, flash };
+export const TeensyFlasher = { rebootToApplicationMode, flash };

@@ -82,11 +82,10 @@ const FirmwareUpdate = (props) => {
       "default." + firmwareType
     );
   };
-  const _flash = async (options) => {
+  const _flash = async (options, steps) => {
     const focus = new Focus();
 
     const nextStep = async (desiredState) => {
-      const steps = focusDeviceDescriptor.flashSteps(options);
       setActiveStep(Math.min(activeStep + 1, steps.length));
       steps.forEach((step, index) => {
         if (step == desiredState) {
@@ -118,7 +117,28 @@ const FirmwareUpdate = (props) => {
   };
 
   const upload = async (options) => {
-    setFlashSteps(focusDeviceDescriptor.flashSteps(options));
+    let steps;
+
+    if (focusDeviceDescriptor?.bootloader) {
+      if (options?.factoryReset) {
+        steps = ["flash", "reconnect", "factoryRestore"];
+      } else {
+        steps = ["flash"];
+      }
+    } else {
+      if (options?.factoryReset) {
+        steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
+      } else {
+        steps = [
+          "saveEEPROM",
+          "bootloader",
+          "flash",
+          "reconnect",
+          "restoreEEPROM",
+        ];
+      }
+    }
+    setFlashSteps(steps);
 
     setConfirmationOpen(false);
     setFactoryConfirmationOpen(false);
@@ -128,8 +148,8 @@ const FirmwareUpdate = (props) => {
 
     logger().info("Starting to flash");
     try {
-      await _flash(options);
-      setActiveStep(flashSteps.length);
+      await _flash(options, steps);
+      setActiveStep(steps.length);
     } catch (e) {
       logger().error("Error while uploading firmware", { error: e });
       setProgress("error");

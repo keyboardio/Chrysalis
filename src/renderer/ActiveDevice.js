@@ -60,10 +60,13 @@ export function ActiveDevice() {
 
   this.supportsFocusCommand = async (command) => {
     const commands = await this.supported_commands();
-    return commands.includes(command);
+    return commands?.includes(command);
   };
 
-  this.focusDetected = async () => {
+  this.focusDetected = () => {
+    if (!this.focus.isInApplicationMode()) {
+      return false;
+    }
     if (this.hasCustomizableKeymaps() || this.hasCustomizableLEDMaps()) {
       return true;
     } else {

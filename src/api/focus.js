@@ -283,6 +283,10 @@ class Focus {
     return found_devices;
   }
 
+  isInApplicationMode() {
+    return this.focusDeviceDescriptor.bootloader !== true;
+  }
+
   async open(device_identifier, info) {
     if (typeof device_identifier == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
@@ -431,6 +435,8 @@ class Focus {
   }
 
   request(cmd, ...args) {
+    if (!this.isInApplicationMode()) return undefined;
+
     if (
       this._supported_commands.length > 0 &&
       !this._supported_commands.includes(cmd)

@@ -117,20 +117,26 @@ const FirmwareUpdate = (props) => {
   };
 
   const upload = async (options) => {
-    let steps = [
-      "saveEEPROM",
-      "bootloader",
-      "flash",
-      "reconnect",
-      "restoreEEPROM",
-    ];
-    if (options?.bootloader) {
-      steps = ["flash"];
-      if (options.factoryReset) {
-        steps.concat(["reconnect", "factoryRestore"]);
+    let steps;
+
+    if (focusDeviceDescriptor?.bootloader) {
+      if (options?.factoryReset) {
+        steps = ["flash", "reconnect", "factoryRestore"];
+      } else {
+        steps = ["flash"];
       }
-    } else if (options?.factoryReset) {
-      steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
+    } else {
+      if (options?.factoryReset) {
+        steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
+      } else {
+        steps = [
+          "saveEEPROM",
+          "bootloader",
+          "flash",
+          "reconnect",
+          "restoreEEPROM",
+        ];
+      }
     }
     setFlashSteps(steps);
 

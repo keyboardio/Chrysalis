@@ -20,6 +20,20 @@ import { Model01, Model100 } from "@api/hardware-keyboardio-model01";
 import { Splitography } from "@api/hardware-softhruf-splitography";
 import { Atreus } from "@api/hardware-technomancy-atreus";
 
+// We have two arrays here: the `serial` array contains hardware descriptors
+// where a serial device is to be used in either application or bootloader mode.
+// Similarly, the `nonSerial` array contains hardware descriptors where either
+// the application or the bootloader mode is without a serial port.
+//
+// For example, in the case of the Model01 and the Keyboardio Atreus, both the
+// bootloader and the application mode are accessed through a serial port, so
+// they only appear in the `serial` array.
+//
+// In case of the Model100, the bootloader is *not* accessed via a serial port,
+// but the application mode is, so it's in both.
+//
+// The non-keyboardio boards are in both arrays, to support discovering them
+// when they're not running Kaleidoscope, and thus, do not expose a serial port.
 const Hardware = {
   serial: [Model01, Model100, Atreus2, ErgoDox, Atreus, Splitography],
   nonSerial: [Model100, ErgoDox, Atreus, Splitography],

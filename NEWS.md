@@ -1,3 +1,25 @@
+Chrysalis 0.11.7-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+It is now possible to copy and paste entire layers, simply by using the buttons
+available right under the overview on the top of the sidebar.
+
+Not exactly a new feature, but definitely changed and improved behavior is that
+when flashing firmware, Chrysalis will now perform EEPROM erasure later, after
+flashing, rather than before. The major benefit of this is that it is now
+possible to do a factory reset (which includes the EEPROM clearing) when the
+keyboard is already in bootloader mode when connecting to it.
+
+## Bugfixes
+
+We fixed an issue that prevented Chrysalis from connecting to keyboards in
+bootloader mode (with the exception of the Keyboardio Model 100, which was
+unaffected by the bug). It is now possible to connect to the Keyboardio Model
+01, Atreus, and other keyboards in bootloader mode, again.
+
 Chrysalis 0.11.6
 ================
 Released on 2022-10-03

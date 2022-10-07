@@ -191,7 +191,7 @@ export const loadAllKeymaps = async () => {
   // inconsistent, so we go on a case-by-case basis for now.
   const osxFiles = fs
     .readdirSync(path.join(cldrDir, "keyboards/osx"))
-    .filter((fn) => fn.match("^hr-t-k0"));
+    .filter((fn) => fn.match("^(hr-t-k0|en-t-k0-osx-colemak)"));
   const files = windowsFiles.concat(osxFiles);
 
   // Load the default layout for each language

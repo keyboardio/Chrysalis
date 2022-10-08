@@ -76,7 +76,7 @@ export default function Toast() {
         );
         setVariant(msg.variant);
         setAutoHideDuration(msg.autoHideDuration);
-        setMessage(msg.message);
+        setMessage(msg.message.toString());
         setProgress(null);
         setOpen(true);
       } else if (event.data.progress) {

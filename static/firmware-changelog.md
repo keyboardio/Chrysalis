@@ -1,3 +1,25 @@
+Chrysalis-Firmware-Bundle 0.90.4
+================================
+Released on 2022-10-08
+
+There are two major changes in this release, both of them affecting every
+keyboard, and both of them aimed at improving existing functionality, making
+them more straightforward to use.
+
+The first big change is a complete rewrite of the MouseKeys system. With the new
+code, mouse cursor movement is smoother, and easier to configure. The
+configuration is not yet exposed to Chrysalis by the default firmware, that will
+be coming in a later update. But the improved behaviour of mouse keys are
+already here.
+
+The other one is a change to the layer switching logic: layer key handling has
+been updated to be more consistent with activation ordering. While in most cases
+there will be no obvious differences, there will be subtle - or not so subtle -
+differences in how the firmware handles edge cases. For more information about
+these changes, see the [official documentation][docs:layer-changes].
+
+ [docs:layer-changes]: https://kaleidoscope.readthedocs.io/en/latest/NEWS.html#layer-changes-updated
+
 Chrysalis-Firmware-Bundle 0.90.3
 ================================
 Released on 2022-10-03

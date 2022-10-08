@@ -1,6 +1,6 @@
 ---
-version: 0.90.3+46
-build: 46
+version: 0.90.4+49
+build: 49
 
 dependencies:
   cores:
@@ -12,8 +12,8 @@ dependencies:
     gd32:
       - keyboardio/KeyboardioHID@5a56f73deb23e00ae9f79aaf7cf06095edfbedc9
     common:
-      - keyboardio/Kaleidoscope@fefc6699baec3bb84defb1ee5d6bc46c9de0ff3e
-      - keyboardio/Chrysalis-Firmware-Bundle@7413b9d3ab4da9ad12dc1b0ac99cc7a348ad5152
+      - keyboardio/Kaleidoscope@8de4171cfc444dd3ead6e671d79af419658315a8
+      - keyboardio/Chrysalis-Firmware-Bundle@13571fbb3578479054c749aac872782b32aeef1d
 
 firmware:
   Keyboardio:

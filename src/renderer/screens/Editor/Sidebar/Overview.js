@@ -102,7 +102,11 @@ const Overview = (props) => {
       layerNames: props.layerNames,
     });
     let colorWidget;
-    if (colormap && colormap.palette.length > 0) {
+    if (
+      colormap &&
+      colormap.palette.length > 0 &&
+      colormap.colorMap.length > index
+    ) {
       const colorIndex = colormap.colorMap[index][selectedLed];
       const color = colormap.palette[colorIndex];
 

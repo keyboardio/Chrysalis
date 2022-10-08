@@ -50,6 +50,7 @@ const Colormap = (props) => {
 
   if (!colormap || colormap.palette.length == 0) return null;
   if (props.macroEditorOpen) return null;
+  if (layer >= colormap.colorMap.length) return null;
 
   const colorIndex = colormap.colorMap[layer][selectedLed];
   const color = colormap.palette[colorIndex];

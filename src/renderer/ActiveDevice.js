@@ -103,7 +103,7 @@ export function ActiveDevice() {
       }
 
       await this.focus.command(command, newValue);
-      this._cache[command] = undefined;
+      delete this._cache[command];
     }
     if (!(command in this._cache)) {
       this._cache[command] = await this.focus.command(command);

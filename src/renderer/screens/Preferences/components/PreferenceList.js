@@ -19,32 +19,32 @@ import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
-import PreferenceList from "../../components/PreferenceList";
-import PreferenceSlider from "../../components/PreferenceSlider";
-import PreferenceWithHeading from "../../components/PreferenceWithHeading";
+import PreferenceSlider from "./PreferenceSlider";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
-const MouseKeysPreferences = (props) => {
-  const { t } = useTranslation();
+const PreferenceList = (props) => {
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
+  const { plugin, preferences } = props;
+
+  /*
   const preferences = [
     {
-      name: "init_speed",
+      name: "mousekeys_init_speed",
       type: "slider",
       initialValue: 1,
       max: 255,
     },
     {
-      name: "base_speed",
+      name: "mousekeys_base_speed",
       type: "slider",
       initialValue: 50,
       max: 255,
     },
     {
-      name: "accel_duration",
+      name: "mousekeys_accel_duration",
       type: "slider",
       unit: "ms",
       initialValue: 800,
@@ -54,61 +54,67 @@ const MouseKeysPreferences = (props) => {
       type: "divider",
     },
     {
-      name: "scroll_interval",
+      name: "mousekeys_scroll_interval",
       type: "slider",
       unit: "ms",
       initialValue: 50,
       max: 255,
     },
   ];
+  */
 
-  return <PreferenceList plugin="mousekeys" preferences={preferences} />;
+  const states = {};
+  preferences.forEach((pref) => {
+    if (pref.type === "divider") return;
+
+    const [state, setState] = useState(pref.initialValue);
+    states[pref.name] = { state, setState };
+  });
+
+  const initialize = async () => {
+    const _initValues = {};
+    preferences.forEach(async (pref) => {
+      if (pref.type === "divider") return;
+
+      const v = await activeDevice[`${plugin}_${pref.name}`]();
+
+      if (pref.type === "slider") {
+        states[pref.name].setState(parseInt(v));
+      } else {
+        states[pref.name].setState(v);
+      }
+    });
+  };
+
+  const loaded = usePluginEffect(initialize);
+
+  //if (!loaded) return null;
+
+  const components = preferences.map((pref) => {
+    if (pref.type === "divider") {
+      return <Divider sx={{ my: 1 }} />;
+    } else if (pref.type === "slider") {
+      return (
+        <PreferenceSlider
+          plugin={plugin}
+          setting={pref.name}
+          value={states[pref.name].state}
+          setValue={states[pref.name].setState}
+          max={pref.max}
+          in_ms={pref.unit === "ms"}
+          loaded={loaded}
+        />
+      );
+    } else {
+      return null;
+    }
+  });
 
   /*
     <PreferenceList plugin="mousekeys" preferences={preferences} />
    */
 
-  /*
-  return (
-    <>
-      <PreferenceSlider
-        plugin="mousekeys"
-        setting="init_speed"
-        value={initSpeed}
-        setValue={setInitSpeed}
-        max={255}
-        loaded={loaded}
-      />
-      <PreferenceSlider
-        plugin="mousekeys"
-        setting="base_speed"
-        value={baseSpeed}
-        setValue={setBaseSpeed}
-        max={255}
-        loaded={loaded}
-      />
-      <PreferenceSlider
-        plugin="mousekeys"
-        setting="accel_duration"
-        value={accelDuration}
-        setValue={setAccelDuration}
-        max={65535}
-        loaded={loaded}
-        in_ms
-      />
-      <Divider sx={{ my: 1 }} />
-      <PreferenceSlider
-        plugin="mousekeys"
-        setting="scroll_interval"
-        value={scrollInterval}
-        setValue={setScrollInterval}
-        max={255}
-        loaded={loaded}
-        in_ms
-      />
-    </>
-  );
-  */
+  return components;
 };
 
-export { MouseKeysPreferences as default };
+export { PreferenceList as default };

@@ -20,6 +20,13 @@ bootloader mode (with the exception of the Keyboardio Model 100, which was
 unaffected by the bug). It is now possible to connect to the Keyboardio Model
 01, Atreus, and other keyboards in bootloader mode, again.
 
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.90.4] for more details.
+
+ [fw:0.90.4]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.4
+
 Chrysalis 0.11.6
 ================
 Released on 2022-10-03

@@ -17,6 +17,7 @@
 
 import React, { useState, useEffect } from "react";
 
+import { logger } from "@api/log";
 import Alert from "@mui/material/Alert";
 import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";
@@ -44,6 +45,15 @@ export const toast = {
     toast.toast({ progress: progress });
   },
   toast: async (msg) => {
+    if (!msg.progress) {
+      logger().debug("Toast message received", {
+        msg: {
+          variant: msg.variant,
+          message: msg.message.toString(),
+        },
+        label: "toast",
+      });
+    }
     const channel = new BroadcastChannel("notifications");
     await channel.postMessage(msg);
     channel.close();
@@ -76,7 +86,7 @@ export default function Toast() {
         );
         setVariant(msg.variant);
         setAutoHideDuration(msg.autoHideDuration);
-        setMessage(msg.message);
+        setMessage(msg.message.toString());
         setProgress(null);
         setOpen(true);
       } else if (event.data.progress) {

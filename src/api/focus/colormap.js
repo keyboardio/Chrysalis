@@ -49,6 +49,13 @@ export default class Colormap {
     const paletteData = await s.request("palette");
     const colorMapData = await s.request("colormap.map");
 
+    if (!paletteData || !colorMapData) {
+      return {
+        palette: [],
+        colorMap: [],
+      };
+    }
+
     const palette = this._chunk(
       paletteData
         .split(" ")

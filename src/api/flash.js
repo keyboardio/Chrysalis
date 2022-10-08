@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { logger } from "@api/log";
 import { FocusCommands } from "./flash/FocusCommands";
 import { delay, reportUpdateStatus } from "./flash/utils";
 
@@ -92,8 +93,9 @@ export const flash = async (flasher, board, port, filename, options) => {
 
       try {
         await focusCommands.reboot(deviceInApplicationMode, options.device);
-      } catch (_) {
-        // ignore any errors here
+      } catch (e) {
+        // Log the error, but otherwise ignore it.
+        logger("flash").error("Error during reboot", { error: e });
       }
       // Wait a few seconds to let the device properly reboot into bootloader
       // mode, and enumerate.

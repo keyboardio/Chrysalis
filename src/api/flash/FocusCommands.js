@@ -21,75 +21,35 @@ import { v4 as uuidv4 } from "uuid";
 import { delay } from "./utils";
 
 export function FocusCommands(options) {
+  // We cache whether the device supports the `device.reset` command at creation
+  // time, so we do not have to ask it over and over again while trying to
+  // reboot the device.
+  options.focus.supported_commands().then((data) => {
+    this.__deviceResetSupported = data.includes("device.reset");
+  });
+
   this.reboot = async (devicePort, focusDeviceDescriptor) => {
     const focus = options.focus;
-    const timeouts = options?.timeouts || {
-      dtrToggle: 500, // Time to wait (ms) between toggling DTR
-      bootLoaderUp: 4000, // Time to wait for the boot loader to come up
-    };
     let port = focus._port;
 
+    // Try to close & reopen the device, to make sure we are connected to
+    // something.
     if (devicePort && focusDeviceDescriptor) {
       if (port?.isOpen) {
         try {
           await port.close();
         } catch (_) {
-          /* ignore the error */
+          // ignore the error
         }
       }
       focus._port = undefined;
       port = await focus.open(devicePort.path, focusDeviceDescriptor);
+      await delay(2000);
     }
 
-    const baudUpdate = () => {
-      return new Promise((resolve) => {
-        logger("flash").debug("baud update");
-        port.update({ baudRate: 1200 }, async () => {
-          await delay(timeouts.dtrToggle);
-          resolve();
-        });
-      });
-    };
-
-    const dtrToggle = (state) => {
-      return new Promise((resolve) => {
-        logger("flash").debug(`dtr ${state ? "on" : "off"}`);
-        port.set({ dtr: state }, async () => {
-          await delay(timeouts.dtrToggle);
-          resolve();
-        });
-      });
-    };
-
-    // Attempt calling device.reset first, if present.
-    let commands;
-    try {
-      commands = await focus.supported_commands();
-    } catch (_) {
-      commands = [];
-    }
-    if (commands.includes("device.reset")) {
-      try {
-        await focus.request("device.reset");
-      } catch (e) {
-        // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
-        if ("Communication timeout" !== e) {
-          logger("flash").error("Error while calling `device.reset`", {
-            error: e,
-          });
-          throw e;
-        }
-      }
-    }
-
-    // Attempt to reset the device with a serial HUP.
-    // If the device supports `device.reset`, this will be a no-op, because we're
-    // likely rebooting already. Worst case, we'll reboot twice. If the device
-    // does not support `device.reset`, then this will hopefully do the trick.
-
-    await baudUpdate();
-    await dtrToggle(true);
-    await dtrToggle(false);
+    // Try rebooting. No need to catch errors here, the caller will do that
+    // anyway.
+    await focus.reboot(this.__deviceResetSupported);
   };
 
   this.eraseEEPROM = async () => {

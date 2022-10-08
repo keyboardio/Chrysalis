@@ -223,6 +223,62 @@ class Focus {
     return true;
   }
 
+  async reboot(withDeviceReset) {
+    const port = this._port;
+
+    const timeouts = {
+      dtrToggle: 500, // Time to wait (ms) between toggling DTR
+    };
+
+    const baudUpdate = () => {
+      return new Promise((resolve) => {
+        logger("focus").debug("reboot: baud update");
+        port.update({ baudRate: 1200 }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+    const dtrToggle = (state) => {
+      return new Promise((resolve) => {
+        logger("focus").debug(`reboot: dtr ${state ? "on" : "off"}`);
+        port.set({ dtr: state }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+    // If the device supports the `device.reset` command, try doing that first.
+    // We're intentionally not using `supported_commands()`, because that
+    // introduces needless traffic every time we try to reboot.
+    if (withDeviceReset) {
+      try {
+        await this._request("device.reset");
+      } catch (e) {
+        // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
+        if ("Device disconnected" !== e) {
+          logger("focus").error("Error while calling `device.reset`", {
+            error: e,
+          });
+          throw e;
+        } else {
+          // If device.reset made the keyboard disconnect, then mission
+          // accomplished, we can move on, and do not need to do the 1200 baud
+          // tickle.
+          return;
+        }
+      }
+    }
+
+    // If we reach this point, then either `device.reset` isn't available, or it
+    // failed to reboot the device. Try the 1200 baud tickle.
+    await baudUpdate();
+    await dtrToggle(true);
+    await dtrToggle(false);
+  }
+
   async find(...device_descriptors) {
     const portList = await SerialPort.list();
 

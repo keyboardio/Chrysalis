@@ -60,13 +60,15 @@ const KeyboardLayerPreferences = (props) => {
     });
   };
 
-  const layers = keymap.custom.map((_, index) => {
-    return (
-      <MenuItem value={index} key={index}>
-        {t("components.layer", { index: index })}
-      </MenuItem>
-    );
-  });
+  const layers =
+    loaded &&
+    keymap.custom.map((_, index) => {
+      return (
+        <MenuItem value={index} key={index}>
+          {t("components.layer", { index: index })}
+        </MenuItem>
+      );
+    });
 
   return (
     <PreferenceSection name="keyboard.layers">

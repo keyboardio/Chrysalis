@@ -1,11 +1,11 @@
 ---
-version: 0.90.4+49
-build: 49
+version: 0.90.5+52
+build: 52
 
 dependencies:
   cores:
     avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@e7395821c13d6dcc3e19ebce2b7bc221475e9806
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@ef15ed06d66ab0911a3c3bff2789c0b2e8166123
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@57fc0ec8c230d2dffa2a1482656f676db4ee075a
   libraries:
     avr:
       - keyboardio/KeyboardioHID@5a56f73deb23e00ae9f79aaf7cf06095edfbedc9
@@ -13,7 +13,7 @@ dependencies:
       - keyboardio/KeyboardioHID@5a56f73deb23e00ae9f79aaf7cf06095edfbedc9
     common:
       - keyboardio/Kaleidoscope@8de4171cfc444dd3ead6e671d79af419658315a8
-      - keyboardio/Chrysalis-Firmware-Bundle@13571fbb3578479054c749aac872782b32aeef1d
+      - keyboardio/Chrysalis-Firmware-Bundle@51757bacd81d8ff218d2769deecf2d6cb51ddc1d
 
 firmware:
   Keyboardio:
@@ -73,6 +73,7 @@ firmware:
         - Macros
         - MagicCombo
         - MouseKeys
+        - MouseKeysConfig
         - NumPad
         - OneShot
         - PersistentIdleLEDs

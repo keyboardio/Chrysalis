@@ -542,9 +542,9 @@ const Editor = (props) => {
         />
       )}
       <ToolBox
-        setTool={props.setTool}
-        tool={props.tool}
-        hasColormap={props.hasColormap}
+        setTool={setTool}
+        tool={tool}
+        hasColormap={hasColormap()}
         orientation="vertical"
         onSaveChanges={onApply}
         onSaveChangesError={onApplyError}

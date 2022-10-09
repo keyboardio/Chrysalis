@@ -152,17 +152,17 @@ export const ToolBox = (props) => {
           </Box>
           <Divider sx={{ my: 1, mx: -1 }} />
         </Collapse>
-        <ToggleButton
-          size="small"
-          value="tools"
-          sx={{ border: 0 }}
-          selected={toolsOpen}
-          onClick={toggleTools}
-        >
-          <Tooltip title="Toggle tools" arrow>
+        <Tooltip title="Toggle tools" arrow>
+          <ToggleButton
+            size="small"
+            value="tools"
+            sx={{ border: 0 }}
+            selected={toolsOpen}
+            onClick={toggleTools}
+          >
             {toolsOpen ? <KeyboardArrowDownIcon /> : <ConstructionIcon />}
-          </Tooltip>
-        </ToggleButton>
+          </ToggleButton>
+        </Tooltip>
       </Box>
       <SaveChangesButton
         onClick={props.onSaveChanges}

@@ -23,6 +23,22 @@ update_readme() {
     sed -i -e "s,\(\[build:dev\]: .*/releases/tag/\).*,\1v${VERSION}," README.md
 }
 
+update_news() {
+    VERSION="$(tools/snapshot-tag)"
+
+    ## Update NEWS.md
+    TMP=$(mktemp)
+    VERSION_STRING="Chrysalis ${VERSION}"
+    (echo "${VERSION_STRING}"; \
+     echo "${VERSION_STRING}" | sed -e "s/./=/g"; \
+     echo '**UNRELEASED**'; \
+     echo ; \
+     echo "No changes yet."; \
+     echo ; \
+     cat NEWS.md) >"${TMP}"
+    mv "${TMP}" NEWS.md
+}
+
 commit_changes() {
     VERSION="$(jq -r .version <package.json)"
     git add package.json README.md
@@ -35,5 +51,6 @@ push_changes() {
 
 update_version
 update_readme
+update_news
 commit_changes
 push_changes

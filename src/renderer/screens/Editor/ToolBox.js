@@ -113,7 +113,7 @@ export const ToolBox = (props) => {
                 <CopyAllIcon />
               </Tooltip>
             </ToggleButton>
-            <ToggleButton size="small" sx={{ m: 0.25 }}>
+            <ToggleButton size="small" sx={{ m: 0.25 }} disabled>
               <Tooltip title="Paste layer" arrow>
                 <ContentPasteIcon />
               </Tooltip>

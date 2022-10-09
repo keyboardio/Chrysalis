@@ -78,7 +78,7 @@ function SystemInfo(props) {
 
     const sysInfo = ipcRenderer.sendSync("system-info.get");
 
-    if (activeDevice.focusDeviceDescriptor()) {
+    if (activeDevice?.focusDeviceDescriptor()) {
       sysInfo.device = {
         info: activeDevice.focusDeviceDescriptor().info,
         path: activeDevice.focus._port.path,

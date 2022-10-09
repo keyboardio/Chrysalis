@@ -58,26 +58,38 @@ const SaveChangesButton = (props) => {
 
   return (
     <Tooltip title={props.children}>
-      <Box sx={{ position: "relative", mt: 3 }}>
-        <Fab
-          disabled={inProgress || (props.disabled && !success)}
-          color={success ? "success" : "primary"}
-          onClick={handleButtonClick}
-        >
-          {success ? <CheckIcon /> : icon}
-        </Fab>
-        {inProgress && (
-          <CircularProgress
-            size={68}
-            color="success"
-            sx={{
-              position: "absolute",
-              top: -6,
-              left: -6,
-              zIndex: 1,
-            }}
-          />
-        )}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          position: "fixed",
+          bottom: 32,
+          left: 32,
+          zIndex: (theme) => theme.zIndex.drawer - 1,
+        }}
+      >
+        <Box sx={{ position: "relative" }}>
+          <Fab
+            disabled={inProgress || (props.disabled && !success)}
+            color={success ? "success" : "primary"}
+            onClick={handleButtonClick}
+          >
+            {success ? <CheckIcon /> : icon}
+          </Fab>
+          {inProgress && (
+            <CircularProgress
+              size={68}
+              color="success"
+              sx={{
+                position: "absolute",
+                top: -6,
+                left: -6,
+                zIndex: 1,
+              }}
+            />
+          )}
+        </Box>
       </Box>
     </Tooltip>
   );

@@ -41,7 +41,7 @@ update_news() {
 
 commit_changes() {
     VERSION="$(jq -r .version <package.json)"
-    git add package.json README.md
+    git add package.json README.md NEWS.md
     git commit -s -m "Bump version to ${VERSION}"
 }
 

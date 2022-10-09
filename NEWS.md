@@ -1,3 +1,9 @@
+Chrysalis 0.11.9-snapshot
+=========================
+**UNRELEASED**
+
+No changes yet.
+
 Chrysalis 0.11.8
 ================
 Released on 2022-10-09

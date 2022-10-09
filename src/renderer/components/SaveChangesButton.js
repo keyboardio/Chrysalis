@@ -58,7 +58,7 @@ const SaveChangesButton = (props) => {
 
   return (
     <Tooltip title={props.children}>
-      <Box sx={{ position: "relative", mt: 2 }}>
+      <Box sx={{ position: "relative", mt: 3 }}>
         <Fab
           disabled={inProgress || (props.disabled && !success)}
           color={success ? "success" : "primary"}

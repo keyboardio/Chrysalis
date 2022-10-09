@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import Box from "@mui/material/Box";
+import Menu from "@mui/material/Menu";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
@@ -28,7 +28,9 @@ import SaveChangesButton from "@renderer/components/SaveChangesButton";
 
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import LayersIcon from "@mui/icons-material/Layers";
+import SmartButtonIcon from "@mui/icons-material/SmartButton";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -44,16 +46,43 @@ EraserIcon.displayName = "EraserIcon";
 export const ToolBox = (props) => {
   const { t } = useTranslation();
 
-  const onChange = (_, newTool) => {
+  const [layerOpsOpen, setLayerOpsOpen] = useState(false);
+  const [buttonOpsOpen, setButtonOpsOpen] = useState(false);
+
+  const onLayerOpsToggle = () => {
+    if (layerOpsOpen) {
+      setLayerOpsOpen(false);
+    } else {
+      setButtonOpsOpen(false);
+      setLayerOpsOpen(true);
+    }
+  };
+  const onButtonOpsToggle = () => {
+    if (buttonOpsOpen) {
+      setButtonOpsOpen(false);
+    } else {
+      setLayerOpsOpen(false);
+      setButtonOpsOpen(true);
+    }
+  };
+
+  const onChange = (event, newTool) => {
     props.setTool(newTool || "select");
+    /*
+    if (newTool == "layers") {
+      if (layerMenuOpen) {
+        onLayerMenuClose();
+      } else {
+        onLayerMenuOpen(event);
+      }
+    }
+    */
   };
 
   return (
     <Box
-      boxShadow={3}
       sx={{
         p: 1,
-        bgcolor: "background.paper",
         alignItems: "center",
         justifyContent: "flex-end",
         position: "fixed",
@@ -62,46 +91,58 @@ export const ToolBox = (props) => {
         zIndex: (theme) => theme.zIndex.drawer - 1,
       }}
     >
-      <SpeedDial
-        icon={<LayersIcon />}
-        ariaLabel="foo"
-        direction="right"
-        sx={{ mb: 2 }}
-      >
-        <SpeedDialAction icon={<CopyAllIcon />} tooltipTitle="Copy layer" />
-        <SpeedDialAction
-          icon={<ContentPasteIcon />}
-          tooltipTitle="Paste layer"
-        />
-      </SpeedDial>
-      <ToggleButtonGroup
-        color="primary"
-        exclusive
-        size="small"
-        value={props.tool}
-        onChange={onChange}
-        orientation={props.orientation}
-      >
-        <ToggleButton value="eraser">
-          <Tooltip title={t("editor.toolbox.eraser")}>
-            <EraserIcon />
-          </Tooltip>
-        </ToggleButton>
-        {props.hasColormap && (
-          <ToggleButton value="color-paint">
-            <Tooltip title={t("editor.toolbox.color-paint")}>
-              <FormatPaintIcon />
-            </Tooltip>
-          </ToggleButton>
-        )}
-        <SaveChangesButton
-          onClick={props.onSaveChanges}
-          onError={props.onSaveChangesError}
-          disabled={props.saveChangesDisabled}
+      <Box sx={{ ml: 1 }}>
+        <SpeedDial
+          direction="right"
+          ariaLabel="layer operations"
+          icon={<LayersIcon />}
+          onClose={() => {}}
+          onOpen={() => {}}
+          onClick={onLayerOpsToggle}
+          open={layerOpsOpen}
+          FabProps={{
+            size: "small",
+            color: layerOpsOpen ? "success" : "info",
+          }}
+          sx={{
+            mt: 0,
+            mb: -1,
+          }}
         >
-          {props.saveChangesTitle}
-        </SaveChangesButton>
-      </ToggleButtonGroup>
+          <SpeedDialAction icon={<CopyAllIcon />} tooltipTitle="Copy layer" />
+          <SpeedDialAction
+            icon={<ContentPasteIcon />}
+            tooltipTitle="Paste layer"
+          />
+        </SpeedDial>
+        <SpeedDial
+          direction="right"
+          ariaLabel="button operations"
+          icon={<SmartButtonIcon />}
+          onClose={() => {}}
+          onOpen={() => {}}
+          onClick={onButtonOpsToggle}
+          open={buttonOpsOpen}
+          FabProps={{
+            size: "small",
+            color: buttonOpsOpen ? "success" : "info",
+          }}
+          sx={{
+            mt: 0,
+            mb: -1,
+          }}
+        >
+          <SpeedDialAction icon={<EraserIcon />} tooltipTitle="Erase" />
+          <SpeedDialAction icon={<FormatPaintIcon />} tooltipTitle="Paint" />
+        </SpeedDial>
+      </Box>
+      <SaveChangesButton
+        onClick={props.onSaveChanges}
+        onError={props.onSaveChangesError}
+        disabled={props.saveChangesDisabled}
+      >
+        {props.saveChangesTitle}
+      </SaveChangesButton>
     </Box>
   );
 };

@@ -21,6 +21,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Tooltip from "@mui/material/Tooltip";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -41,13 +42,27 @@ export const ToolBox = (props) => {
   };
 
   return (
-    <Box sx={{ textAlign: "right", p: 1 }}>
+    <Box
+      boxShadow={3}
+      sx={{
+        p: 1,
+        bgcolor: "background.paper",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        position: "fixed",
+        bottom: 32,
+        left: 32,
+        zIndex: (theme) => theme.zIndex.drawer - 1,
+      }}
+    >
       <ToggleButtonGroup
         color="primary"
         exclusive
         size="small"
         value={props.tool}
         onChange={onChange}
+        orientation={props.orientation}
       >
         <ToggleButton value="eraser">
           <Tooltip title={t("editor.toolbox.eraser")}>
@@ -61,6 +76,13 @@ export const ToolBox = (props) => {
             </Tooltip>
           </ToggleButton>
         )}
+        <SaveChangesButton
+          onClick={props.onSaveChanges}
+          onError={props.onSaveChangesError}
+          disabled={props.saveChangesDisabled}
+        >
+          {props.saveChangesTitle}
+        </SaveChangesButton>
       </ToggleButtonGroup>
     </Box>
   );

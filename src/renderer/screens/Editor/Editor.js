@@ -28,7 +28,6 @@ import {
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
-import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
@@ -40,6 +39,7 @@ import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import MacroEditor from "./Macros/MacroEditor";
 import Sidebar, { sidebarWidth } from "./Sidebar";
+import { ToolBox } from "./ToolBox";
 
 const db = new KeymapDB();
 
@@ -541,13 +541,16 @@ const Editor = (props) => {
           currentKey={currentKey}
         />
       )}
-      <SaveChangesButton
-        onClick={onApply}
-        onError={onApplyError}
-        disabled={saveChangesDisabled}
-      >
-        {t("components.save.saveChanges")}
-      </SaveChangesButton>
+      <ToolBox
+        setTool={props.setTool}
+        tool={props.tool}
+        hasColormap={props.hasColormap}
+        orientation="vertical"
+        onSaveChanges={onApply}
+        onSaveChangesError={onApplyError}
+        saveChangesDisabled={saveChangesDisabled}
+        saveChangesTitle={t("components.save.saveChanges")}
+      />
     </React.Fragment>
   );
 };

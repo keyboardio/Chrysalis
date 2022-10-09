@@ -1,3 +1,24 @@
+Chrysalis 0.11.8-snapshot
+=========================
+**UNRELEASED**
+
+## Bugfixes
+
+Chrysalis 0.11.7 unfortunately broke a part of the flashing process, it stopped
+being able to reboot the keyboard into bootloader mode. This has been corrected,
+flashing should now work correctly.
+
+We also fixed a number of hard to reproduce bugs that nevertheless occurred
+frequently, but randomly, and led to a partial crash, where Chrysalis displayed
+a white screen with no obvious remedy.
+
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.90.5] for more details.
+
+ [fw:0.90.5]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.5
+
 Chrysalis 0.11.7
 ================
 Released on 2022-10-08

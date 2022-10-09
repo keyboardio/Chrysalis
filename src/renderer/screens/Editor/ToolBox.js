@@ -17,11 +17,18 @@
 
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import Box from "@mui/material/Box";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SvgIcon from "@mui/material/SvgIcon";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Tooltip from "@mui/material/Tooltip";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
+
+import CopyAllIcon from "@mui/icons-material/CopyAll";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import LayersIcon from "@mui/icons-material/Layers";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -47,7 +54,6 @@ export const ToolBox = (props) => {
       sx={{
         p: 1,
         bgcolor: "background.paper",
-        display: "flex",
         alignItems: "center",
         justifyContent: "flex-end",
         position: "fixed",
@@ -56,6 +62,18 @@ export const ToolBox = (props) => {
         zIndex: (theme) => theme.zIndex.drawer - 1,
       }}
     >
+      <SpeedDial
+        icon={<LayersIcon />}
+        ariaLabel="foo"
+        direction="right"
+        sx={{ mb: 2 }}
+      >
+        <SpeedDialAction icon={<CopyAllIcon />} tooltipTitle="Copy layer" />
+        <SpeedDialAction
+          icon={<ContentPasteIcon />}
+          tooltipTitle="Paste layer"
+        />
+      </SpeedDial>
       <ToggleButtonGroup
         color="primary"
         exclusive

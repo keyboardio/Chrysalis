@@ -76,14 +76,11 @@ export const ToolBox = (props) => {
     */
   };
 
-  if (!props.open) return null;
-
   return (
     <>
       <Box
         sx={{
           borderRight: "1px solid #888",
-          width: props.open ? 100 : 0,
           bgcolor: "background.paper",
           display: "flex",
           flexDirection: "column",

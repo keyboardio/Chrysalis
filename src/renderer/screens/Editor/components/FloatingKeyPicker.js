@@ -22,6 +22,8 @@ import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import Keyboard104 from "../Keyboard104";
 
+import { ToolBox } from "../ToolBox";
+
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
@@ -82,19 +84,23 @@ export const FloatingKeyPicker = (props) => {
       lockAspectRatio={true}
       bounds="window"
     >
-      <Box
-        boxShadow={3}
-        sx={{
-          bgcolor: "background.paper",
-          p: 1,
-          m: 1,
-        }}
-      >
-        <Keyboard104
-          onKeySelect={onKeyChange}
-          currentKeyCode={key.baseCode || key.code}
-          keymap={keymap}
-        />
+      <Box sx={{ display: "flex" }}>
+        <Box
+          boxShadow={3}
+          sx={{
+            bgcolor: "background.paper",
+            p: 1,
+            m: 1,
+            width: "100%",
+          }}
+        >
+          <Keyboard104
+            onKeySelect={onKeyChange}
+            currentKeyCode={key.baseCode || key.code}
+            keymap={keymap}
+          />
+        </Box>
+        <ToolBox />
       </Box>
     </Rnd>
   );

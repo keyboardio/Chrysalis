@@ -48,19 +48,11 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
-import { ToolBox } from "./ToolBox";
-
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
   const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } =
     props;
-
-  const [toolsOpen, setToolsOpen] = useState(false);
-
-  const toggleToolbox = () => {
-    setToolsOpen(!toolsOpen);
-  };
 
   const widgets = [
     KeyPicker,
@@ -122,19 +114,15 @@ const Sidebar = (props) => {
         },
       }}
     >
-      <Box sx={{ display: "flex", mt: "48px" }}>
-        <ToolBox open={toolsOpen} />
+      <Toolbar />
+      <Box sx={{ display: "flex" }}>
         <Box
           sx={{
             px: 1,
             mb: 2,
-            width: toolsOpen ? 260 : 360,
             transition: "all 2s ease-out",
           }}
         >
-          <IconButton onClick={toggleToolbox} variant="outlined">
-            <KeyboardArrowLeftIcon />
-          </IconButton>
           <Overview
             macroEditorOpen={macroEditorOpen}
             keymap={keymap}

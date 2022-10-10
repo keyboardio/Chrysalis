@@ -541,16 +541,6 @@ const Editor = (props) => {
           currentKey={currentKey}
         />
       )}
-      <ToolBox
-        setTool={setTool}
-        tool={tool}
-        hasColormap={hasColormap()}
-        orientation="vertical"
-        onSaveChanges={onApply}
-        onSaveChangesError={onApplyError}
-        saveChangesDisabled={saveChangesDisabled}
-        saveChangesTitle={t("components.save.saveChanges")}
-      />
     </React.Fragment>
   );
 };

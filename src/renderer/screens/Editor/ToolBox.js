@@ -35,6 +35,8 @@ import CopyAllIcon from "@mui/icons-material/CopyAll";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LayersIcon from "@mui/icons-material/Layers";
 import LayersClearIcon from "@mui/icons-material/LayersClear";
@@ -74,103 +76,79 @@ export const ToolBox = (props) => {
     */
   };
 
+  if (!props.open) return null;
+
   return (
     <>
       <Box
-        boxShadow={3}
         sx={{
-          maxWidth: 104,
+          borderRight: "1px solid #888",
+          width: props.open ? 100 : 0,
           bgcolor: "background.paper",
-          borderRadius: "4px",
-          position: "fixed",
-          bottom: 108,
-          left: 10,
-          zIndex: (theme) => theme.zIndex.drawer - 1,
           display: "flex",
           flexDirection: "column",
           p: 1,
         }}
       >
-        <Collapse in={toolsOpen}>
-          <Typography
-            variant="body2"
-            sx={{
-              opacity: 0.75,
-              mx: -1,
-              py: 0.5,
-              mt: -1,
-              mb: 0.75,
-              bgcolor: (theme) =>
-                theme.palette.mode == "dark" ? "grey.700" : "grey.200",
-              textAlign: "center",
-            }}
-          >
-            Layer tools
-          </Typography>
-          <Box sx={{ textAlign: "center" }}>
-            <ToggleButton size="small" sx={{ m: 0.25 }}>
-              <Tooltip title="Copy layer" arrow>
-                <CopyAllIcon />
-              </Tooltip>
-            </ToggleButton>
-            <ToggleButton size="small" sx={{ m: 0.25 }} disabled>
-              <Tooltip title="Paste layer" arrow>
-                <ContentPasteIcon />
-              </Tooltip>
-            </ToggleButton>
-            <ToggleButton size="small" sx={{ m: 0.25 }}>
-              <Tooltip title="Clear layer" arrow>
-                <LayersClearIcon />
-              </Tooltip>
-            </ToggleButton>
-          </Box>
-          <Typography
-            variant="body2"
-            sx={{
-              opacity: 0.75,
-              mx: -1,
-              py: 0.5,
-              my: 1,
-              bgcolor: (theme) =>
-                theme.palette.mode == "dark" ? "grey.700" : "grey.200",
-              textAlign: "center",
-            }}
-          >
-            Button tools
-          </Typography>
-          <Box>
-            <ToggleButton size="small" sx={{ mx: 0.25 }}>
-              <Tooltip title="Eraser" arrow>
-                <EraserIcon />
-              </Tooltip>
-            </ToggleButton>
-            <ToggleButton size="small" sx={{ mx: 0.25 }}>
-              <Tooltip title="Paint" arrow>
-                <FormatPaintIcon />
-              </Tooltip>
-            </ToggleButton>
-          </Box>
-          <Divider sx={{ my: 1, mx: -1 }} />
-        </Collapse>
-        <Tooltip title="Toggle tools" arrow>
-          <ToggleButton
-            size="small"
-            value="tools"
-            sx={{ border: 0 }}
-            selected={toolsOpen}
-            onClick={toggleTools}
-          >
-            {toolsOpen ? <KeyboardArrowDownIcon /> : <ConstructionIcon />}
+        <Typography
+          variant="body2"
+          sx={{
+            opacity: 0.75,
+            mx: -1,
+            py: 0.5,
+            mt: -1,
+            mb: 0.75,
+            bgcolor: (theme) =>
+              theme.palette.mode == "dark" ? "grey.700" : "grey.200",
+            textAlign: "center",
+          }}
+        >
+          Layer tools
+        </Typography>
+        <Box sx={{ textAlign: "center" }}>
+          <ToggleButton size="small" sx={{ m: 0.25 }}>
+            <Tooltip title="Copy layer" arrow placement="left">
+              <CopyAllIcon />
+            </Tooltip>
           </ToggleButton>
-        </Tooltip>
+          <ToggleButton size="small" sx={{ m: 0.25 }} disabled>
+            <Tooltip title="Paste layer" arrow placement="left">
+              <ContentPasteIcon />
+            </Tooltip>
+          </ToggleButton>
+          <ToggleButton size="small" sx={{ m: 0.25 }}>
+            <Tooltip title="Clear layer" arrow placement="left">
+              <LayersClearIcon />
+            </Tooltip>
+          </ToggleButton>
+        </Box>
+        <Typography
+          variant="body2"
+          sx={{
+            opacity: 0.75,
+            mx: -1,
+            py: 0.5,
+            my: 1,
+            bgcolor: (theme) =>
+              theme.palette.mode == "dark" ? "grey.700" : "grey.200",
+            textAlign: "center",
+          }}
+        >
+          Button tools
+        </Typography>
+        <Box sx={{ textAlign: "center" }}>
+          <ToggleButton size="small" sx={{ m: 0.25 }}>
+            <Tooltip title="Eraser" arrow placement="left">
+              <EraserIcon />
+            </Tooltip>
+          </ToggleButton>
+          <ToggleButton size="small" sx={{ m: 0.25 }}>
+            <Tooltip title="Paint" arrow placement="left">
+              <FormatPaintIcon />
+            </Tooltip>
+          </ToggleButton>
+        </Box>
       </Box>
-      <SaveChangesButton
-        onClick={props.onSaveChanges}
-        onError={props.onSaveChangesError}
-        disabled={props.saveChangesDisabled}
-      >
-        {props.saveChangesTitle}
-      </SaveChangesButton>
     </>
   );
 };

@@ -16,9 +16,10 @@
  */
 
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
-import React from "react";
+import React, { useState } from "react";
 import BlankKeys from "./Sidebar/BlankKeys";
 import BrightnessKeys from "./Sidebar/BrightnessKeys";
 import Colormap from "./Sidebar/Colormap";
@@ -41,11 +42,25 @@ import TapDanceKeys from "./Sidebar/TapDanceKeys";
 import VolumeKeys from "./Sidebar/VolumeKeys";
 import PlatformAppleKeys from "./Sidebar/PlatformAppleKeys";
 
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+
+import { ToolBox } from "./ToolBox";
+
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
   const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } =
     props;
+
+  const [toolsOpen, setToolsOpen] = useState(false);
+
+  const toggleToolbox = () => {
+    setToolsOpen(!toolsOpen);
+  };
 
   const widgets = [
     KeyPicker,
@@ -107,44 +122,56 @@ const Sidebar = (props) => {
         },
       }}
     >
-      <Toolbar />
-      <Box sx={{ px: 1, mb: 2 }}>
-        <Overview
-          macroEditorOpen={macroEditorOpen}
-          keymap={keymap}
-          colormap={colormap}
-          selectedKey={selectedKey}
-          selectedLed={selectedLed}
-          layer={layer}
-          setLayer={props.setLayer}
-          copyLayer={props.copyLayer}
-          hasCopiedLayer={props.hasCopiedLayer}
-          pasteLayer={props.pasteLayer}
-          layerNames={props.layerNames}
-          setLayerName={props.setLayerName}
-          onKeymapChange={props.onKeymapChange}
-          onPaletteChange={props.onPaletteChange}
-          onColormapChange={props.onColormapChange}
-        />
-        {props.tool == "select" && categories}
-        {props.tool == "color-paint" && (
-          <Colormap
+      <Box sx={{ display: "flex", mt: "48px" }}>
+        <ToolBox open={toolsOpen} />
+        <Box
+          sx={{
+            px: 1,
+            mb: 2,
+            width: toolsOpen ? 260 : 360,
+            transition: "all 2s ease-out",
+          }}
+        >
+          <IconButton onClick={toggleToolbox} variant="outlined">
+            <KeyboardArrowLeftIcon />
+          </IconButton>
+          <Overview
             macroEditorOpen={macroEditorOpen}
             keymap={keymap}
             colormap={colormap}
             selectedKey={selectedKey}
             selectedLed={selectedLed}
             layer={layer}
+            setLayer={props.setLayer}
+            copyLayer={props.copyLayer}
+            hasCopiedLayer={props.hasCopiedLayer}
+            pasteLayer={props.pasteLayer}
             layerNames={props.layerNames}
-            onKeyChange={props.onKeyChange}
-            onLedChange={props.onLedChange}
+            setLayerName={props.setLayerName}
+            onKeymapChange={props.onKeymapChange}
             onPaletteChange={props.onPaletteChange}
-            macros={props.macros}
-            setOpenMacroEditor={props.setOpenMacroEditor}
-            currentKey={props.currentKey}
-            sx={{ p: 2 }}
+            onColormapChange={props.onColormapChange}
           />
-        )}
+          {props.tool == "select" && categories}
+          {props.tool == "color-paint" && (
+            <Colormap
+              macroEditorOpen={macroEditorOpen}
+              keymap={keymap}
+              colormap={colormap}
+              selectedKey={selectedKey}
+              selectedLed={selectedLed}
+              layer={layer}
+              layerNames={props.layerNames}
+              onKeyChange={props.onKeyChange}
+              onLedChange={props.onLedChange}
+              onPaletteChange={props.onPaletteChange}
+              macros={props.macros}
+              setOpenMacroEditor={props.setOpenMacroEditor}
+              currentKey={props.currentKey}
+              sx={{ p: 2 }}
+            />
+          )}
+        </Box>
       </Box>
     </Drawer>
   );

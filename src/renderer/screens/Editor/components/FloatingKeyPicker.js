@@ -84,16 +84,16 @@ export const FloatingKeyPicker = (props) => {
       lockAspectRatio={true}
       bounds="window"
     >
-      <Box sx={{ display: "flex" }}>
-        <Box
-          boxShadow={3}
-          sx={{
-            bgcolor: "background.paper",
-            p: 1,
-            m: 1,
-            width: "100%",
-          }}
-        >
+      <Box
+        boxShadow={3}
+        sx={{
+          bgcolor: "background.paper",
+          p: 1,
+          m: 1,
+          display: "flex",
+        }}
+      >
+        <Box sx={{ width: "100%" }}>
           <Keyboard104
             onKeySelect={onKeyChange}
             currentKeyCode={key.baseCode || key.code}

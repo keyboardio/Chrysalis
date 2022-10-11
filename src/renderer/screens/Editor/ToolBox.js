@@ -79,12 +79,13 @@ export const ToolBox = (props) => {
   return (
     <>
       <Box
+        boxShadow={1}
         sx={{
-          borderRight: "1px solid #888",
           bgcolor: "background.paper",
           display: "flex",
           flexDirection: "column",
           p: 1,
+          ml: 2,
         }}
       >
         <Typography

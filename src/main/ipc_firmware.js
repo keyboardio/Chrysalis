@@ -104,7 +104,7 @@ export const registerFirmwareHandlers = () => {
   };
 
   const getLatestInfo = async () => {
-    const releases = await ghApi("/releases");
+    let releases = await ghApi("/releases");
     if (!Array.isArray(releases) || releases.length == 0) {
       sendToRenderer(
         "firmware-update.warning",
@@ -112,6 +112,13 @@ export const registerFirmwareHandlers = () => {
       );
       return null;
     }
+
+    // If we're not a snapshot version, then filter out snapshot firmware
+    // releases.
+    if (!version.match(/-snapshot/)) {
+      releases = releases?.filter((rel) => !rel.prerelease);
+    }
+
     const latestTag = releases[0].tag_name;
     if (!releases || !latestTag) {
       sendToRenderer(

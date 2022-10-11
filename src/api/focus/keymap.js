@@ -102,24 +102,24 @@ class Keymap {
 
       if (!defaults && !custom) {
         const keymap = (await s.request("keymap.map"))
-          .split(" ")
+          ?.split(" ")
           .filter((v) => v.length > 0);
         const roLayers = parseInt((await s.request("keymap.roLayers")) || "0");
 
-        defaults = keymap.slice(0, this._layerSize * roLayers).join(" ");
+        defaults = keymap?.slice(0, this._layerSize * roLayers).join(" ");
         custom = keymap
-          .slice(this._layerSize * roLayers, keymap.length)
+          ?.slice(this._layerSize * roLayers, keymap.length)
           .join(" ");
 
         onlyCustom = false;
         this.legacyInterface = true;
       }
       const defaultKeymap = defaults
-        .split(" ")
+        ?.split(" ")
         .filter((v) => v.length > 0)
         .map((k) => this.db.lookup(parseInt(k)));
       const customKeymap = custom
-        .split(" ")
+        ?.split(" ")
         .filter((v) => v.length > 0)
         .map((k) => this.db.lookup(parseInt(k)));
 

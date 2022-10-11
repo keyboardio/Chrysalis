@@ -151,40 +151,41 @@ const Overview = (props) => {
     );
   });
 
-  const footer = lastUsedLayer + 1 < keymap.custom.length && (
-    <TableFooter>
-      <TableRow>
-        <TableCell
-          colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
-          align="right"
-          sx={{
-            borderBottom: "none",
-          }}
+  const emptyLayers = lastUsedLayer + 1 < keymap.custom.length && (
+    <TableRow>
+      <TableCell
+        colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
+        align="right"
+      >
+        <Button onClick={() => setShowAll(!showAll)}>
+          {showAll
+            ? t("editor.sidebar.overview.hideEmptyLayers")
+            : t("editor.sidebar.overview.showEmptyLayers")}
+        </Button>
+      </TableCell>
+    </TableRow>
+  );
+
+  const layerCopyPaste = (
+    <TableRow>
+      <TableCell
+        colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
+        align="right"
+        sx={{
+          borderBottom: "none",
+        }}
+      >
+        <Button onClick={() => props.copyLayer(layer)}>
+          {t("editor.sidebar.overview.copyLayer")}
+        </Button>
+        <Button
+          onClick={() => props.pasteLayer()}
+          disabled={!props.hasCopiedLayer()}
         >
-          <Button onClick={() => props.copyLayer(layer)}>
-            {t("editor.sidebar.overview.copyLayer")}
-          </Button>
-          <Button
-            onClick={() => props.pasteLayer()}
-            disabled={!props.hasCopiedLayer()}
-          >
-            {t("editor.sidebar.overview.pasteLayer")}
-          </Button>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell
-          colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
-          align="right"
-        >
-          <Button onClick={() => setShowAll(!showAll)}>
-            {showAll
-              ? t("editor.sidebar.overview.hideEmptyLayers")
-              : t("editor.sidebar.overview.showEmptyLayers")}
-          </Button>
-        </TableCell>
-      </TableRow>
-    </TableFooter>
+          {t("editor.sidebar.overview.pasteLayer")}
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 
   return (
@@ -209,7 +210,10 @@ const Overview = (props) => {
             </TableHead>
           </Tooltip>
           <TableBody>{config}</TableBody>
-          {footer}
+          <TableFooter>
+            {layerCopyPaste}
+            {emptyLayers}
+          </TableFooter>
         </Table>
       </TableContainer>
       <Button

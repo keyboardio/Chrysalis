@@ -319,7 +319,7 @@ const Editor = (props) => {
   };
 
   const hasCopiedLayer = () => {
-    return copiedLayer.keymap.length > 0 && copiedLayer.colorMap.length > 0;
+    return copiedLayer.keymap.length > 0;
   };
 
   useEffect(() => {
@@ -380,7 +380,7 @@ const Editor = (props) => {
   const copyLayer = (index) => {
     setCopiedLayer({
       keymap: keymap.custom[index].slice(0),
-      colorMap: colormap.colorMap[index].slice(0),
+      colorMap: colormap?.colorMap[index]?.slice(0) || [],
     });
   };
 

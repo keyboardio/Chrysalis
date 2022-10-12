@@ -266,6 +266,12 @@
     "printTooltip": "Print"
   },
   "preferences": {
+    "focus": {
+      "chunked_writes": {
+        "label": "Send data in small chunks",
+        "help": "As a possible remedy to various communication issues, Chrysalis can send data to the keyboard in smaller chunks. For historical reasons, this is enabled by default. Only turn it off if you know what you're doing, or were asked to by the Chrysalis developers."
+      }
+    },
     "interface": "User Interface",
     "devtools": {
       "main": {

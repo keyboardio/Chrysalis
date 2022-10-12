@@ -209,6 +209,8 @@ const App = (props) => {
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
 
+    newActiveDevice.chunked_writes(settings.get("focus.chunked_writes", true));
+
     if (!port.focusDeviceDescriptor.bootloader) {
       logger().info("Probing for focus support...");
       focus.setLayerSize(focus.focusDeviceDescriptor);

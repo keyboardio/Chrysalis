@@ -36,6 +36,13 @@ export function ActiveDevice() {
     return await this.focus.plugins();
   };
 
+  this.chunked_writes = (newValue) => {
+    if (newValue !== undefined) {
+      this.focus.chunked_writes = Boolean(newValue);
+    }
+    return this.focus.chunked_writes;
+  };
+
   // This method is called when the device is connected.
   // it probes for help and plugins using focus, which lets us cache
   // that information, reducing repeated calls for the same data from the device

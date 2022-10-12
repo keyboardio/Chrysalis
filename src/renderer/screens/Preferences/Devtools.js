@@ -25,17 +25,25 @@ const { ipcRenderer } = require("electron");
 import PreferenceSection from "./components/PreferenceSection";
 import PreferenceSwitch from "./components/PreferenceSwitch";
 
+const Store = require("electron-store");
+const settings = new Store();
+
+import Focus from "@api/focus";
+
 function DevtoolsPreferences(props) {
   const { t } = useTranslation();
 
   const [devConsole, setDevConsole] = useState(false);
   const [verbose, setVerbose] = useState(false);
+  const [chunked, setChunked] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const initialize = async () => {
       const isOpen = await ipcRenderer.invoke("devtools.is-open");
       await setDevConsole(isOpen);
+
+      setChunked(settings.get("focus.chunked_writes", true));
 
       ipcRenderer.on("devtools.opened", () => {
         setDevConsole(true);
@@ -79,6 +87,22 @@ function DevtoolsPreferences(props) {
     setLogLevel(verbose ? "verbose" : "info");
   };
 
+  const toggleChunked = (event) => {
+    const chunked = event.target.checked;
+    setChunked(chunked);
+
+    settings.set("focus.chunked_writes", chunked);
+
+    // NOTE: We're using Focus here directly, rather than through ActiveDevice,
+    // because this is a global focus setting, and we should be setting it even
+    // if we have no active device when the option is changed.
+    //
+    // This is not ideal, but the plan is that this whole setting is a temporary
+    // measure only.
+    const focus = new Focus();
+    focus.chunked_writes = chunked;
+  };
+
   return (
     <PreferenceSection name="devtools.main">
       {loaded ? (
@@ -96,6 +120,13 @@ function DevtoolsPreferences(props) {
         option="devtools.verboseLogging"
         checked={verbose}
         onChange={toggleVerbose}
+      />
+      <Divider sx={{ my: 2, mx: -2 }} />
+      <PreferenceSwitch
+        loaded={loaded}
+        option="focus.chunked_writes"
+        checked={chunked}
+        onChange={toggleChunked}
       />
     </PreferenceSection>
   );

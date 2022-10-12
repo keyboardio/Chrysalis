@@ -105,6 +105,7 @@ class Focus {
       this.timeout = 30000;
       this.resetDeviceState();
       this._request_id = 0;
+      this.chunked_writes = true;
     }
 
     return global.chrysalis_focus_instance;
@@ -558,21 +559,20 @@ class Focus {
     return new Promise((resolve, reject) => {
       this._parser.startTimer();
       this.callbacks.push([resolve, reject]);
-      if (process.platform == "darwin") {
+      if (this.chunked_writes) {
         /*
-         * On macOS, we need to stagger writes, otherwise we seem to overwhelm the
-         * system, and the host will receive garbage. If we send in smaller
-         * chunks, with a slight delay between them, we can avoid this problem.
+         * For (mostly, hopefully) historical reasons, we default to writing
+         * data to the keyboard in 32-byte chunks, for two reasons: as a
+         * workaround for early Model 100 firmware that had problems accepting
+         * larger sets of data, and as a workaround for a protocol desync issue
+         * that we only ever saw on macOS, and never found the root cause of.
          *
-         * We may be able to do this smarter, if we figure out the rough chunk
-         * size that is safe to send. That'd speed up writes on macOS. Until then,
-         * we split at each space, and send tiny chunks.
+         * Until we know better, that's still the default, and this chunking is
+         * what we do here.
          */
         this._write_parts(request);
       } else {
-        //        this._port.write(request);
-        // Temporary hack to deal with the Model 100 getting wedged on Linux and Windows when we write large amounts of data at once.
-        this._write_parts(request);
+        this._port.write(request);
       }
     });
   }

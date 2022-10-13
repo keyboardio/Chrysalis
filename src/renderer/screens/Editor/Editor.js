@@ -402,6 +402,7 @@ const Editor = (props) => {
     });
 
     setModified(true);
+    showContextBar();
   };
 
   if (loading) {

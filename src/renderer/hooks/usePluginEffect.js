@@ -27,12 +27,12 @@ const usePluginEffect = (initialize) => {
     const channel = new BroadcastChannel("context_bar");
     channel.onmessage = async (event) => {
       if (event.data === "changes-discarded") {
-        await initialize(activeDevice.focus);
+        await initialize(activeDevice.focus, activeDevice);
       }
     };
 
     const init = async () => {
-      await initialize(activeDevice.focus);
+      await initialize(activeDevice.focus, activeDevice);
       setInitialized(true);
     };
 

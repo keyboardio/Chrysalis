@@ -155,6 +155,58 @@ const mousekeys = addCategories(
       },
     },
     {
+      code: 20513,
+      label: {
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp",
+        },
+        base: {
+          full: "North",
+          "1u": "North",
+        },
+      },
+    },
+    {
+      code: 20514,
+      label: {
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp",
+        },
+        base: {
+          full: "South",
+          "1u": "South",
+        },
+      },
+    },
+    {
+      code: 20515,
+      label: {
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp",
+        },
+        base: {
+          full: "Zoom",
+          "1u": "Zoom",
+        },
+      },
+    },
+    {
+      code: 20516,
+      label: {
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp",
+        },
+        base: {
+          full: "West",
+          "1u": "West",
+        },
+      },
+    },
+    {
       code: 20517,
       label: {
         hint: {
@@ -177,6 +229,19 @@ const mousekeys = addCategories(
         base: {
           full: "South-West",
           "1u": "SW",
+        },
+      },
+    },
+    {
+      code: 20520,
+      label: {
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp",
+        },
+        base: {
+          full: "East",
+          "1u": "East",
         },
       },
     },

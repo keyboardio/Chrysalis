@@ -18,8 +18,9 @@
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
@@ -107,27 +108,112 @@ const MouseWarpKeys = (props) => {
   const warpSW = db.lookup(20518);
   const warpSE = db.lookup(20522);
   const warpEnd = db.lookup(20576);
+  const warpN = db.lookup(20513);
+  const warpS = db.lookup(20514);
+  const warpZ = db.lookup(20515);
+  const warpW = db.lookup(20516);
+  const warpE = db.lookup(20520);
 
-  return (
-    <div>
-      <Typography color="textSecondary" gutterBottom>
-        {t("editor.sidebar.mousekeys.warp")}
-      </Typography>
-      <KeyButton onKeyChange={props.onKeyChange} keyObj={warpNW} noHint />
-      <KeyButton onKeyChange={props.onKeyChange} keyObj={warpNE} noHint />
-      <br />
-      <KeyButton onKeyChange={props.onKeyChange} keyObj={warpSW} noHint />
-      <KeyButton onKeyChange={props.onKeyChange} keyObj={warpSE} noHint />
-      <br />
-      <KeyButton onKeyChange={props.onKeyChange} keyObj={warpEnd} noHint />
-    </div>
-  );
+  const { onKeyChange } = props;
+
+  if (props.gridSize == 2) {
+    return (
+      <div>
+        <Typography color="textSecondary" gutterBottom>
+          {t("editor.sidebar.mousekeys.warp")}
+        </Typography>
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpNW} noHint />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpNE} noHint />
+        <br />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpSW} noHint />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpSE} noHint />
+        <br />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpEnd} noHint />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Typography color="textSecondary" gutterBottom>
+          {t("editor.sidebar.mousekeys.warp")}
+        </Typography>
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpNW}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpN}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpNE}
+          noHint
+          keycapSize="1u"
+        />
+        <br />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpW}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpZ}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpE}
+          noHint
+          keycapSize="1u"
+        />
+        <br />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpSW}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpS}
+          noHint
+          keycapSize="1u"
+        />
+        <KeyButton
+          onKeyChange={onKeyChange}
+          keyObj={warpSE}
+          noHint
+          keycapSize="1u"
+        />
+        <br />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpEnd} noHint />
+      </div>
+    );
+  }
 };
 
 const MouseKeys = (props) => {
   const { t } = useTranslation();
+  const [gridSize, setGridSize] = useState(undefined);
+
+  const initialize = async (_, activeDevice) => {
+    const _gridSize = (await activeDevice.mousekeys_warp_grid_size()) || "2";
+
+    setGridSize(parseInt(_gridSize));
+  };
+
+  const loaded = usePluginEffect(initialize);
   const pluginVisible = usePluginVisibility("MouseKeys");
   if (!pluginVisible) return null;
+  if (!loaded) return null;
 
   const subWidgets = [
     MouseMovementKeys,
@@ -140,6 +226,7 @@ const MouseKeys = (props) => {
       <Widget
         key={`mousekeys-group-${index}`}
         onKeyChange={props.onKeyChange}
+        warpGridSize={gridSize}
       />
     );
   });

@@ -396,6 +396,12 @@
         },
         "mousekeys": {
           "label": "Mouse keys",
+          "warp_grid_size": {
+            "label": "Warp grid size",
+            "help": "Configure the size of the grid used for mouse warping.",
+            "2x2": "2x2",
+            "3x3": "3x3"
+          },
           "init_speed": {
             "label": "Initial mouse cursor speed",
             "help": "The higher the value, the faster the initial mouse cursor movement speed."

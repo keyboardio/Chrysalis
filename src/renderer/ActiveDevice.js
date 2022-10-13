@@ -135,6 +135,7 @@ export function ActiveDevice() {
     mousekeys_init_speed: "mousekeys.init_speed",
     mousekeys_base_speed: "mousekeys.base_speed",
     mousekeys_accel_duration: "mousekeys.accel_duration",
+    mousekeys_warp_grid_size: "mousekeys.warp_grid_size",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

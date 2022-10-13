@@ -637,6 +637,7 @@ class Focus {
     "mousekeys.init_speed",
     "mousekeys.base_speed",
     "mousekeys.accel_duration",
+    "mousekeys.warp_grid_size",
   ];
 
   eepromBackupCommands = [

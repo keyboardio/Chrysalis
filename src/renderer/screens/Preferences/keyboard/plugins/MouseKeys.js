@@ -18,6 +18,8 @@
 import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
 import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
@@ -109,17 +111,28 @@ const MouseKeysPreferences = (props) => {
   const [initSpeed, setInitSpeed] = useState(1);
   const [baseSpeed, setBaseSpeed] = useState(50);
   const [accelDuration, setAccelDuration] = useState(800);
+  const [warpGridSize, setWarpGridSize] = useState(2);
 
   const initialize = async () => {
     const _scrollInterval = await activeDevice.mousekeys_scroll_interval();
     const _initSpeed = await activeDevice.mousekeys_init_speed();
     const _baseSpeed = await activeDevice.mousekeys_base_speed();
     const _accelDuration = await activeDevice.mousekeys_accel_duration();
+    const _warpGridSize =
+      (await activeDevice.mousekeys_warp_grid_size()) || "0";
 
     setScrollInterval(parseInt(_scrollInterval));
     setInitSpeed(parseInt(_initSpeed));
     setBaseSpeed(parseInt(_baseSpeed));
     setAccelDuration(parseInt(_accelDuration));
+    setWarpGridSize(parseInt(_warpGridSize));
+  };
+
+  const updateWarpGridSize = (event) => {
+    setWarpGridSize(event.target.value);
+    onSaveChanges("mousekeys.warp_grid_size", function () {
+      activeDevice.mousekeys_warp_grid_size(event.target.value);
+    });
   };
 
   const loaded = usePluginEffect(initialize);
@@ -161,6 +174,33 @@ const MouseKeysPreferences = (props) => {
         onSaveChanges={onSaveChanges}
         in_ms
       />
+      {warpGridSize != 0 && (
+        <>
+          <Divider sx={{ my: 1 }} />
+          <PreferenceWithHeading
+            heading={t(
+              "preferences.keyboard.plugins.mousekeys.warp_grid_size.label"
+            )}
+            subheading={t(
+              "preferences.keyboard.plugins.mousekeys.warp_grid_size.help"
+            )}
+          >
+            <Select
+              size="small"
+              value={warpGridSize}
+              onChange={updateWarpGridSize}
+              sx={{ minWidth: "6em" }}
+            >
+              <MenuItem value={2}>
+                {t("preferences.keyboard.plugins.mousekeys.warp_grid_size.2x2")}
+              </MenuItem>
+              <MenuItem value={3}>
+                {t("preferences.keyboard.plugins.mousekeys.warp_grid_size.3x3")}
+              </MenuItem>
+            </Select>
+          </PreferenceWithHeading>
+        </>
+      )}
     </>
   );
 };

@@ -1,0 +1,3 @@
+#! /bin/bash
+PR=${GITHUB_REF#refs/pull/}
+echo ${PR%/merge}

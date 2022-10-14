@@ -350,7 +350,15 @@ class Focus {
       this._port = new SerialPort({
         path: device_identifier,
         baudRate: 9600,
+        autoOpen: false,
       });
+      try {
+        await this._port.open();
+      } catch (error) {
+        logger("focus").error("Error opening serial port", { error });
+        delete this._port;
+        throw new Error("Unable to connect");
+      }
     } else if (typeof device_identifier == "object") {
       if (device_identifier.hasOwnProperty("binding")) {
         if (!info) throw new Error("Device descriptor argument is mandatory");

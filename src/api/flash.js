@@ -148,6 +148,10 @@ export const flash = async (flasher, board, port, filename, options) => {
   await reportUpdateStatus(callback)("reconnect");
 
   const doReconnect = async () => {
+    // Wait a few seconds to let the keyboard settle, in case it was rebooting
+    // after a flash.
+    await delay(2000);
+
     let device_detected = false;
     let attempts = 0;
     while (!device_detected) {
@@ -176,6 +180,10 @@ export const flash = async (flasher, board, port, filename, options) => {
       await delay(2000);
     }
     onError(RebootMessage.clear);
+
+    // Wait a few seconds after rebooting too, to let the keyboard come back up
+    // fully.
+    await delay(2000);
   };
 
   await doReconnect();
@@ -207,8 +215,5 @@ export const flash = async (flasher, board, port, filename, options) => {
   if (options.factoryReset) return;
 
   await doReconnect();
-  // Wait a few seconds to give time for the keyboard to boot up into
-  // application mode properly.
-  await delay(2000);
   await focusCommands.restoreEEPROM(saveKey);
 };

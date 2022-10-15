@@ -30,6 +30,7 @@ export const PluginSliderWithInput = (props) => {
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
   const { plugin, value, setValue } = props;
+  const min = props.min || 0;
 
   const updateValue = (newValue) => {
     props.onSaveChanges(`${plugin}.${props.setting}`, function () {
@@ -47,8 +48,8 @@ export const PluginSliderWithInput = (props) => {
   };
 
   const onBlur = () => {
-    if (value < 0) {
-      updateValue(0);
+    if (value < min) {
+      updateValue(min);
     } else if (value > props.max) {
       updateValue(props.max);
     }
@@ -77,7 +78,7 @@ export const PluginSliderWithInput = (props) => {
             onBlur={onBlur}
             sx={{ width: "6em" }}
             max={props.max}
-            min={0}
+            min={min}
             step={1}
             InputProps={{
               endAdornment: props.in_ms && (

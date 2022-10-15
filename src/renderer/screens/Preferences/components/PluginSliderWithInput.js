@@ -61,6 +61,11 @@ export const PluginSliderWithInput = (props) => {
     <PreferenceWithHeading
       heading={t(`${tPrefix}.${props.setting}.label`)}
       subheading={t(`${tPrefix}.${props.setting}.help`)}
+      headingProps={{
+        sx: {
+          maxWidth: "calc(100% - 400px)",
+        },
+      }}
     >
       <Grid container spacing={2} sx={{ width: 350 }}>
         <Grid item xs>
@@ -76,7 +81,7 @@ export const PluginSliderWithInput = (props) => {
             size="small"
             onChange={onInputChange}
             onBlur={onBlur}
-            sx={{ width: "6em" }}
+            sx={{ width: "7em" }}
             max={props.max}
             min={min}
             step={1}

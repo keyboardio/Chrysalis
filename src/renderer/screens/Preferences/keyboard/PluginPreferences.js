@@ -21,8 +21,8 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
-import EscapeOneShotPreferences from "./plugins/EscapeOneShot";
 import MouseKeysPreferences from "./plugins/MouseKeys";
+import OneShotPreferences from "./plugins/OneShot";
 import SpaceCadetPreferences from "./plugins/SpaceCadet";
 
 const PluginPreferences = (props) => {
@@ -33,6 +33,7 @@ const PluginPreferences = (props) => {
     "EscapeOneShot",
     "spacecadet.mode",
     "mousekeys.base_speed",
+    "OneShotConfig",
   ]);
 
   const foundSomePlugins = Object.values(plugins).some((v) => v);
@@ -41,8 +42,10 @@ const PluginPreferences = (props) => {
   const sections = [
     {
       name: "oneshot",
-      plugin: "EscapeOneShot",
-      Component: EscapeOneShotPreferences,
+      plugin: () => {
+        return plugins["EscapeOneShot"] || plugins["OneShotConfig"];
+      },
+      Component: OneShotPreferences,
     },
     {
       name: "spacecadet",
@@ -56,7 +59,9 @@ const PluginPreferences = (props) => {
     },
   ];
   return sections.map(({ name, plugin, Component }, index) => {
-    if (!plugins[plugin]) return null;
+    if (typeof plugin === "function") {
+      if (!plugin()) return null;
+    } else if (!plugins[plugin]) return null;
 
     const key = `preferences.plugins.${name}`;
 
@@ -66,7 +71,7 @@ const PluginPreferences = (props) => {
         loaded={loaded}
         key={`${key}/${index}`}
       >
-        <Component onSaveChanges={onSaveChanges} />
+        <Component onSaveChanges={onSaveChanges} plugins={plugins} />
       </PreferenceSection>
     );
   });

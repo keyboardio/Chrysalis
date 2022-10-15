@@ -45,10 +45,7 @@ const MediaKeys = (props) => {
   });
 
   return (
-    <Collapsible
-      expanded={db.isInCategory(props.currentKey.code, "consumer")}
-      title={t("editor.sidebar.consumer.media")}
-    >
+    <Collapsible title={t("editor.sidebar.consumer.media")}>
       {keyButtons}
     </Collapsible>
   );

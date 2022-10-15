@@ -233,7 +233,6 @@ const MouseKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(props.currentKey.code, "mousekeys")}
       title={t("editor.sidebar.mousekeys.title")}
       help={t("editor.sidebar.mousekeys.help")}
     >

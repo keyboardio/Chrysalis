@@ -44,10 +44,7 @@ const VolumeKeys = (props) => {
   });
 
   return (
-    <Collapsible
-      expanded={db.isInCategory(props.currentKey.code, "consumer")}
-      title={t("editor.sidebar.consumer.volume")}
-    >
+    <Collapsible title={t("editor.sidebar.consumer.volume")}>
       {keyButtons}
     </Collapsible>
   );

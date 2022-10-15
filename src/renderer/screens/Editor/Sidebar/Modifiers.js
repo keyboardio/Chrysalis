@@ -136,7 +136,6 @@ const KeyPicker = (props) => {
 
   return (
     <Collapsible
-      expanded={isStandardKey(props) || isOSM() || isDualUse()}
       title={t("editor.sidebar.keypicker.mods")}
       help={t("editor.sidebar.keypicker.modsHelp")}
     >

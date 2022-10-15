@@ -36,7 +36,6 @@ const OneShotKeys = (props) => {
   return (
     <React.Fragment>
       <Collapsible
-        expanded={key.code == c.ONESHOT_CANCEL || key.code == c.ESCAPE}
         title={t("editor.sidebar.oneshot.title")}
         help={t("editor.sidebar.oneshot.help")}
       >

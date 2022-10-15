@@ -43,7 +43,6 @@ const CustomKey = (props) => {
       <Collapsible
         title={t("editor.sidebar.custom.title")}
         help={t("editor.sidebar.custom.help")}
-        expanded={db.isInCategory(key.code, "unknown")}
       >
         <div>
           <TextField

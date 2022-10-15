@@ -29,11 +29,7 @@ const CategorySelector = (props) => {
 
   return (
     <React.Fragment>
-      <Collapsible
-        expanded={db.isInCategory(props.currentKey.code, props.category)}
-        title={props.title}
-        help={props.help}
-      >
+      <Collapsible title={props.title} help={props.help}>
         {props.children}
         <KeyButtonList
           keys={db.selectCategory(props.category)}

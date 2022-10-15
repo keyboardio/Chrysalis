@@ -166,7 +166,6 @@ const SecondaryFunction = (props) => {
       <Collapsible
         title={t("editor.sidebar.secondary.title")}
         help={t("editor.sidebar.secondary.help")}
-        expanded={keySupportsSecondaryAction(key)}
       >
         <div>
           <FormControl disabled={!keySupportsSecondaryAction(key)}>

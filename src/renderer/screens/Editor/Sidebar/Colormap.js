@@ -59,7 +59,6 @@ const Colormap = (props) => {
     <Collapsible
       title={t("editor.sidebar.colors.title")}
       help={t("editor.sidebar.colors.help")}
-      expanded={false}
     >
       <PalettePicker
         color={colorIndex}

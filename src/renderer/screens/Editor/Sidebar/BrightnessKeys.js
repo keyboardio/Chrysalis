@@ -43,10 +43,7 @@ const BrightnessKeys = (props) => {
   });
 
   return (
-    <Collapsible
-      expanded={db.isInCategory(props.currentKey.code, "consumer")}
-      title={t("editor.sidebar.consumer.brightness")}
-    >
+    <Collapsible title={t("editor.sidebar.consumer.brightness")}>
       {keyButtons}
     </Collapsible>
   );

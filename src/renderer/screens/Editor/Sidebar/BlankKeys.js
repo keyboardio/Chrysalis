@@ -44,7 +44,6 @@ const BlankKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(props.currentKey.code, "blanks")}
       title={t("editor.sidebar.blanks.title")}
       help={t("editor.sidebar.blanks.help")}
     >

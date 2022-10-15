@@ -21,14 +21,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();
 
 const LayerKeys = (props) => {
-  const [expanded, setExpanded] = useState(false);
   const { t } = useTranslation();
   const oneShotVisible = usePluginVisibility("OneShot");
 
@@ -41,13 +40,6 @@ const LayerKeys = (props) => {
       return Math.min(max, 8);
     }
     return max;
-  };
-  const updateExpandedBasedOnKey = (props) => {
-    if (db.isInCategory(props.currentKey.code, "layer")) {
-      setExpanded(true);
-    } else {
-      setExpanded(false);
-    }
   };
 
   const onKeyChange = (keyCode) => {
@@ -88,7 +80,6 @@ const LayerKeys = (props) => {
       <Collapsible
         title={t("editor.sidebar.layer.title")}
         help={t("editor.sidebar.layer.help")}
-        expanded={db.isInCategory(key.code, "layer")}
       >
         <div>
           <FormControl>

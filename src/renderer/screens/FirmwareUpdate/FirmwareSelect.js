@@ -35,6 +35,9 @@ import { useTranslation } from "react-i18next";
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
 import Link from "@mui/material/Link";
 
+const Store = require("electron-store");
+const settings = new Store();
+
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();
 
@@ -46,10 +49,19 @@ const FirmwareSelect = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const v = await ipcRenderer.sendSync("firmware.get-version");
+      let channel = settings.get("firmwareAutoUpdate.channel");
+      if (!channel) {
+        const update_mode = settings.get(
+          "firmwareAutoUpdate.mode",
+          "automatic"
+        );
+        channel = update_mode === "manual" ? "none" : "automatic";
+      }
+
+      const v = await ipcRenderer.sendSync("firmware.get-version", channel);
       setFirmwareVersion(v);
 
-      const c = await ipcRenderer.sendSync("firmware.get-changelog");
+      const c = await ipcRenderer.sendSync("firmware.get-changelog", channel);
       setFirmwareChangelog(c);
     };
     fetchData();

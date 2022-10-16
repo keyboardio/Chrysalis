@@ -35,14 +35,14 @@ export const useFirmwareAutoUpdate = () => {
   useEffect(() => {
     const settings = new Store();
 
-    const onUpdateAvailable = (event, info) => {
+    const onUpdateAvailable = (event, info, channel) => {
       logger().verbose("Update available", {
         updateInfo: info,
         label: "firmware-update",
       });
       setUpdateInfo(info);
       toast.info(t("firmwareAutoUpdate.available", { version: info.version }));
-      ipcRenderer.invoke("firmware-update.download");
+      ipcRenderer.invoke("firmware-update.download", channel);
     };
     const onDownloadProgress = (event, progress) => {
       toast.progress(progress.percent);
@@ -75,7 +75,7 @@ export const useFirmwareAutoUpdate = () => {
 
     ipcRenderer.invoke(
       "firmware-update.check-for-updates",
-      settings.get("firmwareAutoUpdate.mode", "automatic")
+      settings.get("firmwareAutoUpdate.channel", "automatic")
     );
 
     ipcRenderer.on("firmware-update.update-available", onUpdateAvailable);

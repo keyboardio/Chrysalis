@@ -45,6 +45,9 @@ import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 
+const Store = require("electron-store");
+const settings = new Store();
+
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
   const globalContext = useContext(GlobalContext);
@@ -75,8 +78,15 @@ const FirmwareUpdate = (props) => {
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
+
+    let channel = settings.get("firmwareAutoUpdate.channel");
+    if (!channel) {
+      const update_mode = settings.get("firmwareAutoUpdate.mode", "automatic");
+      channel = update_mode === "manual" ? "none" : "automatic";
+    }
+
     return path.join(
-      ipcRenderer.sendSync("firmware.get-base-directory"),
+      ipcRenderer.sendSync("firmware.get-base-directory", channel),
       cVendor,
       cProduct,
       "default." + firmwareType

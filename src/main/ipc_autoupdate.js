@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { app, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { autoUpdater, CancellationToken } from "electron-updater";
 import { sendToRenderer } from "./utils";
 import { version } from "../../package.json";
@@ -33,11 +33,13 @@ export const registerAutoUpdaterHandlers = () => {
     sendToRenderer("auto-update.update-downloaded", info);
   });
 
-  ipcMain.handle("auto-update.check-for-updates", async (sender, mode) => {
-    autoUpdater.autoDownload = mode == "automatic";
+  ipcMain.handle("auto-update.check-for-updates", async (_, channel) => {
+    autoUpdater.autoDownload = channel !== "none";
 
-    // If we're a snapshot version, set up the autoUpdater accordingly.
-    if (version.match(/-snapshot/)) {
+    if (
+      channel === "snapshot" ||
+      (channel === "automatic" && version.match(/-snapshot/))
+    ) {
       autoUpdater.allowPrerelease = true;
       autoUpdater.channel = "snapshot";
     }

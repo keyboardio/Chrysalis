@@ -18,51 +18,85 @@
 import { ipcRenderer } from "electron";
 import React, { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "./components/PreferenceSection";
-import PreferenceSwitch from "./components/PreferenceSwitch";
+import PreferenceWithHeading from "./components/PreferenceWithHeading";
+//import PreferenceSwitch from "./components/PreferenceSwitch";
 
 const Store = require("electron-store");
 const settings = new Store();
 
-function AutoUpdatePreferences(props) {
-  const { t, i18n } = useTranslation();
+global.chrysalis_settings = settings;
 
-  const [autoUpdateMode, setAutoUpdateMode] = useState("manual");
-  const [firmwareAutoUpdateMode, setFirmwareAutoUpdateMode] =
+const AutoUpdateSelector = (props) => {
+  const { t } = useTranslation();
+  const { what, value, setValue, loaded } = props;
+
+  const tPrefix = `preferences.autoUpdate`;
+
+  return (
+    <PreferenceWithHeading heading={t(`${tPrefix}.${what}.title`)}>
+      <Select
+        size="small"
+        value={value}
+        onChange={setValue}
+        sx={{ minWidth: "10em" }}
+      >
+        <MenuItem value="automatic">
+          {t(`${tPrefix}.channel.automatic`)}
+        </MenuItem>
+        <MenuItem value="release">{t(`${tPrefix}.channel.release`)}</MenuItem>
+        <MenuItem value="snapshot">{t(`${tPrefix}.channel.snapshot`)}</MenuItem>
+        <MenuItem value="none">{t(`${tPrefix}.channel.none`)}</MenuItem>
+      </Select>
+    </PreferenceWithHeading>
+  );
+};
+
+function AutoUpdatePreferences(props) {
+  const { t } = useTranslation();
+
+  const [autoUpdateChannel, setAutoUpdateChannel] = useState("none");
+  const [firmwareAutoUpdateChannel, setFirmwareAutoUpdateChannel] =
     useState("automatic");
   const [loaded, setLoaded] = useState(false);
 
-  const toggleFirmwareAutoUpdateMode = (event) => {
-    const mode = event.target.checked ? "automatic" : "manual";
+  const toggleChannel = (what) => (event) => {
+    const channel = event.target.value;
 
-    settings.set("firmwareAutoUpdate.mode", mode);
-    setFirmwareAutoUpdateMode(mode);
-
-    if (mode == "automatic") {
-      ipcRenderer.invoke("firmware-update.check-for-updates", mode);
-    }
-  };
-
-  const toggleAutoUpdateMode = (event) => {
-    const mode = event.target.checked ? "automatic" : "manual";
-
-    settings.set("autoUpdate.mode", mode);
-    setAutoUpdateMode(mode);
-
-    if (mode == "automatic") {
-      ipcRenderer.invoke("auto-update.check-for-updates", mode);
+    if (what === "app") {
+      settings.set("autoUpdate.channel", channel);
+      setAutoUpdateChannel(channel);
+      ipcRenderer.invoke("auto-update.check-for-updates", channel);
+    } else if (what === "firmware") {
+      settings.set("firmwareAutoUpdate.channel", channel);
+      setFirmwareAutoUpdateChannel(channel);
+      ipcRenderer.invoke("firmware-update.check-for-updates", channel);
     }
   };
 
   useEffect(() => {
     const initialize = async () => {
-      await setAutoUpdateMode(settings.get("autoUpdate.mode", "manual"));
-      await setFirmwareAutoUpdateMode(
-        settings.get("firmwareAutoUpdate.mode", "automatic")
-      );
+      let app_channel = settings.get("autoUpdate.channel");
+      if (!app_channel) {
+        const app_update_mode = settings.get("autoUpdate.mode", "manual");
+        app_channel = app_update_mode === "manual" ? "none" : "automatic";
+      }
+      let fw_channel = settings.get("firmwareAutoUpdate.channel");
+      if (!fw_channel) {
+        const fw_update_mode = settings.get(
+          "firmwareAutoUpdate.mode",
+          "automatic"
+        );
+        fw_channel = fw_update_mode === "manual" ? "none" : "automatic";
+      }
+      setAutoUpdateChannel(app_channel);
+      setFirmwareAutoUpdateChannel(fw_channel);
+
       await setLoaded(true);
     };
 
@@ -71,18 +105,18 @@ function AutoUpdatePreferences(props) {
 
   return (
     <PreferenceSection name="autoUpdate">
-      <PreferenceSwitch
+      <AutoUpdateSelector
+        what="app"
+        value={autoUpdateChannel}
+        setValue={toggleChannel("app")}
         loaded={loaded}
-        option="autoUpdate.mode"
-        checked={autoUpdateMode == "automatic"}
-        onChange={toggleAutoUpdateMode}
       />
       <Divider sx={{ my: 2, mx: -2 }} />
-      <PreferenceSwitch
+      <AutoUpdateSelector
+        what="firmware"
+        value={firmwareAutoUpdateChannel}
+        setValue={toggleChannel("firmware")}
         loaded={loaded}
-        option="autoUpdate.firmwareMode"
-        checked={firmwareAutoUpdateMode == "automatic"}
-        onChange={toggleFirmwareAutoUpdateMode}
       />
     </PreferenceSection>
   );

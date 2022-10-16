@@ -18,7 +18,6 @@ import { app, ipcMain, net } from "electron";
 import { version } from "../../package.json";
 import { sendToRenderer } from "./utils";
 
-import Store from "electron-store";
 import fs from "fs";
 import path from "path";
 import semver from "semver";
@@ -103,7 +102,7 @@ export const registerFirmwareHandlers = () => {
     );
   };
 
-  const getLatestInfo = async () => {
+  const getLatestInfo = async (channel) => {
     let releases = await ghApi("/releases");
     if (!Array.isArray(releases) || releases.length == 0) {
       sendToRenderer(
@@ -115,7 +114,10 @@ export const registerFirmwareHandlers = () => {
 
     // If we're not a snapshot version, then filter out snapshot firmware
     // releases.
-    if (!version.match(/-snapshot/)) {
+    if (
+      channel === "release" ||
+      (channel === "automatic" && !version.match(/-snapshot/))
+    ) {
       releases = releases?.filter((rel) => !rel.prerelease);
     }
 
@@ -150,8 +152,8 @@ export const registerFirmwareHandlers = () => {
     return { latestTag, buildInfo };
   };
 
-  const checkForUpdates = async () => {
-    const info = await getLatestInfo();
+  const checkForUpdates = async (channel) => {
+    const info = await getLatestInfo(channel);
     if (!info) return;
 
     let localBuildInfo;
@@ -167,12 +169,16 @@ export const registerFirmwareHandlers = () => {
         semver.gt(info.buildInfo.version, localBuildInfo.version)) ||
       (!localBuildInfo && semver.gt(info.buildInfo.version, version))
     ) {
-      sendToRenderer("firmware-update.update-available", info.buildInfo);
+      sendToRenderer(
+        "firmware-update.update-available",
+        info.buildInfo,
+        channel
+      );
     }
   };
 
-  const updateFirmware = async () => {
-    const info = await getLatestInfo();
+  const updateFirmware = async (channel) => {
+    const info = await getLatestInfo(channel);
     if (!info) {
       sendToRenderer(
         "firmware-update.error",
@@ -210,21 +216,19 @@ export const registerFirmwareHandlers = () => {
     }
   };
 
-  ipcMain.handle("firmware-update.check-for-updates", (event, mode) => {
-    if (mode != "automatic") return;
+  ipcMain.handle("firmware-update.check-for-updates", (_, channel) => {
+    if (channel === "none") return;
 
-    checkForUpdates();
+    checkForUpdates(channel);
   });
 
-  ipcMain.handle("firmware-update.download", (event) => {
-    updateFirmware();
+  ipcMain.handle("firmware-update.download", (_, channel) => {
+    updateFirmware(channel);
   });
 
-  const getFirmwareBaseDirectory = () => {
-    const settings = new Store();
-
+  const getFirmwareBaseDirectory = (channel) => {
     let baseDir = __static;
-    if (settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic") {
+    if (channel !== "none") {
       try {
         fs.accessSync(path.join(firmwarePath, "build-info.yml"));
         baseDir = firmwarePath;
@@ -236,8 +240,8 @@ export const registerFirmwareHandlers = () => {
     return baseDir;
   };
 
-  ipcMain.on("firmware.get-changelog", (event) => {
-    const baseDir = getFirmwareBaseDirectory();
+  ipcMain.on("firmware.get-changelog", (event, channel) => {
+    const baseDir = getFirmwareBaseDirectory(channel);
     const changelog = fs.readFileSync(
       path.join(baseDir, "firmware-changelog.md")
     );
@@ -245,15 +249,15 @@ export const registerFirmwareHandlers = () => {
     event.returnValue = new TextDecoder().decode(changelog);
   });
 
-  ipcMain.on("firmware.get-version", (event) => {
-    const baseDir = getFirmwareBaseDirectory();
+  ipcMain.on("firmware.get-version", (event, channel) => {
+    const baseDir = getFirmwareBaseDirectory(channel);
     const data = fs.readFileSync(path.join(baseDir, "build-info.yml"));
     const buildInfo = yaml.load(data);
 
     event.returnValue = buildInfo.version.match(/[^+]*/)[0];
   });
 
-  ipcMain.on("firmware.get-base-directory", (event) => {
-    event.returnValue = getFirmwareBaseDirectory();
+  ipcMain.on("firmware.get-base-directory", (event, channel) => {
+    event.returnValue = getFirmwareBaseDirectory(channel);
   });
 };

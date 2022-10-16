@@ -65,7 +65,7 @@ export const useAutoUpdate = () => {
 
     ipcRenderer.invoke(
       "auto-update.check-for-updates",
-      settings.get("autoUpdate.mode")
+      settings.get("autoUpdate.channel", "none")
     );
 
     ipcRenderer.on("auto-update.update-available", onUpdateAvailable);

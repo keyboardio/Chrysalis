@@ -84,7 +84,10 @@ const SecondaryFunction = (props) => {
   if (props.macroEditorOpen) return null;
 
   const { currentKey: key, keymap } = props;
-  const maxLayer = Math.min(keymap.custom.length, 7);
+  const maxLayer = keymap.custom.length;
+  // Using a secondary action for layer shifts is limited to 8 layers due to
+  // technical reasons.
+  const secondaryActionLayerLimit = 8;
 
   let type = "none",
     targetLayer = -1,
@@ -151,7 +154,12 @@ const SecondaryFunction = (props) => {
           >
             <MenuItem value="-1" disabled></MenuItem>
             {[...Array(maxLayer)].map((x, i) => (
-              <MenuItem key={i} name={i} value={i}>
+              <MenuItem
+                name={i}
+                key={`dualuse-dropdown-${i}`}
+                value={i}
+                disabled={i > secondaryActionLayerLimit}
+              >
                 {props.layerNames?.names[i]}
               </MenuItem>
             ))}
@@ -161,12 +169,19 @@ const SecondaryFunction = (props) => {
     }
   }
 
+  let helpText = t("editor.sidebar.secondary.help");
+  if (maxLayer > secondaryActionLayerLimit) {
+    helpText =
+      helpText +
+      " " +
+      t("editor.sidebar.secondary.help-layerLimit", {
+        layer8: props.layerNames?.names[secondaryActionLayerLimit],
+      });
+  }
+
   return (
     <React.Fragment>
-      <Collapsible
-        title={t("editor.sidebar.secondary.title")}
-        help={t("editor.sidebar.secondary.help")}
-      >
+      <Collapsible title={t("editor.sidebar.secondary.title")} help={helpText}>
         <div>
           <FormControl disabled={!keySupportsSecondaryAction(key)}>
             <FormGroup row>

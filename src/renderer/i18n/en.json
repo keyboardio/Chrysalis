@@ -430,10 +430,6 @@
             "label": "Hold timeout",
             "help": "Sticky keys held longer than this will not enter their sticky state, but will act as normal keys."
           },
-          "double_tap_timeout": {
-            "label": "Double tap timeout",
-            "help": "When double tapped, lock the key in for this amount of time. If set to -1, then it gets locked for the same as the normal timeout."
-          },
           "auto_mods": {
             "label": "Automatically make modifiers sticky",
             "help": "Turn every modifier on your keymap into Sticky modifiers."

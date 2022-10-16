@@ -71,7 +71,6 @@ const OneShotPreferences = (props) => {
   const [escOneShot, setEscOneShot] = useState(true);
   const [OSTimeout, setOSTimeout] = useState(2500);
   const [OSHoldTimeout, setOSHoldTimeout] = useState(250);
-  const [OSDTTimeout, setOSDTTimeout] = useState(-1);
   const [OSAutoLayers, setOSAutoLayers] = useState(false);
   const [OSAutoMods, setOSAutoMods] = useState(false);
   const [OSStickableKeys, setOSStickableKeys] = useState(65535);
@@ -90,14 +89,12 @@ const OneShotPreferences = (props) => {
 
     const _osTimeout = await activeDevice.oneshot_timeout();
     const _osHoldTimeout = await activeDevice.oneshot_hold_timeout();
-    const _osDTTimeout = await activeDevice.oneshot_double_tap_timeout();
     const _osAutoLayers = await activeDevice.oneshot_auto_layers();
     const _osAutoMods = await activeDevice.oneshot_auto_mods();
     const _osStickableKeys = await activeDevice.oneshot_stickable_keys();
 
     setOSTimeout(parseInt(_osTimeout));
     setOSHoldTimeout(parseInt(_osHoldTimeout));
-    setOSDTTimeout(parseInt(_osDTTimeout));
     setOSAutoLayers(parseInt(_osAutoLayers) == 0 ? false : true);
     setOSAutoMods(parseInt(_osAutoMods) == 0 ? false : true);
     setOSStickableKeys(parseInt(_osStickableKeys));
@@ -173,16 +170,10 @@ const OneShotPreferences = (props) => {
             onSaveChanges={onSaveChanges}
             in_ms
           />
-          <PluginSliderWithInput
-            plugin="oneshot"
-            setting="double_tap_timeout"
-            value={OSDTTimeout}
-            setValue={setOSDTTimeout}
-            min={-1}
-            max={32767}
+          <StickynessConfig
             loaded={loaded}
-            onSaveChanges={onSaveChanges}
-            in_ms
+            value={OSStickableKeys}
+            onChange={onStickableKeysChange}
           />
           <Divider sx={{ my: 2 }} />
           <PreferenceSwitch
@@ -196,11 +187,6 @@ const OneShotPreferences = (props) => {
             loaded={loaded}
             checked={OSAutoLayers}
             onChange={onOSAutoLayersChange}
-          />
-          <StickynessConfig
-            loaded={loaded}
-            value={OSStickableKeys}
-            onChange={onStickableKeysChange}
           />
         </>
       )}

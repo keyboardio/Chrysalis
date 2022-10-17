@@ -2,7 +2,44 @@ Chrysalis 0.11.9-snapshot
 =========================
 **UNRELEASED**
 
-No changes yet.
+## New features
+
+With suitable firmware, it is now possible to configure various aspects of mouse
+keys, such as the initial and top speeds, and the time it takes to reach full
+acceleration.
+
+## Bugfixes
+
+Fixed a crash that happened when trying to create a debug bundle without a
+keyboard being connected.
+
+Fixed a number of issues around copying and pasting layers: it no longer depends
+on having a color map, and thus, copy & pasting layers will work on keyboards
+without one, such as the Keyboardio Atreus. Pasting a layer will also correctly
+show the context bar, so the paste can be undone.
+
+We've made further improvements to the flashing process, which should feel
+slightly more reliable now. There are still issues to be ironed out, however.
+
+## UI/UX
+
+The sidebar on the Layout & Colormap Editor screen no longer opens or closes its
+sections automatically. They all start closed, and once opened, will remain open
+while on the Editor screen.
+
+Due to technical limitations in the firmware, it is not possible to switch to
+layers above #8 when using secondary actions. Rather than cutting off the layers
+offered in the dropdown there, show all of them, but disable the ones the
+feature can't reach, and show a short explanatory text on the sidebar's
+appropriate section.
+
+## Miscellaneous
+
+Chrysalis now offers a Colemak host-side layout in the keyboard layout selector.
+
+Firmware updates are now restricted to the same channel as Chrysalis: a
+non-snapshot Chrysalis release will not consider snapshot firmware releases as
+eligible. If the application itself is at a snapshot version, however, it will.
 
 Chrysalis 0.11.8
 ================

@@ -1,7 +1,7 @@
 const package = require("../package.json");
 const fs = require("fs");
 
-if (process.env.GITHUB_REF?.indexOf("refs/pull/") != -1) {
+if (process.env.GITHUB_REF && process.env.GITHUB_REF.indexOf("refs/pull/") != -1) {
   const prNumber = process.env.GITHUB_REF.match(/^refs\/pull\/(\d+)\//)[1];
   const buildNumber = process.env.GITHUB_RUN_NUMBER;
   const newVersion = package

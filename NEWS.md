@@ -41,6 +41,13 @@ Firmware updates are now restricted to the same channel as Chrysalis: a
 non-snapshot Chrysalis release will not consider snapshot firmware releases as
 eligible. If the application itself is at a snapshot version, however, it will.
 
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.90.6] for more details.
+
+ [fw:0.90.6]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.6
+
 Chrysalis 0.11.8
 ================
 Released on 2022-10-09

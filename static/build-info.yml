@@ -1,19 +1,19 @@
 ---
-version: 0.90.5+52
-build: 52
+version: 0.90.6+62
+build: 62
 
 dependencies:
   cores:
-    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@e7395821c13d6dcc3e19ebce2b7bc221475e9806
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@57fc0ec8c230d2dffa2a1482656f676db4ee075a
+    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@7f6008abcc8ada3bca57897efa7520750a70d115
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@0eb30a737ed5bb453e5114f4721315a5182c4d12
   libraries:
     avr:
       - keyboardio/KeyboardioHID@5a56f73deb23e00ae9f79aaf7cf06095edfbedc9
     gd32:
       - keyboardio/KeyboardioHID@5a56f73deb23e00ae9f79aaf7cf06095edfbedc9
     common:
-      - keyboardio/Kaleidoscope@8de4171cfc444dd3ead6e671d79af419658315a8
-      - keyboardio/Chrysalis-Firmware-Bundle@51757bacd81d8ff218d2769deecf2d6cb51ddc1d
+      - keyboardio/Kaleidoscope@babcbca420f6ae4dd85617e37db37fa71d33a464
+      - keyboardio/Chrysalis-Firmware-Bundle@df56b12af1332c58bd7eb44d467b720cb1134b5d
 
 firmware:
   Keyboardio:
@@ -63,6 +63,7 @@ firmware:
         - HostPowerManagement
         - IdleLEDs
         - LEDBreatheEffect
+        - LEDBrightnessConfig
         - LEDChaseEffect
         - LEDControl
         - LEDOff
@@ -76,6 +77,7 @@ firmware:
         - MouseKeysConfig
         - NumPad
         - OneShot
+        - OneShotConfig
         - PersistentIdleLEDs
         - Qukeys
         - SpaceCadet
@@ -96,9 +98,12 @@ firmware:
         - LayerNames
         - Macros
         - MouseKeys
+        - MouseKeysConfig
         - OneShot
+        - OneShotConfig
         - Qukeys
         - SpaceCadet
+        - SpaceCadetConfig
   EZ:
     ErgoDox:
       plugins:

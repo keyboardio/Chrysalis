@@ -25,82 +25,12 @@ import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import { PluginSliderWithInput } from "../../components/PluginSliderWithInput";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
-
-const InputSlider = (props) => {
-  const { t } = useTranslation();
-  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
-
-  const { value, setValue } = props;
-
-  const updateValue = (newValue) => {
-    props.onSaveChanges(`mousekeys.${props.setting}`, function () {
-      activeDevice[`mousekeys_${props.setting}`](newValue);
-    });
-    setValue(newValue);
-  };
-
-  const onSliderChange = (_, newValue) => {
-    updateValue(newValue);
-  };
-
-  const onInputChange = (event) => {
-    updateValue(event.target.value === "" ? "" : Number(event.target.value));
-  };
-
-  const onBlur = () => {
-    if (value < 0) {
-      updateValue(0);
-    } else if (value > props.max) {
-      updateValue(props.max);
-    }
-  };
-
-  const tPrefix = "preferences.keyboard.plugins.mousekeys";
-
-  return (
-    <PreferenceWithHeading
-      heading={t(`${tPrefix}.${props.setting}.label`)}
-      subheading={t(`${tPrefix}.${props.setting}.help`)}
-    >
-      <Grid container spacing={2} sx={{ width: 350 }}>
-        <Grid item xs>
-          <Slider
-            max={props.max}
-            value={typeof value === "number" ? value : 0}
-            onChange={onSliderChange}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            value={value}
-            size="small"
-            onChange={onInputChange}
-            onBlur={onBlur}
-            sx={{ width: "6em" }}
-            max={props.max}
-            min={0}
-            step={1}
-            InputProps={{
-              endAdornment: props.in_ms && (
-                <InputAdornment position="end">
-                  {t("units.in_ms")}
-                </InputAdornment>
-              ),
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-      </Grid>
-    </PreferenceWithHeading>
-  );
-};
 
 const MouseKeysPreferences = (props) => {
   const { t } = useTranslation();
@@ -139,7 +69,8 @@ const MouseKeysPreferences = (props) => {
 
   return (
     <>
-      <InputSlider
+      <PluginSliderWithInput
+        plugin="mousekeys"
         setting="init_speed"
         value={initSpeed}
         setValue={setInitSpeed}
@@ -147,7 +78,8 @@ const MouseKeysPreferences = (props) => {
         loaded={loaded}
         onSaveChanges={onSaveChanges}
       />
-      <InputSlider
+      <PluginSliderWithInput
+        plugin="mousekeys"
         setting="base_speed"
         value={baseSpeed}
         setValue={setBaseSpeed}
@@ -155,7 +87,8 @@ const MouseKeysPreferences = (props) => {
         loaded={loaded}
         onSaveChanges={onSaveChanges}
       />
-      <InputSlider
+      <PluginSliderWithInput
+        plugin="mousekeys"
         setting="accel_duration"
         value={accelDuration}
         setValue={setAccelDuration}
@@ -165,7 +98,8 @@ const MouseKeysPreferences = (props) => {
         in_ms
       />
       <Divider sx={{ my: 1 }} />
-      <InputSlider
+      <PluginSliderWithInput
+        plugin="mousekeys"
         setting="scroll_interval"
         value={scrollInterval}
         setValue={setScrollInterval}

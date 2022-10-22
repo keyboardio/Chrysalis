@@ -136,6 +136,12 @@ export function ActiveDevice() {
     mousekeys_base_speed: "mousekeys.base_speed",
     mousekeys_accel_duration: "mousekeys.accel_duration",
     mousekeys_warp_grid_size: "mousekeys.warp_grid_size",
+    oneshot_timeout: "oneshot.timeout",
+    oneshot_hold_timeout: "oneshot.hold_timeout",
+    oneshot_double_tap_timeout: "oneshot.double_tap_timeout",
+    oneshot_stickable_keys: "oneshot.stickable_keys",
+    oneshot_auto_mods: "oneshot.auto_mods",
+    oneshot_auto_layers: "oneshot.auto_layers",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

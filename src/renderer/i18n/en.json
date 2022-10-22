@@ -421,7 +421,31 @@
           }
         },
         "oneshot": {
-          "label": "Sticky keys"
+          "label": "Sticky keys",
+          "timeout": {
+            "label": "Timeout",
+            "help": "Time until a sticky key remains active after pressed."
+          },
+          "hold_timeout": {
+            "label": "Hold timeout",
+            "help": "Sticky keys held longer than this will not enter their sticky state, but will act as normal keys."
+          },
+          "auto_mods": {
+            "label": "Automatically make modifiers sticky",
+            "help": "Turn every modifier on your keymap into Sticky modifiers."
+          },
+          "auto_layers": {
+            "label": "Automatically make layer shift keys sticky",
+            "help": "Turn every layer shift key on your keymap into Sticky layer keys."
+          },
+          "stickyness": {
+            "label": "Double tap behaviour",
+            "help": "Select what to do when a sticky key is double tapped in quick succession.",
+            "enable": "Lock in for all sticky keys",
+            "disable": "Nothing",
+            "layers_only": "Lock in for layer keys only",
+            "modifiers_only": "Lock in for modifier keys only"
+          }
         },
         "spacecadet": {
           "label": "SpaceCadet",

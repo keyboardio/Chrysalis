@@ -136,7 +136,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "cldr": "^7.1.1",
     "core-js": "^3.21.1",
-    "electron": "17",
+    "electron": "^21",
     "electron-builder": "^23.0.3",
     "electron-builder-notarize": "^1.2.0",
     "electron-webpack": "^2.8.2",

@@ -1,5 +1,5 @@
-Chrysalis 0.11.10-snapshot
-==========================
+Chrysalis 0.12.0-snapshot
+=========================
 **UNRELEASED**
 
 No changes yet.

@@ -2,7 +2,13 @@ Chrysalis 0.12.0-snapshot
 =========================
 **UNRELEASED**
 
-No changes yet.
+# New features
+
+Chrysalis now supports configuring various timeouts related to sticky modifier &
+layer keys, and also allows setting the double tap behaviour. You can find the
+settings under "Preferences", "My Keyboard", if your firmware has the
+`OneShotConfig` plugin enabled - the Keyboardio Model100 firmware that ships
+with Chrysalis does.
 
 Chrysalis 0.11.9
 ================

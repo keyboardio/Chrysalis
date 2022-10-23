@@ -125,6 +125,7 @@ const Sidebar = (props) => {
           onKeymapChange={props.onKeymapChange}
           onPaletteChange={props.onPaletteChange}
           onColormapChange={props.onColormapChange}
+          onColormapAndPaletteChange={props.onColormapAndPaletteChange}
         />
         {categories}
       </Box>

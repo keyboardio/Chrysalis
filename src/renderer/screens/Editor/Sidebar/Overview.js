@@ -232,6 +232,7 @@ const Overview = (props) => {
         onKeymapChange={props.onKeymapChange}
         onPaletteChange={props.onPaletteChange}
         onColormapChange={props.onColormapChange}
+        onColormapAndPaletteChange={props.onColormapAndPaletteChange}
       />
     </Box>
   );

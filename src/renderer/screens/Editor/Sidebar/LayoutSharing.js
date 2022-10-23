@@ -68,10 +68,14 @@ const LayoutSharing = (props) => {
       : colormap.colorMap;
     const newPalette = layout.palette || colormap.palette;
 
+    const newCP = {
+      palette: newPalette,
+      colorMap: newColormap,
+    };
+
     closeImportConfirm();
     props.onKeymapChange(newKeymap);
-    props.onColormapChange(newColormap);
-    props.onPaletteChange(newPalette);
+    props.onColormapAndPaletteChange(newCP);
     props.onClose();
   };
 

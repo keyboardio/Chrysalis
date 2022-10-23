@@ -244,6 +244,12 @@ const Editor = (props) => {
     showContextBar();
   };
 
+  const onColormapAndPaletteChange = (newData) => {
+    setModified(true);
+    setColormap(newData);
+    showContextBar();
+  };
+
   const onColormapChange = (newColormap) => {
     const newcolormap = { ...colormap };
     newcolormap.colorMap = newColormap;
@@ -499,6 +505,7 @@ const Editor = (props) => {
         onKeymapChange={onKeymapChange}
         onColormapChange={onColormapChange}
         onPaletteChange={onPaletteChange}
+        onColormapAndPaletteChange={onColormapAndPaletteChange}
         onLedChange={onLedChange}
         setOpenMacroEditor={maybeOpenMacroEditor}
         currentKey={currentKey}

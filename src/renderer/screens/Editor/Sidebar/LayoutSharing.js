@@ -31,7 +31,6 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 import { t } from "i18next";
 import React, { useContext } from "react";
 
-import { BackupImport } from "./LayoutSharing/BackupImport";
 import { ExportToFile } from "./LayoutSharing/ExportToFile";
 import { FileImport } from "./LayoutSharing/FileImport";
 import { LibraryImport } from "./LayoutSharing/LibraryImport";
@@ -122,11 +121,6 @@ const LayoutSharing = (props) => {
         >
           <Box sx={{ overflow: "auto", padding: 3 }}>
             <LibraryImport
-              setLayout={setLayout}
-              layoutName={layoutName}
-              {...others}
-            />
-            <BackupImport
               setLayout={setLayout}
               layoutName={layoutName}
               {...others}

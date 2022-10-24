@@ -112,7 +112,8 @@
                     "modifier": "Modifier"
                 },
                 "targetLayer": "Laag",
-                "modifier": "Modifier"
+                "modifier": "Modifier",
+                "help-layerLimit": "Door firmware beperkingen is het verschuiven van lagen boven \"{{ layer8 }}\" niet ondersteund via secundaire acties."
             },
             "colors": {
                 "title": "Kleuren",
@@ -351,7 +352,56 @@
                     "label": "SpaceCadet"
                 },
                 "oneshot": {
-                    "label": "Sticky toetsen"
+                    "label": "Sticky toetsen",
+                    "hold_timeout": {
+                        "label": "Indruk time-out",
+                        "help": "Sticky toetsen die langer ingedrukt blijven dan dit zullen niet in hun sticky staat gaan, maar zullen zich als normale toetsen gedragen."
+                    },
+                    "auto_mods": {
+                        "label": "Maak modifiers automatisch sticky",
+                        "help": "Zet elke modifier op je toetsenmap om in Sticky modifiers."
+                    },
+                    "auto_layers": {
+                        "label": "Maak laag shift toetsen automatisch sticky",
+                        "help": "Zet elke laag shift toets op je toetsenmap om in Sticky laag toetsen."
+                    },
+                    "stickyness": {
+                        "help": "Selecteer wat er moet gebeuren wanneer een sticky toets tweemaal snel na elkaar wordt aangetikt.",
+                        "disable": "Niets",
+                        "layers_only": "Stel enkel vast in voor laag-toetsen",
+                        "label": "Gedrag bij dubbel tikken",
+                        "modifiers_only": "Stel enkel vast in voor modifier toetsen",
+                        "enable": "Stel vast in voor all sticky toetsen"
+                    },
+                    "timeout": {
+                        "help": "Tijd dat een sticky toets actief blijft nadat hij ingedrukt werd.",
+                        "label": "Time-out"
+                    }
+                },
+                "mousekeys": {
+                    "base_speed": {
+                        "label": "Maximum snelheid muisaanwijzer",
+                        "help": "De maximum snelheid die de muisaanwijzer mag bereiken."
+                    },
+                    "accel_duration": {
+                        "help": "Duurtijd waarin de muisaanwijzer van de initiële snelheid naar de maximum snelheid gaat.",
+                        "label": "Duurtijd om de maximum snelheid van de muisaanwijzer te bereiken"
+                    },
+                    "scroll_interval": {
+                        "label": "Scroll snelheid",
+                        "help": "Tijd tussen scroll gebeurtenissen. Hoe hoger de vertraging, hoe langzamer het scrollen is."
+                    },
+                    "init_speed": {
+                        "label": "initiële snelheid muisaanwijzer",
+                        "help": "Hoe hoger de waarde, hoe sneller de initiële snelheid van de muisaanwijzer is."
+                    },
+                    "warp_grid_size": {
+                        "3x3": "3x3",
+                        "label": "Warp rooster grootte",
+                        "help": "Stel de grootte van het rooster in dat gebruikt wordt voor muis warping.",
+                        "2x2": "2x2"
+                    },
+                    "label": "Muistoetsen"
                 }
             }
         },
@@ -364,6 +414,12 @@
             "mode": {
                 "label": "Download nieuwe versies van Chrysalis automatisch",
                 "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn en automatisch nieuwe versies downloaden."
+            }
+        },
+        "focus": {
+            "chunked_writes": {
+                "help": "Als een mogelijke oplossing voor verscheidene communicatieproblemen, kan Chrysalis data sturen naar het toetsenbord in kleinere stukken. Omwille van historische redenen is dit standaard ingeschakeld. Zet dit enkel af indien je weet wat je doet of als dit gevraagd werd door Chrysalis ontwikkelaars.",
+                "label": "Verzend data in kleine stukken"
             }
         }
     },

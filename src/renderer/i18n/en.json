@@ -288,20 +288,18 @@
         "help": "The developer console lets you peek inside Chrysalis. Use with care."
       }
     },
-
     "autoUpdate": {
-        "label": "Automatic updates",
-        "mode": {
-          "label": "Download new versions of Chrysalis automatically",
-          "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
-        },
-        "firmwareMode": {
-          "label": "Download new firmware versions automatically",
-          "help": "When enabled, Chrysalis will check for updated firmware files on startup, and automatically download new versions."
-        }
+      "label": "Automatic updates",
+      "mode": {
+        "label": "Download new versions of Chrysalis automatically",
+        "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
       },
-      "ui": {
-
+      "firmwareMode": {
+        "label": "Download new firmware versions automatically",
+        "help": "When enabled, Chrysalis will check for updated firmware files on startup, and automatically download new versions."
+      }
+    },
+    "ui": {
       "layoutEditor": {
         "label": "Layout Editor"
       },
@@ -483,7 +481,7 @@
     "calloutTitle": "Important!",
     "factoryResetTitle": "Factory reset",
     "factoryResetDescription": "Erase everything on your keyboard, restoring it to factory defaults.",
-"factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
+    "factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
     "dialog": {
       "selectFirmware": "Select a firmware",
       "firmwareFiles": "Firmware files",

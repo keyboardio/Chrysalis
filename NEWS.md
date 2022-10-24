@@ -2,13 +2,25 @@ Chrysalis 0.12.0-snapshot
 =========================
 **UNRELEASED**
 
-# New features
+## New features
 
 Chrysalis now supports configuring various timeouts related to sticky modifier &
 layer keys, and also allows setting the double tap behaviour. You can find the
 settings under "Preferences", "My Keyboard", if your firmware has the
 `OneShotConfig` plugin enabled - the Keyboardio Model100 firmware that ships
 with Chrysalis does.
+
+## Bugfixes
+
+When importing from a JSON file, color maps are now correctly imported.
+
+## Miscellaneous
+
+Restoring settings from a backup made during flashing has not been working as
+expected, so the backup files are no longer offered for importing on the "Backup
+& Restore" screen. This is a temporary measure, the backup files are still
+saved, and we are working on a properly designed import / export workflow for
+Chrysalis - but that will come in a future update.
 
 Chrysalis 0.11.9
 ================

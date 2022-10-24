@@ -21,18 +21,42 @@ import useTheme from "@mui/material/styles/useTheme";
 
 const db = new KeymapDB();
 
+const led_map = [
+  [3, 4, 11, 12, 19, 20, 26, 27, 36, 37, 43, 44, 51, 52, 59, 60],
+  [2, 5, 10, 13, 18, 21, 25, 28, 35, 38, 42, 45, 50, 53, 58, 61],
+  [1, 6, 9, 14, 17, 22, 24, 29, 34, 39, 41, 46, 49, 54, 57, 62],
+  [0, 7, 8, 15, 16, 23, 31, 30, 33, 32, 40, 47, 48, 55, 56, 63],
+];
+
+const getLEDIndex = (row, col) => {
+  return led_map[parseInt(row)][parseInt(col)];
+};
+
 const Key = (props) => {
   const theme = useTheme();
 
   let shape;
-  const stroke = props.active
-    ? theme.palette.primary.light
-    : theme.palette.grey[500];
+  const keyIndex = parseInt(props.row) * 16 + parseInt(props.col);
+  let extraLabel;
+
+  const key = props.keymap[keyIndex];
+
+  const stroke =
+    props.selectedKey === keyIndex
+      ? theme.palette.primary.light
+      : theme.palette.grey[500];
+
+  const getColor = () => {
+    const ledIndex = led_map[parseInt(props.row)][parseInt(props.col)];
+    const colorIndex = props.colormap[ledIndex];
+    const color = props.palette[colorIndex].rgb;
+    return color;
+  };
 
   if (props.palmKey) {
     shape = (
       <ellipse
-        fill={props.color}
+        fill={getColor()}
         stroke={stroke}
         strokeWidth="5.5"
         cx="610.765"
@@ -45,17 +69,13 @@ const Key = (props) => {
   } else {
     shape = (
       <path
-        fill={props.color}
+        fill={getColor()}
         stroke={stroke}
         strokeWidth="3.5"
         d={props.shape}
       />
     );
   }
-
-  const keyIndex = parseInt(props.row) * 16 + parseInt(props.col);
-  let extraLabel;
-  const key = props.keyObj;
 
   let legendClass = "";
   let mainLegendClass = "";
@@ -71,7 +91,7 @@ const Key = (props) => {
           x={props.x}
           y={props.y - 3}
           className={legendClass}
-          fill={theme.palette.getContrastText(props.color)}
+          fill={theme.palette.getContrastText(getColor())}
         >
           {legend?.hint}
         </text>
@@ -85,14 +105,14 @@ const Key = (props) => {
       className="key"
       data-key-index={keyIndex}
       data-layer={props.layer}
-      data-led-index={props.ledIndex}
+      data-led-index={getLEDIndex(props.row, props.col)}
     >
       {shape}
       <g transform={props.primaryLabelTransform}>
         <text
           x={props.x}
           y={props.y}
-          fill={theme.palette.getContrastText(props.color)}
+          fill={theme.palette.getContrastText(getColor())}
           className={mainLegendClass}
         >
           {legend?.main}

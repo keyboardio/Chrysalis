@@ -50,7 +50,7 @@ const KeySelector = (props) => {
     const height = props.height * keycapunit;
     const width = props.width * keycapunit;
 
-    // Let's use the 1u versions of labels for 1.25, 1.5, 1.75, 2 u keys so we can make the text biggerjk
+    // Let's use the 1u versions of labels for 1.25, 1.5, 1.75, 2 u keys so we can make the text bigger
     const label = db.format(key, {
       keycapSize: (props.width <= 2 ? 1 : props.width) + "u",
     });

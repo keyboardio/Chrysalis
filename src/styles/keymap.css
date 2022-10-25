@@ -21,7 +21,7 @@ button {
 
 .layer {
   font-family: "Source Code Pro", monospace;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   user-select: none;
 }
@@ -31,7 +31,7 @@ button {
 }
 
 .extra-key {
-  font-size: 10px;
+  font-size: 9.5px;
 }
 
 .key:hover {

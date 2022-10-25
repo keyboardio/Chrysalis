@@ -50,11 +50,14 @@ const KeySelector = (props) => {
     const height = props.height * keycapunit;
     const width = props.width * keycapunit;
 
-    const label = db.format(key, { keycapSize: props.width + "u" });
+    // Let's use the 1u versions of labels for 1.25, 1.5, 1.75, 2 u keys so we can make the text biggerjk
+    const label = db.format(key, {
+      keycapSize: (props.width <= 2 ? 1 : props.width) + "u",
+    });
 
     let fontSize =
-      label.main.length == 1
-        ? Math.round(keycapunit / 2.5)
+      label.main.length <= 4 * props.width
+        ? Math.round(keycapunit / 3)
         : Math.round(keycapunit / 4);
     let mainLegendY = y + height / 2;
 

@@ -18,11 +18,23 @@
 import KeymapDB from "@api/focus/keymap/db";
 import Button from "@mui/material/Button";
 import React from "react";
+import useTheme from "@mui/material/styles/useTheme";
 
 const db = new KeymapDB();
 
 const KeyButton = (props) => {
-  const { classes, keyObj, onKeyChange, noHint } = props;
+  const { classes, keyObj, onKeyChange, currentKey, noHint } = props;
+  const theme = useTheme();
+  console.log(currentKey);
+  console.log(keyObj);
+
+  const active = keyObj?.code == currentKey?.code;
+
+  const buttonColor = active
+    ? theme.palette.primary.light
+    : theme.palette.background.paper;
+
+  const textColor = theme.palette.getContrastText(buttonColor);
 
   const onClick = (keyCode) => {
     return () => {
@@ -33,9 +45,19 @@ const KeyButton = (props) => {
   const label = db.format(keyObj, { keycapSize: props.keycapSize || "full" });
   return (
     <Button
-      variant="contained"
+      variant="outlined"
       size="small"
-      sx={{ m: 1 }}
+      color={active ? "primary" : "secondary"}
+      sx={{
+        m: 0,
+        px: 0.5,
+        py: 0.5,
+        color: textColor,
+        borderColor: theme.palette.divider,
+        borderRadius: 0,
+        fontSize: 10,
+        backgroundColor: buttonColor,
+      }}
       onClick={onClick(keyObj.code)}
     >
       {!noHint && label.hint} {label.main}

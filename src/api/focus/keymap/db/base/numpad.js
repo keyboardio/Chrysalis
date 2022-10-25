@@ -22,7 +22,7 @@ const numpad = withModifiers([
     label: {
       base: {
         full: "Num Lock",
-        "1u": "NumLK",
+        "1u": "Num",
       },
     },
   },
@@ -57,7 +57,7 @@ const numpad = withModifiers([
   {
     code: 88,
     label: {
-      base: "Enter",
+      base: { full: "Enter", "1u": "Ent" },
     },
     location: "numpad",
   },

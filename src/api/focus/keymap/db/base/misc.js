@@ -22,7 +22,7 @@ const miscellaneous = withModifiers([
     label: {
       base: {
         full: "Caps Lock",
-        "1u": "CpLK",
+        "1u": "Caps",
       },
     },
   },
@@ -47,7 +47,10 @@ const miscellaneous = withModifiers([
   {
     code: 72,
     label: {
-      base: "Pause",
+      base: {
+        full: "Pause / Break",
+        "1u": "Brk",
+      },
     },
   },
   {

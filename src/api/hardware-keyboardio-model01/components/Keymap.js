@@ -54,10 +54,10 @@ const Keymap = (props) => {
       fillRule="evenodd"
       strokeLinecap="round"
       clipRule="evenodd"
-      viewBox="0 0 833 425"
+      viewBox="0 0 875 435"
       className={props.className || "layer"}
     >
-      <g transform="matrix(1,0,0,1,-90.5869,-55.1936)">
+      <g transform="matrix(1,0,0,1,-70,-55)">
         <Key
           {...keyProps}
           row="3"

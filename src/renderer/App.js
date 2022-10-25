@@ -168,7 +168,7 @@ const App = (props) => {
         main: "#EF5022",
       },
       secondary: {
-        main: "#939597",
+        main: darkMode() ? "#ed91f3" : "#ab0edd",
       },
       background: {
         default: darkMode() ? "#353535" : "#f5f5f5",

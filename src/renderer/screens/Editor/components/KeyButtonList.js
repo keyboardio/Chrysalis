@@ -19,6 +19,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import React from "react";
+import KeyButton from "./KeyButton";
 
 const db = new KeymapDB();
 
@@ -35,14 +36,12 @@ const KeyButtonList = (props) => {
     const key = "key-" + props.category + "-" + index.toString();
     const label = db.format(k, { keycapSize: "full" });
     return (
-      <Button
-        variant="contained"
+      <KeyButton
+        keyObj={k}
         key={key}
-        sx={{ m: 1 }}
-        onClick={onClick(k.code)}
-      >
-        {showHints ? label.hint : ""} {label.main}
-      </Button>
+        onKeyChange={onClick(k)}
+        noHint={!showHints}
+      />
     );
   });
 

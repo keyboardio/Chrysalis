@@ -220,11 +220,34 @@ export const registerFirmwareHandlers = () => {
     updateFirmware();
   });
 
+  const shouldPresentDownloadedSnapshot = () => {
+    let buildInfo;
+    try {
+      const data = fs.readFileSync(path.join(firmwarePath, "build-info.yml"));
+      buildInfo = yaml.load(data);
+    } catch (_) {
+      return false;
+    }
+    const fwVersion = buildInfo.version.match(/[^+]*/)[0];
+
+    // If Chrysalis is a snapshot version, just show the latest firmware.
+    if (version.match(/-snapshot/)) {
+      return true;
+    }
+
+    // If Chrysais is not a snapshot, only show the downloaded firmware if it
+    // isn't a snapshot, either.
+    return !fwVersion.match(/-snapshot/);
+  };
+
   const getFirmwareBaseDirectory = () => {
     const settings = new Store();
 
     let baseDir = __static;
-    if (settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic") {
+    if (
+      settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic" &&
+      shouldPresentDownloadedSnapshot()
+    ) {
       try {
         fs.accessSync(path.join(firmwarePath, "build-info.yml"));
         baseDir = firmwarePath;

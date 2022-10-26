@@ -14,6 +14,24 @@ with Chrysalis does.
 
 When importing from a JSON file, color maps are now correctly imported.
 
+Fixed a bug that caused Chrysalis to offer snapshot versions of the firmware as
+updates under certain conditions.
+
+## UI/UX
+
+Changed the secondary color Chrysalis uses, buttons with a secondary color are
+no longer indistinguishable from disabled buttons at a glance.
+
+The key buttons on the Editor's sidebar have been restyled to resemble keyboard
+keys more than action buttons.
+
+Increased the padding on the left and right sides of the Model 100 and Model 01
+keyboard images. Also fixed a few corner artifacts on the same image that became
+much more pronounced when we increased the border widths.
+
+Font sizes on the floating key picker have been increased for labels longer than
+a single character, making them easier to read.
+
 ## Miscellaneous
 
 Restoring settings from a backup made during flashing has not been working as
@@ -21,6 +39,15 @@ expected, so the backup files are no longer offered for importing on the "Backup
 & Restore" screen. This is a temporary measure, the backup files are still
 saved, and we are working on a properly designed import / export workflow for
 Chrysalis - but that will come in a future update.
+
+The Dutch translation of Chrysalis is once again complete and up to date.
+
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.91.0] for more details.
+
+ [fw:0.91.0]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.0
 
 Chrysalis 0.11.9
 ================

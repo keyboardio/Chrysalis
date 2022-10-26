@@ -261,11 +261,12 @@ export default class FlashRaise {
   async updateFirmware(filename, stateUpdate) {
     let focus = new Focus();
     console.log("Begin update firmware with arduino-flasher");
+    console.log(JSON.stringify(focus));
     // this.backupFileData.log.push("Begin update firmware with arduino-flasher");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        await focus.open(this.currentPort.path, this.currentPort.device);
+        if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device);
         await arduino.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {

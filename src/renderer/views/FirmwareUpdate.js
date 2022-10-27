@@ -98,7 +98,8 @@ class FirmwareUpdate extends React.Component {
       backup: [],
       backupDone: false,
       backupPressed: false,
-      flashProgress: 0
+      flashProgress: 0,
+      bootloader: false
     };
   }
 
@@ -141,6 +142,14 @@ class FirmwareUpdate extends React.Component {
     let focus = new Focus();
     document.addEventListener("keydown", this._handleKeyDown);
     let versions;
+
+    console.log("BOOTLOADER", focus.device.bootloader);
+    if (focus.device.bootloader) {
+      await this.setState({ countdown: 1, flashProgress: 0, backupDone: true, bootloader: true });
+      this.flashRaise = new FlashRaise(this.props.device);
+      document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 27 }));
+      return;
+    }
 
     focus.command("version").then(v => {
       if (!v) return;
@@ -218,6 +227,8 @@ class FirmwareUpdate extends React.Component {
     } else {
       filename = this.state.firmwareFilename;
     }
+    console.log("BOOTLOADER2", focus.device.bootloader);
+
     if (this.state.device.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
         try {
@@ -250,10 +261,18 @@ class FirmwareUpdate extends React.Component {
     this.props.toggleFwUpdate(true);
     try {
       await this._flash();
-      this.setState({ countdown: 3, flashProgress: 90 });
-      await this.flashRaise.restoreSettings();
+      if (!this.state.bootloader) {
+        this.setState({ countdown: 3, flashProgress: 90 });
+        await this.flashRaise.restoreSettings();
+      }
       this.setState({ countdown: 4, flashProgress: 100 });
       await this.flashRaise.delay(600);
+      if (this.state.bootloader) {
+        this.props.toggleFlashing();
+        this.props.toggleFwUpdate(false);
+        this.props.onDisconnect();
+        this.setState({ confirmationOpen: false });
+      }
     } catch (e) {
       console.error(e);
       toast.error(

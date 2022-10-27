@@ -55,16 +55,18 @@ const FirmwareUpdate = (props) => {
   const [flashNotificationOpen, setFlashNotificationOpen] = useState(false);
   const [flashNotificationMsg, setFlashNotificationMsg] = useState(null);
 
+  const focusDeviceDescriptor =
+    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+  const isBootloader = focusDeviceDescriptor.bootloader;
+
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
-  const [factoryReset, setFactoryReset] = useState(false);
+  const [factoryReset, setFactoryReset] = useState(isBootloader);
 
   const { t } = useTranslation();
-  const focusDeviceDescriptor =
-    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   const toggleFactoryReset = () => {
     setFactoryReset(!factoryReset);
@@ -194,6 +196,7 @@ const FirmwareUpdate = (props) => {
       setConfirmationOpen(true);
     }
   };
+
   return (
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />

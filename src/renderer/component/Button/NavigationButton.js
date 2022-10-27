@@ -47,11 +47,11 @@ const Style = Styled.div`
     }
     .badge {
         position: absolute;
-        right:3px;
-        top:3px;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 4px 10px;
+        right: 2px;
+        top: 2px;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 6px;
         z-index: 3;
         &.badge-primary {
             background: ${({ theme }) => theme.colors.brandPrimary};
@@ -200,7 +200,7 @@ const Style = Styled.div`
   }
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
-const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG, disabled }) => {
+const NavigationButton = ({ selected, onClick, showNotif, notifText, buttonText, icoSVG, disabled }) => {
   return (
     <Style>
       <OverlayTrigger
@@ -214,7 +214,15 @@ const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG, di
         <div className={`menuLink ${selected ? "active" : ""} ${disabled ? "disabled" : ""}`}>
           <div className={"menuLinkInner"}>
             {icoSVG}
-            {showNotif ? <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div> : ""}
+            {showNotif ? (
+              notifText ? (
+                <div className="badge badge-primary">{notifText}</div>
+              ) : (
+                <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div>
+              )
+            ) : (
+              ""
+            )}
             <div className={"menuLinkText"} dangerouslySetInnerHTML={{ __html: buttonText }} />
           </div>
         </div>

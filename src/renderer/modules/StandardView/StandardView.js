@@ -322,7 +322,12 @@ export default class StandardView extends React.Component {
                   <CustomTab eventKey="tabMacro" text={i18n.editor.standardView.macros.title} icon={<IconRobot />} />
                   {actTab != "super" ? (
                     <>
-                      <CustomTab eventKey="tabSuperKeys" text={i18n.editor.standardView.superkeys.title} icon={<IconThunder />} />
+                      <CustomTab
+                        eventKey="tabSuperKeys"
+                        text={i18n.editor.standardView.superkeys.title}
+                        icon={<IconThunder />}
+                        notifText="BETA"
+                      />
                       <CustomTab eventKey="tabOneShot" text={i18n.editor.standardView.oneShot.title} icon={<IconOneShot />} />
                     </>
                   ) : (

@@ -249,6 +249,8 @@ class NavigationMenu extends Component {
                           drawerWidth={drawerWidth}
                           buttonText={i18n.app.menu.superkeys}
                           icoSVG={<IconThunder2Stroke />}
+                          showNotif={true}
+                          notifText="BETA"
                           disabled={fwUpdate}
                         />
                       </Link>

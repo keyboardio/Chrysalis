@@ -37,6 +37,12 @@ const Style = Styled.div`
   align-items: center;
   margin-bottom: 2px;
   white-space: nowrap;
+  .badge.badge-primary {
+    line-height: 1em;
+    margin: 0px 0 0 6px;
+    font-size: 9px;
+    font-weight: 700;
+  }
   &:before,
   &:after {
     content: "";
@@ -90,12 +96,13 @@ const Style = Styled.div`
  * @returns {<CustomTab>} CustomTab component.
  */
 
-const CustomTab = ({ text, eventKey, icon, className }) => {
+const CustomTab = ({ text, eventKey, icon, className, notifText }) => {
   return (
     <Style className={className}>
       <Nav.Item>
         <Nav.Link eventKey={eventKey}>
           {icon && icon} {text && <span dangerouslySetInnerHTML={{ __html: text }} />}
+          {notifText ? <div className="badge badge-primary">{notifText}</div> : ""}
         </Nav.Link>
       </Nav.Item>
     </Style>

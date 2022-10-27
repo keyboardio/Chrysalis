@@ -549,6 +549,7 @@ class KeyPicker extends Component {
                     onKeySelect={onKeySelect}
                     superkeys={superkeys}
                     keyCode={code}
+                    notifText="BETA"
                   />
                 </div>
               </div>

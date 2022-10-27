@@ -48,6 +48,12 @@ width: 100%;
       color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
     }
   }
+  .badge.badge-primary {
+    font-weight: 700;
+    font-size: 9px;
+    padding: 2px 5px;
+    line-height: 1em;
+  }
 }
 .active .dropdownItemSelected .badge-circle {
   opacity: 1;
@@ -96,7 +102,7 @@ class SelectSuperKeyCustomDropdown extends Component {
     this.taps = ["TAP", "HOLD", "T&H", "2TAP", "2T&H"];
   }
   render() {
-    const { action, actions, selKeys, onKeySelect, superkeys, keyCode } = this.props;
+    const { action, actions, selKeys, onKeySelect, superkeys, keyCode, notifText } = this.props;
 
     const KC = keyCode.base + keyCode.modified;
     const superk = Array(superkeys.length)
@@ -120,7 +126,9 @@ class SelectSuperKeyCustomDropdown extends Component {
       >
         <Dropdown.Toggle id="dropdown-custom" className="button-config-style">
           <div className="dropdownItemSelected">
-            <div className="dropdownItem">Superkeys</div>
+            <div className="dropdownItem">
+              Superkeys {notifText ? <div className="badge badge-primary">{notifText}</div> : ""}
+            </div>
             <div className="badge-circle"></div>
           </div>
         </Dropdown.Toggle>

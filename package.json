@@ -1,6 +1,6 @@
 {
   "name": "BAZECOR",
-  "version": "1.0.0beta15",
+  "version": "1.0.0RC",
   "fwVersion": "1.0.9beta",
   "license": "GPL-3.0-only",
   "author": {
@@ -48,12 +48,14 @@
     ],
     "buildDependenciesFromSource": true,
     "npmRebuild": false,
-    "nodeGypRebuild": true,
     "mac": {
       "category": "productivity",
       "target": {
-        "target": "dmg",
-        "arch": "universal"
+        "target": "default",
+        "arch": [
+          "arm64",
+          "x64"
+        ]
       },
       "type": "distribution",
       "darkModeSupport": true,

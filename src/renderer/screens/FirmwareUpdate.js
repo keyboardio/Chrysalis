@@ -38,6 +38,7 @@ import { ipcRenderer } from "electron";
 import path from "path";
 import { useTranslation } from "react-i18next";
 
+import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
@@ -55,16 +56,18 @@ const FirmwareUpdate = (props) => {
   const [flashNotificationOpen, setFlashNotificationOpen] = useState(false);
   const [flashNotificationMsg, setFlashNotificationMsg] = useState(null);
 
+  const focusDeviceDescriptor =
+    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+  const isBootloader = focusDeviceDescriptor.bootloader;
+
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
-  const [factoryReset, setFactoryReset] = useState(false);
+  const [factoryReset, setFactoryReset] = useState(isBootloader);
 
   const { t } = useTranslation();
-  const focusDeviceDescriptor =
-    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   const toggleFactoryReset = () => {
     setFactoryReset(!factoryReset);
@@ -194,6 +197,12 @@ const FirmwareUpdate = (props) => {
       setConfirmationOpen(true);
     }
   };
+
+  const uploadVariant = isBootloader ? "outlined" : "contained";
+  const uploadLabel = isBootloader
+    ? t("firmwareUpdate.flashing.anywayButton")
+    : t("firmwareUpdate.flashing.button");
+
   return (
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
@@ -205,7 +214,7 @@ const FirmwareUpdate = (props) => {
         <Paper sx={{ p: 2 }}>
           <UpdateDescription />
           <Divider sx={{ my: 2 }} />
-          <FirmwareVersion />
+          {isBootloader ? <BootloaderWarning /> : <FirmwareVersion />}
           <FirmwareSelect
             selectedFirmware={[selectedFirmwareType, setSelectedFirmwareType]}
             firmwareFilename={[firmwareFilename, setFirmwareFilename]}
@@ -228,7 +237,7 @@ const FirmwareUpdate = (props) => {
               startIcon={
                 progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
               }
-              variant="contained"
+              variant={uploadVariant}
               onClick={onUpdateClick}
               disabled={buttonsDisabled}
               color={
@@ -236,8 +245,19 @@ const FirmwareUpdate = (props) => {
                 "primary"
               }
             >
-              {t("firmwareUpdate.flashing.button")}
+              {uploadLabel}
             </Button>
+            {isBootloader && (
+              <Button
+                onClick={props.onDisconnect}
+                variant="contained"
+                disabled={buttonsDisabled}
+                color="primary"
+                sx={{ ml: 2 }}
+              >
+                {t("firmwareUpdate.flashing.cancelAndDisconnectButton")}
+              </Button>
+            )}
           </Box>
         </Paper>
       </Container>

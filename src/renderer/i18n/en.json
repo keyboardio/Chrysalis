@@ -473,6 +473,7 @@
     "permissionErrorSuggestion": "Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/."
   },
   "firmwareUpdate": {
+    "bootloaderWarning": "Your keyboard is in bootloader mode, so Chrysalis can't back up the keyboard's settings. If the new firmware is incompatible with your existing settings, key layouts and other settings might be corrupted after the update. For this reason, Chrysalis will default to a factory reset, which will let you start from a clean slate. You can cancel and exit bootloader mode, so Chrysalis can back up your keyboard. Alternatively, you may turn off the factory reset, if you know that the new firmware is compatible.",
     "firmwareChangelog": {
       "title": "Firmware Changelog",
       "view": "What's new in {{version}}?"
@@ -491,6 +492,8 @@
       "error": "Error flashing the firmware",
       "success": "Firmware flashed successfully!",
       "button": "Update",
+      "anywayButton": "Update anyway",
+      "cancelAndDisconnectButton": "Cancel and disconnect",
       "notifications": {
         "title": "Problem encountered while flashing",
         "enter": {

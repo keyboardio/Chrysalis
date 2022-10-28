@@ -48,6 +48,7 @@
     ],
     "buildDependenciesFromSource": true,
     "npmRebuild": false,
+    "nodeGypRebuild": true,
     "mac": {
       "category": "productivity",
       "target": {

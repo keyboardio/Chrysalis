@@ -49,12 +49,10 @@
     "buildDependenciesFromSource": true,
     "npmRebuild": false,
     "mac": {
+      "category": "productivity",
       "target": {
-        "target": "default",
-        "arch": [
-          "arm64",
-          "x64"
-        ]
+        "target": "dmg",
+        "arch": "universal"
       },
       "type": "distribution",
       "darkModeSupport": true,

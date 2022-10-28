@@ -324,7 +324,7 @@ class SelectKeyboard extends Component {
       deviceItems = devices.map((option, index) => {
         let neurons = store.get("neurons");
         let userName = "Neuron";
-        if (neurons != undefined)
+        if (neurons != undefined && option.serialNumber != undefined)
           userName = neurons.filter(n =>
             n.id.toLowerCase() == option.serialNumber > 6 ? option.serialNumber.slice(0, -6).toLowerCase() : option.serialNumber
           );

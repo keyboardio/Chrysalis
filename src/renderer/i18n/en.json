@@ -389,6 +389,43 @@
       },
       "plugins": {
         "label": "Plugins",
+        "autoshift": {
+          "label": "Auto shifting",
+          "enabled": {
+            "label": "Enable auto shifting",
+            "help": "With auto shifting enabled, selected keys will automatically input their shifted variant when held."
+          },
+          "timeout": {
+            "label": "Auto shift timeout",
+            "help": "Controls how long a key needs to be held before getting the shifted state."
+          },
+          "category": {
+            "letters": {
+              "label": "Auto shift letter keys",
+              "help": "Enable auto shifting for letter keys. These only include the letters between A and Z on an US QWERTY layout."
+            },
+            "numbers": {
+              "label": "Auto shift number keys",
+              "help": "Enable auto shifting for number keys. Does not include the number keys on the numpad."
+            },
+            "symbols": {
+              "label": "Auto shift symbols",
+              "help": "Enable auto shifting for symbols: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. You may need to turn this on if you are using a language or layout other than US English, if you want to auto-shift letters not covered by the letter auto shift."
+            },
+            "arrows": {
+              "label": "Auto shift arrows",
+              "help": "Enable auto shifting for the arrow keys."
+            },
+            "functions": {
+              "label": "Auto shift function keys",
+              "help": "Enable auto shifting for the function keys, F1 through F24."
+            },
+            "all": {
+              "label": "Auto shift all keys",
+              "help": "Enable auto shifting for all keys, even those that aren't in any of the above categories."
+            }
+          }
+        },
         "escOneShot": {
           "label": "Let Escape cancel sticky keys",
           "help": "When enabled, \"Escape\" will cancel sticky keys, otherwise a dedicated cancel key can do so."

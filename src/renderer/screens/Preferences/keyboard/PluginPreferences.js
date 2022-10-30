@@ -21,6 +21,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
+import AutoShiftPreferences from "./plugins/AutoShift";
 import MouseKeysPreferences from "./plugins/MouseKeys";
 import OneShotPreferences from "./plugins/OneShot";
 import SpaceCadetPreferences from "./plugins/SpaceCadet";
@@ -34,6 +35,7 @@ const PluginPreferences = (props) => {
     "spacecadet.mode",
     "mousekeys.base_speed",
     "OneShotConfig",
+    "autoshift.categories",
   ]);
 
   const foundSomePlugins = Object.values(plugins).some((v) => v);
@@ -56,6 +58,11 @@ const PluginPreferences = (props) => {
       name: "mousekeys",
       plugin: "mousekeys.base_speed",
       Component: MouseKeysPreferences,
+    },
+    {
+      name: "autoshift",
+      plugin: "autoshift.categories",
+      Component: AutoShiftPreferences,
     },
   ];
   return sections.map(({ name, plugin, Component }, index) => {

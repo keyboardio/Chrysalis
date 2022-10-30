@@ -132,8 +132,11 @@ export const flash = async (flasher, board, port, filename, options) => {
    ***/
   await flasher.flash(board, port, filename, options);
 
-  // If we were in bootloader mode, and aren't doing a factory reset, we're done here.
+  // If we were in bootloader mode, and aren't doing a factory reset, we're
+  // pretty much done here.
   if (startFromBootloader && !options.factoryReset) {
+    // We do need to reboot back to application mode, however
+    await flasher.rebootToApplicationMode(port, options.device);
     return;
   }
 

@@ -19,7 +19,12 @@ import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
-import { delay, reportUpdateStatus } from "./utils";
+import { reportUpdateStatus } from "./utils";
+
+const runDFUError = {
+  SOFT_FAIL: 1,
+  HARD_FAIL: 2,
+};
 
 const runDFUUtil = async (args) => {
   const dfuUtil = path.join(
@@ -37,12 +42,12 @@ const runDFUUtil = async (args) => {
     const timer = setTimeout(() => {
       child.kill();
       logger("flash").error("dfu-util timed out");
-      reject("dfu-util timed out");
+      reject(runDFUError.HARD_FAIL);
     }, maxFlashingTime);
     child.on("error", (err) => {
       clearTimeout(timer);
       logger("flash").error("error starting dfu-util", { err: err.toString() });
-      reject("error starting dfu-util");
+      reject(runDFUError.HARD_FAIL);
     });
     child.stdout.on("data", (data) => {
       logger("flash").debug("dfu-util:stdout:", { data: data.toString() });
@@ -55,11 +60,16 @@ const runDFUUtil = async (args) => {
       if (code == 0 || code == 251) {
         logger("flash").debug("dfu-util done");
         resolve();
+      } else if (code == 74) {
+        logger("flash").error("dfu-util exited abnormally", {
+          exitCode: code,
+        });
+        reject(runDFUError.SOFT_FAIL);
       } else {
         logger("flash").error("dfu-util exited abnormally", {
           exitCode: code,
         });
-        reject("dfu-util exited abnormally with an error code of " + code);
+        reject(runDFUError.HARD_FAIL);
       }
     });
   });
@@ -71,14 +81,19 @@ const formatDeviceUSBId = (desc) => {
 
 const rebootToApplicationMode = async (port, device) => {
   logger("flash").debug("rebooting to application mode");
-  await runDFUUtil([
-    "--device",
-    formatDeviceUSBId(device.usb) +
-      "," +
-      formatDeviceUSBId(device.usb.bootloader),
-    "--reset",
-    "--detach",
-  ]);
+  try {
+    await runDFUUtil([
+      "--device",
+      formatDeviceUSBId(device.usb) +
+        "," +
+        formatDeviceUSBId(device.usb.bootloader),
+      "--detach",
+    ]);
+  } catch (e) {
+    if (e == runDFUError.HARD_FAIL) {
+      throw e;
+    }
+  }
 };
 
 const flash = async (board, port, filename, options) => {
@@ -99,7 +114,6 @@ const flash = async (board, port, filename, options) => {
     "0",
     "--intf",
     "0",
-    "--reset",
     "--download",
     filename,
   ]);

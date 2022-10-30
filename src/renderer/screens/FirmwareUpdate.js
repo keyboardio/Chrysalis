@@ -27,13 +27,14 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import Switch from "@mui/material/Switch";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import { ipcRenderer } from "electron";
 import path from "path";
 import { useTranslation } from "react-i18next";
@@ -58,16 +59,24 @@ const FirmwareUpdate = (props) => {
 
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
-  const isBootloader = focusDeviceDescriptor.bootloader;
 
+  const [isBootloader, setIsBootloader] = useState(false);
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
-  const [factoryReset, setFactoryReset] = useState(isBootloader);
+  const [factoryReset, setFactoryReset] = useState(false);
 
   const { t } = useTranslation();
+
+  useEffectOnce(() => {
+    const initialize = async () => {
+      setIsBootloader(focusDeviceDescriptor.bootloader);
+      setFactoryReset(focusDeviceDescriptor.bootloader);
+    };
+    initialize();
+  });
 
   const toggleFactoryReset = () => {
     setFactoryReset(!factoryReset);

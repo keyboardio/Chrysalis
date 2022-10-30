@@ -29,7 +29,7 @@ export const PluginSliderWithInput = (props) => {
   const { t } = useTranslation();
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
 
-  const { plugin, value, setValue } = props;
+  const { plugin, value, setValue, disabled } = props;
   const min = props.min || 0;
 
   const updateValue = (newValue) => {
@@ -70,6 +70,7 @@ export const PluginSliderWithInput = (props) => {
       <Grid container spacing={2} sx={{ width: 350 }}>
         <Grid item xs>
           <Slider
+            disabled={disabled}
             max={props.max}
             value={typeof value === "number" ? value : 0}
             onChange={onSliderChange}
@@ -77,6 +78,7 @@ export const PluginSliderWithInput = (props) => {
         </Grid>
         <Grid item>
           <TextField
+            disabled={disabled}
             value={value}
             size="small"
             onChange={onInputChange}

@@ -54,12 +54,13 @@ export const registerDeviceDiscoveryHandlers = () => {
 
   ipcMain.handle("usb.scan-for-devices", (event) => {
     const webContents = event.sender;
-    let devices = [];
-    if (insideFlatpak()) {
-      devices = listUsbDevices();
-    } else {
-      devices = getDeviceList();
-    }
+    const devices = getDeviceList();
+    // let devices = [];
+    // if (insideFlatpak()) {
+    //   devices = listUsbDevices();
+    // } else {
+    //   devices = getDeviceList();
+    // }
     return devices;
   });
   ipcMain.handle("usb.is-device-connected", (event, vid, pid) => {

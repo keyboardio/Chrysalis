@@ -24,6 +24,18 @@ const findNonSerialKeyboards = async (deviceList) => {
     (device) => device.deviceDescriptor
   );
 
+  const deviceList2 = await ipcRenderer.invoke("usb.scan-for-devices");
+  for (const device of deviceList2) {
+    logger("findNonSerialKeyboards").debug(
+      "Vendor ID: " +
+        device.deviceDescriptor.idVendor +
+        ", Product ID: " +
+        device.deviceDescriptor.pid +
+        ", Device Address: " +
+        device.deviceAddress
+    );
+  }
+
   for (const device of connected) {
     const dVid = device.idVendor,
       dPid = device.idProduct;

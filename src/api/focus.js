@@ -174,6 +174,15 @@ class Focus {
       const pid = device.deviceDescriptor.idProduct,
         vid = device.deviceDescriptor.idVendor;
 
+      logger("focus").debug(
+        "Vendor ID: " +
+          vid +
+          ", Product ID: " +
+          pid +
+          ", Device Address: " +
+          device.deviceAddress
+      );
+
       if (pid == bootloader.productId && vid == bootloader.vendorId) {
         const newPort = Object.assign({}, device);
         newPort.focusDeviceDescriptor = focusDeviceDescriptor;

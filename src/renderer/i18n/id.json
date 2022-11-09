@@ -190,14 +190,16 @@
     "breakingNews": {
         "firmware0_90_1": {
             "title": "Perhatian pengguna Keyboardio Model 100!",
-            "button": "Instruksi pembaruan"
+            "button": "Instruksi pembaruan",
+            "description": "Perangkat tegar sebelum versi 0.90.1 mengandung kutu (bug) yang mengakibatkan data hilang dan data tersimpan terkorupsi di papan tik. Jika Anda telah memakai perangkat tegar yang lebih baru, Anda bisa mengabaikan peringatan ini dengan tombol tutup."
         }
     },
     "sanity-check": {
         "download-latest": "Unduh rilis resmi"
     },
     "errors": {
-        "deviceDisconnected": "Papan tik terputus"
+        "deviceDisconnected": "Papan tik terputus",
+        "saveFile": "Galat menyimpan berkas: {{ error }}"
     },
     "components": {
         "save": {
@@ -205,7 +207,8 @@
         },
         "logo": {
             "altText": "Logo Chrysalis"
-        }
+        },
+        "none": "Tidak ada"
     },
     "autoUpdate": {
         "available": "Versi baru tersedia: {{ version }}",
@@ -220,5 +223,64 @@
     },
     "changelog": {
         "title": "Log perubahan"
+    },
+    "units": {
+        "in_ms": "md"
+    },
+    "print": {
+        "feedback": {
+            "success": "Berhasil dicetak!",
+            "error": "Galat terjadi ketika mencetak."
+        }
+    },
+    "keyboardSelect": {
+        "unknown": "Tidak diketahui",
+        "disconnect": "Putus Sambungan",
+        "noDevices": "Tidak ada papan tik yang ditemukan.",
+        "connect": "Sambung",
+        "installUdevRules": "Perbaiki"
+    },
+    "firmwareUpdate": {
+        "flashing": {
+            "button": "Perbarui",
+            "anywayButton": "Perbarui saja",
+            "cancelAndDisconnectButton": "Batal dan putuskan sambungan",
+            "notifications": {
+                "enter": {
+                    "notFound": "Tidak dapat menemukan papan tik. Silakan laporkan masalah baru."
+                }
+            },
+            "steps": {
+                "reconnect": "Menyambungkan ulang"
+            }
+        },
+        "firmwareChangelog": {
+            "title": "Log Perubahan Perangkat Tegar",
+            "view": "Apa yang baru di {{version}}?"
+        },
+        "firmwareSources": "Kode sumber",
+        "dialog": {
+            "firmwareFiles": "Berkas perangkat tegar",
+            "allFiles": "Semua berkas"
+        },
+        "customChooseFile": "Pilih berkas...",
+        "firmwareVersion": "{{version}}",
+        "calloutTitle": "Penting!"
+    },
+    "focus-not-detected": {
+        "title": "Selamat datang di Chrysalis",
+        "gotoUpdate": "Perbarui Perangkat Tegar",
+        "reconnect": "Sambungkan ulang"
+    },
+    "systeminfo": {
+        "title": "Laporkan masalah",
+        "intro": "Jika Anda memiliki masalah dengan Chrysalis, pengembang mungkin akan meminta Anda untuk mengirimkan ke mereka beberapa informasi pengawakutuan. Chrysalis membantu Anda mengumpulkan dan menatanya untuk Anda bagikan. Ini termasuk log galat, dan juga beberapa informasi tentang sistem operasi komputer ini, perangkat terhubung, dan Chrysalis itu sendiri. Informasi papan tik juga mengandung tentang perangkat tegar papan tik, dan juga tata letak tuts dan konfigurasi LED.",
+        "bugTracker": "Anda bisa mencari daftar masalah yang diketahui (atau melaporkan kutu (bug)) di GitHub",
+        "privacyNote": "Kami mencoba sedemikian rupa untuk tidak memasukkan informasi pribadi ke sini, tapi kami merekomendasikan Anda untuk membacanya sebelum membagikannya.",
+        "createBundle": "Buat Bundel",
+        "saveBundle": "Simpan Bundel",
+        "dialog": {
+            "title": "Simpan Bundel Pengawakutuan Chrysalis"
+        }
     }
 }

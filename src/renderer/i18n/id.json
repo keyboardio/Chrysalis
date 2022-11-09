@@ -1,1 +1,224 @@
-{}
+{
+    "app": {
+        "menu": {
+            "chat": "Discord",
+            "focus-not-detected": "Selamat datang",
+            "systemInfo": "Lapor masalah",
+            "layoutEditor": "Penyunting Tata Letak",
+            "firmwareUpdate": "Pembaruan Firmware",
+            "preferences": "Preferensi",
+            "selectAKeyboard": "Pilih papan tik",
+            "selectAnotherKeyboard": "Pilih papan tik lain",
+            "exit": "Keluar",
+            "restart": "Terapkan pembaruan dan mulai ulang",
+            "keyboardSection": "Papan tik",
+            "chrysalisSection": "Chrysalis",
+            "miscSection": "Lain-lain",
+            "changelog": "Log perubahan"
+        },
+        "deviceMenu": {
+            "Homepage": "Beranda",
+            "Forum": "Forum",
+            "Chat": "Obrolan"
+        },
+        "cancelPending": {
+            "title": "Hapus perubahan tertunda?",
+            "content": "Anda memiliki perubahan tidak tersimpan. Jika Anda melanjutkan, itu akan hilang."
+        },
+        "actionRequired": "Tindakan diperlukan"
+    },
+    "editor": {
+        "sharing": {
+            "importConfirm": {
+                "title": "Impor tata letak yang dipilih?"
+            },
+            "title": "Cadangan dan Pemulihan",
+            "loadFromLibrary": "Muat dari pustaka",
+            "loadFromBackup": "Muat dari cadangan",
+            "loadFromFile": "Muat dari berkas...",
+            "exportToFile": "Ekspor ke berkas...",
+            "import": "Impor",
+            "selectLoadFile": "Pilih berkas untuk memuat tata letak",
+            "dialog": {
+                "layoutFiles": "Berkas tata letak",
+                "allFiles": "Semua berkas"
+            },
+            "errors": {
+                "unableToLoad": "Tidak dapat memuat tata letak dari berkas tersebut."
+            }
+        },
+        "sidebar": {
+            "language_intl": {
+                "title": "Bahasa/Internasional"
+            },
+            "blanks": {
+                "title": "Kosong"
+            },
+            "overview": {
+                "color": "Warna",
+                "sharing": "Cadangan dan Pemulihan"
+            },
+            "consumer": {
+                "brightness": "Kecerahan"
+            },
+            "ledcontrol": {
+                "title": "Kontrol LED",
+                "help": "Kontrol tema dan efek LED papan tik Anda."
+            },
+            "secondary": {
+                "title": "Tindakan sekunder",
+                "type": {
+                    "none": "Tidak ada tindakan sekunder"
+                }
+            },
+            "colors": {
+                "title": "Warna"
+            },
+            "mousekeys": {
+                "title": "Kontrol tetikus",
+                "help": "Tiru tetikus melalui tuts papan tik.",
+                "movement": "Pergerakan",
+                "buttons": "Tombol"
+            }
+        },
+        "macros": {
+            "steps": {
+                "in_ms": "md",
+                "unknown": "<tidak diketahui>",
+                "WAIT": "Tunggu",
+                "TAP": "Ketuk",
+                "unsupported": "Tidak didukung"
+            }
+        },
+        "legacy": {
+            "migrate": "Pindah"
+        },
+        "layerswitch": {
+            "type": "Jenis"
+        }
+    },
+    "layoutCards": {
+        "printTooltip": "Cetak"
+    },
+    "preferences": {
+        "autoUpdate": {
+            "label": "Pembaruan otomatis",
+            "mode": {
+                "label": "Unduh versi Chrysalis baru secara otomatis",
+                "help": "Ketika dinyalakan, Chrysalis akan memeriksa pembaruan pada pemulaian dan secara otomatis mengunduh versi baru."
+            }
+        },
+        "interface": "Tampilan Pengguna",
+        "devtools": {
+            "main": {
+                "label": "Alat pengembangan",
+                "description": "Preferensi ini secara umum untuk membantu pengembang. Anda mungkin diminta untuk mengaktifkannya untuk mendapatkan lebih banyak informasi tentang suatu masalah."
+            },
+            "console": {
+                "label": "Buka konsol pengembangan",
+                "help": "Konsol pengembangan memperbolehkan Anda mengintip ke dalam Chrysalis. Gunakan dengan hati-hati."
+            }
+        },
+        "ui": {
+            "layoutEditor": {
+                "label": "Penyunting Tata Letak"
+            },
+            "layoutCards": {
+                "label": "Kartu Tata Letak"
+            },
+            "lookNFeel": {
+                "label": "Tampilan"
+            },
+            "theme": {
+                "label": "Tema",
+                "system": "Bawaan sistem",
+                "dark": "Gelap",
+                "light": "Terang"
+            },
+            "language": {
+                "label": "Bahasa",
+                "help": "Pilih bahasa yang Chrysalis akan gunakan"
+            },
+            "host": {
+                "label": "Tata letak papan tik"
+            }
+        },
+        "keyboard": {
+            "title": "Papan Tik Saya",
+            "advanced": {
+                "label": "Alat Lanjutan",
+                "description": "Itu adalah alat berbahaya, pastikan Anda tahu apa yang dilakukan mereka sebelum memakainya."
+            },
+            "defaultLayer": {
+                "noDefault": "Tidak ada yang baku"
+            },
+            "led": {
+                "idle": {
+                    "oneMinute": "1 menit",
+                    "twoMinutes": "2 menit",
+                    "threeMinutes": "3 menit",
+                    "fourMinutes": "4 menit",
+                    "fiveMinutes": "5 menit",
+                    "tenMinutes": "10 menit",
+                    "fifteenMinutes": "15 menit",
+                    "twentyMinutes": "20 menit",
+                    "thirtyMinutes": "30 menit",
+                    "sixtyMinutes": "60 menit"
+                },
+                "brightness": {
+                    "label": "Kecerahan LED",
+                    "help": "Atur kecerahan LED di papan tik."
+                },
+                "default": {
+                    "label": "Mode baku LED"
+                }
+            },
+            "plugins": {
+                "mousekeys": {
+                    "warp_grid_size": {
+                        "2x2": "2x2",
+                        "3x3": "3x3"
+                    },
+                    "scroll_interval": {
+                        "label": "Kecepatan menggulir"
+                    }
+                }
+            }
+        }
+    },
+    "language": "Inggris",
+    "breakingNews": {
+        "firmware0_90_1": {
+            "title": "Perhatian pengguna Keyboardio Model 100!",
+            "button": "Instruksi pembaruan"
+        }
+    },
+    "sanity-check": {
+        "download-latest": "Unduh rilis resmi"
+    },
+    "errors": {
+        "deviceDisconnected": "Papan tik terputus"
+    },
+    "components": {
+        "save": {
+            "saveChanges": "Simpan Perubahan"
+        },
+        "logo": {
+            "altText": "Logo Chrysalis"
+        }
+    },
+    "autoUpdate": {
+        "available": "Versi baru tersedia: {{ version }}",
+        "downloaded": "Versi {{ version }} diunduh, memulai ulang Chrysalis untuk menyelesaikan pemasangan",
+        "error": "Galat ketika memperbarui: {{ error }}"
+    },
+    "dialog": {
+        "ok": "Oke",
+        "cancel": "Batal",
+        "close": "Tutup",
+        "continue": "Lanjut"
+    },
+    "changelog": {
+        "title": "Log perubahan"
+    }
+}

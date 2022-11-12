@@ -131,8 +131,11 @@ const KeyPicker = (props) => {
   }
 
   const isDU = db.isInCategory(key.code, "dualuse");
+  const isShifted = db.isInCategory(key.code, "shift");
+  const isTopsyTurvy = db.isInCategory(key.code, "topsyturvy");
   const isMod = (key, mod) => key.baseCode == mod || key.code == mod;
   const c = db.constants.codes;
+  const topsyTurvyVisible = usePluginVisibility("TopsyTurvy");
 
   return (
     <Collapsible
@@ -149,7 +152,7 @@ const KeyPicker = (props) => {
             <FormControlLabel
               control={makeSwitch("shift")}
               label="Shift"
-              disabled={isMod(key, c.LEFT_SHIFT) || isDU}
+              disabled={isMod(key, c.LEFT_SHIFT) || isTopsyTurvy || isDU}
             />
             <FormControlLabel
               control={makeSwitch("ctrl")}
@@ -171,6 +174,14 @@ const KeyPicker = (props) => {
               label="AltGr"
               disabled={isMod(key, c.RIGHT_ALT) || isDU}
             />
+
+            {topsyTurvyVisible && (
+              <FormControlLabel
+                control={makeSwitch("topsyturvy")}
+                label="TopsyTurvy"
+                disabled={isMod(key, c.LEFT_SHIFT) || isShifted || isDU}
+              />
+            )}
           </FormGroup>
         </FormControl>
         {oneShot}

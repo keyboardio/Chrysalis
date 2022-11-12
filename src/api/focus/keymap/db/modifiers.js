@@ -22,6 +22,7 @@ const modMap = {
   altgr: 1 << 10,
   shift: 1 << 11,
   gui: 1 << 12,
+  topsyturvy: 53293,
 };
 
 const addModifier = (keyCode, mod) => {
@@ -63,6 +64,10 @@ const withModifiers = (keys) => {
     hyper: {
       full: "Hyper+",
       "1u": "H+",
+    },
+    topsyturvy: {
+      full: "TopsyTurvy+",
+      "1u": "Ƨ+",
     },
   };
 
@@ -121,6 +126,14 @@ const withModifiers = (keys) => {
         base: key.label.base,
       }),
     },
+    {
+      categories: ["topsyturvy"],
+      offset: modMap.topsyturvy,
+      label: (key) => ({
+        hint: modLabels.topsyturvy,
+        base: key.label.shifted || key.label.base,
+      }),
+    },
 
     // Two mods
     {
@@ -128,6 +141,14 @@ const withModifiers = (keys) => {
       offset: modMap.ctrl + modMap.shift,
       label: (key) => ({
         hint: combine(modLabels.ctrl, modLabels.shift),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["ctrl", "topsyturvy"],
+      offset: modMap.ctrl + modMap.topsyturvy,
+      label: (key) => ({
+        hint: combine(modLabels.ctrl, modLabels.topsyturvy),
         base: key.label.base,
       }),
     },
@@ -180,6 +201,30 @@ const withModifiers = (keys) => {
       }),
     },
     {
+      categories: ["topsyturvy", "alt"],
+      offset: modMap.topsyturvy + modMap.alt,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.alt),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["topsyturvy", "altgr"],
+      offset: modMap.topsyturvy + modMap.altgr,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.altgr),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["topsyturvy", "gui"],
+      offset: modMap.topsyturvy + modMap.gui,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.gui),
+        base: key.label.base,
+      }),
+    },
+    {
       categories: ["alt", "altgr"],
       offset: modMap.alt + modMap.altgr,
       label: (key) => ({
@@ -214,6 +259,14 @@ const withModifiers = (keys) => {
       }),
     },
     {
+      categories: ["ctrl", "topsyturvy", "alt"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.alt,
+      label: (key) => ({
+        hint: combine(modLabels.ctrl, modLabels.topsyturvy, modLabels.altgr),
+        base: key.label.base,
+      }),
+    },
+    {
       categories: ["ctrl", "shift", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.altgr,
       label: (key) => ({
@@ -222,10 +275,26 @@ const withModifiers = (keys) => {
       }),
     },
     {
+      categories: ["ctrl", "topsyturvy", "altgr"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.altgr,
+      label: (key) => ({
+        hint: combine(modLabels.ctrl, modLabels.topsyturvy, modLabels.altgr),
+        base: key.label.base,
+      }),
+    },
+    {
       categories: ["ctrl", "shift", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.gui,
       label: (key) => ({
         hint: combine(modLabels.ctrl, modLabels.shift, modLabels.gui),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["ctrl", "topsyturvy", "gui"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.gui,
+      label: (key) => ({
+        hint: combine(modLabels.ctrl, modLabels.topsyturvy, modLabels.gui),
         base: key.label.base,
       }),
     },
@@ -278,6 +347,30 @@ const withModifiers = (keys) => {
       }),
     },
     {
+      categories: ["topsyturvy", "alt", "altgr"],
+      offset: modMap.topsyturvy + modMap.alt + modMap.altgr,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.alt, modLabels.altgr),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["topsyturvy", "alt", "gui"],
+      offset: modMap.topsyturvy + modMap.alt + modMap.gui,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.alt, modLabels.gui),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["topsyturvy", "altgr", "gui"],
+      offset: modMap.topsyturvy + modMap.altgr + modMap.gui,
+      label: (key) => ({
+        hint: combine(modLabels.topsyturvy, modLabels.altgr, modLabels.gui),
+        base: key.label.base,
+      }),
+    },
+    {
       categories: ["alt", "altgr", "gui"],
       offset: modMap.shift + modMap.altgr + modMap.gui,
       label: (key) => ({
@@ -317,6 +410,45 @@ const withModifiers = (keys) => {
       }),
     },
     {
+      categories: ["ctrl", "topsyturvy", "alt", "altgr"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.alt + modMap.altgr,
+      label: (key) => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.topsyturvy,
+          modLabels.alt,
+          modLabels.altgr
+        ),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["ctrl", "topsyturvy", "alt", "gui"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.alt + modMap.gui,
+      label: (key) => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.topsyturvy,
+          modLabels.alt,
+          modLabels.gui
+        ),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["ctrl", "topsyturvy", "gui", "altgr"],
+      offset: modMap.ctrl + modMap.topsyturvy + modMap.gui + modMap.altgr,
+      label: (key) => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.topsyturvy,
+          modLabels.gui,
+          modLabels.altgr
+        ),
+        base: key.label.base,
+      }),
+    },
+    {
       categories: ["ctrl", "alt", "altgr", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
       label: (key) => ({
@@ -342,6 +474,19 @@ const withModifiers = (keys) => {
         base: key.label.base,
       }),
     },
+    {
+      categories: ["topsyturvy", "alt", "altgr", "gui"],
+      offset: modMap.topsyturvy + modMap.alt + modMap.altgr + modMap.gui,
+      label: (key) => ({
+        hint: combine(
+          modLabels.topsyturvy,
+          modLabels.alt,
+          modLabels.altgr,
+          modLabels.gui
+        ),
+        base: key.label.base,
+      }),
+    },
 
     // All mods
     {
@@ -350,6 +495,25 @@ const withModifiers = (keys) => {
         modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
       label: (key) => ({
         hint: combine(modLabels.hyper, modLabels.altgr),
+        base: key.label.base,
+      }),
+    },
+    {
+      categories: ["ctrl", "topsyturvy", "alt", "altgr", "gui"],
+      offset:
+        modMap.ctrl +
+        modMap.topsyturvy +
+        modMap.alt +
+        modMap.altgr +
+        modMap.gui,
+      label: (key) => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.topsyturvy,
+          modLabels.alt,
+          modLabels.altgr,
+          modLabels.gui
+        ),
         base: key.label.base,
       }),
     },

@@ -176,11 +176,13 @@ const KeyPicker = (props) => {
             />
 
             {topsyTurvyVisible && (
-              <FormControlLabel
-                control={makeSwitch("topsyturvy")}
-                label="TopsyTurvy"
-                disabled={isMod(key, c.LEFT_SHIFT) || isShifted || isDU}
-              />
+              <Tooltip title={t("editor.sidebar.keypicker.topsyturvy.tooltip")}>
+                <FormControlLabel
+                  control={makeSwitch("topsyturvy")}
+                  label={t("editor.sidebar.keypicker.topsyturvy.label")}
+                  disabled={isMod(key, c.LEFT_SHIFT) || isShifted || isDU}
+                />
+              </Tooltip>
             )}
           </FormGroup>
         </FormControl>

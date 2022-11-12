@@ -174,6 +174,10 @@
         "oneshot": {
           "label": "Sticky",
           "tooltip": "Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier."
+        },
+        "topsyturvy": {
+          "label": "TopsyTurvy",
+          "tooltip": "Invert the behavior of the Shift key."
         }
       },
       "layer": {

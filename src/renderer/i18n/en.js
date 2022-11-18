@@ -30,7 +30,7 @@ const English = {
     troubleshooting: "Troubleshooting"
   },
   success: {
-    preferencesSaved: "Your preferecens have been saved.",
+    preferencesSaved: "Your preferences have been saved.",
     preferencesSavedBody: ""
   },
   components: {
@@ -198,7 +198,7 @@ const English = {
       title: "Macro Editor",
       timelineTitle: "Timeline editor",
       successFlashTitle: "Your macros have been saved.",
-      successFlash: "Succesfully sent the macros to the Raise",
+      successFlash: "Successfully sent the macros to the Raise",
       previewMacro: "Preview macro",
       deleteModal: {
         title: "This macro is in use",
@@ -233,7 +233,7 @@ const English = {
     },
     standardView: {
       noKeyTransparent: "No Key/Transparent",
-      callOut: 'You can remove a funcionality or inherit the funcionality of the upper layer using "No key" or "Transparent"',
+      callOut: 'You can remove a functionality or inherit the functionality of the upper layer using "No key" or "Transparent"',
       noKey: "No Key",
       noKeyDescription: "There's no function or character assigned to that key.",
       transparent: "Transparent",
@@ -250,7 +250,7 @@ const English = {
         descriptionModifiers: "Add any of these modifiers to selected key to create combinations such as Control, Alt or Shift.",
         addDualFunction: "Add a dual-function",
         dualFunctionDescription:
-          "Dual-function keys have two functionalities. 1. When tapped, they send a chartacter. 2. When held, they send a modifier o a layer key."
+          "Dual-function keys have two functionalities. 1. When tapped, they send a character. 2. When held, they send a modifier to a layer key."
       },
       layers: {
         title: "Layers",
@@ -269,7 +269,7 @@ const English = {
       },
       mediaAndLED: {
         title: "Media & LED",
-        callOut: "Put your hands up! Control de media and RGB lighting behaviour using keys shortcuts."
+        callOut: "Put your hands up! Control the media and RGB lighting behaviour using keys shortcuts."
       },
       mouse: {
         title: "Mouse",
@@ -337,7 +337,7 @@ const English = {
       selectMouseFunction: "Select Mouse Function",
       title: "Superkeys Editor",
       successFlashTitle: "The Superkeys have been saved",
-      successFlash: "Succesfully sent the superkeys to the Raise",
+      successFlash: "Successfully sent the superkeys to the Raise",
       createModal: {
         createNew: "Create new Superkey name",
         inputLabel: "Superkey name"
@@ -353,7 +353,7 @@ const English = {
         tapLabel: "Tap",
         tap: "No secrets, tap once and activate the key.",
         holdLabel: "Hold",
-        hold: "Hold the key top trigger a second key.",
+        hold: "Hold the key to trigger a second key.",
         tapAndHoldLabel: "Tap & hold",
         tapAndHold: "Tap once, tap again and keep holding to activate another key.",
         doubleTapLabel: "2Tap",
@@ -364,7 +364,7 @@ const English = {
       callout:
         "<p>Wow! Superpowers, my friend!</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold. This allows you to create crazy combinations to boost your workflow.</p>",
       tooltip:
-        "You can edit keys in two diffferent ways. Advanced users may prefer Single View which is designed for quick key editing.",
+        "You can edit keys in two different ways. Advanced users may prefer Single View which is designed for quick key editing.",
       collapse: {
         title: "See what you are able to do",
         content: ""
@@ -404,7 +404,7 @@ const English = {
         mediaTitle: "Media",
         mediaDescription: "Skip boring songs, turn the sound louder. <br>Harder, better, faster, stronger!",
         LEDTitle: "LED",
-        LEDDescrition: "Turn the RBG lighting On or Off and control the cycle throught the lights effects.",
+        LEDDescrition: "Turn the RBG lighting On or Off and control the cycle through the lights effects.",
         othersTitle: "Others",
         othersDescription: "Control your media, apps and brightness. Safe and sound!"
       }
@@ -418,7 +418,7 @@ const English = {
     },
     oldNeuronModal: {
       title: "New Neuron detected",
-      body: "A new Neuron was plugged in for the first time using this bazecor installation",
+      body: "A new Neuron was plugged in for the first time using this Bazecor installation",
       body2: "Do you want to clone the names of your existing neuron or use empty names",
       cancelButton: "Cancel",
       applyButton: "Use existing names"
@@ -445,10 +445,10 @@ const English = {
     pasteSuccess: "Pasted!",
     importSuccessCurrentLayerTitle: "Imported successfully!",
     importSuccessCurrentLayer: "Imported to current Layer successfully",
-    importSuccessAllLayers: "Imported all Layers succesfully",
+    importSuccessAllLayers: "Imported all Layers successfully",
     exportSuccessCurrentLayer: "Ready to share!",
     exportSuccessCurrentLayerContent: "Your layer has been successfully exported.",
-    exportSuccessAllLayers: "Exported all Layers succesfully"
+    exportSuccessAllLayers: "Exported all Layers successfully"
   },
   preferences: {
     title: "Preferences",
@@ -551,9 +551,9 @@ const English = {
       chordingTip3: "With a low value, you might trigger the hold function if you linger on the key too much while typing.",
       chordingTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
       repeat:
-        "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
+        "Adjust repeat time interval between the emission of held keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",
-      waitfor: "Adjust time between first and subsequent emmisions of the hold keys",
+      waitfor: "Adjust time between first and subsequent emissions of the held keys",
       waitforsub: " - time from 0 to 65,534 milliseconds",
       holdstart: "Superkeys - Hold timeout",
       holdstartsub: " - time from 0 to 65,534 milliseconds",
@@ -611,7 +611,7 @@ const English = {
       cancel: "Cancel",
       letsStart: "Let's start",
       versionUpdatedTitle: "Your firmware is up to date 🤙",
-      versionOutdatedTitle: "New update is avaliable",
+      versionOutdatedTitle: "New update is available",
       calloutIntroText: "Updating your Raise firmware is how we implement new cool features and bug fixes.",
       neuronUpdatedText: "[Solid as a rock!]",
       neuronOutdatedText: "[Almost is never enough]",
@@ -654,7 +654,7 @@ const English = {
       progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
       currentlyRunningCardTitle: "Your <span class='hidden-on-sm'>Raise's </span>firmware version",
-      latestAvailableText: "Latest version <span class='hidden-on-sm'>avaliable</span>",
+      latestAvailableText: "Latest version <span class='hidden-on-sm'>available</span>",
       latestVersionInstalled: "You are using the latest version",
       firmwareUpdatedTitle: "Firmware update!",
       firmwareUpdatedMessage: "Solid as a rock! 💪"

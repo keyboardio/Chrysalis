@@ -186,7 +186,17 @@
       },
       "oneshot": {
         "title": "One-shot",
-        "help": "Click button below to choose a dedicated key to cancel one-shot keys."
+        "help": "Click the button below to choose a dedicated key to cancel one-shot keys."
+      },
+      "oneshotMetaKeys": {
+        "title": "One-shot meta keys",
+        "help": "Click the buttons below to create special OneShot keys that can make any key \"sticky\", not just modifiers or layer-shift keys.",
+        "metaStickyKey": {
+          "tooltip": "Makes the next key pressed sticky until tapped again."
+        },
+        "activeStickyKey": {
+          "tooltip": "Makes any currently-held or active keys sticky until tapped again."
+        }
       },
       "ledcontrol": {
         "title": "LED control",

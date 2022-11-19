@@ -81,6 +81,28 @@ const oneshot = [
   osl(7),
 
   {
+    code: 53628,
+    label: {
+      hint: {
+        full: "OneShot Stick",
+        "1u": "Stick",
+      },
+      base: "Next",
+    },
+    categories: ["oneshot"],
+  },
+  {
+    code: 53629,
+    label: {
+      hint: {
+        full: "OneShot Stick",
+        "1u": "Stick",
+      },
+      base: "Active",
+    },
+    categories: ["oneshot"],
+  },
+  {
     code: 53630,
     label: {
       hint: {

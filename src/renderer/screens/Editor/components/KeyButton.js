@@ -17,13 +17,14 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import React from "react";
 import useTheme from "@mui/material/styles/useTheme";
 
 const db = new KeymapDB();
 
 const KeyButton = (props) => {
-  const { classes, keyObj, onKeyChange, currentKey, noHint } = props;
+  const { classes, keyObj, onKeyChange, currentKey, noHint, title } = props;
   const theme = useTheme();
   console.log(currentKey);
   console.log(keyObj);
@@ -42,8 +43,19 @@ const KeyButton = (props) => {
     };
   };
 
+  const wrapWithTooltip = (button) => {
+    // <Tooltip> doesn't work around <Button> without a <span> or <div>.
+    return !title ? (
+      button
+    ) : (
+      <Tooltip title={title}>
+        <span>{button}</span>
+      </Tooltip>
+    );
+  };
+
   const label = db.format(keyObj, { keycapSize: props.keycapSize || "full" });
-  return (
+  return wrapWithTooltip(
     <Button
       variant="outlined"
       size="small"

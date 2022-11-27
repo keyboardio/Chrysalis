@@ -42,6 +42,19 @@ const ledkeys = addCategories(
         },
       },
     },
+    {
+      code: 17154,
+      label: {
+        hint: {
+          full: "LEDEffect",
+          "1u": "LED",
+        },
+        base: {
+          full: "Toggle",
+          "1u": "Togg.",
+        },
+      },
+    },
   ]
 );
 

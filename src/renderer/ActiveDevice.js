@@ -142,6 +142,9 @@ export function ActiveDevice() {
     oneshot_stickable_keys: "oneshot.stickable_keys",
     oneshot_auto_mods: "oneshot.auto_mods",
     oneshot_auto_layers: "oneshot.auto_layers",
+    autoshift_enabled: "autoshift.enabled",
+    autoshift_timeout: "autoshift.timeout",
+    autoshift_categories: "autoshift.categories",
   };
 
   Object.keys(cacheableFocusCommands).forEach((command) => {

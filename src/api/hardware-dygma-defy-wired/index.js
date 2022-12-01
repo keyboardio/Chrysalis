@@ -15,36 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import KeymapANSI from "./components/Keymap-ANSI";
+import KeymapDEFY from "./components/Keymap";
 import Focus from "../focus";
 
-const Raise_ANSI = {
+const Defy_wired = {
   info: {
     vendor: "Dygma",
-    product: "Raise",
-    keyboardType: "ANSI",
-    displayName: "Dygma Raise ANSI",
+    product: "Defy",
+    keyboardType: "wired",
+    displayName: "Dygma Defy wired",
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
+        url: "https://www.dygma.com/defy/"
       }
     ]
   },
   usb: {
-    vendorId: 0x1209,
-    productId: 0x2201
+    vendorId: 0xffff,
+    productId: 0x800a
   },
   keyboard: {
     rows: 5,
     columns: 16
   },
   keyboardUnderglow: {
-    rows: 6,
+    rows: 8,
     columns: 22
   },
   components: {
-    keymap: KeymapANSI
+    keymap: KeymapDEFY
   },
 
   instructions: {
@@ -66,36 +66,37 @@ const Raise_ANSI = {
   },
 
   isDeviceSupported: async port => {
-    let focus = new Focus();
-    let layout = localStorage.getItem(port.serialNumber);
-    if (!layout) {
-      focus._port && focus._port.path === port.path
-        ? await focus.open(focus._port, port.device)
-        : await focus.open(port.path, port.device);
-      layout = await focus.command("hardware.layout");
-      focus.close();
-      localStorage.setItem(port.serialNumber, layout);
-    }
-    return layout.trim() === "ANSI";
+    // let focus = new Focus();
+    // let layout = localStorage.getItem(port.serialNumber);
+    // if (!layout) {
+    //   focus._port && focus._port.path === port.path
+    //     ? await focus.open(focus._port, port.device)
+    //     : await focus.open(port.path, port.device);
+    //   layout = await focus.command("hardware.layout");
+    //   focus.close();
+    //   localStorage.setItem(port.serialNumber, layout);
+    // }
+    // return layout.trim() === "ANSI";
+    return 1;
   }
 };
 
-const Raise_ANSIBootloader = {
+const Defy_wiredBootloader = {
   info: {
     vendor: "Dygma",
-    product: "Raise",
-    keyboardType: "ANSI",
-    displayName: "Dygma Raise ANSI",
+    product: "Defy",
+    keyboardType: "wired",
+    displayName: "Dygma Defy wired",
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
+        url: "https://www.dygma.com/defy/"
       }
     ]
   },
   usb: {
-    vendorId: 0x1209,
-    productId: 0x2200
+    vendorId: 0xffff,
+    productId: 0x800b
   },
   bootloader: true,
   instructions: {
@@ -115,4 +116,4 @@ const Raise_ANSIBootloader = {
   }
 };
 
-export { Raise_ANSI, Raise_ANSIBootloader };
+export { Defy_wired, Defy_wiredBootloader };

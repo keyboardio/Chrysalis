@@ -264,7 +264,7 @@ export default class ColorEditor extends Component {
             <div className="buttonsApplyAll">
               <ColorButton
                 onClick={() => {
-                  toChangeAllKeysColor(selected, 0, 69);
+                  toChangeAllKeysColor(selected, 0, 70);
                 }}
                 label={i18n.editor.color.applyColor}
                 text={i18n.editor.color.allKeys}
@@ -273,7 +273,7 @@ export default class ColorEditor extends Component {
               />
               <ColorButton
                 onClick={() => {
-                  toChangeAllKeysColor(selected, 69, 142);
+                  toChangeAllKeysColor(selected, 70, 176);
                 }}
                 label={i18n.editor.color.applyColor}
                 text={i18n.editor.color.underglow}

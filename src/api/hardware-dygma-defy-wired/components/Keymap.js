@@ -118,7 +118,7 @@ const led_map = [
   ]
 ];
 
-const no_key_led_map = [...Array.apply(0, Array(106)).map((_, i) => i + UNDERGLOW)];
+const no_key_led_map = [...Array.apply(0, Array(107)).map((_, i) => i + UNDERGLOW)];
 
 const keysRowsPosition = {
   row1: 35,
@@ -220,7 +220,7 @@ class KeymapDEFY extends React.Component {
 
     const colormap =
       this.props.colormap ||
-      Array(176)
+      Array(177)
         .fill()
         .map(() => 0);
     const palette =
@@ -385,14 +385,14 @@ class KeymapDEFY extends React.Component {
             color="#b4b4b4"
             id="neuron_led"
             onClick={e => {
-              setUndeglowIndex(175, e);
+              setUndeglowIndex(176, e);
             }}
             className="key"
-            fill={getColor(175)}
-            stroke={stroke(175)}
-            strokeWidth={getStrokeWidth(175)}
-            dataLedIndex={getLEDIndex(175)}
-            dataKeyIndex={keyIndex(175)}
+            fill={getColor(176)}
+            stroke={stroke(176)}
+            strokeWidth={getStrokeWidth(176)}
+            dataLedIndex={getLEDIndex(176)}
+            dataKeyIndex={keyIndex(176)}
             dataLayer={layer}
             translateX={50}
             translateY={72}

@@ -40,8 +40,8 @@ const Defy_wired = {
     columns: 16
   },
   keyboardUnderglow: {
-    rows: 8,
-    columns: 22
+    rows: 2,
+    columns: 89
   },
   components: {
     keymap: KeymapDEFY

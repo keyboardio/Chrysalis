@@ -587,7 +587,7 @@ class LayoutEditor extends React.Component {
        */
       let chipID = await focus.command("hardware.chip_id");
       let registered = await this.AnalizeChipID(chipID.replace(/\s/g, ""));
-
+      const device = focus.device.info.product;
       if (lang) {
         let deviceLang = { ...focus.device, language: true };
         focus.commands.keymap = new Keymap(deviceLang);
@@ -620,6 +620,7 @@ class LayoutEditor extends React.Component {
 
       let colormap = await focus.command("colormap");
       let palette = colormap.palette.slice();
+      console.log("retrieved color.map & palette", colormap, palette);
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -644,7 +645,8 @@ class LayoutEditor extends React.Component {
         macros: parsedMacros,
         superkeys: parsedSuper,
         registered,
-        chipID
+        chipID,
+        deviceName: device
       });
       if (keymap.custom) {
         const oldmacro = [...Array(64).keys()].map(x => x + 24576);
@@ -870,6 +872,28 @@ class LayoutEditor extends React.Component {
   };
 
   onApply = async () => {
+    this.setState({ saving: true });
+    let focus = new Focus();
+    await focus.command("keymap", this.state.keymap);
+    await focus.command("colormap", this.state.palette, this.state.colorMap);
+    this.setState({
+      modified: false,
+      saving: false,
+      previousKeyIndex: this.state.currentKeyIndex,
+      previousLedIndex: this.state.currentLedIndex,
+      previousLayer: this.state.currentLayer,
+      isMultiSelected: false,
+      selectedPaletteColor: null,
+      isColorButtonSelected: false
+    });
+    console.log("Changes saved.");
+    const commands = await this.bkp.Commands();
+    const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
+    this.bkp.SaveBackup(backup);
+    this.props.cancelContext();
+  };
+
+  onApplyDefy = async () => {
     this.setState({ saving: true });
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
@@ -1919,6 +1943,7 @@ class LayoutEditor extends React.Component {
                 isColorButtonSelected={isColorButtonSelected}
                 onColorButtonSelect={this.onColorButtonSelect}
                 toChangeAllKeysColor={this.toChangeAllKeysColor}
+                deviceName={this.state.deviceName}
               />
             }
             isColorActive={this.state.modeselect == "keyboard" ? false : true}

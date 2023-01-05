@@ -53,6 +53,7 @@ import SW from "./SW.json";
 import DN from "./DN.json";
 import NW from "./NW.json";
 import IC from "./IC.json";
+import SWGR from "./SWGR.json";
 
 const Style = Styled.div`
 .keyboard {
@@ -140,7 +141,8 @@ class KeyPicker extends Component {
       swedish: SW,
       danish: DN,
       norwegian: NW,
-      icelandic: IC
+      icelandic: IC,
+      swissGerman: SWGR
     };
     const lansi = { english: ENa };
     let Lang = ENa;

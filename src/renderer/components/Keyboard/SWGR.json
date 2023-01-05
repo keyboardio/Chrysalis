@@ -329,7 +329,7 @@
     "iconname": "",
     "content": {
       "type": "1U",
-      "first": "^",
+      "first": "§",
       "second": "°",
       "third": "",
       "fourth": ""
@@ -346,8 +346,8 @@
     "content": {
       "type": "1U",
       "first": "1",
-      "second": "!",
-      "third": "",
+      "second": "+",
+      "third": "¦",
       "fourth": ""
     }
   },
@@ -363,7 +363,7 @@
       "type": "1U",
       "first": "2",
       "second": "\"",
-      "third": "²",
+      "third": "@",
       "fourth": ""
     }
   },
@@ -378,8 +378,8 @@
     "content": {
       "type": "1U",
       "first": "3",
-      "second": "§",
-      "third": "³",
+      "second": "*",
+      "third": "#",
       "fourth": ""
     }
   },
@@ -394,7 +394,7 @@
     "content": {
       "type": "1U",
       "first": "4",
-      "second": "$",
+      "second": "ç",
       "third": "",
       "fourth": ""
     }
@@ -427,7 +427,7 @@
       "type": "1U",
       "first": "6",
       "second": "&",
-      "third": "",
+      "third": "¬",
       "fourth": ""
     }
   },
@@ -443,7 +443,7 @@
       "type": "1U",
       "first": "7",
       "second": "/",
-      "third": "{",
+      "third": "|",
       "fourth": ""
     }
   },
@@ -459,7 +459,7 @@
       "type": "1U",
       "first": "8",
       "second": "(",
-      "third": "[",
+      "third": "¢",
       "fourth": ""
     }
   },
@@ -475,7 +475,7 @@
       "type": "1U",
       "first": "9",
       "second": ")",
-      "third": "]",
+      "third": "",
       "fourth": ""
     }
   },
@@ -491,7 +491,7 @@
       "type": "1U",
       "first": "0",
       "second": "=",
-      "third": "}",
+      "third": "",
       "fourth": ""
     }
   },
@@ -505,9 +505,9 @@
     "iconname": "",
     "content": {
       "type": "1U",
-      "first": "ß",
+      "first": "'",
       "second": "?",
-      "third": "\\",
+      "third": "´",
       "fourth": ""
     }
   },
@@ -521,9 +521,9 @@
     "iconname": "",
     "content": {
       "type": "1U",
-      "first": "´",
+      "first": "^",
       "second": "`",
-      "third": "",
+      "third": "~",
       "fourth": ""
     }
   },
@@ -687,7 +687,7 @@
     "content": {
       "type": "1U",
       "first": "Q",
-      "second": "@",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -847,8 +847,8 @@
     "content": {
       "type": "1U",
       "first": "Ü",
-      "second": "",
-      "third": "",
+      "second": "È",
+      "third": "[",
       "fourth": ""
     }
   },
@@ -862,9 +862,9 @@
     "iconname": "",
     "content": {
       "type": "1U",
-      "first": "+",
-      "second": "*",
-      "third": "~",
+      "first": "¨",
+      "second": "!",
+      "third": "]",
       "fourth": ""
     }
   },
@@ -1109,7 +1109,7 @@
     "content": {
       "type": "1U",
       "first": "Ö",
-      "second": "",
+      "second": "É",
       "third": "",
       "fourth": ""
     }
@@ -1125,8 +1125,8 @@
     "content": {
       "type": "1U",
       "first": "Ä",
-      "second": "",
-      "third": "",
+      "second": "À",
+      "third": "{",
       "fourth": ""
     }
   },
@@ -1140,9 +1140,9 @@
     "iconname": "",
     "content": {
       "type": "1U",
-      "first": "#",
-      "second": "'",
-      "third": "",
+      "first": "$",
+      "second": "£",
+      "third": "}",
       "fourth": ""
     }
   },
@@ -1226,7 +1226,7 @@
       "type": "1U",
       "first": "<",
       "second": ">",
-      "third": "|",
+      "third": "\\",
       "fourth": ""
     }
   },
@@ -1337,7 +1337,7 @@
     "content": {
       "type": "1U",
       "first": "M",
-      "second": "µ",
+      "second": "",
       "third": "",
       "fourth": ""
     }

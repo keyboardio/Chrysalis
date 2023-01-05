@@ -28,6 +28,46 @@ const swissGermanLetters = [
     }
   },
   {
+    code: 29,
+    labels: {
+      primary: "Y"
+    }
+  }
+];
+
+const swissGermanModifierKeys = [
+  {
+    code: 53,
+    labels: {
+      primary: "§"
+    }
+  },
+  {
+    code: 45,
+    labels: {
+      primary: "'"
+    }
+  },
+  {
+    code: 46,
+    labels: {
+      primary: "^"
+    }
+  },
+  {
+    code: 48,
+    labels: {
+      primary: "¨"
+    }
+  },
+  {
+    code: 49,
+    labels: {
+      primary: "$"
+    },
+    newGroupName: "Shifted Digits"
+  },
+  {
     code: 47,
     labels: {
       primary: "Ü"
@@ -49,46 +89,6 @@ const swissGermanLetters = [
     newGroupName: "Letters"
   },
   {
-    code: 29,
-    labels: {
-      primary: "Y"
-    }
-  }
-];
-
-const swissGermanModifierKeys = [
-  {
-    code: 53,
-    labels: {
-      primary: "^"
-    }
-  },
-  {
-    code: 45,
-    labels: {
-      primary: "ß"
-    },
-    newGroupName: "Letters"
-  },
-  {
-    code: 46,
-    labels: {
-      primary: "´"
-    }
-  },
-  {
-    code: 48,
-    labels: {
-      primary: "+"
-    }
-  },
-  {
-    code: 49,
-    labels: {
-      primary: "#"
-    }
-  },
-  {
     code: 56,
     labels: {
       primary: "-"
@@ -106,51 +106,51 @@ const altCtrlSwissGerman = {
   groupName: "AltCtrl SwissGerman",
   keys: [
     {
+      code: 798,
+      labels: {
+        primary: "¦"
+      }
+    },
+    {
       code: 799,
       labels: {
-        primary: "²"
+        primary: "@"
       }
     },
     {
       code: 800,
       labels: {
-        primary: "³"
+        primary: "#"
+      }
+    },
+    {
+      code: 803,
+      labels: {
+        primary: "¬"
       }
     },
     {
       code: 804,
       labels: {
-        primary: "{"
+        primary: "|"
       }
     },
     {
       code: 805,
       labels: {
-        primary: "["
-      }
-    },
-    {
-      code: 806,
-      labels: {
-        primary: "]"
-      }
-    },
-    {
-      code: 807,
-      labels: {
-        primary: "}"
+        primary: "¢"
       }
     },
     {
       code: 813,
       labels: {
-        primary: "\\"
+        primary: "´"
       }
     },
     {
-      code: 788,
+      code: 814,
       labels: {
-        primary: "@"
+        primary: "~"
       }
     },
     {
@@ -160,27 +160,33 @@ const altCtrlSwissGerman = {
       }
     },
     {
+      code: 815,
+      labels: {
+        primary: "["
+      }
+    },
+    {
       code: 816,
       labels: {
-        primary: "~"
+        primary: "]"
       }
     },
     {
       code: 817,
       labels: {
-        primary: "|"
+        primary: "}"
       }
     },
     {
-      code: 784,
+      code: 820,
       labels: {
-        primary: "µ"
+        primary: "{"
       }
     },
     {
       code: 868,
       labels: {
-        primary: "|"
+        primary: "\\"
       }
     }
   ]
@@ -190,51 +196,51 @@ const altGrSwissGerman = {
   groupName: "AltCtrl SwissGerman",
   keys: [
     {
+      code: 1054,
+      labels: {
+        primary: "¦"
+      }
+    },
+    {
       code: 1055,
       labels: {
-        primary: "²"
+        primary: "@"
       }
     },
     {
       code: 1056,
       labels: {
-        primary: "³"
+        primary: "#"
+      }
+    },
+    {
+      code: 1059,
+      labels: {
+        primary: "¬"
       }
     },
     {
       code: 1060,
       labels: {
-        primary: "{"
+        primary: "|"
       }
     },
     {
       code: 1061,
       labels: {
-        primary: "["
-      }
-    },
-    {
-      code: 1062,
-      labels: {
-        primary: "]"
-      }
-    },
-    {
-      code: 1063,
-      labels: {
-        primary: "}"
+        primary: "¢"
       }
     },
     {
       code: 1069,
       labels: {
-        primary: "\\"
+        primary: "´"
       }
     },
     {
-      code: 1044,
+      code: 1070,
       labels: {
-        primary: "@"
+        primary: "~"
       }
     },
     {
@@ -244,27 +250,33 @@ const altGrSwissGerman = {
       }
     },
     {
+      code: 1071,
+      labels: {
+        primary: "["
+      }
+    },
+    {
       code: 1072,
       labels: {
-        primary: "~"
+        primary: "]"
       }
     },
     {
       code: 1073,
       labels: {
-        primary: "|"
+        primary: "}"
       }
     },
     {
-      code: 1040,
+      code: 1076,
       labels: {
-        primary: "µ"
+        primary: "{"
       }
     },
     {
       code: 1124,
       labels: {
-        primary: "|"
+        primary: "\\"
       }
     }
   ]
@@ -280,6 +292,12 @@ const shiftModifierSwissGerman = {
       }
     },
     {
+      code: 2078,
+      labels: {
+        primary: "+"
+      }
+    },
+    {
       code: 2079,
       labels: {
         primary: '"'
@@ -288,7 +306,13 @@ const shiftModifierSwissGerman = {
     {
       code: 2080,
       labels: {
-        primary: "§"
+        primary: "*"
+      }
+    },
+    {
+      code: 2081,
+      labels: {
+        primary: "ç"
       }
     },
     {
@@ -334,15 +358,33 @@ const shiftModifierSwissGerman = {
       }
     },
     {
+      code: 2095,
+      labels: {
+        primary: "È"
+      }
+    },
+    {
       code: 2096,
       labels: {
-        primary: "*"
+        primary: "!"
       }
     },
     {
       code: 2097,
       labels: {
-        primary: "'"
+        primary: "£"
+      }
+    },
+    {
+      code: 2099,
+      labels: {
+        primary: "É"
+      }
+    },
+    {
+      code: 2100,
+      labels: {
+        primary: "À"
       }
     },
     {
@@ -503,4 +545,3 @@ const swissGermanModifiedTables = [
 ];
 
 export { swissGerman as default, swissGermanModifiedTables };
-// export default swissGerman;

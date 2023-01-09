@@ -260,6 +260,7 @@ class App extends React.Component {
     console.log("Probing for Focus support...");
 
     focus.setLayerSize(focus.device);
+    focus.setLEDMode(focus.device);
     const pages = {
       keymap: focus.isCommandSupported("keymap.custom") || focus.isCommandSupported("keymap.map"),
       colormap: focus.isCommandSupported("colormap.map") && focus.isCommandSupported("palette")

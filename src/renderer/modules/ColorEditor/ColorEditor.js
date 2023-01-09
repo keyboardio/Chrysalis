@@ -116,7 +116,6 @@ export default class ColorEditor extends Component {
 
   handleChange(color) {
     const { selected, onColorPick } = this.props;
-    console.log(selected, color);
     onColorPick(selected, color.rgb.r, color.rgb.g, color.rgb.b);
   }
 
@@ -138,7 +137,6 @@ export default class ColorEditor extends Component {
 
   selectColor(ev, pick) {
     const { colors, selected, onColorSelect } = this.props;
-    console.log(colors[pick], pick, selected);
     onColorSelect(pick);
     if (pick === selected) {
       // setIndexFocusButton(!indexFocusButton);

@@ -168,7 +168,7 @@ class NavigationMenu extends Component {
   }
 
   compareFWVer(oldVer, newVer) {
-    console.log("comparing versions ", oldVer, newVer);
+    // console.log("comparing versions ", oldVer, newVer);
     if (oldVer.length != newVer.length) {
       if (oldVer.length > newVer.length) {
         return -1;

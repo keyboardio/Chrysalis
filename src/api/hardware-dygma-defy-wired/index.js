@@ -43,6 +43,7 @@ const Defy_wired = {
     rows: 2,
     columns: 89
   },
+  RGBWMode: true,
   components: {
     keymap: KeymapDEFY
   },

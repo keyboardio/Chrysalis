@@ -893,28 +893,6 @@ class LayoutEditor extends React.Component {
     this.props.cancelContext();
   };
 
-  onApplyDefy = async () => {
-    this.setState({ saving: true });
-    let focus = new Focus();
-    await focus.command("keymap", this.state.keymap);
-    await focus.command("colormap", this.state.palette, this.state.colorMap);
-    this.setState({
-      modified: false,
-      saving: false,
-      previousKeyIndex: this.state.currentKeyIndex,
-      previousLedIndex: this.state.currentLedIndex,
-      previousLayer: this.state.currentLayer,
-      isMultiSelected: false,
-      selectedPaletteColor: null,
-      isColorButtonSelected: false
-    });
-    console.log("Changes saved.");
-    const commands = await this.bkp.Commands();
-    const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
-    this.bkp.SaveBackup(backup);
-    this.props.cancelContext();
-  };
-
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
     console.log("Language automatically set to: ", store.get("settings.language"));

@@ -586,8 +586,16 @@ class FirmwareUpdate extends React.Component {
   };
 
   render() {
-    const { firmwareFilename, buttonText, countdown, backupPressed, isBeginUpdate, versions, firmwareDropdown, flashProgress } =
-      this.state;
+    const {
+      firmwareFilename,
+      buttonText,
+      countdown,
+      backupPressed,
+      isBeginUpdate,
+      versions,
+      firmwareDropdown,
+      flashProgress
+    } = this.state;
 
     let filename = null;
     if (firmwareFilename) {

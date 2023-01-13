@@ -53,15 +53,15 @@ const Defy_wired = {
     }
   },
 
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, flashDefy, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashDefy.updateFirmware(filename, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);
       }
-      flashRaise.saveBackupFile();
+      flashDefy.saveBackupFile();
     });
   },
 
@@ -104,10 +104,10 @@ const Defy_wiredBootloader = {
       updateInstructions: `To update the firmware, press the button at the bottom. You must not hold any key on the keyboard while the countdown is in progress, nor afterwards, until the flashing is finished. When the countdown reaches zero, the Neuron's light should start a blue pulsing pattern, and flashing will then proceed. `
     }
   },
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, flashDefy, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashDefy.updateFirmware(filename, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);

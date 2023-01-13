@@ -24,7 +24,7 @@ import { toast } from "react-toastify";
 import { fwVersion } from "../../../package.json";
 
 import Focus from "../../api/focus";
-import FlashRaise from "../../api/flash";
+import { FlashRaise, FlashDefyWired, FlashDefyWireless } from "../../api/flash";
 import Backup from "../../api/backup";
 import Tooltip from "../../renderer/components/Tooltip";
 
@@ -75,6 +75,8 @@ class FirmwareUpdate extends React.Component {
 
     let focus = new Focus();
     this.flashRaise = null;
+    this.FlashDefyWired = null;
+    this.FlashDefyWireless = null;
     this.isDevelopment = process.env.NODE_ENV !== "production";
     this.bkp = new Backup();
 
@@ -146,7 +148,15 @@ class FirmwareUpdate extends React.Component {
     console.log("BOOTLOADER", focus.device.bootloader);
     if (focus.device.bootloader) {
       await this.setState({ countdown: 1, flashProgress: 0, backupDone: true, bootloader: true });
-      this.flashRaise = new FlashRaise(this.props.device);
+      if (focus.device.info.product == "Defy") {
+        if (focus.device.info.keyboardType == "wired") {
+          this.FlashDefyWired = new FlashDefyWired(this.props.device);
+        } else {
+          this.FlashDefyWireless = new FlashDefyWireless(this.props.device);
+        }
+      } else {
+        this.flashRaise = new FlashRaise(this.props.device);
+      }
       document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 27 }));
       return;
     }
@@ -232,7 +242,9 @@ class FirmwareUpdate extends React.Component {
     if (this.state.device.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
         try {
-          await this.flashRaise.resetKeyboard(focus._port, this.state.backup, this.stateUpdate);
+          if (focus.device.info.product == "Raise") {
+            await this.flashRaise.resetKeyboard(focus._port, this.state.backup, this.stateUpdate);
+          }
         } catch (error) {
           console.error("Bootloader Not found: ", error);
           throw new Error(error);
@@ -242,11 +254,25 @@ class FirmwareUpdate extends React.Component {
 
     try {
       if (focus.device.bootloader) {
-        this.flashRaise.currentPort = this.props.device;
+        if (focus.device.info.product == "Defy") {
+          if (focus.device.info.keyboardType == "wired") {
+            this.FlashDefyWired.currentPort = this.props.device;
+            await focus.close();
+            console.log("done closing focus");
+            return await this.state.device.device.flash(focus._port, filename, this.FlashDefyWired, this.stateUpdate);
+          } else {
+            this.FlashDefyWireless.currentPort = this.props.device;
+            await focus.close();
+            console.log("done closing focus");
+            return await this.state.device.device.flash(focus._port, filename, this.FlashDefyWireless, this.stateUpdate);
+          }
+        } else {
+          this.flashRaise.currentPort = this.props.device;
+          await focus.close();
+          console.log("done closing focus");
+          return await this.state.device.device.flash(focus._port, filename, this.flashRaise, this.stateUpdate);
+        }
       }
-      await focus.close();
-      console.log("done closing focus");
-      return await this.state.device.device.flash(focus._port, filename, this.flashRaise, this.stateUpdate);
     } catch (e) {
       console.error(e);
     }
@@ -263,10 +289,26 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
       if (!this.state.bootloader) {
         this.setState({ countdown: 3, flashProgress: 90 });
-        await this.flashRaise.restoreSettings();
+        if (focus.device.info.product == "Defy") {
+          if (focus.device.info.keyboardType == "wired") {
+            await this.FlashDefyWired.restoreSettings();
+          } else {
+            await this.FlashDefyWireless.restoreSettings();
+          }
+        } else {
+          await this.flashRaise.restoreSettings();
+        }
       }
       this.setState({ countdown: 4, flashProgress: 100 });
-      await this.flashRaise.delay(600);
+      if (focus.device.info.product == "Defy") {
+        if (focus.device.info.keyboardType == "wired") {
+          await this.FlashDefyWired.delay(600);
+        } else {
+          await this.FlashDefyWireless.delay(600);
+        }
+      } else {
+        await this.flashRaise.delay(600);
+      }
       if (this.state.bootloader) {
         this.props.toggleFlashing();
         this.props.toggleFwUpdate(false);
@@ -324,10 +366,15 @@ class FirmwareUpdate extends React.Component {
     //   isBeginUpdate: true
     // });
     try {
-      this.flashRaise = new FlashRaise(this.props.device);
-      // if (!focus.device.bootloader) {
-      //   await this.flashRaise.backupSettings();
-      // }
+      if (focus.device.info.product == "Defy") {
+        if (focus.device.info.keyboardType == "wired") {
+          this.FlashDefyWired = new FlashDefyWired(this.props.device);
+        } else {
+          this.FlashDefyWireless = new FlashDefyWireless(this.props.device);
+        }
+      } else {
+        this.flashRaise = new FlashRaise(this.props.device);
+      }
       if (this.state.versions) this.setState({ countdown: 0, backupDone: false, backup: [] });
       else {
         this.setState({ countdown: 2, flashProgress: 0 });

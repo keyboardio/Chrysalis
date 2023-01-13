@@ -16,10 +16,9 @@
 
 import fs from "fs";
 import path from "path";
-import Focus from "../focus";
-import Hardware from "../hardware";
-import { arduino } from "./raiseFlasher/arduino-flasher";
-import { rp2040 } from "./defyFlasher/rp2040-flasher";
+import Focus from "../../focus";
+import Hardware from "../../hardware";
+import { arduino } from "./arduino-flasher";
 
 /**
  * Create a new flash raise object.

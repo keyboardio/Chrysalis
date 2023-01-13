@@ -16,10 +16,9 @@
 
 import fs from "fs";
 import path from "path";
-import Focus from "../focus";
-import Hardware from "../hardware";
-import { arduino } from "./raiseFlasher/arduino-flasher";
-import { rp2040 } from "./defyFlasher/rp2040-flasher";
+import Focus from "../../focus";
+import Hardware from "../../hardware";
+import { rp2040 } from "./rp2040-flasher";
 
 /**
  * Create a new flash raise object.
@@ -261,19 +260,19 @@ export class FlashDefyWired {
    */
   async updateFirmware(filename, stateUpdate) {
     let focus = new Focus();
-    console.log("Begin update firmware with arduino-flasher");
+    console.log("Begin update firmware with rp2040");
     console.log(JSON.stringify(focus));
-    // this.backupFileData.log.push("Begin update firmware with arduino-flasher");
+    // this.backupFileData.log.push("Begin update firmware with rp2040");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
         if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device);
-        await arduino.flash(filename, stateUpdate, async (err, result) => {
+        await rp2040.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 70);
-            console.log("End update firmware with arduino-flasher");
-            // this.backupFileData.log.push("End update firmware with arduino-flasher");
+            console.log("End update firmware with rp2040");
+            // this.backupFileData.log.push("End update firmware with rp2040");
             await this.delay(1500);
             await this.detectKeyboard();
             resolve();

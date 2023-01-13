@@ -1,4 +1,4 @@
 import { FlashRaise } from "./raiseFlasher/flash";
-import { FlashDefyWired } from "./defyFlasher/flash";
+import { FlashDefyWired, FlashDefyWireless } from "./defyFlasher/flash";
 
-export { FlashRaise as default, FlashDefyWired };
+export { FlashRaise as default, FlashDefyWired, FlashDefyWireless };

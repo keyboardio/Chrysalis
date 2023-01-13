@@ -31,8 +31,8 @@ const Defy_wired = {
     ]
   },
   usb: {
-    vendorId: 0xffff,
-    productId: 0x800a
+    vendorId: 0x35ef,
+    productId: 0x0010
   },
   keyboard: {
     rows: 5,
@@ -95,8 +95,8 @@ const Defy_wiredBootloader = {
     ]
   },
   usb: {
-    vendorId: 0xffff,
-    productId: 0x800b
+    vendorId: 0x35ef,
+    productId: 0x0011
   },
   bootloader: true,
   instructions: {

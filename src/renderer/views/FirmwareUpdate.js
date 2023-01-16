@@ -84,7 +84,7 @@ class FirmwareUpdate extends React.Component {
       advanced: false,
       firmwareFilename: "",
       selected: "default",
-      device: props.device || focus.device,
+      device: props.device.device || focus.device,
       confirmationOpen: false,
       countdown: -1,
       firmwareDropdown: false,
@@ -376,14 +376,42 @@ class FirmwareUpdate extends React.Component {
     //   isBeginUpdate: true
     // });
     try {
+      this.flashRaise = new FlashRaise(this.props.device);
+      if (this.state.versions) this.setState({ countdown: 0, backupDone: false, backup: [] });
+      else {
+        this.setState({ countdown: 2, flashProgress: 0 });
+        this.upload();
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error(
+        <ToastMessage
+          title={i18n.firmwareUpdate.flashing.error}
+          content={e.message}
+          icon={<IconFloppyDisk />}
+          onClickAction={() => {
+            const shell = Electron.remote && Electron.remote.shell;
+            shell.openExternal("https://support.dygma.com/hc/en-us/articles/360007272638");
+          }}
+          clickActionText={i18n.errors.troubleshooting}
+          onClickDismiss={() => toast.dismiss()}
+          clickDismissText={i18n.errors.dismiss}
+        />
+      );
+      this.setState({ confirmationOpen: false });
+    }
+  };
+
+  uploadDefy = async () => {
+    let focus = new Focus();
+    await focus.command("upgrade.start");
+    try {
       if (focus.device.info.product == "Defy") {
         if (focus.device.info.keyboardType == "wired") {
           this.FlashDefyWired = new FlashDefyWired(this.props.device);
         } else {
           this.FlashDefyWireless = new FlashDefyWireless(this.props.device);
         }
-      } else {
-        this.flashRaise = new FlashRaise(this.props.device);
       }
       if (this.state.versions) this.setState({ countdown: 0, backupDone: false, backup: [] });
       else {
@@ -439,7 +467,8 @@ class FirmwareUpdate extends React.Component {
       versions,
       firmwareDropdown,
       flashProgress,
-      theme
+      theme,
+      device
     } = this.state;
 
     let filename = null;
@@ -474,7 +503,13 @@ class FirmwareUpdate extends React.Component {
             <FirmwareUpdatePanel
               currentlyVersionRunning={currentlyVersionRunning}
               latestVersionAvailable={latestVersionAvailable}
-              onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
+              onClick={
+                device.info.product === "Raise"
+                  ? this.uploadRaise
+                  : device.info.product === "Defy"
+                  ? this.uploadDefy
+                  : this.upload
+              }
               firmwareFilename={firmwareFilename}
               selectFirmware={this.selectFirmware}
               disclaimerCard={countdown + 1}

@@ -256,25 +256,32 @@ class FirmwareUpdate extends React.Component {
     }
 
     try {
+      console.log("Trying", focus.device, focus.device.bootloader, focus.device.info.product, focus.device.info.keyboardType);
       if (focus.device.bootloader) {
         if (focus.device.info.product == "Defy") {
           if (focus.device.info.keyboardType == "wired") {
             this.FlashDefyWired.currentPort = this.props.device;
-            await focus.close();
-            console.log("done closing focus");
-            return await this.state.device.device.flash(focus._port, filename, this.FlashDefyWired, this.stateUpdate);
           } else {
             this.FlashDefyWireless.currentPort = this.props.device;
-            await focus.close();
-            console.log("done closing focus");
-            return await this.state.device.device.flash(focus._port, filename, this.FlashDefyWireless, this.stateUpdate);
           }
         } else {
           this.flashRaise.currentPort = this.props.device;
+        }
+      }
+      if (focus.device.info.product == "Defy") {
+        if (focus.device.info.keyboardType == "wired") {
           await focus.close();
           console.log("done closing focus");
-          return await this.state.device.device.flash(focus._port, filename, this.flashRaise, this.stateUpdate);
+          return await this.state.device.flash(focus._port, filename, this.FlashDefyWired, this.stateUpdate);
+        } else {
+          await focus.close();
+          console.log("done closing focus");
+          return await this.state.device.flash(focus._port, filename, this.FlashDefyWireless, this.stateUpdate);
         }
+      } else {
+        await focus.close();
+        console.log("done closing focus");
+        return await this.state.device.flash(focus._port, filename, this.flashRaise, this.stateUpdate);
       }
     } catch (e) {
       console.error(e);

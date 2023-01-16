@@ -215,7 +215,7 @@ class FirmwareUpdate extends React.Component {
   };
 
   _defaultFirmwareFilename = () => {
-    const { vendor, product } = this.state.device.device.info;
+    const { vendor, product } = this.state.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
@@ -229,6 +229,9 @@ class FirmwareUpdate extends React.Component {
 
   _flash = async () => {
     let focus = new Focus();
+    this.setState({
+      device: focus.device
+    });
     let filename;
     if (this.state.selected == "default") {
       filename = this._defaultFirmwareFilename();
@@ -239,7 +242,7 @@ class FirmwareUpdate extends React.Component {
     }
     console.log("BOOTLOADER2", focus.device.bootloader);
 
-    if (this.state.device.device.info.product === "Raise") {
+    if (this.state.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
         try {
           if (focus.device.info.product == "Raise") {
@@ -289,8 +292,8 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
       if (!this.state.bootloader) {
         this.setState({ countdown: 3, flashProgress: 90 });
-        if (focus.device.info.product == "Defy") {
-          if (focus.device.info.keyboardType == "wired") {
+        if (this.state.device.info.product == "Defy") {
+          if (this.state.device.info.keyboardType == "wired") {
             await this.FlashDefyWired.restoreSettings();
           } else {
             await this.FlashDefyWireless.restoreSettings();
@@ -300,8 +303,8 @@ class FirmwareUpdate extends React.Component {
         }
       }
       this.setState({ countdown: 4, flashProgress: 100 });
-      if (focus.device.info.product == "Defy") {
-        if (focus.device.info.keyboardType == "wired") {
+      if (this.state.device.info.product == "Defy") {
+        if (this.state.device.info.keyboardType == "wired") {
           await this.FlashDefyWired.delay(600);
         } else {
           await this.FlashDefyWireless.delay(600);

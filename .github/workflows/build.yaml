@@ -30,7 +30,7 @@ jobs:
       - name: Install USB compilation dependencies
         uses: lyricwulf/abc@v1
         with:
-          linux: build-essential libusb-1.0-0 libudev-dev libxtst-dev
+          linux: build-essential libusb-1.0-0 libudev-dev libxtst-dev libxrandr-dev
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v3

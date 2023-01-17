@@ -171,21 +171,6 @@ export class FlashDefyWired {
   }
 
   /**
-   * Returns a Promise to be awaited that sets the DTR flag of the port
-   * @param {*} port Port to be used on the set dtr function
-   * @param {*} state State of the DTR flag to be set on the port
-   * @returns {promise} that will resolve when the function has successfully setted the DTR flag
-   */
-  setDTR = (port, state) => {
-    return new Promise(function (resolve, reject) {
-      port.set({ dtr: state }, function () {
-        console.log(`DTR set to ${state} at ${new Date(Date.now()).toISOString()}`);
-        resolve();
-      });
-    });
-  };
-
-  /**
    * Update the baud rate of the port with a Promise
    * @param {*} port Port to be updated
    * @param {*} baud BaudRate to be set
@@ -220,9 +205,7 @@ export class FlashDefyWired {
       await this.updatePort(port, 1200);
       console.log("resetting neuron");
       this.backupFileData.log.push("Resetting neuron");
-      await this.setDTR(port, true);
       await this.delay(timeouts.dtrToggle);
-      await this.setDTR(port, false);
       console.log("waiting for bootloader");
       this.backupFileData.log.push("Waiting for bootloader");
       stateUpdate(2, 20);

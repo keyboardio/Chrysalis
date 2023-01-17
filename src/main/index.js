@@ -161,8 +161,6 @@ async function createMainWindow() {
     const drives = await drivelist.list();
     let result = "";
     drives.forEach(drive => {
-      console.log(drive);
-      console.log(drive.mountpoints);
       if (drive.description === "RPI RP2 USB Device") {
         result = drive.mountpoints[0].path;
       }

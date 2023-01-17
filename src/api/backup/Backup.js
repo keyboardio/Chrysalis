@@ -93,12 +93,15 @@ export default class Backup {
    * @returns True when the function has successfully stored the backup locally, and false if something fails, an error log will be also pushed to the console
    */
   SaveBackup(backup) {
+    let focus = new Focus();
+    let product = focus.device.info.product;
     const d = new Date();
     const folder = store.get("settings.backupFolder");
     try {
       const folderPath = path.join(folder, `${backup.neuronID}`, "");
       const fullPath = path.join(
         folder,
+        product,
         backup.neuronID,
         `${
           d.getFullYear() +

@@ -277,7 +277,7 @@ app.on("ready", async () => {
   let bfolder = store.get("settings.backupFolder");
   console.log("CHECKING BACKUP FOLDER VALUE", bfolder);
   if (bfolder == "" || bfolder == undefined) {
-    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
+    const defaultPath = path.join(app.getPath("home"), "Dygma", "Backups");
     console.log(defaultPath);
     store.set("settings.backupFolder", defaultPath);
     fs.mkdir(defaultPath, { recursive: true }, err => {

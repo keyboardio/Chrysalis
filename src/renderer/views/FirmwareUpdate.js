@@ -203,6 +203,10 @@ class FirmwareUpdate extends React.Component {
           extensions: ["hex"]
         },
         {
+          name: i18n.firmwareUpdate.dialog.firmwareFiles,
+          extensions: ["uf2"]
+        },
+        {
           name: i18n.firmwareUpdate.dialog.allFiles,
           extensions: ["*"]
         }
@@ -218,13 +222,21 @@ class FirmwareUpdate extends React.Component {
     const { vendor, product } = this.state.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
+    if (this.state.device.info.product === "Defy" && this.state.device.info.keyboardType === "wired") {
+      return path.join(getStaticPath(), cVendor, cProduct, "default.uf2");
+    } else {
+      return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
+    }
   };
   _experimentalFirmwareFilename = () => {
     const { vendor, product } = this.state.device.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
+    if (this.state.device.info.product === "Defy" && this.state.device.info.keyboardType === "wired") {
+      return path.join(getStaticPath(), cVendor, cProduct, "experimental.uf2");
+    } else {
+      return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
+    }
   };
 
   _flash = async () => {

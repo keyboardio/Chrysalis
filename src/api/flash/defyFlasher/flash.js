@@ -264,9 +264,9 @@ export class FlashDefyWired {
     console.log(JSON.stringify(focus));
     // this.backupFileData.log.push("Begin update firmware with rp2040");
     this.backupFileData.firmwareFile = filename;
+    await this.delay(3000);
     return new Promise(async (resolve, reject) => {
       try {
-        if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device);
         await rp2040.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {

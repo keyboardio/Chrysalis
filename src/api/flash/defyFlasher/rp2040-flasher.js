@@ -14,16 +14,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import async from "async";
+import { ipcRenderer } from "electron";
 import fs from "fs";
 import Focus from "../../focus";
-
-var MAX_MS = 2000;
-
-const PACKET_SIZE = 4096;
-
-const TYPE_DAT = 0x00;
-const TYPE_ELA = 0x04;
 
 var focus = new Focus();
 
@@ -32,18 +25,16 @@ var focus = new Focus();
  */
 export var rp2040 = {
   flash: (file, stateUpdate, finished) => {
-    var func_array = [];
-
-    let fileData = fs.readFileSync(file, { encoding: "utf8" });
-    fileData = fileData.replace(/(?:\r\n|\r|\n)/g, "");
-
-    var lines = fileData.split(":");
-    lines.splice(0, 1);
-
-    var dataObjects = [];
-    var total = 0;
-
-    var hexCount = 0;
-    var address = dataObjects[0].address;
+    ipcRenderer.invoke("list-drives", true).then(result => {
+      console.log("RESULTS!!!", result, result + "default.uf2", " to ", file);
+      stateUpdate(3, 70);
+      fs.copyFile(file, result + "default.uf2", err => {
+        if (err) {
+          console.log("Error Found:", err);
+          finished(true, err);
+        }
+      });
+      finished(false, "");
+    });
   }
 };

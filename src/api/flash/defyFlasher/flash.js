@@ -131,9 +131,9 @@ export class FlashDefyWired {
     ];
     this.backupFileName = `defy-backup-${this.formatedDate()}.json`;
 
+    let errorFlag = false;
+    const errorMessage = "Firmware update failed, because the settings could not be saved";
     try {
-      let errorFlag = false;
-      const errorMessage = "Firmware update failed, because the settings could not be saved";
       for (let command of commands) {
         // Ignore the command if it's not supported
         if (!focus.isCommandSupported(command)) {
@@ -151,6 +151,8 @@ export class FlashDefyWired {
       if (errorFlag) throw new Error(errorMessage);
       this.backupFileData.log.push("Settings backed up OK");
     } catch (e) {
+      console.warn(errorMessage);
+      console.error(e);
       this.saveBackupFile();
       throw e;
     }

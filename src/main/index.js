@@ -48,6 +48,7 @@ import { uIOhook, UiohookKey } from "uiohook-napi";
 
 const Store = require("electron-store");
 const store = new Store();
+const drivelist = require("drivelist");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
@@ -154,6 +155,19 @@ async function createMainWindow() {
     // uIOhook.off("click", sendMouseClick);
     // uIOhook.off("wheel", sendMouseWheel);
     uIOhook.stop();
+  });
+
+  ipcMain.handle("list-drives", async (event, someArgument) => {
+    const drives = await drivelist.list();
+    let result = "";
+    drives.forEach(drive => {
+      console.log(drive);
+      console.log(drive.mountpoints);
+      if (drive.description === "RPI RP2 USB Device") {
+        result = drive.mountpoints[0].path;
+      }
+    });
+    return result;
   });
 
   window.on("closed", () => {

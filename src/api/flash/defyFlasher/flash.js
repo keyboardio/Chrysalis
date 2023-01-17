@@ -321,11 +321,10 @@ export class FlashDefyWired {
   /**
    * Restores settings to keyboard after bootloader flashing
    */
-  async restoreSettings() {
+  async restoreSettings(backup) {
     let focus = new Focus();
     const errorMessage = "Firmware update failed, because the settings could not be restored";
-    let backup = this.backup.backup;
-    console.log(this.backup, backup);
+    console.log(backup);
     if (backup === undefined || backup.length === 0) {
       await focus.open(this.currentPort.path, this.currentPort.device.info);
       return true;
@@ -667,11 +666,10 @@ export class FlashDefyWireless {
   /**
    * Restores settings to keyboard after bootloader flashing
    */
-  async restoreSettings() {
+  async restoreSettings(backup) {
     let focus = new Focus();
     const errorMessage = "Firmware update failed, because the settings could not be restored";
-    let backup = this.backup.backup;
-    console.log(this.backup, backup);
+    console.log(backup);
     if (backup === undefined || backup.length === 0) {
       await focus.open(this.currentPort.path, this.currentPort.device.info);
       return true;

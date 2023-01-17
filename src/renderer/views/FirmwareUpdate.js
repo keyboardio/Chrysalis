@@ -307,15 +307,16 @@ class FirmwareUpdate extends React.Component {
   upload = async () => {
     await this.props.toggleFlashing();
     this.props.toggleFwUpdate(true);
+    const backup = this.state.backup.backup;
     try {
       await this._flash();
       if (!this.state.bootloader) {
         this.setState({ countdown: 3, flashProgress: 90 });
         if (this.state.device.info.product == "Defy") {
           if (this.state.device.info.keyboardType == "wired") {
-            await this.FlashDefyWired.restoreSettings();
+            await this.FlashDefyWired.restoreSettings(backup);
           } else {
-            await this.FlashDefyWireless.restoreSettings();
+            await this.FlashDefyWireless.restoreSettings(backup);
           }
         } else {
           await this.flashRaise.restoreSettings();

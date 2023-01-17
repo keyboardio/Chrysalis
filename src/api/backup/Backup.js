@@ -28,12 +28,15 @@ export default class Backup {
       "layer",
       "help",
       "version",
+      "led.mode",
+      "led.theme",
       "led.at",
       "led.setMultiple",
       "led.getMultiple",
       "led.setAll",
       "macros.trigger",
-      "qukeys"
+      "qukeys",
+      "upgrade"
     ];
     let commands = await this.focus.command("help");
     return commands.filter(c => !notRequired.some(v => c.includes(v)));

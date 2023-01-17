@@ -98,7 +98,7 @@ export default class Backup {
     const d = new Date();
     const folder = store.get("settings.backupFolder");
     try {
-      const folderPath = path.join(folder, `${backup.neuronID}`, "");
+      const folderPath = path.join(folder, product, backup.neuronID);
       const fullPath = path.join(
         folder,
         product,
@@ -110,14 +110,16 @@ export default class Backup {
           ("0" + d.getHours()).slice(-2) +
           ("0" + d.getMinutes()).slice(-2) +
           ("0" + d.getSeconds()).slice(-2)
-        }-${backup.neuron.name}.json`
+        }-${backup.neuron.name.replace(/[^\w\s]/gi, "")}.json`
       );
       const json = JSON.stringify(backup, null, 2);
       // console.log(fullPath, folderPath, backup, json);
       require("fs").mkdir(folderPath, { recursive: true }, err => {
         if (err) throw err;
       });
-      require("fs").writeFileSync(fullPath, json);
+      require("fs").writeFileSync(fullPath, json, err => {
+        if (err) throw err;
+      });
       return true;
     } catch (error) {
       console.error("Error ocurred", d, folder, error);

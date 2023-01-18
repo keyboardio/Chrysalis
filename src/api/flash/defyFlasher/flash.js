@@ -18,7 +18,8 @@ import fs from "fs";
 import path from "path";
 import Focus from "../../focus";
 import Hardware from "../../hardware";
-import { rp2040 } from "./rp2040-flasher";
+import rp2040 from "./rp2040-flasher";
+import NRf52833 from "./NRf52833-flasher";
 
 /**
  * Create a new flash raise object.
@@ -590,19 +591,19 @@ export class FlashDefyWireless {
    */
   async updateFirmware(filename, stateUpdate) {
     let focus = new Focus();
-    console.log("Begin update firmware with rp2040");
+    console.log("Begin update firmware with NRf52833");
     console.log(JSON.stringify(focus));
-    // this.backupFileData.log.push("Begin update firmware with rp2040");
+    // this.backupFileData.log.push("Begin update firmware with NRf52833");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
         if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device);
-        await rp2040.flash(filename, stateUpdate, async (err, result) => {
+        await NRf52833.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 70);
-            console.log("End update firmware with rp2040");
-            // this.backupFileData.log.push("End update firmware with rp2040");
+            console.log("End update firmware with NRf52833");
+            // this.backupFileData.log.push("End update firmware with NRf52833");
             await this.delay(1500);
             await this.detectKeyboard();
             resolve();

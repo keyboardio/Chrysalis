@@ -24,7 +24,7 @@ var focus = new Focus();
 /**
  * Object rp2040 with flash method.
  */
-export var rp2040 = {
+var rp2040 = {
   flash: (file, stateUpdate, finished) => {
     ipcRenderer.invoke("list-drives", true).then(result => {
       let finalPath = path.join(result, "default.uf2");
@@ -41,3 +41,5 @@ export var rp2040 = {
     });
   }
 };
+
+export default rp2040;

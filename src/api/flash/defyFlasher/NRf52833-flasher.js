@@ -168,6 +168,19 @@ function ihex_decode(line) {
 }
 
 /**
+ * New command structure developed y Ota fejfar for the NRf52833 Bootloader
+ *
+ * Erase 1:          E[addr]#   - Will erase the memory from the address to the end of the available memory
+ * Erase 2:          E[addr],[size]#  - (optional) Will erase the size of the memory
+ * Upload data:  U[size]#             - The size of incoming data to be stored in the internal temp buffer
+ * Data:              [data]                 - The data of size specified in the previous 'S' command
+ * Write data:    W[addr],[size]#  - Move the data in the flash memory
+ * CRC check:   C[addr],[size],[crc]#  -  Check the uploaded firmware
+ * Start app:       S#                       - Start the application
+ *
+ */
+
+/**
  * Object NRf52833 with flash method.
  */
 var NRf52833 = {
@@ -175,20 +188,12 @@ var NRf52833 = {
     var func_array = [];
 
     //CLEAR line
-    func_array.push(function (callback) {
-      write_cb(str2ab("N#"), callback);
-    });
-    func_array.push(function (callback) {
-      read_cb(callback);
-    });
-
-    //ERASE device
-    func_array.push(function (callback) {
-      write_cb(str2ab("X00002000#"), callback);
-    });
-    func_array.push(function (callback) {
-      read_cb(callback);
-    });
+    // func_array.push(function (callback) {
+    //   write_cb(str2ab("N#"), callback);
+    // });
+    // func_array.push(function (callback) {
+    //   read_cb(callback);
+    // });
 
     let fileData = fs.readFileSync(file, { encoding: "utf8" });
     fileData = fileData.replace(/(?:\r\n|\r|\n)/g, "");
@@ -220,6 +225,14 @@ var NRf52833 = {
     }
 
     i = 0;
+
+    //ERASE device
+    func_array.push(function (callback) {
+      write_cb(str2ab("E" + dataObjects[0].address + "#"), callback);
+    });
+    func_array.push(function (callback) {
+      read_cb(callback);
+    });
 
     while (total > 0) {
       var bufferSize = total < PACKET_SIZE ? total : PACKET_SIZE;
@@ -261,9 +274,9 @@ var NRf52833 = {
 
       //Closure to make sure we localise variables
       (function (localAddress, localBufferSize, localBuffer) {
-        //tell the NRf52833 we are writing at memory 20005000, for N bytes.
+        //tell the NRf52833 the size of data being sent.
         func_array.push(function (callback) {
-          write_cb(str2ab("S20005000," + num2hexstr(localBufferSize, 8) + "#"), callback, stateUpdate, 30 + i + i);
+          write_cb(str2ab("U" + num2hexstr(localBufferSize, 8) + "#"), callback, stateUpdate, 30 + i + i);
         });
 
         //write our data.
@@ -271,21 +284,21 @@ var NRf52833 = {
           write_cb(localBuffer, callback, stateUpdate, 30 + i + i);
         });
 
-        //set our read pointer
-        func_array.push(function (callback) {
-          write_cb(str2ab("Y20005000,0#"), callback, stateUpdate, 30 + i + i);
-        });
+        // //set our read pointer
+        // func_array.push(function (callback) {
+        //   write_cb(str2ab("Y20005000,0#"), callback, stateUpdate, 30 + i + i);
+        // });
 
-        //wait for ACK
-        func_array.push(function (callback) {
-          read_cb(callback);
-        });
+        // //wait for ACK
+        // func_array.push(function (callback) {
+        //   read_cb(callback);
+        // });
 
-        //copy N bytes to memory location Y.
+        //copy N bytes to memory location Y -> W function.
         func_array.push(function (callback) {
           stateUpdate(3, 30 + i + i);
           write_cb(
-            str2ab("Y" + num2hexstr(localAddress, 8) + "," + num2hexstr(localBufferSize, 8) + "#"),
+            str2ab("W" + num2hexstr(localAddress, 8) + "," + num2hexstr(localBufferSize, 8) + "#"),
             callback,
             stateUpdate,
             30 + i + i
@@ -302,9 +315,14 @@ var NRf52833 = {
       i++;
       address += bufferSize;
     }
-    //CLEANUP
+    // TODO: CRC CHECK
+    // func_array.push(function (callback) {
+    //   write_cb(str2ab("WE000ED0C,05FA0004#"), callback);
+    // });
+
+    // START APPLICATION
     func_array.push(function (callback) {
-      write_cb(str2ab("WE000ED0C,05FA0004#"), callback);
+      write_cb(str2ab("S#"), callback);
     });
 
     //DISCONNECT

@@ -23,6 +23,7 @@ var MAX_MS = 2000;
 const PACKET_SIZE = 4096;
 
 const TYPE_DAT = 0x00;
+const TYPE_ESA = 0x02;
 const TYPE_ELA = 0x04;
 
 var focus = new Focus();
@@ -203,12 +204,19 @@ var NRf52833 = {
 
     var dataObjects = [];
     var total = 0;
+    var segment = 0;
 
     for (var i = 0; i < lines.length; i++) {
       var hex = ihex_decode(lines[i]);
 
+      if (hex.type == TYPE_ESA) {
+        segment = parseInt(hex.str.substr(8, hex.len * 2), 16) * 16;
+        continue;
+      }
+
       if (hex.type == TYPE_DAT || hex.type == TYPE_ELA) {
         total += hex.len;
+        if (segment > 0) hex.address = hex.address + segment;
         dataObjects.push(hex);
       }
     }
@@ -228,7 +236,7 @@ var NRf52833 = {
 
     //ERASE device
     func_array.push(function (callback) {
-      write_cb(str2ab("E" + dataObjects[0].address + "#"), callback);
+      write_cb(str2ab("E" + num2hexstr(dataObjects[0].address, 8) + "#"), callback);
     });
     func_array.push(function (callback) {
       read_cb(callback);

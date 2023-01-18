@@ -54,6 +54,10 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
 let globalRecording = false;
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1200,
@@ -158,14 +162,20 @@ async function createMainWindow() {
   });
 
   ipcMain.handle("list-drives", async (event, someArgument) => {
-    const drives = await drivelist.list();
+    let drives = await drivelist.list();
     let result = "";
-    drives.forEach(drive => {
-      if (drive.description === "RPI RP2 USB Device") {
-        result = drive.mountpoints[0].path;
+    drives.forEach(async (drive, index) => {
+      console.log("drive info", drive, drive.mountpoints);
+      if (drive.description.includes("RPI RP2")) {
+        result = drive.mountpoints[0];
+        while (result == undefined || result.length == 0) {
+          delay(100);
+          drives = await drivelist.list();
+          result = drives[index].mountpoints[0];
+        }
       }
     });
-    return result;
+    return result.path;
   });
 
   window.on("closed", () => {

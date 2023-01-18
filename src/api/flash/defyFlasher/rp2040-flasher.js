@@ -16,6 +16,7 @@
 
 import { ipcRenderer } from "electron";
 import fs from "fs";
+import * as path from "path";
 import Focus from "../../focus";
 
 var focus = new Focus();
@@ -26,14 +27,16 @@ var focus = new Focus();
 export var rp2040 = {
   flash: (file, stateUpdate, finished) => {
     ipcRenderer.invoke("list-drives", true).then(result => {
-      console.log("RESULTS!!!", result, result + "default.uf2", " to ", file);
-      stateUpdate(3, 70);
-      fs.copyFile(file, result + "default.uf2", err => {
+      let finalPath = path.join(result, "default.uf2");
+      console.log("RESULTS!!!", result, file, " to ", finalPath);
+      stateUpdate(2, 50);
+      fs.copyFile(file, finalPath, err => {
         if (err) {
           console.log("Error Found:", err);
           finished(true, err);
         }
       });
+      stateUpdate(3, 70);
       finished(false, "");
     });
   }

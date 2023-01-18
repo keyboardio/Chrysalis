@@ -113,16 +113,24 @@ export default class Backup {
         }-${backup.neuron.name.replace(/[^\w\s]/gi, "")}.json`
       );
       const json = JSON.stringify(backup, null, 2);
-      // console.log(fullPath, folderPath, backup, json);
+      console.log(fullPath, folderPath, backup);
+      console.log("Creating folders");
       require("fs").mkdir(folderPath, { recursive: true }, err => {
-        if (err) throw err;
+        if (err) {
+          console.error(err);
+          throw err;
+        }
       });
+      console.log(`Saving Backup to -> ${fullPath}`);
       require("fs").writeFileSync(fullPath, json, err => {
-        if (err) throw err;
+        if (err) {
+          console.error(err);
+          throw err;
+        }
       });
       return true;
     } catch (error) {
-      console.error("Error ocurred", d, folder, error);
+      console.warn("Error ocurred when saving backup to folder");
       return false;
     }
   }

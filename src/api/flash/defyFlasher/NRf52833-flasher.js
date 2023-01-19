@@ -205,32 +205,44 @@ var NRf52833 = {
     var dataObjects = [];
     var total = 0;
     var segment = 0;
+    var linear = 0;
 
     for (var i = 0; i < lines.length; i++) {
       var hex = ihex_decode(lines[i]);
 
       if (hex.type == TYPE_ESA) {
         segment = parseInt(hex.str.substr(8, hex.len * 2), 16) * 16;
+        linear = 0;
         continue;
       }
 
-      if (hex.type == TYPE_DAT || hex.type == TYPE_ELA) {
+      if (hex.type == TYPE_ELA) {
+        linear = parseInt(hex.str.substr(8, hex.len * 2), 16) * 65536;
+        segment = 0;
+        continue;
+      }
+
+      let aux = hex.address;
+
+      if (hex.type == TYPE_DAT) {
         total += hex.len;
         if (segment > 0) hex.address = hex.address + segment;
+        if (linear > 0) hex.address = hex.address + linear;
         dataObjects.push(hex);
       }
+      //   console.log(num2hexstr(segment, 8), linear, num2hexstr(aux), num2hexstr(hex.address));
     }
 
     var hexCount = 0;
     var address = dataObjects[0].address;
 
-    if (address < 2000) {
-      finished(
-        true,
-        "You're attempting to overwrite the bootloader... (0x" + padToN(num2hexstr(dataObjects[0].address), 8) + ")"
-      );
-      return;
-    }
+    // if (address < 2000) {
+    //   finished(
+    //     true,
+    //     "You're attempting to overwrite the bootloader... (0x" + padToN(num2hexstr(dataObjects[0].address), 8) + ")"
+    //   );
+    //   return;
+    // }
 
     i = 0;
 
@@ -261,18 +273,18 @@ var NRf52833 = {
         }
 
         //check for Extended linear addressing...
-        if (currentHex.type == TYPE_ELA) {
-          if (bufferTotal > 0) {
-            //break early, we're going to move to a different memory vector.
-            bufferSize = bufferTotal;
-            t = buffer.slice(0, bufferTotal);
-            buffer = t;
-            break;
-          }
+        // if (currentHex.type == TYPE_ELA) {
+        //   if (bufferTotal > 0) {
+        //     //break early, we're going to move to a different memory vector.
+        //     bufferSize = bufferTotal;
+        //     t = buffer.slice(0, bufferTotal);
+        //     buffer = t;
+        //     break;
+        //   }
 
-          //set the address if applicable...
-          address = currentHex.address << 16;
-        }
+        //   //set the address if applicable...
+        //   address = currentHex.address << 16;
+        // }
 
         new Uint8Array(buffer, bufferTotal, currentHex.len).set(currentHex.data);
 
@@ -331,6 +343,11 @@ var NRf52833 = {
     // START APPLICATION
     func_array.push(function (callback) {
       write_cb(str2ab("S#"), callback);
+    });
+
+    //wait for ACK
+    func_array.push(function (callback) {
+      read_cb(callback);
     });
 
     //DISCONNECT

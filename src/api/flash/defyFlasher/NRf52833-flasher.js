@@ -17,6 +17,7 @@
 import async from "async";
 import fs from "fs";
 import Focus from "../../focus";
+import crc32 from "buffer-crc32";
 
 var MAX_MS = 2000;
 
@@ -169,7 +170,10 @@ function ihex_decode(line) {
 }
 
 /**
- * New command structure developed y Ota fejfar for the NRf52833 Bootloader
+ * Object NRf52833 with flash method.
+ *
+ *
+ * The new command structure developed y Ota fejfar for the NRf52833 Bootloader
  *
  * Erase 1:          E[addr]#   - Will erase the memory from the address to the end of the available memory
  * Erase 2:          E[addr],[size]#  - (optional) Will erase the size of the memory
@@ -180,21 +184,9 @@ function ihex_decode(line) {
  * Start app:       S#                       - Start the application
  *
  */
-
-/**
- * Object NRf52833 with flash method.
- */
 var NRf52833 = {
   flash: (file, stateUpdate, finished) => {
     var func_array = [];
-
-    //CLEAR line
-    // func_array.push(function (callback) {
-    //   write_cb(str2ab("N#"), callback);
-    // });
-    // func_array.push(function (callback) {
-    //   read_cb(callback);
-    // });
 
     let fileData = fs.readFileSync(file, { encoding: "utf8" });
     fileData = fileData.replace(/(?:\r\n|\r|\n)/g, "");
@@ -206,6 +198,7 @@ var NRf52833 = {
     var total = 0;
     var segment = 0;
     var linear = 0;
+    var auxData = [];
 
     for (var i = 0; i < lines.length; i++) {
       var hex = ihex_decode(lines[i]);
@@ -222,27 +215,20 @@ var NRf52833 = {
         continue;
       }
 
-      let aux = hex.address;
+      // let aux = hex.address;
 
       if (hex.type == TYPE_DAT) {
         total += hex.len;
         if (segment > 0) hex.address = hex.address + segment;
         if (linear > 0) hex.address = hex.address + linear;
+        auxData.push(hex.data);
         dataObjects.push(hex);
       }
       //   console.log(num2hexstr(segment, 8), linear, num2hexstr(aux), num2hexstr(hex.address));
     }
-
+    const totalSaved = total;
     var hexCount = 0;
     var address = dataObjects[0].address;
-
-    // if (address < 2000) {
-    //   finished(
-    //     true,
-    //     "You're attempting to overwrite the bootloader... (0x" + padToN(num2hexstr(dataObjects[0].address), 8) + ")"
-    //   );
-    //   return;
-    // }
 
     i = 0;
 
@@ -272,20 +258,6 @@ var NRf52833 = {
           break;
         }
 
-        //check for Extended linear addressing...
-        // if (currentHex.type == TYPE_ELA) {
-        //   if (bufferTotal > 0) {
-        //     //break early, we're going to move to a different memory vector.
-        //     bufferSize = bufferTotal;
-        //     t = buffer.slice(0, bufferTotal);
-        //     buffer = t;
-        //     break;
-        //   }
-
-        //   //set the address if applicable...
-        //   address = currentHex.address << 16;
-        // }
-
         new Uint8Array(buffer, bufferTotal, currentHex.len).set(currentHex.data);
 
         hexCount++;
@@ -303,16 +275,6 @@ var NRf52833 = {
         func_array.push(function (callback) {
           write_cb(localBuffer, callback, stateUpdate, 30 + i + i);
         });
-
-        // //set our read pointer
-        // func_array.push(function (callback) {
-        //   write_cb(str2ab("Y20005000,0#"), callback, stateUpdate, 30 + i + i);
-        // });
-
-        // //wait for ACK
-        // func_array.push(function (callback) {
-        //   read_cb(callback);
-        // });
 
         //copy N bytes to memory location Y -> W function.
         func_array.push(function (callback) {
@@ -336,9 +298,15 @@ var NRf52833 = {
       address += bufferSize;
     }
     // TODO: CRC CHECK
-    // func_array.push(function (callback) {
-    //   write_cb(str2ab("WE000ED0C,05FA0004#"), callback);
-    // });
+    var crc = crc32(auxData);
+    func_array.push(function (callback) {
+      write_cb(str2ab(`C${dataObjects[0].address},${totalSaved},${crc}#`), callback);
+    });
+
+    //wait for ACK
+    func_array.push(function (callback) {
+      read_cb(callback);
+    });
 
     // START APPLICATION
     func_array.push(function (callback) {

@@ -219,24 +219,42 @@ class FirmwareUpdate extends React.Component {
   };
 
   _defaultFirmwareFilename = () => {
-    const { vendor, product } = this.state.device.info;
-    const cVendor = vendor.replace("/", ""),
-      cProduct = product.replace("/", "");
+    const { vendor, product, keyboardType } = this.state.device.info;
+    let cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", ""),
+      ckeyboardType = keyboardType.replace("/", "");
+    if (keyboardType == "ANSI" || keyboardType == "ISO") ckeyboardType = "";
     if (this.state.device.info.product === "Defy" && this.state.device.info.keyboardType === "wired") {
-      return path.join(getStaticPath(), cVendor, cProduct, "default.uf2");
+      return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "default.uf2");
     } else {
-      return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
+      return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "default.hex");
     }
   };
-  _experimentalFirmwareFilename = () => {
-    const { vendor, product } = this.state.device.device.info;
+  _defaultFirmwareFilenameSides = () => {
+    const { vendor, product, keyboardType } = this.state.device.info;
     const cVendor = vendor.replace("/", ""),
-      cProduct = product.replace("/", "");
-    if (this.state.device.info.product === "Defy" && this.state.device.info.keyboardType === "wired") {
-      return path.join(getStaticPath(), cVendor, cProduct, "experimental.uf2");
+      cProduct = product.replace("/", ""),
+      ckeyboardType = keyboardType.replace("/", "");
+    return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "keyscanner.bin");
+  };
+  _experimentalFirmwareFilename = () => {
+    const { vendor, product, keyboardType } = this.state.device.info;
+    let cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", ""),
+      ckeyboardType = keyboardType.replace("/", "");
+    if (keyboardType == "ANSI" || keyboardType == "ISO") ckeyboardType = "";
+    if (this.state.device.info.product === "Defy") {
+      return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "experimental.uf2");
     } else {
-      return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
+      return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "experimental.hex");
     }
+  };
+  _experimentalFirmwareFilenameSides = () => {
+    const { vendor, product, keyboardType } = this.state.device.info;
+    const cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", ""),
+      ckeyboardType = keyboardType.replace("/", "");
+    return path.join(getStaticPath(), cVendor, cProduct, ckeyboardType, "keyscannerX.bin");
   };
 
   _flash = async () => {
@@ -245,12 +263,16 @@ class FirmwareUpdate extends React.Component {
       device: focus.device
     });
     let filename;
+    let filenameSides;
     if (this.state.selected == "default") {
       filename = this._defaultFirmwareFilename();
+      filenameSides = this._defaultFirmwareFilenameSides();
     } else if (this.state.selected == "experimental") {
       filename = this._experimentalFirmwareFilename();
+      filenameSides = this._experimentalFirmwareFilenameSides();
     } else {
       filename = this.state.firmwareFilename;
+      filenameSides = this.state.firmwareFilenameSides;
     }
     console.log("BOOTLOADER2", focus.device.bootloader);
 
@@ -284,11 +306,11 @@ class FirmwareUpdate extends React.Component {
         if (focus.device.info.keyboardType == "wired") {
           await focus.close();
           console.log("done closing focus");
-          return await this.state.device.flash(focus._port, filename, this.FlashDefyWired, this.stateUpdate);
+          return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWired, this.stateUpdate);
         } else {
           await focus.close();
           console.log("done closing focus");
-          return await this.state.device.flash(focus._port, filename, this.FlashDefyWireless, this.stateUpdate);
+          return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWireless, this.stateUpdate);
         }
       } else {
         await focus.close();

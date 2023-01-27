@@ -39,6 +39,9 @@ var rp2040 = {
       stateUpdate(3, 70);
       finished(false, "");
     });
+  },
+  flashSides: () => {
+    console.log("flashing sides");
   }
 };
 

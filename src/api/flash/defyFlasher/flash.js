@@ -244,15 +244,20 @@ export class FlashDefyWired {
    * @param {string} filename - path to file with firmware.
    * @returns {promise}
    */
-  async updateFirmware(filename, stateUpdate) {
+  async updateFirmware(filename, filenameSides, stateUpdate) {
     let focus = new Focus();
     console.log("Begin update firmware with rp2040");
     console.log(JSON.stringify(focus));
     // this.backupFileData.log.push("Begin update firmware with rp2040");
     this.backupFileData.firmwareFile = filename;
-    await this.delay(3000);
+    await this.delay(250);
     return new Promise(async (resolve, reject) => {
       try {
+        await rp2040.flashSides(filenameSides, stateUpdate, async (err, result) => {
+          // procedure to flash the sides of the keyboard
+          //TODO: FINIS THIS COMMANDS
+          //await focus.command("");
+        });
         await rp2040.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {

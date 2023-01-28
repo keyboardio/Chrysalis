@@ -247,6 +247,7 @@ class App extends React.Component {
 
     console.log("Connecting to", port.path);
     await focus.open(port.path, port.device);
+    console.log("After focus.open");
     if (focus.device.bootloader) {
       this.setState({
         connected: true,

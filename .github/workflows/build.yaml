@@ -20,7 +20,7 @@ jobs:
             gyp: ""
           - os: windows-2019
             gyp: ""
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             gyp: use_udev=0 use_system_libusb=true
 
     steps:

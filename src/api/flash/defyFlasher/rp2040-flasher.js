@@ -18,13 +18,45 @@ import { ipcRenderer } from "electron";
 import fs from "fs";
 import * as path from "path";
 import Focus from "../../focus";
+import { crc32 } from "easy-crc";
 
 var focus = new Focus();
+
+function hex2byte(hex) {
+  var bytes = [];
+
+  for (var i = 0; i < hex.length; i += 2) bytes.push(parseInt(hex.substr(i, 2), 16));
+
+  return bytes;
+}
 
 /**
  * Object rp2040 with flash method.
  */
 var rp2040 = {
+  recoverSeal: hex => {
+    let bytes = new Uint8Array(hex2byte(hex));
+    const uint = new Uint32Array(bytes.buffer);
+    // Seal(hardwareVersion=SealHeader(deviceId=1263747922, version=1, size=32, crc=197434883), programStart=20736, programSize=57552, programCrc=3782824883, programVersion=16777217
+    return {
+      deviceId: uint[0],
+      version: uint[1],
+      size: uint[2],
+      crc: uint[3],
+      programStart: uint[4],
+      programSize: uint[5],
+      programCrc: uint[6],
+      programVersion: uint[7]
+    };
+  },
+  binToFW: file => {
+    let blocks = new Array();
+    for (let index = 0; index < file.length; index = index + 512) {
+      let aux = hex2byte(file.slice(index, index + 512));
+      blocks.push({ data: aux, crc: crc32("CRC-32", aux) });
+    }
+    return blocks;
+  },
   flash: (file, stateUpdate, finished) => {
     ipcRenderer.invoke("list-drives", true).then(result => {
       let finalPath = path.join(result, "default.uf2");

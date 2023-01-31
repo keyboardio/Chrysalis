@@ -130,9 +130,7 @@ class Focus {
     this.callbacks = [];
     this.supportedCommands = [];
     this.parser.on("data", data => {
-      console.log("without utf8", data);
       data = data.toString("utf-8");
-      console.log("with utf8", data);
       this.debugLog("focus: incoming data:", data);
 
       if (data == "." || data.endsWith(".")) {

@@ -53,7 +53,7 @@ var rp2040 = {
     let blocks = new Array();
     for (let index = 0; index < file.length; index = index + 512) {
       let aux = hex2byte(file.slice(index, index + 512));
-      blocks.push({ data: aux, crc: crc32("CRC-32", aux) });
+      blocks.push({ data: Uint8Array(aux), crc: new Uint32Array([crc32("CRC-32", aux)]) });
     }
     return blocks;
   },
@@ -71,9 +71,6 @@ var rp2040 = {
       stateUpdate(3, 70);
       finished(false, "");
     });
-  },
-  flashSides: () => {
-    console.log("flashing sides");
   }
 };
 

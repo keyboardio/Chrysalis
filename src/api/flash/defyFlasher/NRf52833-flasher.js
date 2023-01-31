@@ -17,7 +17,7 @@
 import async from "async";
 import fs from "fs";
 import Focus from "../../focus";
-import crc32 from "buffer-crc32";
+import { crc32 } from "easy-crc";
 
 var MAX_MS = 2000;
 
@@ -298,7 +298,7 @@ var NRf52833 = {
       address += bufferSize;
     }
     // TODO: CRC CHECK
-    var crc = crc32(auxData);
+    var crc = crc32("CRC-32", auxData);
     func_array.push(function (callback) {
       write_cb(str2ab(`C${dataObjects[0].address},${totalSaved},${crc}#`), callback);
     });

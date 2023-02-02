@@ -104,24 +104,24 @@ export default class sideFlaser {
       programCrc: parseInt(ans[3]),
       validation: parseInt(ans[4])
     };
-    if (info.programCrc != seal.programCrc) {
-      for (let i = 0; i < binaryFile.length; i = i + 256) {
-        serialport.write("upgrade.keyscanner.sendWrite ");
-        const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
-        const data = binaryFile.slice(i, i + 256);
-        const crc = new Uint8Array(new Uint32Array([crc32("CRC-32", data)]).buffer);
-        const blob = new Uint8Array(writeAction.length + data.length + crc.length);
-        blob.set(writeAction);
-        blob.set(data, writeAction.length);
-        blob.set(crc, data.length + writeAction.length);
-        const buffer = new Buffer.from(blob);
-        serialport.write(buffer);
-        await readLine();
-        let ack = await readLine();
-        if (ack.trim() === "false") {
-          break;
-        }
+    // if (info.programCrc != seal.programCrc) {
+    for (let i = 0; i < binaryFile.length; i = i + 256) {
+      serialport.write("upgrade.keyscanner.sendWrite ");
+      const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
+      const data = binaryFile.slice(i, i + 256);
+      const crc = new Uint8Array(new Uint32Array([crc32("CRC-32", data)]).buffer);
+      const blob = new Uint8Array(writeAction.length + data.length + crc.length);
+      blob.set(writeAction);
+      blob.set(data, writeAction.length);
+      blob.set(crc, data.length + writeAction.length);
+      const buffer = new Buffer.from(blob);
+      serialport.write(buffer);
+      await readLine();
+      let ack = await readLine();
+      if (ack.trim() === "false") {
+        break;
       }
+      // }
     }
 
     serialport.write("upgrade.keyscanner.finish\n");

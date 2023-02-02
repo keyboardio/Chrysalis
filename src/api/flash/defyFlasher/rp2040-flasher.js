@@ -52,6 +52,7 @@ export default class rp2040 {
     console.log("Primer flasheo terminado", result);
     result = await sideFlash.flashSide("left");
     console.log("Segundo flasheo terminado", result);
+    this.delay(10);
     result = await sideFlash.prepareNeuron();
     finished(false, "");
   }

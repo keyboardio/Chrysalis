@@ -260,14 +260,11 @@ export class FlashDefyWired {
           else {
             stateUpdate(3, 40);
             console.log("End of sides firmware update");
-            resolve();
           }
         });
         /**
          * Procedure to flash the neuron
          *  */
-        await focus.close();
-        console.log("done closing focus");
         await this.rp2040.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {

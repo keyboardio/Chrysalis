@@ -18,7 +18,7 @@ import fs from "fs";
 import path from "path";
 import Focus from "../../focus";
 import Hardware from "../../hardware";
-import rp2040 from "./rp2040-flasher";
+import Rp2040 from "./rp2040-flasher";
 import NRf52833 from "./NRf52833-flasher";
 
 /**
@@ -43,6 +43,7 @@ export class FlashDefyWired {
       firmwareFile: "File has not being selected"
     };
     this.backup = [];
+    this.rp2040 = new Rp2040(device);
     this.delay = ms => new Promise(res => setTimeout(res, ms));
   }
 
@@ -245,10 +246,7 @@ export class FlashDefyWired {
    * @returns {promise}
    */
   async updateFirmware(filename, filenameSides, stateUpdate) {
-    let focus = new Focus();
     console.log("Begin update firmware with rp2040");
-    console.log(JSON.stringify(focus));
-    // this.backupFileData.log.push("Begin update firmware with rp2040");
     this.backupFileData.firmwareFile = filename;
     await this.delay(250);
     console.log("Starting with the sides if needed");
@@ -257,84 +255,20 @@ export class FlashDefyWired {
         /**
          * Procedure to flash the sides of the keyboard
          *  */
-        const sidesResult = await new Promise(async (resolve, reject) => {
-          let sideBin = fs.readFileSync(filenameSides, "hex");
-          const seal = rp2040.recoverSeal(sideBin.slice(0, 64));
-          const blocks = rp2040.binToFW(sideBin);
-
-          // Check if both sides are plugged in, if not reject operation
-          let klStatus = await focus.command("upgrade.keyscanner.beginLeft");
-          if (klStatus != "true") reject();
-          let krStatus = await focus.command("upgrade.keyscanner.beginRight");
-          if (krStatus != "true") reject();
-
-          // Start with checkings for the right side first to know if the firmware has to be flashed
-          krStatus = await focus.command("upgrade.keyscanner.getInfo").split(" ");
-          krStatus = {
-            hardwareVersion: krStatus[0],
-            flashStart: krStatus[1],
-            programVersion: krStatus[2],
-            programCrc: krStatus[3],
-            validation: krStatus[4]
-          };
-          if (krStatus.programCrc != seal.programCrc) {
-            // The firmware has to be updated
-            let index,
-              retries = 0;
-            for (index = 0; index < blocks.length; index++) {
-              if (retries > 9) break;
-              const writeAction = new Uint32Array([index * 256 + krStatus.flashStart, 256]);
-              let datachain = "";
-              blocks[index].data.map(elem => {
-                datachain = datachain + elem;
-              });
-              let ans = focus.command("upgrade.keyscanner.sendWrite " + writeAction + blocks[index].data + blocks[index].crc);
-              if (ans == "false") {
-                index = index - 1;
-                retries++;
-              } else {
-                retries = 0;
-              }
-            }
-            if (index < blocks.length) reject();
+        await this.rp2040.sideFlash(filenameSides, stateUpdate, async (err, result) => {
+          if (err) throw new Error(`Flash error ${result}`);
+          else {
+            stateUpdate(3, 40);
+            console.log("End of sides firmware update");
+            resolve();
           }
-
-          // Continue with checkings for the left side first to know if the firmware has to be flashed
-          klStatus = await focus.command("upgrade.keyscanner.beginLeft");
-          if (klStatus != "true") reject();
-          klStatus = await focus.command("upgrade.keyscanner.getInfo").split(" ");
-          klStatus = {
-            hardwareVersion: klStatus[0],
-            flashStart: klStatus[1],
-            programVersion: klStatus[2],
-            programCrc: klStatus[3],
-            validation: klStatus[4]
-          };
-          if (klStatus.programCrc != seal.programCrc) {
-            // The firmware has to be updated
-            let index,
-              retries = 0;
-            for (index = 0; index < blocks.length; index++) {
-              if (retries > 9) break;
-              const writeAction = new Uint32Array([index * 256 + klStatus.flashStart, 256]);
-              let datachain = "";
-              blocks[index].data.map(elem => {
-                datachain = datachain + elem;
-              });
-              let ans = focus.command("upgrade.keyscanner.sendWrite " + writeAction + blocks[index].data + blocks[index].crc);
-              if (ans == "false") {
-                index = index - 1;
-                retries++;
-              } else {
-                retries = 0;
-              }
-            }
-            if (index < blocks.length) reject();
-          }
-          resolve();
         });
-        if (!sidesResult) reject();
-        await rp2040.flash(filename, stateUpdate, async (err, result) => {
+        /**
+         * Procedure to flash the neuron
+         *  */
+        await focus.close();
+        console.log("done closing focus");
+        await this.rp2040.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 70);

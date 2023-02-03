@@ -250,7 +250,7 @@ const English = {
         descriptionModifiers: "Add any of these modifiers to selected key to create combinations such as Control, Alt or Shift.",
         addDualFunction: "Add a dual-function",
         dualFunctionDescription:
-          "Dual-function keys have two functionalities. 1. When tapped, they send a chartacter. 2. When held, they send a modifier o a layer key."
+          "Dual-function keys have two functionalities. 1. When tapped, they send a chartacter. 2. When held, they send a modifier or a layer key."
       },
       layers: {
         title: "Layers",

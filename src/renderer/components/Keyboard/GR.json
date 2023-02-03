@@ -1704,7 +1704,7 @@
     "iconname": "",
     "content": {
       "type": "block",
-      "first": ".",
+      "first": ",",
       "second": "Del",
       "third": "",
       "fourth": ""

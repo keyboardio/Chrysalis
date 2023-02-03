@@ -33,26 +33,31 @@ export default class rp2040 {
     ipcRenderer.invoke("list-drives", true).then(result => {
       let finalPath = path.join(result, "default.uf2");
       console.log("RESULTS!!!", result, file, " to ", finalPath);
-      stateUpdate(2, 50);
-      fs.copyFile(file, finalPath, err => {
-        if (err) {
-          console.log("Error Found:", err);
-          finished(true, err);
-        }
-      });
-      stateUpdate(3, 70);
+      stateUpdate(3, 67);
+      fs.copyFileSync(file, finalPath);
+      stateUpdate(3, 80);
       finished(false, "");
     });
   }
 
   async sideFlash(filenameSides, stateUpdate, finished) {
+    // State update auxiliarly function
+    let step = 0;
+    const stateUpd = ratio => {
+      stateUpdate(3, ratio * 25 + step);
+    };
+
     // Flashing procedure for each side
     const sideFlash = new sideFlaser(this.device.path, filenameSides);
-    let result = await sideFlash.flashSide("right");
-    console.log("Primer flasheo terminado", result);
-    result = await sideFlash.flashSide("left");
-    console.log("Segundo flasheo terminado", result);
-    this.delay(10);
+    let result = await sideFlash.flashSide("right", stateUpd);
+    if (result.error) finished(result.error, result.message);
+    console.log("Right side flash has error? ", result.error);
+    step = step + 25;
+    result = await sideFlash.flashSide("left", stateUpd);
+    if (result.error) finished(result.error, result.message);
+    console.log("Left side flash has error? ", result.error);
+    step = step + 25;
+    await this.delay(20);
     result = await sideFlash.prepareNeuron();
     finished(false, "");
   }

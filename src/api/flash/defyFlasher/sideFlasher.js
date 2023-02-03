@@ -32,7 +32,7 @@ export default class sideFlaser {
     serialport.close();
   }
 
-  async flashSide(side) {
+  async flashSide(side, stateUpd) {
     // Auxiliary Functions
     const sleep = ms => {
       return new Promise(resolve => {
@@ -104,6 +104,10 @@ export default class sideFlaser {
       programCrc: parseInt(ans[3]),
       validation: parseInt(ans[4])
     };
+
+    // Write Firmware FOR Loop
+    let step = 0;
+    let totalsteps = binaryFile.length / 256;
     // if (info.programCrc != seal.programCrc) {
     for (let i = 0; i < binaryFile.length; i = i + 256) {
       serialport.write("upgrade.keyscanner.sendWrite ");
@@ -121,6 +125,8 @@ export default class sideFlaser {
       if (ack.trim() === "false") {
         break;
       }
+      stateUpd(step / totalsteps);
+      step++;
       // }
     }
 

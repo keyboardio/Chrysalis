@@ -116,7 +116,6 @@ export default class ColorEditor extends Component {
 
   handleChange(color) {
     const { selected, onColorPick } = this.props;
-    console.log(selected, color);
     onColorPick(selected, color.rgb.r, color.rgb.g, color.rgb.b);
   }
 
@@ -138,7 +137,6 @@ export default class ColorEditor extends Component {
 
   selectColor(ev, pick) {
     const { colors, selected, onColorSelect } = this.props;
-    console.log(colors[pick], pick, selected);
     onColorSelect(pick);
     if (pick === selected) {
       // setIndexFocusButton(!indexFocusButton);
@@ -264,7 +262,7 @@ export default class ColorEditor extends Component {
             <div className="buttonsApplyAll">
               <ColorButton
                 onClick={() => {
-                  toChangeAllKeysColor(selected, 0, 69);
+                  toChangeAllKeysColor(selected, 0, 70);
                 }}
                 label={i18n.editor.color.applyColor}
                 text={i18n.editor.color.allKeys}
@@ -273,7 +271,7 @@ export default class ColorEditor extends Component {
               />
               <ColorButton
                 onClick={() => {
-                  toChangeAllKeysColor(selected, 69, 142);
+                  toChangeAllKeysColor(selected, 70, 177);
                 }}
                 label={i18n.editor.color.applyColor}
                 text={i18n.editor.color.underglow}

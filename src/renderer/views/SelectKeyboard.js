@@ -219,6 +219,7 @@ class SelectKeyboard extends Component {
       focus
         .find(...Hardware.serial)
         .then(async devices => {
+          console.log("Printing devices: ", devices);
           let supported_devices = [];
           for (const device of devices) {
             device.accessible = await focus.isDeviceAccessible(device);

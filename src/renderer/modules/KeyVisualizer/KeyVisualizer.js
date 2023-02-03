@@ -81,10 +81,10 @@ const Style = Styled.div`
             text-transform: uppercase;
             color: ${({ theme }) => theme.styles.keyVisualizer.colorSuperkeyAction};
             font-weight: 600;
-          } 
+          }
       }
       .keySelectedBox {
-          padding: 8px 16px;   
+          padding: 8px 16px;
           border: 2px solid ${({ theme }) => theme.styles.keyVisualizer.borderOldValue};
           box-shadow: none;
           width: 104px;

@@ -87,7 +87,6 @@ const Style = Styled.div`
 }
 `;
 const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }) => {
-  console.log("Data from props", value, listElements);
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
     <Style className={`toggleButtonsContainer ${style == "flex" ? "toggleButtonsContainerFlex" : ""}`}>

@@ -332,6 +332,48 @@ const Styles = Styled.div`
   cursor: url(${customCursor}) 12 12, auto;
 }
 
+.defy-t2 .keyContentLabelRotate {
+  transform: rotate(3deg) translate(1px,-1px);
+}
+.defy-t3 .keyContentLabelRotate {
+  transform: rotate(10deg) translate(9px, -1px);
+}
+.defy-t4 .keyContentLabelRotate {
+  transform: rotate(37deg) translate(26px,-18px);
+}
+.defy-t6 .keyContentLabelRotate {
+  transform: rotate(5deg) translate(2px,-5px);
+}
+.defy-t7 .keyContentLabelRotate {
+  transform: rotate(15deg) translate(12px,-5px);
+}
+.defy-t8 .keyContentLabelRotate {
+  transform: rotate(54deg) translate(52px,-77px);
+}
+
+
+.defy-tR2 .keyContentLabelRotate {
+  transform: rotate(-5deg) translate(5px,1px);
+}
+
+.defy-tR2 .keyContentLabelRotate {
+  transform: rotate(-5deg) translate(5px,1px);
+}
+.defy-tR3 .keyContentLabelRotate {
+  transform: rotate(-25deg) translate(-2px,18px);
+}
+.defy-tR4 .keyContentLabelRotate {
+  transform: rotate(-54deg) translate(-36px,26px);
+}
+.defy-tR6 .keyContentLabelRotate {
+  transform: rotate(-8deg) translate(4px,4px);
+}
+.defy-tR7 .keyContentLabelRotate {
+  transform: rotate(-46deg) translate(-24px,24px);
+}
+.defy-tR8 .keyContentLabelRotate {
+  transform: rotate(-60deg) translate(-47px,8px)
+}
 
 `;
 
@@ -545,7 +587,7 @@ class LayoutEditor extends React.Component {
        */
       let chipID = await focus.command("hardware.chip_id");
       let registered = await this.AnalizeChipID(chipID.replace(/\s/g, ""));
-
+      const device = focus.device.info.product;
       if (lang) {
         let deviceLang = { ...focus.device, language: true };
         focus.commands.keymap = new Keymap(deviceLang);
@@ -578,6 +620,7 @@ class LayoutEditor extends React.Component {
 
       let colormap = await focus.command("colormap");
       let palette = colormap.palette.slice();
+      console.log("retrieved color.map & palette", colormap, palette);
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -602,7 +645,8 @@ class LayoutEditor extends React.Component {
         macros: parsedMacros,
         superkeys: parsedSuper,
         registered,
-        chipID
+        chipID,
+        deviceName: device
       });
       if (keymap.custom) {
         const oldmacro = [...Array(64).keys()].map(x => x + 24576);
@@ -1877,6 +1921,7 @@ class LayoutEditor extends React.Component {
                 isColorButtonSelected={isColorButtonSelected}
                 onColorButtonSelect={this.onColorButtonSelect}
                 toChangeAllKeysColor={this.toChangeAllKeysColor}
+                deviceName={this.state.deviceName}
               />
             }
             isColorActive={this.state.modeselect == "keyboard" ? false : true}

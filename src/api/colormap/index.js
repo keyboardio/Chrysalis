@@ -16,6 +16,7 @@
  */
 
 import Focus from "../focus";
+import { rgb2w, rgbw2b } from "../color";
 
 global.colormap_instance = null;
 
@@ -25,6 +26,7 @@ export default class Colormap {
       global.colormap_instance = this;
     }
     global.colormap_instance.setLayerSize(opts);
+    global.colormap_instance.setLEDMode(opts);
 
     return global.colormap_instance;
   }
@@ -43,6 +45,18 @@ export default class Colormap {
     return this;
   }
 
+  setLEDMode(opts) {
+    if (!opts || opts == undefined) return;
+
+    if (typeof opts == "number") {
+      this._LEDMode = "RGB";
+    } else if (typeof opts == "object") {
+      this._LEDMode = opts.RGBWMode ? "RGBW" : "RGB";
+    }
+
+    return this;
+  }
+
   _chunk(a, chunkSize) {
     var R = [];
     for (var i = 0; i < a.length; i += chunkSize) R.push(a.slice(i, i + chunkSize));
@@ -53,20 +67,37 @@ export default class Colormap {
     let paletteData = await s.request("palette");
     let colorMapData = await s.request("colormap.map");
 
-    let palette = this._chunk(
-      paletteData
-        .split(" ")
-        .filter(v => v.length > 0)
-        .map(k => parseInt(k)),
-      3
-    ).map(color => {
-      return {
-        r: color[0],
-        g: color[1],
-        b: color[2],
-        rgb: `rgb(${color[0]}, ${color[1]}, ${color[2]})`
-      };
-    });
+    let palette =
+      this._LEDMode != "RGBW"
+        ? this._chunk(
+            paletteData
+              .split(" ")
+              .filter(v => v.length > 0)
+              .map(k => parseInt(k)),
+            3
+          ).map(color => {
+            return {
+              r: color[0],
+              g: color[1],
+              b: color[2],
+              rgb: `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+            };
+          })
+        : this._chunk(
+            paletteData
+              .split(" ")
+              .filter(v => v.length > 0)
+              .map(k => parseInt(k)),
+            4
+          ).map(color => {
+            const coloraux = rgbw2b({ r: color[0], g: color[1], b: color[2], w: color[3] });
+            return {
+              r: coloraux.r,
+              g: coloraux.g,
+              b: coloraux.b,
+              rgb: coloraux.rgb
+            };
+          });
 
     let colorMap = this._chunk(
       colorMapData
@@ -87,7 +118,17 @@ export default class Colormap {
   }
 
   async _updatePalette(s, palette) {
-    let args = this._flatten(palette.map(color => [color.r, color.g, color.b])).map(v => v.toString());
+    let args;
+    if (this._LEDMode != "RGBW") {
+      args = this._flatten(palette.map(color => [color.r, color.g, color.b])).map(v => v.toString());
+    } else {
+      let paletteAux = palette.map(color => {
+        let aux = rgb2w({ r: color.r, g: color.g, b: color.b });
+        return aux;
+      });
+      args = this._flatten(paletteAux.map(color => [color.r, color.g, color.b, color.w])).map(v => v.toString());
+      console.log(palette, paletteAux, args);
+    }
 
     return await s.request("palette", ...args);
   }
@@ -110,3 +151,4 @@ export default class Colormap {
 let focus = new Focus();
 focus.addCommands({ colormap: new Colormap() });
 focus.addMethod("setLayerSize", "colormap");
+focus.addMethod("setLEDMode", "colormap");

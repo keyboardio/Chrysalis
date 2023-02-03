@@ -102,6 +102,16 @@ const germanModifierKeys = [
   }
 ];
 
+const germanNumpad = [
+  {
+    code: 99,
+    labels: {
+      top: "Num",
+      primary: ","
+    }
+  }
+];
+
 const altCtrlGerman = {
   groupName: "AltCtrl German",
   keys: [
@@ -372,7 +382,7 @@ const shiftModifierGerman = {
   ]
 };
 
-const german = germanLetters.concat(germanModifierKeys);
+const german = germanLetters.concat(germanModifierKeys, germanNumpad);
 
 const table = { keys: german };
 const tableWithoutModifier = { keys: germanLetters };

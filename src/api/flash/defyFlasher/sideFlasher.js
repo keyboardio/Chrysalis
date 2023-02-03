@@ -108,6 +108,7 @@ export default class sideFlaser {
     // Write Firmware FOR Loop
     let step = 0;
     let totalsteps = binaryFile.length / 256;
+    console.log("CRC check is ", info.programCrc != seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
     // if (info.programCrc != seal.programCrc) {
     for (let i = 0; i < binaryFile.length; i = i + 256) {
       serialport.write("upgrade.keyscanner.sendWrite ");

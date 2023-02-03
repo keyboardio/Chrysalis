@@ -467,7 +467,7 @@ To retrieve:
 To set:
 
 - JavaScript: `focus.command("led.palete NNN NNN NNN NNN NNN NNN")`
-- Serial Command (Unix): `echo 'led.palette NNN NNN NNN NNN NNN NNN' > /dev/ttyACM0`
+- Serial Command (Unix): `echo 'palette NNN NNN NNN NNN NNN NNN' > /dev/ttyACM0`
 
 #### Expected output
 

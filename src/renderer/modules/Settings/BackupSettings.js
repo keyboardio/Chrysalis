@@ -138,7 +138,9 @@ export default class BackupSettings extends Component {
         if (typeof val === "boolean") {
           val = +val;
         }
-        if (data[i].command.includes("macros") || data[i].command.includes("superkeys")) continue;
+        if (focus.device.info.product == "Defy") {
+          if (data[i].command.includes("macros") || data[i].command.includes("superkeys")) continue;
+        }
         console.log(`Going to send ${data[i].command} to keyboard`);
         await focus.command(`${data[i].command} ${val}`.trim());
       }

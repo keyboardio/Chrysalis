@@ -188,7 +188,10 @@ class FirmwareUpdate extends React.Component {
     await focus.command("keymap.custom", withEsc.join(" "));
     await focus.command("layer.moveTo 0");
   }
-
+  selectExperimental = event => {
+    console.log("selecting experimental");
+    this.setState({ firmwareFilename: "", selected: "experimental" });
+  };
   selectFirmware = event => {
     if (this.state.firmwareFilename != "") {
       this.setState({ firmwareFilename: "" });
@@ -547,6 +550,7 @@ class FirmwareUpdate extends React.Component {
               }
               firmwareFilename={firmwareFilename}
               selectFirmware={this.selectFirmware}
+              selectExperimental={this.selectExperimental}
               disclaimerCard={countdown + 1}
               onCancelDialog={this.cancelDialog}
               onBackup={this.backup}

@@ -36,7 +36,12 @@ export default class Backup {
       "led.setAll",
       "macros.trigger",
       "qukeys",
-      "upgrade"
+      "upgrade",
+      "settings.printConfig",
+      "settings.aliveInterval",
+      "settings.spiSpeed",
+      "settings.cpuSpeed",
+      "settings.ledDriverPullUp"
     ];
     let commands = await this.focus.command("help");
     return commands.filter(c => !notRequired.some(v => c.includes(v)));

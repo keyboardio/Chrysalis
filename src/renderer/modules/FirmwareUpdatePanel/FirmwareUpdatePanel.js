@@ -174,6 +174,7 @@ const FirmwareUpdatePanel = ({
   latestVersionAvailable,
   onClick,
   selectFirmware,
+  selectExperimental,
   firmwareFilename,
   disclaimerCard,
   onCancelDialog,
@@ -275,7 +276,11 @@ const FirmwareUpdatePanel = ({
                     />
                   )}
                   <div className="dropdownCustomFirmware">
-                    <FirmwareAdvancedOptions firmwareFilename={firmwareFilename} selectFirmware={selectFirmware} />
+                    <FirmwareAdvancedOptions
+                      firmwareFilename={firmwareFilename}
+                      selectFirmware={selectFirmware}
+                      selectExperimental={selectExperimental}
+                    />
                   </div>
                 </div>
               </div>

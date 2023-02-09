@@ -41,7 +41,9 @@ export default class Backup {
       "settings.aliveInterval",
       "settings.spiSpeed",
       "settings.cpuSpeed",
-      "settings.ledDriverPullUp"
+      "settings.ledDriverPullUp",
+      "settings.underGlow",
+      "settings.ledDriver",
     ];
     let commands = await this.focus.command("help");
     return commands.filter(c => !notRequired.some(v => c.includes(v)));

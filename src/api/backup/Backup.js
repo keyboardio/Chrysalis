@@ -43,7 +43,7 @@ export default class Backup {
       "settings.cpuSpeed",
       "settings.ledDriverPullUp",
       "settings.underGlow",
-      "settings.ledDriver",
+      "settings.ledDriver"
     ];
     let commands = await this.focus.command("help");
     return commands.filter(c => !notRequired.some(v => c.includes(v)));

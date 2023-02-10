@@ -1960,7 +1960,7 @@ class LayoutEditor extends React.Component {
             onToogle={this.onToogle}
             isStandardView={isStandardView}
             tooltip={i18n.editor.superkeys.tooltip}
-            isDisabled={this.state.modeselect != "keyboard"}
+            isHidden={this.state.modeselect !== "keyboard"}
             layoutSelectorPosition={layoutSelectorPosition}
           />
 

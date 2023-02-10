@@ -832,7 +832,7 @@ class SuperkeysEditor extends React.Component {
           onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}
           tooltip={i18n.editor.superkeys.tooltip}
-          isDisabled={false}
+          isHidden={false}
         />
         {isStandardViewSuperkeys ? (
           <StandardView

@@ -26,6 +26,20 @@ import { ButtonConfig } from "../Button";
 import { IconEditModeStandardViewSm, IconEditModeSingleViewSm } from "../../component/Icon";
 
 const Style = Styled.div`
+// WHY: We want to hide the selector when we cannot use it (e.g. when color editor is active)
+${({ isHidden }) =>
+  isHidden &&
+  `
+  display: none;
+`}
+// TODO -> Do we still need this? If so, explain why
+${({ isStandardView }) =>
+  isStandardView &&
+  `
+  position: "absolute",
+  left: layoutSelectorPosition.x,
+  top: layoutSelectorPosition.y - 92
+`}
 &.layoutSelector {
   // position: fixed;
   // bottom: 24px;
@@ -93,27 +107,19 @@ h5 {
  * @param {function} onToogle - The function that handle the states
  * @param {boolean} isStandardView - The actual state if the Standand View is Selected
  * @param {string} tooltip - [Optional] Help text used next to the title
+ * @param isHidden
+ * @param layoutSelectorPosition
  * @returns {<LayoutViewSelector>} Badge component.
  */
 
-const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, layoutSelectorPosition }) => {
-  let stylePostition = {};
-  if (layoutSelectorPosition) {
-    if (!isStandardView && !isDisabled) {
-      stylePostition = {
-        position: "absolute",
-        left: layoutSelectorPosition.x,
-        top: layoutSelectorPosition.y - 92
-      };
-    } else {
-      stylePostition = {
-        position: "static"
-      };
-    }
-  }
-
+const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isHidden, layoutSelectorPosition }) => {
   return (
-    <Style className={`layoutSelector`} style={stylePostition}>
+    <Style
+      className={`layoutSelector`}
+      isStandardView={isStandardView}
+      isHidden={isHidden}
+      layoutSelectorPosition={layoutSelectorPosition}
+    >
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">
@@ -124,8 +130,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, lay
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
-            disabled={isDisabled}
-            // tooltip={"Standard view will be available in future releases of Bazecor Beta"}
+            disabled={isHidden}
           />
           <ButtonConfig
             onClick={onToogle}
@@ -134,7 +139,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, lay
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}
             size={"sm"}
-            disabled={isDisabled}
+            disabled={isHidden}
           />
         </div>
       </div>

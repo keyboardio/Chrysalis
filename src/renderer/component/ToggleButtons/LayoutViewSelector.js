@@ -31,6 +31,23 @@ const Style = Styled.div`
   margin-top: auto;
   margin-bottom: 24px;
   padding-top: 16px;
+  
+  // WHY: We want to render the LayoutViewSelector directly above the KeyPickerKeyboard (and below the key editor)
+  // when in single view.
+  // Currently we only want this behaviour in the LayoutEditor, not in the SuperkeysEditor.
+  // The SuperkeysEditor omits the _layoutSelectorPosition_ argument when rendering the LayoutViewSelector, so the
+  // following statement will evaluate to false.
+  // The layoutSelectorPosition will get updated by the KeyPickerKeyboard component and consists of the left and top
+  // value of it's bounding box. It will be calculated on first draw and on resize.
+  ${({ isStandardView, layoutSelectorPosition }) =>
+    layoutSelectorPosition?.x &&
+    layoutSelectorPosition?.y &&
+    !isStandardView &&
+    `
+      position: absolute;
+      left: ${layoutSelectorPosition.x}px;
+      top: ${layoutSelectorPosition.y - 92}px;
+    `}
 }
 .toggleButtonsContainer {
   padding: 4px;
@@ -89,12 +106,13 @@ h5 {
  * @param {function} onToggle - The function that handle the states
  * @param {boolean} isStandardView - The actual state if the Standand View is Selected
  * @param {string} tooltip - [Optional] Help text used next to the title
+ * @param layoutSelectorPosition
  * @returns {LayoutViewSelector} Badge component.
  */
 
-const LayoutViewSelector = ({ onToggle, isStandardView, tooltip }) => {
+const LayoutViewSelector = ({ onToggle, isStandardView, tooltip, layoutSelectorPosition }) => {
   return (
-    <Style className={`layoutSelector`}>
+    <Style className={`layoutSelector`} isStandardView={isStandardView} layoutSelectorPosition={layoutSelectorPosition}>
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">

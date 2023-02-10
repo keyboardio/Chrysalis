@@ -60,18 +60,18 @@ const Style = Styled.div`
   padding: 10px 12px;
   border-radius: 4px;
   font-size: 13px;
-  color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
-  background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
-  box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  color: ${({ theme }) => theme.styles.toggleEditMode.buttonColor};
+  background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackground};
+  box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   &:hover {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundHover};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorHover};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   } 
   &.active {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundActive};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorActive};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundActive};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorActive};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   }
 }
 @media screen and (max-width: 1259px) {

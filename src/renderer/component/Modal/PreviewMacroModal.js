@@ -10,7 +10,7 @@ import i18n from "../../i18n";
 export default function PreviewMacroModal({ children, hookref }) {
   const [show, setShow] = React.useState(false);
 
-  const toogleShow = event => {
+  const toggleShow = event => {
     setShow(!show);
   };
 
@@ -26,7 +26,7 @@ export default function PreviewMacroModal({ children, hookref }) {
         icoPosition="right"
         onClick={() => setShow(!show)}
       />
-      <Modal size="lg" show={show} onHide={toogleShow} aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal size="lg" show={show} onHide={toggleShow} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
           <Modal.Title>{i18n.editor.macros.previewMacro}</Modal.Title>
         </Modal.Header>

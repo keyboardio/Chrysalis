@@ -475,7 +475,7 @@ class LayoutEditor extends React.Component {
     this.toggleNeuronModal = this.toggleNeuronModal.bind(this);
     this.CloneExistingNeuron = this.CloneExistingNeuron.bind(this);
     this.updateOldMacros = this.updateOldMacros.bind(this);
-    this.onToogle = this.onToogle.bind(this);
+    this.onToggle = this.onToggle.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -1695,7 +1695,7 @@ class LayoutEditor extends React.Component {
     }
   }
 
-  onToogle = () => {
+  onToggle = () => {
     if (this.state.isStandardView) {
       this.setState({ isStandardView: false });
     } else {
@@ -1957,7 +1957,7 @@ class LayoutEditor extends React.Component {
           </Row>
 
           <LayoutViewSelector
-            onToogle={this.onToogle}
+            onToggle={this.onToggle}
             isStandardView={isStandardView}
             tooltip={i18n.editor.superkeys.tooltip}
             isHidden={this.state.modeselect !== "keyboard"}

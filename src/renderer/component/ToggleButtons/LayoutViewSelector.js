@@ -52,8 +52,8 @@ ${({ isStandardView }) =>
 }
 .toggleButtonsContainer {
   padding: 4px;
-  background: ${({ theme }) => theme.styles.toogleEditMode.containerBackground};
-  border: ${({ theme }) => theme.styles.toogleEditMode.containerBorder};
+  background: ${({ theme }) => theme.styles.toggleEditMode.containerBackground};
+  border: ${({ theme }) => theme.styles.toggleEditMode.containerBorder};
   border-radius: 6px;
   .toggleButtonsInner {
     margin-left: -2px;
@@ -69,26 +69,26 @@ ${({ isStandardView }) =>
   padding: 8px 10px;
   border-radius: 4px;
   font-size: 11px;
-  color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
-  background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
-  box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  color: ${({ theme }) => theme.styles.toggleEditMode.buttonColor};
+  background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackground};
+  box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   display: flex;
   align-items: center;
   &:hover {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundHover};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorHover};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   } 
   &.active {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundActive};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorActive};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundActive};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorActive};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   }
 }
 h5 {
   font-size: 10px;
   letter-spacing: 0.05em;
-  color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
+  color: ${({ theme }) => theme.styles.toggleEditMode.titleColor};
   margin-left: 4px;
   margin-bottom: 6px;
 }
@@ -101,10 +101,10 @@ h5 {
 `;
 
 /**
- * This LayoutViewSelector function returns a component that render a toogle element that help the user select between Standard View/Single View
+ * This LayoutViewSelector function returns a component that render a toggle element that help the user select between Standard View/Single View
  * The object will accept the following parameters
  *
- * @param {function} onToogle - The function that handle the states
+ * @param {function} onToggle - The function that handle the states
  * @param {boolean} isStandardView - The actual state if the Standand View is Selected
  * @param {string} tooltip - [Optional] Help text used next to the title
  * @param isHidden
@@ -112,7 +112,7 @@ h5 {
  * @returns {<LayoutViewSelector>} Badge component.
  */
 
-const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isHidden, layoutSelectorPosition }) => {
+const LayoutViewSelector = ({ onToggle, isStandardView, tooltip, isHidden, layoutSelectorPosition }) => {
   return (
     <Style
       className={`layoutSelector`}
@@ -124,7 +124,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isHidden, layou
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">
           <ButtonConfig
-            onClick={onToogle}
+            onClick={onToggle}
             icoSVG={<IconEditModeStandardViewSm />}
             icoPosition="left"
             selected={isStandardView}
@@ -133,7 +133,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isHidden, layou
             disabled={isHidden}
           />
           <ButtonConfig
-            onClick={onToogle}
+            onClick={onToggle}
             icoPosition="left"
             icoSVG={<IconEditModeSingleViewSm />}
             selected={!isStandardView}
@@ -148,7 +148,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isHidden, layou
 };
 
 LayoutViewSelector.propTypes = {
-  onToogle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
   isStandardView: PropTypes.bool.isRequired,
   tooltip: PropTypes.string
 };

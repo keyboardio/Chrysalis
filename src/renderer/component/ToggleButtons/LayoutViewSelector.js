@@ -26,20 +26,7 @@ import { ButtonConfig } from "../Button";
 import { IconEditModeStandardViewSm, IconEditModeSingleViewSm } from "../../component/Icon";
 
 const Style = Styled.div`
-// TODO -> Do we still need this? If so, explain why
 &.layoutSelector {
-  // position: fixed;
-  // bottom: 24px;
-  // margin-left: 15px;
-
-  ${({ isStandardView, layoutSelectorPosition }) =>
-    isStandardView &&
-    `
-    position: "absolute";
-    left: ${layoutSelectorPosition.x};
-    top: ${layoutSelectorPosition.y - 92};
-  `}
-
   align-self: self-end;
   margin-top: auto;
   margin-bottom: 24px;
@@ -102,13 +89,12 @@ h5 {
  * @param {function} onToggle - The function that handle the states
  * @param {boolean} isStandardView - The actual state if the Standand View is Selected
  * @param {string} tooltip - [Optional] Help text used next to the title
- * @param layoutSelectorPosition
- * @returns {<LayoutViewSelector>} Badge component.
+ * @returns {LayoutViewSelector} Badge component.
  */
 
-const LayoutViewSelector = ({ onToggle, isStandardView, tooltip, layoutSelectorPosition }) => {
+const LayoutViewSelector = ({ onToggle, isStandardView, tooltip }) => {
   return (
-    <Style className={`layoutSelector`} isStandardView={isStandardView} layoutSelectorPosition={layoutSelectorPosition}>
+    <Style className={`layoutSelector`}>
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">

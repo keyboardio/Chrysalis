@@ -29,7 +29,11 @@ export default class sideFlaser {
 
     serialport.write("upgrade.neuron\n");
     await sleep(10);
-    serialport.close();
+    try {
+      serialport.close();
+    } catch (error) {
+      console.warn("device already disconnected!! no need to close serialport");
+    }
   }
 
   async flashSide(side, stateUpd) {

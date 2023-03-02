@@ -16,8 +16,13 @@
 
 import { dialog, ipcMain } from "electron";
 import fs from "fs";
+import path from "path";
 
 export const registerFileIoHandlers = () => {
+  ipcMain.on("file.get-application-root", (event) => {
+    event.returnValue = path.join(__dirname, "..", "..");
+  });
+
   ipcMain.on("file.read", (event, fileName) => {
     let fileData, error;
     try {

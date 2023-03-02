@@ -27,13 +27,15 @@ import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { navigate } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
-import { devDependencies } from "@root/package.json";
+import pkg from "@root/package.json";
 import fs from "fs";
 import path from "path";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import semver from "semver";
 import { getStaticPath } from "@renderer/config";
+
+const devDependencies = pkg.devDependencies;
 
 const SanityCheck = (props) => {
   const { t } = useTranslation();

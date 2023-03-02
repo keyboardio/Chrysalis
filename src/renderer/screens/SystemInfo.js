@@ -35,11 +35,13 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
-import { version } from "@root/package.json";
+import pkg from "@root/package.json";
 import { ipcRenderer } from "electron";
 import stringify from "json-stringify-pretty-compact";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+const version = pkg.version;
 
 function SystemInfo(props) {
   const globalContext = React.useContext(GlobalContext);

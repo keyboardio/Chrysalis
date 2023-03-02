@@ -33,7 +33,7 @@ import path from "path";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import semver from "semver";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 
 const devDependencies = pkg.devDependencies;
 
@@ -44,7 +44,7 @@ const SanityCheck = (props) => {
 
   useEffect(() => {
     const sanityCheck = async () => {
-      const checkFile = path.join(getStaticPath(), "logo.png");
+      const checkFile = getFilesystemPathForStaticAsset("logo.png");
       const allOk =
         semver.satisfies(
           process.versions.electron,

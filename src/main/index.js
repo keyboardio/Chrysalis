@@ -17,9 +17,7 @@
 
 import { getStaticPath } from "@renderer/config";
 import { app, BrowserWindow, ipcMain } from "electron";
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
+import installExtension from "electron-devtools-installer"; //  REACT_DEVELOPER_TOOLS,
 import windowStateKeeper from "electron-window-state";
 import * as path from "path";
 import { format as formatUrl } from "url";
@@ -164,9 +162,10 @@ app.on("activate", async () => {
 app.whenReady().then(async () => {
   addUsbEventListeners();
   if (isDevelopment) {
-    await installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log("An error occurred: ", err));
+    // REACT_DEVELOPER_TOOLS is currently broken https://github.com/facebook/react/issues/25843
+    //    await installExtension(REACT_DEVELOPER_TOOLS)
+    //      .then((name) => console.log(`Added Extension:  ${name}`))
+    //      .catch((err) => console.log("An error occurred: ", err));
   }
 
   mainWindow = await createMainWindow();

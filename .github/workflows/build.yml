@@ -53,40 +53,9 @@ jobs:
         run: |
           mkdir -p ~/private_keys/
           echo '${{ secrets.api_key }}' > ~/private_keys/AuthKey_${{ secrets.api_key_id }}.p8
+      - name: Build
+        run: yarn run make
 
-      - name: Build Chrysalis
-        uses: samuelmeuli/action-electron-builder@v1
-        env:
-          YARN_GPG: no
-          API_KEY_ID: ${{ secrets.api_key_id }}
-          API_KEY_ISSUER_ID: ${{ secrets.api_key_issuer_id }}
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-          mac_certs: ${{ secrets.mac_certs }}
-          mac_certs_password: ${{ secrets.mac_certs_password }}
-          windows_certs: ${{ secrets.win_cert }}
-          windows_certs_password: ${{ secrets.win_cert_password }}
-
-          # We supply a build script name, so that we compile the source before
-          # trying to package them up. Without compiling them, we won't have the
-          # files to pack up.
-          build_script_name: build:${{ runner.os }}
-
-          # In this step, we only want to build Chrysalis, and never release. If
-          # we need to release, we do that in a separate step.
-          args: -p=never
-          release: false
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ runner.os }}-artifact
-          path: |
-            dist/Chrysalis-*
-            dist/latest*.yml
-            !dist/*.blockmap
 
   publish:
     needs: build

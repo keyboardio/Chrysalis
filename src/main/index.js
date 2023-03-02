@@ -35,6 +35,11 @@ import { registerNativeThemeHandlers } from "./ipc_nativetheme";
 import { registerSystemInfoHandlers } from "./ipc_system_info";
 import { buildMenu } from "./menu";
 
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
+
 // This is a workaround for electron-webpack#275[1]. We need to use backticks
 // for NODE_ENV, otherwise the code would fail to compile with webpack. We also
 // grab the correct value of NODE_ENV from a separate module, to avoid webpack
@@ -76,21 +81,13 @@ async function createMainWindow() {
       sandbox: false,
       nodeIntegration: true,
       contextIsolation: false,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
   mainWindowState.manage(window);
 
-  if (isDevelopment) {
-    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
-  } else {
-    window.loadURL(
-      formatUrl({
-        pathname: path.join(__dirname, "index.html"),
-        protocol: "file",
-        slashes: true,
-      })
-    );
-  }
+  // and load the index.html of the app.
+  window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   window.on("closed", () => {
     mainWindow = null;

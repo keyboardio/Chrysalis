@@ -19,7 +19,9 @@
 const isDevelopment = true;
 
 import path from "path";
-import * as url from "url";
+import { ipcRenderer } from "electron";
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 function getStaticPath() {
   if (process.env.NODE_ENV !== "production") {
@@ -32,11 +34,17 @@ function getStaticPath() {
   }
 }
 
-function getStatic(p) {
-  if (process.env.NODE_ENV !== "production") {
-    return url.resolve(window.location.origin, p);
+function getFilesystemPathForStaticAsset(asset) {
+  if (isDevelopment) {
+    return path.join(
+      ipcRenderer.sendSync("file.get-application-root"),
+      getStaticPath(),
+      asset
+    );
+  } else {
+    return path.join(__dirname, getStaticPath(), asset);
   }
   return path.join(__static, p);
 }
 
-export { isDevelopment, getStaticPath, getStatic };
+export { isDevelopment, getStaticPath, getFilesystemPathForStaticAsset };

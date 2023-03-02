@@ -16,14 +16,16 @@
  */
 
 import { logger } from "@api/log";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 import sudo from "sudo-prompt";
 import tmp from "tmp";
 
 const installUdevRules = async (devicePath) => {
-  const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");
+  const rules = getFilesystemPathForStaticAsset(
+    path.join("udev", "60-kaleidoscope.rules")
+  );
   const tmpRules = tmp.fileSync();
 
   logger().debug("copying udev rules to temporary place", {

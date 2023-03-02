@@ -15,7 +15,7 @@
  */
 
 const { ipcRenderer } = require("electron");
-const { SerialPort } = require("serialport");
+const { SerialPort } = eval(`require("serialport")`);
 
 import fs from "fs";
 import stream from "stream";

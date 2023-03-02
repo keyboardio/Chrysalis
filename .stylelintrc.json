@@ -6,6 +6,7 @@
     "declaration-colon-newline-after": null,
     "value-list-max-empty-lines": null,
     "property-no-vendor-prefix": null,
-    "value-no-vendor-prefix": null
+    "value-no-vendor-prefix": null,
+    "selector-class-pattern": null
   }
 }

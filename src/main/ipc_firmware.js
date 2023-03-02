@@ -246,20 +246,22 @@ export const registerFirmwareHandlers = () => {
   const getFirmwareBaseDirectory = () => {
     const settings = new Store();
 
-    let baseDir = __static;
     if (
       settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic" &&
       shouldPresentDownloadedSnapshot()
     ) {
       try {
         fs.accessSync(path.join(firmwarePath, "build-info.yml"));
-        baseDir = firmwarePath;
+        return firmwarePath;
       } catch (_) {
-        // Ignore, we'll use the default __static return value
+        // Ignore, we'll use the default static return value
       }
     }
-
-    return baseDir;
+    if (isDevelopment) {
+      return path.join("/static");
+    } else {
+      return path.join("../../../../static");
+    }
   };
 
   ipcMain.on("firmware.get-changelog", (event) => {

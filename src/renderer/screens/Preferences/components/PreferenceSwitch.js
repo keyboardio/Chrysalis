@@ -57,7 +57,7 @@ const PreferenceSwitch = (props) => {
       }}
       control={
         loaded ? (
-          <Switch checked={props.checked} onChange={props.onChange} />
+          <Switch checked={props.checked || false} onChange={props.onChange} />
         ) : (
           <Skeleton variant="rectangle" width={58} height={38} />
         )

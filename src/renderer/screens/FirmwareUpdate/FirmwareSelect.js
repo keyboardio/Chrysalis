@@ -27,13 +27,15 @@ import ListItem from "@mui/material/ListItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
-import { version } from "@root/package.json";
+import pkg from "@root/package.json";
 import { ipcRenderer } from "electron";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
 import Link from "@mui/material/Link";
+
+const version = pkg.version;
 
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();

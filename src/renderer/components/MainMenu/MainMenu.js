@@ -35,10 +35,12 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 import logo from "@renderer/logo-small.png";
 import { history } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
-import { version } from "@root/package.json";
+import pkg from "@root/package.json";
 import { ipcRenderer } from "electron";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
+
+const version = pkg.version;
 
 function MainMenu({ open, closeMenu, classes }) {
   const drawerWidth = 350;

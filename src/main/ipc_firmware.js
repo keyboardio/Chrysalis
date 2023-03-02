@@ -15,7 +15,7 @@
  */
 
 import { app, ipcMain, net } from "electron";
-import { version } from "../../package.json";
+import pkg from "../../package.json";
 import { sendToRenderer } from "./utils";
 
 import Store from "electron-store";
@@ -24,6 +24,9 @@ import path from "path";
 import semver from "semver";
 import tar from "tar";
 import yaml from "js-yaml";
+
+const version = pkg.version;
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const registerFirmwareHandlers = () => {
   const slug = "keyboardio/Chrysalis-Firmware-Bundle";

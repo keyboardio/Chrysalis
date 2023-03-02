@@ -17,7 +17,8 @@
 import { ipcMain } from "electron";
 import si from "systeminformation";
 import { v4 as uuidv4 } from "uuid";
-import { version } from "../../package.json";
+import pkg from "../../package.json";
+const version = pkg.version;
 
 export const registerSystemInfoHandlers = () => {
   ipcMain.on("system-info.get", async (event) => {

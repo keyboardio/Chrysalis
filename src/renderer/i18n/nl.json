@@ -1,572 +1,572 @@
 {
-    "language": "Dutch",
-    "errors": {
-        "deviceDisconnected": "Verbinding met toetsenbord verbroken",
-        "saveFile": "Fout tijdens opslaan van bestand: {{ error }}"
+  "language": "Dutch",
+  "errors": {
+    "deviceDisconnected": "Verbinding met toetsenbord verbroken",
+    "saveFile": "Fout tijdens opslaan van bestand: {{ error }}"
+  },
+  "components": {
+    "layer": "Laag {{index}}",
+    "layerRaw": "Laag",
+    "none": "Geen",
+    "save": {
+      "saveChanges": "Wijzigingen Opslaan"
     },
-    "components": {
-        "layer": "Laag {{index}}",
-        "layerRaw": "Laag",
-        "none": "Geen",
-        "save": {
-            "saveChanges": "Wijzigingen Opslaan"
+    "loading": "Data lezen van toestel...",
+    "logo": {
+      "altText": "Chrysalis logo"
+    }
+  },
+  "dialog": {
+    "ok": "Ok",
+    "cancel": "Annuleer",
+    "close": "Sluiten",
+    "continue": "Doorgaan"
+  },
+  "app": {
+    "menu": {
+      "focus-not-detected": "Welkom",
+      "systemInfo": "Probleem melden",
+      "editor": "Indeling & Kleurmap Editor",
+      "layoutEditor": "Indeling Editor",
+      "colormapEditor": "Kleurmap Editor",
+      "macroEditor": "Macro Editor",
+      "firmwareUpdate": "Firmware Update",
+      "preferences": "Voorkeuren",
+      "selectAKeyboard": "Selecteer een toetsenbord",
+      "layoutCard": "Indeling Kaart",
+      "selectAnotherKeyboard": "Selecteer nog een toetsenbord",
+      "chat": "Discord chat",
+      "exit": "Afsluiten",
+      "keyboardSection": "Toetsenbord",
+      "chrysalisSection": "Chrysalis",
+      "miscSection": "Diversen",
+      "restart": "Update toepassen en herstarten",
+      "changelog": "Changelog"
+    },
+    "deviceMenu": {
+      "Homepage": "Beginpagina",
+      "Forum": "Forum",
+      "Chat": "Chat"
+    },
+    "cancelPending": {
+      "title": "Niet-opgeslagen veranderingen weggooien?",
+      "content": "Je hebt niet-opgeslagen veranderingen. Indien je doorgaat zullen ze verloren gaan."
+    },
+    "actionRequired": "Actie noodzakelijk"
+  },
+  "editor": {
+    "legacy": {
+      "migrate": "Migreren",
+      "warning": "We hebben oude toetsen gevonden op de keymap die niet langer ondersteund worden. Om te migreren naar nieuwe codes, klik op de Migreren knop."
+    },
+    "sharing": {
+      "title": "Backup & Terugzetten",
+      "loadFromLibrary": "Laden van Bibliotheek",
+      "loadFromBackup": "Laden van backups",
+      "loadFromFile": "Laden van bestand...",
+      "exportToFile": "Exporteren naar bestand...",
+      "import": "Importeren",
+      "selectLoadFile": "Selecteer bestand vanwaar een toetsenbordindeling geladen moet worden",
+      "selectExportFile": "Selecteer een bestand waarnaar de toetsenbordindeling geëxporteerd moet worden",
+      "dialog": {
+        "layoutFiles": "Indeling bestanden",
+        "allFiles": "Alle bestanden"
+      },
+      "errors": {
+        "unableToLoad": "Onmogelijk om toetsenbordindeling te laden uit geselecteerd bestand.",
+        "parseFail": "Parsen van gegevens toetsenbordindeling gefaald.",
+        "invalidLayoutData": "Bestand bevatte geen geldige gegevens voor een toetsenbordindeling."
+      },
+      "importConfirm": {
+        "title": "Importeer de geselecteerde toetsenbordindeling?",
+        "contents": "Dit zal de huidige toetsenbordindeling overschrijven, en alle niet-opgeslagen veranderingen zullen verloren gaan. Ben je zeker dat je wil verdergaan?"
+      }
+    },
+    "sidebar": {
+      "custom": {
+        "title": "Aangepaste toetsencode",
+        "help": "Laat je een aangepaste toetsencode toewijzen aan een toets, of een code die op dit moment niet bekend is bij Chrysalis.",
+        "label": "Aangepaste toetsencode"
+      },
+      "blanks": {
+        "title": "Blankos",
+        "help": "Blocked & transparante toetsen."
+      },
+      "overview": {
+        "key": "Toets #{{index}}",
+        "color": "Kleur",
+        "hideEmptyLayers": "Verberg lege lagen...",
+        "showEmptyLayers": "Toon lege lagen...",
+        "copyLayer": "Kopieer laag",
+        "pasteLayer": "Plak laag",
+        "sharing": "Backup & Terugzetten",
+        "help": "Een overzicht van de mappings voor de huidige geselecteerde toets. Om de getoonde laag te veranderen, klik op de overeenkomstige rij."
+      },
+      "secondary": {
+        "title": "Secundaire actie",
+        "help": "Laat je een secundaire functionaliteit toekennen aan een toets. Wanneer je deze uitgebreide toetsen indrukt en loslaat, krijg je de primaire functie. Wanneer je hen ingedrukt houdt zal de secundaire actie worden uitgevoerd.",
+        "whenHeld": "Wanneer ingedrukt gehouden",
+        "type": {
+          "none": "Geen secundaire actie",
+          "layer": "Laag veranderen",
+          "modifier": "Modifier"
         },
-        "loading": "Data lezen van toestel...",
-        "logo": {
-            "altText": "Chrysalis logo"
+        "targetLayer": "Laag",
+        "modifier": "Modifier",
+        "help-layerLimit": "Door firmware beperkingen is het verschuiven van lagen boven \"{{ layer8 }}\" niet ondersteund via secundaire acties."
+      },
+      "colors": {
+        "title": "Kleuren",
+        "help": "Ken een kleur toe aan de geselecteerde toets door te klikken op één van de pallet vierkanten hieronder. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet."
+      },
+      "consumer": {
+        "volume": "Volume",
+        "media": "Media controle",
+        "brightness": "Helderheid"
+      },
+      "keypicker": {
+        "mods": "Modifiers",
+        "modsHelp": "Kies modifier toetsen die automatisch ingedrukt worden wanneer je deze toets indrukt.",
+        "oneshot": {
+          "label": "Sticky",
+          "tooltip": "Kort indrukken om de volgende toetsindruk te activeren, ingedrukt houden om zich te gedragen als een gewone modifier, dubbel indrukken om de modifier te toggelen."
         }
-    },
-    "dialog": {
-        "ok": "Ok",
-        "cancel": "Annuleer",
-        "close": "Sluiten",
-        "continue": "Doorgaan"
-    },
-    "app": {
-        "menu": {
-            "focus-not-detected": "Welkom",
-            "systemInfo": "Probleem melden",
-            "editor": "Indeling & Kleurmap Editor",
-            "layoutEditor": "Indeling Editor",
-            "colormapEditor": "Kleurmap Editor",
-            "macroEditor": "Macro Editor",
-            "firmwareUpdate": "Firmware Update",
-            "preferences": "Voorkeuren",
-            "selectAKeyboard": "Selecteer een toetsenbord",
-            "layoutCard": "Indeling Kaart",
-            "selectAnotherKeyboard": "Selecteer nog een toetsenbord",
-            "chat": "Discord chat",
-            "exit": "Afsluiten",
-            "keyboardSection": "Toetsenbord",
-            "chrysalisSection": "Chrysalis",
-            "miscSection": "Diversen",
-            "restart": "Update toepassen en herstarten",
-            "changelog": "Changelog"
-        },
-        "deviceMenu": {
-            "Homepage": "Beginpagina",
-            "Forum": "Forum",
-            "Chat": "Chat"
-        },
-        "cancelPending": {
-            "title": "Niet-opgeslagen veranderingen weggooien?",
-            "content": "Je hebt niet-opgeslagen veranderingen. Indien je doorgaat zullen ze verloren gaan."
-        },
-        "actionRequired": "Actie noodzakelijk"
-    },
-    "editor": {
-        "legacy": {
-            "migrate": "Migreren",
-            "warning": "We hebben oude toetsen gevonden op de keymap die niet langer ondersteund worden. Om te migreren naar nieuwe codes, klik op de Migreren knop."
-        },
-        "sharing": {
-            "title": "Backup & Terugzetten",
-            "loadFromLibrary": "Laden van Bibliotheek",
-            "loadFromBackup": "Laden van backups",
-            "loadFromFile": "Laden van bestand...",
-            "exportToFile": "Exporteren naar bestand...",
-            "import": "Importeren",
-            "selectLoadFile": "Selecteer bestand vanwaar een toetsenbordindeling geladen moet worden",
-            "selectExportFile": "Selecteer een bestand waarnaar de toetsenbordindeling geëxporteerd moet worden",
-            "dialog": {
-                "layoutFiles": "Indeling bestanden",
-                "allFiles": "Alle bestanden"
-            },
-            "errors": {
-                "unableToLoad": "Onmogelijk om toetsenbordindeling te laden uit geselecteerd bestand.",
-                "parseFail": "Parsen van gegevens toetsenbordindeling gefaald.",
-                "invalidLayoutData": "Bestand bevatte geen geldige gegevens voor een toetsenbordindeling."
-            },
-            "importConfirm": {
-                "title": "Importeer de geselecteerde toetsenbordindeling?",
-                "contents": "Dit zal de huidige toetsenbordindeling overschrijven, en alle niet-opgeslagen veranderingen zullen verloren gaan. Ben je zeker dat je wil verdergaan?"
-            }
-        },
-        "sidebar": {
-            "custom": {
-                "title": "Aangepaste toetsencode",
-                "help": "Laat je een aangepaste toetsencode toewijzen aan een toets, of een code die op dit moment niet bekend is bij Chrysalis.",
-                "label": "Aangepaste toetsencode"
-            },
-            "blanks": {
-                "title": "Blankos",
-                "help": "Blocked & transparante toetsen."
-            },
-            "overview": {
-                "key": "Toets #{{index}}",
-                "color": "Kleur",
-                "hideEmptyLayers": "Verberg lege lagen...",
-                "showEmptyLayers": "Toon lege lagen...",
-                "copyLayer": "Kopieer laag",
-                "pasteLayer": "Plak laag",
-                "sharing": "Backup & Terugzetten",
-                "help": "Een overzicht van de mappings voor de huidige geselecteerde toets. Om de getoonde laag te veranderen, klik op de overeenkomstige rij."
-            },
-            "secondary": {
-                "title": "Secundaire actie",
-                "help": "Laat je een secundaire functionaliteit toekennen aan een toets. Wanneer je deze uitgebreide toetsen indrukt en loslaat, krijg je de primaire functie. Wanneer je hen ingedrukt houdt zal de secundaire actie worden uitgevoerd.",
-                "whenHeld": "Wanneer ingedrukt gehouden",
-                "type": {
-                    "none": "Geen secundaire actie",
-                    "layer": "Laag veranderen",
-                    "modifier": "Modifier"
-                },
-                "targetLayer": "Laag",
-                "modifier": "Modifier",
-                "help-layerLimit": "Door firmware beperkingen is het verschuiven van lagen boven \"{{ layer8 }}\" niet ondersteund via secundaire acties."
-            },
-            "colors": {
-                "title": "Kleuren",
-                "help": "Ken een kleur toe aan de geselecteerde toets door te klikken op één van de pallet vierkanten hieronder. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet."
-            },
-            "consumer": {
-                "volume": "Volume",
-                "media": "Media controle",
-                "brightness": "Helderheid"
-            },
-            "keypicker": {
-                "mods": "Modifiers",
-                "modsHelp": "Kies modifier toetsen die automatisch ingedrukt worden wanneer je deze toets indrukt.",
-                "oneshot": {
-                    "label": "Sticky",
-                    "tooltip": "Kort indrukken om de volgende toetsindruk te activeren, ingedrukt houden om zich te gedragen als een gewone modifier, dubbel indrukken om de modifier te toggelen."
-                }
-            },
-            "layer": {
-                "title": "Lagen and keymaps",
-                "help": "Toetsen die je van laag laten wisselen."
-            },
-            "leader": {
-                "title": "Leader",
-                "help": "Leader toetsen toekennen. Om deze functie te configureren kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen."
-            },
-            "oneshot": {
-                "title": "One-shot",
-                "help": "Klik knop hieronder om een specifieke toets te kiezen om one-shot toetsen te annuleren."
-            },
-            "ledcontrol": {
-                "title": "LED controle",
-                "help": "Controleer de LED thema's en effecten van je toetsenbord."
-            },
-            "macros": {
-                "title": "Macros",
-                "help": "Ken macros toe aan toetsen. Om macros aan te maken of aan te passen kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen."
-            },
-            "dynmacros": {
-                "title": "Dynamische Macros",
-                "help": "Ken dynamische macros toe aan toetsen en pas ze aan.",
-                "usage_overview": {
-                    "label": "Macro ruimte gebruikt:",
-                    "usage": "{{ used }}/{{ size }}",
-                    "bytes": "bytes"
-                }
-            },
-            "mousekeys": {
-                "title": "Muis controle",
-                "help": "Emuleer een muis met de toetsen van je toetsenbord.",
-                "movement": "Beweging",
-                "buttons": "Knoppen",
-                "wheel": "Wiel",
-                "warp": "Warp"
-            },
-            "spacecadet": {
-                "title": "SpaceCadet",
-                "help": "SpaceCadet verandert je linker en rechter shift toetsen in je linker en rechter haakjes, wanneer deze ingedrukt worden zonder andere toetsen. Met behulp van de Arduino IDE, kan je nog bijkomend SpaceCadet mappings toevoegen."
-            },
-            "steno": {
-                "title": "Steno",
-                "help": "Je toetsenbord ondersteunt het GeminiPR protocol voor Stenografische invoer. Deze toetsen gebruiken, in plaats van Plover's QWERTY invoer, biedt een vlekkelozere Steno ervaring aan."
-            },
-            "tapdance": {
-                "title": "TapDance",
-                "help": "Tap-dance toetsen zijn algemeen inzetbare, multifunctionele toetsen, die een verschillende actie uitvoeren, gebaseerd op het aantal keer dat je ze hebt ingedrukt."
-            },
-            "language_intl": {
-                "title": "Taal / Internationaal",
-                "help": "Taal-specifieke extra toetsen."
-            },
-            "platform_apple": {
-                "title": "Mac / iPad toetsen",
-                "help": "Toetscodes specifiek voor Apple toestellen."
-            }
-        },
-        "layerswitch": {
-            "type": "Type",
-            "shiftTo": "Verander naar Laag",
-            "lockTo": "Vastmaken aan Laag",
-            "moveTo": "Verplaatsen naar Laag",
-            "oneshot": "Laag verandering voor volgende actie",
-            "target": "Laag",
-            "dualuse": "Laag veranderen wanneer ingedrukt gehouden"
-        },
-        "onlyCustom": {
-            "warning": "Chrysalis ondersteunt niet langer configuraties die een mix van hardcoded and EEPROM lagen bevat. Als dit een functie is die je nodig hebt, dan horen we graag over jouw gebruikssituatie. In de meeste gevallen raden we echter aan om over te schakelen naar enkel aangepaste lagen, wat Chrysalis voor jou kan doen. Wanneer je de overstap maakt zullen hardcoded lagen niet gebruikt worden, en de standaard laag die gezet wordt (als er een gezet wordt) is laag nul.",
-            "fixItButton": "Verander naar enkel aangepaste lagen",
-            "openFR": "Open een feature request"
-        },
-        "macros": {
-            "title": "Macro #{{ index }}",
-            "edit": "Macro aanpassen",
-            "out_of_space": "Dynamische macros nemen te veel ruimte in, maak aub {{ overflow }} bytes vrij.",
-            "steps": {
-                "time_ms": "{{ value }}ms",
-                "in_ms": "ms",
-                "unknown": "<onbekend>",
-                "INTERVAL": "Vertraging tussen stappen",
-                "WAIT": "Wacht",
-                "KEYDOWN": "Hou toets ingedrukt",
-                "KEYUP": "Laat toets los",
-                "TAP": "Toets kort indrukken",
-                "EXPLICIT_REPORT": "Zend geen rapport tussen stappen",
-                "IMPLICIT_REPORT": "Zend een rapport tussen stappen",
-                "SEND_REPORT": "Zend nu een rapport",
-                "unsupported": "Niet ondersteund"
-            }
-        },
-        "layernames": {
-            "out_of_space": "Je laag namen zijn {{ overflow }} bytes te lang om op te slaan op je toetsenbord."
+      },
+      "layer": {
+        "title": "Lagen and keymaps",
+        "help": "Toetsen die je van laag laten wisselen."
+      },
+      "leader": {
+        "title": "Leader",
+        "help": "Leader toetsen toekennen. Om deze functie te configureren kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen."
+      },
+      "oneshot": {
+        "title": "One-shot",
+        "help": "Klik knop hieronder om een specifieke toets te kiezen om one-shot toetsen te annuleren."
+      },
+      "ledcontrol": {
+        "title": "LED controle",
+        "help": "Controleer de LED thema's en effecten van je toetsenbord."
+      },
+      "macros": {
+        "title": "Macros",
+        "help": "Ken macros toe aan toetsen. Om macros aan te maken of aan te passen kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen."
+      },
+      "dynmacros": {
+        "title": "Dynamische Macros",
+        "help": "Ken dynamische macros toe aan toetsen en pas ze aan.",
+        "usage_overview": {
+          "label": "Macro ruimte gebruikt:",
+          "usage": "{{ used }}/{{ size }}",
+          "bytes": "bytes"
         }
+      },
+      "mousekeys": {
+        "title": "Muis controle",
+        "help": "Emuleer een muis met de toetsen van je toetsenbord.",
+        "movement": "Beweging",
+        "buttons": "Knoppen",
+        "wheel": "Wiel",
+        "warp": "Warp"
+      },
+      "spacecadet": {
+        "title": "SpaceCadet",
+        "help": "SpaceCadet verandert je linker en rechter shift toetsen in je linker en rechter haakjes, wanneer deze ingedrukt worden zonder andere toetsen. Met behulp van de Arduino IDE, kan je nog bijkomend SpaceCadet mappings toevoegen."
+      },
+      "steno": {
+        "title": "Steno",
+        "help": "Je toetsenbord ondersteunt het GeminiPR protocol voor Stenografische invoer. Deze toetsen gebruiken, in plaats van Plover's QWERTY invoer, biedt een vlekkelozere Steno ervaring aan."
+      },
+      "tapdance": {
+        "title": "TapDance",
+        "help": "Tap-dance toetsen zijn algemeen inzetbare, multifunctionele toetsen, die een verschillende actie uitvoeren, gebaseerd op het aantal keer dat je ze hebt ingedrukt."
+      },
+      "language_intl": {
+        "title": "Taal / Internationaal",
+        "help": "Taal-specifieke extra toetsen."
+      },
+      "platform_apple": {
+        "title": "Mac / iPad toetsen",
+        "help": "Toetscodes specifiek voor Apple toestellen."
+      }
     },
-    "preferences": {
-        "interface": "Gebruikersinterface",
-        "devtools": {
-            "main": {
-                "label": "Ontwikkelaars tools",
-                "description": "Deze voorkeuren helpen voornamelijk ontwikkelaars. Het kan zijn dat je gevraagd wordt om deze aan te zetten om meer informatie te kunnen verzamelen over een fout."
-            },
-            "verboseLogging": {
-                "label": "Verbose logging aanzetten",
-                "help": "Zet een goede hoeveelheid extra logging aan, handig tijdens het debuggen."
-            },
-            "console": {
-                "label": "Open de ontwikkelaarsconsole",
-                "help": "De ontwikkelaarsconsole laat je binnenin Chrysalis kijken. Pas op met het gebruik hiervan."
-            }
-        },
-        "ui": {
-            "layoutEditor": {
-                "label": "Indeling Editor"
-            },
-            "layoutCards": {
-                "label": "Indeling Kaarten"
-            },
-            "hideUnavailableFeatures": {
-                "label": "Verberg functies die niet worden ondersteund door de huidige firmware van je toetsenbord",
-                "help": "Wanneer dit is ingeschakeld zal Chrysalis configuratieopties verbergen van functies die niet ondersteund worden door de huidige firmware van je toetsenbord."
-            },
-            "lookNFeel": {
-                "label": "Uiterlijk"
-            },
-            "theme": {
-                "label": "Thema",
-                "system": "Systeem default",
-                "dark": "Donker",
-                "light": "Licht"
-            },
-            "language": {
-                "label": "Taal",
-                "help": "Kies de taal die door Chrysalis gebruikt moet worden"
-            },
-            "coloredLayoutCards": {
-                "label": "Laat kleuren toe op de indelingskaarten",
-                "help": "Wanneer dit is ingeschakeld zullen de indelingskaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren."
-            },
-            "host": {
-                "label": "Toetsenbordindeling",
-                "help": "Selecteer de toetsenbordindeling die je gebruikt op je computer"
-            },
-            "oneLayerPerPage": {
-                "label": "Print één laag per pagina",
-                "help": "Wanneer dit is ingeschakeld zal Chrysalis de indelingskaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."
-            }
-        },
-        "keyboard": {
-            "title": "Mijn toetsenbord",
-            "advanced": {
-                "label": "Geavanceerde Tools",
-                "description": "Dit zijn gevaarlijke tools, zorg ervoor dat je weet wat ze doen voordat je ze gebruikt."
-            },
-            "layers": {
-                "label": "Lagen"
-            },
-            "defaultLayer": {
-                "label": "Standaard laag",
-                "noDefault": "Geen standaard",
-                "help": "De standaard laag waarmee het toetsenbord zal opstarten."
-            },
-            "factoryReset": {
-                "button": "Reset EEPROM naar fabrieksinstellingen",
-                "dialog": {
-                    "title": "Reset EEPROM naar fabrieksinstellingen?",
-                    "contents": "Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen."
-                }
-            },
-            "led": {
-                "label": "LEDs",
-                "idle": {
-                    "label": "Inactieve tijd waarna LEDs worden uitgeschakeld",
-                    "help": "Tenzij dit uitgezet is, zullen de LEDs uitgaan na een ingestelde tijd.",
-                    "disabled": "Uit",
-                    "oneMinute": "1 minuut",
-                    "twoMinutes": "2 minuten",
-                    "threeMinutes": "3 minuten",
-                    "fourMinutes": "4 minuten",
-                    "fiveMinutes": "5 minuten",
-                    "tenMinutes": "10 minuten",
-                    "fifteenMinutes": "15 minuten",
-                    "twentyMinutes": "20 minuten",
-                    "thirtyMinutes": "30 minuten",
-                    "sixtyMinutes": "60 minuten"
-                },
-                "brightness": {
-                    "label": "LED Helderheid",
-                    "help": "Pas de helderheid van de LEDs op het toetsenbord aan."
-                },
-                "default": {
-                    "autoSave": {
-                        "label": "Zet het automatisch opslaan van de default LED mode aan",
-                        "help": "Wanneer dit is ingeschakeld, wordt de LED mode automatisch als default opgeslagen elke keer ze wordt aangepast."
-                    },
-                    "label": "Default LED mode",
-                    "help": "Selecteer de LED mode waarmee het toetsenbord moet opstarten."
-                }
-            },
-            "plugins": {
-                "label": "Plugins",
-                "escOneShot": {
-                    "label": "Laat Escape sticky toetsen annuleren",
-                    "help": "Wanneer dit is ingeschakeld zal de \"Escape\" toets sticky toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
-                },
-                "spacecadet": {
-                    "mode": {
-                        "enabled_without_delay": "Ingeschakeld (zonder vertraging)",
-                        "disabled": "Uitgeschakeld",
-                        "label": "Schakel SpaceCadet shifts in",
-                        "help": "Wanneer dit is ingeschakeld, zullen de linker en rechter shifts op je toetsenbord veranderen in haakjes wanneer ze kort ingedrukt worden, maar zullen ze shifts blijven wanneer ze langdurig ingedrukt worden.",
-                        "enabled": "Ingeschakeld"
-                    },
-                    "timeout": {
-                        "label": "Timeout",
-                        "help": "Het aantal milliseconden waarop gewacht moet worden voordat een ingedrukte SpaceCadet toets wordt beschouwd als een shift apart."
-                    },
-                    "label": "SpaceCadet"
-                },
-                "oneshot": {
-                    "label": "Sticky toetsen",
-                    "hold_timeout": {
-                        "label": "Indruk time-out",
-                        "help": "Sticky toetsen die langer ingedrukt blijven dan dit zullen niet in hun sticky staat gaan, maar zullen zich als normale toetsen gedragen."
-                    },
-                    "auto_mods": {
-                        "label": "Maak modifiers automatisch sticky",
-                        "help": "Zet elke modifier op je toetsenmap om in Sticky modifiers."
-                    },
-                    "auto_layers": {
-                        "label": "Maak laag shift toetsen automatisch sticky",
-                        "help": "Zet elke laag shift toets op je toetsenmap om in Sticky laag toetsen."
-                    },
-                    "stickyness": {
-                        "help": "Selecteer wat er moet gebeuren wanneer een sticky toets tweemaal snel na elkaar wordt aangetikt.",
-                        "disable": "Niets",
-                        "layers_only": "Stel enkel vast in voor laag-toetsen",
-                        "label": "Gedrag bij dubbel tikken",
-                        "modifiers_only": "Stel enkel vast in voor modifier toetsen",
-                        "enable": "Stel vast in voor all sticky toetsen"
-                    },
-                    "timeout": {
-                        "help": "Tijd dat een sticky toets actief blijft nadat hij ingedrukt werd.",
-                        "label": "Time-out"
-                    }
-                },
-                "mousekeys": {
-                    "base_speed": {
-                        "label": "Maximum snelheid muisaanwijzer",
-                        "help": "De maximum snelheid die de muisaanwijzer mag bereiken."
-                    },
-                    "accel_duration": {
-                        "help": "Duurtijd waarin de muisaanwijzer van de initiële snelheid naar de maximum snelheid gaat.",
-                        "label": "Duurtijd om de maximum snelheid van de muisaanwijzer te bereiken"
-                    },
-                    "scroll_interval": {
-                        "label": "Scroll snelheid",
-                        "help": "Tijd tussen scroll gebeurtenissen. Hoe hoger de vertraging, hoe langzamer het scrollen is."
-                    },
-                    "init_speed": {
-                        "label": "initiële snelheid muisaanwijzer",
-                        "help": "Hoe hoger de waarde, hoe sneller de initiële snelheid van de muisaanwijzer is."
-                    },
-                    "warp_grid_size": {
-                        "3x3": "3x3",
-                        "label": "Warp rooster grootte",
-                        "help": "Stel de grootte van het rooster in dat gebruikt wordt voor muis warping.",
-                        "2x2": "2x2"
-                    },
-                    "label": "Muistoetsen"
-                }
-            }
-        },
-        "autoUpdate": {
-            "firmwareMode": {
-                "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn voor de firmware files en automatisch nieuwe versies downloaden.",
-                "label": "Download nieuwe firmware versies automatisch"
-            },
-            "label": "Automatisch bijwerken",
-            "mode": {
-                "label": "Download nieuwe versies van Chrysalis automatisch",
-                "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn en automatisch nieuwe versies downloaden."
-            }
-        },
-        "focus": {
-            "chunked_writes": {
-                "help": "Als een mogelijke oplossing voor verscheidene communicatieproblemen, kan Chrysalis data sturen naar het toetsenbord in kleinere stukken. Omwille van historische redenen is dit standaard ingeschakeld. Zet dit enkel af indien je weet wat je doet of als dit gevraagd werd door Chrysalis ontwikkelaars.",
-                "label": "Verzend data in kleine stukken"
-            }
-        }
+    "layerswitch": {
+      "type": "Type",
+      "shiftTo": "Verander naar Laag",
+      "lockTo": "Vastmaken aan Laag",
+      "moveTo": "Verplaatsen naar Laag",
+      "oneshot": "Laag verandering voor volgende actie",
+      "target": "Laag",
+      "dualuse": "Laag veranderen wanneer ingedrukt gehouden"
     },
-    "keyboardSelect": {
-        "unknown": "Onbekend",
-        "noDevices": "Geen toetsenborden gevonden.",
-        "connect": "Verbinding maken",
-        "disconnect": "Verbinding verbreken",
-        "installUdevRules": "Installeer udev regels",
-        "permissionError": "Je computer laat Chrysalis niet spreken met je toetsenbord. (Je hebt geen lees/schrijf rechten naar {{path}}.)",
-        "permissionErrorSuggestion": "Chrysalis kan dit oplossen door een bestand met udev regels te installeren in /etc/udev/rules.d/ .",
-        "noUdev": "Chrysalis vereist udev om te zoeken naar apparaten, maar het lijkt dat dit niet beschikbaar is."
+    "onlyCustom": {
+      "warning": "Chrysalis ondersteunt niet langer configuraties die een mix van hardcoded and EEPROM lagen bevat. Als dit een functie is die je nodig hebt, dan horen we graag over jouw gebruikssituatie. In de meeste gevallen raden we echter aan om over te schakelen naar enkel aangepaste lagen, wat Chrysalis voor jou kan doen. Wanneer je de overstap maakt zullen hardcoded lagen niet gebruikt worden, en de standaard laag die gezet wordt (als er een gezet wordt) is laag nul.",
+      "fixItButton": "Verander naar enkel aangepaste lagen",
+      "openFR": "Open een feature request"
     },
-    "firmwareUpdate": {
-        "calloutTitle": "Belangrijk!",
+    "macros": {
+      "title": "Macro #{{ index }}",
+      "edit": "Macro aanpassen",
+      "out_of_space": "Dynamische macros nemen te veel ruimte in, maak aub {{ overflow }} bytes vrij.",
+      "steps": {
+        "time_ms": "{{ value }}ms",
+        "in_ms": "ms",
+        "unknown": "<onbekend>",
+        "INTERVAL": "Vertraging tussen stappen",
+        "WAIT": "Wacht",
+        "KEYDOWN": "Hou toets ingedrukt",
+        "KEYUP": "Laat toets los",
+        "TAP": "Toets kort indrukken",
+        "EXPLICIT_REPORT": "Zend geen rapport tussen stappen",
+        "IMPLICIT_REPORT": "Zend een rapport tussen stappen",
+        "SEND_REPORT": "Zend nu een rapport",
+        "unsupported": "Niet ondersteund"
+      }
+    },
+    "layernames": {
+      "out_of_space": "Je laag namen zijn {{ overflow }} bytes te lang om op te slaan op je toetsenbord."
+    }
+  },
+  "preferences": {
+    "interface": "Gebruikersinterface",
+    "devtools": {
+      "main": {
+        "label": "Ontwikkelaars tools",
+        "description": "Deze voorkeuren helpen voornamelijk ontwikkelaars. Het kan zijn dat je gevraagd wordt om deze aan te zetten om meer informatie te kunnen verzamelen over een fout."
+      },
+      "verboseLogging": {
+        "label": "Verbose logging aanzetten",
+        "help": "Zet een goede hoeveelheid extra logging aan, handig tijdens het debuggen."
+      },
+      "console": {
+        "label": "Open de ontwikkelaarsconsole",
+        "help": "De ontwikkelaarsconsole laat je binnenin Chrysalis kijken. Pas op met het gebruik hiervan."
+      }
+    },
+    "ui": {
+      "layoutEditor": {
+        "label": "Indeling Editor"
+      },
+      "layoutCards": {
+        "label": "Indeling Kaarten"
+      },
+      "hideUnavailableFeatures": {
+        "label": "Verberg functies die niet worden ondersteund door de huidige firmware van je toetsenbord",
+        "help": "Wanneer dit is ingeschakeld zal Chrysalis configuratieopties verbergen van functies die niet ondersteund worden door de huidige firmware van je toetsenbord."
+      },
+      "lookNFeel": {
+        "label": "Uiterlijk"
+      },
+      "theme": {
+        "label": "Thema",
+        "system": "Systeem default",
+        "dark": "Donker",
+        "light": "Licht"
+      },
+      "language": {
+        "label": "Taal",
+        "help": "Kies de taal die door Chrysalis gebruikt moet worden"
+      },
+      "coloredLayoutCards": {
+        "label": "Laat kleuren toe op de indelingskaarten",
+        "help": "Wanneer dit is ingeschakeld zullen de indelingskaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren."
+      },
+      "host": {
+        "label": "Toetsenbordindeling",
+        "help": "Selecteer de toetsenbordindeling die je gebruikt op je computer"
+      },
+      "oneLayerPerPage": {
+        "label": "Print één laag per pagina",
+        "help": "Wanneer dit is ingeschakeld zal Chrysalis de indelingskaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."
+      }
+    },
+    "keyboard": {
+      "title": "Mijn toetsenbord",
+      "advanced": {
+        "label": "Geavanceerde Tools",
+        "description": "Dit zijn gevaarlijke tools, zorg ervoor dat je weet wat ze doen voordat je ze gebruikt."
+      },
+      "layers": {
+        "label": "Lagen"
+      },
+      "defaultLayer": {
+        "label": "Standaard laag",
+        "noDefault": "Geen standaard",
+        "help": "De standaard laag waarmee het toetsenbord zal opstarten."
+      },
+      "factoryReset": {
+        "button": "Reset EEPROM naar fabrieksinstellingen",
         "dialog": {
-            "selectFirmware": "Selecteer een firmware",
-            "firmwareFiles": "Firmware bestanden",
-            "allFiles": "Alle bestanden"
-        },
-        "flashing": {
-            "error": "Fout bij het flashen van de firmware",
-            "success": "Firmware successvol geflasht!",
-            "button": "Update",
-            "steps": {
-                "factoryRestore": "Terugzetten naar fabrieksinstellingen",
-                "saveEEPROM": "EEPROM inhoud opslaan",
-                "restoreEEPROM": "EEPROM inhoud terugzetten",
-                "reconnect": "Opnieuw verbinden",
-                "flash": "Flashen",
-                "reboot": "Opnieuw opstarten",
-                "bootloader": "Naar programmeerbare modus aan het gaan"
-            },
-            "notifications": {
-                "enter": {
-                    "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
-                    "stillApplication": "Het toetsenbord staat nog niet in programmeerbare modus. Gelieve de onderstaande instructies te volgen."
-                },
-                "reconnect": {
-                    "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
-                    "stillBootloader": "Het toetsenbord staat nog altijd in programmeerbare modus. Gelieve alle eventueel ingedrukte toetsen los te laten."
-                },
-                "title": "Er trad een probleem op tijdens het flashen",
-                "unknownMessage": "Onbekende boodschap ontvangen tijdens het flashen: {{ message }}"
-            }
-        },
-        "confirmDialog": {
-            "title": "Ben je zeker dat je de firmware wil updaten?",
-            "description": "Nieuwe firmware installeren zal de huidige firmware vervangen op het toestel. Eens de firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
-        },
-        "defaultFirmwareDescription": "Recentste versie voor jouw toetsenbord",
-        "custom": "Eigen firmware",
-        "description": "Door de firmware van je toetsenbord te updaten kunnen we het nieuwe kunstjes leren. Je kan Chrysalis gebruiken om de recentste firmware voor je toetsenbord te installeren of een aangepaste firmware die je zelf gecompileerd hebt.",
-        "firmwareChangelog": {
-            "view": "Wat is er nieuw in {{version}}?",
-            "title": "Firmware Changelog"
-        },
-        "factoryConfirmDialog": {
-            "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
-            "contents": "Dit zal de huidige firmware vervangen op het toestel en alle instellingen terugzetten naar fabrieksinstellingen. Je zal alle aanpassingen verliezen. Eens de nieuwe firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
-        },
-        "customChooseFile": "Kies een bestand...",
-        "currentFirmwareVersion": "Huidige firmware versie",
-        "customFirmwareLinkText": "Meer informatie over firmware compileren",
-        "firmwareVersion": "{{version}}",
-        "firmwareSources": "Broncode",
-        "yourFirmware": "Update de firmware van je toetsenbord",
-        "chooseFirmware": "Firmware updaten",
-        "customFirmwareExplanation": "Je kan een firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd.",
-        "currentFirmwareVersionUnavailable": "Firmware versie niet beschikbaar",
-        "factoryResetTitle": "Reset naar fabrieksinstellingen",
-        "factoryResetWarning": "Bij het selecteren van deze optie zal er geen backup van je huidige layout of instellingen gemaakt worden.",
-        "factoryResetDescription": "Verwijder alles op je toetsenbord, waardoor het teruggezet wordt naar fabrieksinstellingen."
-    },
-    "focus-not-detected": {
-        "title": "Welkom bij Chrysalis",
-        "contents": "Chrysalis herkent je toetsenbord, maar moet de firmware updaten voordat je verder kan gaan.",
-        "gotoUpdate": "Update Firmware",
-        "reconnect": "Opnieuw verbinden",
-        "reconnectDescription": "Er is een kans dat we de mogelijkheden van je toetsenbord fout gedetecteerd hebben, of dat je toetsenbord nog aan het opstarten was terwijl we verbinding gemaakt hebben. In dat geval kan je proberen om te klikken op de \"{{buttonName}}\" knop om opnieuw te proberen verbinden en nogmaals te zoeken naar de nodige functies. Opnieuw verbinden is normaal enkel nuttig als je zeker bent dat er een tijdelijk probleem was tijdens vorige pogingen dat in de tussentijd is opgelost."
-    },
-    "systeminfo": {
-        "title": "Rapporteer een probleem",
-        "intro": "Als je een probleem hebt met Chrysalis kan het ontwikkelteam je vragen om hen wat debug informatie door te sturen. Chrysalis kan je helpen om alles dat je eventueel moet delen te verzamelen en in te pakken. Dit omvat error logs en informatie over het besturingssysteem, verbonden toestellen en Chrysalis zelf. Toetsenbord informatie omvat info over de huidige firmware, de toetsenbordindelingen en de LED configuratie van je toetsenbord.",
-        "bugTracker": "Je kan een lijst van bekende problemen vinden op GitHub (of een bug rapporteren)",
-        "privacyNote": "We doen ons best om geen gevoelige informatie te includeren in deze bundel, maar we raden je aan om erdoor te lezen alvorens hem te delen.",
-        "createBundle": "Maak bundel aan",
-        "saveBundle": "Bundel opslaan",
-        "dialog": {
-            "title": "Chrysalis Debug Bundel opslaan"
+          "title": "Reset EEPROM naar fabrieksinstellingen?",
+          "contents": "Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen."
         }
-    },
-    "devices": {
-        "SOFT/HRUF": {
-            "Splitography": {
-                "updateInstructions": "Na het klikken op de \"Doorgaan\" knop moet je je toetsenbord herstarten\nbinnen de 10 seconden om het in programmeerbare modus te zetten.\nDit kan door de kleine reset knop naast de USB poort kort in te drukken."
-            }
+      },
+      "led": {
+        "label": "LEDs",
+        "idle": {
+          "label": "Inactieve tijd waarna LEDs worden uitgeschakeld",
+          "help": "Tenzij dit uitgezet is, zullen de LEDs uitgaan na een ingestelde tijd.",
+          "disabled": "Uit",
+          "oneMinute": "1 minuut",
+          "twoMinutes": "2 minuten",
+          "threeMinutes": "3 minuten",
+          "fourMinutes": "4 minuten",
+          "fiveMinutes": "5 minuten",
+          "tenMinutes": "10 minuten",
+          "fifteenMinutes": "15 minuten",
+          "twentyMinutes": "20 minuten",
+          "thirtyMinutes": "30 minuten",
+          "sixtyMinutes": "60 minuten"
         },
-        "Keyboardio": {
-            "Atreus": {
-                "updateInstructions": "Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt."
-            },
-            "Model01": {
-                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten."
-            },
-            "Model100": {
-                "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
-            }
+        "brightness": {
+          "label": "LED Helderheid",
+          "help": "Pas de helderheid van de LEDs op het toetsenbord aan."
+        },
+        "default": {
+          "autoSave": {
+            "label": "Zet het automatisch opslaan van de default LED mode aan",
+            "help": "Wanneer dit is ingeschakeld, wordt de LED mode automatisch als default opgeslagen elke keer ze wordt aangepast."
+          },
+          "label": "Default LED mode",
+          "help": "Selecteer de LED mode waarmee het toetsenbord moet opstarten."
         }
+      },
+      "plugins": {
+        "label": "Plugins",
+        "escOneShot": {
+          "label": "Laat Escape sticky toetsen annuleren",
+          "help": "Wanneer dit is ingeschakeld zal de \"Escape\" toets sticky toetsen annuleren, anders kan een specifiek ingestelde \"annuleer\" toets dit doen."
+        },
+        "spacecadet": {
+          "mode": {
+            "enabled_without_delay": "Ingeschakeld (zonder vertraging)",
+            "disabled": "Uitgeschakeld",
+            "label": "Schakel SpaceCadet shifts in",
+            "help": "Wanneer dit is ingeschakeld, zullen de linker en rechter shifts op je toetsenbord veranderen in haakjes wanneer ze kort ingedrukt worden, maar zullen ze shifts blijven wanneer ze langdurig ingedrukt worden.",
+            "enabled": "Ingeschakeld"
+          },
+          "timeout": {
+            "label": "Timeout",
+            "help": "Het aantal milliseconden waarop gewacht moet worden voordat een ingedrukte SpaceCadet toets wordt beschouwd als een shift apart."
+          },
+          "label": "SpaceCadet"
+        },
+        "oneshot": {
+          "label": "Sticky toetsen",
+          "hold_timeout": {
+            "label": "Indruk time-out",
+            "help": "Sticky toetsen die langer ingedrukt blijven dan dit zullen niet in hun sticky staat gaan, maar zullen zich als normale toetsen gedragen."
+          },
+          "auto_mods": {
+            "label": "Maak modifiers automatisch sticky",
+            "help": "Zet elke modifier op je toetsenmap om in Sticky modifiers."
+          },
+          "auto_layers": {
+            "label": "Maak laag shift toetsen automatisch sticky",
+            "help": "Zet elke laag shift toets op je toetsenmap om in Sticky laag toetsen."
+          },
+          "stickyness": {
+            "help": "Selecteer wat er moet gebeuren wanneer een sticky toets tweemaal snel na elkaar wordt aangetikt.",
+            "disable": "Niets",
+            "layers_only": "Stel enkel vast in voor laag-toetsen",
+            "label": "Gedrag bij dubbel tikken",
+            "modifiers_only": "Stel enkel vast in voor modifier toetsen",
+            "enable": "Stel vast in voor all sticky toetsen"
+          },
+          "timeout": {
+            "help": "Tijd dat een sticky toets actief blijft nadat hij ingedrukt werd.",
+            "label": "Time-out"
+          }
+        },
+        "mousekeys": {
+          "base_speed": {
+            "label": "Maximum snelheid muisaanwijzer",
+            "help": "De maximum snelheid die de muisaanwijzer mag bereiken."
+          },
+          "accel_duration": {
+            "help": "Duurtijd waarin de muisaanwijzer van de initiële snelheid naar de maximum snelheid gaat.",
+            "label": "Duurtijd om de maximum snelheid van de muisaanwijzer te bereiken"
+          },
+          "scroll_interval": {
+            "label": "Scroll snelheid",
+            "help": "Tijd tussen scroll gebeurtenissen. Hoe hoger de vertraging, hoe langzamer het scrollen is."
+          },
+          "init_speed": {
+            "label": "initiële snelheid muisaanwijzer",
+            "help": "Hoe hoger de waarde, hoe sneller de initiële snelheid van de muisaanwijzer is."
+          },
+          "warp_grid_size": {
+            "3x3": "3x3",
+            "label": "Warp rooster grootte",
+            "help": "Stel de grootte van het rooster in dat gebruikt wordt voor muis warping.",
+            "2x2": "2x2"
+          },
+          "label": "Muistoetsen"
+        }
+      }
     },
     "autoUpdate": {
-        "available": "Nieuwe versie beschikbaar: {{ version }}",
-        "downloaded": "Versie {{ version }} gedownload, herstart Chrysalis om de installatie te voltooien",
-        "error": "Fout tijdens update: {{ error }}"
+      "firmwareMode": {
+        "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn voor de firmware files en automatisch nieuwe versies downloaden.",
+        "label": "Download nieuwe firmware versies automatisch"
+      },
+      "label": "Automatisch bijwerken",
+      "mode": {
+        "label": "Download nieuwe versies van Chrysalis automatisch",
+        "help": "Wanneer dit is ingeschakeld zal Chrysalis bij het opstarten nagaan of er updates zijn en automatisch nieuwe versies downloaden."
+      }
     },
-    "changelog": {
-        "title": "Changelog"
-    },
-    "print": {
-        "feedback": {
-            "success": "Succesvol afgedrukt!",
-            "error": "Er trad een fout op tijdens het printen."
-        }
-    },
-    "firmwareAutoUpdate": {
-        "available": "Nieuwe firmware versie beschikbaar: {{ version }}",
-        "downloaded": "Firmware versie {{ version }} is gedownload en beschikbaar om te flashen",
-        "error": "Er trad een fout op tijdens het downloaden van de nieuwe firmware versie.",
-        "warning": "Chrysalis kon niet nagaan of er een nieuwe firmware versie is. Een nieuwe versie kan online beschikbaar zijn."
-    },
-    "layoutCards": {
-        "printTooltip": "Afdrukken"
-    },
-    "units": {
-        "in_ms": "ms"
-    },
-    "breakingNews": {
-        "firmware0_90_1": {
-            "description": "Firmware voor versie 0.90.1 bevat een fout die leidt tot het verlies van data en aangetaste data die wordt opgeslagen op het toetsenbord. Indien je reeds nieuwere firmware loopt, mag je deze waarschuwing negeren met de sluit-knop.",
-            "title": "Aandacht Keyboardio Model 100 eigenaars!",
-            "button": "Upgrade instructies"
-        }
-    },
-    "sanity-check": {
-        "download-latest": "Download de officiële release",
-        "title": "Omgevingsverificatie aan het uitvoeren",
-        "header": "Omgevingsverificatie gefaald",
-        "message": "Chrysalis heeft gemerkt dat het uitgevoerd wordt in een niet-ondersteunde omgeving, zoals met een Electron versie verschillend van degene die upstream ondersteund wordt. Indien je Chrysalis gebruikt via een package repository van een distributie, overweeg dan om de officiële builds te gebruiken."
+    "focus": {
+      "chunked_writes": {
+        "help": "Als een mogelijke oplossing voor verscheidene communicatieproblemen, kan Chrysalis data sturen naar het toetsenbord in kleinere stukken. Omwille van historische redenen is dit standaard ingeschakeld. Zet dit enkel af indien je weet wat je doet of als dit gevraagd werd door Chrysalis ontwikkelaars.",
+        "label": "Verzend data in kleine stukken"
+      }
     }
+  },
+  "keyboardSelect": {
+    "unknown": "Onbekend",
+    "noDevices": "Geen toetsenborden gevonden.",
+    "connect": "Verbinding maken",
+    "disconnect": "Verbinding verbreken",
+    "installUdevRules": "Installeer udev regels",
+    "permissionError": "Je computer laat Chrysalis niet spreken met je toetsenbord. (Je hebt geen lees/schrijf rechten naar {{path}}.)",
+    "permissionErrorSuggestion": "Chrysalis kan dit oplossen door een bestand met udev regels te installeren in /etc/udev/rules.d/ .",
+    "noUdev": "Chrysalis vereist udev om te zoeken naar apparaten, maar het lijkt dat dit niet beschikbaar is."
+  },
+  "firmwareUpdate": {
+    "calloutTitle": "Belangrijk!",
+    "dialog": {
+      "selectFirmware": "Selecteer een firmware",
+      "firmwareFiles": "Firmware bestanden",
+      "allFiles": "Alle bestanden"
+    },
+    "flashing": {
+      "error": "Fout bij het flashen van de firmware",
+      "success": "Firmware successvol geflasht!",
+      "button": "Update",
+      "steps": {
+        "factoryRestore": "Terugzetten naar fabrieksinstellingen",
+        "saveEEPROM": "EEPROM inhoud opslaan",
+        "restoreEEPROM": "EEPROM inhoud terugzetten",
+        "reconnect": "Opnieuw verbinden",
+        "flash": "Flashen",
+        "reboot": "Opnieuw opstarten",
+        "bootloader": "Naar programmeerbare modus aan het gaan"
+      },
+      "notifications": {
+        "enter": {
+          "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
+          "stillApplication": "Het toetsenbord staat nog niet in programmeerbare modus. Gelieve de onderstaande instructies te volgen."
+        },
+        "reconnect": {
+          "notFound": "Kan het toetsenbord niet vinden. Gelieve een issue aan te maken.",
+          "stillBootloader": "Het toetsenbord staat nog altijd in programmeerbare modus. Gelieve alle eventueel ingedrukte toetsen los te laten."
+        },
+        "title": "Er trad een probleem op tijdens het flashen",
+        "unknownMessage": "Onbekende boodschap ontvangen tijdens het flashen: {{ message }}"
+      }
+    },
+    "confirmDialog": {
+      "title": "Ben je zeker dat je de firmware wil updaten?",
+      "description": "Nieuwe firmware installeren zal de huidige firmware vervangen op het toestel. Eens de firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
+    },
+    "defaultFirmwareDescription": "Recentste versie voor jouw toetsenbord",
+    "custom": "Eigen firmware",
+    "description": "Door de firmware van je toetsenbord te updaten kunnen we het nieuwe kunstjes leren. Je kan Chrysalis gebruiken om de recentste firmware voor je toetsenbord te installeren of een aangepaste firmware die je zelf gecompileerd hebt.",
+    "firmwareChangelog": {
+      "view": "Wat is er nieuw in {{version}}?",
+      "title": "Firmware Changelog"
+    },
+    "factoryConfirmDialog": {
+      "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
+      "contents": "Dit zal de huidige firmware vervangen op het toestel en alle instellingen terugzetten naar fabrieksinstellingen. Je zal alle aanpassingen verliezen. Eens de nieuwe firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
+    },
+    "customChooseFile": "Kies een bestand...",
+    "currentFirmwareVersion": "Huidige firmware versie",
+    "customFirmwareLinkText": "Meer informatie over firmware compileren",
+    "firmwareVersion": "{{version}}",
+    "firmwareSources": "Broncode",
+    "yourFirmware": "Update de firmware van je toetsenbord",
+    "chooseFirmware": "Firmware updaten",
+    "customFirmwareExplanation": "Je kan een firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd.",
+    "currentFirmwareVersionUnavailable": "Firmware versie niet beschikbaar",
+    "factoryResetTitle": "Reset naar fabrieksinstellingen",
+    "factoryResetWarning": "Bij het selecteren van deze optie zal er geen backup van je huidige layout of instellingen gemaakt worden.",
+    "factoryResetDescription": "Verwijder alles op je toetsenbord, waardoor het teruggezet wordt naar fabrieksinstellingen."
+  },
+  "focus-not-detected": {
+    "title": "Welkom bij Chrysalis",
+    "contents": "Chrysalis herkent je toetsenbord, maar moet de firmware updaten voordat je verder kan gaan.",
+    "gotoUpdate": "Update Firmware",
+    "reconnect": "Opnieuw verbinden",
+    "reconnectDescription": "Er is een kans dat we de mogelijkheden van je toetsenbord fout gedetecteerd hebben, of dat je toetsenbord nog aan het opstarten was terwijl we verbinding gemaakt hebben. In dat geval kan je proberen om te klikken op de \"{{buttonName}}\" knop om opnieuw te proberen verbinden en nogmaals te zoeken naar de nodige functies. Opnieuw verbinden is normaal enkel nuttig als je zeker bent dat er een tijdelijk probleem was tijdens vorige pogingen dat in de tussentijd is opgelost."
+  },
+  "systeminfo": {
+    "title": "Rapporteer een probleem",
+    "intro": "Als je een probleem hebt met Chrysalis kan het ontwikkelteam je vragen om hen wat debug informatie door te sturen. Chrysalis kan je helpen om alles dat je eventueel moet delen te verzamelen en in te pakken. Dit omvat error logs en informatie over het besturingssysteem, verbonden toestellen en Chrysalis zelf. Toetsenbord informatie omvat info over de huidige firmware, de toetsenbordindelingen en de LED configuratie van je toetsenbord.",
+    "bugTracker": "Je kan een lijst van bekende problemen vinden op GitHub (of een bug rapporteren)",
+    "privacyNote": "We doen ons best om geen gevoelige informatie te includeren in deze bundel, maar we raden je aan om erdoor te lezen alvorens hem te delen.",
+    "createBundle": "Maak bundel aan",
+    "saveBundle": "Bundel opslaan",
+    "dialog": {
+      "title": "Chrysalis Debug Bundel opslaan"
+    }
+  },
+  "devices": {
+    "SOFT/HRUF": {
+      "Splitography": {
+        "updateInstructions": "Na het klikken op de \"Doorgaan\" knop moet je je toetsenbord herstarten\nbinnen de 10 seconden om het in programmeerbare modus te zetten.\nDit kan door de kleine reset knop naast de USB poort kort in te drukken."
+      }
+    },
+    "Keyboardio": {
+      "Atreus": {
+        "updateInstructions": "Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt."
+      },
+      "Model01": {
+        "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten."
+      },
+      "Model100": {
+        "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de \"Doorgaan\" knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
+      }
+    }
+  },
+  "autoUpdate": {
+    "available": "Nieuwe versie beschikbaar: {{ version }}",
+    "downloaded": "Versie {{ version }} gedownload, herstart Chrysalis om de installatie te voltooien",
+    "error": "Fout tijdens update: {{ error }}"
+  },
+  "changelog": {
+    "title": "Changelog"
+  },
+  "print": {
+    "feedback": {
+      "success": "Succesvol afgedrukt!",
+      "error": "Er trad een fout op tijdens het printen."
+    }
+  },
+  "firmwareAutoUpdate": {
+    "available": "Nieuwe firmware versie beschikbaar: {{ version }}",
+    "downloaded": "Firmware versie {{ version }} is gedownload en beschikbaar om te flashen",
+    "error": "Er trad een fout op tijdens het downloaden van de nieuwe firmware versie.",
+    "warning": "Chrysalis kon niet nagaan of er een nieuwe firmware versie is. Een nieuwe versie kan online beschikbaar zijn."
+  },
+  "layoutCards": {
+    "printTooltip": "Afdrukken"
+  },
+  "units": {
+    "in_ms": "ms"
+  },
+  "breakingNews": {
+    "firmware0_90_1": {
+      "description": "Firmware voor versie 0.90.1 bevat een fout die leidt tot het verlies van data en aangetaste data die wordt opgeslagen op het toetsenbord. Indien je reeds nieuwere firmware loopt, mag je deze waarschuwing negeren met de sluit-knop.",
+      "title": "Aandacht Keyboardio Model 100 eigenaars!",
+      "button": "Upgrade instructies"
+    }
+  },
+  "sanity-check": {
+    "download-latest": "Download de officiële release",
+    "title": "Omgevingsverificatie aan het uitvoeren",
+    "header": "Omgevingsverificatie gefaald",
+    "message": "Chrysalis heeft gemerkt dat het uitgevoerd wordt in een niet-ondersteunde omgeving, zoals met een Electron versie verschillend van degene die upstream ondersteund wordt. Indien je Chrysalis gebruikt via een package repository van een distributie, overweeg dan om de officiële builds te gebruiken."
+  }
 }

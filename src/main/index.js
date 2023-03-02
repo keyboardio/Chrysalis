@@ -15,12 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getStaticPath } from "@renderer/config";
 import { app, BrowserWindow, ipcMain } from "electron";
 import installExtension from "electron-devtools-installer"; //  REACT_DEVELOPER_TOOLS,
 import windowStateKeeper from "electron-window-state";
 import * as path from "path";
-import { format as formatUrl } from "url";
 import { Environment } from "./dragons";
 import { registerAutoUpdaterHandlers } from "./ipc_autoupdate";
 import { registerBackupHandlers } from "./ipc_backups";
@@ -72,7 +70,7 @@ async function createMainWindow() {
     minWidth: 800,
     minHeight: 600,
     resizable: true,
-    icon: path.join(getStaticPath(), "/logo.png"),
+    icon: path.join(__dirname, "..", "..", "static", "logo.png"),
     autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,

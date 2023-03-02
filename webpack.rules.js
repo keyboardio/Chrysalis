@@ -21,19 +21,19 @@ module.exports = [
     fallback: {
         // Use can only include required modules. Also install the package.
         // for example: npm install --save-dev assert
-        url: require.resolve('url'),
-                fs: false,
-child_process: false,
+        url: false,
+        fs: false,
+        child_process: false,
         zlib: false,
         process: false,
-        assert: require.resolve('assert'),
-        crypto: require.resolve('crypto-browserify'),
-        http: require.resolve('stream-http'),
-        https: require.resolve('https-browserify'),
-        os: require.resolve('os-browserify/browser'),
-        path: require.resolve('path-browserify'),
-        buffer: require.resolve('buffer'),
-        stream: require.resolve('stream-browserify'),
+        assert: false,
+        crypto: false,
+        http: false,
+        https: false,
+        os: false,
+        path: false,
+        buffer: false,
+        stream: false,
     }
     }},
 

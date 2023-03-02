@@ -16,8 +16,7 @@
 
 import { logger } from "@api/log";
 import { getStaticPath } from "@renderer/config";
-import TeensyLoader from "teensy-loader";
-
+const { TeensyLoader } = eval(`require("teensy-loader")`);
 import { delay, reportUpdateStatus } from "./utils";
 
 const HalfKayUSBDescriptor = {

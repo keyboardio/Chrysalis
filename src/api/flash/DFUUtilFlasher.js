@@ -15,7 +15,7 @@
  */
 
 import { logger } from "@api/log";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
@@ -27,11 +27,8 @@ const runDFUError = {
 };
 
 const runDFUUtil = async (args) => {
-  const dfuUtil = path.join(
-    getStaticPath(),
-    "dfu-util",
-    `${process.platform}-${process.arch}`,
-    "dfu-util"
+  const dfuUtil = getFilesystemPathForStaticAsset(
+    path.join("dfu-util", `${process.platform}-${process.arch}`, "dfu-util")
   );
 
   const maxFlashingTime = 1000 * 60 * 5;

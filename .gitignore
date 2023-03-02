@@ -89,7 +89,7 @@ typings/
 out/
 
 # Cldr data 
--/src/api/focus/keymap/.cldr_data_generated
+src/api/focus/keymap/.cldr_data_generated
 -/dist/
 -/*.png
 -/.vscode

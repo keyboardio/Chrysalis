@@ -77,7 +77,7 @@ module.exports = {
     packageAfterPrune: async (forgeConfig, buildPath) => {
       console.log(buildPath);
       return new Promise((resolve, reject) => {
-        const npmInstall = spawn("npm", ["install"], {
+        const npmInstall = spawn("npm", ["install","--production"], {
           cwd: buildPath,
           stdio: "inherit",
           shell: true,

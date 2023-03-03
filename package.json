@@ -122,7 +122,7 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.11.11",
     "@mui/system": "^5.11.11",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "archiver": "^5.0.2",
     "avrgirl-arduino": "keyboardio/avrgirl-arduino#serialport-10",
     "electron-devtools-installer": "^3.2.0",

@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const cldrDir = "static/cldr";
+const cldrDir = "data/cldr";
 
 import fs from "fs";
 import path from "path";

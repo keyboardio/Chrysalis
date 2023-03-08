@@ -8,6 +8,9 @@ module.exports = {
     icon: 'build/icon',
     name: 'Chrysalis',
     extraResource: ["./build/launcher.sh", "static", "NEWS.md"],
+      osxUniversal: {
+          x64ArchFiles: '*'
+      },
     osxSign: {
       'gatekeeper-assess': false,
       identity: 'Developer ID Application: Keyboard.io, Inc. (8AUZGMT2H5)',
@@ -30,7 +33,8 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-          name: '@electron-forge/maker-dmg',
+      name: '@electron-forge/maker-dmg',
+      config: {},
     },
     {
       name: "@electron-forge/maker-squirrel",

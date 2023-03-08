@@ -56,10 +56,16 @@ jobs:
           YARN_GPG: no
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
-      - name: Build
+      - name: Build (macos)
+        if: matrix.os == 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run:  yarn run package --arch=universal
+      - name: Build (non-macos)
+        if: matrix.os != 'macos-latest'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:  yarn run package

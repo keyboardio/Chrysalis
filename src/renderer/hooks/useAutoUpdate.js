@@ -43,9 +43,6 @@ export const useAutoUpdate = () => {
       setUpdateInfo(info);
       toast.info(t("autoUpdate.available", { version: info.version }));
     };
-    const onDownloadProgress = (event, progress) => {
-      toast.progress(progress.percent);
-    };
     const onUpdateDownloaded = (event, info) => {
       logger().verbose("Update downloaded", {
         updateInfo: info,
@@ -69,7 +66,6 @@ export const useAutoUpdate = () => {
     );
 
     ipcRenderer.on("auto-update.update-available", onUpdateAvailable);
-    ipcRenderer.on("auto-update.download-progress", onDownloadProgress);
     ipcRenderer.on("auto-update.update-downloaded", onUpdateDownloaded);
     ipcRenderer.on("auto-update.error", onUpdateError);
 
@@ -77,10 +73,6 @@ export const useAutoUpdate = () => {
       ipcRenderer.removeListener(
         "auto-update.update-available",
         onUpdateAvailable
-      );
-      ipcRenderer.removeListener(
-        "auto-update.download-progress",
-        onDownloadProgress
       );
       ipcRenderer.removeListener(
         "auto-update.update-downloaded",

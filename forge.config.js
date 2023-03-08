@@ -1,7 +1,7 @@
 const { spawn } = require("child_process");
 const { generateCLDRData } = require("./tools/precompile.js");
 
-module.exports = {
+let config = { 
   packagerConfig: {
     asar: true,
     darwinDarkModeSupport: "true",
@@ -128,3 +128,11 @@ module.exports = {
     },
   },
 };
+
+if (process.env.UNTRUSTED) {
+    delete config['packagerConfig']['osxSign'];
+    delete config['packagerConfig']['osxNotarize'];
+}
+
+console.log(config);
+module.exports = config;

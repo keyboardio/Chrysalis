@@ -40,10 +40,12 @@ jobs:
         env:
           CERTIFICATE_OSX_P12:  ${{ secrets.mac_certs }}
           CERTIFICATE_OSX_PASSWORD: ${{ secrets.mac_certs_password }}
+      - name: Check certs
+        run: security find-identity -p codesigning -v
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: yarn run publish
+        run:  yarn run publish

@@ -56,11 +56,9 @@
     ]
   },
   "scripts": {
-    "precompile": "node tools/precompile.mjs",
-    "preinstall": "node tools/preinstall.js",
-    "start": "yarn run precompile && electron-forge start",
+    "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "yarn run precompile && electron-forge make",
+    "make": "electron-forge make",
     "publish": "electron-forge publish",
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",

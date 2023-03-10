@@ -1,4 +1,5 @@
 const { spawn } = require("child_process");
+const  { generateCLDRData }  = require("./tools/precompile.js");
 
 module.exports = {
   packagerConfig: {
@@ -56,7 +57,7 @@ module.exports = {
   ],
   hooks: {
     generateAssets: async (forgeConfig, platform, arch) => {
-      // TODO move precompile.mjs here
+        generateCLDRData();
     },
     readPackageJson: async (forgeConfig, packageJson) => {
       // only copy deps if there isn't any

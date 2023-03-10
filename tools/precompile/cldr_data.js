@@ -16,10 +16,10 @@
 
 const cldrDir = "static/cldr";
 
-import fs from "fs";
-import path from "path";
-import { unraw } from "unraw";
-import xml2js from "xml2js";
+const fs = require ("fs");
+const path = require("path");
+const { unraw } = require( "unraw");
+const xml2js = require("xml2js");
 
 const modMap = {
   ctrl: 1 << 8,
@@ -183,7 +183,7 @@ const loadKeyboard = async (group, isDefault, file, os) => {
   };
 };
 
-export const loadAllKeymaps = async () => {
+const loadAllKeymaps = async () => {
   const windowsFiles = fs.readdirSync(path.join(cldrDir, "keyboards/windows/"));
   // There are some layouts that aren't available in CLDR's windows layouts, but
   // are on others. We slurp those up here in addition. We can't just slurp up
@@ -240,3 +240,5 @@ export const loadAllKeymaps = async () => {
 
   return db;
 };
+
+exports.loadAllKeymaps = loadAllKeymaps;

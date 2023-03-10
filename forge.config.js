@@ -24,6 +24,19 @@ module.exports = {
       config: {},
     },
   ],
+   "publishers": [
+  {
+    "name": "@electron-forge/publisher-github",
+    "config": {
+      "repository": {
+        "owner": "obra",
+        "name": "chrysalis-test"
+      },
+    "draft": true
+    }
+  }
+    ],
+
   plugins: [
     {
       name: "@electron-forge/plugin-auto-unpack-natives",

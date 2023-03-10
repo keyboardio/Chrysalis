@@ -8,6 +8,9 @@ module.exports = {
     icon: "build/icon",
     name: "Chrysalis",
     extraResource: ["static", "NEWS.md"],
+    osxUniversal: {
+      x64ArchFiles: "*",
+    },
     osxSign: {
       "pre-auto-entitlements": false,
       "gatekeeper-assess": false,

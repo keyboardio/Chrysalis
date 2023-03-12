@@ -86,9 +86,9 @@ let config = {
       config: {
         repository: {
           owner: "obra",
-          name: "chrysalis-test",
+          name: "Chrysalis-test",
         },
-        draft: true,
+        draft: false,
       },
     },
   ],

@@ -1,0 +1,5 @@
+owner: obra
+repo: Chrysalis-test
+provider: github
+updaterCacheDirName: chrysalis-updater
+

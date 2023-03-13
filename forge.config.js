@@ -7,7 +7,7 @@ let config = {
     darwinDarkModeSupport: "true",
     icon: "build/icon",
     name: "Chrysalis",
-    extraResource: ["./build/launcher.sh", "static", "NEWS.md"],
+    extraResource: ["./build/launcher.sh", "static", "NEWS.md", "build/app-update.yml"],
     osxUniversal: {
       x64ArchFiles: "*",
     },
@@ -45,6 +45,40 @@ let config = {
       name: "@electron-forge/maker-zip",
 
     },
+{
+  name: "@reforged/maker-appimage",
+  config: {
+    options: {
+      // Package name.
+      // name: "example-app",
+      // Executable name.
+      // bin: "app",
+      // Human-friendly name of the application.
+      // productName: "Example Electron Application",
+      // `GenericName` in generated `.desktop` file.
+      // genericName: "Example application",
+      // Path to application's icon.
+      icon: "build/icon.png",
+      // `Categories` in generated `.desktop` file.
+      categories: [ "Utility" ],
+      // Actions of generated `.desktop` file.
+      // actions: {
+      //  new_window: {
+      //    Name: "Launch in new window!",
+      //    Icon: "/path/to/new-window.png",
+      //    Exec: "example-app --new-window"
+      //  }
+      //},
+      // Desktop file to be used instead of the configuration above.
+      // desktopFile: "/path/to/example-app.desktop",
+      // Release of `AppImage/AppImageKit`, either number or "continuous".
+      // AppImageKitRelease: "continuous"
+    }
+  }
+}
+
+
+
   ],
   publishers: [
     {

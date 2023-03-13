@@ -69,5 +69,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:  yarn run publish 
+      - name: Generate latest.yml upgrade files
+        shell: bash
+        run: |
+          find out
+          mkdir out/artifacts
+          find out/make/zip -name \*.zip  -exec cp {} out/artifacts \;
+          find out/make -name \*.dmg -exec cp {} out/artifacts \;
+          find out/make -name \*.AppImage -exec cp {} out/artifacts \;
+          cd out/artifacts
+          node ../../tools/generate-latest.js
 
+      - name: Upload latest.yml upgrade files
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: out/artifacts/*.yml*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
 

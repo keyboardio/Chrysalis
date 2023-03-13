@@ -7,7 +7,7 @@ let config = {
     darwinDarkModeSupport: "true",
     icon: "build/icon",
     name: "Chrysalis",
-    extraResource: ["./build/launcher.sh", "static", "NEWS.md", "build/app-update.yml"],
+    extraResource: ["static", "NEWS.md", "build/app-update.yml"],
     osxUniversal: {
       x64ArchFiles: "*",
     },
@@ -52,7 +52,7 @@ let config = {
       // Package name.
       // name: "example-app",
       // Executable name.
-      // bin: "app",
+      bin: "Chrysalis",
       // Human-friendly name of the application.
       // productName: "Example Electron Application",
       // `GenericName` in generated `.desktop` file.

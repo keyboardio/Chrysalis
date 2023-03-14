@@ -2,10 +2,10 @@ name: Release
 on:
   push:
     branches:
-      - master
+      - 'master'
 
 jobs:
-  build:
+  release:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -56,16 +56,40 @@ jobs:
           YARN_GPG: no
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
-      - name: Build (macos)
+      - name: Set snapshot version 
+        run: yarn version --no-git-tag-version --prerelease
+      - name: Release (macos)
         if: matrix.os == 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run:  yarn run package --arch=universal
-      - name: Build (non-macos)
+        run:  yarn run publish --arch=universal
+      - name: Release (non-macos)
         if: matrix.os != 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:  yarn run package
+        run:  yarn run publish 
+      - name: Generate latest.yml upgrade files
+        shell: bash
+        run: |
+          find out
+          mkdir out/artifacts
+          find out/make/zip -name \*.zip  -exec cp {} out/artifacts \;
+          find out/make -name \*.dmg -exec cp {} out/artifacts \;
+          find out/make -name \*.AppImage -exec cp {} out/artifacts \;
+          cd out/artifacts
+          node ../../tools/generate-latest.js
+
+      - name: Upload latest.yml upgrade files
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: out/artifacts/*.yml*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+          prerelease: true
+          release_name: 'latest-snapshot'
+          overwrite: true

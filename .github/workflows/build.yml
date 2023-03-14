@@ -88,7 +88,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: out/artifacts/*.yml*
           tag: ${{ github.ref }}
-          overwrite: true
           file_glob: true
           prerelease: true
           release_name: 'latest-snapshot'

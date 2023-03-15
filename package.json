@@ -108,6 +108,7 @@
     "@electron/osx-sign": "^1.0.4",
     "@spotxyz/universal": "",
     "app-builder-lib": "^23.0.3",
+    "@reforged/maker-appimage": "file:.@reforged/maker-appimage",
     "babel-loader": "^9.1.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "cldr": "^7.1.1",

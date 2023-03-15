@@ -1,5 +1,5 @@
 {
-  "name": "chrysalis",
+  "name": "Chrysalis",
   "version": "0.12.1-snapshot",
   "license": "GPL-3.0-only",
   "author": {
@@ -7,7 +7,7 @@
     "email": "help@keyboard.io"
   },
   "homepage": "https://github.com/keyboardio/Chrysalis",
-  "productName": "chrysalis",
+  "productName": "Chrysalis",
   "description": "A keyboard configuration tool",
   "main": ".webpack/main",
   "husky": {

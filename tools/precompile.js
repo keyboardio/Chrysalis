@@ -14,12 +14,16 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import fs from "fs";
+const  fs = require("fs");
 
-import { loadAllKeymaps } from "./precompile/cldr_data.mjs";
-import { extractLanguageNames } from "./precompile/cldr_languages.mjs";
+const { loadAllKeymaps} = require("./precompile/cldr_data.js");
+const { extractLanguageNames } = require("./precompile/cldr_languages.js");
 
 const generateCLDRData = async () => {
+  if (fs.existsSync("./src/api/focus/keymap/.cldr_data_generated")) {
+    console.log("* ./src/api/focus/keymap/.cldr_data_generated exists. Skipping regeneration.");
+      return;
+  }
   console.log("* Generating CLDR data...");
 
   const db = await loadAllKeymaps();
@@ -35,9 +39,4 @@ const generateCLDRData = async () => {
   );
 
 };
-
-if (fs.existsSync("./src/api/focus/keymap/.cldr_data_generated")) {
-    console.log("* ./src/api/focus/keymap/.cldr_data_generated exists. Skipping regeneration.");
-} else {
-    generateCLDRData();
-}
+exports.generateCLDRData = generateCLDRData;

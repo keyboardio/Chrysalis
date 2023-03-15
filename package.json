@@ -56,11 +56,9 @@
     ]
   },
   "scripts": {
-    "precompile": "node tools/precompile.mjs",
-    "preinstall": "node tools/preinstall.js",
-    "start": "yarn run precompile && electron-forge start",
+    "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "yarn run precompile && electron-forge make",
+    "make": "electron-forge make",
     "publish": "electron-forge publish",
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
@@ -95,8 +93,6 @@
     "core-js": "^3.21.1",
     "css-loader": "^6.0.0",
     "electron": "23.1.1",
-    "electron-builder": "^23.6.0",
-    "electron-builder-notarize": "^1.5.1",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-import-resolver-babel-module": "^5.3.1",

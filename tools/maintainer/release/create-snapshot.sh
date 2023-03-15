@@ -19,12 +19,12 @@ update_version() {
 }
 
 update_readme() {
-    VERSION=$(tools/snapshot-tag)
+    VERSION=$(tools/maintainer/snapshot-tag)
     sed -i -e "s,\(\[build:dev\]: .*/releases/tag/\).*,\1v${VERSION}," README.md
 }
 
 update_news() {
-    VERSION="$(tools/snapshot-tag)"
+    VERSION="$(tools/maintainer/snapshot-tag)"
 
     ## Update NEWS.md
     TMP=$(mktemp)

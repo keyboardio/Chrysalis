@@ -7,7 +7,7 @@ let config = {
     darwinDarkModeSupport: "true",
     icon: "build/icon",
     name: "Chrysalis",
-    extraResource: ["static", "NEWS.md"],
+    extraResource: ["static", "NEWS.md", "build/app-update.yml"],
     osxUniversal: {
       x64ArchFiles: "*",
     },

@@ -19,7 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-
       - name: Install udev-dev
         run: sudo apt update && sudo apt install libudev-dev
         if: runner.os == 'Linux'
@@ -27,55 +26,31 @@ jobs:
       - name: Set up yarn network timeout
         run: yarn config set network-timeout 1000000 -g
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Install Yarn dependencies
         env:
           YARN_GPG: no
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
-
-      - name: Build Chrysalis
-        uses: samuelmeuli/action-electron-builder@v1
+      - name: Release (macos)
+        if: matrix.os == 'macos-latest'
         env:
-          YARN_GPG: no
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
+          UNTRUSTED: 1
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:  yarn run publish --arch=universal --dry-run
+      - name: Release (non-macos)
+        if: matrix.os != 'macos-latest'
+        env:
+          UNTRUSTED: 1
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:  yarn run publish --dry-run
 
-          # We explicitly do **NOT** want to sign the artifacts made out of pull
-          # requests. We have no control over their content, and we do not want
-          # the Keyboardio signature on things we have no control over. Thus, no
-          # signing here.
-
-          # We supply a build script name, so that we compile the source before
-          # trying to package them up. Without compiling them, we won't have the
-          # files to pack up.
-          build_script_name: build:${{ runner.os }}
-
-          # In this step, we only want to build Chrysalis, and never release. If
-          # we need to release, we do that in a separate step.
-          args: -p=never
-          release: false
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }}-artifact
           path: |
-            dist/Chrysalis-*
-            !dist/*.blockmap
+            out/make/**/Chrysalis-*
 
   publish:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
@@ -93,39 +68,10 @@ jobs:
         with:
           path: artifacts
 
-      - name: Discover the pull-request number
-        id: pullnumber
-        shell: bash
-        run: echo ::set-output name=pr::$(tools/pr-number)
-
-      - name: Prepare the artifacts for upload
-        env:
-          VERSION: pr-${{ steps.pullnumber.outputs.pr }}
-        run: |
-          install -d s3-data
-          cp artifacts/*/Chrysalis-* s3-data/
-          mv s3-data/Chrysalis-*-portable.exe \
-             s3-data/Chrysalis-${VERSION}-portable.exe
-
-      - name: Upload artifacts to S3
-        env:
-          PR: ${{steps.pullnumber.outputs.pr}}
-        uses: hkdobrev/minio-deploy-action@v1
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          endpoint: ${{ secrets.MINIO_ENDPOINT }}
-          access_key: ${{ secrets.MINIO_ACCESS_KEY }}
-          secret_key: ${{ secrets.MINIO_SECRET_KEY }}
-          bucket: "chrysalis"
-          source_dir: "s3-data"
-          target_dir: /pr/${{ steps.pullnumber.outputs.pr }}
-
-      - name: Send the links back to the PR
-        uses: mshick/add-pr-comment@v1
-        env:
-          BLOB_PREFIX: ${{ secrets.MINIO_ENDPOINT }}/chrysalis/pr/${{ steps.pullnumber.outputs.pr }}
-          VERSION: pr-${{ steps.pullnumber.outputs.pr }}
-        with:
-          repo-token: ${{ secrets.COMMENT_BOT_TOKEN }}
+          comment_tag: artifacts
           message: |
             Build artifacts for this pull request are available!
 
@@ -133,12 +79,6 @@ jobs:
             ----------------------------------------
 
             The build artifacts are provided as-is, for testing and reviewing purposes. They contain code that has not been reviewed or audited by Chrysalis' developers. They are not endorsed by Keyboardio, they are not signed. Install and use them only if you know what you are doing.
-
-            - Windows:
-                - [Installer](${{ env.BLOB_PREFIX }}/Chrysalis-${{ env.VERSION }}.exe)
-                - [Portable](${{ env.BLOB_PREFIX }}/Chrysalis-${{ env.VERSION }}-portable.exe)
-            - macOS:
-                - [zip](${{ env.BLOB_PREFIX }}/Chrysalis-${{ env.VERSION }}.zip)
-                - [dmg](${{ env.BLOB_PREFIX }}/Chrysalis-${{ env.VERSION }}.dmg)
-            - Linux:
-                - [AppImage](${{ env.BLOB_PREFIX }}/Chrysalis-${{ env.VERSION }}.AppImage)
+            
+            You can download the platform-specific build artifacts from GitHub for 90 days after the date of this message from the following URL:
+            https://github.com/keyboardio/Chrysalis/actions/runs/${{ github.run_id }}#artifacts

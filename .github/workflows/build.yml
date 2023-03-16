@@ -92,7 +92,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: out/artifacts/*.{zip,dmg,AppImage,yml}
-          tag: ${{ env.PACKAGE_VERSION }}
+          tag: v${{ env.PACKAGE_VERSION }}
           file_glob: true
           prerelease: true
           overwrite: true

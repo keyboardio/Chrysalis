@@ -25,7 +25,8 @@ jobs:
           CERT_FILE: ${{ secrets.win.cert }}
         shell: bash
         run: |
-          echo "$CERT_FILE" > "./certs.pfx"
+          echo "$CERT_FILE" > "./cert.pfx"
+          ls -al 
       - name: Install the Apple certificate and provisioning profile
         if: matrix.os == 'macos-latest'
         env:

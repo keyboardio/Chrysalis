@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install windows provisioning profile
+        env:
+          CERT_FILE: ${{ secrets.win.cert }}
+        shell: bash
+        run: |
+          echo "$CERT_FILE" > "./certs.pfx"
       - name: Install the Apple certificate and provisioning profile
         if: matrix.os == 'macos-latest'
         env:
@@ -74,6 +80,7 @@ jobs:
         if: matrix.os != 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.win_cert_password }}
         run:  yarn run make
       - name: Generate latest.yml upgrade files
         shell: bash

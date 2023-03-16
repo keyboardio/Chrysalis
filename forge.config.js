@@ -34,6 +34,13 @@ let config = {
   },
   rebuildConfig: {},
   makers: [
+    {    
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        certificateFile: './cert.pfx',
+        certificatePassword: process.env.WINDOWS_CERTIFICATE_PASSWORD,
+      },
+		},
     {
       name: "@electron-forge/maker-dmg",
       config: {},

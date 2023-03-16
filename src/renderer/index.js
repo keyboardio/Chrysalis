@@ -18,7 +18,8 @@
 import { setupLogging } from "@api/log";
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+
 import "../styles/keymap.css";
 import App from "./App";
 import { GlobalContextProvider } from "./components/GlobalContext";
@@ -34,14 +35,16 @@ migrateDarkModeToTheme();
 // Enable Hot Module Reload in dev
 if (module.hot) module.hot.accept();
 
+const container = document.getElementById("app");
+const root = createRoot(container);
+
 try {
-  ReactDOM.render(
+  root.render(
     <GlobalContextProvider>
       <App />
-    </GlobalContextProvider>,
-    document.getElementById("app")
+    </GlobalContextProvider>
   );
 } catch (e) {
   ipcRenderer.invoke("devtools.open");
-  ReactDOM.render(<Error error={e} />, document.getElementById("app"));
+  root.render(<Error error={e} />);
 }

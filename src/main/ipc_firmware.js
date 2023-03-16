@@ -15,7 +15,7 @@
  */
 
 import { app, ipcMain, net } from "electron";
-import { version } from "../../package.json";
+import pkg from "../../package.json";
 import { sendToRenderer } from "./utils";
 
 import Store from "electron-store";
@@ -24,6 +24,9 @@ import path from "path";
 import semver from "semver";
 import tar from "tar";
 import yaml from "js-yaml";
+
+const version = pkg.version;
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const registerFirmwareHandlers = () => {
   const slug = "keyboardio/Chrysalis-Firmware-Bundle";
@@ -243,20 +246,22 @@ export const registerFirmwareHandlers = () => {
   const getFirmwareBaseDirectory = () => {
     const settings = new Store();
 
-    let baseDir = __static;
     if (
       settings.get("firmwareAutoUpdate.mode", "automatic") == "automatic" &&
       shouldPresentDownloadedSnapshot()
     ) {
       try {
         fs.accessSync(path.join(firmwarePath, "build-info.yml"));
-        baseDir = firmwarePath;
+        return firmwarePath;
       } catch (_) {
-        // Ignore, we'll use the default __static return value
+        // Ignore, we'll use the default static return value
       }
     }
-
-    return baseDir;
+    if (isDevelopment) {
+      return path.join("/static");
+    } else {
+      return path.join("../../../../static");
+    }
   };
 
   ipcMain.on("firmware.get-changelog", (event) => {

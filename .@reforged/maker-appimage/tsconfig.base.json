@@ -1,0 +1,14 @@
+{
+  "extends": "./node_modules/@tsconfig/node16-strictest/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2022",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "stripInternal": true
+  }
+}

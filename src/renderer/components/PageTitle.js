@@ -15,11 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Portal from "@mui/material/Portal";
 import React from "react";
+import * as ReactDOM from "react-dom";
+
+// For some reason, the regular Portal component doesn't clear out previous data
+// this hack based on https://stackoverflow.com/questions/53895291/createportal-does-not-overwrite-div-contents-like-reactdom-render
+// works around that issue.
+// It does not make me happy
+const Portal = ({ Component, container }) => {
+  const [innerHtmlEmptied, setInnerHtmlEmptied] = React.useState(false);
+  React.useEffect(() => {
+    if (!innerHtmlEmptied) {
+      container.innerHTML = "";
+      setInnerHtmlEmptied(true);
+    }
+  }, [innerHtmlEmptied]);
+  if (!innerHtmlEmptied) return null;
+  return ReactDOM.createPortal(Component, container);
+};
 
 export function PageTitle({ title }) {
-  return (
-    <Portal container={document.querySelector("#page-title")}>{title}</Portal>
-  );
+  const container = document.querySelector("#page-title");
+  if (!container) return null;
+  const component = <>{title}</>;
+  return <Portal Component={component} container={container} />;
 }

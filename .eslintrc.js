@@ -7,7 +7,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
   ],
-  parser: "babel-eslint",
+  parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: "module",
@@ -18,7 +18,8 @@ module.exports = {
     node: true,
   },
   globals: {
-    __static: true,
+      "MAIN_WINDOW_WEBPACK_ENTRY": true,
+      "MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY": true
   },
   rules: {
     "no-console": 0,
@@ -32,7 +33,11 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      webpack: { config: "./webpack.renderer.additions.js" },
+    'node': {
+                'paths': ['src'],
+                'extensions': ['.js','.jsx', '.ts', '.d.ts', '.tsx']
+    },
+    webpack: { config: "./webpack.renderer.config.js" },
     },
 
     react: {

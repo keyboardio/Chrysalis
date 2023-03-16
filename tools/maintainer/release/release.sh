@@ -87,9 +87,7 @@ update_version() {
     VERSION="$(release_version)"
 
     ## Update package.json
-    TMP=$(mktemp)
-    jq ". | .[\"version\"] = \"${VERSION}\"" <package.json >"${TMP}"
-    mv "${TMP}" package.json
+    yarn version --new-version=${VERSION}
 
     ## Update NEWS.md
     TMP=$(mktemp)

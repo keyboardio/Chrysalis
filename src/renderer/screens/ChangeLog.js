@@ -23,12 +23,14 @@ import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { getStaticPath } from "@renderer/config";
 import logo from "@renderer/logo-small.png";
-import { version } from "@root/package.json";
+import pkg from "@root/package.json";
 import fs from "fs";
 import path from "path";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
+
+const version = pkg.version;
 
 const ChangeLog = (props) => {
   const { classes } = props;

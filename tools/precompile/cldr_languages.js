@@ -14,10 +14,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import cldr from "cldr";
-import fs from "fs";
+const cldr = require("cldr");
+const fs = require("fs");
 
-export const extractLanguageNames = () => {
+const extractLanguageNames = () => {
   const language_names = {};
 
   fs.mkdir(
@@ -37,3 +37,5 @@ export const extractLanguageNames = () => {
 
   return language_names;
 };
+
+exports.extractLanguageNames = extractLanguageNames;

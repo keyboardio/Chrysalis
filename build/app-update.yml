@@ -1,0 +1,5 @@
+owner: keyboardio
+repo: Chrysalis
+provider: github
+updaterCacheDirName: chrysalis-updater
+

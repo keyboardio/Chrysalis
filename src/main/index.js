@@ -15,14 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getStaticPath } from "@renderer/config";
 import { app, BrowserWindow, ipcMain } from "electron";
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
+import installExtension from "electron-devtools-installer"; //  REACT_DEVELOPER_TOOLS,
 import windowStateKeeper from "electron-window-state";
 import * as path from "path";
-import { format as formatUrl } from "url";
 import { Environment } from "./dragons";
 import { registerAutoUpdaterHandlers } from "./ipc_autoupdate";
 import { registerBackupHandlers } from "./ipc_backups";
@@ -38,6 +34,11 @@ import { registerLoggingHandlers } from "./ipc_logging";
 import { registerNativeThemeHandlers } from "./ipc_nativetheme";
 import { registerSystemInfoHandlers } from "./ipc_system_info";
 import { buildMenu } from "./menu";
+
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
 
 // This is a workaround for electron-webpack#275[1]. We need to use backticks
 // for NODE_ENV, otherwise the code would fail to compile with webpack. We also
@@ -74,27 +75,19 @@ async function createMainWindow() {
     minWidth: 800,
     minHeight: 600,
     resizable: true,
-    icon: path.join(getStaticPath(), "/logo.png"),
+    icon: path.join(__dirname, "..", "..", "static", "logo.png"),
     autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,
       nodeIntegration: true,
       contextIsolation: false,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
   mainWindowState.manage(window);
 
-  if (isDevelopment) {
-    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
-  } else {
-    window.loadURL(
-      formatUrl({
-        pathname: path.join(__dirname, "index.html"),
-        protocol: "file",
-        slashes: true,
-      })
-    );
-  }
+  // and load the index.html of the app.
+  window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   window.on("closed", () => {
     mainWindow = null;
@@ -164,9 +157,10 @@ app.on("activate", async () => {
 app.whenReady().then(async () => {
   addUsbEventListeners();
   if (isDevelopment) {
-    await installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log("An error occurred: ", err));
+    // REACT_DEVELOPER_TOOLS is currently broken https://github.com/facebook/react/issues/25843
+    //    await installExtension(REACT_DEVELOPER_TOOLS)
+    //      .then((name) => console.log(`Added Extension:  ${name}`))
+    //      .catch((err) => console.log("An error occurred: ", err));
   }
 
   mainWindow = await createMainWindow();

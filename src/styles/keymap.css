@@ -113,7 +113,8 @@ button {
 
   /* don't print UI elements such as "Successfully printed" toast and the print button */
   *[role="button"],
-  .MuiSnackbar-root { /* stylelint-disable-line selector-class-pattern */
+  .MuiSnackbar-root {
+    /* stylelint-disable-line selector-class-pattern */
     display: none;
   }
 }

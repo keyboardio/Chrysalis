@@ -1,0 +1,14 @@
+# Ignore modules downloaded by package manager
+node_modules/
+# Ignore generated files
+dist/
+types/
+cache/
+!makers/*/types/
+makers/*/types/*
+!makers/*/types/config.d.ts
+# Ignore lockfiles other than NPM ones
+*lock*
+!package-lock.json
+# Ignore local packages
+*.tgz

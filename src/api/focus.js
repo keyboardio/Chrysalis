@@ -15,7 +15,7 @@
  */
 
 const { ipcRenderer } = require("electron");
-const { SerialPort } = require("serialport");
+const { SerialPort } = eval(`require("serialport")`);
 
 import fs from "fs";
 import stream from "stream";
@@ -341,7 +341,14 @@ class Focus {
   }
 
   isInApplicationMode() {
-    return this.focusDeviceDescriptor.bootloader !== true;
+    if (
+      !this.focusDeviceDescriptor ||
+      this.focusDeviceDescriptor.bootloader == true
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   async open(device_identifier, info) {
@@ -416,7 +423,7 @@ class Focus {
         );
         return;
       }
-      const [resolve] = this.callbacks?.shift();
+      const [resolve] = this.callbacks.shift();
       this._parser.endTimer();
       if (data == ".") {
         resolve();

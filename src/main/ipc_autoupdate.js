@@ -17,7 +17,9 @@
 import { app, ipcMain } from "electron";
 import { autoUpdater, CancellationToken } from "electron-updater";
 import { sendToRenderer } from "./utils";
-import { version } from "../../package.json";
+import pkg from "../../package.json";
+
+const version = pkg.version;
 
 export const registerAutoUpdaterHandlers = () => {
   autoUpdater.on("update-available", (info) => {

@@ -8,5 +8,5 @@ get_latest_keyboard_filename() {
 }
 
 curl -s -L $(get_latest_keyboard_filename) -o cldr-keyboards-latest.zip
-unzip -o -qq cldr-keyboards-latest.zip -d static/cldr/
+unzip -o -qq cldr-keyboards-latest.zip -d data/cldr/
 rm -f cldr-keyboards-latest.zip

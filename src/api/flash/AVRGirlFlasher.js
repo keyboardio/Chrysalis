@@ -16,7 +16,7 @@
 
 import { logger } from "@api/log";
 import AvrGirl from "avrgirl-arduino";
-const { SerialPort } = require("serialport");
+const { SerialPort } = eval(`require("serialport")`);
 
 import { reportUpdateStatus } from "./utils";
 

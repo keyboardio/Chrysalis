@@ -1,0 +1,35 @@
+{
+  "name": "@reforged/maker-appimage",
+  "version": "3.1.8",
+  "description": "An AppImage maker implementation for the Electron Forge.",
+  "main": "main.js",
+  "scripts": {
+    "prepack": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpacingBat3/ReForged"
+  },
+  "keywords": [
+    "electron",
+    "electron-forge",
+    "maker",
+    "reforged",
+    "packaging",
+    "appimage"
+  ],
+  "author": "SpacingBat3",
+  "license": "ISC",
+  "dependencies": {
+    "@electron-forge/maker-base": "^6.0.4",
+    "@spacingbat3/lss": "^1.0.0",
+    "node-fetch": "^3.2.5"
+  },
+  "types": "./types/main.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^19.0.0 || ^18.11.0 || ^16.1.0"
+  }
+}

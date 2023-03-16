@@ -4,6 +4,7 @@ const { generateCLDRData } = require("./tools/precompile.js");
 let config = { 
   packagerConfig: {
     asar: true,
+    appBundleId: 'keyboardio.chrysalis',
     darwinDarkModeSupport: "true",
     icon: "build/icon",
     name: "Chrysalis",

@@ -22,7 +22,7 @@ jobs:
           node-version: 16
       - name: Install windows provisioning profile
         env:
-          CERT_FILE: ${{ secrets.win.cert }}
+          CERT_FILE: ${{ secrets.WIN_CERT }}
         shell: bash
         run: |
           echo "$CERT_FILE" > "./cert.pfx"

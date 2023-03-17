@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: 16
       - name: Install windows certificates
+        if: matrix.os == 'windows-latest'
         env:
           CERT_FILE: ${{ secrets.WIN_CERT }}
         shell: bash

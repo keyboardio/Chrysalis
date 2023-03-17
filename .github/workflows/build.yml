@@ -20,12 +20,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install windows provisioning profile
+      - name: Install windows certificates
         env:
           CERT_FILE: ${{ secrets.WIN_CERT }}
         shell: bash
         run: |
-          echo "$CERT_FILE" > "./cert.pfx"
+          echo "$CERT_FILE" > "./cert-b64.pfx"
+          certutil -decode "./cert-b64.pfx" "cert.pfx"
           ls -al 
       - name: Install the Apple certificate and provisioning profile
         if: matrix.os == 'macos-latest'

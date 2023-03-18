@@ -1,5 +1,7 @@
-const { spawn } = require("child_process");
+const { spawnSync } = require("child_process");
 const { generateCLDRData } = require("./tools/precompile.js");
+const { glob } = require('glob');
+const fs = require('fs');
 
 let config = { 
   packagerConfig: {
@@ -134,42 +136,38 @@ let config = {
         );
         const webpackConfigJs = require("./webpack.renderer.config.js");
         Object.keys(webpackConfigJs.externals).forEach((package) => {
-          console.log(package);
           packageJson.dependencies[package] =
             originalPackageJson.dependencies[package];
         });
       }
       return packageJson;
     },
-    packageAfterPrune: async (forgeConfig, buildPath) => {
-      console.log(buildPath);
-      return new Promise((resolve, reject) => {
-        const npmInstall = spawn("npm", ["install", "--omit=dev"], {
+    packageAfterPrune: async (forgeConfig, buildPath, electronVersion, platform, arch) => {
+        const npmInstall = spawnSync("npm", ["install", "--omit=dev"], {
           cwd: buildPath,
           stdio: "inherit",
           shell: true,
         });
 
-        npmInstall.on("close", (code) => {
-          if (code === 0) {
-            resolve();
-          } else {
-            reject(new Error("process finished with error code " + code));
-          }
-        });
+        console.log(buildPath);
 
-        npmInstall.on("error", (error) => {
-          reject(error);
-        });
-      });
-    },
+        // Clear out prebuilds for other architectures
+        // 1) we don't need them
+        // 2) windows binary signing tool blows up when it tries to sign them.
+        
+        const prebuilds = glob.GlobSync(`${buildPath}/**/prebuilds/*`);
+        const matchString = new RegExp(`prebuilds/${platform}`);
+        prebuilds.found.forEach(function(path) {
+            if (! path.match(matchString)) {
+            fs.rmdirSync(path, { recursive: true });
+            } 
+    });
   },
+}
 };
-
 if (process.env.UNTRUSTED) {
     delete config['packagerConfig']['osxSign'];
     delete config['packagerConfig']['osxNotarize'];
 }
 
-console.log(config);
 module.exports = config;

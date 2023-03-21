@@ -176,8 +176,8 @@
           "tooltip": "Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier."
         },
         "topsyturvy": {
-          "label": "TopsyTurvy",
-          "tooltip": "Invert the behavior of the Shift key."
+          "label": "Invert Shift",
+          "tooltip": "Invert the behavior of the Shift key. (For example, send 'A' when unshifted and 'a' when shifted)"
         }
       },
       "layer": {

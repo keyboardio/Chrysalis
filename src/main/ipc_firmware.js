@@ -258,7 +258,7 @@ export const registerFirmwareHandlers = () => {
       }
     }
     if (isDevelopment) {
-      return path.join("/static");
+      return path.join(__dirname, "..", "..","/static");
     } else {
       return path.join("../../../../static");
     }

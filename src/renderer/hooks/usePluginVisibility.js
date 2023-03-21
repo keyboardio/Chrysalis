@@ -39,7 +39,7 @@ export default function usePluginVisibility(plugin) {
           !hideUnavailableFeatures || plugins.includes(plugin)
         );
       } else {
-        setPluginSupported(true);
+        setPluginSupported(!hideUnavailableFeatures);
       }
     };
     fetchData();

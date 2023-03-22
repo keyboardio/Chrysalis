@@ -1,1 +1,49 @@
-{}
+{
+    "sanity-check": {
+        "title": "Ejecutando verificación de entorno",
+        "header": "Verificación de entorno ha fallado",
+        "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta de la una soportada upstream. Si usted usa Chrysalis a través de un repositorio de paquetes de una distribución, por favor considere usar los builds oficiales en cambio.",
+        "download-latest": "Descargar la versión oficial"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "breakingNews": {
+        "firmware0_90_1": {
+            "description": "Firmware antes de la versión 0.90.1 contiene un bug que conduce a la pérdida de los datos y la corrupción de los datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede despedir esta advertencia con el butón de cerrar.",
+            "button": "Instrucciones de actualización"
+        }
+    },
+    "language": "Español",
+    "firmwareAutoUpdate": {
+        "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
+        "available": "Versión nuevo de firmware disponible: {{ version }}"
+    },
+    "components": {
+        "layer": "Capa {{index}}",
+        "none": "Nada",
+        "layerRaw": "Capa",
+        "save": {
+            "saveChanges": "Guardar Cambios"
+        },
+        "loading": "Leyendo datos del dispositivo...",
+        "logo": {
+            "altText": "Logo de Chrysalis"
+        }
+    },
+    "errors": {
+        "saveFile": "Error al guardar un archivo: {{ error }}",
+        "deviceDisconnected": "Teclado desconectado"
+    },
+    "print": {
+        "feedback": {
+            "success": "¡Ha impreso con éxito!",
+            "error": "Error encontrado al imprimir."
+        }
+    },
+    "autoUpdate": {
+        "available": "Versión nueva disponible: {{ version }}",
+        "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
+        "error": "Error durante actualización: {{ error }}"
+    }
+}

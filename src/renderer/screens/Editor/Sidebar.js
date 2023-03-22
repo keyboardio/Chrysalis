@@ -33,7 +33,6 @@ import MediaKeys from "./Sidebar/MediaKeys";
 import KeyPicker from "./Sidebar/Modifiers";
 import MouseKeys from "./Sidebar/MouseKeys";
 import OneShotKeys from "./Sidebar/OneShotKeys";
-import OneShotMetaKeys from "./Sidebar/OneShotMetaKeys";
 import Overview from "./Sidebar/Overview";
 import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
@@ -64,7 +63,6 @@ const Sidebar = (props) => {
     MacroKeys,
     TapDanceKeys,
     OneShotKeys,
-    OneShotMetaKeys,
     SpaceCadetKeys,
     LeaderKeys,
     StenoKeys,

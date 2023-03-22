@@ -18,6 +18,7 @@
 import KeymapDB from "@api/focus/keymap/db";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useEffect, useState } from "react";
+import FormHelperText from "@mui/material/FormHelperText";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
@@ -28,10 +29,35 @@ const OneShotKeys = (props) => {
   const { t } = useTranslation();
 
   const pluginVisible = usePluginVisibility("OneShot");
+  const metaOneShotVisible = usePluginVisibility("OneShotMetaKeys");
   if (!pluginVisible) return null;
 
   const { currentKey: key } = props;
   const c = db.constants.codes;
+
+  const metaOneShot = (
+    <>
+      <FormHelperText
+        sx={{
+          mb: 2,
+        }}
+      >
+        {t("editor.sidebar.oneshotMetaKeys.help")}
+      </FormHelperText>
+      <KeyButton
+        keyObj={db.lookup(c.ONESHOT_META_STICKY)}
+        onKeyChange={props.onKeyChange}
+        title={t("editor.sidebar.oneshotMetaKeys.metaStickyKey.tooltip")}
+        keycapSize="1u"
+      />
+      <KeyButton
+        keyObj={db.lookup(c.ONESHOT_ACTIVE_STICKY)}
+        onKeyChange={props.onKeyChange}
+        title={t("editor.sidebar.oneshotMetaKeys.activeStickyKey.tooltip")}
+        keycapSize="1u"
+      />
+    </>
+  );
 
   return (
     <React.Fragment>
@@ -42,7 +68,10 @@ const OneShotKeys = (props) => {
         <KeyButton
           keyObj={db.lookup(c.ONESHOT_CANCEL)}
           onKeyChange={props.onKeyChange}
+          keycapSize="1u"
         />
+
+        {metaOneShotVisible ? metaOneShot : null}
       </Collapsible>
     </React.Fragment>
   );

@@ -84,8 +84,8 @@ const oneshot = [
     code: 53628,
     label: {
       hint: {
-        full: "OneShot Stick",
-        "1u": "Stick",
+        full: "OneShot Sticky",
+        "1u": "Sticky",
       },
       base: "Next",
     },
@@ -95,8 +95,8 @@ const oneshot = [
     code: 53629,
     label: {
       hint: {
-        full: "OneShot Stick",
-        "1u": "Stick",
+        full: "OneShot Sticky",
+        "1u": "Sticky",
       },
       base: "Active",
     },

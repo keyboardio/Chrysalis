@@ -194,12 +194,12 @@
       },
       "oneshotMetaKeys": {
         "title": "One-shot meta keys",
-        "help": "Click the buttons below to create special OneShot keys that can make any key \"sticky\", not just modifiers or layer-shift keys.",
+        "help": "These options create special OneShot keys that can make any key \"sticky\", not just modifiers or layer-shift keys.",
         "metaStickyKey": {
           "tooltip": "Makes the next key pressed sticky until tapped again."
         },
         "activeStickyKey": {
-          "tooltip": "Makes any currently-held or active keys sticky until tapped again."
+          "tooltip": "Makes any currently-pressed keys sticky until tapped again."
         }
       },
       "ledcontrol": {

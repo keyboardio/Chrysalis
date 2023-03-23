@@ -11,13 +11,16 @@
     "breakingNews": {
         "firmware0_90_1": {
             "description": "Firmware antes de la versión 0.90.1 contiene un bug que conduce a la pérdida de los datos y la corrupción de los datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede despedir esta advertencia con el butón de cerrar.",
-            "button": "Instrucciones de actualización"
+            "button": "Instrucciones de actualización",
+            "title": "¡Atención dueños de Keyboardio Model 100!"
         }
     },
     "language": "Español",
     "firmwareAutoUpdate": {
         "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
-        "available": "Versión nuevo de firmware disponible: {{ version }}"
+        "available": "Versión nuevo de firmware disponible: {{ version }}",
+        "error": "Error mientras descargando la versión nueva de firmware.",
+        "warning": "Chrysalis no pude comprobar si hay una versión nueva de firmware. Puede que hay una versión más nueva disponible en línea."
     },
     "components": {
         "layer": "Capa {{index}}",
@@ -45,5 +48,66 @@
         "available": "Versión nueva disponible: {{ version }}",
         "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
         "error": "Error durante actualización: {{ error }}"
+    },
+    "editor": {
+        "sharing": {
+            "title": "Respaldar y restaurar",
+            "loadFromLibrary": "Cargar de biblioteca",
+            "loadFromBackup": "Cargar de las copias de seguridad",
+            "loadFromFile": "Cargar de archivo...",
+            "import": "Importar",
+            "selectExportFile": "Elige el archivo al que exportar el diseño",
+            "dialog": {
+                "layoutFiles": "Archivos de distribución",
+                "allFiles": "Todos los archivos"
+            },
+            "exportToFile": "Exportar a archivo...",
+            "selectLoadFile": "Elige el archivo desde el que cargar un diseño"
+        },
+        "legacy": {
+            "migrate": "Migrar",
+            "warning": "Se encontró teclas heredadas en el keymap que ya no son válidos. Para migrar a los códigos nuevos, por favor pulse el botón de migrar."
+        }
+    },
+    "app": {
+        "menu": {
+            "preferences": "Preferencias",
+            "chrysalisSection": "Chrysalis",
+            "firmwareUpdate": "Actualización de firmware",
+            "layoutEditor": "Editor de distribución",
+            "editor": "Editor de distribución y de colormap",
+            "focus-not-detected": "Bienvenido",
+            "selectAKeyboard": "Elegir un teclado",
+            "systemInfo": "Reportar un problema",
+            "colormapEditor": "Editor de colormap",
+            "macroEditor": "Editor de macro",
+            "exit": "Salir",
+            "restart": "Aplicar actualización y reiniciar",
+            "keyboardSection": "Teclado",
+            "chat": "Chat de Discord",
+            "layoutCard": "Carta de distribución",
+            "selectAnotherKeyboard": "Elegir otro teclado",
+            "miscSection": "Varios",
+            "changelog": "Registro de cambios"
+        },
+        "cancelPending": {
+            "title": "Descartar los cambios pendientes?",
+            "content": "Tiene cambios no guardados. Si procede, se perderán."
+        },
+        "actionRequired": "Acción requerida",
+        "deviceMenu": {
+            "Homepage": "Página de inicio",
+            "Forum": "Foro",
+            "Chat": "Chat"
+        }
+    },
+    "dialog": {
+        "cancel": "Cancelar",
+        "ok": "Ok",
+        "close": "Cerrar",
+        "continue": "Continuar"
+    },
+    "changelog": {
+        "title": "Registro de cambios"
     }
 }

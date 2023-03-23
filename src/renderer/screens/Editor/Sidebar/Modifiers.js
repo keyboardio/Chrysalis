@@ -28,7 +28,7 @@ import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-
+import Box from "@mui/material/Box";
 const db = new KeymapDB();
 
 const KeyPicker = (props) => {

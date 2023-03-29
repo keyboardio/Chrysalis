@@ -47,7 +47,7 @@ export default class sideFlaser {
       const uint = new Uint32Array(bin);
       // Seal(hardwareVersion=SealHeader(deviceId=1263747922, version=1, size=32, crc=197434883), programStart=20736, programSize=57552, programCrc=3782824883, programVersion=16777217
       return {
-        deviceId: uint[0],
+        // deviceId: uint[0],
         version: uint[1],
         size: uint[2],
         crc: uint[3],

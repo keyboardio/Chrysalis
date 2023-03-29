@@ -1,8 +1,8 @@
 {
     "sanity-check": {
-        "title": "Ejecutando verificación de entorno",
-        "header": "Verificación de entorno ha fallado",
-        "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta de la una soportada upstream. Si usted usa Chrysalis a través de un repositorio de paquetes de una distribución, por favor considere usar los builds oficiales en cambio.",
+        "title": "Ejecutando la verificación del entorno",
+        "header": "La verificación del entorno ha fallado",
+        "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
         "download-latest": "Descargar la versión oficial"
     },
     "units": {
@@ -10,9 +10,9 @@
     },
     "breakingNews": {
         "firmware0_90_1": {
-            "description": "Firmware antes de la versión 0.90.1 contiene un bug que conduce a la pérdida de los datos y la corrupción de los datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede despedir esta advertencia con el butón de cerrar.",
+            "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
             "button": "Instrucciones de actualización",
-            "title": "¡Atención dueños de Keyboardio Model 100!"
+            "title": "¡Atención dueños de Keyboardio Modelo 100!"
         }
     },
     "language": "Español",
@@ -66,7 +66,7 @@
         },
         "legacy": {
             "migrate": "Migrar",
-            "warning": "Se encontró teclas heredadas en el keymap que ya no son válidos. Para migrar a los códigos nuevos, por favor pulse el botón de migrar."
+            "warning": "Se encontraron teclas heredadas en el keymap que ya no son válidas. Para migrar a los códigos nuevos, por favor pulse el botón de migrar."
         }
     },
     "app": {
@@ -77,7 +77,7 @@
             "layoutEditor": "Editor de distribución",
             "editor": "Editor de distribución y de colormap",
             "focus-not-detected": "Bienvenido",
-            "selectAKeyboard": "Elegir un teclado",
+            "selectAKeyboard": "Seleccionar un teclado",
             "systemInfo": "Reportar un problema",
             "colormapEditor": "Editor de colormap",
             "macroEditor": "Editor de macro",
@@ -86,7 +86,7 @@
             "keyboardSection": "Teclado",
             "chat": "Chat de Discord",
             "layoutCard": "Carta de distribución",
-            "selectAnotherKeyboard": "Elegir otro teclado",
+            "selectAnotherKeyboard": "Seleccionar otro teclado",
             "miscSection": "Varios",
             "changelog": "Registro de cambios"
         },

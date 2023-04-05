@@ -230,9 +230,10 @@ class App extends React.Component {
     });
   };
 
-  onKeyboardConnect = async port => {
-    focus.close();
+  onKeyboardConnect = async (port, file) => {
+    await focus.close();
 
+    console.log("TEST!", port);
     if (!port.path) {
       port.device.device = port.device;
 
@@ -246,7 +247,7 @@ class App extends React.Component {
     }
 
     console.log("Connecting to", port.path);
-    await focus.open(port.path, port.device);
+    await focus.open(port.path, port.device, file);
     console.log("After focus.open");
     if (focus.device.bootloader) {
       this.setState({
@@ -259,7 +260,7 @@ class App extends React.Component {
     }
 
     console.log("Probing for Focus support...");
-
+    console.log("THIS!!", focus);
     focus.setLayerSize(focus.device);
     focus.setLEDMode(focus.device);
     const pages = {
@@ -313,7 +314,6 @@ class App extends React.Component {
   render() {
     const { connected, pages, contextBar, darkMode, fwUpdate } = this.state;
 
-    let focus = new Focus();
     let device =
       (focus.device && focus.device.info) ||
       (this.state.device && this.state.device.device && this.state.device.device.info) ||

@@ -69,14 +69,15 @@ export default class Backup {
    * @returns {Backup} Backup The function returns the full made backup, so it can be stored wherever is needed, and changed if the module requires it.
    */
   async DoBackup(commands, neuronID) {
+    if (this.focus.file !== null) return;
     let backup = {};
-    let aux = [];
+    let commandList = [];
     let versions;
     for (let i = 0; i < commands.length; i++) {
       let command = commands[i];
       console.log(command);
       let data = await this.focus.command(command);
-      aux.push({ command, data });
+      commandList.push({ command, data });
     }
     let vData = await this.focus.command("version");
     let parts = vData.split(" ");
@@ -87,8 +88,9 @@ export default class Backup {
     };
     backup.neuronID = neuronID;
     backup.neuron = this.neurons.filter(n => n.id == neuronID)[0];
+    backup.neuron.device = this.focus.device;
     backup.versions = versions;
-    backup.backup = aux;
+    backup.backup = commandList;
     return backup;
   }
 
@@ -101,6 +103,18 @@ export default class Backup {
    */
   SaveBackup(backup) {
     let focus = new Focus();
+    if (focus.file !== null) {
+      let file = JSON.parse(require("fs").readFileSync(focus.fileData.device.filePath));
+      file.virtual = focus.fileData.virtual;
+      const json = JSON.stringify(file, null, 2);
+      require("fs").writeFileSync(focus.fileData.device.filePath, json, err => {
+        if (err) {
+          console.error(err);
+          throw err;
+        }
+      });
+      return;
+    }
     let product = focus.device.info.product;
     const d = new Date();
     const folder = store.get("settings.backupFolder");

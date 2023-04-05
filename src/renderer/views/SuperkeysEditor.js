@@ -29,7 +29,6 @@ import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 
 // Components
-import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
 import { LayoutViewSelector } from "../component/ToggleButtons";
 import { SuperkeysSelector } from "../component/Select";
@@ -49,7 +48,6 @@ import i18n from "../i18n";
 import Keymap, { KeymapDB } from "../../api/keymap";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
-import { TiHeadphones } from "react-icons/ti";
 
 const Store = require("electron-store");
 const store = new Store();

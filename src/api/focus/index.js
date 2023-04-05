@@ -34,6 +34,7 @@ class Focus {
       this.timeout = 5000;
       this.debug = false;
       this.closed = true;
+      this.file = false;
     }
     return global.focus_instance;
   }
@@ -65,12 +66,31 @@ class Focus {
     return found_devices;
   }
 
-  async open(device, info) {
-    console.warn("Warning! device being opened", device.isOpen, device, info);
-    while (device._eventsCount < 5) {
-      console.log("waiting for device");
-      await this.delay(500);
+  async fileOpen(info, file) {
+    // console.log("DATA!!", info, file);
+    this.device = file.device;
+    this.result = "";
+    this.callbacks = [];
+    this.closed = false;
+    this.file = true;
+    this.fileData = file;
+    this.supportedCommands = await this.command("help");
+  }
+
+  async open(device, info, file) {
+    if (file !== null) {
+      await this.fileOpen(info, file);
+      return true;
     }
+
+    console.warn("Warning! device being opened", device.isOpen, device, info);
+    let count = 0;
+    while (device._eventsCount < 5 && count < 8) {
+      console.log("waiting for device");
+      await this.delay(250);
+      count++;
+    }
+    if (count == 8) return;
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort(
@@ -182,7 +202,7 @@ class Focus {
     return this._port;
   }
 
-  close() {
+  async close() {
     // if (this._port) {
     //   console.log("closing port data >>");
     //   console.log(inspect(this._port));
@@ -192,13 +212,23 @@ class Focus {
     //     this._port ? this._port.isOpen : "unable to open"
     //   );
     // }
-    if (this._port && this._port.isOpen) {
-      this._port.close();
+    try {
+      console.log("CLOSING!!", this._port);
+      if (this._port && this._port.isOpen) {
+        await this._port.close();
+      }
+    } catch (error) {
+      console.log(error);
     }
+
+    this.result = "";
+    this.callbacks = [];
     this._port = null;
     this.device = null;
     this.supportedCommands = [];
     this.closed = true;
+    this.file = false;
+    this.fileData = null;
   }
 
   async isDeviceAccessible(port) {
@@ -253,6 +283,15 @@ class Focus {
   }
 
   async _request(cmd, ...args) {
+    console.log("performing request");
+    if (this.file === true) {
+      if (args.length > 0 && this.fileData.virtual[cmd].eraseable) {
+        this.fileData.virtual[cmd].data = args.join(" ");
+      }
+      console.log("reading data");
+      console.log(this.fileData.virtual[cmd].data);
+      return this.fileData.virtual[cmd].data;
+    }
     if (!this._port) throw "Device not connected!";
 
     let request = cmd;

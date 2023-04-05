@@ -17,15 +17,15 @@
 
 import React, { useState } from "react";
 import Styled from "styled-components";
-import i18n from "../../i18n";
+import i18n from "../i18n";
 
 //React Bootstrap components
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import { RegularButton } from "../../component/Button";
-import Title from "../../component/Title";
+import { RegularButton } from "./Button";
+import Title from "./Title";
 
 const Styles = Styled.div`
 .list-group-item {

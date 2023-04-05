@@ -19,11 +19,10 @@ import React from "react";
 import Styled from "styled-components";
 
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import i18n from "../i18n";
 
-import { RegularButton } from "../component/Button";
+import { RegularButton } from "./Button";
 
 const Styles = Styled.div`
 

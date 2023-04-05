@@ -13,7 +13,7 @@ import Col from "react-bootstrap/Col";
 // Own Components
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
-import ConfirmationDialog from "../../components/ConfirmationDialog";
+import ConfirmationDialog from "../../component/ConfirmationDialog";
 
 // Icons Imports
 import { IconChip } from "../../component/Icon";

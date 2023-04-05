@@ -26,7 +26,7 @@ import { fwVersion } from "../../../package.json";
 import Focus from "../../api/focus";
 import { FlashRaise, FlashDefyWired, FlashDefyWireless } from "../../api/flash";
 import Backup from "../../api/backup";
-import Tooltip from "../../renderer/components/Tooltip";
+import Tooltip from "../component/Tooltip";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

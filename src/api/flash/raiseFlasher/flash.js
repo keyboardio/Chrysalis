@@ -266,7 +266,7 @@ export class FlashRaise {
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device);
+        if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device, null);
         await arduino.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
@@ -342,11 +342,11 @@ export class FlashRaise {
     let backup = this.backup.backup;
     console.log(this.backup, backup);
     if (backup === undefined || backup.length === 0) {
-      await focus.open(this.currentPort.path, this.currentPort.device.info);
+      await focus.open(this.currentPort.path, this.currentPort.device.info, null);
       return true;
     }
     try {
-      await focus.open(this.currentPort.path, this.currentPort.device.info);
+      await focus.open(this.currentPort.path, this.currentPort.device.info, null);
       for (let i = 0; i < backup.length; i++) {
         let val = backup[i].data;
         // Boolean values need to be sent as int

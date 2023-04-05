@@ -56,6 +56,11 @@ height: 100vh;
   width: 53%;
   text-align: center;
   height: 42px;
+  .btn {
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+  }
 }
 .keyboard-select {
   height: 100%;

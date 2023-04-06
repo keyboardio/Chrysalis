@@ -1,6 +1,6 @@
-/* bazecor-hardware-dygma-raise -- Bazecor support for Dygma Raise
- * Copyright (C) 2018-2019  Keyboardio, Inc.
- * Copyright (C) 2019-2020  DygmaLab SE
+/* bazecor-hardware-dygma-defy-wireless -- Bazecor support for Dygma Defy wireless
+ * Copyright (C) 2018-2019 Keyboardio, Inc.
+ * Copyright (C) 2019-2020 DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,36 +15,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import KeymapISO from "./components/Keymap-ISO";
+import KeymapDEFY from "./components/Keymap";
 import Focus from "../focus";
 
-const Raise_ISO = {
+const Defy_wireless = {
   info: {
     vendor: "Dygma",
-    product: "Raise",
-    keyboardType: "ISO",
-    displayName: "Dygma Raise ISO",
+    product: "Defy",
+    keyboardType: "wireless",
+    displayName: "Dygma Defy wireless",
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
+        url: "https://www.dygma.com/defy/"
       }
     ]
   },
   usb: {
-    vendorId: 0x1209,
-    productId: 0x2201
+    vendorId: 0x35ef,
+    productId: 0x0012
   },
   keyboard: {
     rows: 5,
     columns: 16
   },
   keyboardUnderglow: {
-    rows: 6,
-    columns: 22
+    rows: 2,
+    columns: 89
   },
+  RGBWMode: true,
   components: {
-    keymap: KeymapISO
+    keymap: KeymapDEFY
   },
 
   instructions: {
@@ -53,10 +54,10 @@ const Raise_ISO = {
     }
   },
 
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, filenameSides, flashRaise, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashRaise.updateFirmware(filename, filenameSides, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);
@@ -66,36 +67,37 @@ const Raise_ISO = {
   },
 
   isDeviceSupported: async port => {
-    let focus = new Focus();
-    let layout = localStorage.getItem(port.serialNumber);
-    if (!layout) {
-      focus._port && focus._port.path === port.path
-        ? await focus.open(focus._port, port.device, null)
-        : await focus.open(port.path, port.device, null);
-      layout = await focus.command("hardware.layout");
-      focus.close();
-      localStorage.setItem(port.serialNumber, layout);
-    }
-    return layout.trim() === "ISO";
+    // let focus = new Focus();
+    // let layout = localStorage.getItem(port.serialNumber);
+    // if (!layout) {
+    //   focus._port && focus._port.path === port.path
+    //     ? await focus.open(focus._port, port.device, null)
+    //     : await focus.open(port.path, port.device, null);
+    //   layout = await focus.command("hardware.layout");
+    //   focus.close();
+    //   localStorage.setItem(port.serialNumber, layout);
+    // }
+    // return layout.trim() === "ANSI";
+    return 1;
   }
 };
 
-const Raise_ISOBootloader = {
+const Defy_wirelessBootloader = {
   info: {
     vendor: "Dygma",
-    product: "Raise",
-    keyboardType: "ISO",
-    displayName: "Dygma Raise ISO",
+    product: "Defy",
+    keyboardType: "wireless",
+    displayName: "Dygma Defy wireless",
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
+        url: "https://www.dygma.com/defy/"
       }
     ]
   },
   usb: {
-    vendorId: 0x1209,
-    productId: 0x2200
+    vendorId: 0x35ef,
+    productId: 0x0013
   },
   bootloader: true,
   instructions: {
@@ -103,10 +105,10 @@ const Raise_ISOBootloader = {
       updateInstructions: `To update the firmware, press the button at the bottom. You must not hold any key on the keyboard while the countdown is in progress, nor afterwards, until the flashing is finished. When the countdown reaches zero, the Neuron's light should start a blue pulsing pattern, and flashing will then proceed. `
     }
   },
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, filenameSides, flashRaise, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashRaise.updateFirmware(filename, filenameSides, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);
@@ -115,4 +117,4 @@ const Raise_ISOBootloader = {
   }
 };
 
-export { Raise_ISO, Raise_ISOBootloader };
+export { Defy_wireless, Defy_wirelessBootloader };

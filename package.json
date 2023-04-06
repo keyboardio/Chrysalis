@@ -85,6 +85,8 @@
   },
   "dependencies": {
     "bootstrap-css-only": "^4.4.1",
+    "drivelist": "^11.1.0",
+    "easy-crc": "^1.1.0",
     "electron-devtools-installer": "^3.1.1",
     "electron-settings": "^4.0.2",
     "electron-store": "^6.0.1",

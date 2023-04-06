@@ -1,6 +1,5 @@
-/* bazecor-hardware-dygma-raise -- Bazecor support for Dygma Raise
- * Copyright (C) 2018-2019 Keyboardio, Inc.
- * Copyright (C) 2019-2020 DygmaLab SE
+/* bazecor-hardware-dygma-defy-wired -- Bazecor support for Dygma Defy wired
+ * Copyright (C) 2019-2022 DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -32,8 +31,8 @@ const Defy_wired = {
     ]
   },
   usb: {
-    vendorId: 0xffff,
-    productId: 0x800a
+    vendorId: 0x35ef,
+    productId: 0x0010
   },
   keyboard: {
     rows: 5,
@@ -54,15 +53,15 @@ const Defy_wired = {
     }
   },
 
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, filenameSides, flashDefy, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashDefy.updateFirmware(filename, filenameSides, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);
       }
-      flashRaise.saveBackupFile();
+      flashDefy.saveBackupFile();
     });
   },
 
@@ -71,8 +70,8 @@ const Defy_wired = {
     // let layout = localStorage.getItem(port.serialNumber);
     // if (!layout) {
     //   focus._port && focus._port.path === port.path
-    //     ? await focus.open(focus._port, port.device)
-    //     : await focus.open(port.path, port.device);
+    //     ? await focus.open(focus._port, port.device, null)
+    //     : await focus.open(port.path, port.device, null);
     //   layout = await focus.command("hardware.layout");
     //   focus.close();
     //   localStorage.setItem(port.serialNumber, layout);
@@ -96,8 +95,8 @@ const Defy_wiredBootloader = {
     ]
   },
   usb: {
-    vendorId: 0xffff,
-    productId: 0x800b
+    vendorId: 0x35ef,
+    productId: 0x0011
   },
   bootloader: true,
   instructions: {
@@ -105,10 +104,10 @@ const Defy_wiredBootloader = {
       updateInstructions: `To update the firmware, press the button at the bottom. You must not hold any key on the keyboard while the countdown is in progress, nor afterwards, until the flashing is finished. When the countdown reaches zero, the Neuron's light should start a blue pulsing pattern, and flashing will then proceed. `
     }
   },
-  flash: async (_, filename, flashRaise, stateUpdate) => {
+  flash: async (_, filename, filenameSides, flashDefy, stateUpdate) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await flashRaise.updateFirmware(filename, stateUpdate);
+        await flashDefy.updateFirmware(filename, filenameSides, stateUpdate);
         resolve();
       } catch (e) {
         reject(e);

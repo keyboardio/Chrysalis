@@ -18,6 +18,9 @@
 import React, { Component } from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
+import fs from "fs";
+import path from "path";
+import { usb, getDeviceList } from "usb";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -31,12 +34,9 @@ import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import { MdKeyboard } from "react-icons/md";
-
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
-
-import { usb, getDeviceList } from "usb";
+import { RaiseISO, RaiseANSI, Defy } from "../../api/hardware/virtual";
 
 import i18n from "../i18n";
 import NeuronConnection from "../modules/NeuronConnection";
@@ -50,6 +50,17 @@ height: 100vh;
 .main-container {
   overflow: hidden;
   height: 100vh;
+}
+.fileTest {
+  display: block;
+  width: 53%;
+  text-align: center;
+  height: 42px;
+  .btn {
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+  }
 }
 .keyboard-select {
   height: 100%;
@@ -295,7 +306,7 @@ class SelectKeyboard extends Component {
     const { devices } = this.state;
 
     try {
-      await this.props.onConnect(devices[this.state.selectedPortIndex]);
+      await this.props.onConnect(devices[this.state.selectedPortIndex], null);
     } catch (err) {
       this.setState({
         opening: false
@@ -303,6 +314,89 @@ class SelectKeyboard extends Component {
       toast.error(<ToastMessage title={err.toString()} />);
     }
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
+  };
+
+  useAFile = async () => {
+    //TODO: read a file that is a backup
+    let options = {
+      title: i18n.keyboardSettings.backupFolder.title,
+      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    const data = await remote.dialog.showOpenDialog(WIN, options);
+    let filePath;
+    if (!data.canceled) {
+      filePath = data.filePaths[0];
+    } else {
+      console.log("user closed file connect dialog");
+    }
+    console.log("Opening file", filePath);
+    //TODO: Open the file and load it's contents
+    let file;
+    try {
+      file = JSON.parse(fs.readFileSync(filePath));
+      console.log(file);
+      console.log("loaded backup", file.device.info.product + " " + file.device.info.keyboardType, file.virtual.version.data);
+    } catch (e) {
+      console.error(e);
+      alert("The file is not a valid global backup");
+      return;
+    }
+    console.log("Exchange focus for file access");
+
+    for (let device of Hardware.serial) {
+      if (file.device.usb.productId == device.usb.productId && file.device.usb.vendorId == device.usb.vendorId) {
+        file.device.components = device.components;
+      }
+    }
+
+    file.device.path = "VIRTUAL";
+    file.device.bootloader = false;
+    file.device.filePath = filePath;
+    await this.props.onConnect(file.device, file);
+  };
+
+  newFile = async (virtualKeyboard, fileName) => {
+    //TODO: Ask the user for the place to put the backup
+    let options = {
+      title: i18n.keyboardSettings.backupFolder.title,
+      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+      defaultPath: path.join(store.get("settings.backupFolder"), fileName + ".json"),
+      filters: [{ name: "Json", extensions: ["json"] }]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    const newPath = remote.dialog.showSaveDialogSync(WIN, options);
+    console.log("Save file to", newPath);
+
+    //TODO: Save the virtual KB in the specified location
+    const json = JSON.stringify(virtualKeyboard, null, 2);
+    require("fs").writeFileSync(newPath, json, err => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+    });
+    console.log("Exchange focus for file access");
+
+    for (let device of Hardware.serial) {
+      if (
+        virtualKeyboard.device.usb.productId == device.usb.productId &&
+        virtualKeyboard.device.usb.vendorId == device.usb.vendorId
+      ) {
+        virtualKeyboard.device.components = device.components;
+      }
+    }
+
+    virtualKeyboard.device.path = "VIRTUAL";
+    virtualKeyboard.device.bootloader = false;
+    virtualKeyboard.device.filePath = newPath;
+    await this.props.onConnect(virtualKeyboard.device, virtualKeyboard);
   };
 
   render() {
@@ -440,16 +534,6 @@ class SelectKeyboard extends Component {
       connectContent = <circularProgress color="secondary" size={16} />;
     }
 
-    const scanDevicesButton = (
-      <Button
-        color={devices && devices.length ? "secondary" : "primary"}
-        className={scanFoundDevices ? "scan-button" : "scan-button"}
-        onClick={scanFoundDevices ? null : this.scanDevices}
-      >
-        {i18n.keyboardSelect.scan}
-      </Button>
-    );
-
     let connectionButton, permissionWarning;
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
@@ -505,6 +589,12 @@ class SelectKeyboard extends Component {
             selectPort={this.selectPort}
             selectedPortIndex={selectedPortIndex}
           />
+          <div className="fileTest">
+            <Button onClick={this.useAFile}>Use a file</Button>
+            <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
+            <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
+            <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
+          </div>
         </Container>
       </Styles>
     );

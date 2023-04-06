@@ -61,7 +61,7 @@ Badge.defaultProps = {
 
 Badge.propTypes = {
   content: PropTypes.string.isRequired,
-  icon: PropTypes.string
+  icon: PropTypes.object
 };
 
 export default Badge;

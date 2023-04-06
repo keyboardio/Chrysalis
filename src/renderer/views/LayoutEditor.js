@@ -29,9 +29,9 @@ import Modal from "react-bootstrap/Modal";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 import Keymap, { KeymapDB } from "../../api/keymap";
-import ConfirmationDialog from "../components/ConfirmationDialog";
+import ConfirmationDialog from "../component/ConfirmationDialog";
 import i18n from "../i18n";
-import { CopyFromDialog } from "../screens/Editor/CopyFromDialog";
+import { CopyFromDialog } from "../component/CopyFromDialog";
 
 // Modules
 import PageHeader from "../modules/PageHeader";

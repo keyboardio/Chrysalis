@@ -28,12 +28,22 @@ export default class Backup {
       "layer",
       "help",
       "version",
+      "led.mode",
+      "led.theme",
       "led.at",
       "led.setMultiple",
       "led.getMultiple",
       "led.setAll",
       "macros.trigger",
-      "qukeys"
+      "qukeys",
+      "upgrade",
+      "settings.printConfig",
+      "settings.aliveInterval",
+      "settings.spiSpeed",
+      "settings.cpuSpeed",
+      "settings.ledDriverPullUp",
+      "settings.underGlow",
+      "settings.ledDriver"
     ];
     let commands = await this.focus.command("help");
     return commands.filter(c => !notRequired.some(v => c.includes(v)));
@@ -59,14 +69,15 @@ export default class Backup {
    * @returns {Backup} Backup The function returns the full made backup, so it can be stored wherever is needed, and changed if the module requires it.
    */
   async DoBackup(commands, neuronID) {
+    if (this.focus.file !== null) return;
     let backup = {};
-    let aux = [];
+    let commandList = [];
     let versions;
     for (let i = 0; i < commands.length; i++) {
       let command = commands[i];
       console.log(command);
       let data = await this.focus.command(command);
-      aux.push({ command, data });
+      commandList.push({ command, data });
     }
     let vData = await this.focus.command("version");
     let parts = vData.split(" ");
@@ -77,8 +88,9 @@ export default class Backup {
     };
     backup.neuronID = neuronID;
     backup.neuron = this.neurons.filter(n => n.id == neuronID)[0];
+    backup.neuron.device = this.focus.device;
     backup.versions = versions;
-    backup.backup = aux;
+    backup.backup = commandList;
     return backup;
   }
 
@@ -90,12 +102,27 @@ export default class Backup {
    * @returns True when the function has successfully stored the backup locally, and false if something fails, an error log will be also pushed to the console
    */
   SaveBackup(backup) {
+    let focus = new Focus();
+    if (focus.file !== null) {
+      let file = JSON.parse(require("fs").readFileSync(focus.fileData.device.filePath));
+      file.virtual = focus.fileData.virtual;
+      const json = JSON.stringify(file, null, 2);
+      require("fs").writeFileSync(focus.fileData.device.filePath, json, err => {
+        if (err) {
+          console.error(err);
+          throw err;
+        }
+      });
+      return;
+    }
+    let product = focus.device.info.product;
     const d = new Date();
     const folder = store.get("settings.backupFolder");
     try {
-      const folderPath = path.join(folder, `${backup.neuronID}`, "");
+      const folderPath = path.join(folder, product, backup.neuronID);
       const fullPath = path.join(
         folder,
+        product,
         backup.neuronID,
         `${
           d.getFullYear() +
@@ -104,17 +131,27 @@ export default class Backup {
           ("0" + d.getHours()).slice(-2) +
           ("0" + d.getMinutes()).slice(-2) +
           ("0" + d.getSeconds()).slice(-2)
-        }-${backup.neuron.name}.json`
+        }-${backup.neuron.name.replace(/[^\w\s]/gi, "")}.json`
       );
       const json = JSON.stringify(backup, null, 2);
-      // console.log(fullPath, folderPath, backup, json);
+      console.log(fullPath, folderPath, backup);
+      console.log("Creating folders");
       require("fs").mkdir(folderPath, { recursive: true }, err => {
-        if (err) throw err;
+        if (err) {
+          console.error(err);
+          throw err;
+        }
       });
-      require("fs").writeFileSync(fullPath, json);
+      console.log(`Saving Backup to -> ${fullPath}`);
+      require("fs").writeFileSync(fullPath, json, err => {
+        if (err) {
+          console.error(err);
+          throw err;
+        }
+      });
       return true;
     } catch (error) {
-      console.error("Error ocurred", d, folder, error);
+      console.warn("Error ocurred when saving backup to folder");
       return false;
     }
   }

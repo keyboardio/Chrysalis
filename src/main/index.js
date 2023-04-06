@@ -48,10 +48,15 @@ import { uIOhook, UiohookKey } from "uiohook-napi";
 
 const Store = require("electron-store");
 const store = new Store();
+const drivelist = require("drivelist");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
 let globalRecording = false;
+
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
 
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
@@ -154,6 +159,29 @@ async function createMainWindow() {
     // uIOhook.off("click", sendMouseClick);
     // uIOhook.off("wheel", sendMouseWheel);
     uIOhook.stop();
+  });
+
+  ipcMain.handle("list-drives", async (event, someArgument) => {
+    let drives = undefined;
+    let result = undefined;
+    while (result == undefined) {
+      drives = await drivelist.list();
+      drives.forEach(async (drive, index) => {
+        console.log("drive info", drive.description, drive.mountpoints);
+        if (drive.description.includes("RPI RP2") || drive.description.includes("RPI-RP2")) {
+          while (drive.mountpoints[0] == undefined || drive.mountpoints.length == 0) {
+            delay(100);
+            drives = await drivelist.list();
+            result = drives[index].mountpoints[0];
+            console.log(result);
+          }
+          if (result == undefined) {
+            result = drive.mountpoints[0];
+          }
+        }
+      });
+    }
+    return result.path;
   });
 
   window.on("closed", () => {
@@ -263,7 +291,7 @@ app.on("ready", async () => {
   let bfolder = store.get("settings.backupFolder");
   console.log("CHECKING BACKUP FOLDER VALUE", bfolder);
   if (bfolder == "" || bfolder == undefined) {
-    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
+    const defaultPath = path.join(app.getPath("home"), "Dygma", "Backups");
     console.log(defaultPath);
     store.set("settings.backupFolder", defaultPath);
     fs.mkdir(defaultPath, { recursive: true }, err => {

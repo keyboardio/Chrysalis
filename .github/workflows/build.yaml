@@ -20,7 +20,7 @@ jobs:
             gyp: ""
           - os: windows-2019
             gyp: ""
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             gyp: use_udev=0 use_system_libusb=true
 
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: Install USB compilation dependencies
         uses: lyricwulf/abc@v1
         with:
-          linux: build-essential libusb-1.0-0 libudev-dev
+          linux: build-essential libusb-1.0-0 libudev-dev libxtst-dev libxrandr-dev
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v3

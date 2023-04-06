@@ -5,9 +5,6 @@ import i18n from "../../i18n";
 // Internal components
 import { KeymapDB } from "../../../api/keymap";
 import { Picker } from "./../KeyPickerKeyboard";
-import Keys from "../../components/KeyManager/Keys";
-import Selector from "../../components/KeyManager/Selector";
-import Title from "../../component/Title";
 import ListModifiers from "../../component/ListModifiers/ListModifiers";
 
 import ModPicker from "./ModPicker";

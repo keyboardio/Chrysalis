@@ -132,7 +132,7 @@ class NavigationMenu extends Component {
         kaleidoscope: parts[1],
         firmware: parts[2]
       };
-      this.setState({ versions: versions, flashing: this.props.flashing });
+      this.setState({ versions: versions, flashing: this.props.flashing, virtual: focus.file });
     });
   }
 
@@ -154,7 +154,7 @@ class NavigationMenu extends Component {
         kaleidoscope: parts[1],
         firmware: parts[2]
       };
-      this.setState({ versions: versions, flashing: this.props.flashing });
+      this.setState({ versions: versions, flashing: this.props.flashing, virtual: focus.file });
     });
   }
 
@@ -256,14 +256,14 @@ class NavigationMenu extends Component {
                       </Link>
                     </React.Fragment>
                   )}
-                  <Link to="/firmware-update" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
+                  <Link to="/firmware-update" className={`list-link ${fwUpdate || this.state.virtual ? "disabled" : ""}`}>
                     <NavigationButton
                       selected={currentPage === "/firmware-update"}
                       drawerWidth={drawerWidth}
                       showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
                       buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
-                      disabled={fwUpdate}
+                      disabled={fwUpdate || this.state.virtual}
                     />
                   </Link>
                 </>

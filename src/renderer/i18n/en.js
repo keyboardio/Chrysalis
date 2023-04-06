@@ -607,7 +607,8 @@ const English = {
       useTitle: "Select Virtual keyboard file",
       buttonLabel: "Select",
       buttonLabelSave: "Save",
-      alert: "The file is not a valid virtual keyboard"
+      errorLoadingFile: "The file is not a valid virtual keyboard nor Backup",
+      backupTransform: "The selected file is a Backup, do you want to transform it into a virtual keyboard"
     }
   },
   firmwareUpdate: {

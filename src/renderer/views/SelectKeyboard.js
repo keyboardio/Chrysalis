@@ -41,6 +41,7 @@ import { RaiseISO, RaiseANSI, Defy } from "../../api/hardware/virtual";
 import i18n from "../i18n";
 import NeuronConnection from "../modules/NeuronConnection";
 import ToastMessage from "../component/ToastMessage";
+import { newError } from "builder-util-runtime";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -316,8 +317,70 @@ class SelectKeyboard extends Component {
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
+  convertBackupToVK = backup => {
+    let vk, fileName;
+
+    for (let device of Hardware.serial) {
+      if (
+        backup.neuron.device.usb.productId == device.usb.productId &&
+        backup.neuron.device.usb.vendorId == device.usb.vendorId &&
+        backup.neuron.device.info.keyboardType == device.info.keyboardType
+      ) {
+        if (device.info.keyboardType == "ANSI") {
+          vk = RaiseANSI;
+          fileName = "VirtualRaiseANSI";
+        }
+        if (device.info.keyboardType == "ISO") {
+          vk = RaiseISO;
+          fileName = "VirtualRaiseISO";
+        }
+        if (device.info.keyboardType == "wired") {
+          vk = Defy;
+          fileName = "VirtualDefy";
+        }
+        //TODO: replace this DEFY with the wireless version
+        if (device.info.keyboardType == "wireless") {
+          vk = Defy;
+          fileName = "VirtualDefy";
+        }
+        vk.device.components = device.components;
+      }
+    }
+
+    for (let line of backup.backup) {
+      vk.virtual[line.command].data = line.data;
+    }
+
+    // Ask the user for the place to put the backup
+
+    let options = {
+      title: i18n.keyboardSelect.virtualKeyboard.newTitle,
+      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
+      defaultPath: path.join(store.get("settings.backupFolder"), fileName + ".json"),
+      filters: [{ name: "Json", extensions: ["json"] }]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    const newPath = remote.dialog.showSaveDialogSync(WIN, options);
+    console.log("Save file to", newPath);
+
+    // Save the virtual KB in the specified location
+    const json = JSON.stringify(vk, null, 2);
+    require("fs").writeFileSync(newPath, json, err => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+    });
+
+    vk.device.path = "VIRTUAL";
+    vk.device.bootloader = false;
+    vk.device.filePath = newPath;
+    return vk;
+  };
+
   useAFile = async () => {
-    //TODO: read a file that is a backup
+    // Read a file that is a backup
     let options = {
       title: i18n.keyboardSelect.virtualKeyboard.useTitle,
       buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabel,
@@ -336,18 +399,26 @@ class SelectKeyboard extends Component {
       console.log("user closed file connect dialog");
     }
     console.log("Opening file", filePath);
-    //TODO: Open the file and load it's contents
+    // Open the file and load it's contents
     let file;
     try {
       file = JSON.parse(fs.readFileSync(filePath));
-      console.log(file);
-      console.log("loaded backup", file.device.info.product + " " + file.device.info.keyboardType, file.virtual.version.data);
+      // console.log(file);
+      // console.log("loaded backup", file.device.info.product + " " + file.device.info.keyboardType, file.virtual.version.data);
+      if (!file.virtual && !file.backup) newError("not a valid file, no virtual or backup objects");
     } catch (e) {
       console.error(e);
-      alert(i18n.keyboardSelect.virtualKeyboard.alert);
+      alert(i18n.keyboardSelect.virtualKeyboard.errorLoadingFile);
       return;
     }
-    console.log("Exchange focus for file access");
+    if (!file.virtual && file.backup) {
+      if (!confirm(i18n.keyboardSelect.virtualKeyboard.backupTransform)) {
+        return;
+      }
+      file = this.convertBackupToVK(file);
+      await this.props.onConnect(file.device, file);
+      return;
+    }
 
     for (let device of Hardware.serial) {
       if (
@@ -366,7 +437,7 @@ class SelectKeyboard extends Component {
   };
 
   newFile = async (virtualKeyboard, fileName) => {
-    //TODO: Ask the user for the place to put the backup
+    // Ask the user for the place to put the backup
     let options = {
       title: i18n.keyboardSelect.virtualKeyboard.newTitle,
       buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
@@ -378,7 +449,7 @@ class SelectKeyboard extends Component {
     const newPath = remote.dialog.showSaveDialogSync(WIN, options);
     console.log("Save file to", newPath);
 
-    //TODO: Save the virtual KB in the specified location
+    // Save the virtual KB in the specified location
     const json = JSON.stringify(virtualKeyboard, null, 2);
     require("fs").writeFileSync(newPath, json, err => {
       if (err) {

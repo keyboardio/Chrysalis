@@ -32,7 +32,7 @@ export default class rp2040 {
   async flash(file, stateUpdate, finished) {
     ipcRenderer.invoke("list-drives", true).then(result => {
       let finalPath = path.join(result, "default.uf2");
-      console.log("RESULTS!!!", result, file, " to ", finalPath);
+      // console.log("RESULTS!!!", result, file, " to ", finalPath);
       fs.copyFileSync(file, finalPath);
       stateUpdate(3, 80);
       finished(false, "");

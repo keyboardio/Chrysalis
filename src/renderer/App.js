@@ -233,7 +233,6 @@ class App extends React.Component {
   onKeyboardConnect = async (port, file) => {
     await focus.close();
 
-    console.log("TEST!", port);
     if (!port.path) {
       port.device.device = port.device;
 
@@ -260,7 +259,6 @@ class App extends React.Component {
     }
 
     console.log("Probing for Focus support...");
-    console.log("THIS!!", focus);
     focus.setLayerSize(focus.device);
     focus.setLEDMode(focus.device);
     const pages = {

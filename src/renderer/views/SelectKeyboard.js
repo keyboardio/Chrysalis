@@ -397,6 +397,7 @@ class SelectKeyboard extends Component {
       filePath = data.filePaths[0];
     } else {
       console.log("user closed file connect dialog");
+      return;
     }
     console.log("Opening file", filePath);
     // Open the file and load it's contents

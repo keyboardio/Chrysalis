@@ -69,7 +69,7 @@ export default class Backup {
    * @returns {Backup} Backup The function returns the full made backup, so it can be stored wherever is needed, and changed if the module requires it.
    */
   async DoBackup(commands, neuronID) {
-    if (this.focus.file !== null) return;
+    if (this.focus.file !== false) return;
     let backup = {};
     let commandList = [];
     let versions;
@@ -103,7 +103,7 @@ export default class Backup {
    */
   SaveBackup(backup) {
     let focus = new Focus();
-    if (focus.file !== null) {
+    if (focus.file !== false) {
       let file = JSON.parse(require("fs").readFileSync(focus.fileData.device.filePath));
       file.virtual = focus.fileData.virtual;
       const json = JSON.stringify(file, null, 2);

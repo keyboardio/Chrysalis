@@ -350,7 +350,11 @@ class SelectKeyboard extends Component {
     console.log("Exchange focus for file access");
 
     for (let device of Hardware.serial) {
-      if (file.device.usb.productId == device.usb.productId && file.device.usb.vendorId == device.usb.vendorId) {
+      if (
+        file.device.usb.productId == device.usb.productId &&
+        file.device.usb.vendorId == device.usb.vendorId &&
+        file.device.info.keyboardType == device.info.keyboardType
+      ) {
         file.device.components = device.components;
       }
     }
@@ -387,7 +391,8 @@ class SelectKeyboard extends Component {
     for (let device of Hardware.serial) {
       if (
         virtualKeyboard.device.usb.productId == device.usb.productId &&
-        virtualKeyboard.device.usb.vendorId == device.usb.vendorId
+        virtualKeyboard.device.usb.vendorId == device.usb.vendorId &&
+        virtualKeyboard.device.info.keyboardType == device.info.keyboardType
       ) {
         virtualKeyboard.device.components = device.components;
       }

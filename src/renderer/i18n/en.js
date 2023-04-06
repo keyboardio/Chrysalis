@@ -601,7 +601,14 @@ const English = {
     scan: "Scan keyboards",
     installUdevRules: "Fix it",
     permissionError: `Your computer won't let BAZECOR talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
-    permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`
+    permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`,
+    virtualKeyboard: {
+      newTitle: "Select new Virtual keyboard file location",
+      useTitle: "Select Virtual keyboard file",
+      buttonLabel: "Select",
+      buttonLabelSave: "Save",
+      alert: "The file is not a valid virtual keyboard"
+    }
   },
   firmwareUpdate: {
     texts: {

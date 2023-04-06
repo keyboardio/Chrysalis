@@ -319,8 +319,8 @@ class SelectKeyboard extends Component {
   useAFile = async () => {
     //TODO: read a file that is a backup
     let options = {
-      title: i18n.keyboardSettings.backupFolder.title,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+      title: i18n.keyboardSelect.virtualKeyboard.useTitle,
+      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabel,
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: i18n.dialog.allFiles, extensions: ["*"] }
@@ -344,7 +344,7 @@ class SelectKeyboard extends Component {
       console.log("loaded backup", file.device.info.product + " " + file.device.info.keyboardType, file.virtual.version.data);
     } catch (e) {
       console.error(e);
-      alert("The file is not a valid global backup");
+      alert(i18n.keyboardSelect.virtualKeyboard.alert);
       return;
     }
     console.log("Exchange focus for file access");
@@ -364,8 +364,8 @@ class SelectKeyboard extends Component {
   newFile = async (virtualKeyboard, fileName) => {
     //TODO: Ask the user for the place to put the backup
     let options = {
-      title: i18n.keyboardSettings.backupFolder.title,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+      title: i18n.keyboardSelect.virtualKeyboard.newTitle,
+      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
       defaultPath: path.join(store.get("settings.backupFolder"), fileName + ".json"),
       filters: [{ name: "Json", extensions: ["json"] }]
     };
@@ -590,10 +590,10 @@ class SelectKeyboard extends Component {
             selectedPortIndex={selectedPortIndex}
           />
           <div className="fileTest">
-            <Button onClick={this.useAFile}>Use a file</Button>
-            <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
-            <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
             <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
+            <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
+            <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
+            <Button onClick={this.useAFile}>Use a file</Button>
           </div>
         </Container>
       </Styles>

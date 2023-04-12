@@ -87,20 +87,21 @@ export default class BackupSettings extends Component {
       .then(resp => {
         if (!resp.canceled) {
           console.log(resp.filePaths);
-          let backup;
+          let loadedFile;
           try {
-            backup = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(
-              "loaded backup",
-              backup.backup == undefined ? backup[0].command : backup.backup[0].command,
-              backup.backup == undefined ? backup[0].data : backup.backup[0].data
-            );
+            loadedFile = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            if (loadedFile.virtual !== undefined) {
+              this.restoreVirtual(loadedFile.virtual);
+            }
+            if (loadedFile.backup !== undefined || loadedFile[0].command !== undefined) {
+              this.restoreBackup(loadedFile);
+            }
+            console.log("loaded backup");
           } catch (e) {
             console.error(e);
             alert("The file is not a valid global backup");
             return;
           }
-          this.restoreBackup(backup);
         } else {
           console.log("user closed SaveDialog");
         }
@@ -148,6 +149,25 @@ export default class BackupSettings extends Component {
       await focus.command("led.mode 0");
       console.log("Restoring all settings");
       console.log("Firmware update OK");
+      return true;
+    } catch (e) {
+      console.log(`Restore settings: Error: ${e.message}`);
+      return false;
+    }
+  }
+
+  async restoreVirtual(virtual) {
+    let focus = new Focus();
+    try {
+      console.log("Restoring all settings");
+      for (let command in virtual) {
+        if (virtual[command].eraseable === true) {
+          console.log(`Going to send ${command} to keyboard`);
+          await focus.command(`${command} ${virtual[command].data}`.trim());
+        }
+      }
+      await focus.command("led.mode 0");
+      console.log("Settings restored OK");
       return true;
     } catch (e) {
       console.log(`Restore settings: Error: ${e.message}`);

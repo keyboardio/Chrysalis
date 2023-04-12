@@ -379,6 +379,18 @@ class SelectKeyboard extends Component {
     return vk;
   };
 
+  getDateTime = () => {
+    const d = new Date();
+    return `-${
+      d.getFullYear() +
+      ("0" + (d.getMonth() + 1)).slice(-2) +
+      ("0" + d.getDate()).slice(-2) +
+      ("0" + d.getHours()).slice(-2) +
+      ("0" + d.getMinutes()).slice(-2) +
+      ("0" + d.getSeconds()).slice(-2)
+    }`;
+  };
+
   useAFile = async () => {
     // Read a file that is a backup
     let options = {
@@ -434,6 +446,7 @@ class SelectKeyboard extends Component {
     file.device.path = "VIRTUAL";
     file.device.bootloader = false;
     file.device.filePath = filePath;
+    file.virtual["hardware.chip_id"].data = file.virtual["hardware.chip_id"].data + this.getDateTime();
     await this.props.onConnect(file.device, file);
   };
 
@@ -473,6 +486,7 @@ class SelectKeyboard extends Component {
     virtualKeyboard.device.path = "VIRTUAL";
     virtualKeyboard.device.bootloader = false;
     virtualKeyboard.device.filePath = newPath;
+    virtualKeyboard.virtual["hardware.chip_id"].data = virtualKeyboard.virtual["hardware.chip_id"].data + this.getDateTime();
     await this.props.onConnect(virtualKeyboard.device, virtualKeyboard);
   };
 

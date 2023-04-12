@@ -92,11 +92,14 @@ export default class BackupSettings extends Component {
             loadedFile = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
             if (loadedFile.virtual !== undefined) {
               this.restoreVirtual(loadedFile.virtual);
+              console.log("Restored Virtual backup");
+              return;
             }
             if (loadedFile.backup !== undefined || loadedFile[0].command !== undefined) {
               this.restoreBackup(loadedFile);
+              console.log("Restored normal backup");
+              return;
             }
-            console.log("loaded backup");
           } catch (e) {
             console.error(e);
             alert("The file is not a valid global backup");

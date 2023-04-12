@@ -327,20 +327,20 @@ class SelectKeyboard extends Component {
         backup.neuron.device.info.keyboardType == device.info.keyboardType
       ) {
         if (device.info.keyboardType == "ANSI") {
-          vk = RaiseANSI;
+          vk = { ...RaiseANSI };
           fileName = "VirtualRaiseANSI";
         }
         if (device.info.keyboardType == "ISO") {
-          vk = RaiseISO;
+          vk = { ...RaiseISO };
           fileName = "VirtualRaiseISO";
         }
         if (device.info.keyboardType == "wired") {
-          vk = Defy;
+          vk = { ...Defy };
           fileName = "VirtualDefy";
         }
         //TODO: replace this DEFY with the wireless version
         if (device.info.keyboardType == "wireless") {
-          vk = Defy;
+          vk = { ...Defy };
           fileName = "VirtualDefy";
         }
         vk.device.components = device.components;
@@ -429,6 +429,7 @@ class SelectKeyboard extends Component {
         return;
       }
       file = this.convertBackupToVK(file);
+      file.virtual["hardware.chip_id"].data = file.virtual["hardware.chip_id"].data + this.getDateTime();
       await this.props.onConnect(file.device, file);
       return;
     }
@@ -446,7 +447,6 @@ class SelectKeyboard extends Component {
     file.device.path = "VIRTUAL";
     file.device.bootloader = false;
     file.device.filePath = filePath;
-    file.virtual["hardware.chip_id"].data = file.virtual["hardware.chip_id"].data + this.getDateTime();
     await this.props.onConnect(file.device, file);
   };
 

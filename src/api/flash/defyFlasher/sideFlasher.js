@@ -114,11 +114,11 @@ export default class sideFlaser {
     console.log(`flashing ${side} side keyboard`);
     serialport.write(`upgrade.keyscanner.isConnected ${sideId}\n`);
     await readLine();
-    let isRightConnected = await readLine();
+    let isConnected = await readLine();
     serialport.write(`upgrade.keyscanner.isBootloader ${sideId}\n`);
     await readLine();
-    let isRightInBoot = await readLine();
-    if (!isRightConnected || !isRightInBoot) return;
+    let isItBootloader = await readLine();
+    if (!isConnected || !isItBootloader) return;
     serialport.write(`upgrade.keyscanner.begin ${sideId}\n`);
     await readLine();
     ans = await readLine();

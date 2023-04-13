@@ -26,6 +26,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { RegularButton } from "../component/Button";
 
 import PageHeader from "../modules/PageHeader";
@@ -43,6 +44,9 @@ import NeuronConnection from "../modules/NeuronConnection";
 import ToastMessage from "../component/ToastMessage";
 import { newError } from "builder-util-runtime";
 
+import { IconArrowRight, IconCloudDownload, IconUpload } from "../component/Icon";
+import Title from "../component/Title";
+
 const Store = require("electron-store");
 const store = new Store();
 
@@ -52,15 +56,23 @@ height: 100vh;
   overflow: hidden;
   height: 100vh;
 }
-.fileTest {
+.cardButton-wrapper {
   display: block;
-  width: 53%;
-  text-align: center;
-  height: 42px;
-  .btn {
-    padding: 10px;
-    margin: 10px;
+  width: 100%;
+  text-align: left;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray800};
+  .cardButton {
+    padding: 8px 24px;
+    background: rgba(37, 39, 59, 0.5);
+    border-radius: 6px;
     width: 100%;
+    .button-link {
+      padding-left: 0;
+      font-size: 14px;
+      color: ${({ theme }) => theme.colors.purple200};
+    }
   }
 }
 .keyboard-select {
@@ -191,7 +203,8 @@ class SelectKeyboard extends Component {
       opening: false,
       devices: null,
       loading: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      showVirtualKeyboardModal: false
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
@@ -266,6 +279,10 @@ class SelectKeyboard extends Component {
       this.setState({ scanFoundDevices: undefined });
     }, 1000);
   };
+
+  toggleVirtualKeyboardModal() {
+    this.setState({ showVirtualKeyboardModal: !this.state.showVirtualKeyboardModal });
+  }
 
   componentDidMount() {
     this.finder = () => {
@@ -668,23 +685,97 @@ class SelectKeyboard extends Component {
       <Styles>
         <Container fluid className="keyboard-select center-content">
           <PageHeader text={i18n.keyboardSelect.title} />
-          <NeuronConnection
-            loading={loading}
-            scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}
-            scanDevices={this.scanDevices}
-            cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
-            onKeyboardConnect={this.onKeyboardConnect}
-            connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
-            onDisconnect={onDisconnect}
-            deviceItems={deviceItems != null ? deviceItems : []}
-            selectPort={this.selectPort}
-            selectedPortIndex={selectedPortIndex}
-          />
-          <div className="fileTest">
-            <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
-            <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
-            <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
-            <Button onClick={this.useAFile}>Use a file</Button>
+          <div className="keyboardSelection-wrapper">
+            <NeuronConnection
+              loading={loading}
+              scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}
+              scanDevices={this.scanDevices}
+              cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
+              onKeyboardConnect={this.onKeyboardConnect}
+              connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
+              onDisconnect={onDisconnect}
+              deviceItems={deviceItems != null ? deviceItems : []}
+              selectPort={this.selectPort}
+              selectedPortIndex={selectedPortIndex}
+            />
+            <div className="cardButton-wrapper">
+              <div className="cardButton">
+                <RegularButton
+                  buttonText="Use without a keyboard"
+                  style="button-link"
+                  icoSVG={<IconArrowRight />}
+                  icoPosition="right"
+                  size="sm"
+                  onClick={() => {
+                    this.toggleVirtualKeyboardModal();
+                  }}
+                />
+              </div>
+              <Modal
+                show={this.state.showVirtualKeyboardModal}
+                size="lg"
+                onHide={() => this.toggleVirtualKeyboardModal()}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Manage virtual keyboard</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="virtualKeyboards-wrapper">
+                    <div className="virtualKeyboards-col">
+                      <Title text="I want to start from stratch" headingLevel={4} svgICO={<IconCloudDownload />} />
+                      <p>I want to create a new virtual keyboard with default settings.</p>
+                      <Dropdown className="custom-dropdown" onSelect={selectPort}>
+        <Dropdown.Toggle id="dropdown-custom">
+          <div className="dropdownItemSelected">
+            <div className="dropdownIcon">
+              {deviceItems[selectedPortIndex] && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
+            </div>
+            <div className="dropdownItem">
+              <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
+              <h4>
+                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}{" "}
+                <small>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].path : ""}</small>
+              </h4>
+            </div>
+          </div>
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="super-colors">
+          {deviceItems.map(item => (
+            <Dropdown.Item
+              eventKey={item.index}
+              key={item.index}
+              className={`${selectedPortIndex == item.index ? "active" : ""}`}
+            >
+              <div className="dropdownInner">
+                <div className="dropdownIcon">
+                  {selectedPortIndex == item.index && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
+                </div>
+                <div className="dropdownItem">
+                  <h3>{item.userName}</h3>
+                  <h4>
+                    {item.displayName} <small>{item.path}</small>
+                  </h4>
+                </div>
+              </div>
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+                      <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
+                      <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
+                      <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
+                    </div>
+                    <div className="virtualKeyboards-col">
+                      <Title text="I have a backup file" headingLevel={4} svgICO={<IconUpload />} />
+                      <p>I want to use an existing configuration file as a starting point.</p>
+                      <RegularButton buttonText="Load file" style="primary" onClick={() => this.useAFile()} />
+                    </div>
+                  </div>
+                </Modal.Body>
+              </Modal>
+            </div>
           </div>
         </Container>
       </Styles>

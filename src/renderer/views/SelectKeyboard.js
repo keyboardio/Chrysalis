@@ -681,9 +681,9 @@ class SelectKeyboard extends Component {
             selectedPortIndex={selectedPortIndex}
           />
           <div className="fileTest">
-            <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
-            <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
-            <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
+            <Button onClick={() => this.newFile({ ...Defy }, "VirtualDefy")}>Create a new Virtual Defy</Button>
+            <Button onClick={() => this.newFile({ ...RaiseANSI }, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
+            <Button onClick={() => this.newFile({ ...RaiseISO }, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
             <Button onClick={this.useAFile}>Use a file</Button>
           </div>
         </Container>

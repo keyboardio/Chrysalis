@@ -49,14 +49,13 @@ export default class sideFlaser {
     };
 
     // Serial port instancing
-
     const serialport = new SerialPort(this.path, { baudRate: 115200 });
     const parser = serialport.pipe(new Delimiter({ delimiter: "\r\n" }));
     let receivedData = [];
     parser.on("data", function (data) {
       receivedData.push(data.toString("utf-8"));
     });
-
+    console.log("Upgrading the neuron...");
     serialport.write("upgrade.neuron\n");
     await sleep(10);
     serialport.close(function (err) {
@@ -75,16 +74,14 @@ export default class sideFlaser {
 
     const recoverSeal = bin => {
       const uint = new Uint32Array(bin);
-      // Seal(hardwareVersion=SealHeader(deviceId=1263747922, version=1, size=32, crc=197434883), programStart=20736, programSize=57552, programCrc=3782824883, programVersion=16777217
       return {
-        // deviceId: uint[0],
-        version: uint[1],
-        size: uint[2],
-        crc: uint[3],
-        programStart: uint[4],
-        programSize: uint[5],
-        programCrc: uint[6],
-        programVersion: uint[7]
+        version: uint[0],
+        size: uint[1],
+        crc: uint[2],
+        programStart: uint[3],
+        programSize: uint[4],
+        programCrc: uint[5],
+        programVersion: uint[6]
       };
     };
 
@@ -98,7 +95,9 @@ export default class sideFlaser {
     const hexFile = fs.readFileSync(this.filename, "hex");
     const fromHexString = hexString => Uint8Array.from(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
     const binaryFile = fromHexString(hexFile);
-    const seal = recoverSeal(binaryFile.slice(0, 32));
+    const seal = recoverSeal(binaryFile.slice(0, 28));
+    console.log("This is the seal", seal);
+    console.dir(seal);
 
     // Serial port instancing
 
@@ -111,29 +110,19 @@ export default class sideFlaser {
 
     // Begin upgrade process for selected side
     let ans;
-    if (side === "right") {
-      console.log("flashing right side keyboard");
-      serialport.write("upgrade.keyscanner.isConnected 0\n");
-      let isRightConnected = await readLine();
-      serialport.write("upgrade.keyscanner.isBootloader 0\n");
-      let isRightInBoot = await readLine();
-      if (!isRightConnected || !isRightInBoot) return;
-      serialport.write("upgrade.keyscanner.begin 0\n");
-      await readLine();
-      ans = await readLine();
-      if (ans.trim() !== "true") return { error: true, message: "Right side disconnected from keyboard\n" };
-    } else {
-      console.log("flashing left side keyboard");
-      serialport.write("upgrade.keyscanner.isConnected 1\n");
-      let isLeftConnected = await readLine();
-      serialport.write("upgrade.keyscanner.isBootloader 1\n");
-      let isLeftInBoot = await readLine();
-      if (!isLeftConnected || !isLeftInBoot) return;
-      serialport.write("upgrade.keyscanner.begin 1\n");
-      await readLine();
-      ans = await readLine();
-      if (ans.trim() !== "true") return { error: true, message: "Left side disconnected from keyboard\n" };
-    }
+    const sideId = side === "right" ? 0 : 1;
+    console.log(`flashing ${side} side keyboard`);
+    serialport.write(`upgrade.keyscanner.isConnected ${sideId}\n`);
+    await readLine();
+    let isRightConnected = await readLine();
+    serialport.write(`upgrade.keyscanner.isBootloader ${sideId}\n`);
+    await readLine();
+    let isRightInBoot = await readLine();
+    if (!isRightConnected || !isRightInBoot) return;
+    serialport.write(`upgrade.keyscanner.begin ${sideId}\n`);
+    await readLine();
+    ans = await readLine();
+    if (ans.trim() !== "true") return { error: true, message: `${side} side disconnected from keyboard\n` };
 
     serialport.write("upgrade.keyscanner.getInfo\n");
     await readLine();

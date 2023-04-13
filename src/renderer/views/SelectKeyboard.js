@@ -44,8 +44,10 @@ import NeuronConnection from "../modules/NeuronConnection";
 import ToastMessage from "../component/ToastMessage";
 import { newError } from "builder-util-runtime";
 
-import { IconArrowRight, IconCloudDownload, IconUpload } from "../component/Icon";
+import { IconArrowRight, IconCloudDownload, IconUpload, IconKeyboard } from "../component/Icon";
+import iconKeyboard from "../../../static/base/icon-keyboard.svg";
 import Title from "../component/Title";
+import { Select } from "../component/Select";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -193,6 +195,8 @@ height: 100vh;
     }
   }
 }
+
+
 `;
 
 class SelectKeyboard extends Component {
@@ -204,12 +208,14 @@ class SelectKeyboard extends Component {
       devices: null,
       loading: false,
       dropdownOpen: false,
-      showVirtualKeyboardModal: false
+      showVirtualKeyboardModal: false,
+      selectedVirtualKeyboard: 0
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
     this.scanDevices = this.scanDevices.bind(this);
     this.selectPort = this.selectPort.bind(this);
+    this.selectVirtualKeyboard = this.selectVirtualKeyboard.bind(this);
   }
 
   findNonSerialKeyboards = deviceList => {
@@ -312,6 +318,11 @@ class SelectKeyboard extends Component {
     usb.off("attach", this.finder);
     usb.off("detach", this.finder);
   }
+
+  selectVirtualKeyboard = event => {
+    console.log(event);
+    this.setState({ selectedVirtualKeyboard: event });
+  };
 
   selectPort = event => {
     console.log(event);
@@ -508,9 +519,35 @@ class SelectKeyboard extends Component {
   };
 
   render() {
-    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen } = this.state;
+    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
 
     const { onDisconnect } = this.props;
+    const virtualKeyboards = [
+      {
+        model: Defy,
+        text: "Dygma Defy",
+        fileName: "VirtualDefy",
+        value: 0,
+        index: 0,
+        icon: iconKeyboard
+      },
+      {
+        model: RaiseANSI,
+        text: "Dygma Raise ANSI",
+        fileName: "VirtualRaiseANSI",
+        value: 1,
+        index: 1,
+        icon: iconKeyboard
+      },
+      {
+        model: RaiseISO,
+        text: "Dygma Raise ISO",
+        fileName: "VirtualRaiseISO",
+        value: 2,
+        index: 2,
+        icon: iconKeyboard
+      }
+    ];
 
     let loader = null;
     if (this.state.loading) {
@@ -726,46 +763,49 @@ class SelectKeyboard extends Component {
                     <div className="virtualKeyboards-col">
                       <Title text="I want to start from stratch" headingLevel={4} svgICO={<IconCloudDownload />} />
                       <p>I want to create a new virtual keyboard with default settings.</p>
-                      <Dropdown className="custom-dropdown" onSelect={selectPort}>
-        <Dropdown.Toggle id="dropdown-custom">
-          <div className="dropdownItemSelected">
-            <div className="dropdownIcon">
-              {deviceItems[selectedPortIndex] && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
-            </div>
-            <div className="dropdownItem">
-              <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
-              <h4>
-                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}{" "}
-                <small>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].path : ""}</small>
-              </h4>
-            </div>
-          </div>
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="super-colors">
-          {deviceItems.map(item => (
-            <Dropdown.Item
-              eventKey={item.index}
-              key={item.index}
-              className={`${selectedPortIndex == item.index ? "active" : ""}`}
-            >
-              <div className="dropdownInner">
-                <div className="dropdownIcon">
-                  {selectedPortIndex == item.index && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
-                </div>
-                <div className="dropdownItem">
-                  <h3>{item.userName}</h3>
-                  <h4>
-                    {item.displayName} <small>{item.path}</small>
-                  </h4>
-                </div>
-              </div>
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-                      <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
+                      <label>Select model</label>
+                      <Dropdown className="custom-dropdown" onSelect={this.selectVirtualKeyboard}>
+                        <Dropdown.Toggle id="dropdown-custom">
+                          <div className="dropdownItemSelected">
+                            <div className="dropdownIcon">
+                              <img src={iconKeyboard} />
+                            </div>
+                            <div className="dropdownItem">{virtualKeyboards[selectedVirtualKeyboard].text}</div>
+                          </div>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="super-colors virtualKeyboardsMenu">
+                          {virtualKeyboards.map(item => (
+                            <Dropdown.Item
+                              eventKey={item.index}
+                              key={item.index}
+                              className={`${selectedVirtualKeyboard == item.index ? "active" : ""}`}
+                            >
+                              <div className="dropdownInner">
+                                <div className="dropdownIcon">
+                                  <img src={iconKeyboard} />
+                                </div>
+                                <div className="dropdownItem">{item.text}</div>
+                              </div>
+                            </Dropdown.Item>
+                          ))}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <RegularButton
+                        buttonText="Create"
+                        style="primary"
+                        onClick={() =>
+                          this.newFile(
+                            virtualKeyboards[selectedVirtualKeyboard].model,
+                            virtualKeyboards[selectedVirtualKeyboard].fileName
+                          )
+                        }
+                      />
+                      {/* <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
                       <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
-                      <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
+                      <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button> */}
+                    </div>
+                    <div className="virtualKeyboards-col virtualKeyboards-col--text">
+                      <span>OR</span>
                     </div>
                     <div className="virtualKeyboards-col">
                       <Title text="I have a backup file" headingLevel={4} svgICO={<IconUpload />} />

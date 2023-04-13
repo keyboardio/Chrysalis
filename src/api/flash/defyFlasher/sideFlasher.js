@@ -1,3 +1,33 @@
+/* bazecor-side-flasher -- Dygma keyboards keyscanner updater module for Bazecor
+ * Supported Commands in order of execution -->
+ *
+ * upgrade.start
+ * upgrade.neuron
+ * upgrade.end
+ * upgrade.keyscanner.isConnected (0:Right / 1:Left)
+ * upgrade.keyscanner.isBootloader (0:Right / 1:Left)
+ * upgrade.keyscanner.begin (0:Right / 1:Left) // after this one, FW remembers the chosen side
+ * upgrade.keyscanner.getInfo
+ * upgrade.keyscanner.sendWrite
+ * upgrade.keyscanner.validate
+ * upgrade.keyscanner.finish
+ * upgrade.keyscanner.sendStart
+ *
+ * Copyright (C) 2019, 2020  DygmaLab SE
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import fs from "fs";
 import { crc32 } from "easy-crc";
 import SerialPort from "serialport";
@@ -83,13 +113,23 @@ export default class sideFlaser {
     let ans;
     if (side === "right") {
       console.log("flashing right side keyboard");
-      serialport.write("upgrade.keyscanner.beginRight\n");
+      serialport.write("upgrade.keyscanner.isConnected 0\n");
+      let isRightConnected = await readLine();
+      serialport.write("upgrade.keyscanner.isBootloader 0\n");
+      let isRightInBoot = await readLine();
+      if (!isRightConnected || !isRightInBoot) return;
+      serialport.write("upgrade.keyscanner.begin 0\n");
       await readLine();
       ans = await readLine();
       if (ans.trim() !== "true") return { error: true, message: "Right side disconnected from keyboard\n" };
     } else {
       console.log("flashing left side keyboard");
-      serialport.write("upgrade.keyscanner.beginLeft\n");
+      serialport.write("upgrade.keyscanner.isConnected 1\n");
+      let isLeftConnected = await readLine();
+      serialport.write("upgrade.keyscanner.isBootloader 1\n");
+      let isLeftInBoot = await readLine();
+      if (!isLeftConnected || !isLeftInBoot) return;
+      serialport.write("upgrade.keyscanner.begin 1\n");
       await readLine();
       ans = await readLine();
       if (ans.trim() !== "true") return { error: true, message: "Left side disconnected from keyboard\n" };
@@ -113,25 +153,32 @@ export default class sideFlaser {
     let totalsteps = binaryFile.length / 256;
     console.log("CRC check is ", info.programCrc != seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
     // if (info.programCrc != seal.programCrc) {
-    for (let i = 0; i < binaryFile.length; i = i + 256) {
-      serialport.write("upgrade.keyscanner.sendWrite ");
-      const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
-      const data = binaryFile.slice(i, i + 256);
-      const crc = new Uint8Array(new Uint32Array([crc32("CRC-32", data)]).buffer);
-      const blob = new Uint8Array(writeAction.length + data.length + crc.length);
-      blob.set(writeAction);
-      blob.set(data, writeAction.length);
-      blob.set(crc, data.length + writeAction.length);
-      const buffer = new Buffer.from(blob);
-      serialport.write(buffer);
-      await readLine();
-      let ack = await readLine();
-      if (ack.trim() === "false") {
-        break;
+    let validate = "false",
+      retry = 0;
+    while (validate !== "true" && retry < 3) {
+      for (let i = 0; i < binaryFile.length; i = i + 256) {
+        serialport.write("upgrade.keyscanner.sendWrite ");
+        const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
+        const data = binaryFile.slice(i, i + 256);
+        const crc = new Uint8Array(new Uint32Array([crc32("CRC-32", data)]).buffer);
+        const blob = new Uint8Array(writeAction.length + data.length + crc.length);
+        blob.set(writeAction);
+        blob.set(data, writeAction.length);
+        blob.set(crc, data.length + writeAction.length);
+        const buffer = new Buffer.from(blob);
+        serialport.write(buffer);
+        await readLine();
+        let ack = await readLine();
+        if (ack.trim() === "false") {
+          break;
+        }
+        stateUpd(step / totalsteps);
+        step++;
+        // }
       }
-      stateUpd(step / totalsteps);
-      step++;
-      // }
+      serialport.write("upgrade.keyscanner.validate\n");
+      validate = await readLine();
+      retry++;
     }
 
     serialport.write("upgrade.keyscanner.finish\n");

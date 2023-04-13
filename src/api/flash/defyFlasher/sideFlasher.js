@@ -73,7 +73,7 @@ export default class sideFlaser {
     };
 
     const recoverSeal = bin => {
-      const uint = new Uint32Array(bin);
+      const uint = new Uint32Array(new Uint8Array(bin).buffer);
       return {
         version: uint[0],
         size: uint[1],
@@ -140,7 +140,7 @@ export default class sideFlaser {
     // Write Firmware FOR Loop
     let step = 0;
     let totalsteps = binaryFile.length / 256;
-    console.log("CRC check is ", info.programCrc != seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
+    console.log("CRC check is ", info.programCrc !== seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
     // if (info.programCrc != seal.programCrc) {
     let validate = "false",
       retry = 0;
@@ -166,6 +166,7 @@ export default class sideFlaser {
         // }
       }
       serialport.write("upgrade.keyscanner.validate\n");
+      await readLine();
       validate = await readLine();
       retry++;
     }

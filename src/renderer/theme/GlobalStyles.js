@@ -1966,23 +1966,26 @@ div.card.card-preferences .card-body {
   grid-gap: 32px;
 }
 .virtualKeyboards-col {
-  background: rgba(63, 66, 90, 0.1);
-  border: 1px solid #3F425A;
+  background: ${({ theme }) => theme.styles.virtualKeyboard.cardBackground};
+  border: 1px solid ${({ theme }) => theme.styles.virtualKeyboard.cardBorder};
   border-radius: 14px;
   padding: 32px;
   flex: 1;
+  h4 {
+    color: ${({ theme }) => theme.styles.virtualKeyboard.cardTitleColor};
+  }
   p {
     font-family: ${({ theme }) => theme.font};
     font-weight: 401;
     font-size: 15px;
-    color: ${({ theme }) => theme.colors.gray100};
+    color: ${({ theme }) => theme.styles.virtualKeyboard.cardTextColor};
     margin-top: 16px;
     margin-bottom: 24px;
   }
   label {
     font-weight: 700;
     font-size: 14px;
-    color: ${({ theme }) => theme.colors.gray100};
+    color: ${({ theme }) => theme.styles.virtualKeyboard.labelTextColor};
     margin: 0;
   }
 }
@@ -1992,17 +1995,17 @@ div.card.card-preferences .card-body {
   position: relative;
   border: none;
   padding: 0;
-  background-color: ${({ theme }) => theme.colors.gray600};
+  background-color: ${({ theme }) => theme.styles.virtualKeyboard.orLineColor};
   span {
     position: absolute;
     top: 32px;
     left: 50%;
     transform: translateX(-50%);
     padding: 4px 6px;
-    color: ${({ theme }) => theme.colors.gray100};
+    color: ${({ theme }) => theme.styles.virtualKeyboard.orTextColor};
     font-weight: 700;
     font-size: 12px;
-    background-color: ${({ theme }) => theme.colors.gray800};
+    background-color: ${({ theme }) => theme.styles.virtualKeyboard.orBgColor};
   }
 }
 .virtualKeyboards-wrapper {
@@ -2031,6 +2034,21 @@ div.card.card-preferences .card-body {
       flex: 0 0 calc(100% - 24px);
     }
   }
+}
+@media screen and (max-width: 991px) {
+  .virtualKeyboards-wrapper {
+    flex-direction: column;
+    .virtualKeyboards-col--text {
+      height: 100%;
+      width: 100%;
+      span {
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+    }
+  }
+  
 }
 
 `;

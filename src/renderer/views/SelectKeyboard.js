@@ -45,7 +45,7 @@ import ToastMessage from "../component/ToastMessage";
 import { newError } from "builder-util-runtime";
 
 import { IconArrowRight, IconCloudDownload, IconUpload, IconKeyboard } from "../component/Icon";
-import iconKeyboard from "../../../static/base/icon-keyboard.svg";
+//import iconKeyboard from "../../../static/base/icon-keyboard.svg";
 import Title from "../component/Title";
 import { Select } from "../component/Select";
 
@@ -64,10 +64,10 @@ height: 100vh;
   text-align: left;
   padding-top: 16px;
   margin-top: 16px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray800};
+  border-top: 1px solid ${({ theme }) => theme.styles.virtualKeyboard.cardButtonDivider};
   .cardButton {
     padding: 8px 24px;
-    background: rgba(37, 39, 59, 0.5);
+    background: ${({ theme }) => theme.styles.virtualKeyboard.cardButtonBackground};
     border-radius: 6px;
     width: 100%;
     .button-link {
@@ -528,24 +528,21 @@ class SelectKeyboard extends Component {
         text: "Dygma Defy",
         fileName: "VirtualDefy",
         value: 0,
-        index: 0,
-        icon: iconKeyboard
+        index: 0
       },
       {
         model: RaiseANSI,
         text: "Dygma Raise ANSI",
         fileName: "VirtualRaiseANSI",
         value: 1,
-        index: 1,
-        icon: iconKeyboard
+        index: 1
       },
       {
         model: RaiseISO,
         text: "Dygma Raise ISO",
         fileName: "VirtualRaiseISO",
         value: 2,
-        index: 2,
-        icon: iconKeyboard
+        index: 2
       }
     ];
 
@@ -738,7 +735,7 @@ class SelectKeyboard extends Component {
             <div className="cardButton-wrapper">
               <div className="cardButton">
                 <RegularButton
-                  buttonText="Use without a keyboard"
+                  buttonText={i18n.keyboardSelect.virtualKeyboard.buttonText}
                   style="button-link"
                   icoSVG={<IconArrowRight />}
                   icoPosition="right"
@@ -756,19 +753,23 @@ class SelectKeyboard extends Component {
                 centered
               >
                 <Modal.Header closeButton>
-                  <Modal.Title>Manage virtual keyboard</Modal.Title>
+                  <Modal.Title>{i18n.keyboardSelect.virtualKeyboard.modaltitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <div className="virtualKeyboards-wrapper">
                     <div className="virtualKeyboards-col">
-                      <Title text="I want to start from stratch" headingLevel={4} svgICO={<IconCloudDownload />} />
-                      <p>I want to create a new virtual keyboard with default settings.</p>
-                      <label>Select model</label>
+                      <Title
+                        text={i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardTitle}
+                        headingLevel={4}
+                        svgICO={<IconCloudDownload />}
+                      />
+                      <p>{i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardDescription}</p>
+                      <label>{i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardLabel}</label>
                       <Dropdown className="custom-dropdown" onSelect={this.selectVirtualKeyboard}>
                         <Dropdown.Toggle id="dropdown-custom">
                           <div className="dropdownItemSelected">
                             <div className="dropdownIcon">
-                              <img src={iconKeyboard} />
+                              <IconKeyboard />
                             </div>
                             <div className="dropdownItem">{virtualKeyboards[selectedVirtualKeyboard].text}</div>
                           </div>
@@ -782,7 +783,7 @@ class SelectKeyboard extends Component {
                             >
                               <div className="dropdownInner">
                                 <div className="dropdownIcon">
-                                  <img src={iconKeyboard} />
+                                  <IconKeyboard />
                                 </div>
                                 <div className="dropdownItem">{item.text}</div>
                               </div>
@@ -791,7 +792,7 @@ class SelectKeyboard extends Component {
                         </Dropdown.Menu>
                       </Dropdown>
                       <RegularButton
-                        buttonText="Create"
+                        buttonText={i18n.general.create}
                         style="primary"
                         onClick={() =>
                           this.newFile(
@@ -808,9 +809,13 @@ class SelectKeyboard extends Component {
                       <span>OR</span>
                     </div>
                     <div className="virtualKeyboards-col">
-                      <Title text="I have a backup file" headingLevel={4} svgICO={<IconUpload />} />
-                      <p>I want to use an existing configuration file as a starting point.</p>
-                      <RegularButton buttonText="Load file" style="primary" onClick={() => this.useAFile()} />
+                      <Title
+                        text={i18n.keyboardSelect.virtualKeyboard.loadVirtualKeyboardTitle}
+                        headingLevel={4}
+                        svgICO={<IconUpload />}
+                      />
+                      <p>{i18n.keyboardSelect.virtualKeyboard.loadVirtualKeyboardDescription}</p>
+                      <RegularButton buttonText={i18n.general.loadFile} style="primary" onClick={() => this.useAFile()} />
                     </div>
                   </div>
                 </Modal.Body>

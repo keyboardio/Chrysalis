@@ -724,6 +724,18 @@ const Light = {
       buttonBackgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), #7879F1",
       buttonBoxShadow: "0px 12px 24px -12px rgba(93, 95, 239, 0.1)"
     },
+    virtualKeyboard: {
+      cardButtonDivider: settingColorOpacity(Tokens.colors.gray100, 0.5),
+      cardButtonBackground: settingColorOpacity(Tokens.colors.gray25, 0.8),
+      cardBorder: Tokens.colors.gray100,
+      cardBackground: settingColorOpacity(Tokens.colors.gray100, 0.1),
+      labelTextColor: Tokens.colors.gray500,
+      cardTitleColor: Tokens.colors.gray500,
+      cardTextColor: Tokens.colors.gray400,
+      orBgColor: Tokens.colors.gray25,
+      orTextColor: Tokens.colors.gray400,
+      orLineColor: Tokens.colors.gray100
+    },
     wrapper: {
       background: settingColorOpacity(Tokens.colors.gray25, 0.8)
     }

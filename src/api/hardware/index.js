@@ -29,7 +29,7 @@ import { Defy_wireless, Defy_wirelessBootloader } from "../hardware-dygma-defy-w
 const Hardware = {
   serial: [Raise_ISO, Raise_ANSI, Defy_wired, Defy_wireless, Raise_ANSIBootloader, Raise_ISOBootloader, Defy_wirelessBootloader],
   nonSerial: [Defy_wiredBootloader],
-  bootloader: [Raise_ANSIBootloader, Raise_ISOBootloader, Defy_wiredBootloader]
+  bootloader: [Raise_ANSIBootloader, Raise_ISOBootloader, Defy_wiredBootloader, Defy_wirelessBootloader]
 };
 
 export { Hardware as default };

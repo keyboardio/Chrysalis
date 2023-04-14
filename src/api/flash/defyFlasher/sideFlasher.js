@@ -145,6 +145,7 @@ export default class sideFlaser {
     let validate = "false",
       retry = 0;
     while (validate !== "true" && retry < 3) {
+      console.log("retry count: ", retry);
       for (let i = 0; i < binaryFile.length; i = i + 256) {
         serialport.write("upgrade.keyscanner.sendWrite ");
         const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
@@ -155,9 +156,11 @@ export default class sideFlaser {
         blob.set(data, writeAction.length);
         blob.set(crc, data.length + writeAction.length);
         const buffer = new Buffer.from(blob);
+        console.log("write sent: ", buffer);
         serialport.write(buffer);
         await readLine();
         let ack = await readLine();
+        console.log("ack received: ", ack);
         if (ack.trim() === "false") {
           break;
         }

@@ -279,7 +279,7 @@ class FirmwareUpdate extends React.Component {
     }
     console.log("BOOTLOADER2", focus.device.bootloader);
 
-    if (this.state.device.info.product === "Raise") {
+    if (this.state.device.info.keyboardType !== "wired") {
       if (!focus.device.bootloader) {
         try {
           if (focus.device.info.product == "Raise") {

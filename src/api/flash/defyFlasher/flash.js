@@ -385,6 +385,7 @@ export class FlashDefyWireless {
       firmwareFile: "File has not being selected"
     };
     this.backup = [];
+    this.rp2040 = new Rp2040(device);
     this.delay = ms => new Promise(res => setTimeout(res, ms));
   }
 
@@ -549,28 +550,18 @@ export class FlashDefyWireless {
    * @returns {promise}
    */
   async resetKeyboard(port, backup, stateUpdate) {
-    console.log("reset start", port);
+    let focus = new Focus();
+    console.log("reset start");
     const errorMessage =
       "The firmware update couldn't start because the Defy Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
-    let timeouts = {
-      dtrToggle: 1000, // Time to wait (ms) between toggling DTR
-      waitingClose: 2000, // Time to wait for boot loader
-      bootLoaderUp: 1000 // Time to wait for the boot loader to come up
-    };
     console.log("loaded backup: ", backup);
     this.backup = backup;
     return new Promise(async (resolve, reject) => {
-      await this.updatePort(port, 1200);
-      console.log("resetting neuron");
-      this.backupFileData.log.push("Resetting neuron");
-      await this.setDTR(port, true);
-      await this.delay(timeouts.dtrToggle);
-      await this.setDTR(port, false);
+      focus.command("upgrade.neuron");
       console.log("waiting for bootloader");
-      this.backupFileData.log.push("Waiting for bootloader");
+      await this.delay(1000);
       stateUpdate(2, 20);
       try {
-        await this.delay(timeouts.waitingClose);
         let bootCount = 10;
         while (bootCount > 0) {
           if (await this.foundDevices(Hardware.bootloader, "Bootloader detected", true)) {
@@ -579,17 +570,14 @@ export class FlashDefyWireless {
             stateUpdate(3, 30);
             break;
           }
-          await this.delay(timeouts.bootLoaderUp);
+          await this.delay(300);
           bootCount--;
         }
         if (bootCount != true) {
           stateUpdate(4, 100);
-          this.backupFileData.log.push("Bootloader wasn't detected");
           reject(errorMessage);
         }
       } catch (e) {
-        this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
-        // this.saveBackupFile();
         reject(e);
       }
     });
@@ -601,14 +589,27 @@ export class FlashDefyWireless {
    * @param {string} filename - path to file with firmware.
    * @returns {promise}
    */
-  async updateFirmware(filename, stateUpdate) {
+  async updateFirmware(filename, filenameSides, stateUpdate) {
     let focus = new Focus();
     console.log("Begin update firmware with NRf52833");
-    console.log(JSON.stringify(focus));
     // this.backupFileData.log.push("Begin update firmware with NRf52833");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
+        /**
+         * Procedure to flash the sides of the keyboard
+         *  */
+        await this.rp2040.sideFlash(filenameSides, stateUpdate, async (err, result) => {
+          if (err) throw new Error(`Flash error ${result}`);
+          else {
+            stateUpdate(3, 40);
+            console.log("End of sides firmware update");
+          }
+        });
+
+        // resetting the keyboard
+        await this.resetKeyboard(this.currentPort.path, this.backup, stateUpdate);
+
         if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device, null);
         await NRf52833.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);

@@ -179,7 +179,7 @@ export default class sideFlaser {
     await readLine();
     await readLine();
 
-    serialport.close();
+    await serialport.close();
 
     return { error: false, message: "" };
   }

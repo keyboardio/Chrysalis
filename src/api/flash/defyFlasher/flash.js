@@ -379,6 +379,7 @@ export class FlashDefyWireless {
   constructor(device) {
     this.device = device.device;
     this.currentPort = null;
+    this.currentPath = null;
     this.backupFileName = null;
     this.backupFileData = {
       backup: {},
@@ -432,6 +433,7 @@ export class FlashDefyWireless {
         ) {
           console.log(message);
           this.currentPort = { ...device };
+          this.currentPath = device.path;
           isFindDevice = true;
         }
       }
@@ -610,9 +612,10 @@ export class FlashDefyWireless {
         });
 
         // resetting the keyboard
-        await this.resetKeyboard(this.currentPort.path, this.backup, stateUpdate);
+        console.log(this.currentPath);
+        if (focus.closed) await focus.open(this.currentPath, this.currentPort.device, null);
+        await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
 
-        if (focus.closed) await focus.open(this.currentPort.path, this.currentPort.device, null);
         await NRf52833.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {

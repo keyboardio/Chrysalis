@@ -300,6 +300,7 @@ class FirmwareUpdate extends React.Component {
             this.FlashDefyWired.currentPort = this.props.device;
           } else {
             this.FlashDefyWireless.currentPort = this.props.device;
+            this.FlashDefyWireless.currentPath = this.props.device.path;
           }
         } else {
           this.flashRaise.currentPort = this.props.device;
@@ -311,8 +312,6 @@ class FirmwareUpdate extends React.Component {
           console.log("done closing focus");
           return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWired, this.stateUpdate);
         } else {
-          await focus.close();
-          console.log("done closing focus");
           return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWireless, this.stateUpdate);
         }
       } else {

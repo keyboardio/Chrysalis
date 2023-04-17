@@ -312,6 +312,8 @@ class FirmwareUpdate extends React.Component {
           console.log("done closing focus");
           return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWired, this.stateUpdate);
         } else {
+          await focus.close();
+          console.log("done closing focus");
           return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWireless, this.stateUpdate);
         }
       } else {

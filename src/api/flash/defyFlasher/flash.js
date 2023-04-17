@@ -262,6 +262,8 @@ export class FlashDefyWired {
             console.log("End of sides firmware update");
           }
         });
+
+        await this.rp2040.prepareNeuron();
         /**
          * Procedure to flash the neuron
          *  */

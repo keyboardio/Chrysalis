@@ -64,7 +64,7 @@ export default class sideFlaser {
     });
   }
 
-  async flashSide(side, stateUpd) {
+  async flashSide(side, stateUpd, wiredOrWireless) {
     // Auxiliary Functions
     const sleep = ms => {
       return new Promise(resolve => {
@@ -178,6 +178,12 @@ export default class sideFlaser {
     serialport.write("upgrade.keyscanner.finish\n");
     await readLine();
     await readLine();
+
+    if (wiredOrWireless == "wireless") {
+      serialport.write("upgrade.neuron\n");
+      await readLine();
+      await readLine();
+    }
 
     await serialport.close();
 

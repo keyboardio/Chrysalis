@@ -40,7 +40,7 @@ export default class rp2040 {
     });
   }
 
-  async sideFlash(filenameSides, stateUpdate, finished) {
+  async sideFlash(filenameSides, stateUpdate, wiredOrWireless, finished) {
     // State update auxiliarly function
     let step = 0;
     const stateUpd = ratio => {
@@ -53,7 +53,7 @@ export default class rp2040 {
     if (result.error) finished(result.error, result.message);
     console.log("Right side flash has error? ", result.error);
     step = step + 25;
-    result = await this.sideFlash.flashSide("left", stateUpd);
+    result = await this.sideFlash.flashSide("left", stateUpd, wiredOrWireless);
     if (result.error) finished(result.error, result.message);
     console.log("Left side flash has error? ", result.error);
     step = step + 25;

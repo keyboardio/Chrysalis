@@ -603,7 +603,7 @@ export class FlashDefyWireless {
         /**
          * Procedure to flash the sides of the keyboard
          *  */
-        await this.rp2040.sideFlash(filenameSides, stateUpdate, async (err, result) => {
+        await this.rp2040.sideFlash(filenameSides, stateUpdate, "wireless", async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 40);

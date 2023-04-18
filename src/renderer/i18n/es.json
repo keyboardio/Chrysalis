@@ -62,11 +62,39 @@
                 "allFiles": "Todos los archivos"
             },
             "exportToFile": "Exportar a archivo...",
-            "selectLoadFile": "Elige el archivo desde el que cargar un diseño"
+            "selectLoadFile": "Elige el archivo desde el que cargar un diseño",
+            "errors": {
+                "unableToLoad": "No se puede descargar el diseño del archivo seleccionado.",
+                "parseFail": "Se ha fallado analizar los datos de diseño.",
+                "invalidLayoutData": "El archivo no contiene los datos de diseños válidos."
+            },
+            "importConfirm": {
+                "title": "¿Importar el diseño seleccionado?",
+                "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
+            }
         },
         "legacy": {
             "migrate": "Migrar",
             "warning": "Se encontraron teclas heredadas en el keymap que ya no son válidas. Para migrar a los códigos nuevos, por favor pulse el botón de migrar."
+        },
+        "sidebar": {
+            "language_intl": {
+                "title": "Idioma / Internaciónal",
+                "help": "Teclas adicionales específicas del idioma."
+            },
+            "custom": {
+                "help": "Le permite asignar un código personalizado de llave a una tecla, o un código no conocido por Chrysalis.",
+                "title": "Código personalizado de llave",
+                "label": "Código personalizado de llave"
+            },
+            "platform_apple": {
+                "title": "Teclas de Mac / iPad",
+                "help": "Códigos de llaves específicos para dispositivos Apple."
+            },
+            "blanks": {
+                "title": "Espacios en blanco",
+                "help": "Teclas bloqueadas y transparentes."
+            }
         }
     },
     "app": {

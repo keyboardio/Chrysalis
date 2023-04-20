@@ -209,7 +209,8 @@ class SelectKeyboard extends Component {
       loading: false,
       dropdownOpen: false,
       showVirtualKeyboardModal: false,
-      selectedVirtualKeyboard: 0
+      selectedVirtualKeyboard: 0,
+      isVirtualKeyboard: false
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
@@ -404,6 +405,9 @@ class SelectKeyboard extends Component {
     vk.device.path = "VIRTUAL";
     vk.device.bootloader = false;
     vk.device.filePath = newPath;
+
+    this.setState({ isVirtualKeyboard: true });
+
     return vk;
   };
 
@@ -519,7 +523,16 @@ class SelectKeyboard extends Component {
   };
 
   render() {
-    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
+    const {
+      scanFoundDevices,
+      devices,
+      loading,
+      selectedPortIndex,
+      opening,
+      dropdownOpen,
+      selectedVirtualKeyboard,
+      isVirtualKeyboard
+    } = this.state;
 
     const { onDisconnect } = this.props;
     const virtualKeyboards = [
@@ -731,6 +744,7 @@ class SelectKeyboard extends Component {
               deviceItems={deviceItems != null ? deviceItems : []}
               selectPort={this.selectPort}
               selectedPortIndex={selectedPortIndex}
+              isVirtualKeyboard={focus.file}
             />
             <div className="cardButton-wrapper">
               <div className="cardButton">

@@ -86,11 +86,13 @@ const NeuronConnection = ({
   onDisconnect,
   selectPort,
   selectedPortIndex,
-  deviceItems
+  deviceItems,
+  isVirtualKeyboard
 }) => {
   return (
     <Style>
       <div className="neuronConnection">
+        is virtual?: {isVirtualKeyboard}
         <NeuronStatus
           loading={loading ? "loading" : undefined}
           connected={connected}

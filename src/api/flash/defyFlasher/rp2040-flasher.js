@@ -49,7 +49,7 @@ export default class rp2040 {
 
     // Flashing procedure for each side
     this.sideFlash = new sideFlaser(this.device.path, filenameSides);
-    let result = await this.sideFlash.flashSide("right", stateUpd);
+    let result = await this.sideFlash.flashSide("right", stateUpd, null);
     if (result.error) finished(result.error, result.message);
     console.log("Right side flash has error? ", result.error);
     step = step + 25;
@@ -59,6 +59,7 @@ export default class rp2040 {
     step = step + 25;
     await this.delay(20);
     finished(false, "");
+    return;
   }
 
   async prepareNeuron() {

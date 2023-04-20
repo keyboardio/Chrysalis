@@ -181,11 +181,10 @@ export default class sideFlaser {
 
     if (wiredOrWireless == "wireless") {
       serialport.write("upgrade.neuron\n");
-      await readLine();
-      await readLine();
     }
 
     await serialport.close();
+    console.log("after serialport close");
 
     return { error: false, message: "" };
   }

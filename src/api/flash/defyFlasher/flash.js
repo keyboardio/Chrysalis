@@ -255,7 +255,7 @@ export class FlashDefyWired {
         /**
          * Procedure to flash the sides of the keyboard
          *  */
-        await this.rp2040.sideFlash(filenameSides, stateUpdate, async (err, result) => {
+        await this.rp2040.sideFlash(filenameSides, stateUpdate, "wired", async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 40);
@@ -610,11 +610,11 @@ export class FlashDefyWireless {
             console.log("End of sides firmware update");
           }
         });
+        await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
 
         // resetting the keyboard
         console.log(this.currentPath);
         if (focus.closed) await focus.open(this.currentPath, this.currentPort.device, null);
-        await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
 
         await NRf52833.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);

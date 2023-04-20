@@ -676,6 +676,7 @@ class SelectKeyboard extends Component {
             onKeyboardConnect={this.onKeyboardConnect}
             connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
             onDisconnect={onDisconnect}
+            isVirtual={focus.file}
             deviceItems={deviceItems != null ? deviceItems : []}
             selectPort={this.selectPort}
             selectedPortIndex={selectedPortIndex}

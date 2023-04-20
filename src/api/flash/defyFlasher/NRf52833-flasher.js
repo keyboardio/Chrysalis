@@ -298,15 +298,15 @@ var NRf52833 = {
       address += bufferSize;
     }
     // TODO: CRC CHECK
-    var crc = crc32("CRC-32", auxData);
-    func_array.push(function (callback) {
-      write_cb(str2ab(`C${dataObjects[0].address},${totalSaved},${crc}#`), callback);
-    });
+    // var crc = crc32("CRC-32", auxData);
+    // func_array.push(function (callback) {
+    //   write_cb(str2ab(`C${dataObjects[0].address},${totalSaved},${crc}#`), callback);
+    // });
 
-    //wait for ACK
-    func_array.push(function (callback) {
-      read_cb(callback);
-    });
+    // //wait for ACK
+    // func_array.push(function (callback) {
+    //   read_cb(callback);
+    // });
 
     // START APPLICATION
     func_array.push(function (callback) {

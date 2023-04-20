@@ -87,7 +87,7 @@ const NeuronConnection = ({
   selectPort,
   selectedPortIndex,
   deviceItems,
-  isVirtualKeyboard
+  isVirtual
 }) => {
   return (
     <Style>
@@ -99,6 +99,17 @@ const NeuronConnection = ({
           scanFoundDevices={scanFoundDevices}
           deviceItems={deviceItems.length}
         />
+        {!isVirtual ? (
+          <div>
+            ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL
+            ISVIRTUAL
+          </div>
+        ) : (
+          <div>
+            ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT
+            VIRUTAL
+          </div>
+        )}
         <div className="neuronInformation">
           {!deviceItems.length ? (
             <>

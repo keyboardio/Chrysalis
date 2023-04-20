@@ -1,3 +1,33 @@
+/* bazecor-side-flasher -- Dygma keyboards keyscanner updater module for Bazecor
+ * Supported Commands in order of execution -->
+ *
+ * upgrade.start
+ * upgrade.neuron
+ * upgrade.end
+ * upgrade.keyscanner.isConnected (0:Right / 1:Left)
+ * upgrade.keyscanner.isBootloader (0:Right / 1:Left)
+ * upgrade.keyscanner.begin (0:Right / 1:Left) // after this one, FW remembers the chosen side
+ * upgrade.keyscanner.getInfo
+ * upgrade.keyscanner.sendWrite
+ * upgrade.keyscanner.validate
+ * upgrade.keyscanner.finish
+ * upgrade.keyscanner.sendStart
+ *
+ * Copyright (C) 2019, 2020  DygmaLab SE
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import fs from "fs";
 import { crc32 } from "easy-crc";
 import SerialPort from "serialport";
@@ -19,14 +49,13 @@ export default class sideFlaser {
     };
 
     // Serial port instancing
-
     const serialport = new SerialPort(this.path, { baudRate: 115200 });
     const parser = serialport.pipe(new Delimiter({ delimiter: "\r\n" }));
     let receivedData = [];
     parser.on("data", function (data) {
       receivedData.push(data.toString("utf-8"));
     });
-
+    console.log("Upgrading the neuron...");
     serialport.write("upgrade.neuron\n");
     await sleep(10);
     serialport.close(function (err) {
@@ -35,7 +64,7 @@ export default class sideFlaser {
     });
   }
 
-  async flashSide(side, stateUpd) {
+  async flashSide(side, stateUpd, wiredOrWireless) {
     // Auxiliary Functions
     const sleep = ms => {
       return new Promise(resolve => {
@@ -44,17 +73,15 @@ export default class sideFlaser {
     };
 
     const recoverSeal = bin => {
-      const uint = new Uint32Array(bin);
-      // Seal(hardwareVersion=SealHeader(deviceId=1263747922, version=1, size=32, crc=197434883), programStart=20736, programSize=57552, programCrc=3782824883, programVersion=16777217
+      const uint = new Uint32Array(new Uint8Array(bin).buffer);
       return {
-        // deviceId: uint[0],
-        version: uint[1],
-        size: uint[2],
-        crc: uint[3],
-        programStart: uint[4],
-        programSize: uint[5],
-        programCrc: uint[6],
-        programVersion: uint[7]
+        version: uint[0],
+        size: uint[1],
+        crc: uint[2],
+        programStart: uint[3],
+        programSize: uint[4],
+        programCrc: uint[5],
+        programVersion: uint[6]
       };
     };
 
@@ -68,7 +95,9 @@ export default class sideFlaser {
     const hexFile = fs.readFileSync(this.filename, "hex");
     const fromHexString = hexString => Uint8Array.from(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
     const binaryFile = fromHexString(hexFile);
-    const seal = recoverSeal(binaryFile.slice(0, 32));
+    const seal = recoverSeal(binaryFile.slice(0, 28));
+    console.log("This is the seal", seal);
+    console.dir(seal);
 
     // Serial port instancing
 
@@ -81,19 +110,19 @@ export default class sideFlaser {
 
     // Begin upgrade process for selected side
     let ans;
-    if (side === "right") {
-      console.log("flashing right side keyboard");
-      serialport.write("upgrade.keyscanner.beginRight\n");
-      await readLine();
-      ans = await readLine();
-      if (ans.trim() !== "true") return { error: true, message: "Right side disconnected from keyboard\n" };
-    } else {
-      console.log("flashing left side keyboard");
-      serialport.write("upgrade.keyscanner.beginLeft\n");
-      await readLine();
-      ans = await readLine();
-      if (ans.trim() !== "true") return { error: true, message: "Left side disconnected from keyboard\n" };
-    }
+    const sideId = side === "right" ? 0 : 1;
+    console.log(`flashing ${side} side keyboard`);
+    serialport.write(`upgrade.keyscanner.isConnected ${sideId}\n`);
+    await readLine();
+    let isConnected = await readLine();
+    serialport.write(`upgrade.keyscanner.isBootloader ${sideId}\n`);
+    await readLine();
+    let isItBootloader = await readLine();
+    if (!isConnected || !isItBootloader) return;
+    serialport.write(`upgrade.keyscanner.begin ${sideId}\n`);
+    await readLine();
+    ans = await readLine();
+    if (ans.trim() !== "true") return { error: true, message: `${side} side disconnected from keyboard\n` };
 
     serialport.write("upgrade.keyscanner.getInfo\n");
     await readLine();
@@ -111,9 +140,14 @@ export default class sideFlaser {
     // Write Firmware FOR Loop
     let step = 0;
     let totalsteps = binaryFile.length / 256;
-    console.log("CRC check is ", info.programCrc != seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
+    console.log("CRC check is ", info.programCrc !== seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
     // if (info.programCrc != seal.programCrc) {
+    let validate = "false",
+      retry = 0;
+    // while (validate !== "true" && retry < 3) {
+    // console.log("retry count: ", retry);
     for (let i = 0; i < binaryFile.length; i = i + 256) {
+      console.log(`Addres ${i} of ${binaryFile.length}`);
       serialport.write("upgrade.keyscanner.sendWrite ");
       const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
       const data = binaryFile.slice(i, i + 256);
@@ -123,9 +157,11 @@ export default class sideFlaser {
       blob.set(data, writeAction.length);
       blob.set(crc, data.length + writeAction.length);
       const buffer = new Buffer.from(blob);
+      console.log("write sent: ", buffer);
       serialport.write(buffer);
       await readLine();
       let ack = await readLine();
+      console.log("ack received: ", ack);
       if (ack.trim() === "false") {
         break;
       }
@@ -133,12 +169,23 @@ export default class sideFlaser {
       step++;
       // }
     }
+    serialport.write("upgrade.keyscanner.validate\n");
+    await readLine();
+    validate = await readLine();
+    // retry++;
+    // }
 
     serialport.write("upgrade.keyscanner.finish\n");
     await readLine();
     await readLine();
 
-    serialport.close();
+    if (wiredOrWireless == "wireless") {
+      serialport.write("upgrade.neuron\n");
+      await readLine();
+      await readLine();
+    }
+
+    await serialport.close();
 
     return { error: false, message: "" };
   }

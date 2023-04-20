@@ -25,6 +25,7 @@ import sideFlaser from "./sideFlasher";
 export default class rp2040 {
   constructor(device) {
     this.device = device;
+    this.sideflash = null;
   }
 
   delay = ms => new Promise(res => setTimeout(res, ms));
@@ -39,7 +40,7 @@ export default class rp2040 {
     });
   }
 
-  async sideFlash(filenameSides, stateUpdate, finished) {
+  async sideFlash(filenameSides, stateUpdate, wiredOrWireless, finished) {
     // State update auxiliarly function
     let step = 0;
     const stateUpd = ratio => {
@@ -47,17 +48,20 @@ export default class rp2040 {
     };
 
     // Flashing procedure for each side
-    const sideFlash = new sideFlaser(this.device.path, filenameSides);
-    let result = await sideFlash.flashSide("right", stateUpd);
+    this.sideFlash = new sideFlaser(this.device.path, filenameSides);
+    let result = await this.sideFlash.flashSide("right", stateUpd);
     if (result.error) finished(result.error, result.message);
     console.log("Right side flash has error? ", result.error);
     step = step + 25;
-    result = await sideFlash.flashSide("left", stateUpd);
+    result = await this.sideFlash.flashSide("left", stateUpd, wiredOrWireless);
     if (result.error) finished(result.error, result.message);
     console.log("Left side flash has error? ", result.error);
     step = step + 25;
     await this.delay(20);
-    result = await sideFlash.prepareNeuron();
     finished(false, "");
+  }
+
+  async prepareNeuron() {
+    return await this.sideFlash.prepareNeuron();
   }
 }

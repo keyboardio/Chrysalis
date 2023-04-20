@@ -744,7 +744,7 @@ class SelectKeyboard extends Component {
               deviceItems={deviceItems != null ? deviceItems : []}
               selectPort={this.selectPort}
               selectedPortIndex={selectedPortIndex}
-              isVirtualKeyboard={focus.file}
+              isVirtual={focus.file}
             />
             <div className="cardButton-wrapper">
               <div className="cardButton">

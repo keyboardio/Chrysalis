@@ -209,8 +209,7 @@ class SelectKeyboard extends Component {
       loading: false,
       dropdownOpen: false,
       showVirtualKeyboardModal: false,
-      selectedVirtualKeyboard: 0,
-      isVirtualKeyboard: false
+      selectedVirtualKeyboard: 0
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
@@ -405,9 +404,6 @@ class SelectKeyboard extends Component {
     vk.device.path = "VIRTUAL";
     vk.device.bootloader = false;
     vk.device.filePath = newPath;
-
-    this.setState({ isVirtualKeyboard: true });
-
     return vk;
   };
 
@@ -523,16 +519,7 @@ class SelectKeyboard extends Component {
   };
 
   render() {
-    const {
-      scanFoundDevices,
-      devices,
-      loading,
-      selectedPortIndex,
-      opening,
-      dropdownOpen,
-      selectedVirtualKeyboard,
-      isVirtualKeyboard
-    } = this.state;
+    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
 
     const { onDisconnect } = this.props;
     const virtualKeyboards = [
@@ -727,7 +714,7 @@ class SelectKeyboard extends Component {
       const Keymap = devices[this.state.selectedPortIndex].device.components.keymap;
       preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
-
+    console.log("Focus devide: ", focus.device);
     return (
       <Styles>
         <Container fluid className="keyboard-select center-content">
@@ -739,12 +726,13 @@ class SelectKeyboard extends Component {
               scanDevices={this.scanDevices}
               cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
               onKeyboardConnect={this.onKeyboardConnect}
-              connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
+              connected={focus.file ? true : focus.device && selectedDevice && selectedDevice.device == focus.device}
               onDisconnect={onDisconnect}
               deviceItems={deviceItems != null ? deviceItems : []}
               selectPort={this.selectPort}
               selectedPortIndex={selectedPortIndex}
               isVirtual={focus.file}
+              virtualDevice={focus.device}
             />
             <div className="cardButton-wrapper">
               <div className="cardButton">

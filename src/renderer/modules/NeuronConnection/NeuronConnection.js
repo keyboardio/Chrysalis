@@ -87,87 +87,94 @@ const NeuronConnection = ({
   selectPort,
   selectedPortIndex,
   deviceItems,
-  isVirtual
+  isVirtual,
+  virtualDevice
 }) => {
   return (
     <Style>
       <div className="neuronConnection">
-        is virtual?: {isVirtualKeyboard}
         <NeuronStatus
           loading={loading ? "loading" : undefined}
           connected={connected}
           scanFoundDevices={scanFoundDevices}
           deviceItems={deviceItems.length}
+          isVirtual={isVirtual}
         />
-        {!isVirtual ? (
-          <div>
-            ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL ISVIRTUAL
-            ISVIRTUAL
-          </div>
-        ) : (
-          <div>
-            ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT VIRUTAL ISNOT
-            VIRUTAL
-          </div>
-        )}
-        <div className="neuronInformation">
-          {!deviceItems.length ? (
-            <>
-              <Title text={i18n.keyboardSelect.noDevices} headingLevel={2} type={"warning"} />
-              <p className={"neuronSubtileText"}>{i18n.keyboardSelect.noDevicesSubtitle}</p>
-            </>
-          ) : (
-            ""
-          )}
-
-          {deviceItems.length > 0 ? (
-            <>
-              <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} />
-              <SelectKeyboardDropdown
-                deviceItems={deviceItems}
-                selectPort={selectPort}
-                selectedPortIndex={selectedPortIndex}
-                connected={connected}
-              />
-            </>
-          ) : (
-            ""
-          )}
-          <div className="buttons">
-            <RegularButton
-              onClick={scanDevices}
-              buttonText={i18n.keyboardSelect.scan}
-              style={`${connected || deviceItems.length > 0 ? "outline" : "primary"}`}
-              disabled={scanFoundDevices}
-            />
-            {connected ? (
+        {isVirtual ? (
+          <div className="neuronInformation">
+            <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} />
+            <div className="fake-dropdown">
+              icon / {virtualDevice.info.vendor} {virtualDevice.info.product} {virtualDevice.info.keyboardType}
+            </div>
+            <div className="buttons">
               <RegularButton
                 buttonText={i18n.keyboardSelect.disconnect}
                 style={"primary"}
                 onClick={onDisconnect}
                 disabled={false}
               />
-            ) : (
-              ""
-            )}
-            {!connected && deviceItems.length > 0 ? (
-              <RegularButton
-                buttonText={i18n.keyboardSelect.connect}
-                style={"primary"}
-                onClick={onKeyboardConnect}
-                disabled={false}
-              />
+            </div>
+          </div>
+        ) : (
+          <div className="neuronInformation">
+            {!deviceItems.length ? (
+              <>
+                <Title text={i18n.keyboardSelect.noDevices} headingLevel={2} type={"warning"} />
+                <p className={"neuronSubtileText"}>{i18n.keyboardSelect.noDevicesSubtitle}</p>
+              </>
             ) : (
               ""
             )}
 
-            {!deviceItems.length ? (
-              <RegularButton buttonText={i18n.keyboardSelect.connect} style={"primary"} disabled={true} />
+            {deviceItems.length > 0 ? (
+              <>
+                <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} />
+                <SelectKeyboardDropdown
+                  deviceItems={deviceItems}
+                  selectPort={selectPort}
+                  selectedPortIndex={selectedPortIndex}
+                  connected={connected}
+                />
+              </>
             ) : (
               ""
             )}
+            <div className="buttons">
+              <RegularButton
+                onClick={scanDevices}
+                buttonText={i18n.keyboardSelect.scan}
+                style={`${connected || deviceItems.length > 0 ? "outline" : "primary"}`}
+                disabled={scanFoundDevices}
+              />
+              {connected ? (
+                <RegularButton
+                  buttonText={i18n.keyboardSelect.disconnect}
+                  style={"primary"}
+                  onClick={onDisconnect}
+                  disabled={false}
+                />
+              ) : (
+                ""
+              )}
+              {!connected && deviceItems.length > 0 ? (
+                <RegularButton
+                  buttonText={i18n.keyboardSelect.connect}
+                  style={"primary"}
+                  onClick={onKeyboardConnect}
+                  disabled={false}
+                />
+              ) : (
+                ""
+              )}
+
+              {!deviceItems.length ? (
+                <RegularButton buttonText={i18n.keyboardSelect.connect} style={"primary"} disabled={true} />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <ToastContainer />

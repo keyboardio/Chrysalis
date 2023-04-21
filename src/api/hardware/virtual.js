@@ -1010,6 +1010,6 @@ const DefyWireless = {
   }
 };
 
-const enumerator = [RaiseISO.device, RaiseANSI.device, DefyWired.device, DefyWireless.device];
+const enumerator = [RaiseISO, RaiseANSI, DefyWired, DefyWireless];
 
 export { RaiseISO, RaiseANSI, DefyWired, DefyWireless, enumerator };

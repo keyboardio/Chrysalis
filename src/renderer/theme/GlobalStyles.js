@@ -504,7 +504,7 @@ svg text{
   background: ${({ theme }) => theme.styles.button.danger.backgroundColorHover};
   color: ${({ theme }) => theme.styles.button.danger.color};
 }
-
+.activeVirtualKeyboard,
 .dropdown-toggle.btn.btn-primary {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonColor};
@@ -546,6 +546,7 @@ svg text{
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
   box-shadow: none;
 }
+
 /*
 // Config Style
 */
@@ -725,7 +726,6 @@ svg text{
   color: ${({ theme }) => theme.styles.button.settings.colorHover};
   background: ${({ theme }) => theme.styles.button.settings.backgroundHover};
 }
-
 .dropdownInner {
   display: flex;
   flex-wrap: nowrap;

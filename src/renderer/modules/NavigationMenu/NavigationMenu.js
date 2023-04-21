@@ -89,10 +89,6 @@ const Styles = Styled.div`
 .list-link+.list-link {
   margin-top: 8px;
 }
-.disabled {
-  color: ${({ theme }) => theme.card.disabled};
-}
-
 .select {
   background-color: ${({ theme }) => theme.card.backgroundActive};
   border-radius: 8px;

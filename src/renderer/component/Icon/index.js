@@ -26,6 +26,7 @@ import IconArrowUpWithLine from "./IconArrowUpWithLine";
 import IconArrowDownWithLine from "./IconArrowDownWithLine";
 import IconColorPalette from "./IconColorPalette";
 import IconColorPicker from "./IconColorPicker";
+import IconConnected from "./IconConnected";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
@@ -149,6 +150,7 @@ export {
   IconArrowDownWithLine,
   IconColorPalette,
   IconColorPicker,
+  IconConnected,
   IconCheckmarkSm,
   IconChip,
   IconClone,

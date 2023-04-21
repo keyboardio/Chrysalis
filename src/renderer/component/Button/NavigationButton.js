@@ -24,7 +24,11 @@ import LightAccent from "../../../../static/dark/light-accent--lg.png";
 
 const Style = Styled.div`
 .disabled{
-    opacity: 0.6;
+    opacity: 0.5;
+    
+}
+.disabled.menuLink svg {
+  color: ${({ theme }) => theme.styles.navbar.menuLink.color};
 }
 .menuLink {
     width: 96px;

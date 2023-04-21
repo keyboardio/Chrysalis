@@ -37,7 +37,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
-import { RaiseISO, RaiseANSI, Defy } from "../../api/hardware/virtual";
+import { RaiseISO, RaiseANSI, DefyWired, DefyWireless, enumerator } from "../../api/hardware/virtual";
 
 import i18n from "../i18n";
 import NeuronConnection from "../modules/NeuronConnection";
@@ -363,12 +363,12 @@ class SelectKeyboard extends Component {
           fileName = "VirtualRaiseISO";
         }
         if (device.info.keyboardType == "wired") {
-          vk = { ...Defy };
+          vk = { ...DefyWired };
           fileName = "VirtualDefy";
         }
         //TODO: replace this DEFY with the wireless version
         if (device.info.keyboardType == "wireless") {
-          vk = { ...Defy };
+          vk = { ...DefyWireless };
           fileName = "VirtualDefy";
         }
         vk.device.components = device.components;
@@ -520,31 +520,7 @@ class SelectKeyboard extends Component {
 
   render() {
     const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
-
     const { onDisconnect } = this.props;
-    const virtualKeyboards = [
-      {
-        model: Defy,
-        text: "Dygma Defy",
-        fileName: "VirtualDefy",
-        value: 0,
-        index: 0
-      },
-      {
-        model: RaiseANSI,
-        text: "Dygma Raise ANSI",
-        fileName: "VirtualRaiseANSI",
-        value: 1,
-        index: 1
-      },
-      {
-        model: RaiseISO,
-        text: "Dygma Raise ISO",
-        fileName: "VirtualRaiseISO",
-        value: 2,
-        index: 2
-      }
-    ];
 
     let loader = null;
     if (this.state.loading) {
@@ -714,7 +690,7 @@ class SelectKeyboard extends Component {
       const Keymap = devices[this.state.selectedPortIndex].device.components.keymap;
       preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
-    console.log("Focus devide: ", focus.device);
+    console.log("Focus device: ", focus.device);
     return (
       <Styles>
         <Container fluid className="keyboard-select center-content">
@@ -773,21 +749,21 @@ class SelectKeyboard extends Component {
                             <div className="dropdownIcon">
                               <IconKeyboard />
                             </div>
-                            <div className="dropdownItem">{virtualKeyboards[selectedVirtualKeyboard].text}</div>
+                            <div className="dropdownItem">{enumerator[selectedVirtualKeyboard].device.info.displayName}</div>
                           </div>
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="super-colors virtualKeyboardsMenu">
-                          {virtualKeyboards.map(item => (
+                          {enumerator.map((item, index) => (
                             <Dropdown.Item
-                              eventKey={item.index}
-                              key={item.index}
-                              className={`${selectedVirtualKeyboard == item.index ? "active" : ""}`}
+                              eventKey={index}
+                              key={index}
+                              className={`${selectedVirtualKeyboard == index ? "active" : ""}`}
                             >
                               <div className="dropdownInner">
                                 <div className="dropdownIcon">
                                   <IconKeyboard />
                                 </div>
-                                <div className="dropdownItem">{item.text}</div>
+                                <div className="dropdownItem">{item.device.info.displayName}</div>
                               </div>
                             </Dropdown.Item>
                           ))}
@@ -798,14 +774,13 @@ class SelectKeyboard extends Component {
                         style="primary"
                         onClick={() =>
                           this.newFile(
-                            virtualKeyboards[selectedVirtualKeyboard].model,
-                            virtualKeyboards[selectedVirtualKeyboard].fileName
+                            enumerator[selectedVirtualKeyboard],
+                            "Virtual" +
+                              enumerator[selectedVirtualKeyboard].device.info.product +
+                              enumerator[selectedVirtualKeyboard].device.info.keyboardType
                           )
                         }
                       />
-                      {/* <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
-                      <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
-                      <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button> */}
                     </div>
                     <div className="virtualKeyboards-col virtualKeyboards-col--text">
                       <span>OR</span>

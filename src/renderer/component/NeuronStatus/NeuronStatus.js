@@ -18,6 +18,7 @@
 import * as React from "react";
 import Styled from "styled-components";
 import { useTheme } from "styled-components";
+import { IconChip } from "../Icon";
 
 const Style = Styled.div`
 align-self: center;
@@ -26,19 +27,43 @@ align-self: center;
 	height: 360px;
   background-color: ${({ theme }) => theme.styles.neuronStatus.neuronStatusBackgroundColor}; 
 	border-radius: 14px;
-	display: flex;
-    justify-content: center;
-    align-items: center;
-	position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 .neuronConnectAnimation {
-	position: absolute;
-    top: 0;
-    right: 0;
-    width: 62px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 62px;
 	img {
 		width: 100%;
 	}
+  &.isVirtual {
+    width: 38px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme }) => theme.styles.virtualKeyboard.iconVirtualKBBGColor};
+    color: ${({ theme }) => theme.styles.virtualKeyboard.iconVirtualKBColor};
+    top: 8px;
+    right: 8px;
+    transform: scale(0);
+    transform-origin: center center;
+    animation-duration: 500ms;
+    animation-name: bounceIn;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.36, .26, .56, -1.5);
+  }
+}
+@keyframes bounceIn {
+  to {
+    transform: scale(1);
+  }
 }
 .neuronConnectAnimation .lineStatus {
 	stroke: #3F425A;
@@ -101,9 +126,16 @@ const NeuronStatus = props => {
   return (
     <Style>
       <div className="neuronStatusInner">
-        {props.connected ? (
+        {props.connected && !props.isVirtual ? (
           <div className="neuronConnectAnimation">
             <img src={checkedIcon} />
+          </div>
+        ) : (
+          ""
+        )}
+        {props.connected && props.isVirtual ? (
+          <div className="neuronConnectAnimation isVirtual">
+            <IconChip />
           </div>
         ) : (
           ""

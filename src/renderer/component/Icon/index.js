@@ -20,15 +20,18 @@ import IconArrowInBoxDown from "./IconArrowInBoxDown";
 import IconArrowInBoxUp from "./IconArrowInBoxUp";
 import IconArrowsMouseMovement from "./IconArrowsMouseMovement";
 import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
+import IconArrowRight from "./IconArrowRight";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconArrowUpWithLine from "./IconArrowUpWithLine";
 import IconArrowDownWithLine from "./IconArrowDownWithLine";
 import IconColorPalette from "./IconColorPalette";
 import IconColorPicker from "./IconColorPicker";
+import IconConnected from "./IconConnected";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
 import IconCloseXs from "./IconCloseXs";
+import IconCloudDownload from "./IconCloudDownload";
 import IconDragAndDrop from "./IconDragAndDrop";
 import IconDelete from "./IconDelete";
 import IconEditModeSingleView from "./IconEditModeSingleView";
@@ -130,6 +133,7 @@ import IconToolsBrightnessMoreSm from "./IconToolsBrightnessMoreSm";
 import IconThreeDots from "./IconThreeDots";
 import IconSettings from "./IconSettings";
 import IconUndoRestart from "./IconUndoRestart";
+import IconUpload from "./IconUpload";
 import IconWrench from "./IconWrench";
 import IconWrenchSm from "./IconWrenchSm";
 
@@ -138,6 +142,7 @@ export {
   IconAddLayer,
   IconArrowInBoxDown,
   IconArrowInBoxUp,
+  IconArrowRight,
   IconArrowsSmallSeparating,
   IconArrowsMouseMovement,
   IconArrowsMouseWheel,
@@ -145,10 +150,12 @@ export {
   IconArrowDownWithLine,
   IconColorPalette,
   IconColorPicker,
+  IconConnected,
   IconCheckmarkSm,
   IconChip,
   IconClone,
   IconCloseXs,
+  IconCloudDownload,
   IconDragAndDrop,
   IconDelete,
   IconEditModeSingleView,
@@ -250,6 +257,7 @@ export {
   IconThreeDots,
   IconSettings,
   IconUndoRestart,
+  IconUpload,
   IconWrench,
   IconWrenchSm
 };

@@ -504,7 +504,7 @@ svg text{
   background: ${({ theme }) => theme.styles.button.danger.backgroundColorHover};
   color: ${({ theme }) => theme.styles.button.danger.color};
 }
-
+.activeVirtualKeyboard,
 .dropdown-toggle.btn.btn-primary {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonColor};
@@ -546,6 +546,7 @@ svg text{
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
   box-shadow: none;
 }
+
 /*
 // Config Style
 */
@@ -725,7 +726,6 @@ svg text{
   color: ${({ theme }) => theme.styles.button.settings.colorHover};
   background: ${({ theme }) => theme.styles.button.settings.backgroundHover};
 }
-
 .dropdownInner {
   display: flex;
   flex-wrap: nowrap;
@@ -1959,6 +1959,96 @@ div.card.card-preferences .card-body {
   body .layoutEditor .LayerHolder {
     max-width: 1580px;
   }
+}
+
+.virtualKeyboards-wrapper {
+  display: flex;
+  grid-gap: 32px;
+}
+.virtualKeyboards-col {
+  background: ${({ theme }) => theme.styles.virtualKeyboard.cardBackground};
+  border: 1px solid ${({ theme }) => theme.styles.virtualKeyboard.cardBorder};
+  border-radius: 14px;
+  padding: 32px;
+  flex: 1;
+  h4 {
+    color: ${({ theme }) => theme.styles.virtualKeyboard.cardTitleColor};
+  }
+  p {
+    font-family: ${({ theme }) => theme.font};
+    font-weight: 401;
+    font-size: 15px;
+    color: ${({ theme }) => theme.styles.virtualKeyboard.cardTextColor};
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+  label {
+    font-weight: 700;
+    font-size: 14px;
+    color: ${({ theme }) => theme.styles.virtualKeyboard.labelTextColor};
+    margin: 0;
+  }
+}
+.virtualKeyboards-col--text {
+  flex: 0 0 1px;
+  width: 1px;
+  position: relative;
+  border: none;
+  padding: 0;
+  background-color: ${({ theme }) => theme.styles.virtualKeyboard.orLineColor};
+  span {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 6px;
+    color: ${({ theme }) => theme.styles.virtualKeyboard.orTextColor};
+    font-weight: 700;
+    font-size: 12px;
+    background-color: ${({ theme }) => theme.styles.virtualKeyboard.orBgColor};
+  }
+}
+.virtualKeyboards-wrapper {
+  .custom-dropdown {
+    margin-bottom: 24px;
+    .virtualKeyboardsMenu {
+      min-width: 100%;
+    }
+    .dropdwonIcon {
+      max-width: 24px;
+    }
+    .dropdownItem {
+      padding-left: 0;
+      flex: 0 0 100%;
+      text-align: left;
+      text-transform: capitalize;
+    }
+    .dropdownItemSelected {
+      color: ${({ theme }) => theme.styles.dropdown.textButtonColor};
+      &:hover {
+        color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
+      }
+    }
+    .dropdownIcon + .dropdownItem {
+      padding-left: 12px;
+      flex: 0 0 calc(100% - 24px);
+    }
+  }
+}
+@media screen and (max-width: 991px) {
+  .virtualKeyboards-wrapper {
+    flex-direction: column;
+    .virtualKeyboards-col--text {
+      height: 100%;
+      width: 100%;
+      span {
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+    }
+  }
+  
 }
 
 `;

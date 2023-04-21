@@ -26,6 +26,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { RegularButton } from "../component/Button";
 
 import PageHeader from "../modules/PageHeader";
@@ -43,6 +44,11 @@ import NeuronConnection from "../modules/NeuronConnection";
 import ToastMessage from "../component/ToastMessage";
 import { newError } from "builder-util-runtime";
 
+import { IconArrowRight, IconCloudDownload, IconUpload, IconKeyboard } from "../component/Icon";
+//import iconKeyboard from "../../../static/base/icon-keyboard.svg";
+import Title from "../component/Title";
+import { Select } from "../component/Select";
+
 const Store = require("electron-store");
 const store = new Store();
 
@@ -52,15 +58,23 @@ height: 100vh;
   overflow: hidden;
   height: 100vh;
 }
-.fileTest {
+.cardButton-wrapper {
   display: block;
-  width: 53%;
-  text-align: center;
-  height: 42px;
-  .btn {
-    padding: 10px;
-    margin: 10px;
+  width: 100%;
+  text-align: left;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid ${({ theme }) => theme.styles.virtualKeyboard.cardButtonDivider};
+  .cardButton {
+    padding: 8px 24px;
+    background: ${({ theme }) => theme.styles.virtualKeyboard.cardButtonBackground};
+    border-radius: 6px;
     width: 100%;
+    .button-link {
+      padding-left: 0;
+      font-size: 14px;
+      color: ${({ theme }) => theme.colors.purple200};
+    }
   }
 }
 .keyboard-select {
@@ -181,6 +195,8 @@ height: 100vh;
     }
   }
 }
+
+
 `;
 
 class SelectKeyboard extends Component {
@@ -191,12 +207,15 @@ class SelectKeyboard extends Component {
       opening: false,
       devices: null,
       loading: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      showVirtualKeyboardModal: false,
+      selectedVirtualKeyboard: 0
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
     this.scanDevices = this.scanDevices.bind(this);
     this.selectPort = this.selectPort.bind(this);
+    this.selectVirtualKeyboard = this.selectVirtualKeyboard.bind(this);
   }
 
   findNonSerialKeyboards = deviceList => {
@@ -267,6 +286,10 @@ class SelectKeyboard extends Component {
     }, 1000);
   };
 
+  toggleVirtualKeyboardModal() {
+    this.setState({ showVirtualKeyboardModal: !this.state.showVirtualKeyboardModal });
+  }
+
   componentDidMount() {
     this.finder = () => {
       this.findKeyboards();
@@ -295,6 +318,11 @@ class SelectKeyboard extends Component {
     usb.off("attach", this.finder);
     usb.off("detach", this.finder);
   }
+
+  selectVirtualKeyboard = event => {
+    console.log(event);
+    this.setState({ selectedVirtualKeyboard: event });
+  };
 
   selectPort = event => {
     console.log(event);
@@ -491,9 +519,32 @@ class SelectKeyboard extends Component {
   };
 
   render() {
-    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen } = this.state;
+    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
 
     const { onDisconnect } = this.props;
+    const virtualKeyboards = [
+      {
+        model: Defy,
+        text: "Dygma Defy",
+        fileName: "VirtualDefy",
+        value: 0,
+        index: 0
+      },
+      {
+        model: RaiseANSI,
+        text: "Dygma Raise ANSI",
+        fileName: "VirtualRaiseANSI",
+        value: 1,
+        index: 1
+      },
+      {
+        model: RaiseISO,
+        text: "Dygma Raise ISO",
+        fileName: "VirtualRaiseISO",
+        value: 2,
+        index: 2
+      }
+    ];
 
     let loader = null;
     if (this.state.loading) {
@@ -663,29 +714,115 @@ class SelectKeyboard extends Component {
       const Keymap = devices[this.state.selectedPortIndex].device.components.keymap;
       preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
-
+    console.log("Focus devide: ", focus.device);
     return (
       <Styles>
         <Container fluid className="keyboard-select center-content">
           <PageHeader text={i18n.keyboardSelect.title} />
-          <NeuronConnection
-            loading={loading}
-            scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}
-            scanDevices={this.scanDevices}
-            cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
-            onKeyboardConnect={this.onKeyboardConnect}
-            connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
-            onDisconnect={onDisconnect}
-            isVirtual={focus.file}
-            deviceItems={deviceItems != null ? deviceItems : []}
-            selectPort={this.selectPort}
-            selectedPortIndex={selectedPortIndex}
-          />
-          <div className="fileTest">
-            <Button onClick={() => this.newFile({ ...Defy }, "VirtualDefy")}>Create a new Virtual Defy</Button>
-            <Button onClick={() => this.newFile({ ...RaiseANSI }, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
-            <Button onClick={() => this.newFile({ ...RaiseISO }, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button>
-            <Button onClick={this.useAFile}>Use a file</Button>
+          <div className="keyboardSelection-wrapper">
+            <NeuronConnection
+              loading={loading}
+              scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}
+              scanDevices={this.scanDevices}
+              cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
+              onKeyboardConnect={this.onKeyboardConnect}
+              connected={focus.file ? true : focus.device && selectedDevice && selectedDevice.device == focus.device}
+              onDisconnect={onDisconnect}
+              deviceItems={deviceItems != null ? deviceItems : []}
+              selectPort={this.selectPort}
+              selectedPortIndex={selectedPortIndex}
+              isVirtual={focus.file}
+              virtualDevice={focus.device}
+            />
+            <div className="cardButton-wrapper">
+              <div className="cardButton">
+                <RegularButton
+                  buttonText={i18n.keyboardSelect.virtualKeyboard.buttonText}
+                  style="button-link"
+                  icoSVG={<IconArrowRight />}
+                  icoPosition="right"
+                  size="sm"
+                  onClick={() => {
+                    this.toggleVirtualKeyboardModal();
+                  }}
+                />
+              </div>
+              <Modal
+                show={this.state.showVirtualKeyboardModal}
+                size="lg"
+                onHide={() => this.toggleVirtualKeyboardModal()}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>{i18n.keyboardSelect.virtualKeyboard.modaltitle}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="virtualKeyboards-wrapper">
+                    <div className="virtualKeyboards-col">
+                      <Title
+                        text={i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardTitle}
+                        headingLevel={4}
+                        svgICO={<IconCloudDownload />}
+                      />
+                      <p>{i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardDescription}</p>
+                      <label>{i18n.keyboardSelect.virtualKeyboard.newVirtualKeyboardLabel}</label>
+                      <Dropdown className="custom-dropdown" onSelect={this.selectVirtualKeyboard}>
+                        <Dropdown.Toggle id="dropdown-custom">
+                          <div className="dropdownItemSelected">
+                            <div className="dropdownIcon">
+                              <IconKeyboard />
+                            </div>
+                            <div className="dropdownItem">{virtualKeyboards[selectedVirtualKeyboard].text}</div>
+                          </div>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="super-colors virtualKeyboardsMenu">
+                          {virtualKeyboards.map(item => (
+                            <Dropdown.Item
+                              eventKey={item.index}
+                              key={item.index}
+                              className={`${selectedVirtualKeyboard == item.index ? "active" : ""}`}
+                            >
+                              <div className="dropdownInner">
+                                <div className="dropdownIcon">
+                                  <IconKeyboard />
+                                </div>
+                                <div className="dropdownItem">{item.text}</div>
+                              </div>
+                            </Dropdown.Item>
+                          ))}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <RegularButton
+                        buttonText={i18n.general.create}
+                        style="primary"
+                        onClick={() =>
+                          this.newFile(
+                            virtualKeyboards[selectedVirtualKeyboard].model,
+                            virtualKeyboards[selectedVirtualKeyboard].fileName
+                          )
+                        }
+                      />
+                      {/* <Button onClick={() => this.newFile(Defy, "VirtualDefy")}>Create a new Virtual Defy</Button>
+                      <Button onClick={() => this.newFile(RaiseANSI, "VirtualRaiseANSI")}>Create a new Virtual Raise ANSI</Button>
+                      <Button onClick={() => this.newFile(RaiseISO, "VirtualRaiseISO")}>Create a new Virtual Raise ISO</Button> */}
+                    </div>
+                    <div className="virtualKeyboards-col virtualKeyboards-col--text">
+                      <span>OR</span>
+                    </div>
+                    <div className="virtualKeyboards-col">
+                      <Title
+                        text={i18n.keyboardSelect.virtualKeyboard.loadVirtualKeyboardTitle}
+                        headingLevel={4}
+                        svgICO={<IconUpload />}
+                      />
+                      <p>{i18n.keyboardSelect.virtualKeyboard.loadVirtualKeyboardDescription}</p>
+                      <RegularButton buttonText={i18n.general.loadFile} style="primary" onClick={() => this.useAFile()} />
+                    </div>
+                  </div>
+                </Modal.Body>
+              </Modal>
+            </div>
           </div>
         </Container>
       </Styles>

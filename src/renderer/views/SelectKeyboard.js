@@ -206,7 +206,7 @@ class SelectKeyboard extends Component {
       selectedPortIndex: 0,
       opening: false,
       devices: null,
-      loading: false,
+      loading: true,
       dropdownOpen: false,
       showVirtualKeyboardModal: false,
       selectedVirtualKeyboard: 0
@@ -520,10 +520,10 @@ class SelectKeyboard extends Component {
 
   render() {
     const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen, selectedVirtualKeyboard } = this.state;
-    const { onDisconnect } = this.props;
+    const { onDisconnect, connected } = this.props;
 
     let loader = null;
-    if (this.state.loading) {
+    if (loading) {
       loader = (
         <Card.Body className="loader">
           <Spinner className="spinner-border text-danger" role="status" />
@@ -702,7 +702,7 @@ class SelectKeyboard extends Component {
               scanDevices={this.scanDevices}
               cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
               onKeyboardConnect={this.onKeyboardConnect}
-              connected={focus.file ? true : focus.device && selectedDevice && selectedDevice.device == focus.device}
+              connected={connected}
               onDisconnect={onDisconnect}
               deviceItems={deviceItems != null ? deviceItems : []}
               selectPort={this.selectPort}

@@ -343,6 +343,7 @@ class App extends React.Component {
             />
             <SelectKeyboard
               path="/keyboard-select"
+              connected={connected}
               onConnect={this.onKeyboardConnect}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}

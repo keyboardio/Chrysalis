@@ -254,8 +254,8 @@ const English = {
       },
       layers: {
         title: "Layers",
-        callOut: "You can navigate  between layers in different ways, adding layer switch or layer lock.",
-        layerSwitch: "Layer Switch",
+        callOut: "You can navigate  between layers in different ways, adding layer shift or layer lock.",
+        layerSwitch: "Layer Shift",
         layerSwitchDescription:
           "Move to another layer while holding the key, then release the key to go back to the  previous layer.",
         layerLock: "Layer Lock",

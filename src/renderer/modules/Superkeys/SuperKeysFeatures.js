@@ -92,7 +92,7 @@ const SuperKeysFeatures = () => {
                         <li className="active">Media & LED</li>
                         <li className="active">Mouse</li>
                         <li className="active">Layer Lock</li>
-                        <li>Layer Switch</li>
+                        <li>Layer Shift</li>
                         <li>Dual-function</li>
                         <li>OneShot</li>
                         <li>Superkeys</li>
@@ -107,7 +107,7 @@ const SuperKeysFeatures = () => {
                         <li className="active">Media & LED</li>
                         <li className="active">Mouse</li>
                         <li className="active">Layer Lock</li>
-                        <li>Layer Switch</li>
+                        <li>Layer Shift</li>
                         <li>Dual-function</li>
                         <li>OneShot</li>
                         <li>Superkeys</li>
@@ -122,7 +122,7 @@ const SuperKeysFeatures = () => {
                         <li className="active">Media & LED</li>
                         <li className="active">Mouse</li>
                         <li className="active">Layer Lock</li>
-                        <li>Layer Switch</li>
+                        <li>Layer Shift</li>
                         <li>Dual-function</li>
                         <li>OneShot</li>
                         <li>Superkeys</li>
@@ -137,7 +137,7 @@ const SuperKeysFeatures = () => {
                         <li className="active">Media & LED</li>
                         <li className="active">Mouse</li>
                         <li className="active">Layer Lock</li>
-                        <li>Layer Switch</li>
+                        <li>Layer Shift</li>
                         <li>Dual-function</li>
                         <li>OneShot</li>
                         <li>Superkeys</li>
@@ -152,7 +152,7 @@ const SuperKeysFeatures = () => {
                         <li className="active">Media & LED</li>
                         <li className="active">Mouse</li>
                         <li className="active">Layer Lock</li>
-                        <li>Layer Switch</li>
+                        <li>Layer Shift</li>
                         <li>Dual-function</li>
                         <li>OneShot</li>
                         <li>Superkeys</li>

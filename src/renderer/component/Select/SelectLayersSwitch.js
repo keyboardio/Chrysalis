@@ -86,7 +86,7 @@ class SelectLayersSwitch extends Component {
           <Dropdown.Toggle id="dropdown-custom">
             <div className="dropdownItemSelected">
               <div className="dropdownItem">
-                <span className="dropdownLabel">Layer Switch</span>
+                <span className="dropdownLabel">Layer Shift</span>
                 {`${
                   keyCode.modified > 0 && this.layerShift.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
                     ? this.layerShift[this.layerShift.findIndex(o => o.keynum == KC)].name

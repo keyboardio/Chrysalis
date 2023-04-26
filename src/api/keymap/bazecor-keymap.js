@@ -108,20 +108,19 @@ class Keymap {
   }
 }
 
-class OnlyCustom {
-  async focus(s, onlyCustom) {
-    if (onlyCustom === undefined) {
-      return Boolean(parseInt(await s.request("keymap.onlyCustom")));
-    }
+// class OnlyCustom {
+//   async focus(s, onlyCustom) {
+//     if (onlyCustom === undefined) {
+//       return Boolean(parseInt(await s.request("keymap.onlyCustom")));
+//     }
 
-    return await s.request("keymap.onlyCustom", onlyCustom ? "1" : "0");
-  }
-}
+//     return await s.request("keymap.onlyCustom", onlyCustom ? "1" : "0");
+//   }
+// }
 
 let focus = new Focus();
 focus.addCommands({
-  keymap: new Keymap(),
-  "keymap.onlyCustom": new OnlyCustom()
+  keymap: new Keymap()
 });
 focus.addMethod("setLayerSize", "keymap");
 

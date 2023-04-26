@@ -598,6 +598,8 @@ class LayoutEditor extends React.Component {
       defLayer = parseInt(defLayer) || 0;
 
       let keymap = await focus.command("keymap");
+      const onlyC = await focus.command("keymap.onlyCustom");
+      keymap.onlyCustom = onlyC;
 
       let empty = true;
       for (let layer of keymap.custom) {
@@ -609,6 +611,7 @@ class LayoutEditor extends React.Component {
         }
       }
 
+      // console.log("KEYMAP TEST!!", keymap, keymap.onlyCustom, onlyC);
       if (empty && !keymap.onlyCustom && keymap.custom.length > 0) {
         console.log("Custom keymap is empty, copying defaults");
         for (let i = 0; i < keymap.default.length; i++) {

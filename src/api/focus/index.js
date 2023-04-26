@@ -283,15 +283,19 @@ class Focus {
   }
 
   async _request(cmd, ...args) {
-    console.log("performing request");
     if (this.file === true) {
+      console.log("performing virtual request");
       if (args.length > 0 && this.fileData.virtual[cmd].eraseable) {
         this.fileData.virtual[cmd].data = args.join(" ");
       }
-      console.log("reading data");
-      console.log(this.fileData.virtual[cmd].data);
-      return this.fileData.virtual[cmd].data;
+      console.log("reading virtual data");
+      const result = this.fileData.virtual[cmd].data;
+      console.log(result);
+      return new Promise(resolve => {
+        resolve(result);
+      });
     }
+    console.log("performing request");
     if (!this._port) throw "Device not connected!";
 
     let request = cmd;

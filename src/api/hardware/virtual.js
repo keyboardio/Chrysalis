@@ -762,7 +762,7 @@ const DefyWireless = {
       vendor: "Dygma",
       product: "Defy",
       keyboardType: "wireless",
-      displayName: "Dygma Defy wireless",
+      displayName: "Dygma Defy",
       urls: [
         {
           name: "Homepage",
@@ -1010,6 +1010,6 @@ const DefyWireless = {
   }
 };
 
-const enumerator = [RaiseISO, RaiseANSI, DefyWired, DefyWireless];
+const enumerator = [RaiseISO, RaiseANSI, DefyWireless];
 
 export { RaiseISO, RaiseANSI, DefyWired, DefyWireless, enumerator };

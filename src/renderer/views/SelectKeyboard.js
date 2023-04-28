@@ -777,7 +777,10 @@ class SelectKeyboard extends Component {
                             enumerator[selectedVirtualKeyboard],
                             "Virtual" +
                               enumerator[selectedVirtualKeyboard].device.info.product +
-                              enumerator[selectedVirtualKeyboard].device.info.keyboardType
+                              enumerator[selectedVirtualKeyboard].device.info.product ===
+                              "Defy"
+                              ? ""
+                              : enumerator[selectedVirtualKeyboard].device.info.keyboardType
                           )
                         }
                       />

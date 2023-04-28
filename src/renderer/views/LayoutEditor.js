@@ -1758,7 +1758,7 @@ class LayoutEditor extends React.Component {
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
-    if (Layer === false) {
+    if (!Layer) {
       return <div></div>;
     }
     const showDefaults = store.get("settings.showDefaults");

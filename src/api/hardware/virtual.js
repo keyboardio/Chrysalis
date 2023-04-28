@@ -772,7 +772,7 @@ const DefyWireless = {
     },
     usb: {
       vendorId: 13807,
-      productId: 17
+      productId: 18
     },
     keyboard: {
       rows: 5,

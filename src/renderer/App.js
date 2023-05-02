@@ -256,61 +256,63 @@ const App = (props) => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={uiTheme}>
           <DndProvider backend={HTML5Backend}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-            >
-              <LocationProvider history={history}>
-                <CssBaseline />
-                <Header device={deviceInfo} />
-                <Box
-                  component="main"
-                  sx={{
-                    flexGrow: 1,
-                    overflow: "auto",
-                    height: "100%",
-                  }}
-                >
-                  <Router id="router">
-                    <SanityCheck path="/sanity-check" />
-                    <FocusNotDetected
-                      path="/focus-not-detected"
-                      focusDeviceDescriptor={focusDeviceDescriptor}
-                      onConnect={onKeyboardConnect}
-                    />
-                    <LayoutCard
-                      path="/layout-card"
-                      onDisconnect={onKeyboardDisconnect}
-                    />
-                    <KeyboardSelect
-                      path="/keyboard-select"
-                      onConnect={onKeyboardConnect}
-                      onDisconnect={onKeyboardDisconnect}
-                    />
-                    <Editor
-                      path="/editor"
-                      onDisconnect={onKeyboardDisconnect}
-                    />
-                    <FirmwareUpdate
-                      path="/firmware-update"
-                      focusDeviceDescriptor={focusDeviceDescriptor}
-                      toggleFlashing={toggleFlashing}
-                      onDisconnect={onKeyboardDisconnect}
-                    />
-                    <Preferences
-                      path="/preferences"
-                      onDisconnect={onKeyboardDisconnect}
-                    />
-                    <SystemInfo path="/system-info" />
-                    <ChangeLog path="/changelog" />
-                  </Router>
-                </Box>
-              </LocationProvider>
-            </Box>
-            <Toast />
+            <div>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
+                <LocationProvider history={history}>
+                  <CssBaseline />
+                  <Header device={deviceInfo} />
+                  <Box
+                    component="main"
+                    sx={{
+                      flexGrow: 1,
+                      overflow: "auto",
+                      height: "100%",
+                    }}
+                  >
+                    <Router id="router">
+                      <SanityCheck path="/sanity-check" />
+                      <FocusNotDetected
+                        path="/focus-not-detected"
+                        focusDeviceDescriptor={focusDeviceDescriptor}
+                        onConnect={onKeyboardConnect}
+                      />
+                      <LayoutCard
+                        path="/layout-card"
+                        onDisconnect={onKeyboardDisconnect}
+                      />
+                      <KeyboardSelect
+                        path="/keyboard-select"
+                        onConnect={onKeyboardConnect}
+                        onDisconnect={onKeyboardDisconnect}
+                      />
+                      <Editor
+                        path="/editor"
+                        onDisconnect={onKeyboardDisconnect}
+                      />
+                      <FirmwareUpdate
+                        path="/firmware-update"
+                        focusDeviceDescriptor={focusDeviceDescriptor}
+                        toggleFlashing={toggleFlashing}
+                        onDisconnect={onKeyboardDisconnect}
+                      />
+                      <Preferences
+                        path="/preferences"
+                        onDisconnect={onKeyboardDisconnect}
+                      />
+                      <SystemInfo path="/system-info" />
+                      <ChangeLog path="/changelog" />
+                    </Router>
+                  </Box>
+                </LocationProvider>
+              </Box>
+              <Toast />
+            </div>
           </DndProvider>
         </ThemeProvider>
       </StyledEngineProvider>

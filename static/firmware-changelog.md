@@ -1,3 +1,34 @@
+Chrysalis-Firmware-Bundle 0.91.1
+================================
+Released on 2023-05-05
+
+This release brings a large set of bugfixes, for every keyboard. Upgrading is
+highly recommended.
+
+A number of fixes were implemented to make Kaleidoscope-powered keyboards work
+better with some UEFIs and BIOSes, and to conform to the HID specification more
+closely. This should make the keyboards work in - hopefully - all BIOSes and
+UEFIs, and other situations where N-key rollover isn't usable.
+
+Also fixed an issue where events were occasionally dropped when using secondary
+actions, causing all kinds of weird issues, including - but not limited to -
+stuck keys.
+
+During Macro playback, OneShot keys are no longer released prematurely.
+
+Improved how locked and shifted layers interact, making it possible to put a
+lock layer key on a layer that is accessed by a momentary layer shift (as
+opposed to a layer lock or toggle). Previously, toggling the locked layer on
+worked, but it couldn't be toggled off with a single tap, because the shifted
+layer would be on top when the locked one was enabled. This now works properly,
+and the locked layer can be toggled off with a single tap.
+
+Keyboardio Model 100
+--------------------
+
+Rearranged the order of plugins, so that SpaceCadet and secondary actions play
+nicely together.
+
 Chrysalis-Firmware-Bundle 0.91.0
 ================================
 Released on 2022-10-26
@@ -13,7 +44,6 @@ Keyboardio Atreus
 
 The firmware now correctly sets up the desired `SpaceCadet` mode, and no longer
 forces it off every time it is plugged in.
-
 
 Chrysalis-Firmware-Bundle 0.90.6
 ================================

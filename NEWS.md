@@ -2,7 +2,40 @@ Chrysalis 0.12.1-snapshot
 =========================
 **UNRELEASED**
 
-No changes yet.
+## New features
+
+Chrysails now supports the [AutoShift][k:autoshift] and
+[TopsyTurvy][k:topsyturvy] Kaleidoscope plugins. The former makes it possible to
+long-press a key to make it as if `Shift` was pressed alongside with it,
+allowing one to - for example - type a capital `A` by long-pressing the `a` key.
+The second is a special kind of modifier: it is like `Shift`, but inverted.
+
+ [k:autoshift]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-AutoShift.html
+ [k:topsyturvy]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-TopsyTurvy.html
+
+[OneShot Meta Keys][k:os-meta] are now supported by Chrysalis, and can be assigned to keys, if the firmware has the plugin enabled.
+
+ [k:os-meta]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-OneShotMetaKeys.html
+
+None of the firmware shipped with Chrysalis have the above plugins enabled, but
+custom firmware having them can now tweak them via Chrysalis!
+
+Also added support for the "LED Toggle" key, with which you can toggle LEDs on
+and off, without switching the active LED mode itself.
+
+## Bugfixes
+
+A number of improvements have been made to the flashing process that should make
+it more fault tolerant. Along the way, the Firmware Update screen will now
+display a warning when the keyboard to flash is in bootloader mode (because
+Chrysalis is not able to save and restore settings in that case).
+
+## Firmware update
+
+The firmware shipped with Chrysalis have been updated, see its [own
+changelog][fw:0.91.1] for more details.
+
+ [fw:0.91.1]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.1
 
 Chrysalis 0.12.0
 ================

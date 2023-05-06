@@ -25,9 +25,9 @@ function getStaticPath() {
   // Instead, it includes an unexpected `node_modules` path, specifically:
   // node_modules/electron/dist/Electron.app/Contents/Resources/static
   if (isDevelopment) {
-    return path.join("/static");
+    return path.join("static");
   } else {
-    return path.join("../../../../static");
+    return path.join(__dirname, "..", "..", "..", "..", "static");
   }
 }
 

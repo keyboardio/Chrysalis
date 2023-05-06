@@ -87,7 +87,7 @@ update_version() {
     VERSION="$(release_version)"
 
     ## Update package.json
-    yarn version --new-version=${VERSION}
+    yarn version --new-version=${VERSION} --no-git-tag-version
 
     ## Update NEWS.md
     TMP=$(mktemp)

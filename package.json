@@ -1,6 +1,6 @@
 {
   "name": "Chrysalis",
-  "version": "0.12.1-snapshot",
+  "version": "0.13.0-snapshot",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Keyboardio",
@@ -19,7 +19,7 @@
     "appId": "keyboardio.chrysalis",
     "productName": "Chrysalis",
     "artifactName": "${productName}-${version}.${ext}",
-    "copyright": "Copyright © 2018-2022 Keyboardio Inc.; distributed under the GPLv3",
+    "copyright": "Copyright © 2018-2023 Keyboardio Inc.; distributed under the GPLv3",
     "win": {
       "target": [
         "nsis",

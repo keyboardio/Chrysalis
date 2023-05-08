@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import i18n from "../../i18n";
+import Focus from "../../../api/focus";
+import Keymap from "../../../api/keymap";
 
 // React Bootstrap Components
 import Card from "react-bootstrap/Card";
@@ -48,6 +50,12 @@ export default class GeneralSettings extends Component {
   changeLanguage = language => {
     this.setState({ selectedLanguage: language });
     store.set("settings.language", `${language}`);
+
+    let focus = new Focus();
+    if (!focus.closed) {
+      let deviceLang = { ...focus.device, language: true };
+      focus.commands.keymap = new Keymap(deviceLang);
+    }
   };
 
   render() {

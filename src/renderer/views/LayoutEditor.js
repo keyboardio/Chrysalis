@@ -898,9 +898,10 @@ class LayoutEditor extends React.Component {
 
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
-    console.log("Language automatically set to: ", store.get("settings.language"));
+    const newLanguage = store.get("settings.language");
+    console.log("Language automatically set to: ", newLanguage);
     this.setState({
-      currentLanguageLayout: store.get("settings.language") || "english"
+      currentLanguageLayout: newLanguage || "english"
     });
   };
 

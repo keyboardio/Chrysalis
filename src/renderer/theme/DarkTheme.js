@@ -713,7 +713,7 @@ const Dark = {
     toggleButton: {
       background: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
-    toogleEditMode: {
+    toggleEditMode: {
       titleColor: Tokens.colors.gray500,
       containerBackground: settingColorOpacity(Tokens.colors.gray900, 0.25),
       containerBorder: "1px solid transparent",

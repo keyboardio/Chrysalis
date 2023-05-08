@@ -146,7 +146,7 @@ class SuperkeysEditor extends React.Component {
     this.checkKBSuperkeys = this.checkKBSuperkeys.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.RemoveDeletedSK = this.RemoveDeletedSK.bind(this);
-    this.onToogle = this.onToogle.bind(this);
+    this.onToggle = this.onToggle.bind(this);
   }
 
   async componentDidMount() {
@@ -716,7 +716,7 @@ class SuperkeysEditor extends React.Component {
     }
   }
 
-  onToogle = () => {
+  onToggle = () => {
     if (this.state.isStandardViewSuperkeys) {
       this.setState({ isStandardViewSuperkeys: false, selectedAction: -1 });
     } else {
@@ -827,10 +827,9 @@ class SuperkeysEditor extends React.Component {
           ""
         )}
         <LayoutViewSelector
-          onToogle={this.onToogle}
+          onToggle={this.onToggle}
           isStandardView={isStandardViewSuperkeys}
           tooltip={i18n.editor.superkeys.tooltip}
-          isDisabled={false}
         />
         {isStandardViewSuperkeys ? (
           <StandardView

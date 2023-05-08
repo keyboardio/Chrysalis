@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/Dygmalab/Bazecor",
   "engines": {
-    "node": ">=16.0.0",
+    "node": "^16.0.0",
     "npm": ">=8.11.0"
   },
   "scripts": {

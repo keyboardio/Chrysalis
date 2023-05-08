@@ -20,26 +20,24 @@ import React from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Modal from "react-bootstrap/Modal";
-import { FiSave, FiTrash2 } from "react-icons/fi";
+import Row from "react-bootstrap/Row";
 
-import i18n from "../i18n";
-import Keymap, { KeymapDB } from "../../api/keymap";
-import Focus from "../../api/focus";
 import Backup from "../../api/backup";
+import Focus from "../../api/focus";
+import Keymap, { KeymapDB } from "../../api/keymap";
+import i18n from "../i18n";
 
-import PageHeader from "../modules/PageHeader";
-import { MacroSelector } from "../component/Select";
 import { RegularButton } from "../component/Button";
 import Callout from "../component/Callout";
-import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
+import { MacroSelector } from "../component/Select";
+import ToastMessage from "../component/ToastMessage";
+import PageHeader from "../modules/PageHeader";
 
 import MacroCreator from "../modules/Macros/MacroCreator";
 import TimelineEditorManager from "../modules/Macros/TimelineEditorManager";
@@ -88,6 +86,35 @@ const Styles = Styled.div`
   }
 `;
 
+const defaultMacro = [
+  {
+    actions: [
+      { keyCode: 229, type: 6, id: 0 },
+      { keyCode: 11, type: 8, id: 1 },
+      { keyCode: 229, type: 7, id: 2 },
+      { keyCode: 8, type: 8, id: 3 },
+      { keyCode: 28, type: 8, id: 4 },
+      { keyCode: 54, type: 8, id: 5 },
+      { keyCode: 44, type: 8, id: 6 },
+      { keyCode: 229, type: 6, id: 7 },
+      { keyCode: 7, type: 8, id: 8 },
+      { keyCode: 229, type: 7, id: 9 },
+      { keyCode: 28, type: 8, id: 10 },
+      { keyCode: 10, type: 8, id: 11 },
+      { keyCode: 16, type: 8, id: 12 },
+      { keyCode: 4, type: 8, id: 13 },
+      { keyCode: 23, type: 8, id: 14 },
+      { keyCode: 8, type: 8, id: 15 }
+    ],
+    id: 0,
+    macro: "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
+    name: "Hey, Dygmate!"
+  }
+];
+
+const defaultMacroString =
+  "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255";
+
 class MacroEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -125,61 +152,34 @@ class MacroEditor extends React.Component {
   }
 
   async loadMacros() {
-    let focus = new Focus();
+    const focus = new Focus();
     try {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
-      let chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
-      let neurons = store.get("neurons");
-      let neuron = {};
-      console.log(
-        "Macro Neuron Check",
-        neurons,
-        chipID,
-        neurons.some(n => n.id == chipID),
-        neurons.filter(n => n.id == chipID)
-      );
-      if (neurons.some(n => n.id == chipID)) {
-        console.log(
-          "Macro Neuron Check",
-          neurons.filter(n => n.id == chipID)
-        );
-        neuron = neurons.filter(n => n.id == chipID)[0];
-      }
+      const chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
+      const neurons = store.get("neurons");
+      const neuron = neurons.find(n => n.id === chipID) || {};
       this.setState({
         neurons,
-        neuronID: neurons.findIndex(n => n.id == chipID),
+        neuronID: neurons.findIndex(n => n.id === chipID),
         storedMacros: neuron.macros,
         storedSuper: neuron.superkeys
       });
-      let deviceLang = { ...focus.device, language: true };
-      focus.commands.keymap = new Keymap(deviceLang);
+      focus.commands.keymap = new Keymap({ ...focus.device, language: true });
       this.keymapDB = focus.commands.keymap.db;
       let kbtype = "iso";
       try {
         kbtype = focus.device && focus.device.info.keyboardType === "ISO" ? "iso" : "ansi";
       } catch (error) {
-        console.error("Focus lost connection to Raise: ", error);
         return false;
       }
 
-      let keymap = await focus.command("keymap");
-      let raw = await focus.command("macros.map");
-      if (raw.search(" 0 0 ") !== -1) {
-        raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
-      } else {
-        raw = "";
-      }
-      const parsedMacros = this.macroTranslator(raw);
-      let raw2 = await focus.command("superkeys.map");
-      if (raw2.search(" 0 0 ") !== -1) {
-        raw2 = raw2.split(" 0 0 ")[0].split(" ").map(Number);
-      } else {
-        raw2 = "";
-      }
-      const parsedSuper = this.superTranslator(raw2);
-      console.log("DATA COLLECTED", parsedMacros, parsedSuper, keymap);
+      const keymap = await focus.command("keymap");
+      const macrosRaw = await focus.command("macros.map");
+      const parsedMacros = this.macroTranslator(macrosRaw);
+      const supersRaw = await focus.command("superkeys.map");
+      const parsedSuper = this.superTranslator(supersRaw);
       this.setState({
         macros: parsedMacros,
         superkeys: parsedSuper,
@@ -189,273 +189,152 @@ class MacroEditor extends React.Component {
         freeMemory: parsedMacros.map(m => m.actions).flat().length
       });
     } catch (e) {
-      console.log("error when loading macros");
-      console.error(e);
       toast.error(<ToastMessage title={e} icon={<IconFloppyDisk />} />);
       this.props.onDisconnect();
     }
   }
 
   macroTranslator(raw) {
-    if (raw === "") {
-      return [
-        {
-          actions: [
-            { keyCode: 229, type: 6, id: 0 },
-            { keyCode: 11, type: 8, id: 1 },
-            { keyCode: 229, type: 7, id: 2 },
-            { keyCode: 8, type: 8, id: 3 },
-            { keyCode: 28, type: 8, id: 4 },
-            { keyCode: 54, type: 8, id: 5 },
-            { keyCode: 44, type: 8, id: 6 },
-            { keyCode: 229, type: 6, id: 7 },
-            { keyCode: 7, type: 8, id: 8 },
-            { keyCode: 229, type: 7, id: 9 },
-            { keyCode: 28, type: 8, id: 10 },
-            { keyCode: 10, type: 8, id: 11 },
-            { keyCode: 16, type: 8, id: 12 },
-            { keyCode: 4, type: 8, id: 13 },
-            { keyCode: 23, type: 8, id: 14 },
-            { keyCode: 8, type: 8, id: 15 }
-          ],
-          id: 0,
-          macro: "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
-          name: "Hey, Dygmate!"
-        }
-      ];
+    if (raw.search(" 0 0 ") === -1) {
+      return defaultMacro;
     }
+    const macrosArray = raw.split(" 0 0 ")[0].split(" ").map(Number);
+
     // Translate received macros to human readable text
-    let i = 0,
-      iter = 0,
-      kcs = 0,
-      type = 0,
-      keyCode = [],
-      actions = [],
-      macros = [];
-    actions = [];
-    while (raw.length > iter) {
-      if (kcs > 0) {
-        keyCode.push(raw[iter]);
-        kcs--;
-        iter++;
-        continue;
-      }
-      if (iter !== 0 && type !== 0) {
-        actions.push({
-          type: type,
-          keyCode: keyCode
-        });
-        keyCode = [];
-      }
-      type = raw[iter];
-      switch (type) {
-        case 0:
-          kcs = 0;
-          macros[i] = {};
-          macros[i].actions = actions;
-          macros[i].id = i;
-          macros[i].name = "";
-          macros[i].macro = "";
-          i++;
-          actions = [];
-          iter++;
-          continue;
-        case 1:
-          kcs = 4;
+    const macros = [];
+    let iter = 0;
+    // macros are `0` terminated or when end of macrosArray has been reached, the outer loop
+    // must cycle once more than the inner
+    while (iter <= macrosArray.length) {
+      const actions = [];
+      while (iter < macrosArray.length) {
+        const type = macrosArray[iter];
+        if (type === 0) {
           break;
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-          kcs = 2;
-          break;
-        default:
-          kcs = 1;
-      }
-      iter++;
-    }
-    actions.push({
-      type: type,
-      keyCode: keyCode
-    });
-    macros[i] = {};
-    macros[i].actions = actions;
-    macros[i].id = i;
-    macros[i].name = "";
-    macros[i].macro = "";
-    macros = macros.map(macro => {
-      let aux = macro.actions.map(action => {
-        switch (action.type) {
+        }
+
+        switch (type) {
           case 1:
-            return {
-              type: action.type,
-              keyCode: [(action.keyCode[0] << 8) + action.keyCode[1], (action.keyCode[2] << 8) + action.keyCode[3]]
-            };
+            actions.push({
+              type,
+              keyCode: [(macrosArray[++iter] << 8) + macrosArray[++iter], (macrosArray[++iter] << 8) + macrosArray[++iter]]
+            });
+            break;
           case 2:
           case 3:
           case 4:
           case 5:
-            return {
-              type: action.type,
-              keyCode: (action.keyCode[0] << 8) + action.keyCode[1]
-            };
+            actions.push({ type, keyCode: (macrosArray[++iter] << 8) + macrosArray[++iter] });
+            break;
           default:
-            return {
-              type: action.type,
-              keyCode: action.keyCode[0]
-            };
+            actions.push({ type, keyCode: macrosArray[++iter] });
         }
+
+        iter++;
+      }
+      macros.push({
+        actions,
+        name: "",
+        macro: ""
       });
-      return { ...macro, actions: aux };
-    });
+      iter++;
+    }
+    macros.forEach((m, idx) => (m.id = idx));
+
     // TODO: Check if stored macros match the received ones, if they match, retrieve name and apply it to current macros
-    let finalMacros = [];
     const stored = this.state.storedMacros;
-    if (stored === undefined) {
+    if (stored === undefined || stored.length === 0) {
       return macros;
     }
-    finalMacros = macros.map((macro, i) => {
-      if (stored.length > i && stored.length > 0) {
-        console.log("compare between: ", macro.actions, stored[i].actions);
-        let aux = macro;
-        aux.name = stored[i].name;
-        aux.macro = macro.actions.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
-        return aux;
-      } else {
+    return macros.map((macro, i) => {
+      if (stored.length < i) {
         return macro;
       }
+
+      return {
+        ...macro,
+        name: stored[i].name,
+        macro: macro.actions.map(k => this.keymapDB.parse(k.keyCode).label).join(" ")
+      };
     });
-    console.log("Checking differences", this.state.macros, finalMacros);
-    return finalMacros;
   }
 
   duplicateMacro = () => {
-    if (this.state.macros.length < this.state.maxMacros) {
-      let macros = this.state.macros;
-      let selected = this.state.selectedMacro;
-      let aux = Object.assign({}, this.state.macros[selected]);
-      aux.id = this.state.macros.length;
-      aux.name = "Copy of " + aux.name;
-      macros.push(aux);
-      this.updateMacros(macros, -1);
-      this.changeSelected(aux.id);
+    if (this.state.macros.length >= this.state.maxMacros) {
+      return;
     }
+    const macros = this.state.macros;
+    const selected = this.state.selectedMacro;
+    const aux = Object.assign({}, this.state.macros[selected]);
+    aux.id = this.state.macros.length;
+    aux.name = "Copy of " + aux.name;
+    macros.push(aux);
+    this.updateMacros(macros);
+    this.changeSelected(aux.id);
   };
 
   superTranslator(raw) {
-    let superkey = [],
-      superkeys = [],
-      iter = 0,
-      superindex = 0;
-
-    if (raw === "") {
+    if (raw.search(" 0 0 ") === -1) {
       return [];
     }
-    // console.log(raw, raw.length);
-    while (raw.length > iter) {
-      // console.log(iter, raw[iter], superkey);
-      if (raw[iter] === 0) {
-        superkeys[superindex] = superkey;
-        superindex++;
+    const supersArray = raw.split(" 0 0 ")[0].split(" ").map(Number);
+
+    const superkeys = [];
+    let superkey = [];
+    for (let iter = 0; iter < supersArray.length; iter++) {
+      if (supersArray[iter] === 0) {
+        superkeys.push(superkey);
         superkey = [];
       } else {
-        superkey.push(raw[iter]);
+        superkey.push(supersArray[iter]);
       }
-      iter++;
     }
-    superkeys[superindex] = superkey;
-    // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
+    superkeys.push(superkey);
 
     if (superkeys[0] == [0] || superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1) return [];
     return superkeys;
   }
 
-  superkeyMap(superkeys) {
-    if (
-      superkeys.length === 0 ||
-      (superkeys.length === 1 && superkeys[0].actions == []) ||
-      (superkeys.length === 1 && superkeys[0].actions == [0])
-    ) {
-      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
-    }
-    const keyMap = superkeys.map(superkey => {
-      return superkey
-        .map(key => {
-          if (key === 0) {
-            return;
-          } else {
-            return key;
-          }
-        })
-        .concat([0]);
-    });
-    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
-    console.log("Mapped SuperKeys", mapped);
-    return mapped;
-  }
-
-  updateKeyboard(macros, selected) {
-    let list = [];
-    let listS = [];
-    console.log("Updating keyboard", this.state.macros, selected);
-    const macroID = this.state.macros[selected].id + 53852;
-    for (let layer = 0; layer < this.state.keymap.custom.length; layer++) {
-      list.push(
-        this.state.keymap.custom[layer]
-          .map((key, pos) => {
-            return { layer, pos, key };
-          })
-          .filter(elem => elem.key.keyCode == macroID)
-      );
-    }
-    // console.log(this.state.superkeys);
-    for (let i = 0; i < this.state.superkeys.length; i++) {
-      listS.push(
-        this.state.superkeys[i]
-          .map((action, pos) => {
-            return { i, pos, action };
-          })
-          .filter(elem => elem.action == macroID)
-      );
-    }
-    list = list.flat();
-    listS = listS.flat();
-    console.log("List logging", list, listS);
+  updateKeyboard(keyboardIdx) {
+    const macroID = this.state.macros[keyboardIdx].id + 53852;
+    const customKeymapList = this.state.keymap.custom
+      .map((layer, layerIdx) =>
+        layer.map((key, pos) => ({ layer: layerIdx, key, pos })).filter(elem => elem.key.keyCode === macroID)
+      )
+      .flat();
+    const superkeyList = this.state.superkey
+      .map((supers, i) => supers.map((action, pos) => ({ i, pos, action })).filter(elem => elem.action === macroID))
+      .flat();
     this.setState({
-      listToDelete: list,
-      listToDeleteS: listS,
+      listToDelete: customKeymapList,
+      listToDeleteS: superkeyList,
       showDeleteModal: true
     });
-    return;
   }
 
-  updateMacros(recievedMacros, selected) {
-    console.log("Updating Macros", recievedMacros);
-    if (selected > -1) this.updateKeyboard(recievedMacros, selected);
-    this.setState({ macros: recievedMacros, modified: true });
+  updateMacros(recievedMacros) {
     this.setState({
+      macros: recievedMacros,
+      modified: true,
       freeMemory: recievedMacros.map(m => m.actions).flat().length
     });
     this.props.startContext();
   }
 
   async writeMacros() {
-    let focus = new Focus();
-    let newMacros = this.state.macros;
-    let newSuperKeys = this.state.superkeys;
+    const focus = new Focus();
+    const newMacros = this.state.macros;
     this.setState({
       modified: false,
       macros: newMacros,
       storedMacros: newMacros
     });
-    let neurons = JSON.parse(JSON.stringify(this.state.neurons));
-    console.log("Neuron Status", this.state.neuronID, neurons[this.state.neuronID].macros);
+    const neurons = JSON.parse(JSON.stringify(this.state.neurons));
     neurons[this.state.neuronID].macros = newMacros;
     store.set("neurons", neurons);
     try {
       await focus.command("macros.map", this.macrosMap(newMacros));
       await focus.command("keymap", this.state.keymap);
-      console.log("Changes saved.");
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
@@ -476,31 +355,32 @@ class MacroEditor extends React.Component {
 
   macrosMap(macros) {
     if (macros.length === 0 || (macros.length === 1 && macros[0].actions === [])) {
-      return "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255";
+      return defaultMacroString;
     }
-    const actionMap = macros.map(macro => {
-      return macro.actions
-        .map(action => {
-          if (action.type == 1) {
-            return [
-              [action.type],
-              [action.keyCode[0] >> 8],
-              [action.keyCode[0] & 255],
-              [action.keyCode[1] >> 8],
-              [action.keyCode[1] & 255]
-            ];
-          }
-          if (action.type > 1 && action.type < 6) {
-            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
-          }
-          if (action.type >= 6) {
-            return [[action.type], [action.keyCode]];
-          }
-        })
-        .concat([0]);
-    });
-    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
-    return mapped;
+    const mapAction = action => {
+      switch (action.type) {
+        case 1:
+          return [
+            [action.type],
+            [action.keyCode[0] >> 8],
+            [action.keyCode[0] & 255],
+            [action.keyCode[1] >> 8],
+            [action.keyCode[1] & 255]
+          ];
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
+        default:
+          return [[action.type], [action.keyCode]];
+      }
+    };
+    return macros
+      .map(macro => macro.actions.map(action => mapAction(action)).concat([0]))
+      .flat()
+      .concat([0])
+      .join(" ");
   }
 
   changeSelected(id) {
@@ -540,56 +420,53 @@ class MacroEditor extends React.Component {
   }
 
   addMacro = name => {
-    if (this.state.macros.length < this.state.maxMacros) {
-      let aux = this.state.macros;
-      const newID = aux.length;
-      aux.push({
-        actions: [],
-        name: name,
-        id: newID,
-        macro: ""
-      });
-      console.log("Adding Macro", aux);
-      this.updateMacros(aux, -1);
-      this.changeSelected(newID);
+    if (this.state.macros.length >= this.state.maxMacros) {
+      return;
     }
+    const aux = this.state.macros;
+    const newID = aux.length;
+    aux.push({
+      actions: [],
+      name: name,
+      id: newID,
+      macro: ""
+    });
+    this.updateMacros(aux);
+    this.changeSelected(newID);
   };
 
   deleteMacro = () => {
-    if (this.state.macros.length > 0) {
-      let aux = JSON.parse(JSON.stringify(this.state.macros));
-      let selected = this.state.selectedMacro;
-      aux.splice(selected, 1);
-      aux = aux.map((item, index) => {
-        let aux = item;
-        aux.id = index;
-        return aux;
-      });
-      if (selected >= this.state.macros.length - 1) {
-        this.changeSelected(this.state.macros.length - 2);
-      }
-      this.updateMacros(aux, selected);
+    if (this.state.macros.length === 0) {
+      return;
     }
+    const aux = JSON.parse(JSON.stringify(this.state.macros));
+    const selected = this.state.selectedMacro;
+    aux.splice(selected, 1);
+    aux.forEach((item, idx) => {
+      aux.id = idx;
+    });
+    if (selected >= this.state.macros.length - 1) {
+      this.changeSelected(this.state.macros.length - 2);
+    }
+    this.updateMacros(aux);
+    this.updateKeyboard(selected);
   };
 
   saveName = data => {
-    // console.log("Saving name: ", data, this.state.macros);
-    let macros = JSON.parse(JSON.stringify(this.state.macros));
+    const macros = JSON.parse(JSON.stringify(this.state.macros));
     macros[this.state.selectedMacro].name = data;
     this.setState({ macros, modified: true });
   };
 
   // Define updateActions function to update the actions of the selected macro
   updateActions = actions => {
-    let macrosList = this.state.macros;
-    // console.log("MacroEditor Updating Actions", actions, macrosList, this.state.selectedMacro);
+    const macrosList = this.state.macros;
     macrosList[this.state.selectedMacro].actions = actions;
     this.setState({ macros: macrosList, modified: true });
   };
 
   addToActions = actions => {
-    // console.log("MacroEditor Adding Action", actions);
-    let macrosList = JSON.parse(JSON.stringify(this.state.macros));
+    const macrosList = JSON.parse(JSON.stringify(this.state.macros));
     macrosList[this.state.selectedMacro].actions = actions;
     this.setState({ macros: macrosList, modified: true });
   };

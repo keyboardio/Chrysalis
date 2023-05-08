@@ -260,7 +260,7 @@ function installUdev(mainWindow) {
               title: "Error when launching sudo prompt",
               message: "An error happened when launching a sudo prompt window",
               detail:
-                "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
+                "Your linux distribution lacks a polkit agent, installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem\n\n" +
                 error.message
             };
             dialog.showMessageBox(mainWindow, errorOpts, null);

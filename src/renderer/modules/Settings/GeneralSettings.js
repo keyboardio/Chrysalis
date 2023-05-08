@@ -28,6 +28,7 @@ import danishF from "../../../../static/flags/denmark.png";
 import swedishF from "../../../../static/flags/sweden.png";
 import icelandicF from "../../../../static/flags/iceland.png";
 import norwegianF from "../../../../static/flags/norway.png";
+import swissF from "../../../../static/flags/switzerland.png";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -62,8 +63,19 @@ export default class GeneralSettings extends Component {
     const { selectDarkMode, darkMode, neurons, selectedNeuron, connected, defaultLayer, selectDefaultLayer } = this.props;
     const { selectedLanguage } = this.state;
     let layersNames = neurons[selectedNeuron].layers;
-    let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
-    let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic", "japanese"];
+    let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF, swissF];
+    let language = [
+      "english",
+      "spanish",
+      "german",
+      "french",
+      "swedish",
+      "danish",
+      "norwegian",
+      "icelandic",
+      "japanese",
+      "swissGerman"
+    ];
     language = language.map((item, index) => {
       return { text: item, value: item, icon: flags[index], index };
     });

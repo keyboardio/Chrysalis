@@ -40,8 +40,9 @@ const Style = Styled.div`
   // The layoutSelectorPosition will get updated by the KeyPickerKeyboard component and consists of the left and top
   // value of it's bounding box. It will be calculated on first draw and on resize.
   ${({ isStandardView, layoutSelectorPosition }) =>
-    layoutSelectorPosition?.x &&
-    layoutSelectorPosition?.y &&
+    layoutSelectorPosition &&
+    layoutSelectorPosition.x &&
+    layoutSelectorPosition.y &&
     !isStandardView &&
     `
       position: absolute;

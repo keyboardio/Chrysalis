@@ -20,7 +20,7 @@ import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import fs from "fs";
 import path from "path";
 import React, { useContext } from "react";
@@ -43,7 +43,9 @@ export const LibraryImport = (props) => {
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutPath = (layout) =>
-      path.join(getStaticPath(), cVendor, cProduct, `layouts/${layout}.json`);
+      getFilesystemPathForStaticAsset(
+        path.join(cVendor, cProduct, `layouts/${layout}.json`)
+      );
 
     const layoutData = loadLayout(layoutPath(layoutName));
 
@@ -56,11 +58,8 @@ export const LibraryImport = (props) => {
     const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
-    const layoutDirPath = path.join(
-      getStaticPath(),
-      cVendor,
-      cProduct,
-      "layouts"
+    const layoutDirPath = getFilesystemPathForStaticAsset(
+      path.join(cVendor, cProduct, "layouts")
     );
 
     try {

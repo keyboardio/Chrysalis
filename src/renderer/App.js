@@ -37,7 +37,6 @@ import { hideContextBar } from "./components/ContextBar";
 import { GlobalContext } from "./components/GlobalContext";
 import Header from "./components/Header";
 import Toast, { toast } from "./components/Toast";
-import { isDevelopment } from "./config";
 import { history, navigate } from "./routerHistory";
 import ChangeLog from "./screens/ChangeLog";
 import Editor from "./screens/Editor/Editor";

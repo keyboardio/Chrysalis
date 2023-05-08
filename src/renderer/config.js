@@ -25,22 +25,18 @@ function getStaticPath() {
   // Instead, it includes an unexpected `node_modules` path, specifically:
   // node_modules/electron/dist/Electron.app/Contents/Resources/static
   if (isDevelopment) {
-    return path.join("static");
+    return "static";
   } else {
-    return path.join(__dirname, "..", "..", "..", "..", "static");
+    return path.join("..", "..", "..", "..", "static");
   }
 }
 
 function getFilesystemPathForStaticAsset(asset) {
   if (isDevelopment) {
-    return path.join(
-      ipcRenderer.sendSync("file.get-application-root"),
-      getStaticPath(),
-      asset
-    );
+    return path.join(getStaticPath(), asset);
   } else {
     return path.join(__dirname, getStaticPath(), asset);
   }
 }
 
-export { isDevelopment, getStaticPath, getFilesystemPathForStaticAsset };
+export { isDevelopment, getFilesystemPathForStaticAsset };

@@ -15,9 +15,7 @@
  */
 
 import { logger } from "@api/log";
-import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
-import path from "path";
 
 import { delay, reportUpdateStatus } from "./utils";
 

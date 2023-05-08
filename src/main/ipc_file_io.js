@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018-2022  Keyboardio, Inc.
+ * Copyright (C) 2018-2023  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,13 +16,8 @@
 
 import { dialog, ipcMain } from "electron";
 import fs from "fs";
-import path from "path";
 
 export const registerFileIoHandlers = () => {
-  ipcMain.on("file.get-application-root", (event) => {
-    event.returnValue = path.join(__dirname, "..", "..");
-  });
-
   ipcMain.on("file.read", (event, fileName) => {
     let fileData, error;
     try {

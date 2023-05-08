@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import { app, ipcMain, net } from "electron";
 import pkg from "../../package.json";
 import { sendToRenderer } from "./utils";
@@ -26,7 +27,6 @@ import tar from "tar";
 import yaml from "js-yaml";
 
 const version = pkg.version;
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const registerFirmwareHandlers = () => {
   const slug = "keyboardio/Chrysalis-Firmware-Bundle";
@@ -257,11 +257,8 @@ export const registerFirmwareHandlers = () => {
         // Ignore, we'll use the default static return value
       }
     }
-    if (isDevelopment) {
-      return path.join(__dirname, "..", "..", "/static");
-    } else {
-      return path.join("../../../../static");
-    }
+
+    return getFilesystemPathForStaticAsset(".");
   };
 
   ipcMain.on("firmware.get-changelog", (event) => {
@@ -279,9 +276,5 @@ export const registerFirmwareHandlers = () => {
     const buildInfo = yaml.load(data);
 
     event.returnValue = buildInfo.version.match(/[^+]*/)[0];
-  });
-
-  ipcMain.on("firmware.get-base-directory", (event) => {
-    event.returnValue = getFirmwareBaseDirectory();
   });
 };

@@ -21,7 +21,7 @@ import CardHeader from "@mui/material/CardHeader";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import logo from "@renderer/logo-small.png";
 import pkg from "@root/package.json";
 import fs from "fs";
@@ -37,7 +37,7 @@ const ChangeLog = (props) => {
 
   const { t } = useTranslation();
 
-  const file = path.join(getStaticPath(), "../NEWS.md");
+  const file = getFilesystemPathForStaticAsset("../NEWS.md");
   const data = fs.readFileSync(file).toString();
 
   return (

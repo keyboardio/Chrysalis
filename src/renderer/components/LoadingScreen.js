@@ -19,12 +19,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
 import * as path from "path";
-import { getStaticPath } from "@renderer/config";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 function LoadingScreen(props) {
-  const logoPath = path.join(getStaticPath(), "/logo.png");
+  const logoPath = getFilesystemPathForStaticAsset("logo.png");
 
   const spin = keyframes`
   from {

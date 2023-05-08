@@ -91,6 +91,7 @@ import DN from "./DN.json";
 import NW from "./NW.json";
 import IC from "./IC.json";
 import JP from "./JP.json";
+import SWGR from "./SWGR.json";
 //import SelectSuperKeys from "../../component/Select/SelectSuperKey";
 
 const Style = Styled.div`
@@ -336,7 +337,8 @@ class KeyPicker extends Component {
       danish: DN,
       norwegian: NW,
       icelandic: IC,
-      japanese: JP
+      japanese: JP,
+      swissGerman: SWGR
     };
     const lansi = { english: ENa };
     let Lang = ENa;

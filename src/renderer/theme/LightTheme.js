@@ -710,7 +710,7 @@ const Light = {
     toggleButton: {
       background: "#fff"
     },
-    toogleEditMode: {
+    toggleEditMode: {
       titleColor: Tokens.colors.gray300,
       containerBackground: "rgba(255, 255, 255, 0.3)",
       containerBorder: "1px solid rgba(196, 201, 213, 0.5)",

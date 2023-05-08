@@ -27,19 +27,32 @@ import { IconEditModeStandardViewSm, IconEditModeSingleViewSm } from "../../comp
 
 const Style = Styled.div`
 &.layoutSelector {
-  // position: fixed;
-  // bottom: 24px;
-  // margin-left: 15px;
-
   align-self: self-end;
   margin-top: auto;
   margin-bottom: 24px;
   padding-top: 16px;
+  
+  // WHY: We want to render the LayoutViewSelector directly above the KeyPickerKeyboard (and below the key editor)
+  // when in single view.
+  // Currently we only want this behaviour in the LayoutEditor, not in the SuperkeysEditor.
+  // The SuperkeysEditor omits the _layoutSelectorPosition_ argument when rendering the LayoutViewSelector, so the
+  // following statement will evaluate to false.
+  // The layoutSelectorPosition will get updated by the KeyPickerKeyboard component and consists of the left and top
+  // value of it's bounding box. It will be calculated on first draw and on resize.
+  ${({ isStandardView, layoutSelectorPosition }) =>
+    layoutSelectorPosition?.x &&
+    layoutSelectorPosition?.y &&
+    !isStandardView &&
+    `
+      position: absolute;
+      left: ${layoutSelectorPosition.x}px;
+      top: ${layoutSelectorPosition.y - 92}px;
+    `}
 }
 .toggleButtonsContainer {
   padding: 4px;
-  background: ${({ theme }) => theme.styles.toogleEditMode.containerBackground};
-  border: ${({ theme }) => theme.styles.toogleEditMode.containerBorder};
+  background: ${({ theme }) => theme.styles.toggleEditMode.containerBackground};
+  border: ${({ theme }) => theme.styles.toggleEditMode.containerBorder};
   border-radius: 6px;
   .toggleButtonsInner {
     margin-left: -2px;
@@ -55,26 +68,26 @@ const Style = Styled.div`
   padding: 8px 10px;
   border-radius: 4px;
   font-size: 11px;
-  color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
-  background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
-  box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  color: ${({ theme }) => theme.styles.toggleEditMode.buttonColor};
+  background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackground};
+  box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   display: flex;
   align-items: center;
   &:hover {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundHover};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorHover};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   } 
   &.active {
-    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundActive};
-    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorActive};
-    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+    background: ${({ theme }) => theme.styles.toggleEditMode.buttonBackgroundActive};
+    color: ${({ theme }) => theme.styles.toggleEditMode.buttonColorActive};
+    box-shadow: ${({ theme }) => theme.styles.toggleEditMode.buttonBoxShadow};
   }
 }
 h5 {
   font-size: 10px;
   letter-spacing: 0.05em;
-  color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
+  color: ${({ theme }) => theme.styles.toggleEditMode.titleColor};
   margin-left: 4px;
   margin-bottom: 6px;
 }
@@ -87,54 +100,37 @@ h5 {
 `;
 
 /**
- * This LayoutViewSelector function returns a component that render a toogle element that help the user select between Standard View/Single View
+ * This LayoutViewSelector function returns a component that render a toggle element that help the user select between Standard View/Single View
  * The object will accept the following parameters
  *
- * @param {function} onToogle - The function that handle the states
+ * @param {function} onToggle - The function that handle the states
  * @param {boolean} isStandardView - The actual state if the Standand View is Selected
  * @param {string} tooltip - [Optional] Help text used next to the title
- * @returns {<LayoutViewSelector>} Badge component.
+ * @param layoutSelectorPosition
+ * @returns {LayoutViewSelector} Badge component.
  */
 
-const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, layoutSelectorPosition }) => {
-  let stylePostition = {};
-  if (layoutSelectorPosition) {
-    if (!isStandardView && !isDisabled) {
-      stylePostition = {
-        position: "absolute",
-        left: layoutSelectorPosition.x,
-        top: layoutSelectorPosition.y - 92
-      };
-    } else {
-      stylePostition = {
-        position: "static"
-      };
-    }
-  }
-
+const LayoutViewSelector = ({ onToggle, isStandardView, tooltip, layoutSelectorPosition }) => {
   return (
-    <Style className={`layoutSelector`} style={stylePostition}>
+    <Style className={`layoutSelector`} isStandardView={isStandardView} layoutSelectorPosition={layoutSelectorPosition}>
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} tooltipIconSize="sm" />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">
           <ButtonConfig
-            onClick={onToogle}
+            onClick={onToggle}
             icoSVG={<IconEditModeStandardViewSm />}
             icoPosition="left"
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
-            disabled={isDisabled}
-            // tooltip={"Standard view will be available in future releases of Bazecor Beta"}
           />
           <ButtonConfig
-            onClick={onToogle}
+            onClick={onToggle}
             icoPosition="left"
             icoSVG={<IconEditModeSingleViewSm />}
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}
             size={"sm"}
-            disabled={isDisabled}
           />
         </div>
       </div>
@@ -143,7 +139,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled, lay
 };
 
 LayoutViewSelector.propTypes = {
-  onToogle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
   isStandardView: PropTypes.bool.isRequired,
   tooltip: PropTypes.string
 };

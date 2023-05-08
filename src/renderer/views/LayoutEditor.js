@@ -475,7 +475,7 @@ class LayoutEditor extends React.Component {
     this.toggleNeuronModal = this.toggleNeuronModal.bind(this);
     this.CloneExistingNeuron = this.CloneExistingNeuron.bind(this);
     this.updateOldMacros = this.updateOldMacros.bind(this);
-    this.onToogle = this.onToogle.bind(this);
+    this.onToggle = this.onToggle.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -1699,7 +1699,7 @@ class LayoutEditor extends React.Component {
     }
   }
 
-  onToogle = () => {
+  onToggle = () => {
     if (this.state.isStandardView) {
       this.setState({ isStandardView: false });
     } else {
@@ -1960,13 +1960,15 @@ class LayoutEditor extends React.Component {
             </Col>
           </Row>
 
-          <LayoutViewSelector
-            onToogle={this.onToogle}
-            isStandardView={isStandardView}
-            tooltip={i18n.editor.superkeys.tooltip}
-            isDisabled={this.state.modeselect != "keyboard"}
-            layoutSelectorPosition={layoutSelectorPosition}
-          />
+          {/* WHY: We want to hide the selector when we cannot use it (e.g. when color editor is active)*/}
+          {this.state.modeselect === "keyboard" ? (
+            <LayoutViewSelector
+              onToggle={this.onToggle}
+              isStandardView={isStandardView}
+              tooltip={i18n.editor.superkeys.tooltip}
+              layoutSelectorPosition={layoutSelectorPosition}
+            />
+          ) : null}
 
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}

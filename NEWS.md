@@ -1,6 +1,6 @@
-Chrysalis 0.13.1-snapshot
-=========================
-**UNRELEASED**
+Chrysalis 0.13.1
+================
+Released on 2023-05-09
 
 ## Bugfixes
 

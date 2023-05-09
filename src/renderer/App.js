@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import settings from "electron-settings";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
@@ -56,11 +55,6 @@ let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
 
-if (store.get("settings.language") == undefined) {
-  if (settings.getSync("ui.language")) i18n.setLanguage(settings.get("ui.language"));
-} else {
-  i18n.setLanguage(store.get("settings.language"));
-}
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -102,12 +96,14 @@ class App extends React.Component {
   async updateStorageSchema() {
     //Update stored settings schema
     console.log("Retrieving settings: ", store.get("settings"));
+    const locale = await this.getLocale();
     if (store.get("settings.language") != undefined) {
       console.log("settings already upgraded, returning");
+      i18n.setLanguage(store.get("settings.language"));
       return;
     }
+
     // create locale language identifier
-    const lang = ipcRenderer.invoke("get-Locale");
     const translator = {
       en: "english",
       es: "spanish",
@@ -122,23 +118,19 @@ class App extends React.Component {
 
     // Store all settings from electron settings in electron store.
     let data = {};
-    data.backupFolder =
-      (await settings.get("backupFolder")) != undefined
-        ? await settings.get("backupFolder")
-        : path.join(ipcRenderer.invoke("get-userPath", "home"), "Raise", "Backups");
-    data.backupFrequency = (await settings.get("backupFrequency")) != undefined ? await settings.get("backupFrequency") : 30;
-    data.language =
-      (await settings.get("ui.language")) != undefined
-        ? await settings.get("ui.language")
-        : translator[lang.split("-")[0]] != ""
-        ? translator[lang.split("-")[0]]
-        : "english";
-    data.darkMode = (await settings.get("ui.darkMode")) != undefined ? await settings.get("ui.darkMode") : "system";
-    data.showDefaults =
-      (await settings.get("keymap.showDefaults")) != undefined ? await settings.get("keymap.showDefaults") : false;
+    data.backupFolder = path.join(ipcRenderer.invoke("get-userPath", "home"), "Raise", "Backups");
+    data.backupFrequency = 30;
+    data.language = translator[locale.split("-")[0]] != "" ? translator[locale.split("-")[0]] : "english";
+    data.darkMode = "system";
+    data.showDefaults = false;
+    i18n.setLanguage(data.language);
     store.set("settings", data);
     store.set("neurons", []);
     console.log("Testing results: ", data, store.get("settings"), store.get("settings.darkMode"));
+  }
+
+  async getLocale() {
+    await ipcRenderer.invoke("get-Locale");
   }
 
   componentDidMount() {

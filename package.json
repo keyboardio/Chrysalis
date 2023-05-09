@@ -86,7 +86,6 @@
     "drivelist": "^11.1.0",
     "easy-crc": "^1.1.0",
     "electron-devtools-installer": "^3.1.1",
-    "electron-settings": "^4.0.2",
     "electron-store": "^8.1.0",
     "electron-updater": "^4.3.8",
     "electron-window-state": "^5.0.3",

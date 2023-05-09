@@ -500,6 +500,9 @@ class LayoutEditor extends React.Component {
     let neurons = store.get("neurons");
     let finalNeuron;
     console.log("Neuron ID", chipID, neurons);
+    if (neurons === undefined) {
+      neurons = [];
+    }
     if (neurons.some(n => n.id == chipID)) {
       finalNeuron = neurons.filter(n => n.id == chipID)[0];
     }

@@ -333,6 +333,7 @@ class MacroEditor extends React.Component {
     neurons[this.state.neuronID].macros = newMacros;
     store.set("neurons", neurons);
     try {
+      console.log("SAVING MACROS!!", this.macrosMap(newMacros));
       await focus.command("macros.map", this.macrosMap(newMacros));
       await focus.command("keymap", this.state.keymap);
       const commands = await this.bkp.Commands();
@@ -378,9 +379,10 @@ class MacroEditor extends React.Component {
     };
     return macros
       .map(macro => macro.actions.map(action => mapAction(action)).concat([0]))
-      .flat()
       .concat([0])
-      .join(" ");
+      .flat()
+      .join(" ")
+      .replaceAll(",", " ");
   }
 
   changeSelected(id) {

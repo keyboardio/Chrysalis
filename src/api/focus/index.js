@@ -96,8 +96,7 @@ class Focus {
       this._port = new SerialPort(
         {
           path: device,
-          baudRate: 115200,
-          lock: true
+          baudRate: 115200
         },
         err => {
           if (err !== null) {
@@ -113,8 +112,7 @@ class Focus {
         this._port = new SerialPort(
           {
             path: path,
-            baudRate: 115200,
-            lock: true
+            baudRate: 115200
           },
           err => {
             if (err !== null) {
@@ -128,8 +126,7 @@ class Focus {
           this._port = new SerialPort(
             {
               path: devices[0].path,
-              baudRate: 115200,
-              lock: true
+              baudRate: 115200
             },
             err => {
               if (err !== null) {

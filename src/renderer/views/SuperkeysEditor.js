@@ -415,7 +415,7 @@ class SuperkeysEditor extends React.Component {
       return superkey.actions.filter(act => act != 0).concat([0]);
     });
     console.log("Fifth", JSON.parse(JSON.stringify(keyMap)));
-    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
+    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ").replaceAll(",", " ");
     console.log(mapped, keyMap);
     return mapped;
   }
@@ -435,7 +435,7 @@ class SuperkeysEditor extends React.Component {
         })
         .concat([0]);
     });
-    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
+    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ").replaceAll(",", " ");
     console.log(mapped);
     return mapped;
   }

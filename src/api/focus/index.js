@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import SerialPort from "serialport";
-import Delimiter from "@serialport/parser-delimiter";
+import { SerialPort } from "serialport";
+import { DelimiterParser } from "@serialport/parser-delimiter";
 import fs from "fs";
 import { spawn } from "child_process";
 import { inspect } from "util";
@@ -94,8 +94,8 @@ class Focus {
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort(
-        device,
         {
+          path: device,
           baudRate: 115200,
           lock: true
         },
@@ -111,8 +111,8 @@ class Focus {
         const path = device.path;
         await device.close();
         this._port = new SerialPort(
-          path,
           {
+            path: path,
             baudRate: 115200,
             lock: true
           },
@@ -126,8 +126,8 @@ class Focus {
         let devices = await this.find(device);
         if (devices && devices.length >= 1) {
           this._port = new SerialPort(
-            devices[0].path,
             {
+              path: devices[0].path,
               baudRate: 115200,
               lock: true
             },
@@ -145,7 +145,7 @@ class Focus {
     }
 
     this.device = info;
-    this.parser = this._port.pipe(new Delimiter({ delimiter: "\r\n" }));
+    this.parser = this._port.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     this.result = "";
     this.callbacks = [];
     this.supportedCommands = [];

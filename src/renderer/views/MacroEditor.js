@@ -333,7 +333,6 @@ class MacroEditor extends React.Component {
     neurons[this.state.neuronID].macros = newMacros;
     store.set("neurons", neurons);
     try {
-      console.log("SAVING MACROS!!", this.macrosMap(newMacros));
       await focus.command("macros.map", this.macrosMap(newMacros));
       await focus.command("keymap", this.state.keymap);
       const commands = await this.bkp.Commands();

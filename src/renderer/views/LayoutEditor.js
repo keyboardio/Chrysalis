@@ -642,6 +642,11 @@ class LayoutEditor extends React.Component {
         raw2 = "";
       }
       const parsedSuper = this.superTranslator(raw2);
+
+      let ledIndexStart = 69;
+      if (device === "Defy") {
+        ledIndexStart = 70;
+      }
       this.setState({
         currentLayer: this.state.previousLayer,
         defaultLayer: defLayer,
@@ -653,7 +658,8 @@ class LayoutEditor extends React.Component {
         superkeys: parsedSuper,
         registered,
         chipID,
-        deviceName: device
+        deviceName: device,
+        ledIndexStart
       });
       if (keymap.custom) {
         const oldmacro = [...Array(64).keys()].map(x => x + 24576);
@@ -839,7 +845,7 @@ class LayoutEditor extends React.Component {
           currentLayer: layer,
           currentKeyIndex: keyIndex,
           currentLedIndex: ledIndex,
-          modeselect: ledIndex >= 69 ? "color" : state.modeselect
+          modeselect: ledIndex >= this.state.ledIndexStart ? "color" : state.modeselect
         };
       } else {
         return {
@@ -1646,7 +1652,7 @@ class LayoutEditor extends React.Component {
   }
   modeSelectToggle = data => {
     if (this.state.isStandardView) {
-      if (this.state.currentLedIndex > 69) {
+      if (this.state.currentLedIndex > this.state.ledIndexStart) {
         this.setState({
           currentKeyIndex: -1
         });
@@ -1745,7 +1751,7 @@ class LayoutEditor extends React.Component {
       macros,
       superkeys,
       isStandardView,
-      showStandardView,
+      ledIndexStart,
       layoutSelectorPosition
     } = this.state;
 
@@ -1859,7 +1865,7 @@ class LayoutEditor extends React.Component {
     });
 
     let code = 0;
-    if (currentKeyIndex !== -1 && currentLedIndex < 69) {
+    if (currentKeyIndex !== -1 && currentLedIndex < ledIndexStart) {
       const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
       // console.log("Key to be used in render", tempkey);
       code = this.keymapDB.keySegmentator(tempkey.keyCode);

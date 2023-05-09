@@ -195,10 +195,10 @@ class MacroEditor extends React.Component {
   }
 
   macroTranslator(raw) {
-    if (raw.search(" 0 0 ") === -1) {
+    if (raw.search(" 0 0") === -1) {
       return defaultMacro;
     }
-    const macrosArray = raw.split(" 0 0 ")[0].split(" ").map(Number);
+    const macrosArray = raw.split(" 0 0")[0].split(" ").map(Number);
 
     // Translate received macros to human readable text
     const macros = [];
@@ -277,7 +277,7 @@ class MacroEditor extends React.Component {
     if (raw.search(" 0 0 ") === -1) {
       return [];
     }
-    const supersArray = raw.split(" 0 0 ")[0].split(" ").map(Number);
+    const supersArray = raw.split(" 0 0")[0].split(" ").map(Number);
 
     const superkeys = [];
     let superkey = [];

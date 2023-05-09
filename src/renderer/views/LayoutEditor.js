@@ -629,15 +629,15 @@ class LayoutEditor extends React.Component {
       let palette = colormap.palette.slice();
       console.log("retrieved color.map & palette", colormap, palette);
       let raw = await focus.command("macros.map");
-      if (raw.search(" 0 0 ") !== -1) {
-        raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
+      if (raw.search(" 0 0") !== -1) {
+        raw = raw.split(" 0 0")[0].split(" ").map(Number);
       } else {
         raw = "";
       }
       const parsedMacros = this.macroTranslator(raw);
       let raw2 = await focus.command("superkeys.map");
-      if (raw2.search(" 0 0 ") !== -1) {
-        raw2 = raw2.split(" 0 0 ")[0].split(" ").map(Number);
+      if (raw2.search(" 0 0") !== -1) {
+        raw2 = raw2.split(" 0 0")[0].split(" ").map(Number);
       } else {
         raw2 = "";
       }

@@ -28,6 +28,7 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";

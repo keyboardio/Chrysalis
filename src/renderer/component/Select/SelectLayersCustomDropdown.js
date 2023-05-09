@@ -200,7 +200,7 @@ class SelectLayersCustomDropdown extends Component {
             <div className="large-dropdown-inner">
               <div className={`dropdown-group ${activeTab == "super" ? "disabled" : ""}`}>
                 <div className="dropdownHeader">
-                  Layer <strong>Switch</strong>
+                  Layer <strong>Shift</strong>
                 </div>
                 <div className="dropdown-group-buttons">
                   {this.layerSwitch.map((item, id) => {

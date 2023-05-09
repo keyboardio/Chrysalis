@@ -612,6 +612,7 @@ const English = {
       loadVirtualKeyboardDescription: "I want to use an existing configuration file as a starting point.",
       newTitle: "Select new Virtual keyboard file location",
       useTitle: "Select Virtual keyboard file",
+      createButtonLabel: "Create new file",
       buttonLabel: "Select",
       buttonLabelSave: "Save",
       errorLoadingFile: "The file is not a valid virtual keyboard nor Backup",

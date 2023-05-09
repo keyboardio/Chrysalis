@@ -765,7 +765,7 @@ class SelectKeyboard extends Component {
                         </Dropdown.Menu>
                       </Dropdown>
                       <RegularButton
-                        buttonText={i18n.general.create}
+                        buttonText={i18n.keyboardSelect.virtualKeyboard.createButtonLabel}
                         style="primary"
                         onClick={() => {
                           let fileName = enumerator[selectedVirtualKeyboard].device.info.product;

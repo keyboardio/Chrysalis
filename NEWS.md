@@ -2,7 +2,12 @@ Chrysalis 0.13.1-snapshot
 =========================
 **UNRELEASED**
 
-No changes yet.
+## Bugfixes
+
+A minor bugfix in the previous release ended up breaking a number of things,
+which resulted in flashing not working, and Chrysalis complaining about a broken
+environment. This issue has been corrected, Chrysalis should no longer complain,
+and flashing should work correctly now.
 
 Chrysalis 0.13.0
 ================

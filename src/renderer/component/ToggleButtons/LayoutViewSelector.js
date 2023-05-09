@@ -27,7 +27,7 @@ import { IconEditModeStandardViewSm, IconEditModeSingleViewSm } from "../../comp
 
 const Style = Styled.div`
 &.layoutSelector {
-  align-self: self-end;
+  align-self: self-start;
   margin-top: auto;
   margin-bottom: 24px;
   padding-top: 16px;

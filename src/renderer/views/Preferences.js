@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import Electron, { app } from "electron";
+import { ipcRenderer } from "electron";
 import Styled from "styled-components";
 import i18n from "../i18n";
 
@@ -95,12 +95,12 @@ class Preferences extends React.Component {
   }
 
   async componentDidMount() {
-    const webContents = Electron.remote.getCurrentWebContents();
-    this.setState({ devTools: webContents.isDevToolsOpened() });
-    webContents.on("devtools-opened", () => {
+    const devTools = await ipcRenderer.invoke("is-devtools-opened");
+    this.setState({ devTools });
+    ipcRenderer.on("opened-devtool", (event, arg) => {
       this.setState({ devTools: true });
     });
-    webContents.on("devtools-closed", () => {
+    ipcRenderer.on("closed-devtool", (event, arg) => {
       this.setState({ devTools: false });
     });
 
@@ -348,13 +348,9 @@ class Preferences extends React.Component {
     }));
   };
 
-  toggleDevTools = event => {
+  toggleDevTools = async event => {
     this.setState({ devTools: event.target.checked });
-    if (event.target.checked) {
-      Electron.remote.getCurrentWebContents().openDevTools();
-    } else {
-      Electron.remote.getCurrentWebContents().closeDevTools();
-    }
+    await ipcRenderer.invoke("manage-devtools", event.target.checked);
   };
 
   // THEME MODE FUNCTIONS

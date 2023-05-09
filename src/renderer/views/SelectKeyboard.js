@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import fs from "fs";
 import path from "path";
 import { usb, getDeviceList } from "usb";
+const { ipcRenderer } = require("electron");
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -345,7 +346,7 @@ class SelectKeyboard extends Component {
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
-  convertBackupToVK = backup => {
+  convertBackupToVK = async backup => {
     let vk, fileName;
 
     for (let device of Hardware.serial) {
@@ -387,9 +388,7 @@ class SelectKeyboard extends Component {
       defaultPath: path.join(store.get("settings.backupFolder"), fileName + ".json"),
       filters: [{ name: "Json", extensions: ["json"] }]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    const newPath = remote.dialog.showSaveDialogSync(WIN, options);
+    const newPath = await ipcRenderer.invoke("save-dialog", options);
     console.log("Save file to", newPath);
 
     // Save the virtual KB in the specified location
@@ -429,9 +428,7 @@ class SelectKeyboard extends Component {
         { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    const data = await remote.dialog.showOpenDialog(WIN, options);
+    const data = await ipcRenderer.invoke("open-dialog", options);
     let filePath;
     if (!data.canceled) {
       filePath = data.filePaths[0];
@@ -486,9 +483,7 @@ class SelectKeyboard extends Component {
       defaultPath: path.join(store.get("settings.backupFolder"), fileName + ".json"),
       filters: [{ name: "Json", extensions: ["json"] }]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    const newPath = remote.dialog.showSaveDialogSync(WIN, options);
+    const newPath = await ipcRenderer.invoke("save-dialog", options);
     console.log("Save file to", newPath);
 
     // Save the virtual KB in the specified location
@@ -772,17 +767,14 @@ class SelectKeyboard extends Component {
                       <RegularButton
                         buttonText={i18n.general.create}
                         style="primary"
-                        onClick={() =>
-                          this.newFile(
-                            enumerator[selectedVirtualKeyboard],
-                            "Virtual" +
-                              enumerator[selectedVirtualKeyboard].device.info.product +
-                              enumerator[selectedVirtualKeyboard].device.info.product ===
-                              "Defy"
-                              ? ""
-                              : enumerator[selectedVirtualKeyboard].device.info.keyboardType
-                          )
-                        }
+                        onClick={() => {
+                          let fileName = enumerator[selectedVirtualKeyboard].device.info.product;
+                          fileName =
+                            fileName === "Defy"
+                              ? "Virtual" + fileName
+                              : "Virtual" + fileName + enumerator[selectedVirtualKeyboard].device.info.keyboardType;
+                          this.newFile(enumerator[selectedVirtualKeyboard], fileName);
+                        }}
                       />
                     </div>
                     <div className="virtualKeyboards-col virtualKeyboards-col--text">

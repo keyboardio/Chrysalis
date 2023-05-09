@@ -22,21 +22,17 @@ import path from "path";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
 import { fwVersion } from "../../../package.json";
+const { ipcRenderer } = require("electron");
 
 import Focus from "../../api/focus";
 import { FlashRaise, FlashDefyWired, FlashDefyWireless } from "../../api/flash";
 import Backup from "../../api/backup";
-import Tooltip from "../component/Tooltip";
 
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
-import { throws } from "assert";
 
 import PageHeader from "../modules/PageHeader";
 import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
@@ -192,13 +188,13 @@ class FirmwareUpdate extends React.Component {
     console.log("selecting experimental");
     this.setState({ firmwareFilename: "", selected: "experimental" });
   };
-  selectFirmware = event => {
+  selectFirmware = async event => {
     if (this.state.firmwareFilename != "") {
       this.setState({ firmwareFilename: "" });
       return;
     }
 
-    let files = Electron.remote.dialog.showOpenDialog({
+    let options = {
       title: i18n.firmwareUpdate.dialog.selectFirmware,
       filters: [
         {
@@ -214,7 +210,8 @@ class FirmwareUpdate extends React.Component {
           extensions: ["*"]
         }
       ]
-    });
+    };
+    let files = await ipcRenderer.invoke("open-dialog", options);
     files.then(result => {
       let aux = result.filePaths[0] != undefined ? result.filePaths[0] : "";
       this.setState({ firmwareFilename: aux, selected: "custom" });
@@ -372,8 +369,7 @@ class FirmwareUpdate extends React.Component {
           content={e.message}
           icon={<IconFloppyDisk />}
           onClickAction={() => {
-            const shell = Electron.remote && Electron.remote.shell;
-            shell.openExternal("https://support.dygma.com/hc/en-us/articles/360017056397");
+            ipcRenderer.invoke("openExternal", "https://support.dygma.com/hc/en-us/articles/360017056397");
           }}
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}
@@ -429,8 +425,7 @@ class FirmwareUpdate extends React.Component {
           content={e.message}
           icon={<IconFloppyDisk />}
           onClickAction={() => {
-            const shell = Electron.remote && Electron.remote.shell;
-            shell.openExternal("https://support.dygma.com/hc/en-us/articles/360007272638");
+            ipcRenderer.invoke("openExternal", "https://support.dygma.com/hc/en-us/articles/360007272638");
           }}
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}
@@ -465,8 +460,7 @@ class FirmwareUpdate extends React.Component {
           content={e.message}
           icon={<IconFloppyDisk />}
           onClickAction={() => {
-            const shell = Electron.remote && Electron.remote.shell;
-            shell.openExternal("https://support.dygma.com/hc/en-us/articles/360007272638");
+            ipcRenderer.invoke("openExternal", "https://support.dygma.com/hc/en-us/articles/360007272638");
           }}
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}

@@ -19,6 +19,7 @@ import React from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
 import ToastMessage from "../component/ToastMessage";
+const { ipcRenderer } = require("electron");
 
 // Bootstrap components
 import Container from "react-bootstrap/Container";
@@ -1422,7 +1423,7 @@ class LayoutEditor extends React.Component {
     return { Layer, kbtype };
   }
 
-  toImport() {
+  async toImport() {
     let options = {
       title: "Load Layer/s file",
       buttonLabel: "Load Layer/s",
@@ -1431,69 +1432,62 @@ class LayoutEditor extends React.Component {
         { name: "All Files", extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showOpenDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePaths);
-          let layers;
-          try {
-            layers = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(Array.isArray(layers.keymap));
-            if (Array.isArray(layers.keymap)) {
-              console.log(layers.keymap[0]);
-              this.importLayer(layers);
-              toast.success(
-                <ToastMessage
-                  title={i18n.editor.importSuccessCurrentLayerTitle}
-                  content={i18n.editor.importSuccessCurrentLayer}
-                  icon={<IconArrowDownWithLine />}
-                />,
-                {
-                  autoClose: 2000
-                }
-              );
-            } else {
-              console.log(layers.keymap.custom[0]);
-              this.setState({
-                layerNames: layers.layerNames,
-                keymap: layers.keymap,
-                colorMap: layers.colormap,
-                palette: layers.palette,
-                superkeys: layers.superkeys ? layers.superkeys : [],
-                modified: true
-              });
-              this.props.startContext();
-              toast.success(i18n.editor.importSuccessAllLayers, {
-                autoClose: 2000
-              });
+
+    const resp = await ipcRenderer.invoke("open-dialog", options);
+    if (!resp.canceled) {
+      console.log(resp.filePaths);
+      let layers;
+      try {
+        layers = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+        console.log(Array.isArray(layers.keymap));
+        if (Array.isArray(layers.keymap)) {
+          console.log(layers.keymap[0]);
+          this.importLayer(layers);
+          toast.success(
+            <ToastMessage
+              title={i18n.editor.importSuccessCurrentLayerTitle}
+              content={i18n.editor.importSuccessCurrentLayer}
+              icon={<IconArrowDownWithLine />}
+            />,
+            {
+              autoClose: 2000
             }
-          } catch (e) {
-            console.error(e);
-            toast.error(
-              <ToastMessage
-                title={i18n.errors.preferenceFailOnSave}
-                content={i18n.errors.invalidLayerFile}
-                icon={<IconArrowDownWithLine />}
-              />,
-              {
-                autoClose: 2000
-              }
-            );
-            return;
-          }
+          );
         } else {
-          console.log("user closed SaveDialog");
+          console.log(layers.keymap.custom[0]);
+          this.setState({
+            layerNames: layers.layerNames,
+            keymap: layers.keymap,
+            colorMap: layers.colormap,
+            palette: layers.palette,
+            superkeys: layers.superkeys ? layers.superkeys : [],
+            modified: true
+          });
+          this.props.startContext();
+          toast.success(i18n.editor.importSuccessAllLayers, {
+            autoClose: 2000
+          });
         }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      } catch (e) {
+        console.error(e);
+        toast.error(
+          <ToastMessage
+            title={i18n.errors.preferenceFailOnSave}
+            content={i18n.errors.invalidLayerFile}
+            icon={<IconArrowDownWithLine />}
+          />,
+          {
+            autoClose: 2000
+          }
+        );
+        return;
+      }
+    } else {
+      console.log("user closed SaveDialog");
+    }
   }
 
-  toExport() {
+  async toExport() {
     const { layerNames, keymap, currentLayer } = this.state;
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
@@ -1522,44 +1516,41 @@ class LayoutEditor extends React.Component {
         { name: "All Files", extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showSaveDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePath, data);
-          require("fs").writeFileSync(resp.filePath, data);
-          toast.success(
-            <ToastMessage
-              title={i18n.editor.exportSuccessCurrentLayer}
-              content={i18n.editor.exportSuccessCurrentLayerContent}
-              icon={<IconArrowUpWithLine />}
-            />,
-            {
-              autoClose: 2000
-            }
-          );
-        } else {
-          console.log("user closed SaveDialog");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        toast.error(
+
+    try {
+      const resp = await ipcRenderer.invoke("save-dialog", options);
+      if (!resp.canceled) {
+        console.log(resp.filePath, data);
+        require("fs").writeFileSync(resp.filePath, data);
+        toast.success(
           <ToastMessage
-            title={i18n.errors.exportFailed}
-            content={i18n.errors.exportError + err}
+            title={i18n.editor.exportSuccessCurrentLayer}
+            content={i18n.editor.exportSuccessCurrentLayerContent}
             icon={<IconArrowUpWithLine />}
           />,
           {
             autoClose: 2000
           }
         );
-      });
+      } else {
+        console.log("user closed SaveDialog");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        <ToastMessage
+          title={i18n.errors.exportFailed}
+          content={i18n.errors.exportError + error}
+          icon={<IconArrowUpWithLine />}
+        />,
+        {
+          autoClose: 2000
+        }
+      );
+    }
   }
 
-  toExportAll() {
+  async toExportAll() {
     const { keymap, colorMap, palette, superkeys, layerNames } = this.state;
     let data = JSON.stringify(
       {
@@ -1581,34 +1572,31 @@ class LayoutEditor extends React.Component {
         { name: "All Files", extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showSaveDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePath, data);
-          require("fs").writeFileSync(resp.filePath, data);
-          toast.success(
-            <ToastMessage
-              title={i18n.editor.exportSuccessAllLayers}
-              content={i18n.editor.exportSuccessAllLayers}
-              icon={<IconArrowUpWithLine />}
-            />,
-            {
-              autoClose: 2000
-            }
-          );
-        } else {
-          console.log("user closed SaveDialog");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        toast.error(i18n.errors.exportError + err, {
-          autoClose: 2000
-        });
+
+    try {
+      const resp = await ipcRenderer.invoke("save-dialog", options);
+      if (!resp.canceled) {
+        console.log(resp.filePath, data);
+        require("fs").writeFileSync(resp.filePath, data);
+        toast.success(
+          <ToastMessage
+            title={i18n.editor.exportSuccessAllLayers}
+            content={i18n.editor.exportSuccessAllLayers}
+            icon={<IconArrowUpWithLine />}
+          />,
+          {
+            autoClose: 2000
+          }
+        );
+      } else {
+        console.log("user closed SaveDialog");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(i18n.errors.exportError + error, {
+        autoClose: 2000
       });
+    }
   }
 
   toggleNeuronModal() {

@@ -36,7 +36,7 @@ if (process.platform !== "darwin") {
   app.commandLine.appendSwitch("force-device-scale-factor", 1);
 }
 
-import { app, BrowserWindow, Menu, nativeTheme, dialog, ipcMain } from "electron";
+import { app, BrowserWindow, Menu, nativeTheme, dialog, ipcMain, shell } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import * as fs from "fs";
@@ -78,8 +78,7 @@ async function createMainWindow() {
     webPreferences: {
       sandbox: false,
       nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true
+      contextIsolation: false
     }
   });
 
@@ -184,6 +183,54 @@ async function createMainWindow() {
     return result.path;
   });
 
+  //const data = await ipcRenderer.invoke("open-dialog", options);
+  ipcMain.handle("open-dialog", async (event, options) => {
+    const data = await dialog.showOpenDialog(window, options);
+    return data;
+  });
+
+  //const newPath = await ipcRenderer.invoke("save-dialog", options);
+  ipcMain.handle("save-dialog", async (event, options) => {
+    const data = await dialog.showSaveDialogSync(window, options);
+    return data;
+  });
+
+  //const newPath = await ipcRenderer.invoke("is-devtools-opened", options);
+  ipcMain.handle("is-devtools-opened", async (event, someArgument) => {
+    const data = window.webContents.isDevToolsOpened();
+    return data;
+  });
+
+  //await ipcRenderer.invoke("manage-devtools", action);
+  ipcMain.handle("manage-devtools", (event, action) => {
+    if (action === true) {
+      window.webContents.openDevTools();
+    } else {
+      window.webContents.closeDevTools();
+    }
+    return;
+  });
+
+  //await ipcRenderer.invoke("get-userPath","userData");
+  ipcMain.handle("get-userPath", (event, path) => {
+    return app.getPath(path);
+  });
+
+  // ipcRenderer.invoke("openExternal", URI);
+  ipcMain.handle("openExternal", (event, URI) => {
+    return shell.openExternal(URI);
+  });
+
+  // ipcRenderer.invoke("get-Locale");
+  ipcMain.handle("get-Locale", (event, someArgument) => {
+    return app.getLocale();
+  });
+
+  // ipcRenderer.invoke("get-NativeTheme");
+  ipcMain.handle("get-NativeTheme", (event, someArgument) => {
+    return nativeTheme.shouldUseDarkColors;
+  });
+
   window.on("closed", () => {
     nativeTheme.off("updated", theThemeHasChanged);
     mainWindow = null;
@@ -194,6 +241,11 @@ async function createMainWindow() {
     setImmediate(() => {
       window.focus();
     });
+    window.webContents.send("opened-devtool", true);
+  });
+
+  window.webContents.on("devtools-closed", () => {
+    window.webContents.send("closed-devtool", false);
   });
 
   let handleRedirect = (e, url) => {

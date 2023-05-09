@@ -16,9 +16,8 @@
  */
 
 import fs from "fs";
-import { spawn } from "child_process";
-import { inspect } from "util";
 import i18n from "./i18n";
+const { ipcRenderer } = require("electron");
 
 global.focus_instance = null;
 global.focus_instance_file = false;
@@ -53,9 +52,7 @@ class Filefocus {
         { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    const data = await remote.dialog.showOpenDialog(WIN, options);
+    const data = await ipcRenderer.invoke("open-dialog", options);
     let filePath;
     if (!data.canceled) {
       filePath = data.filePaths[0];

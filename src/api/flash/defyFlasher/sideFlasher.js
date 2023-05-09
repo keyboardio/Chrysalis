@@ -30,8 +30,8 @@
 
 import fs from "fs";
 import { crc32 } from "easy-crc";
-import SerialPort from "serialport";
-import Delimiter from "@serialport/parser-delimiter";
+import { SerialPort } from "serialport";
+import { DelimiterParser } from "@serialport/parser-delimiter";
 
 export default class sideFlaser {
   constructor(path, filename) {
@@ -50,7 +50,7 @@ export default class sideFlaser {
 
     // Serial port instancing
     const serialport = new SerialPort(this.path, { baudRate: 115200 });
-    const parser = serialport.pipe(new Delimiter({ delimiter: "\r\n" }));
+    const parser = serialport.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     let receivedData = [];
     parser.on("data", function (data) {
       receivedData.push(data.toString("utf-8"));
@@ -101,8 +101,8 @@ export default class sideFlaser {
 
     // Serial port instancing
 
-    const serialport = new SerialPort(this.path, { baudRate: 115200 });
-    const parser = serialport.pipe(new Delimiter({ delimiter: "\r\n" }));
+    const serialport = new SerialPort({ path: this.path, baudRate: 115200 });
+    const parser = serialport.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     let receivedData = [];
     parser.on("data", function (data) {
       receivedData.push(data.toString("utf-8"));

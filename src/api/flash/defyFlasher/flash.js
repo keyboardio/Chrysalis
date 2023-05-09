@@ -20,6 +20,7 @@ import Focus from "../../focus";
 import Hardware from "../../hardware";
 import Rp2040 from "./rp2040-flasher";
 import NRf52833 from "./NRf52833-flasher";
+const { ipcRenderer } = require("electron");
 
 /**
  * Create a new flash raise object.
@@ -166,7 +167,8 @@ export class FlashDefyWired {
    * linux: in directory, where the app is located.
    */
   saveBackupFile() {
-    const route = path.join(require("electron").remote.app.getPath("userData"), this.backupFileName + ".json");
+    const userDataPath = ipcRenderer.invoke("get-userPath", "userData");
+    const route = path.join(userDataPath, this.backupFileName + ".json");
     console.log("saving file to: " + route);
     fs.writeFile(route, JSON.stringify(this.backupFileData), err => {
       if (err) throw err;
@@ -510,7 +512,8 @@ export class FlashDefyWireless {
    * linux: in directory, where the app is located.
    */
   saveBackupFile() {
-    const route = path.join(require("electron").remote.app.getPath("userData"), this.backupFileName + ".json");
+    const userDataPath = ipcRenderer.invoke("get-userPath", "userData");
+    const route = path.join(userDataPath, this.backupFileName + ".json");
     console.log("saving file to: " + route);
     fs.writeFile(route, JSON.stringify(this.backupFileData), err => {
       if (err) throw err;

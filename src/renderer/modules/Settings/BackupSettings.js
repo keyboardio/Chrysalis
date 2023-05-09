@@ -5,6 +5,7 @@ import Slider from "react-rangeslider";
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
 import { isArray } from "lodash";
+const { ipcRenderer } = require("electron");
 
 // React Bootstrap Components
 import Card from "react-bootstrap/Card";
@@ -44,30 +45,24 @@ export default class BackupSettings extends Component {
     });
   }
 
-  ChooseBackupFolder = () => {
+  ChooseBackupFolder = async () => {
     let options = {
       title: i18n.keyboardSettings.backupFolder.title,
       buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
       properties: ["openDirectory"]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showOpenDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePaths);
-          this.setState({
-            backupFolder: resp.filePaths[0]
-          });
-          store.set("settings.backupFolder", `${resp.filePaths[0]}`);
-        } else {
-          console.log("user closed backup folder dialog");
-        }
-      })
-      .catch(err => {
-        console.log(err);
+
+    const resp = await ipcRenderer.invoke("open-dialog", options);
+
+    if (!resp.canceled) {
+      console.log(resp.filePaths);
+      this.setState({
+        backupFolder: resp.filePaths[0]
       });
+      store.set("settings.backupFolder", `${resp.filePaths[0]}`);
+    } else {
+      console.log("user closed backup folder dialog");
+    }
   };
 
   GetBackup = async () => {
@@ -80,38 +75,32 @@ export default class BackupSettings extends Component {
         { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showOpenDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePaths);
-          let loadedFile;
-          try {
-            loadedFile = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            if (loadedFile.virtual !== undefined) {
-              this.restoreVirtual(loadedFile.virtual);
-              console.log("Restored Virtual backup");
-              return;
-            }
-            if (loadedFile.backup !== undefined || loadedFile[0].command !== undefined) {
-              this.restoreBackup(loadedFile);
-              console.log("Restored normal backup");
-              return;
-            }
-          } catch (e) {
-            console.error(e);
-            alert("The file is not a valid global backup");
-            return;
-          }
-        } else {
-          console.log("user closed SaveDialog");
+
+    const resp = await ipcRenderer.invoke("open-dialog", options);
+
+    if (!resp.canceled) {
+      console.log(resp.filePaths);
+      let loadedFile;
+      try {
+        loadedFile = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+        if (loadedFile.virtual !== undefined) {
+          this.restoreVirtual(loadedFile.virtual);
+          console.log("Restored Virtual backup");
+          return;
         }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        if (loadedFile.backup !== undefined || loadedFile[0].command !== undefined) {
+          this.restoreBackup(loadedFile);
+          console.log("Restored normal backup");
+          return;
+        }
+      } catch (e) {
+        console.error(e);
+        alert("The file is not a valid global backup");
+        return;
+      }
+    } else {
+      console.log("user closed SaveDialog");
+    }
   };
 
   setStoreBackups = value => {

@@ -37,6 +37,5 @@ try {
     document.getElementById("app")
   );
 } catch (e) {
-  Electron.remote.getCurrentWebContents().openDevTools();
   ReactDOM.render(<Error error={e} />, document.getElementById("app"));
 }

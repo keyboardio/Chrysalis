@@ -299,7 +299,7 @@ class NavigationMenu extends Component {
                 <div className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                   <ExitMenuItem
                     drawerWidth={drawerWidth}
-                    onClick={() => remote.app.exit(0)}
+                    onClick={() => return}
                   />
                 </div>
               </OverlayTrigger> */}

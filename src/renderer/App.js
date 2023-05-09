@@ -49,7 +49,7 @@ import { IconNoSignal } from "./component/Icon";
 const Store = require("electron-store");
 const store = new Store();
 
-const { remote, ipcRenderer } = require("electron");
+const { ipcRenderer } = require("electron");
 const path = require("path");
 
 let focus = new Focus();
@@ -70,7 +70,7 @@ class App extends React.Component {
     const mode = store.get("settings.darkMode");
     isDark = mode === "dark" ? true : false;
     if (mode === "system") {
-      isDark = remote.nativeTheme.shouldUseDarkColors;
+      isDark = ipcRenderer.invoke("get-NativeTheme");
     }
 
     this.state = {
@@ -107,7 +107,7 @@ class App extends React.Component {
       return;
     }
     // create locale language identifier
-    const lang = remote.app.getLocale();
+    const lang = ipcRenderer.invoke("get-Locale");
     const translator = {
       en: "english",
       es: "spanish",
@@ -125,7 +125,7 @@ class App extends React.Component {
     data.backupFolder =
       (await settings.get("backupFolder")) != undefined
         ? await settings.get("backupFolder")
-        : path.join(remote.app.getPath("home"), "Raise", "Backups");
+        : path.join(ipcRenderer.invoke("get-userPath", "home"), "Raise", "Backups");
     data.backupFrequency = (await settings.get("backupFrequency")) != undefined ? await settings.get("backupFrequency") : 30;
     data.language =
       (await settings.get("ui.language")) != undefined
@@ -201,10 +201,10 @@ class App extends React.Component {
   };
 
   toggleDarkMode = async mode => {
-    console.log("Dark mode changed to: ", mode, "NativeTheme says: ", remote.nativeTheme.shouldUseDarkColors);
+    console.log("Dark mode changed to: ", mode, "NativeTheme says: ", ipcRenderer.invoke("get-NativeTheme"));
     let isDark = mode === "dark" ? true : false;
     if (mode === "system") {
-      isDark = remote.nativeTheme.shouldUseDarkColors;
+      isDark = ipcRenderer.invoke("get-NativeTheme");
     }
     this.setState({
       darkMode: isDark

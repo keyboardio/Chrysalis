@@ -1,3 +1,10 @@
+Chrysalis 0.13.2-snapshot
+=========================
+**UNRELEASED**
+
+This is the same release as 0.13.1, re-released to work around some technical
+difficulties in the release pipeline.
+
 Chrysalis 0.13.1
 ================
 Released on 2023-05-09

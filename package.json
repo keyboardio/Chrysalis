@@ -52,7 +52,10 @@
       "category": "productivity",
       "target": {
         "target": "default",
-        "arch": "universal"
+        "arch": [
+          "arm64",
+          "x64"
+        ]
       },
       "type": "distribution",
       "darkModeSupport": true,

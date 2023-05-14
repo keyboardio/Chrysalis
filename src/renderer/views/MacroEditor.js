@@ -345,7 +345,8 @@ class MacroEditor extends React.Component {
           icon={<IconFloppyDisk />}
         />,
         {
-          autoClose: 2000
+          autoClose: 2000,
+          icon: ""
         }
       );
     } catch (error) {

@@ -209,6 +209,8 @@ class TimelineEditorMacroTable extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log("testing horizontal wheel data", this.horizontalWheel.current);
+    if (this.horizontalWheel.current === null) return;
     const scrollContainer = this.horizontalWheel.current.firstChild;
     if (this.state.rows.length !== 0 && prevState.rows.length === 0) {
       scrollContainer.addEventListener("wheel", this.scrollUpdate);

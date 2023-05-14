@@ -388,7 +388,9 @@ class FirmwareUpdate extends React.Component {
       if (this.state.versions) await focus.command("led.mode 0");
       await focus.command(`led.brightness ${this.state.brightness}`);
       // setTimeout(() => {
-      toast.success(<ToastMessage title={i18n.firmwareUpdate.flashing.success} icon={<IconFloppyDisk />} />);
+      toast.success(<ToastMessage title={i18n.firmwareUpdate.flashing.success} icon={<IconFloppyDisk />} />, {
+        icon: ""
+      });
       this.props.toggleFlashing();
       this.props.toggleFwUpdate(false);
       this.props.onDisconnect();

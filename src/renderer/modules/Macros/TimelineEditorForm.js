@@ -76,7 +76,7 @@ class MacroForm extends Component {
 
   render() {
     const { macro, updateActions, keymapDB, componentWidth, updateScroll, scrollPos } = this.props;
-    if (macro.actions === undefined) {
+    if (macro === undefined || macro.actions === undefined) {
       return <div>{i18n.editor.macros.macroTab.noMacro}</div>;
     }
     return (

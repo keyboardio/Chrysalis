@@ -1529,10 +1529,10 @@ class LayoutEditor extends React.Component {
     };
 
     try {
-      const resp = await ipcRenderer.invoke("save-dialog", options);
-      if (!resp.canceled) {
-        console.log(resp.filePath, data);
-        require("fs").writeFileSync(resp.filePath, data);
+      const path = await ipcRenderer.invoke("save-dialog", options);
+      if (typeof path !== "undefined") {
+        console.log(path, data);
+        require("fs").writeFileSync(path, data);
         toast.success(
           <ToastMessage
             title={i18n.editor.exportSuccessCurrentLayer}
@@ -1587,10 +1587,10 @@ class LayoutEditor extends React.Component {
     };
 
     try {
-      const resp = await ipcRenderer.invoke("save-dialog", options);
-      if (!resp.canceled) {
-        console.log(resp.filePath, data);
-        require("fs").writeFileSync(resp.filePath, data);
+      const path = await ipcRenderer.invoke("save-dialog", options);
+      if (typeof path !== "undefined") {
+        console.log(path, data);
+        require("fs").writeFileSync(path, data);
         toast.success(
           <ToastMessage
             title={i18n.editor.exportSuccessAllLayers}

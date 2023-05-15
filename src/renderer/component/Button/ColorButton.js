@@ -75,7 +75,8 @@ const ColorButton = ({ selected, onClick, label, text, icoSVG, color }) => {
         title={i18n.editor.color.selectColorFirst}
         content={i18n.editor.color.selectColorFirstContent}
         icon={<IconColorPicker />}
-      />
+      />,
+      { icon: "" }
     );
   };
   React.useEffect(() => {

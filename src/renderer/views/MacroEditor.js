@@ -189,7 +189,7 @@ class MacroEditor extends React.Component {
         freeMemory: parsedMacros.map(m => m.actions).flat().length
       });
     } catch (e) {
-      toast.error(<ToastMessage title={e} icon={<IconFloppyDisk />} />);
+      toast.error(<ToastMessage title={e} icon={<IconFloppyDisk />} />, { icon: "" });
       this.props.onDisconnect();
     }
   }
@@ -350,7 +350,7 @@ class MacroEditor extends React.Component {
         }
       );
     } catch (error) {
-      toast.error(<ToastMessage title={error} icon={<IconFloppyDisk />} />);
+      toast.error(<ToastMessage title={error} icon={<IconFloppyDisk />} />, { icon: "" });
     }
   }
 

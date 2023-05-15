@@ -172,7 +172,8 @@ class App extends React.Component {
             icon={<IconNoSignal />}
             title={i18n.errors.deviceDisconnected}
             content={i18n.errors.deviceDisconnectedContent}
-          />
+          />,
+          { icon: "" }
         );
       }
       await focus.close();

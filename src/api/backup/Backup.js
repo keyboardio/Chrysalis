@@ -25,6 +25,7 @@ export default class Backup {
       "settings.valid?",
       "settings.version",
       "settings.crc",
+      "keymap.default",
       "layer",
       "help",
       "version",

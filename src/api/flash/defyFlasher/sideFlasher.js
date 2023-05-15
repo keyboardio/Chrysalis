@@ -49,7 +49,7 @@ export default class sideFlaser {
     };
 
     // Serial port instancing
-    const serialport = new SerialPort(this.path, { baudRate: 115200 });
+    const serialport = new SerialPort({ path: this.path, baudRate: 115200 });
     const parser = serialport.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     let receivedData = [];
     parser.on("data", function (data) {

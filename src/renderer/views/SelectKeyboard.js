@@ -341,7 +341,7 @@ class SelectKeyboard extends Component {
       this.setState({
         opening: false
       });
-      toast.error(<ToastMessage title={err.toString()} />);
+      toast.error(<ToastMessage title={err.toString()} />, { icon: "" });
     }
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
@@ -486,16 +486,7 @@ class SelectKeyboard extends Component {
     const newPath = await ipcRenderer.invoke("save-dialog", options);
     console.log("Save file to", newPath);
 
-    // Save the virtual KB in the specified location
-    const json = JSON.stringify(virtualKeyboard, null, 2);
-    require("fs").writeFileSync(newPath, json, err => {
-      if (err) {
-        console.error(err);
-        throw err;
-      }
-    });
     console.log("Exchange focus for file access");
-
     for (let device of Hardware.serial) {
       if (
         virtualKeyboard.device.usb.productId == device.usb.productId &&
@@ -510,6 +501,18 @@ class SelectKeyboard extends Component {
     virtualKeyboard.device.bootloader = false;
     virtualKeyboard.device.filePath = newPath;
     virtualKeyboard.virtual["hardware.chip_id"].data = virtualKeyboard.virtual["hardware.chip_id"].data + this.getDateTime();
+
+    // Retarded virtualKeyboard storage to save ti with new hardware.chipID
+    // Save the virtual KB in the specified location
+    const json = JSON.stringify(virtualKeyboard, null, 2);
+    require("fs").writeFileSync(newPath, json, err => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+    });
+
+    // Final connection function
     await this.props.onConnect(virtualKeyboard.device, virtualKeyboard);
   };
 

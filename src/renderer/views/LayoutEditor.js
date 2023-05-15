@@ -1487,7 +1487,8 @@ class LayoutEditor extends React.Component {
             icon={<IconArrowDownWithLine />}
           />,
           {
-            autoClose: 2000
+            autoClose: 2000,
+            icon: ""
           }
         );
         return;
@@ -1555,7 +1556,8 @@ class LayoutEditor extends React.Component {
           icon={<IconArrowUpWithLine />}
         />,
         {
-          autoClose: 2000
+          autoClose: 2000,
+          icon: ""
         }
       );
     }
@@ -1730,7 +1732,8 @@ class LayoutEditor extends React.Component {
         icon={<IconArrowUpWithLine />}
       />,
       {
-        autoClose: 2000
+        autoClose: 2000,
+        icon: ""
       }
     );
   };

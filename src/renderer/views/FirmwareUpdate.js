@@ -374,7 +374,8 @@ class FirmwareUpdate extends React.Component {
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}
           clickDismissText={i18n.errors.dismiss}
-        />
+        />,
+        { icon: "" }
       );
       this.props.toggleFlashing();
       this.props.toggleFwUpdate(false);
@@ -432,7 +433,8 @@ class FirmwareUpdate extends React.Component {
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}
           clickDismissText={i18n.errors.dismiss}
-        />
+        />,
+        { icon: "" }
       );
       this.setState({ confirmationOpen: false });
     }
@@ -467,7 +469,8 @@ class FirmwareUpdate extends React.Component {
           clickActionText={i18n.errors.troubleshooting}
           onClickDismiss={() => toast.dismiss()}
           clickDismissText={i18n.errors.dismiss}
-        />
+        />,
+        { icon: "" }
       );
       this.setState({ confirmationOpen: false });
     }

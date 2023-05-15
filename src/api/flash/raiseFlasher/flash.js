@@ -83,7 +83,7 @@ export class FlashRaise {
             ? device.device.bootloader != undefined &&
               device.device.bootloader == bootloader &&
               this.device.info.keyboardType == device.device.info.keyboardType
-            : this.device.info.keyboardType == device.device.info.keyboardType && device.serialNumber.includes("raiseD")
+            : this.device.info.keyboardType == device.device.info.keyboardType
         ) {
           console.log(message);
           this.currentPort = { ...device };

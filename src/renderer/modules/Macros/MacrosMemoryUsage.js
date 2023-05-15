@@ -93,7 +93,8 @@ const MacrosMemoryUsage = ({ mem }) => {
           title={i18n.editor.macros.memoryUsage.alertTitle}
           content={i18n.editor.macros.memoryUsage.alertBody}
           icon={<IconFloppyDisk />}
-        />
+        />,
+        { icon: "" }
       );
     }
     if (mem > 1999) {
@@ -110,7 +111,8 @@ const MacrosMemoryUsage = ({ mem }) => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined
+          progress: undefined,
+          icon: ""
         }
       );
     }

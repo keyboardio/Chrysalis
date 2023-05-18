@@ -184,7 +184,7 @@ class ModPicker extends Component {
 
             <ButtonConfig
               selected={modifs.includes(4)}
-              buttonText="O.S."
+              buttonText="OS"
               className="modbutton"
               onClick={e => this.SelectModif(4)}
               disabled={this.setModifierVisibility()}

@@ -160,7 +160,7 @@ class ListModifiers extends Component {
           ) : (
             ""
           )}
-          {this.parseModifs(keyCode).includes(4) == true ? <div className="label labelModifier labelOs">O.S.</div> : ""}
+          {this.parseModifs(keyCode).includes(4) == true ? <div className="label labelModifier labelOs">OS</div> : ""}
 
           {/* this is for a Control */}
           {/* {this.parseModifs(keyCode).includes(1) == true ? <div>Control</div> : "Nope"} */}

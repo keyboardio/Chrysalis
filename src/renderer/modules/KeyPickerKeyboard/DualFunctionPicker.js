@@ -82,7 +82,7 @@ class DualFunctionPicker extends Component {
       { name: "Dual Control ", nameStd: "Ctrl", keynum: 49169 },
       { name: "Dual Shift   ", nameStd: "Shift", keynum: 49425 },
       { name: "Dual Alt     ", nameStd: "Alt", keynum: 49681 },
-      { name: "Dual Gui/OS  ", nameStd: "O.S.", keynum: 49937 },
+      { name: "Dual OS  ", nameStd: "OS", keynum: 49937 },
       { name: "Dual Alt Gr  ", nameStd: "Alt Gr.", keynum: 50705 }
     ];
     this.layerKey = [

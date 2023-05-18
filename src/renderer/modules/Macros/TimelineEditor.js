@@ -69,8 +69,8 @@ class TimelineEditor extends Component {
       { name: "RIGHT CTRL", keyCode: 228, color: "#f5e4e4" },
       { name: "LEFT ALT", keyCode: 226, color: "#faf8e1" },
       { name: "RIGHT ALT", keyCode: 230, color: "#f2e7f5" },
-      { name: "LEFT GUI", keyCode: 227, color: "#e6f0e4" },
-      { name: "RIGHT GUI", keyCode: 231, color: "#e6f0e4" }
+      { name: "LEFT OS", keyCode: 227, color: "#e6f0e4" },
+      { name: "RIGHT OS", keyCode: 231, color: "#e6f0e4" }
     ];
     this.actionTypes = [
       {

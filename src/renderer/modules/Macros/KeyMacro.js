@@ -281,7 +281,7 @@ class KeyMacro extends Component {
                                         />
                                       </Dropdown.Item>
                                     );
-                                  case "LEFT GUI":
+                                  case "LEFT OS":
                                     return (
                                       <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
                                         <ButtonConfig
@@ -292,7 +292,7 @@ class KeyMacro extends Component {
                                         />
                                       </Dropdown.Item>
                                     );
-                                  case "RIGHT GUI":
+                                  case "RIGHT OS":
                                     return (
                                       <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
                                         <ButtonConfig

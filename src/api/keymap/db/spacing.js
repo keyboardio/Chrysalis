@@ -72,38 +72,38 @@ const ModifiedSpacingTables = [
   withModifiers(SpacingTable, "Alt +", "A+", 512),
   withModifiers(SpacingTable, "AltGr +", "AGr+", 1024),
   withModifiers(SpacingTable, "Shift +", "S+", 2048),
-  withModifiers(SpacingTable, "Gui +", "G+", 4096),
+  withModifiers(SpacingTable, "Os+", "O+", 4096),
 
   // Double
   withModifiers(SpacingTable, "Control + Alt +", "C+A+", 768),
   withModifiers(SpacingTable, "Control + AltGr +", "C+AGr+", 1280),
   withModifiers(SpacingTable, "Control + Shift +", "C+S+", 2304),
-  withModifiers(SpacingTable, "Control + Gui +", "C+G+", 4352),
+  withModifiers(SpacingTable, "Control + Os +", "C+O+", 4352),
   withModifiers(SpacingTable, "Alt + AltGr +", "A+AGr+", 1536),
   withModifiers(SpacingTable, "Alt + Shift +", "A+S+", 2560),
-  withModifiers(SpacingTable, "Alt + Gui +", "A+G+", 4608),
+  withModifiers(SpacingTable, "Alt + Os +", "A+O+", 4608),
   withModifiers(SpacingTable, "AltGr + Shift +", "AGr+S+", 3072),
-  withModifiers(SpacingTable, "AltGr + Gui +", "AGr+G+", 5120),
-  withModifiers(SpacingTable, "Shift + Gui +", "S+G+", 6144),
+  withModifiers(SpacingTable, "AltGr + Os +", "AGr+O+", 5120),
+  withModifiers(SpacingTable, "Shift + Os +", "S+O+", 6144),
 
   // Triple
   withModifiers(SpacingTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
   withModifiers(SpacingTable, "Meh +", "Meh+", 2816),
-  withModifiers(SpacingTable, "Control + Alt + Gui +", "C+A+G+", 4864),
+  withModifiers(SpacingTable, "Control + Alt + Os +", "C+A+O+", 4864),
   withModifiers(SpacingTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
-  withModifiers(SpacingTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
-  withModifiers(SpacingTable, "Control + Shift + Gui +", "C+S+G+", 6400),
+  withModifiers(SpacingTable, "Control + AltGr + Os +", "C+AGr+O+", 5376),
+  withModifiers(SpacingTable, "Control + Shift + Os +", "C+S+O+", 6400),
   withModifiers(SpacingTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
-  withModifiers(SpacingTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
-  withModifiers(SpacingTable, "Alt + Shift + Gui +", "A+S+G+", 6656),
-  withModifiers(SpacingTable, "AltGr + Shift + Gui +", "AGr+S+G+", 7168),
+  withModifiers(SpacingTable, "Alt + AltGr + Os +", "A+AGr+O+", 5632),
+  withModifiers(SpacingTable, "Alt + Shift + Os +", "A+S+O+", 6656),
+  withModifiers(SpacingTable, "AltGr + Shift + Os +", "AGr+S+O+", 7168),
 
   // Quad
   withModifiers(SpacingTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(SpacingTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
+  withModifiers(SpacingTable, "Control + Alt + AltGr + Os +", "C+A+AGr+O+", 5888),
   withModifiers(SpacingTable, "Hyper +", "Hyper+", 6912),
-  withModifiers(SpacingTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
-  withModifiers(SpacingTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
+  withModifiers(SpacingTable, "Control + AltGr + Shift + Os +", "C+AGr+S+O+", 7424),
+  withModifiers(SpacingTable, "Alt + AltGr + Shift + Os +", "A+AGr+S+O+", 7680),
 
   // All
   withModifiers(SpacingTable, "Hyper + AltGr +", "H+AGr+", 7936)

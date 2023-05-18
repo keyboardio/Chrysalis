@@ -423,7 +423,7 @@ const swissGermanCtrlTable = withModifiers(table, "Control +", "C+", 256);
 const swissGermanLAltTable = withModifiers(table, "Alt +", "A+", 512);
 const swissGermanRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
 const swissGermanShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
-const swissGermanGuiTable = withModifiers(table, "Gui +", "G+", 4096);
+const swissGermanGuiTable = withModifiers(table, "Os+", "O+", 4096);
 // Double
 
 const swissGermanCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
@@ -432,19 +432,19 @@ const swissGermanCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+",
 
 const swissGermanCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
-const swissGermanCGTable = withModifiers(table, "Control + Gui +", "C+G+", 4352);
+const swissGermanCGTable = withModifiers(table, "Control + Os +", "C+O+", 4352);
 
 const swissGermanAAGrTable = withModifiers(table, "Alt + AltGr +", "A+AGr+", 1536);
 
 const swissGermanASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560);
 
-const swissGermanAGTable = withModifiers(table, "Alt + Gui +", "A+G+", 4608);
+const swissGermanAGTable = withModifiers(table, "Alt + Os +", "A+O+", 4608);
 
 const swissGermanAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
-const swissGermanAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
+const swissGermanAGrGTable = withModifiers(table, "AltGr + Os +", "AGr+O+", 5120);
 
-const swissGermanSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
+const swissGermanSGTable = withModifiers(table, "Shift + Os +", "S+O+", 6144);
 
 // Triple
 
@@ -452,31 +452,31 @@ const swissGermanCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+
 
 const swissGermanCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const swissGermanCAGTable = withModifiers(table, "Control + Alt + Gui +", "C+A+G+", 4864);
+const swissGermanCAGTable = withModifiers(table, "Control + Alt + Os +", "C+A+O+", 4864);
 
 const swissGermanCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const swissGermanCAGGTable = withModifiers(table, "Control + AltGr + Gui +", "C+AGr+G+", 5376);
+const swissGermanCAGGTable = withModifiers(table, "Control + AltGr + Os +", "C+AGr+O+", 5376);
 
-const swissGermanCSGTable = withModifiers(table, "Control + Shift + Gui +", "C+S+G+", 6400);
+const swissGermanCSGTable = withModifiers(table, "Control + Shift + Os +", "C+S+O+", 6400);
 
 const swissGermanAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const swissGermanAAGGTable = withModifiers(table, "Alt + AltGr + Gui +", "A+AGr+G+", 5632);
+const swissGermanAAGGTable = withModifiers(table, "Alt + AltGr + Os +", "A+AGr+O+", 5632);
 
-const swissGermanASGTable = withModifiers(table, "Alt + Shift + Gui +", "A+S+G+", 6656);
+const swissGermanASGTable = withModifiers(table, "Alt + Shift + Os +", "A+S+O+", 6656);
 
-const swissGermanAGSGTable = withModifiers(table, "AltGr + Shift + Gui +", "AGr+S+G+", 7168);
+const swissGermanAGSGTable = withModifiers(table, "AltGr + Shift + Os +", "AGr+S+O+", 7168);
 
 // Quad
 
 const swissGermanCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const swissGermanCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888);
+const swissGermanCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Os +", "C+A+AGr+O+", 5888);
 
-const swissGermanCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424);
+const swissGermanCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Os +", "C+AGr+S+O+", 7424);
 
-const swissGermanAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680);
+const swissGermanAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Os +", "A+AGr+S+O+", 7680);
 
 const swissGermanAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 

@@ -71,7 +71,7 @@ const Key = ({
     setExtralabel.current.innerText.includes("C+") ? setCtrlApplied(true) : setCtrlApplied(false);
     setExtralabel.current.innerText.includes("A+") ? setAltApplied(true) : setAltApplied(false);
     setExtralabel.current.innerText.includes("AG") ? setAltGrApplied(true) : setAltGrApplied(false);
-    setExtralabel.current.innerText.includes("G+") ? setOsApplied(true) : setOsApplied(false);
+    setExtralabel.current.innerText.includes("O+") ? setOsApplied(true) : setOsApplied(false);
     setExtralabel.current.innerText.includes("S+") ? setShiftApplied(true) : setShiftApplied(false);
     setExtralabel.current.innerText.includes("Meh+") || setExtralabel.current.innerText.includes("M+")
       ? setMehApplied(true)

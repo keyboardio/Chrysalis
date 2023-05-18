@@ -226,8 +226,13 @@ class MacroEditor extends React.Component {
           case 5:
             actions.push({ type, keyCode: (macrosArray[++iter] << 8) + macrosArray[++iter] });
             break;
-          default:
+          case 6:
+          case 7:
+          case 8:
             actions.push({ type, keyCode: macrosArray[++iter] });
+            break;
+          default:
+            break;
         }
 
         iter++;

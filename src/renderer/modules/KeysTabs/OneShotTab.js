@@ -147,7 +147,7 @@ class OneShotTab extends Component {
                 onClick={() => onKeySelect(OneShotDeltaLayer + 7)}
                 selected={isStandardView ? (keyCode === OneShotDeltaLayer + 7 ? true : false) : false}
               />
-              <ButtonConfig
+              {/* <ButtonConfig
                 buttonText="9"
                 onClick={() => onKeySelect(OneShotDeltaLayer + 8)}
                 selected={isStandardView ? (keyCode === OneShotDeltaLayer + 8 ? true : false) : false}
@@ -156,7 +156,7 @@ class OneShotTab extends Component {
                 buttonText="10"
                 onClick={() => onKeySelect(OneShotDeltaLayer + 9)}
                 selected={isStandardView ? (keyCode === OneShotDeltaLayer + 9 ? true : false) : false}
-              />
+              /> */}
             </div>
           </div>
         </div>

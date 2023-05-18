@@ -525,17 +525,10 @@ class SuperkeysEditor extends React.Component {
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
-      toast.success(
-        <ToastMessage
-          title={i18n.editor.superkeys.successFlashTitle}
-          content={i18n.editor.superkeys.successFlash}
-          icon={<IconFloppyDisk />}
-        />,
-        {
-          autoClose: 2000,
-          icon: ""
-        }
-      );
+      toast.success(<ToastMessage title={i18n.editor.superkeys.successFlashTitle} content="" icon={<IconFloppyDisk />} />, {
+        autoClose: 2000,
+        icon: ""
+      });
     } catch (error) {
       toast.error(error);
     }

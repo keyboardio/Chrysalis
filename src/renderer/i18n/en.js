@@ -37,7 +37,6 @@ const English = {
     layer: "Layer {0}",
     save: {
       success: "Sent!",
-      saveChanges: "Send changes to the Raise",
       savePreferences: "Save preferences",
       button: "Save<span> changes</span>"
     },
@@ -69,9 +68,7 @@ const English = {
       supportPage: "Bazecor support page",
       feedback: "Send feedback",
       exit: "Exit Bazecor",
-      keyboardSection: "Raise",
       keyboardTitle: "WELCOME TO BAZECOR,",
-      keyboardTitleSecondary: "DYGMA RAISE CONFIGURATOR.",
       bazecorSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!",
@@ -198,7 +195,7 @@ const English = {
       title: "Macro Editor",
       timelineTitle: "Timeline editor",
       successFlashTitle: "Your macros have been saved.",
-      successFlash: "Successfully sent the macros to the Raise",
+      successFlash: "Successfully sent the macros to the device",
       previewMacro: "Preview macro",
       deleteModal: {
         title: "This macro is in use",
@@ -337,7 +334,7 @@ const English = {
       selectMouseFunction: "Select Mouse Function",
       title: "Superkeys Editor",
       successFlashTitle: "The Superkeys have been saved",
-      successFlash: "Successfully sent the superkeys to the Raise",
+      successFlash: "Successfully sent the superkeys to the device",
       createModal: {
         createNew: "Create new Superkey name",
         inputLabel: "Superkey name"
@@ -628,10 +625,10 @@ const English = {
       letsStart: "Let's start",
       versionUpdatedTitle: "Your firmware is up to date 🤙",
       versionOutdatedTitle: "New update is available",
-      calloutIntroText: "Updating your Raise firmware is how we implement new cool features and bug fixes.",
+      calloutIntroText: "Updating your device firmware is how we implement new cool features and bug fixes.",
       neuronUpdatedText: "[Solid as a rock!]",
       neuronOutdatedText: "[Almost is never enough]",
-      versionExists: "Raise Firmware Update",
+      versionExists: "Device Firmware Update",
       versionNotExists: "Firmware Update Process via Bootloader Mode",
       whatsNewTitle: "See what's new in Bazecor",
       whatsNewTitleVersion: "Whats new with",
@@ -641,18 +638,12 @@ const English = {
       advUsersText2: "If you have installed your own ",
       advUsersText3: ", this update will overwrite it.",
       disclaimerTitle: "Start update process",
-      disclaimerCallout:
-        "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process.",
       disclaimerContent:
         "<strong>Before the update the Neuron will backup your layers and settings after that the update process will begin automatically.</strong> During the update, Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
-      disclaimerCard1:
-        "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
-      disclaimerCard2:
-        "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process.",
       disclaimerCard3: "Click Next to backup your layers and settings, and start the firmware update process.",
       flashCardTitle1: "Press and hold the top left key to start the firmware update.",
       flashCardTitle2: "Don't release the key until the process finishes.",
-      flashCardHelp: "Why do I need to press and hold a key when updating the Raise firmware?",
+      flashCardHelp: "Why do I need to press and hold a key when updating the device firmware?",
       flashCardHelpTooltip:
         "<div class='text-left'><h5>Why do I need to press and hold the key?</h5><p>When updating the firmware, we require the user to physically press and hold a key in order for the Firmware to be loaded. This is for security reasons.</p><p>The update process is designed so that it will never be triggered accidentally. <strong>This makes the keyboard secure against undesired firmware modifications.</strong></p></div>",
       flashCardOverlay1: "*Why do I need to press and hold the key? ",
@@ -669,7 +660,7 @@ const English = {
       progressCardBar4: "4. Restoring your Layers",
       progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
-      currentlyRunningCardTitle: "Your <span class='hidden-on-sm'>Raise's </span>firmware version",
+      currentlyRunningCardTitle: "Your <span class='hidden-on-sm'>device's </span>firmware version",
       latestAvailableText: "Latest version <span class='hidden-on-sm'>available</span>",
       latestVersionInstalled: "You are using the latest version",
       firmwareUpdatedTitle: "Firmware update!",
@@ -702,11 +693,6 @@ const English = {
     selected: "Selected firmware",
     custom: "Load custom FW",
     rcustom: "Remove custom FW",
-    description: `To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware.
-
-To correctly update the firmware, your Raise has to be on LED Rainbow mode.
-
-You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma layout, you can find it by pressing the right Dygma key.`,
     raise: {
       reset: `Firmware Update Process`
     }
@@ -725,8 +711,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     wheelDescription: "Control the wheel using keys."
   },
   welcome: {
-    bootloaderTitle: "Your Raise is currently on Bootloader Mode",
-    description: "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type.",
+    bootloaderTitle: "Your device is currently on Bootloader Mode",
+    description: "The LED in your Neuron should be pulsing in color and your keyboard won't type.",
     title: "Welcome to Bazecor",
     contents: `Bazecor recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",

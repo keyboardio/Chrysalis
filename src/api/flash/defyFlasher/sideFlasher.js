@@ -34,9 +34,9 @@ import { SerialPort } from "serialport";
 import { DelimiterParser } from "@serialport/parser-delimiter";
 
 export default class sideFlaser {
-  constructor(path, filename) {
+  constructor(path, firmwareSides) {
     this.path = path;
-    this.filename = filename;
+    this.firmwareSides = firmwareSides;
   }
 
   async prepareNeuron() {
@@ -91,16 +91,14 @@ export default class sideFlaser {
     }
 
     // Update process
-
-    const hexFile = fs.readFileSync(this.filename, "hex");
-    const fromHexString = hexString => Uint8Array.from(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
-    const binaryFile = fromHexString(hexFile);
-    const seal = recoverSeal(binaryFile.slice(0, 28));
+    console.log(this.firmwareSides);
+    const seal = recoverSeal(this.firmwareSides.slice(0, 28));
     console.log("This is the seal", seal);
     console.dir(seal);
 
     // Serial port instancing
 
+    await SerialPort.list();
     const serialport = new SerialPort({ path: this.path, baudRate: 115200 });
     const parser = serialport.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     let receivedData = [];
@@ -139,18 +137,19 @@ export default class sideFlaser {
 
     // Write Firmware FOR Loop
     let step = 0;
-    let totalsteps = binaryFile.length / 256;
+    let totalsteps = this.firmwareSides.length / 256;
     console.log("CRC check is ", info.programCrc !== seal.programCrc, ", info:", info.programCrc, "seal:", seal.programCrc);
     // if (info.programCrc != seal.programCrc) {
     let validate = "false",
       retry = 0;
     // while (validate !== "true" && retry < 3) {
     // console.log("retry count: ", retry);
-    for (let i = 0; i < binaryFile.length; i = i + 256) {
-      console.log(`Addres ${i} of ${binaryFile.length}`);
+    for (let i = 0; i < this.firmwareSides.length; i = i + 256) {
+      console.log(`Addres ${i} of ${this.firmwareSides.length}`);
       serialport.write("upgrade.keyscanner.sendWrite ");
+      if (wiredOrWireless == "wireless") await sleep(2);
       const writeAction = new Uint8Array(new Uint32Array([info.flashStart + i, 256]).buffer);
-      const data = binaryFile.slice(i, i + 256);
+      const data = this.firmwareSides.slice(i, i + 256);
       const crc = new Uint8Array(new Uint32Array([crc32("CRC-32", data)]).buffer);
       const blob = new Uint8Array(writeAction.length + data.length + crc.length);
       blob.set(writeAction);
@@ -159,6 +158,7 @@ export default class sideFlaser {
       const buffer = new Buffer.from(blob);
       console.log("write sent: ", buffer);
       serialport.write(buffer);
+      if (wiredOrWireless == "wireless") await sleep(2);
       await readLine();
       let ack = await readLine();
       console.log("ack received: ", ack);
@@ -179,7 +179,7 @@ export default class sideFlaser {
     await readLine();
     await readLine();
 
-    if (wiredOrWireless == "wireless") {
+    if (wiredOrWireless == "wireless" && side == "left") {
       serialport.write("upgrade.neuron\n");
     }
 

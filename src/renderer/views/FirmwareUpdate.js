@@ -17,11 +17,13 @@
  */
 
 import React from "react";
-import Electron from "electron";
 import path from "path";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
 import { fwVersion } from "../../../package.json";
+import { Octokit } from "@octokit/core";
+import SemVer from "semver";
+import axios from "axios";
 const { ipcRenderer } = require("electron");
 
 import Focus from "../../api/focus";
@@ -30,6 +32,7 @@ import Backup from "../../api/backup";
 
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
@@ -38,14 +41,15 @@ import PageHeader from "../modules/PageHeader";
 import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
 import FirmwareUpdateProcess from "../modules/FirmwareUpdateProcess";
 
+import Select from "../component/Select";
 import ToastMessage from "../component/ToastMessage";
-import { IconFloppyDisk } from "../component/Icon";
+import { IconFloppyDisk, IconChip } from "../component/Icon";
 
 const Styles = Styled.div`
 height: inherit;
 .main-container {
   overflow: hidden;
-  height: 100vh;  
+  height: 100vh;
 }
 .firmware-update {
   height: 100%;
@@ -53,7 +57,7 @@ height: inherit;
   flex-wrap: wrap;
   justify-content: center;
   &.center-content {
-    height: 100vh;  
+    height: 100vh;
   }
 }
 .disclaimerContent {
@@ -141,7 +145,6 @@ class FirmwareUpdate extends React.Component {
     document.addEventListener("keydown", this._handleKeyDown);
     let versions;
 
-    console.log("BOOTLOADER", focus.device.bootloader);
     if (focus.device.bootloader) {
       await this.setState({ countdown: 1, flashProgress: 0, backupDone: true, bootloader: true });
       if (focus.device.info.product == "Defy") {
@@ -170,11 +173,93 @@ class FirmwareUpdate extends React.Component {
     });
     const commands = await this.bkp.Commands();
     let chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
-    this.setState({ commands, neuronID: chipID });
+    let availableFW = await this.selectFWTypefromGitHub(focus.device.info.product);
+    // console.log("FWs from Github!", availableFW);
+    this.setState({ commands, neuronID: chipID, firmwareList: availableFW, selectedFirmware: 0 });
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
+  }
+
+  async loadAvailableFirmwareVersions() {
+    // Octokit.js
+    // https://github.com/octokit/core.js#readme
+    const octokit = new Octokit();
+
+    let data = await octokit.request("GET /repos/{owner}/{repo}/releases", {
+      owner: "Dygmalab",
+      repo: "Firmware-releases",
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28"
+      }
+    });
+    let fwReleases = [];
+    data.data.forEach(release => {
+      let newRelease = {},
+        name,
+        version;
+      const releaseData = release.name.split(" ");
+      name = releaseData[0];
+      version = releaseData[1];
+      newRelease.name = name;
+      newRelease.version = version;
+      newRelease.assets = [];
+      release.assets.forEach(asset => {
+        newRelease.assets.push({ name: asset.name, url: asset.browser_download_url });
+        //console.log([asset.name, asset.browser_download_url]);
+      });
+      //console.log(newRelease);
+      fwReleases.push(newRelease);
+    });
+    // console.log("Data from Firmware-releases repo!", fwReleases);
+    return fwReleases;
+  }
+
+  async selectFWTypefromGitHub(type) {
+    const fwReleases = await this.loadAvailableFirmwareVersions();
+    let DefyReleases = fwReleases.filter(release => release.name === type);
+    DefyReleases.sort((a, b) => {
+      return SemVer.ltr(SemVer.clean(a.version), SemVer.clean(b.version)) ? -1 : 1;
+    });
+    return DefyReleases;
+  }
+
+  async obtainFWFiles(type, url) {
+    let response,
+      firmware = undefined;
+
+    if (type == "keyscanner.bin") {
+      response = await axios.request({
+        method: "GET",
+        url: url,
+        responseType: "arraybuffer",
+        reponseEncoding: "binary"
+      });
+      firmware = new Uint8Array(response.data);
+    }
+    if (type == "Wired_neuron.uf2") {
+      response = await axios.request({
+        method: "GET",
+        url: url,
+        responseType: "arraybuffer",
+        reponseEncoding: "binary"
+      });
+      firmware = response.data;
+    }
+    if (type == "Wireless_neuron.hex") {
+      response = await axios.request({
+        method: "GET",
+        url: url,
+        responseType: "text",
+        reponseEncoding: "utf8"
+      });
+      response = response.data.replace(/(?:\r\n|\r|\n)/g, "");
+      firmware = response.split(":");
+      firmware.splice(0, 1);
+    }
+    // console.log(firmware);
+    return firmware;
   }
 
   async putEscKey(command) {
@@ -265,8 +350,31 @@ class FirmwareUpdate extends React.Component {
     let filename;
     let filenameSides;
     if (this.state.selected == "default") {
-      filename = this._defaultFirmwareFilename();
-      filenameSides = this._defaultFirmwareFilenameSides();
+      if (this.state.device.info.product == "Defy") {
+        if (!this.state.firmwareList) {
+          let availableFW = await this.selectFWTypefromGitHub(focus.device.info.product);
+          console.log("FWs from Github!", availableFW);
+          this.setState({ firmwareList: availableFW, selectedFirmware: availableFW.length - 1 });
+        }
+        if (this.state.device.info.keyboardType == "wireless") {
+          filename = await this.obtainFWFiles(
+            "Wireless_neuron.hex",
+            this.state.firmwareList[this.state.selectedFirmware].assets[2].url
+          );
+        } else {
+          filename = await this.obtainFWFiles(
+            "Wired_neuron.uf2",
+            this.state.firmwareList[this.state.selectedFirmware].assets[1].url
+          );
+        }
+        filenameSides = await this.obtainFWFiles(
+          "keyscanner.bin",
+          this.state.firmwareList[this.state.selectedFirmware].assets[0].url
+        );
+      } else {
+        filename = this._defaultFirmwareFilename();
+        filenameSides = this._defaultFirmwareFilenameSides();
+      }
     } else if (this.state.selected == "experimental") {
       filename = this._experimentalFirmwareFilename();
       filenameSides = this._experimentalFirmwareFilenameSides();
@@ -274,7 +382,6 @@ class FirmwareUpdate extends React.Component {
       filename = this.state.firmwareFilename;
       filenameSides = this.state.firmwareFilenameSides;
     }
-    console.log("BOOTLOADER2", focus.device.bootloader);
 
     if (this.state.device.info.keyboardType !== "wired") {
       if (!focus.device.bootloader) {
@@ -290,8 +397,15 @@ class FirmwareUpdate extends React.Component {
     }
 
     try {
-      console.log("Trying", focus.device, focus.device.bootloader, focus.device.info.product, focus.device.info.keyboardType);
-      if (focus.device.bootloader) {
+      // console.log(
+      //   "Trying to flash",
+      //   focus.device,
+      //   focus.device.bootloader,
+      //   focus.device.info.product,
+      //   focus.device.info.keyboardType
+      // );
+      const bootloader = focus.device.bootloader;
+      if (bootloader) {
         if (focus.device.info.product == "Defy") {
           if (focus.device.info.keyboardType == "wired") {
             this.FlashDefyWired.currentPort = this.props.device;
@@ -309,9 +423,14 @@ class FirmwareUpdate extends React.Component {
           console.log("done closing focus");
           return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWired, this.stateUpdate);
         } else {
-          await focus.close();
-          console.log("done closing focus");
-          return await this.state.device.flash(focus._port, filename, filenameSides, this.FlashDefyWireless, this.stateUpdate);
+          return await this.state.device.flash(
+            focus._port,
+            filename,
+            filenameSides,
+            bootloader,
+            this.FlashDefyWireless,
+            this.stateUpdate
+          );
         }
       } else {
         await focus.close();
@@ -330,7 +449,7 @@ class FirmwareUpdate extends React.Component {
   upload = async () => {
     await this.props.toggleFlashing();
     this.props.toggleFwUpdate(true);
-    const backup = this.state.backup.backup;
+    const backup = this.state.backup ? this.state.backup.backup : undefined;
     try {
       await this._flash();
       if (!this.state.bootloader) {
@@ -495,6 +614,10 @@ class FirmwareUpdate extends React.Component {
     this.setState({ advanced: !this.state.advanced });
   };
 
+  changeSelectedFirmware = newSelection => {
+    this.setState({ selectedFirmware: newSelection });
+  };
+
   render() {
     const {
       firmwareFilename,
@@ -506,7 +629,9 @@ class FirmwareUpdate extends React.Component {
       firmwareDropdown,
       flashProgress,
       theme,
-      device
+      device,
+      firmwareList,
+      selectedFirmware
     } = this.state;
 
     let filename = null;
@@ -533,28 +658,78 @@ class FirmwareUpdate extends React.Component {
 
     const latestVersionAvailable = `v${fwVersion}`;
 
+    let listOfFWs;
+    if (firmwareList != undefined && firmwareList.length > 0) {
+      listOfFWs = firmwareList.map((elem, index) => {
+        let selectFormat = {};
+        selectFormat.text = elem.version;
+        selectFormat.value = index;
+        selectFormat.index = index;
+        return selectFormat;
+      });
+    }
+
     return (
       <Styles>
         <Container fluid className={`firmware-update ${countdown == -1 || countdown == 0 ? "center-content" : ""}`}>
           <PageHeader text={i18n.app.menu.firmwareUpdate} />
           {countdown == -1 || countdown == 0 ? (
-            <FirmwareUpdatePanel
-              currentlyVersionRunning={currentlyVersionRunning}
-              latestVersionAvailable={latestVersionAvailable}
-              onClick={
-                device.info.product === "Raise"
-                  ? this.uploadRaise
-                  : device.info.product === "Defy"
-                  ? this.uploadDefy
-                  : this.upload
-              }
-              firmwareFilename={firmwareFilename}
-              selectFirmware={this.selectFirmware}
-              selectExperimental={this.selectExperimental}
-              disclaimerCard={countdown + 1}
-              onCancelDialog={this.cancelDialog}
-              onBackup={this.backup}
-            />
+            <div>
+              <FirmwareUpdatePanel
+                currentlyVersionRunning={currentlyVersionRunning}
+                latestVersionAvailable={latestVersionAvailable}
+                onClick={
+                  device.info.product === "Raise"
+                    ? this.uploadRaise
+                    : device.info.product === "Defy"
+                    ? this.uploadDefy
+                    : this.upload
+                }
+                firmwareFilename={firmwareFilename}
+                selectFirmware={this.selectFirmware}
+                selectExperimental={this.selectExperimental}
+                disclaimerCard={countdown + 1}
+                onCancelDialog={this.cancelDialog}
+                onBackup={this.backup}
+              />
+              {selectedFirmware != undefined && selectedFirmware != null && listOfFWs.length > 0 ? ( // Ternary operator checking validity of variables
+                <Dropdown onSelect={this.changeSelectedFirmware} value={selectedFirmware} className={`custom-dropdown`}>
+                  <div>
+                    <Dropdown.Toggle id="dropdown-custom">
+                      <div className="dropdownItemSelected">
+                        <div className="dropdownItem">{listOfFWs[selectedFirmware].text}</div>
+                      </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {listOfFWs.map((item, index) => (
+                        <Dropdown.Item
+                          eventKey={item.value}
+                          key={index}
+                          className={`${selectedFirmware == item.text ? "active" : ""}`}
+                          disabled={item.disabled}
+                        >
+                          <div className="dropdownInner">
+                            {selectedFirmware != undefined &&
+                            selectedFirmware != "" > 0 &&
+                            listOfFWs.length > 0 &&
+                            listOfFWs[0].icon != undefined ? (
+                              <div className="dropdownIcon">
+                                <img src={item.icon} className="dropdwonIcon" />
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                            <div className="dropdownItem">{item.text}</div>
+                          </div>
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </div>
+                </Dropdown>
+              ) : (
+                ""
+              )}
+            </div>
           ) : (
             <FirmwareUpdateProcess onCancelDialog={this.cancelDialog} countdown={countdown} flashProgress={flashProgress} />
           )}

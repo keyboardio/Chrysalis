@@ -185,14 +185,14 @@ function ihex_decode(line) {
  *
  */
 var NRf52833 = {
-  flash: (file, stateUpdate, finished) => {
+  flash: (lines, stateUpdate, finished) => {
     var func_array = [];
 
-    let fileData = fs.readFileSync(file, { encoding: "utf8" });
-    fileData = fileData.replace(/(?:\r\n|\r|\n)/g, "");
+    // let fileData = fs.readFileSync(firmware, { encoding: "utf8" });
+    // fileData = fileData.replace(/(?:\r\n|\r|\n)/g, "");
 
-    var lines = fileData.split(":");
-    lines.splice(0, 1);
+    // var lines = fileData.split(":");
+    // lines.splice(0, 1);
 
     var dataObjects = [];
     var total = 0;

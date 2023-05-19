@@ -85,6 +85,7 @@
   },
   "dependencies": {
     "@serialport/parser-delimiter": "^11.0.0",
+    "axios": "^1.4.0",
     "bootstrap-css-only": "^4.4.1",
     "drivelist": "^11.1.0",
     "easy-crc": "^1.1.0",
@@ -94,6 +95,7 @@
     "electron-window-state": "^5.0.3",
     "i18next": "^19.9.2",
     "i18next-electron-language-detector": "^0.0.10",
+    "octokit": "^2.0.14",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
     "react-beautiful-dnd": "^13.1.0",
@@ -107,6 +109,7 @@
     "react-rangeslider": "^2.2.0",
     "react-router-dom": "^5.2.0",
     "react-toastify": "^8.2.0",
+    "semver": "^7.5.1",
     "serialport": "^10.4.0",
     "source-map-support": "^0.5.16",
     "styled-components": "^5.2.3",

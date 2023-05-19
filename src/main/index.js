@@ -78,7 +78,8 @@ async function createMainWindow() {
     webPreferences: {
       sandbox: false,
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webSecurity: false
     }
   });
 

@@ -244,12 +244,12 @@ export class FlashDefyWired {
   /**
    * Updates firmware of bootloader
    * @param {object} port - serial port object for the "path".
-   * @param {string} filename - path to file with firmware.
+   * @param {string} firmware - path to file with firmware.
    * @returns {promise}
    */
-  async updateFirmware(filename, filenameSides, stateUpdate) {
+  async updateFirmware(firmware, firmwareSide, stateUpdate) {
     console.log("Begin update firmware with rp2040");
-    this.backupFileData.firmwareFile = filename;
+    this.backupFileData.firmwareFile = firmware;
     await this.delay(250);
     console.log("Starting with the sides if needed");
     return new Promise(async (resolve, reject) => {
@@ -257,7 +257,7 @@ export class FlashDefyWired {
         /**
          * Procedure to flash the sides of the keyboard
          *  */
-        await this.rp2040.sideFlash(filenameSides, stateUpdate, "wired", async (err, result) => {
+        await this.rp2040.sideFlash(firmwareSide, stateUpdate, "wired", async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 40);
@@ -269,7 +269,7 @@ export class FlashDefyWired {
         /**
          * Procedure to flash the neuron
          *  */
-        await this.rp2040.flash(filename, stateUpdate, async (err, result) => {
+        await this.rp2040.flash(firmware, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 70);
@@ -593,33 +593,38 @@ export class FlashDefyWireless {
   /**
    * Updates firmware of bootloader
    * @param {object} port - serial port object for the "path".
-   * @param {string} filename - path to file with firmware.
+   * @param {string} firmware - path to file with firmware.
    * @returns {promise}
    */
-  async updateFirmware(filename, filenameSides, stateUpdate) {
-    let focus = new Focus();
+  async updateFirmware(firmware, firmwareSides, bootloader, stateUpdate) {
+    if (!bootloader) {
+      let focus = new Focus();
+      await focus.close();
+    }
     console.log("Begin update firmware with NRf52833");
     // this.backupFileData.log.push("Begin update firmware with NRf52833");
-    this.backupFileData.firmwareFile = filename;
+    // this.backupFileData.firmwareFile = firmware;
     return new Promise(async (resolve, reject) => {
       try {
         /**
          * Procedure to flash the sides of the keyboard
          *  */
-        await this.rp2040.sideFlash(filenameSides, stateUpdate, "wireless", async (err, result) => {
-          if (err) throw new Error(`Flash error ${result}`);
-          else {
-            stateUpdate(3, 40);
-            console.log("End of sides firmware update");
-          }
-        });
-        await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
+        if (!bootloader) {
+          await this.rp2040.sideFlash(firmwareSides, stateUpdate, "wireless", async (err, result) => {
+            if (err) throw new Error(`Flash error ${result}`);
+            else {
+              stateUpdate(3, 40);
+              console.log("End of sides firmware update");
+            }
+          });
+          await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
 
-        // resetting the keyboard
-        console.log(this.currentPath);
-        if (focus.closed) await focus.open(this.currentPath, this.currentPort.device, null);
+          // resetting the keyboard
+          console.log(this.currentPath);
+          if (focus.closed) await focus.open(this.currentPath, this.currentPort.device, null);
+        }
 
-        await NRf52833.flash(filename, stateUpdate, async (err, result) => {
+        await NRf52833.flash(firmware, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
             stateUpdate(3, 70);

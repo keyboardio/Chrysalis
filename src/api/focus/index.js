@@ -91,6 +91,7 @@ class Focus {
       count++;
     }
     if (count == 8) return;
+    if (this._port) this._port.close();
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort(

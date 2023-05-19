@@ -457,6 +457,7 @@ const English = {
     },
     advanced: "Advanced",
     verboseFocus: "Verbose logging",
+    onlyCustom: "Use only custom layers",
     darkMode: {
       label: "Appearance",
       light: "Light",

@@ -29,7 +29,7 @@ const Style = Styled.div`
 
 export default class AdvancedSettings extends Component {
   render() {
-    const { devToolsSwitch, verboseSwitch } = this.props;
+    const { devToolsSwitch, verboseSwitch, onlyCustomSwitch } = this.props;
     return (
       <Style>
         <Card className="overflowFix card-preferences mt-4 mb-4">
@@ -47,6 +47,10 @@ export default class AdvancedSettings extends Component {
                   <Form.Group controlId="Verbose" className="switchHolder">
                     <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
                     {verboseSwitch}
+                  </Form.Group>
+                  <Form.Group controlId="onlyCustom" className="switchHolder">
+                    <Form.Label>{i18n.preferences.onlyCustom}</Form.Label>
+                    {onlyCustomSwitch}
                   </Form.Group>
                 </div>
               </Col>

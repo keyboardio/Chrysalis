@@ -692,7 +692,7 @@ class FirmwareUpdate extends React.Component {
                 onCancelDialog={this.cancelDialog}
                 onBackup={this.backup}
               />
-              {selectedFirmware != undefined && selectedFirmware != null && listOfFWs.length > 0 ? ( // Ternary operator checking validity of variables
+              {selectedFirmware != undefined && selectedFirmware != null && listOfFWs && listOfFWs.length > 0 ? ( // Ternary operator checking validity of variables
                 <Dropdown onSelect={this.changeSelectedFirmware} value={selectedFirmware} className={`custom-dropdown`}>
                   <div>
                     <Dropdown.Toggle id="dropdown-custom">
@@ -711,6 +711,7 @@ class FirmwareUpdate extends React.Component {
                           <div className="dropdownInner">
                             {selectedFirmware != undefined &&
                             selectedFirmware != "" > 0 &&
+                            listOfFWs &&
                             listOfFWs.length > 0 &&
                             listOfFWs[0].icon != undefined ? (
                               <div className="dropdownIcon">

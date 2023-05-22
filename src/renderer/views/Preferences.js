@@ -372,9 +372,11 @@ class Preferences extends React.Component {
   };
 
   toggleOnlyCustom = event => {
-    let newkbData = this.state.kbData;
+    let newkbData = this.kbData;
     newkbData.keymap.onlyCustom = event.target.checked;
-    this.setState({ kbData: newkbData });
+    newkbData.modified = true;
+    this.setState({ modified: true });
+    this.props.startContext();
   };
 
   // NEURON FUNCTIONS

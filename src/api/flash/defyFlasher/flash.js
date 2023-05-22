@@ -601,7 +601,7 @@ export class FlashDefyWireless {
       let focus = new Focus();
       await focus.close();
     }
-    console.log("Begin update firmware with NRf52833");
+    console.log("Begin update firmware with NRf52833", bootloader);
     // this.backupFileData.log.push("Begin update firmware with NRf52833");
     // this.backupFileData.firmwareFile = firmware;
     return new Promise(async (resolve, reject) => {
@@ -620,8 +620,19 @@ export class FlashDefyWireless {
           await this.resetKeyboard(this.currentPath, this.backup, stateUpdate);
 
           // resetting the keyboard
-          console.log(this.currentPath);
-          if (focus.closed) await focus.open(this.currentPath, this.currentPort.device, null);
+          console.log("resetting in flashFile", this.currentPath);
+          if (focus.closed) {
+            await focus.open(this.currentPath, this.currentPort.device, null);
+          } else {
+            let focus = new Focus();
+            await focus.close();
+            await focus.open(this.currentPath, this.currentPort.device, null);
+          }
+        } else {
+          let focus = new Focus();
+          if (focus.closed) {
+            await focus.open(this.currentPath, this.currentPort.device, null);
+          }
         }
 
         await NRf52833.flash(firmware, stateUpdate, async (err, result) => {

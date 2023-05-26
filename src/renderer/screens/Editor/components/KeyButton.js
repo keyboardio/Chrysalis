@@ -26,8 +26,6 @@ const db = new KeymapDB();
 const KeyButton = (props) => {
   const { classes, keyObj, onKeyChange, currentKey, noHint, title } = props;
   const theme = useTheme();
-  console.log(currentKey);
-  console.log(keyObj);
 
   const active = keyObj?.code == currentKey?.code;
 

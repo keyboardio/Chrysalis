@@ -2,14 +2,16 @@
     "language": "Deutsch",
     "breakingNews": {
         "firmware0_90_1": {
-            "title": "Achtung Keyboardio Model 100 Eigentümer!",
-            "description": "Eine Firmware vor Version 0.90.1 enthält einen Fehler, der bei auf der Tastatur gespeicherten Daten zu Datenverlust und beschädigten Daten führt. Wenn Sie bereits eine neuere Firmware verwenden, können Sie diese Warnung mit der Schaltfläche „Schließen“ verwerfen."
+            "title": "Achtung, Keyboardio-Model-100-Nutzer!",
+            "description": "Eine Firmware vor Version 0.90.1 enthält einen Fehler, der bei auf der Tastatur gespeicherten Daten zu Datenverlust und beschädigten Daten führt. Wenn Sie bereits eine neuere Firmware verwenden, können Sie diese Warnung mit der Schaltfläche „Schließen“ verwerfen.",
+            "button": "Aktualisierungsanweisungen"
         }
     },
     "sanity-check": {
         "title": "Umgebungsverifizierung läuft",
         "download-latest": "Offizielle Version herunterladen",
-        "header": "Umgebungsverifizierung fehlgeschlagen"
+        "header": "Umgebungsverifizierung fehlgeschlagen",
+        "message": "Chrysalis wird in einer nicht unterstützten Umgebung ausgeführt, beispielsweise mit einer Electron-Version, die stromaufwärts nicht unterstützt wird. Falls Sie Chrysalis über die Paketverwaltung Ihrer Distribution installiert haben, versuchen Sie es stattdessen mit einer offiziellen Version."
     },
     "errors": {
         "deviceDisconnected": "Tastatur getrennt",
@@ -64,7 +66,8 @@
         },
         "deviceMenu": {
             "Forum": "Forum",
-            "Chat": "Chat"
+            "Chat": "Chat",
+            "Homepage": "Internetseite"
         },
         "cancelPending": {
             "content": "Sie haben nicht gespeicherte Änderungen. Wenn Sie fortfahren, gehen sie verloren.",
@@ -89,7 +92,8 @@
             },
             "errors": {
                 "unableToLoad": "Die Belegung konnte nicht aus der ausgewählten Datei geladen werden.",
-                "invalidLayoutData": "Die Datei enthielt keine gültigen Belegungsdaten."
+                "invalidLayoutData": "Die Datei enthielt keine gültigen Belegungsdaten.",
+                "parseFail": "Beim Einlesen der Belegungsdaten trat ein Fehler auf."
             },
             "importConfirm": {
                 "title": "Ausgewählte Belegung importieren?",
@@ -110,11 +114,12 @@
                 "label": "Benutzerdefinierter Tastencode"
             },
             "platform_apple": {
-                "title": "Mac / iPad-Tasten",
+                "title": "Mac-/iPad-Tasten",
                 "help": "Für Apple-Geräte spezifische Tastencodes."
             },
             "blanks": {
-                "help": "Blockierte & transparente Tasten."
+                "help": "Blockierte & transparente Tasten.",
+                "title": "Keine Funktion"
             },
             "overview": {
                 "color": "Farbe",
@@ -135,7 +140,9 @@
                 },
                 "modifier": "Modifikator",
                 "targetLayer": "Ebene",
-                "whenHeld": "Wenn gehalten"
+                "whenHeld": "Wenn gehalten",
+                "help-layerLimit": "Auf Grund von Beschränkungen der Firmware ist es nicht möglich mittels sekundärer Aktionen auf Ebenen über „{{ layer8 }}“ umzuschalten.",
+                "help": "Ermöglicht es, einer Taste eine sekundäre Funktion zuzuweisen. Beim Tippen der Taste erfüllt sie ihre primäre Funktion, beim Halten wird die sekundäre Funktion ausgeführt."
             },
             "colors": {
                 "title": "Farben",
@@ -152,6 +159,9 @@
                 "topsyturvy": {
                     "label": "Umschalttaste umkehren",
                     "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist)"
+                },
+                "oneshot": {
+                    "tooltip": "Tippen, um für nächsten Tastendruck zu aktivieren; halten, um als regulären Modifikator zu verwenden; doppelt tippen, um Modifikator festzustellen."
                 }
             },
             "mousekeys": {
@@ -165,12 +175,14 @@
                 "title": "LED-Steuerung"
             },
             "macros": {
-                "title": "Makros"
+                "title": "Makros",
+                "help": "Tasten Makros zuweisen. Um Makros zu erstellen und anzupassen, kann Kaleidoscopes „Entwurf“-Datei mit dem Programm „Arduino IDE“ bearbeitet werden."
             },
             "dynmacros": {
                 "usage_overview": {
                     "bytes": "Bytes",
-                    "usage": "{{ used }}/{{ size }}"
+                    "usage": "{{ used }}/{{ size }}",
+                    "label": "Makro-Speicher belegt:"
                 },
                 "title": "Dynamische Makros",
                 "help": "Dynamische Makros zu Tasten zuweisen und bearbeiten."
@@ -226,6 +238,11 @@
         },
         "layernames": {
             "out_of_space": "Ihre Ebenennamen sind {{ overflow }} Bytes zu lang, um sie auf Ihrer Tastatur zu speichern."
+        },
+        "onlyCustom": {
+            "fixItButton": "Auf ausschließlich selbst definierte Ebenen umstellen",
+            "openFR": "Funktionsanfrage stellen",
+            "warning": "Chrysalis’ Unterstützung von Konfigurationen, die sowohl fest kodierte als auch EEPROM-Ebenen enthalten, wurde eingestellt. Falls Sie diese Funktionalität benötigen, kontaktieren Sie uns bitte. In den meisten Fällen ist es jedoch ratsam, auf die ausschließliche Nutzung selbst definierter Ebenen umzustellen, was mit Chrysalis erreicht werden kann. Bei der Umstellung werden fest kodierte Ebenen nicht berücksichtigt. Falls eine Standard-Ebene gesetzt wird, ist dies Ebene 0."
         }
     },
     "preferences": {
@@ -275,7 +292,8 @@
                 "label": "Belegungskarten"
             },
             "oneLayerPerPage": {
-                "help": "Wenn aktiviert, ordnet Chrysalis die Belegungskarten so an, dass eine Ebene pro Seite gedruckt wird und nicht so viele, wie hineinpassen."
+                "help": "Wenn aktiviert, ordnet Chrysalis die Belegungskarten so an, dass eine Ebene pro Seite gedruckt wird und nicht so viele, wie hineinpassen.",
+                "label": "Eine Ebene pro Seite drucken"
             },
             "lookNFeel": {
                 "label": "Erscheinungsbild"
@@ -395,13 +413,17 @@
                     },
                     "timeout": {
                         "label": "Zeitbeschränkung"
+                    },
+                    "hold_timeout": {
+                        "label": "Halte-Zeitbeschränkung"
                     }
                 },
                 "spacecadet": {
                     "mode": {
                         "enabled_without_delay": "Aktiviert (ohne Verzögerung)",
                         "disabled": "Deaktiviert",
-                        "enabled": "Aktiviert"
+                        "enabled": "Aktiviert",
+                        "help": "Wenn aktiviert, produzieren die linke und rechte Umschalttaste beim Tippen runde Klammern, verhalten sich aber weiterhin wie Umschalttasten, wenn sie gedrückt gehalten werden."
                     },
                     "timeout": {
                         "label": "Zeitbeschränkung"
@@ -529,5 +551,14 @@
             "title": "Chrysalis-Debug-Paket speichern"
         },
         "createBundle": "Paket erstellen"
+    },
+    "print": {
+        "feedback": {
+            "success": "Druckvorgang erfolgreich!",
+            "error": "Fehler während des Druckvorgangs."
+        }
+    },
+    "layoutCards": {
+        "printTooltip": "Drucken"
     }
 }

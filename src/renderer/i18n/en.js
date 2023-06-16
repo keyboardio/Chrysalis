@@ -401,7 +401,7 @@ const English = {
         mediaTitle: "Media",
         mediaDescription: "Skip boring songs, turn the sound louder. <br>Harder, better, faster, stronger!",
         LEDTitle: "LED",
-        LEDDescrition: "Turn the RBG lighting On or Off and control the cycle through the lights effects.",
+        LEDDescription: "Turn the RGB lighting On or Off and control the cycle through the lights effects.",
         othersTitle: "Others",
         othersDescription: "Control your media, apps and brightness. Safe and sound!"
       }

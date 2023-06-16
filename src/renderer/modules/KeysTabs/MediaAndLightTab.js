@@ -179,7 +179,7 @@ class MediaAndLightTab extends Component {
             </div>
             <div className="LEDButtons">
               <Title text={i18n.editor.superkeys.specialKeys.LEDTitle} headingLevel={4} />
-              <p className="description">{i18n.editor.superkeys.specialKeys.LEDDescrition}</p>
+              <p className="description">{i18n.editor.superkeys.specialKeys.LEDDescription}</p>
               <div className="keysButtonsList">
                 <ButtonConfig
                   buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}

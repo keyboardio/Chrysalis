@@ -852,6 +852,10 @@ const DefyWireless = {
       data: "153 ",
       eraseable: true
     },
+    "led.brightness.underglow": {
+      data: "100 ",
+      eraseable: true
+    },
     "led.theme": {
       data: "",
       eraseable: false
@@ -1007,6 +1011,62 @@ const DefyWireless = {
     },
     "layer.state": {
       data: "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      eraseable: false
+    },
+    "wireless.battery.level": {
+      data: "80",
+      eraseable: false
+    },
+    "wireless.battery.state": {
+      data: "charge",
+      eraseable: false
+    },
+    "wireless.battery.mode": {
+      data: "1",
+      eraseable: false
+    },
+    "wireless.energy.modes": {
+      data: "0 0 0 0 0 0 0 0 0 0 0",
+      eraseable: true
+    },
+    "wireless.energy.disable": {
+      data: "true",
+      eraseable: false
+    },
+    "wireless.energy.currentMode": {
+      data: "0",
+      eraseable: true
+    },
+    "wireless.bluetooth.state": {
+      data: "connected",
+      eraseable: false
+    },
+    "wireless.bluetooth.devices": {
+      data: "0 0 0 0 0 0 0 0 0 0 0",
+      eraseable: true
+    },
+    "wireless.bluetooth.connectTo": {
+      data: "",
+      eraseable: true
+    },
+    "wireless.bluetooth.stability": {
+      data: "80 305",
+      eraseable: false
+    },
+    "wireless.rf.state": {
+      data: "disconnected",
+      eraseable: false
+    },
+    "wireless.rf.stability": {
+      data: "0",
+      eraseable: false
+    },
+    "wireless.rf.channelHop": {
+      data: "false",
+      eraseable: true
+    },
+    "wireless.rf.syncPairing": {
+      data: "",
       eraseable: false
     }
   }

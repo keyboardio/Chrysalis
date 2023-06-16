@@ -20,7 +20,7 @@
 
 import { withModifiers } from "../../db/utils";
 
-const nordicLetters = [
+const norwegianLetters = [
   {
     code: 47,
     labels: {
@@ -44,7 +44,7 @@ const nordicLetters = [
   }
 ];
 
-const nordicModifierKeys = [
+const norwegianModifierKeys = [
   {
     code: 53,
     labels: {
@@ -89,8 +89,8 @@ const nordicModifierKeys = [
   }
 ];
 
-const altCtrlNordic = {
-  groupName: "AltCtrl Nordic",
+const altCtrlNorwegian = {
+  groupName: "AltCtrl Norwegian",
   keys: [
     {
       code: 799,
@@ -167,8 +167,8 @@ const altCtrlNordic = {
   ]
 };
 
-const altGRNordic = {
-  groupName: "AltCtrl Nordic",
+const altGRNorwegian = {
+  groupName: "AltCtrl Norwegian",
   keys: [
     {
       code: 1055,
@@ -245,8 +245,8 @@ const altGRNordic = {
   ]
 };
 
-const shiftModifierNordic = {
-  groupName: "Shifted Nordic",
+const shiftModifierNorwegian = {
+  groupName: "Shifted Norwegian",
   keys: [
     {
       code: 2101,
@@ -348,71 +348,71 @@ const shiftModifierNordic = {
   ]
 };
 
-const nordic = nordicLetters.concat(nordicModifierKeys);
+const norwegian = norwegianLetters.concat(norwegianModifierKeys);
 
-const table = { keys: nordicModifierKeys };
-const tableWithoutModifier = { keys: nordicLetters };
+const table = { keys: norwegianModifierKeys };
+const tableWithoutModifier = { keys: norwegianLetters };
 
-const nordicCtrlTable = withModifiers(table, "Control +", "C+", 256);
-const nordicLAltTable = withModifiers(table, "Alt +", "A+", 512);
-const nordicRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
-const nordicShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
-const nordicGuiTable = withModifiers(table, "Os+", "O+", 4096);
+const norwegianCtrlTable = withModifiers(table, "Control +", "C+", 256);
+const norwegianLAltTable = withModifiers(table, "Alt +", "A+", 512);
+const norwegianRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
+const norwegianShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
+const norwegianGuiTable = withModifiers(table, "Os+", "O+", 4096);
 // Double
 
-const nordicCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
+const norwegianCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
 
-const nordicCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
+const norwegianCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
 
-const nordicCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
+const norwegianCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
-const nordicCGTable = withModifiers(table, "Control + Os +", "C+O+", 4352);
+const norwegianCGTable = withModifiers(table, "Control + Os +", "C+O+", 4352);
 
-const nordicAAGrTable = withModifiers(table, "Alt + AltGr +", "A+AGr+", 1536);
+const norwegianAAGrTable = withModifiers(table, "Alt + AltGr +", "A+AGr+", 1536);
 
-const nordicASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560);
+const norwegianASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560);
 
-const nordicAGTable = withModifiers(table, "Alt + Os +", "A+O+", 4608);
+const norwegianAGTable = withModifiers(table, "Alt + Os +", "A+O+", 4608);
 
-const nordicAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
+const norwegianAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
-const nordicAGrGTable = withModifiers(table, "AltGr + Os +", "AGr+O+", 5120);
+const norwegianAGrGTable = withModifiers(table, "AltGr + Os +", "AGr+O+", 5120);
 
-const nordicSGTable = withModifiers(table, "Shift + Os +", "S+O+", 6144);
+const norwegianSGTable = withModifiers(table, "Shift + Os +", "S+O+", 6144);
 
 // Triple
 
-const nordicCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
+const norwegianCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
 
-const nordicCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
+const norwegianCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const nordicCAGTable = withModifiers(table, "Control + Alt + Os +", "C+A+O+", 4864);
+const norwegianCAGTable = withModifiers(table, "Control + Alt + Os +", "C+A+O+", 4864);
 
-const nordicCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
+const norwegianCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const nordicCAGGTable = withModifiers(table, "Control + AltGr + Os +", "C+AGr+O+", 5376);
+const norwegianCAGGTable = withModifiers(table, "Control + AltGr + Os +", "C+AGr+O+", 5376);
 
-const nordicCSGTable = withModifiers(table, "Control + Shift + Os +", "C+S+O+", 6400);
+const norwegianCSGTable = withModifiers(table, "Control + Shift + Os +", "C+S+O+", 6400);
 
-const nordicAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
+const norwegianAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const nordicAAGGTable = withModifiers(table, "Alt + AltGr + Os +", "A+AGr+O+", 5632);
+const norwegianAAGGTable = withModifiers(table, "Alt + AltGr + Os +", "A+AGr+O+", 5632);
 
-const nordicASGTable = withModifiers(table, "Alt + Shift + Os +", "A+S+O+", 6656);
+const norwegianASGTable = withModifiers(table, "Alt + Shift + Os +", "A+S+O+", 6656);
 
-const nordicAGSGTable = withModifiers(table, "AltGr + Shift + Os +", "AGr+S+O+", 7168);
+const norwegianAGSGTable = withModifiers(table, "AltGr + Shift + Os +", "AGr+S+O+", 7168);
 
 // Quad
 
-const nordicCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
+const norwegianCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const nordicCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Os +", "C+A+AGr+O+", 5888);
+const norwegianCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Os +", "C+A+AGr+O+", 5888);
 
-const nordicCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Os +", "C+AGr+S+O+", 7424);
+const norwegianCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Os +", "C+AGr+S+O+", 7424);
 
-const nordicAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Os +", "A+AGr+S+O+", 7680);
+const norwegianAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Os +", "A+AGr+S+O+", 7680);
 
-const nordicAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
+const norwegianAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 
 const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
 const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);
@@ -428,41 +428,41 @@ const DualUseLayer6Tables = withModifiers(table, "Layer #6 /", "L#6/", 52498);
 const DualUseLayer7Tables = withModifiers(table, "Layer #7 /", "L#7/", 52754);
 const DualUseLayer8Tables = withModifiers(table, "Layer #8 /", "L#8/", 53010);
 
-const nordicModifiedTables = [
-  shiftModifierNordic,
-  nordicCtrlTable,
-  nordicLAltTable,
-  nordicRAltTable,
-  nordicShiftTable,
-  nordicGuiTable,
-  nordicCATable,
-  altCtrlNordic,
-  altGRNordic,
-  nordicCAGrTable,
-  nordicCSTable,
-  nordicCGTable,
-  nordicAAGrTable,
-  nordicASTable,
-  nordicAGTable,
-  nordicAGrSTable,
-  nordicAGrGTable,
-  nordicSGTable,
-  nordicCAAGTable,
-  nordicCASTable,
-  nordicCAGTable,
-  nordicCAGSTable,
-  nordicCAGGTable,
-  nordicCSGTable,
-  nordicAAGSTable,
-  nordicAAGGTable,
-  nordicASGTable,
-  nordicAGSGTable,
-  nordicCAAGrSTable,
-  nordicCAAGrGTable,
+const norwegianModifiedTables = [
+  shiftModifierNorwegian,
+  norwegianCtrlTable,
+  norwegianLAltTable,
+  norwegianRAltTable,
+  norwegianShiftTable,
+  norwegianGuiTable,
+  norwegianCATable,
+  altCtrlNorwegian,
+  altGRNorwegian,
+  norwegianCAGrTable,
+  norwegianCSTable,
+  norwegianCGTable,
+  norwegianAAGrTable,
+  norwegianASTable,
+  norwegianAGTable,
+  norwegianAGrSTable,
+  norwegianAGrGTable,
+  norwegianSGTable,
+  norwegianCAAGTable,
+  norwegianCASTable,
+  norwegianCAGTable,
+  norwegianCAGSTable,
+  norwegianCAGGTable,
+  norwegianCSGTable,
+  norwegianAAGSTable,
+  norwegianAAGGTable,
+  norwegianASGTable,
+  norwegianAGSGTable,
+  norwegianCAAGrSTable,
+  norwegianCAAGrGTable,
   withModifiers(table, "Hyper +", "Hyper+", 6912),
-  nordicCAGrSGTable,
-  nordicAAGrSGTable,
-  nordicAllModTable,
+  norwegianCAGrSGTable,
+  norwegianAAGrSGTable,
+  norwegianAllModTable,
   DualUseCtrlTable,
   DualUseShiftTable,
   DualUseAltTable,
@@ -478,5 +478,5 @@ const nordicModifiedTables = [
   DualUseLayer8Tables
 ];
 
-export { nordic as default, nordicModifiedTables };
-// export default nordic;
+export { norwegian as default, norwegianModifiedTables };
+// export default norwegian;

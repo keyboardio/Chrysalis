@@ -310,6 +310,7 @@ class KeyPickerReduced extends Component {
       german: GR,
       french: FR,
       swedish: SW,
+      finnish: SW,
       danish: DN,
       norwegian: NW,
       icelandic: IC,

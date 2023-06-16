@@ -499,14 +499,14 @@
     "id": 45,
     "x": 539,
     "y": 38,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",
     "content": {
       "type": "1U",
       "first": "Ö",
-      "second": "?",
+      "second": "\\",
       "third": "",
       "fourth": ""
     }
@@ -841,7 +841,7 @@
     "id": 47,
     "x": 552,
     "y": 73,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",
@@ -1100,7 +1100,7 @@
     }
   },
   {
-    "id": 52,
+    "id": 51,
     "x": 514,
     "y": 108,
     "centered": true,
@@ -1331,7 +1331,7 @@
     "id": 16,
     "x": 394,
     "y": 143,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",
@@ -1379,7 +1379,7 @@
     "id": 56,
     "x": 542,
     "y": 143,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",

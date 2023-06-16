@@ -48,8 +48,17 @@ import german, { germanModifiedTables } from "./languages/german/german";
 // French - is an Array of objects of values that have to be modified
 import french, { frenchModifiedTables } from "./languages/french/french";
 
-// Nordic - is an Array of objects of values that have to be modified
-import nordic, { nordicModifiedTables } from "./languages/nordic/nordic";
+// Norwegian - is an Array of objects of values that have to be modified
+import norwegian, { norwegianModifiedTables } from "./languages/norwegian/norwegian";
+
+// Swedish - is an Array of objects of values that have to be modified
+import swedish, { swedishModifiedTables } from "./languages/swedish/swedish";
+
+// Danish - is an Array of objects of values that have to be modified
+import danish, { danishModifiedTables } from "./languages/danish/danish";
+
+// Icelandic - is an Array of objects of values that have to be modified
+import icelandic, { icelandicModifiedTables } from "./languages/icelandic/icelandic";
 
 // Japanese - is an Array of objects of values that have to be modified
 import japanese, { japaneseModifiedTables } from "./languages/japanese/japanese";
@@ -100,7 +109,10 @@ const supportModifiedTables = {
   spanish: spanishModifiedTables,
   german: germanModifiedTables,
   french: frenchModifiedTables,
-  nordic: nordicModifiedTables,
+  norwegian: norwegianModifiedTables,
+  swedish: swedishModifiedTables,
+  danish: danishModifiedTables,
+  icelandic: icelandicModifiedTables,
   japanese: japaneseModifiedTables,
   swissGerman: swissGermanModifiedTables
 };
@@ -125,7 +137,10 @@ const languagesDB = {
   spanish,
   german,
   french,
-  nordic,
+  norwegian,
+  swedish,
+  danish,
+  icelandic,
   japanese,
   swissGerman
 };
@@ -139,8 +154,8 @@ class KeymapDB {
     this.keymapCodeTable = [];
     //create variable that get language from the local storage
     this.language = store.get("settings.language");
-    if (this.language == "swedish" || this.language == "danish" || this.language == "norwegian" || this.language == "icelandic") {
-      this.language = "nordic";
+    if (this.language == "finnish") {
+      this.language = "swedish";
     }
     //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
     baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
@@ -324,8 +339,8 @@ class KeymapDB {
 
   static updateBaseKeyCode() {
     this.language = store.get("settings.language") || "english";
-    if (this.language == "swedish" || this.language == "danish" || this.language == "norwegian" || this.language == "icelandic") {
-      this.language = "nordic";
+    if (this.language == "finnish") {
+      this.language = "swedish";
     }
     //Checking language in the cache
     if (map.has(this.language)) {

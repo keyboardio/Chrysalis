@@ -523,7 +523,7 @@
       "type": "1U",
       "first": "´",
       "second": "`",
-      "third": "\\",
+      "third": "|",
       "fourth": ""
     }
   },
@@ -841,7 +841,7 @@
     "id": 47,
     "x": 552,
     "y": 73,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",
@@ -1119,7 +1119,7 @@
     "id": 51,
     "x": 563,
     "y": 108,
-    "centered": false,
+    "centered": true,
     "icon": false,
     "idArray": "",
     "iconname": "",

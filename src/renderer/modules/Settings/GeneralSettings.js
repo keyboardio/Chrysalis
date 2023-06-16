@@ -26,6 +26,7 @@ import spanishF from "../../../../static/flags/spain.png";
 import englishUSUKF from "../../../../static/flags/english.png";
 import danishF from "../../../../static/flags/denmark.png";
 import swedishF from "../../../../static/flags/sweden.png";
+import finnishF from "../../../../static/flags/finland.png";
 import icelandicF from "../../../../static/flags/iceland.png";
 import norwegianF from "../../../../static/flags/norway.png";
 import swissF from "../../../../static/flags/switzerland.png";
@@ -63,13 +64,26 @@ export default class GeneralSettings extends Component {
     const { selectDarkMode, darkMode, neurons, selectedNeuron, connected, defaultLayer, selectDefaultLayer } = this.props;
     const { selectedLanguage } = this.state;
     let layersNames = neurons[selectedNeuron].layers;
-    let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF, swissF];
+    let flags = [
+      englishUSUKF,
+      spanishF,
+      germanF,
+      frenchF,
+      swedishF,
+      finnishF,
+      danishF,
+      norwegianF,
+      icelandicF,
+      japaneseF,
+      swissF
+    ];
     let language = [
       "english",
       "spanish",
       "german",
       "french",
       "swedish",
+      "finnish",
       "danish",
       "norwegian",
       "icelandic",

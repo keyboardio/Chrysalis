@@ -118,11 +118,11 @@ export default class BackupSettings extends Component {
       data = backup;
     } else {
       data = backup.backup;
-      // TODO: IF THE USER WANTS!!
-      let neurons = this.props.neurons;
-      let index = neurons.findIndex(n => n.id == this.props.neuronID);
-      neurons[index] = backup.neuron;
-      store.set("neurons", neurons);
+      // TODO: IF THE USER WANTS!! --> Until this can be chosen, disabling this behaviour
+      // let neurons = this.props.neurons;
+      // let index = neurons.findIndex(n => n.id == this.props.neuronID);
+      // neurons[index] = backup.neuron;
+      // store.set("neurons", neurons);
     }
     try {
       for (let i = 0; i < data.length; i++) {

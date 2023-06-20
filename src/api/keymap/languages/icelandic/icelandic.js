@@ -369,7 +369,7 @@ const shiftModifierIcelandic = {
 
 const icelandic = icelandicLetters.concat(icelandicModifierKeys);
 
-const table = { keys: icelandicModifierKeys };
+const table = { keys: icelandic };
 const tableWithoutModifier = { keys: icelandicLetters };
 
 const icelandicCtrlTable = withModifiers(table, "Control +", "C+", 256);

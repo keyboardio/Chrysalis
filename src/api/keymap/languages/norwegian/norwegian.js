@@ -350,7 +350,7 @@ const shiftModifierNorwegian = {
 
 const norwegian = norwegianLetters.concat(norwegianModifierKeys);
 
-const table = { keys: norwegianModifierKeys };
+const table = { keys: norwegian };
 const tableWithoutModifier = { keys: norwegianLetters };
 
 const norwegianCtrlTable = withModifiers(table, "Control +", "C+", 256);

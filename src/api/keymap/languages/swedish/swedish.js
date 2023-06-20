@@ -362,7 +362,7 @@ const shiftModifierSwedish = {
 
 const swedish = swedishLetters.concat(swedishModifierKeys);
 
-const table = { keys: swedishModifierKeys };
+const table = { keys: swedish };
 const tableWithoutModifier = { keys: swedishLetters };
 
 const swedishCtrlTable = withModifiers(table, "Control +", "C+", 256);

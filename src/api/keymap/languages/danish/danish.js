@@ -362,7 +362,7 @@ const shiftModifierDanish = {
 
 const danish = danishLetters.concat(danishModifierKeys);
 
-const table = { keys: danishModifierKeys };
+const table = { keys: danish };
 const tableWithoutModifier = { keys: danishLetters };
 
 const danishCtrlTable = withModifiers(table, "Control +", "C+", 256);

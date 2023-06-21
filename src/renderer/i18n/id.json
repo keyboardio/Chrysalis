@@ -81,7 +81,9 @@
                 "title": "Kontrol tetikus",
                 "help": "Tiru tetikus melalui tombol papan tik.",
                 "movement": "Pergerakan",
-                "buttons": "Tombol"
+                "buttons": "Tombol",
+                "wheel": "Roda",
+                "warp": "Warp"
             },
             "platform_apple": {
                 "title": "Tombol Mac/iPad"
@@ -89,8 +91,31 @@
             "dynmacros": {
                 "usage_overview": {
                     "usage": "{{ used }}/{{ size }}",
-                    "bytes": "bita"
+                    "bytes": "bita",
+                    "label": "Ruang makro yang digunakan:"
+                },
+                "title": "Makro Dinamis",
+                "help": "Atur dan edit makro dinamis ke tombol."
+            },
+            "oneshot": {
+                "help": "Klik tombol di bawah ini untuk memilih tombol khusus untuk membatalkan tombol satu bidikan."
+            },
+            "oneshotMetaKeys": {
+                "title": "Tombol meta one-shot",
+                "metaStickyKey": {
+                    "tooltip": "Membuat tombol berikutnya yang ditekan tetap lengket sampai diketuk lagi."
+                },
+                "help": "Opsi ini menciptakan tombol OneShot khusus yang dapat membuat tombol apa pun menjadi \"lengket\", bukan hanya modifier atau tombol layer-shift.",
+                "activeStickyKey": {
+                    "tooltip": "Buat tombol yang sedang ditekan menjadi lengket sampai tombol tersebut diketuk lagi."
                 }
+            },
+            "macros": {
+                "title": "Macro",
+                "help": "Atur makro ke tombol. Untuk membuat atau memodifikasi makro, Anda dapat menggunakan Arduino IDE untuk menyesuaikan file 'Sketsa' Kaleidoskop untuk keyboard Anda."
+            },
+            "spacecadet": {
+                "title": "SpaceCadet"
             }
         },
         "macros": {
@@ -203,7 +228,7 @@
                     "help": "Atur kecerahan LED di papan tik."
                 },
                 "default": {
-                    "label": "Mode baku LED",
+                    "label": "Mode led default",
                     "autoSave": {
                         "help": "Ketika diaktifkan, kapan pun mode LED diubah, itu akan disimpan sebagai yang baku."
                     },
@@ -230,7 +255,28 @@
                         "disabled": "Dimatikan",
                         "enabled_without_delay": "Diaktifkan (tanpa jeda)"
                     }
-                }
+                },
+                "autoshift": {
+                    "enabled": {
+                        "help": "Dengan shift otomatis diaktifkan, tombol yang dipilih akan secara otomatis memasukkan varian yang digeser ketika ditekan.",
+                        "label": "Aktifkan shift otomatis"
+                    },
+                    "timeout": {
+                        "label": "Batas waktu shift otomatis",
+                        "help": "Atur berapa lama tombol perlu ditahan sebelum mendapatkan shift bergeser."
+                    },
+                    "category": {
+                        "letters": {
+                            "label": "Tombol huruf shift otomatis",
+                            "help": "Aktifkan shift otomatis untuk tombol huruf. Ini hanya mencakup huruf antara A dan Z pada tata letak QWERTY AS."
+                        },
+                        "numbers": {
+                            "label": "Tombol angka shift otomatis"
+                        }
+                    },
+                    "label": "Shift otomatis"
+                },
+                "label": "Plugin"
             }
         }
     },

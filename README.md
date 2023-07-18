@@ -54,12 +54,24 @@ keyboards are also supported, as long as they run suitable firmware.
 
 ## Supported operating systems
 
-Chrysalis is primarily developed under Linux, but we target all three major
-operating systems, and test our releases on Windows and macOS too. That said, our
-testing is done on **Ubuntu** 18.04 LTS, **Windows** 10, and **macOS** Mojave.
+Chrysalis is primarily developed under Linux and macOS, but we
+target and test on recent releases of Windows as well.
+
+We generally support the most recent long-term-support releases of
+Ubuntu and Fedora, as well as the current releases of macOS and
+Windows 11. While we expect Chrysalis to work well on other recent
+releases of macOS, Windows, and major Linux distributions, our
+support resources are pretty limited and we may not be able to chase
+down problems that we can't reproduce on a current operating system
+release.
 
 The protocol Chrysalis uses to communicate with the keyboard requires USB serial
 support, which is known to be problematic on Windows prior to Windows 10.
+
+Some Linux distributions package and build Chrysalis with changes
+that cause it not to work correctly. If you're having trouble with
+a vendor-packaged Chrysalis, we recommend that you try the latest
+release distributed by the project.
 
 ## Installation
 

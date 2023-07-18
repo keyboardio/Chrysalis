@@ -124,6 +124,4 @@ We're using [Weblate][weblate] to manage and maintain translations.
 
 ### Debugging
 
-There are sample ENV file & debugging configurations provided in the `dev/sample` directory. There is also an example launch.json for VSCode under the `.vscode` directory under `dev/sample/.vscode/launch.json`. To debug the main process, you _may_ wish to launch from an IDE (without using the above in a terminal), configurations for VSCode are provided. If using the launch or compound configurations, the `timeout` properties must allow enough time for the app to fully launch before the debugger(s) stop trying. In the case of compound, this applies to the renderer and main process debugger.
-
-Note: The ports defined in your .env.development & your debugging configuration **must** match.
+There are sample debugging configurations provided in the `dev/sample` directory. There is also an example launch.json for VSCode under the `.vscode` directory under `dev/sample/.vscode/launch.json`. To debug the main process, you _may_ wish to launch from an IDE (without using the above in a terminal), configurations for VSCode are provided. 

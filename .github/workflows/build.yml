@@ -29,7 +29,7 @@ jobs:
         # We only want to build master if we have a snapshot version
         # ..otherwise, building main will clobber releases...sometimes
         # due to a race condition.
-        if: ! endsWith(${{ env.PACKAGE_VERSION }}, 'snapshot')
+        if: !endsWith( env.PACKAGE_VERSION, '-snapshot')
 
       - name: Install windows certificates
         if: matrix.os == 'windows-latest'

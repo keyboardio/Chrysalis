@@ -7,7 +7,10 @@ on:
 jobs:
   release:
     runs-on: ${{ matrix.os }}
-
+    # We only want to build master if we have a snapshot version
+    # ..otherwise, building main will clobber releases...sometimes
+    # Due to a race condition.
+    if: endsWith(env.PACKAGE_VERSION, 'snapshot')
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]

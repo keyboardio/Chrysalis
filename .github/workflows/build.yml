@@ -7,10 +7,6 @@ on:
 jobs:
   release:
     runs-on: ${{ matrix.os }}
-    # We only want to build master if we have a snapshot version
-    # ..otherwise, building main will clobber releases...sometimes
-    # Due to a race condition.
-    if: endsWith(env.PACKAGE_VERSION, 'snapshot')
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -23,6 +19,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+
+      - name: Set snapshot version 
+        shell: bash
+        run: echo "PACKAGE_VERSION=`npm pkg get version|tr -d '\"'`" >> $GITHUB_ENV
+
+      - name: Cancel job if the package version doesn't match "-snapshot$"
+        uses: andymckay/cancel-action@0.3
+        # We only want to build master if we have a snapshot version
+        # ..otherwise, building main will clobber releases...sometimes
+        # due to a race condition.
+        if: ! endsWith(${{ env.PACKAGE_VERSION }}, 'snapshot')
+
       - name: Install windows certificates
         if: matrix.os == 'windows-latest'
         env:
@@ -70,9 +78,6 @@ jobs:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
       
-      - name: Set snapshot version 
-        shell: bash
-        run: echo "PACKAGE_VERSION=`npm pkg get version|tr -d '\"'`" >> $GITHUB_ENV
       - name: Release (macos)
         if: matrix.os == 'macos-latest'
         env:

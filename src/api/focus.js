@@ -14,10 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { ipcRenderer } = require("electron");
 const { SerialPort } = eval(`require("serialport")`);
 
-import fs from "fs";
 import stream from "stream";
 
 import { logger } from "@api/log";
@@ -158,11 +156,13 @@ class Focus {
   async checkNonSerialBootloader(focusDeviceDescriptor) {
     const bootloader = focusDeviceDescriptor.usb.bootloader;
 
-    const deviceList = await ipcRenderer.invoke(
+    const deviceList = []; /* TODO
+    await ipcRenderer.invoke(
       "usb.scan-for-devices",
       bootloader.productId,
       bootloader.vendorId
     );
+    */
 
     for (const device of deviceList) {
       const pid = device.deviceDescriptor.idProduct,
@@ -463,14 +463,8 @@ class Focus {
   }
 
   async isDeviceAccessible(port) {
-    if (process.platform !== "linux") return true;
-
-    try {
-      fs.accessSync(port.path, fs.constants.R_OK | fs.constants.W_OK);
-    } catch (e) {
-      return false;
-    }
     return true;
+    // TODO
   }
 
   async isDeviceSupported(port) {

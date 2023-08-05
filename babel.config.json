@@ -5,8 +5,7 @@
       {
         "debug": false,
         "targets": {
-          "node": "current",
-          "electron": "current"
+          "web": "current"
         }
       }
     ]

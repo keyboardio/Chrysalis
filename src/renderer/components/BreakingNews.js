@@ -18,7 +18,7 @@
 import Alert from "@mui/material/Alert";
 import React from "react";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 export const BreakingNews = (props) => {

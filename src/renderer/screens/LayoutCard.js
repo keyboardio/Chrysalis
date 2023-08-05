@@ -29,7 +29,7 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 const db = new KeymapDB();

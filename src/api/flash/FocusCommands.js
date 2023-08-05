@@ -15,7 +15,6 @@
  */
 
 import { logger } from "@api/log";
-import { ipcRenderer } from "electron";
 import { v4 as uuidv4 } from "uuid";
 
 import { delay } from "./utils";
@@ -106,19 +105,16 @@ export function FocusCommands(options) {
     const structured_dump = await focus.readKeyboardConfiguration();
     const json_dump = JSON.stringify(structured_dump);
 
-    const key = ".internal." + uuidv4();
+    const key =
+      ".internal.backups.save-file" +
+      focus.focusDeviceDescriptor.info +
+      Date.now() +
+      uuidv4();
     logger("flash").debug("Writing structured EEPROM data to session storage", {
       key: key,
       eeprom: structured_dump,
     });
     sessionStorage.setItem(key, json_dump);
-
-    const r = ipcRenderer.sendSync(
-      "backups.save-file",
-      focus.focusDeviceDescriptor.info,
-      Date.now(),
-      json_dump
-    );
 
     return key;
   };

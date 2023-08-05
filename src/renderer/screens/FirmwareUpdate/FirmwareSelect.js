@@ -1,84 +1,45 @@
-// -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018-2022  Keyboardio, Inc.
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
 import pkg from "@root/package.json";
-import { ipcRenderer } from "electron";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
-import Link from "@mui/material/Link";
 
 const version = pkg.version;
 
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();
-
   const [changelogOpen, setChangelogOpen] = useState(false);
   const [selected, setSelected] = props.selectedFirmware;
   const [firmwareFilename, setFirmwareFilename] = props.firmwareFilename;
   const [firmwareVersion, setFirmwareVersion] = useState(version);
   const [firmwareChangelog, setFirmwareChangelog] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const v = await ipcRenderer.sendSync("firmware.get-version");
-      setFirmwareVersion(v);
+  const downloadFirmware = async (url) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      setFirmwareFilename(blob);
+    } catch (error) {
+      console.error("An error occurred while downloading the firmware:", error);
+    }
+  };
 
-      const c = await ipcRenderer.sendSync("firmware.get-changelog");
-      setFirmwareChangelog(c);
-    };
-    fetchData();
-  }, []);
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    setFirmwareFilename(file.name);
+  };
 
   const selectFirmware = (event) => {
     setSelected(event.target.value);
-    if (event.target.value != "custom") {
+    if (event.target.value !== "custom") {
       return setFirmwareFilename("");
-    }
-
-    const [fileName, fileData] = ipcRenderer.sendSync("file.open-with-dialog", {
-      title: t("firmwareUpdate.dialog.selectFirmware"),
-      filters: [
-        {
-          name: t("firmwareUpdate.dialog.firmwareFiles"),
-          extensions: ["hex", "bin"],
-        },
-        {
-          name: t("firmwareUpdate.dialog.allFiles"),
-          extensions: ["*"],
-        },
-      ],
-    });
-
-    if (fileName) {
-      setFirmwareFilename(fileName);
     }
   };
 
@@ -100,7 +61,7 @@ const FirmwareSelect = (props) => {
             value={selected}
             onChange={selectFirmware}
           >
-            <Grid container justifyContent="flex">
+            <Grid container justifyContent="flex-start">
               <FormControlLabel
                 value="default"
                 control={<Radio />}
@@ -126,7 +87,7 @@ const FirmwareSelect = (props) => {
                 })}
               </Button>
             </Grid>
-            <Grid container justifyContent="flex">
+            <Grid container justifyContent="flex-start">
               <FormControlLabel
                 value="custom"
                 control={<Radio />}
@@ -146,8 +107,51 @@ const FirmwareSelect = (props) => {
                 {t("firmwareUpdate.customFirmwareLinkText")}
               </Button>
             </Grid>
+            <Grid container justifyContent="flex-start">
+              <FormControlLabel
+                value="fromURL"
+                control={<Radio />}
+                label={
+                  <Typography sx={{ ml: 0 }}>
+                    {t("firmwareUpdate.fromURL")}
+                  </Typography>
+                }
+              />
+              <Box sx={{ width: "1rem" }} />
+              <Button
+                color="info"
+                onClick={() =>
+                  downloadFirmware("https://example.com/firmware.hex")
+                }
+              >
+                {t("firmwareUpdate.downloadFirmwareLinkText")}
+              </Button>
+            </Grid>
+            <Grid container justifyContent="flex-start">
+              <FormControlLabel
+                value="fromFile"
+                control={<Radio />}
+                label={
+                  <Typography sx={{ ml: 0 }}>
+                    {t("firmwareUpdate.fromFile")}
+                  </Typography>
+                }
+              />
+              <Box sx={{ width: "1rem" }} />
+              <input
+                type="file"
+                onChange={handleFileUpload}
+                accept=".hex, .bin"
+                style={{ display: "none" }}
+                id="fileUpload"
+              />
+              <label htmlFor="fileUpload">
+                <Button color="info" component="span">
+                  {t("firmwareUpdate.uploadFirmwareLinkText")}
+                </Button>
+              </label>
+            </Grid>
           </RadioGroup>
-          <Box></Box>
         </Box>
       </FormControl>
       <FirmwareChangesDialog

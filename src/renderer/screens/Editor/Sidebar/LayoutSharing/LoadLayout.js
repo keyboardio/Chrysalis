@@ -1,54 +1,31 @@
-// -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020-2022  Keyboardio, Inc.
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 import KeymapDB from "@api/focus/keymap/db";
 import { logger } from "@api/log";
-import fs from "fs";
 import { t } from "i18next";
 import { toast } from "@renderer/components/Toast";
 
 const db = new KeymapDB();
 
-export const loadLayout = (fileName, fileData) => {
-  if (!fileData) {
-    try {
-      fileData = fs.readFileSync(fileName);
-    } catch (e) {
-      logger().error("Unable to read layout", {
-        filename: fileName,
-        error: e.message,
-      });
-      toast.error(t("editor.sharing.errors.unableToLoad"));
-      return null;
-    }
-  }
+export const loadLayout = async (fileName) => {
+  let fileData;
 
-  if (!fileData) {
+  try {
+    const response = await fetch(`/static/${fileName}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    fileData = await response.text();
+  } catch (e) {
     logger().error("Unable to read layout", {
       filename: fileName,
+      error: e.message,
     });
-
     toast.error(t("editor.sharing.errors.unableToLoad"));
     return null;
   }
 
   let layoutData;
   try {
-    layoutData = JSON.parse(new TextDecoder().decode(fileData));
+    layoutData = JSON.parse(fileData);
   } catch (e) {
     logger().error("Failed to parse layout JSON", {
       filename: fileName,

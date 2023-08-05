@@ -14,10 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Electron from "electron";
-
 export default function openURL(url) {
   return () => {
-    Electron.shell.openExternal(url);
+    window.open(url, "_blank");
   };
 }

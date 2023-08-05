@@ -16,7 +16,7 @@
  */
 
 import { ipcRenderer } from "electron";
-import Store from "electron-store";
+import Store from "@renderer/localStore";
 import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 

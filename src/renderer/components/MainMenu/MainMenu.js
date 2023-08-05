@@ -30,13 +30,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import logo from "@renderer/logo-small.png";
 import { history } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
 import pkg from "@root/package.json";
-import { ipcRenderer } from "electron";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -166,13 +164,6 @@ function MainMenu({ open, closeMenu, classes }) {
 
         {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
         {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
-        {updateAvailable &&
-          listItem(<RestartAltIcon />, t("app.menu.restart"), null, () => {
-            ipcRenderer.send("app.restart");
-          })}
-        {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
-          ipcRenderer.send("app.exit")
-        )}
       </List>
       <Divider />
       <List>

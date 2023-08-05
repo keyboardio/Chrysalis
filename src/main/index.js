@@ -49,7 +49,7 @@ if (require("electron-squirrel-startup")) {
 process.env[`NODE_ENV`] = Environment.name;
 
 // Settings storage
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 Store.initRenderer();
 
 const isDevelopment = process.env.NODE_ENV !== "production";

@@ -32,9 +32,6 @@ module.exports = merge(common, {
 
   plugins: [
     
-	// Note: Only update what has changed on hot reload 
-	// Require the statement "module.hot.accept();" in the root index.jsx !
-    new webpack.HotModuleReplacementPlugin(),
 	
 	new FriendlyErrorsPlugin()
   ],

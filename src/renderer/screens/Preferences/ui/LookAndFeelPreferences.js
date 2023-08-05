@@ -32,7 +32,7 @@ import { useTranslation } from "react-i18next";
 import PreferenceSection from "../components/PreferenceSection";
 import PreferenceWithHeading from "../components/PreferenceWithHeading";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 const memoize = (factory, ctx) => {

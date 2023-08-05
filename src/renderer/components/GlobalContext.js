@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcRenderer } from "electron";
 import React, { createContext, useState } from "react";
 
 export const GlobalContext = createContext();
@@ -30,9 +29,6 @@ export const GlobalContextProvider = (props) => {
   const [hideHeaderInPrint, setHideHeaderInPrint] = useState(false);
 
   const getDarkMode = () => {
-    if (theme == "system") {
-      return ipcRenderer.sendSync("native-theme.should-use-dark-colors");
-    }
     return theme == "dark";
   };
 

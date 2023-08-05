@@ -33,9 +33,7 @@ import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import React, { useState, useContext } from "react";
-import { GlobalContext } from "@renderer/components/GlobalContext";
 import Switch from "@mui/material/Switch";
-import { ipcRenderer } from "electron";
 import path from "path";
 import { useTranslation } from "react-i18next";
 
@@ -49,7 +47,6 @@ import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
-  const globalContext = useContext(GlobalContext);
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");

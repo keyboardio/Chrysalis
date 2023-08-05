@@ -46,13 +46,10 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
-import SanityCheck from "./screens/SanityCheck";
 
-import { useAutoUpdate } from "./hooks/useAutoUpdate";
-import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
+// import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
 
-const { ipcRenderer } = require("electron");
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 const App = (props) => {
@@ -75,8 +72,7 @@ const App = (props) => {
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
   const [bgColor, setBgColor] = useState(null);
 
-  useAutoUpdate();
-  useFirmwareAutoUpdate();
+  // TODO  useFirmwareAutoUpdate();
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;
@@ -140,23 +136,13 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
-    ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
-    ipcRenderer.on("native-theme.updated", handleNativeThemeUpdate);
-    ipcRenderer.on("print.feedback", handlePrintFeedback);
+    //    ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
 
     setTheme(settings.get("ui.theme", "system"));
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      ipcRenderer.removeListener("print.feedback", handlePrintFeedback);
-      ipcRenderer.removeListener(
-        "native-theme.updated",
-        handleNativeThemeUpdate
-      );
-      ipcRenderer.removeListener(
-        "usb.device-disconnected",
-        handleDeviceDisconnect
-      );
+      //    ipcRenderer.removeListener(        "usb.device-disconnected",        handleDeviceDisconnect      );
     };
   });
 
@@ -275,7 +261,6 @@ const App = (props) => {
                     }}
                   >
                     <Router id="router">
-                      <SanityCheck path="/sanity-check" />
                       <FocusNotDetected
                         path="/focus-not-detected"
                         focusDeviceDescriptor={focusDeviceDescriptor}

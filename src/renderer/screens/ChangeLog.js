@@ -1,32 +1,12 @@
-// -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2021-2022  Keyboardio, Inc.
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
-import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import logo from "@renderer/logo-small.png";
 import pkg from "@root/package.json";
-import fs from "fs";
-import path from "path";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
@@ -34,11 +14,23 @@ const version = pkg.version;
 
 const ChangeLog = (props) => {
   const { classes } = props;
-
   const { t } = useTranslation();
 
-  const file = getFilesystemPathForStaticAsset("../NEWS.md");
-  const data = fs.readFileSync(file).toString();
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    // Assuming you have the absolute path for the file, replace it accordingly
+    const changelogFile = "/NEWS.md";
+
+    fetch(changelogFile)
+      .then((response) => response.text())
+      .then((text) => {
+        setData(text);
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching the changelog:", error);
+      });
+  }, []);
 
   return (
     <Container>

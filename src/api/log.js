@@ -14,69 +14,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import winston from "winston";
-import { ipcRenderer } from "electron";
 
-import { suppress } from "./log/format";
-import { BrowserConsole, Ipc } from "./log/transports";
+const Store = require("@renderer/localStore");
 
-const Store = require("electron-store");
-const settings = new Store();
+export const setupLogging = async () => {};
+export const collectLogs = async () => {};
+let logLevel = "info";
 
-export const setupLogging = async () => {
-  const { format } = winston;
-
-  const ipcLogger = new Ipc({ level: "silly" });
-  const logLevel = await settings.get("log.level", "info");
-
-  winston.loggers.add("default", {
-    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
-    format: format.combine(suppress(), format.timestamp(), format.json()),
-  });
-
-  winston.loggers.add("focus", {
-    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
-    format: format.combine(
-      format.label({ label: "focus" }),
-      suppress(),
-      format.timestamp(),
-      format.json()
-    ),
-  });
-
-  winston.loggers.add("flash", {
-    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
-    format: format.combine(
-      format.label({ label: "flash" }),
-      suppress(),
-      format.timestamp(),
-      format.json()
-    ),
-  });
-};
-
-export const collectLogs = async () => {
-  return await ipcRenderer.invoke("logging.get-session-logs");
+const levels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  http: 3,
+  verbose: 4,
+  debug: 5,
+  silly: 6,
 };
 
 export const logger = (slot = "default") => {
-  return winston.loggers.get(slot);
+  return {
+    error: (message, meta) => {
+      if (levels[logLevel] >= levels.error) console.error(message, meta);
+    },
+    warn: (message, meta) => {
+      if (levels[logLevel] >= levels.warn) console.warn(message, meta);
+    },
+    info: (message, meta) => {
+      if (levels[logLevel] >= levels.info) console.info(message, meta);
+    },
+    http: (message, meta) => {
+      if (levels[logLevel] >= levels.http) console.info(message, meta);
+    },
+    verbose: (message, meta) => {
+      if (levels[logLevel] >= levels.verbose) console.log(message, meta);
+    },
+    debug: (message, meta) => {
+      if (levels[logLevel] >= levels.debug) console.debug(message, meta);
+    },
+    silly: (message, meta) => {
+      if (levels[logLevel] >= levels.silly) console.log(message, meta);
+    },
+  };
 };
+
+export const getLogLevel = () => logLevel;
 
 export const setLogLevel = (level) => {
-  for (const slot of ["default", "focus", "flash"]) {
-    const l = logger(slot);
-    // Transport[0] is _always_ Console. We only want to adjust the console log
-    // level. The file logs should contain everything.
-    l.transports[0].level = level;
+  if (levels[level] !== undefined) {
+    logLevel = level;
+  } else {
+    throw new Error(`Invalid log level: ${level}`);
   }
-  settings.set("log.level", level);
-};
-
-export const getLogLevel = () => {
-  // Since we only set the log level via `setLogLevel`, and that sets it for all
-  // slots, and we're only interested in the Console transport log level, we can
-  // cheat here, and just return the log level of the first transport of the
-  // default logger.
-  return logger().transports[0].level;
 };

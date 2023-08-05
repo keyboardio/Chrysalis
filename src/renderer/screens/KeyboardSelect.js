@@ -35,11 +35,8 @@ import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
-import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 
 import { Firmware0_90_1 } from "@renderer/breaking-news";
-
-const { ipcRenderer } = require("electron");
 
 const KeyboardSelect = (props) => {
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);
@@ -103,13 +100,13 @@ const KeyboardSelect = (props) => {
   });
 
   useEffect(() => {
-    ipcRenderer.on("usb.device-connected", scanDevices);
-    ipcRenderer.on("usb.device-disconnected", scanDevices);
+    // TODO ipcRenderer.on("usb.device-connected", scanDevices);
+    // TODO ipcRenderer.on("usb.device-disconnected", scanDevices);
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      ipcRenderer.removeListener("usb.device-connected", scanDevices);
-      ipcRenderer.removeListener("usb.device-disconnected", scanDevices);
+      // TODO   ipcRenderer.removeListener("usb.device-connected", scanDevices);
+      // TODO   ipcRenderer.removeListener("usb.device-disconnected", scanDevices);
     };
   });
 
@@ -151,7 +148,6 @@ const KeyboardSelect = (props) => {
           />
         )}
         <Firmware0_90_1 devices={devices} />
-        <LinuxPermissionsWarning selectedDevicePort={selectedDevicePort} />
         <Card
           sx={{
             boxShadow: 3,

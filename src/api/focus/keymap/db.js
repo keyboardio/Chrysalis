@@ -14,7 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcRenderer } from "electron";
 import i18n from "i18next";
 import cldr_data from "./cldr_data";
 import { Base } from "./db/base";

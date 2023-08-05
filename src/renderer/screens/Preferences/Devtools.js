@@ -17,15 +17,13 @@
 
 import { getLogLevel, setLogLevel } from "@api/log";
 import Divider from "@mui/material/Divider";
-import Skeleton from "@mui/material/Skeleton";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-const { ipcRenderer } = require("electron");
 
 import PreferenceSection from "./components/PreferenceSection";
 import PreferenceSwitch from "./components/PreferenceSwitch";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 import Focus from "@api/focus";
@@ -33,24 +31,13 @@ import Focus from "@api/focus";
 function DevtoolsPreferences(props) {
   const { t } = useTranslation();
 
-  const [devConsole, setDevConsole] = useState(false);
   const [verbose, setVerbose] = useState(false);
   const [chunked, setChunked] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const initialize = async () => {
-      const isOpen = await ipcRenderer.invoke("devtools.is-open");
-      await setDevConsole(isOpen);
-
       setChunked(settings.get("focus.chunked_writes", true));
-
-      ipcRenderer.on("devtools.opened", () => {
-        setDevConsole(true);
-      });
-      ipcRenderer.on("devtools.closed", () => {
-        setDevConsole(false);
-      });
 
       const logLevel = getLogLevel();
       if (logLevel == "info") {
@@ -65,20 +52,8 @@ function DevtoolsPreferences(props) {
     initialize();
 
     // Cleanup when component unmounts.
-    return () => {
-      ipcRenderer.removeAllListeners("devtools.opened");
-      ipcRenderer.removeAllListeners("devtools.closed");
-    };
+    return () => {};
   });
-
-  const toggleDevConsole = (event) => {
-    setDevConsole(event.target.checked);
-    if (event.target.checked) {
-      ipcRenderer.invoke("devtools.open");
-    } else {
-      ipcRenderer.invoke("devtools.close");
-    }
-  };
 
   const toggleVerbose = (event) => {
     const verbose = event.target.checked;
@@ -105,15 +80,6 @@ function DevtoolsPreferences(props) {
 
   return (
     <PreferenceSection name="devtools.main">
-      {loaded ? (
-        <PreferenceSwitch
-          option="devtools.console"
-          checked={devConsole}
-          onChange={toggleDevConsole}
-        />
-      ) : (
-        <Skeleton variant="text" width="100%" height={56} />
-      )}
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         loaded={loaded}

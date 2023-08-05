@@ -17,12 +17,9 @@
 import Focus from "@api/focus";
 import { logger } from "@api/log";
 import Hardware from "@api/hardware";
-import { ipcRenderer } from "electron";
 
 const findNonSerialKeyboards = async (deviceList) => {
-  const connected = (await ipcRenderer.invoke("usb.scan-for-devices")).map(
-    (device) => device.deviceDescriptor
-  );
+  const connected = false; // (  await ipcRenderer.invoke("usb.scan-for-devices")).map( (device) => device.deviceDescriptor );
 
   for (const device of connected) {
     const dVid = device.idVendor,

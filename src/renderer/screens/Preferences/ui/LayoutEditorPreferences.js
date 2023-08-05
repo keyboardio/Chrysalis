@@ -31,7 +31,7 @@ import PreferenceSection from "../components/PreferenceSection";
 import PreferenceSwitch from "../components/PreferenceSwitch";
 import PreferenceWithHeading from "../components/PreferenceWithHeading";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 const db = new KeymapDB();

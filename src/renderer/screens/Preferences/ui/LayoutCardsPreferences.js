@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import PreferenceSection from "../components/PreferenceSection";
 import PreferenceSwitch from "../components/PreferenceSwitch";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 function LayoutCardsPreferences(props) {

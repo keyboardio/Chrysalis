@@ -19,7 +19,7 @@ import { app, ipcMain, net } from "electron";
 import pkg from "../../package.json";
 import { sendToRenderer } from "./utils";
 
-import Store from "electron-store";
+import Store from "@renderer/localStore";
 import fs from "fs";
 import path from "path";
 import semver from "semver";

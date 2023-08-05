@@ -16,27 +16,13 @@
  */
 
 import path from "path";
-import { ipcRenderer } from "electron";
-
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 function getStaticPath() {
-  // The `__static` global doesn't match what it should in development.
-  // Instead, it includes an unexpected `node_modules` path, specifically:
-  // node_modules/electron/dist/Electron.app/Contents/Resources/static
-  if (isDevelopment) {
-    return "static";
-  } else {
-    return path.join("..", "..", "..", "..", "static");
-  }
+  return "static";
 }
 
 function getFilesystemPathForStaticAsset(asset) {
-  if (isDevelopment) {
-    return path.join(getStaticPath(), asset);
-  } else {
-    return path.join(__dirname, getStaticPath(), asset);
-  }
+  return path.join(getStaticPath(), asset);
 }
 
-export { isDevelopment, getFilesystemPathForStaticAsset };
+export { getFilesystemPathForStaticAsset };

@@ -16,10 +16,9 @@
  */
 
 import i18n from "i18next";
-import LanguageDetector from "i18next-electron-language-detector";
 import { initReactI18next } from "react-i18next";
-import English from "./i18n/en";
-import Dutch from "./i18n/nl";
+import English from "@renderer/i18n/en";
+import Dutch from "@renderer/i18n/nl";
 
 const resources = {
   en: {
@@ -32,7 +31,6 @@ const resources = {
 
 i18n // eslint-disable-line import/no-named-as-default-member
   .use(initReactI18next)
-  .use(LanguageDetector)
   .init({
     react: {
       useSuspense: true,

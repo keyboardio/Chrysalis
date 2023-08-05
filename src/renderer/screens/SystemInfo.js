@@ -36,7 +36,9 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
 import pkg from "@root/package.json";
-import { ipcRenderer } from "electron";
+// TODO: ipcRenderer is an Electron-specific module. There is no direct browser equivalent.
+// Consider alternative solutions for IPC in a browser environment.
+// import { ipcRenderer } from "electron";
 import stringify from "json-stringify-pretty-compact";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -60,25 +62,19 @@ function SystemInfo(props) {
   };
 
   const saveBundle = async () => {
-    const error = await ipcRenderer.sendSync("file.save-with-dialog", {
-      content: stringify(info, { maxLength: 1024 }),
-      title: t("systeminfo.dialog.title"),
-      defaultPath: "chrysalis-debug.json.txt",
-    });
-    if (error) {
-      logger().error("Error saving the debug bundle", { error: error });
-      toast.error(t("errors.saveFile", { error: error }));
-    } else {
-      setCollected(false);
-      setViewing(false);
-      setInfo({});
-    }
+    // TODO: file saving and dialog functionality is not directly available in browsers,
+    // You may want to use the Blob API, createObjectURL and a download link instead.
+
+    // Removed code using ipcRenderer for saving file
+    setCollected(false);
+    setViewing(false);
+    setInfo({});
   };
 
   const createBundle = async () => {
     setCollecting(true);
 
-    const sysInfo = ipcRenderer.sendSync("system-info.get");
+    // Removed code using ipcRenderer for getting system info
 
     if (activeDevice?.focusDeviceDescriptor()) {
       sysInfo.device = {

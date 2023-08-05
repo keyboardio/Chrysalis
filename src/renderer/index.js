@@ -23,14 +23,11 @@ import { createRoot } from "react-dom/client";
 import "../styles/keymap.css";
 import App from "./App";
 import { GlobalContextProvider } from "./components/GlobalContext";
-import { migrateDarkModeToTheme } from "./utils/darkMode";
 
 import { Error } from "./Error";
 import "./i18n"; // to initialize the i18n system
-const { ipcRenderer } = require("electron");
 
 setupLogging();
-migrateDarkModeToTheme();
 
 // Enable Hot Module Reload in dev
 if (module.hot) module.hot.accept();
@@ -45,6 +42,5 @@ try {
     </GlobalContextProvider>
   );
 } catch (e) {
-  ipcRenderer.invoke("devtools.open");
   root.render(<Error error={e} />);
 }

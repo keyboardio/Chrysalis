@@ -22,7 +22,7 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { useTranslation } from "react-i18next";
 
-const Store = require("electron-store");
+const Store = require("@renderer/localStore");
 const settings = new Store();
 
 const FirmwareUpdateWarning = (props) => {

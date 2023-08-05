@@ -16,10 +16,8 @@
  */
 
 import React from "react";
-import { ipcRenderer } from "electron";
 
 const Error = () => {
-  ipcRenderer.invoke("devtools.open");
   return (
     <main>
       <h1>An error occurred!</h1>

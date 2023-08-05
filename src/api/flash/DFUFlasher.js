@@ -16,7 +16,6 @@
 
 import { logger } from "@api/log";
 import { getFilesystemPathForStaticAsset } from "@renderer/config";
-import { spawn } from "child_process";
 import path from "path";
 
 import { reportUpdateStatus } from "./utils";
@@ -25,8 +24,8 @@ const runDFUError = {
   SOFT_FAIL: 1,
   HARD_FAIL: 2,
 };
-
-const runDFUUtil = async (args) => {
+/*
+const runDFU = async (args) => {
   const dfuUtil = getFilesystemPathForStaticAsset(
     path.join("dfu-util", `${process.platform}-${process.arch}`, "dfu-util")
   );
@@ -72,12 +71,16 @@ const runDFUUtil = async (args) => {
   });
 };
 
+*/
+
 const formatDeviceUSBId = (desc) => {
   return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
 };
 
 const rebootToApplicationMode = async (port, device) => {
   logger("flash").debug("rebooting to application mode");
+  /* TODO
+
   try {
     await runDFUUtil([
       "--device",
@@ -91,6 +94,7 @@ const rebootToApplicationMode = async (port, device) => {
       throw e;
     }
   }
+  */
 };
 
 const flash = async (board, port, filename, options) => {
@@ -102,6 +106,8 @@ const flash = async (board, port, filename, options) => {
   const device = options.device;
 
   await reportUpdateStatus(callback)("flash");
+  /* TODO
+
   await runDFUUtil([
     "--device",
     formatDeviceUSBId(device.usb) +
@@ -114,6 +120,7 @@ const flash = async (board, port, filename, options) => {
     "--download",
     filename,
   ]);
+  */
 };
 
-export const DFUUtilFlasher = { rebootToApplicationMode, flash };
+export const DFUFlasher = { rebootToApplicationMode, flash };

@@ -19,17 +19,13 @@ import { FocusCommands } from "./flash/FocusCommands";
 import { delay, reportUpdateStatus } from "./flash/utils";
 
 import { AVRGirlFlasher } from "./flash/AVRGirlFlasher";
-import { DFUUtilFlasher } from "./flash/DFUUtilFlasher";
-import { DFUProgrammerFlasher } from "./flash/DFUProgrammerFlasher";
-import { TeensyFlasher } from "./flash/TeensyFlasher";
+import { DFUFlasher } from "./flash/DFUFlasher";
 
 const NOTIFICATION_THRESHOLD = 5;
 
 export const flashers = {
   avr109: AVRGirlFlasher,
-  dfuUtil: DFUUtilFlasher,
-  dfuProgrammer: DFUProgrammerFlasher,
-  teensy: TeensyFlasher,
+  dfu: DFUFlasher,
 };
 
 export const RebootMessage = {

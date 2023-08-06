@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import PreferenceSection from "./components/PreferenceSection";
 import PreferenceSwitch from "./components/PreferenceSwitch";
 
-const Store = require("@renderer/localStore");
+import { Store } from "@renderer/localStore";
 const settings = new Store();
 
 import Focus from "@api/focus";

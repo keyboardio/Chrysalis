@@ -49,7 +49,7 @@ import SystemInfo from "./screens/SystemInfo";
 
 // import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
 
-const Store = require("@renderer/localStore");
+import { Store } from "@renderer/localStore";
 const settings = new Store();
 
 const App = (props) => {

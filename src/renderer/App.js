@@ -176,6 +176,7 @@ const App = (props) => {
   };
 
   const onKeyboardConnect = async (port) => {
+    console.log(port);
     focus.close();
     if (!port.path) {
       setConnected(true);

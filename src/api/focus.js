@@ -350,37 +350,8 @@ class Focus {
   }
 
   async open(device_identifier, info) {
-    if (typeof device_identifier == "string") {
-      if (!info) throw new Error("Device descriptor argument is mandatory");
-      this._port = new SerialPort({
-        path: device_identifier,
-        baudRate: 9600,
-        autoOpen: false,
-      });
-      try {
-        await this._port.open();
-      } catch (error) {
-        logger("focus").error("Error opening serial port", { error });
-        delete this._port;
-        throw new Error("Unable to connect");
-      }
-    } else if (typeof device_identifier == "object") {
-      if (device_identifier.hasOwnProperty("binding")) {
-        if (!info) throw new Error("Device descriptor argument is mandatory");
-        this._port = device_identifier;
-      } else {
-        const devices = await this.find(device_identifier);
-        if (devices && devices.length >= 1) {
-          this._port = new SerialPort({
-            path: devices[0].path,
-            baudRate: 9600,
-          });
-        }
-        info = device_identifier;
-      }
-    } else {
-      throw new Error("Invalid argument");
-    }
+    this._port = device_identifier;
+    if (!info) throw new Error("Device descriptor argument is mandatory");
 
     this.focusDeviceDescriptor = info;
     this._parser = this._port.pipe(new FocusParser({ interval: this.timeout }));

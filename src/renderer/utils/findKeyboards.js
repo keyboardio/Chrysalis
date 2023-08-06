@@ -18,68 +18,20 @@ import Focus from "@api/focus";
 import { logger } from "@api/log";
 import Hardware from "@api/hardware";
 
-const findNonSerialKeyboards = async (deviceList) => {
-  const connected = false; // (  await ipcRenderer.invoke("usb.scan-for-devices")).map( (device) => device.deviceDescriptor );
-
-  for (const device of connected) {
-    const dVid = device.idVendor,
-      dPid = device.idProduct;
-
-    for (const hw of Hardware.nonSerial) {
-      let found = false;
-      let bootloader = false;
-      if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
-        found = true;
-      } else if (
-        dVid == hw.usb.bootloader?.vendorId &&
-        dPid == hw.usb.bootloader?.productId
-      ) {
-        found = true;
-        bootloader = true;
-      }
-      if (!found) continue;
-
-      if (
-        !deviceList.some((d) => {
-          const usb = d.focusDeviceDescriptor.usb;
-          return usb.vendorId == dVid && usb.productId == dPid;
-        })
-      ) {
-        deviceList.push({
-          accessible: true,
-          focusDeviceDescriptor: Object.assign({}, hw, { bootloader }),
-        });
-      }
-    }
-  }
-  return deviceList;
-};
-
 export const findKeyboards = async () => {
-  const focus = new Focus();
+  const filters = [
+    { usbVendorId: 0x3496, usbProductId: 0x0006 },
+    { usbVendorId: 0x1209, usbProductId: 0x2301 },
+    { usbVendorId: 0x1209, usbProductId: 0x2303 },
+  ];
 
-  return new Promise((resolve) => {
-    focus
-      .find(...Hardware.serial)
-      .then(async (devices) => {
-        const supported_devices = [];
-        for (const device of devices) {
-          device.accessible = await focus.isDeviceAccessible(device);
-          if (device.accessible && (await focus.isDeviceSupported(device))) {
-            supported_devices.push(device);
-          } else if (!device.accessible) {
-            supported_devices.push(device);
-          }
-        }
-        const list = await findNonSerialKeyboards(supported_devices);
-        resolve(list);
-      })
-      .catch(async (e) => {
-        logger().warn("(non-fatal) error while finding keyboards", {
-          error: e,
-        });
-        const list = await findNonSerialKeyboards([]);
-        resolve(list);
-      });
-  });
+  let serialPort;
+
+  const openPort = async () => {
+    serialPort = await navigator.serial.requestPort({ filters });
+    // Wait for the serial port to open.
+    await serialPort.open({ baudRate: 9600 });
+  };
+  await openPort();
+  return serialPort;
 };

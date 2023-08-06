@@ -54,6 +54,7 @@ const KeyboardSelect = (props) => {
 
   const scanDevices = async () => {
     setLoading(true);
+    console.log("scanDevices");
     const deviceList = await findKeyboards();
     if (!focus._port && deviceList.length == 1 && tryAutoConnect) {
       logger().verbose("Attempting to auto-connect", {
@@ -85,19 +86,6 @@ const KeyboardSelect = (props) => {
     // Run every 5s.
     scanDevices();
   }, 5000);
-
-  useEffectOnce(() => {
-    scanDevices().then((deviceList) => {
-      for (const device of deviceList) {
-        if (!device.path) continue;
-        activeDevice?.devicePath().then((path) => {
-          if (path == device.path) {
-            setSelectedPortIndex(deviceList.indexOf(device));
-          }
-        });
-      }
-    });
-  });
 
   useEffect(() => {
     // TODO ipcRenderer.on("usb.device-connected", scanDevices);

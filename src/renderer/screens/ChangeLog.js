@@ -20,7 +20,7 @@ const ChangeLog = (props) => {
 
   useEffect(() => {
     // Assuming you have the absolute path for the file, replace it accordingly
-    const changelogFile = "/NEWS.md";
+    const changelogFile = "/assets/NEWS.md";
 
     fetch(changelogFile)
       .then((response) => response.text())

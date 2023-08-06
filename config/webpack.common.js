@@ -52,6 +52,11 @@ module.exports = {
     // Removes/cleans build folders and unused assets when rebuilding
     new CleanWebpackPlugin(),
 
+          new CopyWebpackPlugin({
+              patterns:[
+      { from: 'NEWS.md', to: 'assets' },
+    ]}),
+
     // Copies files from target to destination folder
     new CopyWebpackPlugin({
       patterns: [

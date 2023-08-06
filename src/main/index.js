@@ -75,7 +75,7 @@ async function createMainWindow() {
     minWidth: 800,
     minHeight: 600,
     resizable: true,
-    icon: path.join(__dirname, "..", "..", "static", "logo.png"),
+    icon: path.join(__dirname, "..", "..", "public", "logo.png"),
     autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,

@@ -17,12 +17,8 @@
 
 import path from "path";
 
-function getStaticPath() {
-  return "static";
-}
-
 function getFilesystemPathForStaticAsset(asset) {
-  return path.join(getStaticPath(), asset);
+  return path.join("public", asset);
 }
 
 export { getFilesystemPathForStaticAsset };

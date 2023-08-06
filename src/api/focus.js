@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { SerialPort } = eval(`require("serialport")`);
-
 import stream from "stream";
 
 import { logger } from "@api/log";
@@ -89,7 +87,7 @@ class FocusParser extends stream.Transform {
   _flush(cb) {
     this.push(this.buffer);
     this.buffer = Buffer.alloc(0);
-    cb;
+    cb();
   }
 }
 

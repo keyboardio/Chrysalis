@@ -20,16 +20,19 @@ module.exports = {
   resolve: {
     //extensions: [".js", ".jsx", "json"],
     fallback: {
-      util: require.resolve("util/"),
-      path: require.resolve("path-browserify"),
-      os: require.resolve("os-browserify/browser"),
+      "path": false,
+      "fs": false,
+      "os": false,
+      "util": false,
+      "assert": false,
+      "crypto": false,
       stream: require.resolve("stream-browserify"),
+      "constants": false,
+      "buffer": false,
       https: require.resolve("https-browserify"),
       http: require.resolve("stream-http"),
       zlib: require.resolve("browserify-zlib"),
-      assert: require.resolve("assert/"),
-      crypto: require.resolve("crypto-browserify"),
-      url: require.resolve("url/"),
+      url: require.resolve("url/")
     },
     alias: {
       "@api": path.resolve(__dirname, "../src/api"),
@@ -78,12 +81,10 @@ module.exports = {
       // JavaScript: Use Babel to transpile JavaScript files
         {
     test: /\.jsx?$/,
+              exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
-      options: {
-        exclude: /node_modules/,
-        presets: ['@babel/preset-react']
-      }
+
     }
   },
 

@@ -9,7 +9,7 @@ export const loadLayout = async (fileName) => {
   let fileData;
 
   try {
-    const response = await fetch(`/static/${fileName}`);
+    const response = await fetch(`/public/${fileName}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

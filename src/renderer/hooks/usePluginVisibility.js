@@ -17,7 +17,7 @@
 import { useEffect, useContext, useState } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
-const Store = require("@renderer/localStore");
+import { Store } from "@renderer/localStore";
 const settings = new Store();
 
 export default function usePluginVisibility(plugin) {

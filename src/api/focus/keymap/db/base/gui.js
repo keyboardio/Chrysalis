@@ -37,7 +37,7 @@ const GuiLabels = {
   },
 };
 
-const GuiLabel = GuiLabels[process.platform] || GuiLabels.default;
+const GuiLabel = GuiLabels.default; // TODO: GuiLabels[process.platform] || GuiLabels.default;
 const GuiShortLabel = GuiLabel.short;
 
 export { GuiLabel, GuiShortLabel };

@@ -21,7 +21,6 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { getFilesystemPathForStaticAsset } from "@renderer/config";
-import fs from "fs";
 import path from "path";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,6 +55,8 @@ export const LibraryImport = (props) => {
 
   const findAvailableLayouts = () => {
     const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
+    return [];
+    /*
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutDirPath = getFilesystemPathForStaticAsset(
@@ -73,6 +74,7 @@ export const LibraryImport = (props) => {
     } catch (_) {
       return [];
     }
+    */
   };
 
   const library = findAvailableLayouts();

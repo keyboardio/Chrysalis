@@ -15,8 +15,8 @@
  */
 
 import { logger } from "@api/log";
-const { SerialPort } = eval(`require("serialport")`);
-const AvrGirl = eval(`require("avrgirl-arduino")`);
+//import { SerialPort } from "serialport";
+import AvrGirl from "avrgirl-arduino";
 import { reportUpdateStatus } from "./utils";
 
 const rebootToApplicationMode = async (port, _) => {
@@ -29,10 +29,10 @@ const rebootToApplicationMode = async (port, _) => {
   // Reference: https://ww1.microchip.com/downloads/en/AppNotes/doc1644.pdf, page 9
 
   try {
-    const serial = new SerialPort({
+    const serial = {}; /* = new SerialPort({
       path: port.path,
       baudRate: 9600,
-    });
+    });*/
     serial.write("E");
   } catch (e) {
     logger("flash").error("error while trying to reboot to application mode", {

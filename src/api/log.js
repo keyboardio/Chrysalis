@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 const Store = require("@renderer/localStore");
 
 export const setupLogging = async () => {};

@@ -14,10 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import stream from "stream";
-
-import { logger } from "@api/log";
-
 import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
@@ -25,71 +21,9 @@ import LayerNames from "./focus/layernames";
 
 global.chrysalis_focus_instance = null;
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-class FocusParser extends stream.Transform {
-  constructor({ interval, ...transformOptions }) {
-    super(transformOptions);
-
-    if (!interval) {
-      throw new TypeError('"interval" is required');
-    }
-
-    if (typeof interval !== "number" || Number.isNaN(interval)) {
-      throw new TypeError('"interval" is not a number');
-    }
-
-    if (interval < 1) {
-      throw new TypeError('"interval" is not greater than 0');
-    }
-
-    this.interval = interval;
-    this.stopSignal = Buffer.from("\r\n.\r\n");
-    this.buffer = Buffer.alloc(0);
-  }
-
-  startTimer() {
-    this.endTimer();
-    this.timerId = setTimeout(() => {
-      this.emit("timeout");
-    }, this.interval);
-  }
-
-  endTimer() {
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-      this.timerId = null;
-    }
-  }
-
-  _transform(chunk, encoding, cb) {
-    this.endTimer();
-
-    let data = Buffer.concat([this.buffer, chunk]);
-    let position;
-    while ((position = data.indexOf(this.stopSignal)) !== -1) {
-      const pushData = data.slice(0, position);
-      if (pushData.length == 0) {
-        this.push(".");
-      } else {
-        this.push(pushData);
-      }
-      data = data.slice(position + this.stopSignal.length);
-    }
-    this.buffer = data;
-
-    if (this.buffer.length != 0) {
-      this.startTimer();
-    }
-    cb();
-  }
-
-  _flush(cb) {
-    this.push(this.buffer);
-    this.buffer = Buffer.alloc(0);
-    cb();
-  }
-}
+import { logger } from "@api/log";
 
 class Focus {
   constructor() {
@@ -113,7 +47,8 @@ class Focus {
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
-    const portList = await SerialPort.list();
+    const portList = await navigator.serial.getPorts();
+
     logger("focus").debug("serial port list obtained", {
       portList: portList,
       device: usbInfo,
@@ -154,13 +89,7 @@ class Focus {
   async checkNonSerialBootloader(focusDeviceDescriptor) {
     const bootloader = focusDeviceDescriptor.usb.bootloader;
 
-    const deviceList = []; /* TODO
-    await ipcRenderer.invoke(
-      "usb.scan-for-devices",
-      bootloader.productId,
-      bootloader.vendorId
-    );
-    */
+    const deviceList = navigator.usb.getDevices();
 
     for (const device of deviceList) {
       const pid = device.deviceDescriptor.idProduct,
@@ -279,8 +208,9 @@ class Focus {
   }
 
   async find(...device_descriptors) {
-    const portList = await SerialPort.list();
+    const portList = await navigator.serial.getPorts();
 
+    console.log("portList", portList);
     const found_devices = [];
 
     logger("focus").debug("serial port list obtained", {
@@ -354,75 +284,13 @@ class Focus {
     if (!info) throw new Error("Device descriptor argument is mandatory");
 
     this.focusDeviceDescriptor = info;
-    this._parser = this._port.pipe(new FocusParser({ interval: this.timeout }));
-
-    this.callbacks = [];
-    this._parser.on("data", (data) => {
-      data = data.toString("utf-8");
-      logger("focus").debug("incoming data", { data: data });
-
-      /*
-       * Chrysalis tries its best to serialize requests and responses, but under
-       * some circumstances (more on that later), we can end up with receiving
-       * data out of band. When that happened, and we did not have a callback
-       * set - which we didn't -, then our `data` event handler ended up
-       * erroring, which bubbled up as an unhandled exception.
-       *
-       * This was most noticeable when upgrading a 0.10.4 (or earlier) firmware
-       * on a Keyboardio Atreus to 0.11 or later. We dropped one layer in 0.11,
-       * so when upgrading and restoring layers, Chrysalis sent a 480 item
-       * keymap to the firmware, but the firmware replied with a `.` after 432
-       * items. This - for reasons I do not understand at this time - resulted
-       * in Chrysalis emitting a number empty responses, not just one, thus,
-       * triggering the scenario where we were missing callbacks.
-       *
-       * In this particular scenario, dropping the data is fine, the keyboard
-       * does the right thing, and once we have a callback, things will line up
-       * again, and we're all good. I have not found another way to trigger the
-       * issue, so I believe that this workaround is safe, but Chrysalis will
-       * log it nevertheless, so if it ends up causing issues later, we'll know.
-       *
-       * TODO(anyone): Figure out *why* we receive multiple end of data markers,
-       * and fix the root cause.
-       */
-      if (this.callbacks.length == 0) {
-        logger("focus").warn(
-          "Input received while no callbacks are present. Discarding.",
-          { data }
-        );
-        return;
-      }
-      const [resolve] = this.callbacks.shift();
-      this._parser.endTimer();
-      if (data == ".") {
-        resolve();
-      } else {
-        resolve(data.trim());
-      }
-    });
-    this._parser.on("timeout", () => {
-      while (this.callbacks.length > 0) {
-        const [_, reject] = this.callbacks.shift();
-        reject("Communication timeout");
-      }
-      this.close();
-    });
-    this._port.on("close", (error) => {
-      if (this._parser) {
-        this._parser.endTimer();
-      }
-      while (this.callbacks.length > 0) {
-        const [_, reject] = this.callbacks.shift();
-        reject("Device disconnected");
-      }
-    });
 
     this.resetDeviceState();
     return this._port;
   }
 
   close() {
-    if (this._port && this._port.isOpen) {
+    if (this.isDeviceAccessible(this._port)) {
       this._port.close();
     }
     this._port = null;
@@ -432,8 +300,10 @@ class Focus {
   }
 
   async isDeviceAccessible(port) {
-    return true;
-    // TODO
+    if (port?.readable && port?.writable) {
+      return true;
+    }
+    return false; // TODO
   }
 
   async isDeviceSupported(port) {
@@ -462,13 +332,6 @@ class Focus {
     return this._plugins;
   }
 
-  async _write_parts(request) {
-    for (let index = 0; index < request.length; index += 32) {
-      this._port.write(request.slice(index, index + 32));
-      await new Promise((timeout) => setTimeout(timeout, 50));
-    }
-  }
-
   request(cmd, ...args) {
     if (!this.isInApplicationMode()) return undefined;
 
@@ -495,31 +358,7 @@ class Focus {
       },
     });
 
-    return new Promise((resolve, reject) => {
-      this._request(cmd, ...args)
-        .then((data) => {
-          logger("focus").verbose("response", {
-            request: {
-              id: rid,
-              command: cmd,
-              args: args,
-            },
-            response: data,
-          });
-          resolve(data);
-        })
-        .catch((error) => {
-          logger("focus").error("request timed out", {
-            request: {
-              id: rid,
-              command: cmd,
-              args: args,
-            },
-            error: error,
-          });
-          reject("Communication timeout");
-        });
-    });
+    return this._request(cmd, ...args);
   }
 
   async _request(cmd, ...args) {
@@ -533,26 +372,44 @@ class Focus {
 
     // TODO(anyone): This is a temporary measure until #985 gets fixed.
     await delay(250);
+    console.log("Making a request", request);
+    // Send a line of text
+    const encoder = new TextEncoder();
+    const writer = this._port.writable.getWriter();
+    const data = encoder.encode(request); // Add the line you want to send here
+    await writer.write(data);
+    writer.releaseLock();
+    console.log("Request sent");
 
-    return new Promise((resolve, reject) => {
-      this._parser.startTimer();
-      this.callbacks.push([resolve, reject]);
-      if (this.chunked_writes) {
-        /*
-         * For (mostly, hopefully) historical reasons, we default to writing
-         * data to the keyboard in 32-byte chunks, for two reasons: as a
-         * workaround for early Model 100 firmware that had problems accepting
-         * larger sets of data, and as a workaround for a protocol desync issue
-         * that we only ever saw on macOS, and never found the root cause of.
-         *
-         * Until we know better, that's still the default, and this chunking is
-         * what we do here.
-         */
-        this._write_parts(request);
-      } else {
-        this._port.write(request);
+    // Read the response up to a single line containing only a .
+    let response = "";
+    const decoder = new TextDecoder();
+    while (this._port.readable) {
+      const reader = this._port.readable.getReader();
+      try {
+        /*eslint no-constant-condition: ["error", { "checkLoops": false }]*/
+
+        while (true) {
+          console.log("About to read");
+          const { value, done } = await reader.read();
+          console.log("Got value", value, "done", done, "response", response);
+          console.log("Decoded value is ", decoder.decode(value));
+          if (done) break;
+          response += decoder.decode(value);
+          if (response.endsWith("\r\n.\r\n")) {
+            console.log("It ended with what we wanted");
+            break;
+          }
+        }
+      } catch (error) {
+        console.log("Error", error);
+        // Handle |error|...
+      } finally {
+        reader.releaseLock();
       }
-    });
+      console.log("Returning response", response);
+      return response;
+    }
   }
 
   async command(cmd, ...args) {

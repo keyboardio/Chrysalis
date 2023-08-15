@@ -27,9 +27,11 @@ import { BreakingNews } from "@renderer/components/BreakingNews";
 export const Firmware0_90_1 = (props) => {
   const { t } = useTranslation();
   const trn = (key) => t(`breakingNews.firmware0_90_1.${key}`);
+  console.log(props);
+  console.log(props?.devices);
 
   const hasModel100 = props?.devices?.some((device) => {
-    const info = device.focusDeviceDescriptor?.info;
+    const info = device?.focusDeviceDescriptor?.info;
 
     return info?.vendor == "Keyboardio" && info?.product == "Model100";
   });

@@ -26,21 +26,16 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import logo from "@renderer/logo-small.png";
 import { findKeyboards } from "@renderer/utils/findKeyboards";
-import { useInterval } from "@renderer/utils/useInterval";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
-import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 
 import { Firmware0_90_1 } from "@renderer/breaking-news";
 
 const KeyboardSelect = (props) => {
-  const [selectedPortIndex, setSelectedPortIndex] = useState(0);
-
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
@@ -55,37 +50,14 @@ const KeyboardSelect = (props) => {
   const scanDevices = async () => {
     setLoading(true);
     console.log("scanDevices");
-    const deviceList = await findKeyboards();
-    if (!focus._port && deviceList.length == 1 && tryAutoConnect) {
-      logger().verbose("Attempting to auto-connect", {
-        device: deviceList[0],
-      });
-      try {
-        await props.onConnect(deviceList[0]);
-      } catch (err) {
-        logger().error("Error while auto-connecting", {
-          error: err,
-          device: deviceList[0],
-        });
-        setOpening(false);
-        toast.error(err.toString());
-      }
-    } else {
-      setDevices(deviceList);
-      setLoading(false);
-    }
-    return deviceList;
+    const device = await findKeyboards();
+    props.onConnect(device);
   };
 
   const onDisconnect = () => {
     setTryAutoConnect(false);
     props.onDisconnect();
   };
-
-  useInterval(() => {
-    // Run every 5s.
-    scanDevices();
-  }, 5000);
 
   useEffect(() => {
     // TODO ipcRenderer.on("usb.device-connected", scanDevices);
@@ -98,26 +70,20 @@ const KeyboardSelect = (props) => {
     };
   });
 
-  const selectPort = (event) => {
-    setSelectedPortIndex(event.target.value);
-  };
-
   const onKeyboardConnect = async () => {
     setOpening(true);
 
     try {
-      await props.onConnect(devices?.[selectedPortIndex]);
+      await scanDevices();
     } catch (err) {
       logger().error("error while trying to connect", {
         error: err,
-        device: devices?.[selectedPortIndex],
+        device: activeDevice,
       });
       setOpening(false);
       toast.error(err.toString());
     }
   };
-
-  const selectedDevicePort = devices?.[selectedPortIndex];
 
   return (
     <React.Fragment>
@@ -154,38 +120,25 @@ const KeyboardSelect = (props) => {
               px: 4,
             }}
           >
-            {selectedDevicePort ? (
+            {focus.focusDeviceDescriptor ? (
               <DeviceImage
-                focusDeviceDescriptor={
-                  selectedDevicePort?.focusDeviceDescriptor
-                }
+                focusDeviceDescriptor={focus.focusDeviceDescriptor}
               />
             ) : (
               <Grid container justifyContent="center">
                 <img src={logo} alt={t("components.logo.altText")} />
               </Grid>
             )}
-
-            <KeyboardPortSelector
-              devices={devices}
-              selectedPortIndex={selectedPortIndex}
-              selectPort={selectPort}
-            />
           </CardContent>
           <CardActions sx={{ justifyContent: "center", pt: 2, pb: 3 }}>
             <ConnectionButton
-              disabled={
-                (selectedDevicePort ? !selectedDevicePort.accessible : false) ||
-                opening ||
-                devices?.length == 0
-              }
+              disabled={opening}
               connected={
                 focus.focusDeviceDescriptor &&
-                selectedDevicePort?.focusDeviceDescriptor ==
+                activeDevice?.focusDeviceDescriptor ==
                   focus.focusDeviceDescriptor
               }
               opening={opening}
-              devices={devices}
               onKeyboardConnect={onKeyboardConnect}
               onKeyboardDisconnect={props.onDisconnect}
             />

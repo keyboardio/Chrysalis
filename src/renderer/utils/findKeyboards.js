@@ -30,8 +30,42 @@ export const findKeyboards = async () => {
   const openPort = async () => {
     serialPort = await navigator.serial.requestPort({ filters });
     // Wait for the serial port to open.
+    if (serialPort.readable && serialPort.writable) {
+      await serialPort.close();
+    }
     await serialPort.open({ baudRate: 9600 });
   };
+
   await openPort();
-  return serialPort;
+  const info = serialPort.getInfo();
+
+  const dVid = info.usbVendorId;
+  const dPid = info.usbProductId;
+
+  const focus = new Focus();
+
+  for (const hw of (Hardware.nonSerial, Hardware.serial)) {
+    console.log("Hardware is", hw);
+    let found = false;
+    let bootloader = false;
+    if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
+      found = true;
+      console.log("Found a keyboard", hw);
+      focus.open(serialPort, hw);
+    } else if (
+      dVid == hw.usb.bootloader?.vendorId &&
+      dPid == hw.usb.bootloader?.productId
+    ) {
+      found = true;
+      bootloader = true;
+      console.log("Found a bootloader keyboard", hw);
+
+      focus.open(serialPort, hw);
+    }
+    if (!found) continue;
+  }
+
+  console.log(serialPort.getInfo());
+  console.log(focus);
+  return focus.focusDeviceDescriptor;
 };

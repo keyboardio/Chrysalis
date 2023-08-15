@@ -47,8 +47,6 @@ import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
 
-// import { useFirmwareAutoUpdate } from "./hooks/useFirmwareAutoUpdate";
-
 import { Store } from "@renderer/localStore";
 const settings = new Store();
 
@@ -110,17 +108,6 @@ const App = (props) => {
     setTheme("system");
   };
 
-  const handlePrintFeedback = (event, feedback) => {
-    logger().debug("print feedback received", { feedback });
-    if (feedback === "success") {
-      toast.success(t("print.feedback.success"), {
-        autoHideDuration: 5000,
-      });
-    } else if (feedback !== "canceled") {
-      toast.error(t("print.feedback.error"));
-    }
-  };
-
   useEffect(() => {
     async function setupLayout() {
       const layoutSetting = await settings.get(
@@ -139,7 +126,7 @@ const App = (props) => {
     //    ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
 
     setTheme(settings.get("ui.theme", "system"));
-
+    navigate("/keyboard-select");
     // Specify how to clean up after this effect:
     return function cleanup() {
       //    ipcRenderer.removeListener(        "usb.device-disconnected",        handleDeviceDisconnect      );
@@ -176,19 +163,24 @@ const App = (props) => {
   };
 
   const onKeyboardConnect = async (port) => {
+    console.log("in onKeyboardConnect");
+    if (port === null) {
+      return false;
+    }
     console.log(port);
-    focus.close();
-    if (!port.path) {
+    if (port?.focusDeviceDescriptor) {
+      console.log("connected");
       setConnected(true);
       setFocusDeviceDescriptor(port.focusDeviceDescriptor);
       i18n.refreshHardware(port.focusDeviceDescriptor);
 
       await navigate("/focus-not-detected");
       return false;
+    } else {
+      console.log("not connected");
     }
 
-    logger().info("Connecting to port", { path: port.path });
-    await focus.open(port.path, port.focusDeviceDescriptor);
+    logger().info("Connecting to port", { port: port });
 
     // TODO: I'm not quite sure how to set activeDevice in a way that
     // I can access it in this context, since activeDevice is const
@@ -197,7 +189,7 @@ const App = (props) => {
 
     newActiveDevice.chunked_writes(settings.get("focus.chunked_writes", true));
 
-    if (!port.focusDeviceDescriptor.bootloader) {
+    if (!port.focusDeviceDescriptor?.bootloader) {
       logger().info("Probing for focus support...");
       focus.setLayerSize(focus.focusDeviceDescriptor);
     }
@@ -205,7 +197,7 @@ const App = (props) => {
     i18n.refreshHardware(port.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
 
-    if (!port.focusDeviceDescriptor.bootloader) {
+    if (!port.focusDeviceDescriptor?.bootloader) {
       await newActiveDevice.loadConfigFromDevice();
     }
     setConnected(true);

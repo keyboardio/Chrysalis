@@ -285,6 +285,7 @@ const Editor = (props) => {
     try {
       let deviceKeymap = await activeDevice.keymap();
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
+      console.log(deviceKeymap);
       const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
@@ -293,26 +294,33 @@ const Editor = (props) => {
 
       const deviceMacros = await activeDevice.macros();
       setMacros(deviceMacros);
-
       const defLayer = await activeDevice.defaultLayer();
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
 
-      const deviceLayerNames = await activeDevice.layernames();
-      if (deviceLayerNames) {
-        // We set up default names for the layers here, so that they're easily
-        // editable, without having to keep track of whether it is a default
-        // name we're editing, or a custom one.
-        const names = Array(deviceKeymap.custom.length)
-          .fill()
-          .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
-        setLayerNames({
-          storageSize: deviceLayerNames.storageSize,
-          names: names,
-        });
-      }
+      await loadLayerNames(deviceKeymap);
     } catch (e) {
       toast.error(e);
+      logger("editor").error("Error scanning keyboard. Disconnecting.", {
+        error: e,
+      });
       props.onDisconnect();
+    }
+  };
+
+  const loadLayerNames = async (deviceKeymap) => {
+    const deviceLayerNames = await activeDevice.layernames();
+
+    if (deviceLayerNames) {
+      // We set up default names for the layers here, so that they're easily
+      // editable, without having to keep track of whether it is a default
+      // name we're editing, or a custom one.
+      const names = Array(deviceKeymap.custom.length)
+        .fill()
+        .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
+      setLayerNames({
+        storageSize: deviceLayerNames.storageSize,
+        names: names,
+      });
     }
   };
 

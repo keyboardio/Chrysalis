@@ -24,8 +24,8 @@ export const ConnectionButton = (props) => {
   const disabled = props.disabled;
   const opening = props.opening;
   const connected = props.connected;
-  const onKeyboardConnect = props.onKeyboardConnect;
-  const onKeyboardDisconnect = props.onKeyboardDisconnect;
+  const connectKeyboard = props.connectKeyboard;
+  const disconnectKeyboard = props.disconnectKeyboard;
 
   const { t } = useTranslation();
   if (connected) {
@@ -34,7 +34,7 @@ export const ConnectionButton = (props) => {
         disabled={disabled}
         variant="outlined"
         color="secondary"
-        onClick={onKeyboardDisconnect}
+        onClick={disconnectKeyboard}
         sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
         {t("keyboardSelect.disconnect")}
@@ -46,7 +46,7 @@ export const ConnectionButton = (props) => {
         disabled={disabled}
         variant="contained"
         color="primary"
-        onClick={onKeyboardConnect}
+        onClick={connectKeyboard}
         sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
         {opening ? (

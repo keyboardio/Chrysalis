@@ -29,8 +29,10 @@ export default class LayerNames {
     const data = await s.request("keymap.layerNames");
     if (!data) return { storageSize: 0, names: [] };
 
-    const names = data.split(/\n/).map((x) => x.split(/^(\d+) /).slice(1));
+    const lines = data.split(/\r?\n/);
+    const names = lines.map((x) => x.split(/^(\d+) /).slice(1));
     const storageSize = names.pop()[1].split(/=/).pop();
+
     return {
       storageSize: parseInt(storageSize),
       names: names.map((x) => x[1]),
@@ -54,7 +56,6 @@ export default class LayerNames {
     if (!data) {
       return this._pull(s);
     }
-
     return this._push(s, data);
   }
 }

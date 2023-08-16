@@ -20,8 +20,6 @@ import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
-import { getFilesystemPathForStaticAsset } from "@renderer/config";
-import path from "path";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -41,10 +39,7 @@ export const LibraryImport = (props) => {
     const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
-    const layoutPath = (layout) =>
-      getFilesystemPathForStaticAsset(
-        path.join(cVendor, cProduct, `layouts/${layout}.json`)
-      );
+    const layoutPath = `${cVendor}/${cProduct}/layouts/${layout}.json`;
 
     const layoutData = loadLayout(layoutPath(layoutName));
 
@@ -56,12 +51,11 @@ export const LibraryImport = (props) => {
   const findAvailableLayouts = () => {
     const { vendor, product } = activeDevice.focusDeviceDescriptor().info;
     return [];
-    /*
+    /* TODO: Fix this
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
-    const layoutDirPath = getFilesystemPathForStaticAsset(
-      path.join(cVendor, cProduct, "layouts")
-    );
+        const layoutPath Dir= `${cVendor}/${cProduct}/layouts/`;
+
 
     try {
       const layouts = fs

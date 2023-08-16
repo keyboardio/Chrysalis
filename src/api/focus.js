@@ -18,12 +18,11 @@ import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
+import { logger } from "@api/log";
 
 global.chrysalis_focus_instance = null;
 
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-import { logger } from "@api/log";
 
 class Focus {
   constructor() {
@@ -36,6 +35,8 @@ class Focus {
       this.resetDeviceState();
       this._request_id = 0;
       this.chunked_writes = true;
+      this._requestQueue = [];
+      this._processingRequest = false;
     }
 
     return global.chrysalis_focus_instance;
@@ -44,6 +45,8 @@ class Focus {
   resetDeviceState() {
     this._supported_commands = [];
     this._plugins = [];
+    this._requestQueue = [];
+    this._processingRequest = false;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
@@ -290,7 +293,7 @@ class Focus {
   }
 
   close() {
-    if (this.isDeviceAccessible(this._port)) {
+    if (this._port !== null && this.isDeviceAccessible(this._port)) {
       this._port.close();
     }
     this._port = null;
@@ -361,7 +364,32 @@ class Focus {
     return this._request(cmd, ...args);
   }
 
-  async _request(cmd, ...args) {
+  async _processQueue() {
+    if (this._processingRequest || this._requestQueue.length === 0) return;
+
+    this._processingRequest = true;
+
+    const { cmd, args, resolve } = this._requestQueue.shift();
+
+    try {
+      const response = await this._sendRequest(cmd, args);
+      resolve(response);
+    } catch (error) {
+      console.log("Error", error);
+    } finally {
+      this._processingRequest = false;
+      this._processQueue(); // Check if there are more requests to process
+    }
+  }
+
+  _request(cmd, ...args) {
+    return new Promise((resolve) => {
+      this._requestQueue.push({ cmd, args, resolve });
+      this._processQueue();
+    });
+  }
+
+  async _sendRequest(cmd, args) {
     if (!this._port) throw "Device not connected!";
 
     let request = cmd;
@@ -372,44 +400,46 @@ class Focus {
 
     // TODO(anyone): This is a temporary measure until #985 gets fixed.
     await delay(250);
-    console.log("Making a request", request);
+    logger("focus").debug("Making a request", request);
+
     // Send a line of text
     const encoder = new TextEncoder();
     const writer = this._port.writable.getWriter();
-    const data = encoder.encode(request); // Add the line you want to send here
+    const data = encoder.encode(request);
+    console.log("Gonna write data", request);
     await writer.write(data);
+    console.log("Data written");
     writer.releaseLock();
-    console.log("Request sent");
-
-    // Read the response up to a single line containing only a .
     let response = "";
-    const decoder = new TextDecoder();
-    while (this._port.readable) {
-      const reader = this._port.readable.getReader();
-      try {
-        /*eslint no-constant-condition: ["error", { "checkLoops": false }]*/
 
-        while (true) {
-          console.log("About to read");
-          const { value, done } = await reader.read();
-          console.log("Got value", value, "done", done, "response", response);
-          console.log("Decoded value is ", decoder.decode(value));
-          if (done) break;
+    console.log("Request sent");
+    // Read the response up to a single line containing only a .
+    const decoder = new TextDecoder();
+    const reader = this._port.readable.getReader();
+    try {
+      while (true) {
+        console.log("reading response");
+        const { value, done } = await reader.read();
+        if (value) {
+          //    console.log(decoder.decode(value));
           response += decoder.decode(value);
-          if (response.endsWith("\r\n.\r\n")) {
-            console.log("It ended with what we wanted");
-            break;
-          }
         }
-      } catch (error) {
-        console.log("Error", error);
-        // Handle |error|...
-      } finally {
-        reader.releaseLock();
+        if (done) break;
+
+        if (response.endsWith("\r\n.\r\n")) {
+          response = response.slice(0, -5); // Remove the trailing \r\n.\r\n
+          break;
+        }
       }
-      console.log("Returning response", response);
-      return response;
+    } finally {
+      console.log("Response", { data: response });
+      logger("focus").debug("Returning response", response);
+      reader.releaseLock();
     }
+
+    response = response.trim();
+    console.log("Returning response", { data: response });
+    return response; // Return the response string
   }
 
   async command(cmd, ...args) {

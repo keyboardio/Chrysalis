@@ -21,20 +21,22 @@ import Typography from "@mui/material/Typography";
 import openURL from "@renderer/utils/openURL";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { BreakingNews } from "@renderer/components/BreakingNews";
 
 export const Firmware0_90_1 = (props) => {
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
+
   const { t } = useTranslation();
   const trn = (key) => t(`breakingNews.firmware0_90_1.${key}`);
   console.log(props);
-  console.log(props?.devices);
+  console.log(activeDevice);
 
-  const hasModel100 = props?.devices?.some((device) => {
-    const info = device?.focusDeviceDescriptor?.info;
-
-    return info?.vendor == "Keyboardio" && info?.product == "Model100";
-  });
+  const hasModel100 =
+    activeDevice?.focusDeviceDescriptor?.info?.vendor == "Keyboardio" &&
+    activeDevice?.focusDeviceDescriptor?.info?.product == "Model100";
 
   if (!hasModel100) return null;
 

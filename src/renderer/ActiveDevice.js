@@ -28,10 +28,6 @@ export function ActiveDevice() {
 
   this.focus = new Focus();
 
-  this.devicePath = async () => {
-    return this.focus._port?.settings.path;
-  };
-
   this.plugins = async () => {
     return await this.focus.plugins();
   };
@@ -106,6 +102,7 @@ export function ActiveDevice() {
     if (newValue !== undefined) {
       if (isEqual(newValue, this._cache[command])) {
         // If the values are the same, don't bother sending it to the device.
+        console.log("Not sending a value that matches what's on the device");
         return cloneDeep(this._cache[command]);
       }
 
@@ -113,8 +110,14 @@ export function ActiveDevice() {
       delete this._cache[command];
     }
     if (!(command in this._cache)) {
+      console.log("fetching uncached value for " + command + " from device");
       this._cache[command] = await this.focus.command(command);
+      console.log("Got a value", [this._cache[command]]);
     }
+    console.log(
+      "Returning a cached value for " + command + ":",
+      this._cache[command]
+    );
     return cloneDeep(this._cache[command]);
   };
 
@@ -149,6 +152,7 @@ export function ActiveDevice() {
 
   Object.keys(cacheableFocusCommands).forEach((command) => {
     this[command] = async (newValue) => {
+      console.log("Inside " + command + " with " + newValue);
       return await this._cachedDeviceData(
         cacheableFocusCommands[command],
         newValue

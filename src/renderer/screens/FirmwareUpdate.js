@@ -28,13 +28,11 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import React, { useState, useContext } from "react";
 import Switch from "@mui/material/Switch";
-import path from "path";
 import { useTranslation } from "react-i18next";
 
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
@@ -76,9 +74,7 @@ const FirmwareUpdate = (props) => {
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return getFilesystemPathForStaticAsset(
-      path.join(cVendor, cProduct, "default." + firmwareType)
-    );
+    return cVendor + "/" + cProduct + "/default." + firmwareType;
   };
   const _flash = async (options, steps) => {
     const focus = new Focus();

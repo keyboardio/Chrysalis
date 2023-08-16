@@ -15,8 +15,6 @@
  */
 
 import { logger } from "@api/log";
-import { getFilesystemPathForStaticAsset } from "@renderer/config";
-import path from "path";
 
 import { reportUpdateStatus } from "./utils";
 
@@ -26,7 +24,7 @@ const runDFUError = {
 };
 /*
 const runDFU = async (args) => {
-  const dfuUtil = getFilesystemPathForStaticAsset(
+  const dfuUtil = (
     path.join("dfu-util", `${process.platform}-${process.arch}`, "dfu-util")
   );
 

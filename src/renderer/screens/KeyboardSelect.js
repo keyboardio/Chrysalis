@@ -27,7 +27,7 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
-import { findKeyboards } from "@renderer/utils/findKeyboards";
+import { connectToSerialport } from "@renderer/utils/connectToSerialport";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
@@ -39,7 +39,6 @@ const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
-  const [tryAutoConnect, setTryAutoConnect] = useState(false);
 
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
@@ -50,27 +49,16 @@ const KeyboardSelect = (props) => {
   const scanDevices = async () => {
     setLoading(true);
     console.log("scanDevices");
-    const device = await findKeyboards();
-    props.onConnect(device);
+    const focus = await connectToSerialport();
+    props.onConnect(focus);
+    console.log("Got a device - here's its focus object: ", focus);
   };
 
   const onDisconnect = () => {
-    setTryAutoConnect(false);
     props.onDisconnect();
   };
 
-  useEffect(() => {
-    // TODO ipcRenderer.on("usb.device-connected", scanDevices);
-    // TODO ipcRenderer.on("usb.device-disconnected", scanDevices);
-
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      // TODO   ipcRenderer.removeListener("usb.device-connected", scanDevices);
-      // TODO   ipcRenderer.removeListener("usb.device-disconnected", scanDevices);
-    };
-  });
-
-  const onKeyboardConnect = async () => {
+  const connectKeyboard = async () => {
     setOpening(true);
 
     try {
@@ -101,7 +89,7 @@ const KeyboardSelect = (props) => {
             }}
           />
         )}
-        <Firmware0_90_1 devices={devices} />
+        <Firmware0_90_1 />
         <Card
           sx={{
             boxShadow: 3,
@@ -139,8 +127,8 @@ const KeyboardSelect = (props) => {
                   focus.focusDeviceDescriptor
               }
               opening={opening}
-              onKeyboardConnect={onKeyboardConnect}
-              onKeyboardDisconnect={props.onDisconnect}
+              connectKeyboard={connectKeyboard}
+              disconnectKeyboard={props.onDisconnect}
             />
           </CardActions>
         </Card>

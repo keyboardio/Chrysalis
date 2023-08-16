@@ -18,13 +18,11 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
-import * as path from "path";
-import { getFilesystemPathForStaticAsset } from "@renderer/config";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 function LoadingScreen(props) {
-  const logoPath = getFilesystemPathForStaticAsset("logo.png");
+  const logoPath = "/public/logo.png";
 
   const spin = keyframes`
   from {

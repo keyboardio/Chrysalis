@@ -52,7 +52,9 @@ const MyKeyboardPreferences = (props) => {
   };
 
   const onError = async (error) => {
-    logger().error("Error applying keyboard preferences", { error: error });
+    logger("prefs").error("Error applying keyboard preferences", {
+      error: error,
+    });
     toast.error(error);
 
     hideContextBar();
@@ -67,7 +69,7 @@ const MyKeyboardPreferences = (props) => {
       if (content instanceof Function) {
         await content();
       } else {
-        logger.error(
+        logger("prefs").error(
           "Unable to save changes because an onSaveChanges no longer takes strings that are focus commands",
           { cmd, content }
         );

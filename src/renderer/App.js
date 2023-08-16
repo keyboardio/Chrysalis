@@ -162,42 +162,38 @@ const App = (props) => {
     }
   };
 
-  const onKeyboardConnect = async (port) => {
+  const onKeyboardConnect = async (focus) => {
     console.log("in onKeyboardConnect");
-    if (port === null) {
+    if (focus === null) {
+      console.log("focus is null");
       return false;
     }
-    console.log(port);
-    if (port?.focusDeviceDescriptor) {
+    console.log(focus);
+    if (focus?.focusDeviceDescriptor) {
       console.log("connected");
       setConnected(true);
-      setFocusDeviceDescriptor(port.focusDeviceDescriptor);
-      i18n.refreshHardware(port.focusDeviceDescriptor);
+      setFocusDeviceDescriptor(focus.focusDeviceDescriptor);
+      i18n.refreshHardware(focus.focusDeviceDescriptor);
 
-      await navigate("/focus-not-detected");
-      return false;
+      console.log("about to nav to focus not detected   ");
+      //  await navigate("/focus-not-detected");
+      //return false;
     } else {
       console.log("not connected");
     }
-
-    logger().info("Connecting to port", { port: port });
-
-    // TODO: I'm not quite sure how to set activeDevice in a way that
-    // I can access it in this context, since activeDevice is const
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
 
-    newActiveDevice.chunked_writes(settings.get("focus.chunked_writes", true));
-
-    if (!port.focusDeviceDescriptor?.bootloader) {
+    if (!focus.focusDeviceDescriptor?.bootloader) {
       logger().info("Probing for focus support...");
       focus.setLayerSize(focus.focusDeviceDescriptor);
+      logger().info("Set the layer size", focus.focusDeviceDescriptor);
     }
 
-    i18n.refreshHardware(port.focusDeviceDescriptor);
+    i18n.refreshHardware(focus.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
 
-    if (!port.focusDeviceDescriptor?.bootloader) {
+    if (!focus.focusDeviceDescriptor?.bootloader) {
       await newActiveDevice.loadConfigFromDevice();
     }
     setConnected(true);
@@ -211,7 +207,7 @@ const App = (props) => {
   const onKeyboardDisconnect = async () => {
     if (activeDevice) {
       logger().info("Disconnecting from keyboard", {
-        path: await activeDevice.devicePath(),
+        activeDevice: activeDevice,
       });
     }
     await navigate("./");

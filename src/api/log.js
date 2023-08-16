@@ -18,7 +18,7 @@ const Store = require("@renderer/localStore");
 
 export const setupLogging = async () => {};
 export const collectLogs = async () => {};
-let logLevel = "info";
+let logLevel = "silly"; // Example log level
 
 const levels = {
   error: 0,
@@ -30,32 +30,45 @@ const levels = {
   silly: 6,
 };
 
+function getCallerLine() {
+  const error = new Error();
+  // Split the stack trace into lines and remove the first two lines
+  const stackLines = error.stack.split("\n").slice(2);
+  // The third line of the stack trace should be the caller's line
+  const callerLine = stackLines[0];
+  return callerLine;
+}
+
+function logMessage(method, message, meta, logLevel) {
+  const callerLine = getCallerLine();
+  const error = new Error();
+
+  method(`${message} (called from ${callerLine})`, {
+    data: meta,
+  });
+}
+
 export const logger = (slot = "default") => {
+  const logLevel = "silly"; // Example log level
+  const currentLevel = levels[logLevel];
+
   return {
-    error: (message, meta) => {
-      if (levels[logLevel] >= levels.error) console.error(message, meta);
-    },
-    warn: (message, meta) => {
-      if (levels[logLevel] >= levels.warn) console.warn(message, meta);
-    },
-    info: (message, meta) => {
-      if (levels[logLevel] >= levels.info) console.info(message, meta);
-    },
-    http: (message, meta) => {
-      if (levels[logLevel] >= levels.http) console.info(message, meta);
-    },
-    verbose: (message, meta) => {
-      if (levels[logLevel] >= levels.verbose) console.log(message, meta);
-    },
-    debug: (message, meta) => {
-      if (levels[logLevel] >= levels.debug) console.debug(message, meta);
-    },
-    silly: (message, meta) => {
-      if (levels[logLevel] >= levels.silly) console.log(message, meta);
-    },
+    error: (message, meta) =>
+      logMessage(console.error, message, meta, currentLevel),
+    warn: (message, meta) =>
+      logMessage(console.warn, message, meta, currentLevel),
+    info: (message, meta) =>
+      logMessage(console.info, message, meta, currentLevel),
+    http: (message, meta) =>
+      logMessage(console.info, message, meta, currentLevel),
+    verbose: (message, meta) =>
+      logMessage(console.log, message, meta, currentLevel),
+    debug: (message, meta) =>
+      logMessage(console.debug, message, meta, currentLevel),
+    silly: (message, meta) =>
+      logMessage(console.log, message, meta, currentLevel),
   };
 };
-
 export const getLogLevel = () => logLevel;
 
 export const setLogLevel = (level) => {

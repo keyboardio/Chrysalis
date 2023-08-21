@@ -59,7 +59,7 @@ export default class Colormap {
     const palette = this._chunk(
       paletteData
         .split(" ")
-        .filter((v) => v.length > 0)
+        .filter((v) => v?.length > 0)
         .map((k) => parseInt(k)),
       3
     ).map((color) => {
@@ -74,7 +74,7 @@ export default class Colormap {
     const colorMap = this._chunk(
       colorMapData
         .split(" ")
-        .filter((v) => v.length > 0)
+        .filter((v) => v?.length > 0)
         .map((k) => parseInt(k)),
       this._layerSize
     );
@@ -92,13 +92,13 @@ export default class Colormap {
   async _updatePalette(s, palette) {
     const args = this._flatten(
       palette.map((color) => [color.r, color.g, color.b])
-    ).map((v) => v.toString());
+    ).map((v) => v?.toString());
 
     return await s.request("palette", ...args);
   }
 
   async _updateColormap(s, colormap) {
-    const args = this._flatten(colormap).map((v) => v.toString());
+    const args = this._flatten(colormap).map((v) => v?.toString());
     return await s.request("colormap.map", ...args);
   }
 

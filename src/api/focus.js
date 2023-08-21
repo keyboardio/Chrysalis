@@ -417,11 +417,10 @@ class Focus {
     const decoder = new TextDecoder();
     const reader = this._port.readable.getReader();
     try {
+      // eslint-disable-next-line no-constant-condition
       while (true) {
-        console.log("reading response");
         const { value, done } = await reader.read();
         if (value) {
-          //    console.log(decoder.decode(value));
           response += decoder.decode(value);
         }
         if (done) break;

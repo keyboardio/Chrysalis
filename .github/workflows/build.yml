@@ -1,4 +1,4 @@
-name: Release
+name: Publish snapshot of master branch
 on:
   push:
     branches:

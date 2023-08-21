@@ -25,8 +25,8 @@
     "lint:js": "eslint src/**/*.js",
     "lint:css": "stylelint src/**/*.css",
     "clean:code": "npm-run-all prettier lint:all",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "yarn run precompile; yarn run build",
+    "deploy": "gh-pages -d dist"
 
   },
   "keywords": [],

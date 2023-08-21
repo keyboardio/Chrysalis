@@ -1,0 +1,278 @@
+{
+  "keymaps": [
+    [
+      {
+        "keyCode": 65535,
+        "label": "",
+        "verbose": "Transparent"
+      },
+      {
+        "keyCode": 30,
+        "label": "1"
+      },
+      {
+        "keyCode": 31,
+        "label": "2"
+      },
+      {
+        "keyCode": 32,
+        "label": "3"
+      },
+      {
+        "keyCode": 33,
+        "label": "4"
+      },
+      {
+        "keyCode": 34,
+        "label": "5"
+      },
+      {
+        "keyCode": 17152,
+        "label": "Next",
+        "extraLabel": "LEDEff."
+      },
+      {
+        "keyCode": 224,
+        "label": "LCtrl",
+        "verbose": "Left Control"
+      },
+      {
+        "keyCode": 228,
+        "label": "RCtrl",
+        "verbose": "Right Control"
+      },
+      {
+        "keyCode": 24577,
+        "label": "#1",
+        "extraLabel": "Macro"
+      },
+      {
+        "keyCode": 35,
+        "label": "6"
+      },
+      {
+        "keyCode": 36,
+        "label": "7"
+      },
+      {
+        "keyCode": 37,
+        "label": "8"
+      },
+      {
+        "keyCode": 38,
+        "label": "9"
+      },
+      {
+        "keyCode": 39,
+        "label": "0"
+      },
+      {
+        "keyCode": 17409,
+        "label": "1",
+        "extraLabel": "LockTo"
+      },
+      {
+        "keyCode": 53,
+        "label": "`"
+      },
+      {
+        "keyCode": 20,
+        "label": "Q"
+      },
+      {
+        "keyCode": 26,
+        "label": "W"
+      },
+      {
+        "keyCode": 8,
+        "label": "E"
+      },
+      {
+        "keyCode": 21,
+        "label": "R"
+      },
+      {
+        "keyCode": 23,
+        "label": "T"
+      },
+      {
+        "keyCode": 43,
+        "label": "Tab"
+      },
+      {
+        "keyCode": 42,
+        "label": "BSpc",
+        "verbose": "Backspace"
+      },
+      {
+        "keyCode": 44,
+        "label": "Space"
+      },
+      {
+        "keyCode": 40,
+        "label": "Enter"
+      },
+      {
+        "keyCode": 28,
+        "label": "Y"
+      },
+      {
+        "keyCode": 24,
+        "label": "U"
+      },
+      {
+        "keyCode": 12,
+        "label": "I"
+      },
+      {
+        "keyCode": 18,
+        "label": "O"
+      },
+      {
+        "keyCode": 19,
+        "label": "P"
+      },
+      {
+        "keyCode": 46,
+        "label": "="
+      },
+      {
+        "keyCode": 75,
+        "label": "PgUp",
+        "verbose": "Page Up"
+      },
+      {
+        "keyCode": 4,
+        "label": "A"
+      },
+      {
+        "keyCode": 22,
+        "label": "S"
+      },
+      {
+        "keyCode": 7,
+        "label": "D"
+      },
+      {
+        "keyCode": 9,
+        "label": "F"
+      },
+      {
+        "keyCode": 10,
+        "label": "G"
+      },
+      {
+        "keyCode": 41,
+        "label": "Esc"
+      },
+      {
+        "keyCode": 227,
+        "label": "LGui",
+        "verbose": "Left Gui"
+      },
+      {
+        "keyCode": 226,
+        "label": "LAlt",
+        "verbose": "Left Alt"
+      },
+      {
+        "keyCode": 230,
+        "label": "RAlt",
+        "verbose": "AltGr"
+      },
+      {
+        "keyCode": 11,
+        "label": "H"
+      },
+      {
+        "keyCode": 13,
+        "label": "J"
+      },
+      {
+        "keyCode": 14,
+        "label": "K"
+      },
+      {
+        "keyCode": 15,
+        "label": "L"
+      },
+      {
+        "keyCode": 51,
+        "label": ";"
+      },
+      {
+        "keyCode": 52,
+        "label": "'"
+      },
+      {
+        "keyCode": 78,
+        "label": "PgDn",
+        "verbose": "Page Down"
+      },
+      {
+        "keyCode": 29,
+        "label": "Z"
+      },
+      {
+        "keyCode": 27,
+        "label": "X"
+      },
+      {
+        "keyCode": 6,
+        "label": "C"
+      },
+      {
+        "keyCode": 25,
+        "label": "V"
+      },
+      {
+        "keyCode": 5,
+        "label": "B"
+      },
+      {
+        "keyCode": 17452,
+        "label": "2",
+        "extraLabel": "ShiftTo"
+      },
+      {
+        "keyCode": 225,
+        "label": "LShift",
+        "verbose": "Left Shift"
+      },
+      {
+        "keyCode": 229,
+        "label": "RShift",
+        "verbose": "Right Shift"
+      },
+      {
+        "keyCode": 17452,
+        "label": "2",
+        "extraLabel": "ShiftTo"
+      },
+      {
+        "keyCode": 17,
+        "label": "N"
+      },
+      {
+        "keyCode": 16,
+        "label": "M"
+      },
+      {
+        "keyCode": 54,
+        "label": ","
+      },
+      {
+        "keyCode": 55,
+        "label": "."
+      },
+      {
+        "keyCode": 56,
+        "label": "/"
+      },
+      {
+        "keyCode": 45,
+        "label": "-"
+      }
+    ]
+  ]
+}

@@ -6,7 +6,7 @@
     "name": "Keyboardio",
     "email": "help@keyboard.io"
   },
-  "homepage": "https://github.com/keyboardio/Chrysalis",
+  "homepage": "https://keyboardio.github.io/chrysalis",
   "productName": "Chrysalis",
   "description": "A keyboard configuration tool",
   "main": ".webpack/main",

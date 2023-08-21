@@ -144,8 +144,8 @@ function MainMenu({ open, closeMenu, classes }) {
         {listItem(
           <KeyboardIcon />,
           connected
-            ? t("app.menu.selectAnotherKeyboard")
-            : t("app.menu.selectAKeyboard"),
+            ? t("app.menu.connectAnotherKeyboard")
+            : t("app.menu.connectAKeyboard"),
           "/keyboard-select"
         )}
         {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}

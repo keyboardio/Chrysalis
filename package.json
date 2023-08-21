@@ -27,7 +27,6 @@
     "clean:code": "npm-run-all prettier lint:all",
     "predeploy": "yarn run precompile; yarn run build",
     "deploy": "gh-pages -d dist"
-
   },
   "keywords": [],
   "devDependencies": {
@@ -94,6 +93,7 @@
     "browserify-zlib": "^0.2.0",
     "crypto-browserify": "^3.12.0",
     "file-loader": "^6.2.0",
+    "github-markdown-css": "^5.2.0",
     "html-webpack-plugin": "^5.5.3",
     "https-browserify": "^1.0.0",
     "i18next": "^22.4.10",
@@ -102,9 +102,11 @@
     "json-stringify-pretty-compact": "^3.0.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.5.0",
+    "marked": "^7.0.4",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "postcss-loader": "^7.3.3",
+    "raw-loader": "^4.0.2",
     "react": "^18.2.0",
     "react-color": "^2.14.1",
     "react-dnd": "^16.0.1",

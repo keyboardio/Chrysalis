@@ -32,7 +32,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
-
+import { ProductStatus } from "./KeyboardSelect/ProductStatus";
 import { Firmware0_90_1 } from "@renderer/breaking-news";
 
 const KeyboardSelect = (props) => {
@@ -77,7 +77,7 @@ const KeyboardSelect = (props) => {
     <React.Fragment>
       {" "}
       <Box sx={{ paddingBottom: 3 }}>
-        <PageTitle title={t("app.menu.selectAKeyboard")} />
+        <PageTitle title={t("app.menu.connectAKeyboard")} />
         {loading && (
           <LinearProgress
             variant="query"
@@ -117,6 +117,7 @@ const KeyboardSelect = (props) => {
                 <img src={logo} alt={t("components.logo.altText")} />
               </Grid>
             )}
+            <ProductStatus />
           </CardContent>
           <CardActions sx={{ justifyContent: "center", pt: 2, pb: 3 }}>
             <ConnectionButton

@@ -86,7 +86,10 @@ module.exports = {
           loader: "babel-loader",
         },
       },
-
+      {
+        test: /\.md$/,
+        use: "raw-loader",
+      },
       // Styles: Inject CSS into the head with source maps
       {
         test: /\.(scss|css)$/,

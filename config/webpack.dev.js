@@ -1,4 +1,5 @@
 const paths = require("./paths");
+const webpack = require("webpack");
 
 const { merge } = require("webpack-merge");
 
@@ -28,5 +29,10 @@ module.exports = merge(common, {
     port: 8080,
   },
 
-  plugins: [new FriendlyErrorsPlugin()],
+  plugins: [
+    new FriendlyErrorsPlugin(),
+    new webpack.DefinePlugin({
+      "process.env.PUBLIC_URL": "/public",
+    }),
+  ],
 });

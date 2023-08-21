@@ -20,10 +20,8 @@ import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
 import React from "react";
 import { useTranslation } from "react-i18next";
-
+import logo from "images/logo.png";
 function LoadingScreen(props) {
-  const logoPath = "/public/logo.png";
-
   const spin = keyframes`
   from {
     transform: rotate(0deg);
@@ -56,7 +54,7 @@ function LoadingScreen(props) {
           animation: `${spin} 5s infinite linear`,
         }}
       >
-        <img src={logoPath} alt={t("components.logo.altText")} />
+        <img src={logo} alt={t("components.logo.altText")} />
       </Box>
       <Box sx={{ display: "inline-flex", mx: "auto" }}>
         <Typography component="h2" variant="h2" sx={{ p: 5 }}>

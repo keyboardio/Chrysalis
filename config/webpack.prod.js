@@ -22,7 +22,7 @@ const config = merge(common, {
 
   plugins: [
     new webpack.DefinePlugin({
-      PUBLIC_URL: JSON.stringify(PUBLIC_URL),
+      "process.env.PUBLIC_URL": JSON.stringify(PUBLIC_URL),
     }),
 
     // Extracts CSS into separate files

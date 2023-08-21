@@ -251,7 +251,7 @@ class KeymapDB {
 
   format(key, options) {
     const keycapSize = options?.keycapSize || "1u";
-    const autoCase = options?.autoCase || true;
+    const autoCase = options?.autoCase || false; // we default to not automatically upcasing single characters, since that breaks the display of shifted characters in keyboard layouts.
 
     let label = key.label.base;
     const shifted = key.label.shifted;

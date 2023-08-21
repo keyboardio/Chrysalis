@@ -24,7 +24,10 @@
     "lint:all": "npm-run-all lint:js lint:css",
     "lint:js": "eslint src/**/*.js",
     "lint:css": "stylelint src/**/*.css",
-    "clean:code": "npm-run-all prettier lint:all"
+    "clean:code": "npm-run-all prettier lint:all",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+
   },
   "keywords": [],
   "devDependencies": {
@@ -55,6 +58,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.4.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "gh-pages": "^6.0.0",
     "http-server": "^14.1.1",
     "husky": "^1.1.2",
     "lint-staged": "^12.3.7",

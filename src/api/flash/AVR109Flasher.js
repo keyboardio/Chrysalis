@@ -17,7 +17,7 @@
 import { logger } from "@api/log";
 //import { SerialPort } from "serialport";
 import AvrGirl from "avrgirl-arduino";
-import { reportUpdateStatus } from "./utils";
+import { delay, reportUpdateStatus } from "./utils";
 
 const rebootToApplicationMode = async (port, _) => {
   logger("flash").debug("rebooting to application mode");
@@ -232,15 +232,6 @@ function parseIntelHex(data) {
   throw new Error("Unexpected end of input: missing or invalid EOF record.");
 }
 
-//credits: https://www.geeksforgeeks.org/how-to-delay-a-loop-in-javascript-using-async-await-with-promise/
-function waitforme(milisec) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("");
-    }, milisec);
-  });
-}
-
 //credits: https://www.30secondsofcode.org/articles/s/javascript-array-comparison
 const equals = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
 
@@ -257,14 +248,14 @@ async function handleReset(e) {
     //{ usbVendorId: 0x2341, usbProductId: 0x8037 }
     //TODO: I think there are more possible PIDs...
   ];
-  let port = await navigator.serial.requestPort({ filters });
+  const port = await navigator.serial.requestPort({ filters });
 
   //open & close
   // Wait for the serial port to open.
   await port.open({ baudRate: 1200 });
-  await waitforme(500);
+  await delay(500);
   await port.close();
-  await waitforme(500);
+  await delay(500);
 }
 
 /****************/
@@ -337,7 +328,7 @@ async function handleSubmit(e) {
             'programmer "CATERIN" detected, entering programming mode'
           );
           await writer.write(new Uint8Array([0x50]));
-          await waitforme(5);
+          await delay(5);
           state = 1;
         } else {
           console.log(
@@ -355,7 +346,7 @@ async function handleSubmit(e) {
           ]); // 'A' high low
           console.log("O: " + data);
           await writer.write(data);
-          await waitforme(5);
+          await delay(5);
           state = 2;
         } else {
           console.log("error: unexpected RX value in state 1, waited for 13");
@@ -387,7 +378,7 @@ async function handleSubmit(e) {
           //write control + flash data
           await writer.write(txx);
           console.log("O: " + txx);
-          await waitforme(5);
+          await delay(5);
         } else {
           console.log("error: state 2");
         }

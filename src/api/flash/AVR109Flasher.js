@@ -261,6 +261,7 @@ async function handleReset(e) {
   await delay(500);
 }
 
+const PAGE_SIZE = 128;
 /****************/
 // 2.) open the new bootloader USB-serial (new USB-PID!); user interaction required
 /****************/
@@ -358,21 +359,21 @@ async function handleSubmit(e) {
           const cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
 
           //determine if this is the last page (maybe incomplete -> fill with 0xFF)
-          if (pageStart + 128 > flashData.data.length) {
+          if (pageStart + PAGE_SIZE > flashData.data.length) {
             const data = flashData.data.slice(pageStart); //take the remaining bit
-            const pad = new Uint8Array(128 - data.length); //create a new padding array
+            const pad = new Uint8Array(PAGE_SIZE - data.length); //create a new padding array
             pad.fill(0xff);
             txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
             console.log("last page");
             state = 3;
           } else {
-            data = flashData.data.slice(pageStart, pageStart + 128); //take subarray with 128B
+            data = flashData.data.slice(pageStart, pageStart + PAGE_SIZE); //take one page subarray
             txx = Uint8Array.from([...cmd, ...data]); //concate command with page data
             state = 1;
           }
 
           console.log("adress set, writing one page: " + data);
-          pageStart += 128;
+          pageStart += PAGE_SIZE;
           address += 64;
           //write control + flash data
           await writer.write(txx);

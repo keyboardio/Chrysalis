@@ -110,6 +110,7 @@ const EMPTY_VALUE = 0xff;
                         start linear address record; null, if not given
         Special thanks to: http://en.wikipedia.org/wiki/Intel_HEX
 */
+
 function parseIntelHex(data) {
   //if(data instanceof Buffer)
   data = data.toString("ascii");
@@ -140,8 +141,12 @@ function parseIntelHex(data) {
     pos += 2;
     //Data field (hex-encoded string)
     var dataField = data.substr(pos, dataLength * 2);
-    if (dataLength) var dataFieldBuf = fromHexString(dataField);
-    else var dataFieldBuf = new Uint8Array();
+    var dataFieldBuf;
+    if (dataLength) {
+      dataFieldBuf = fromHexString(dataField);
+    } else {
+      dataFieldBuf = new Uint8Array();
+    }
     pos += dataLength * 2;
     //Checksum
     var checksum = parseInt(data.substr(pos, 2), 16);

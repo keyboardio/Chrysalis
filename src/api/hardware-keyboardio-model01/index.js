@@ -61,7 +61,7 @@ const Model01 = {
       baud: 9600,
       productId: ["0x2300", "0x2301"],
       protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]), // "CATERIN"
     };
     return flash(flashers.avr109, board, port, filename, options);
   },

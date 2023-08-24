@@ -15,21 +15,15 @@
  */
 
 import Focus from "@api/focus";
-import { logger } from "@api/log";
-import Hardware from "@api/hardware";
+import { Hardware, supportedDeviceVIDPIDs } from "@api/hardware";
 
 // returns a promise that resolves to a Focus object
 export const connectToSerialport = async () => {
-  const filters = [
-    { usbVendorId: 0x3496, usbProductId: 0x0006 },
-    { usbVendorId: 0x1209, usbProductId: 0x2301 },
-    { usbVendorId: 0x1209, usbProductId: 0x2303 },
-  ];
-
+  const filters = supportedDeviceVIDPIDs();
   let serialPort;
 
   const openPort = async () => {
-    serialPort = await navigator.serial.requestPort({ filters });
+    serialPort = await navigator.serial.requestPort({ filters: filters });
     // Wait for the serial port to open.
     if (serialPort.readable && serialPort.writable) {
       await serialPort.close();
@@ -45,7 +39,7 @@ export const connectToSerialport = async () => {
 
   const focus = new Focus();
 
-  for (const hw of (Hardware.nonSerial, Hardware.serial)) {
+  for (const hw of Hardware.devices) {
     console.log("Hardware is", hw);
     let found = false;
     let bootloader = false;

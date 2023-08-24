@@ -19,29 +19,6 @@ import { logger } from "@api/log";
 import AvrGirl from "avrgirl-arduino";
 import { delay, reportUpdateStatus } from "./utils";
 
-const rebootToApplicationMode = async (port, _) => {
-  logger("flash").debug("rebooting to application mode");
-
-  // To reboot a device using the AVR109 protocol from bootloader to application
-  // mode, we simply have to exit the bootloader. To do so, we need to connect
-  // to the port, and send `E`, the command for "Exit bootloader".
-  //
-  // Reference: https://ww1.microchip.com/downloads/en/AppNotes/doc1644.pdf, page 9
-
-  try {
-    const serial = {}; /* = new SerialPort({
-      path: port.path,
-      baudRate: 9600,
-    });*/
-    serial.write("E");
-  } catch (e) {
-    logger("flash").error("error while trying to reboot to application mode", {
-      path: port.path,
-      error: e,
-    });
-  }
-};
-
 const flash = async (board, port, filename, options) => {
   const avrgirl = new AvrGirl({
     board: board,
@@ -292,16 +269,23 @@ async function handleSubmit(e) {
 
   readerF.onload = async function (event) {
     filecontents = event.target.result;
+  };
 
-    //parse intel hex
-    const flashData = parseIntelHex(filecontents);
-
+  const requestBootloaderPort = async () => {
     //request serial port
     const filters = [
       //  { usbVendorId: 0x2341, usbProductId: 0x0036 },
       //TODO: I think there are more possible PIDs...
     ];
     const port = await navigator.serial.requestPort({ filters });
+    return port;
+  };
+
+  const flashHexToDevice = async (filecontents) => {
+    //parse intel hex
+    const flashData = parseIntelHex(filecontents);
+
+    const port = await requestBootloaderPort();
 
     //open & close
     // Wait for the serial port to open.
@@ -312,13 +296,13 @@ async function handleSubmit(e) {
     //open reading stream
     const reader = port.readable.getReader();
 
-    //trigger update by sending programmer ID command
-    sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
-
     // Listen to data coming from the serial device.
     let state = AVR109States.UNINITIALIZED;
     let pageStart = 0;
     let address = 0;
+
+    //trigger update by sending programmer ID command
+    sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -336,16 +320,11 @@ async function handleSubmit(e) {
 
       /****************/
       // 3.) flashing the .hex file (event driven by the received data from the ATMega32U4).
-      // most commands are acknowledged with 13d. (\r)
       /****************/
       if (state == AVR109States.UNINITIALIZED) {
         //1.) "S" => "CATERIN" - get programmer ID
         if (responseString?.equals("CATERIN")) {
-          console.log(
-            'programmer "CATERIN" detected, entering programming mode'
-          );
           await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
-          await delay(5);
           state = AVR109States.PROGRAMMING_MODE;
         } else {
           console.log(
@@ -354,16 +333,13 @@ async function handleSubmit(e) {
         }
       } else if (state == AVR109States.PROGRAMMING_MODE) {
         //2.) "P" => 13d - enter programming mode
-        if (responseString?.equals(AVR109_RESPONSE_OK)) {
-          console.log("setting address to: " + address);
+        if (deviceRespondedOk(responseString)) {
           const data = new Uint8Array([
             0x41,
             (address >> 8) & 0xff,
             address & 0xff,
           ]); // 'A' high low
-          console.log("O: " + data);
-          await writer.write(data);
-          await delay(5);
+          await writeToDevice(writer, data);
           state = AVR109States.FLASHING_PAGE;
         } else {
           console.log("error: unexpected RX value in state 1, waited for \r");
@@ -372,16 +348,15 @@ async function handleSubmit(e) {
         //3.) now flash page
         let txx;
         let data;
-        if (responseString?.equals(AVR109_RESPONSE_OK)) {
+        if (deviceRespondedOk(responseString)) {
           const cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
 
           //determine if this is the last page (maybe incomplete -> fill with 0xFF)
           if (pageStart + PAGE_SIZE > flashData.data.length) {
-            const data = flashData.data.slice(pageStart); //take the remaining bit
+            data = flashData.data.slice(pageStart); //take the remaining bit
             const pad = new Uint8Array(PAGE_SIZE - data.length); //create a new padding array
             pad.fill(0xff);
             txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
-            console.log("last page");
             state = AVR109States.FLASHING_COMPLETE;
           } else {
             data = flashData.data.slice(pageStart, pageStart + PAGE_SIZE); //take one page subarray
@@ -389,10 +364,8 @@ async function handleSubmit(e) {
             state = AVR109States.PROGRAMMING_MODE;
           }
 
-          console.log("adress set, writing one page: " + data);
           //write control + flash data
-          await writer.write(txx);
-          await delay(5);
+          await writeToDevice(writer, txx);
           pageStart += PAGE_SIZE;
           address += PAGE_SIZE / 2; // TODO is the address always page_size/2?
         } else {
@@ -400,7 +373,7 @@ async function handleSubmit(e) {
         }
       } else if (state == AVR109States.FLASHING_COMPLETE) {
         //4.) last page sent, finish update
-        if (responseString?.equals(AVR109_RESPONSE_OK)) {
+        if (deviceRespondedOk(responseString)) {
           await sendCommand(writer, AVR109_CMD_LEAVE_PROG_MODE);
           state = AVR109States.LEFT_PROGRAMMING_MODE;
         } else {
@@ -408,10 +381,10 @@ async function handleSubmit(e) {
         }
       } else if (state == AVR109States.LEFT_PROGRAMMING_MODE) {
         //5.) left programming mode, exiting bootloader
-        if (responseString?.equals(AVR109_RESPONSE_OK)) {
+        if (deviceRespondedOk(responseString)) {
           state = AVR109States.COMPLETE;
 
-          await rebootToApplicationMode(writer, reader);
+          await rebootToApplicationMode(port);
         } else {
           console.log("NACK");
         }
@@ -422,16 +395,27 @@ async function handleSubmit(e) {
   readerF.readAsText(file);
 }
 
+const deviceRespondedOk = (responseString) => {
+  return responseString?.equals(AVR109_RESPONSE_OK);
+};
+
 async function sendCommand(writer, command) {
-  await writer.write(encoder.encode(command));
+  await writeToDevice(writer, command);
 }
 
-async function rebootToApplicationMode(writer, reader) {
+const writeToDevice = async (writer, data) => {
+  await writer.write(data);
+  await delay(5);
+};
+
+const rebootToApplicationMode = async (port, _) => {
+  const reader = port.readable.getReader();
+  const writer = port.writable.getWriter();
   console.log("Exiting bootloader");
   //finish flashing and exit bootloader
   await sendCommand(writer, AVR109_CMD_EXIT_BOOTLOADER);
   console.log("finished!");
   reader.cancel();
-}
+};
 
 export const AVR109Flasher = { flash, rebootToApplicationMode };

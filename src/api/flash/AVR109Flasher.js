@@ -253,12 +253,11 @@ async function handleReset(e) {
     alert("Please use Chromium based browsers!");
   }
   e.preventDefault();
-  gear.classList.add("spinning");
-  let filters = [
+  const filters = [
     //{ usbVendorId: 0x2341, usbProductId: 0x8037 }
     //TODO: I think there are more possible PIDs...
   ];
-  port = await navigator.serial.requestPort({ filters });
+  let port = await navigator.serial.requestPort({ filters });
 
   //open & close
   // Wait for the serial port to open.
@@ -266,7 +265,6 @@ async function handleReset(e) {
   await waitforme(500);
   await port.close();
   await waitforme(500);
-  gear.classList.remove("spinning");
 }
 
 /****************/
@@ -285,17 +283,16 @@ async function handleSubmit(e) {
 
   readerF.onload = async function (event) {
     filecontents = event.target.result;
-    gear.classList.add("spinning");
 
     //parse intel hex
-    let flashData = parseIntelHex(filecontents);
+    const flashData = parseIntelHex(filecontents);
 
     //request serial port
-    let filters = [
+    const filters = [
       { usbVendorId: 0x2341, usbProductId: 0x0036 },
       //TODO: I think there are more possible PIDs...
     ];
-    port = await navigator.serial.requestPort({ filters });
+    const port = await navigator.serial.requestPort({ filters });
 
     //open & close
     // Wait for the serial port to open.
@@ -317,6 +314,7 @@ async function handleSubmit(e) {
     let state = 0;
     let pageStart = 0;
     let address = 0;
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       const { value, done } = await reader.read();
       if (done) {
@@ -350,7 +348,11 @@ async function handleSubmit(e) {
         //2.) "P" => 13d - enter programming mode
         if (equals(value, [13])) {
           console.log("setting address to: " + address);
-          data = new Uint8Array([0x41, (address >> 8) & 0xff, address & 0xff]); // 'A' high low
+          const data = new Uint8Array([
+            0x41,
+            (address >> 8) & 0xff,
+            address & 0xff,
+          ]); // 'A' high low
           console.log("O: " + data);
           await writer.write(data);
           await waitforme(5);
@@ -360,13 +362,15 @@ async function handleSubmit(e) {
         }
       } else if (state == 2) {
         //3.) now flash page
+        let txx;
+        let data;
         if (equals(value, [13])) {
-          cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
+          const cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
 
           //determine if this is the last page (maybe incomplete -> fill with 0xFF)
           if (pageStart + 128 > flashData.data.length) {
-            data = flashData.data.slice(pageStart); //take the remaining bit
-            pad = new Uint8Array(128 - data.length); //create a new padding array
+            const data = flashData.data.slice(pageStart); //take the remaining bit
+            const pad = new Uint8Array(128 - data.length); //create a new padding array
             pad.fill(0xff);
             txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
             console.log("last page");
@@ -408,7 +412,6 @@ async function handleSubmit(e) {
           //finish flashing and exit bootloader
           await writer.write(new Uint8Array([0x45])); //"E" -> exit bootloader
           state = -1;
-          gear.classList.remove("spinning");
           console.log("finished!");
           reader.cancel();
         } else {

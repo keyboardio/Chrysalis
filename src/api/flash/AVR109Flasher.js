@@ -195,7 +195,6 @@ function parseIntelHex(data) {
           startSegmentAddress: startSegmentAddress,
           startLinearAddress: startLinearAddress,
         };
-        break;
       case EXT_SEGMENT_ADDR:
         if (dataLength != 2 || lowAddress != 0)
           throw new Error(
@@ -228,7 +227,6 @@ function parseIntelHex(data) {
         throw new Error(
           "Invalid record type (" + recordType + ") on line " + lineNum
         );
-        break;
     }
     //Advance to the next line
     if (data.charAt(pos) == "\r") pos++;

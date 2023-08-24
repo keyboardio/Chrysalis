@@ -294,10 +294,6 @@ async function handleSubmit(e) {
     // Wait for the serial port to open.
     await port.open({ baudRate: 57600 });
 
-    //open writing facilities (with text encoder -> not good!)
-    /*const textEncoder = new TextEncoderStream();
-                  const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
-                  const writer = textEncoder.writable.getWriter();*/
     //open writing facilities
     const writer = port.writable.getWriter();
     //open reading stream

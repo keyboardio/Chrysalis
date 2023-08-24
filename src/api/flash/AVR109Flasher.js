@@ -384,9 +384,7 @@ async function handleSubmit(e) {
       } else if (state == 3) {
         //4.) last page sent, finish update
         if (value[0] == 13) {
-          console.log("Last page write, leaving programming mode");
-          //finish flashing and exit bootloader
-          await writer.write(new Uint8Array([0x4c])); //"L" -> leave programming mode
+          await leaveProgrammingMode(writer); //"L" -> leave programming mode
           state = 4;
           /*state = -1;
                                           gear.classList.remove('spinning');
@@ -398,12 +396,9 @@ async function handleSubmit(e) {
       } else if (state == 4) {
         //5.) left programming mode, exiting bootloader
         if (value[0] == 13) {
-          console.log("Exiting bootloader");
-          //finish flashing and exit bootloader
-          await writer.write(new Uint8Array([0x45])); //"E" -> exit bootloader
           state = -1;
-          console.log("finished!");
-          reader.cancel();
+
+          await rebootToApplicationMode(writer, reader);
         } else {
           console.log("NACK");
         }
@@ -412,6 +407,20 @@ async function handleSubmit(e) {
     await port.close();
   };
   readerF.readAsText(file);
+}
+
+async function leaveProgrammingMode(writer) {
+  console.log("Last page write, leaving programming mode");
+  //finish flashing and exit bootloader
+  await writer.write(new Uint8Array([0x4c]));
+}
+
+async function rebootToApplicationMode(writer, reader) {
+  console.log("Exiting bootloader");
+  //finish flashing and exit bootloader
+  await writer.write(new Uint8Array([0x45])); //"E" -> exit bootloader
+  console.log("finished!");
+  reader.cancel();
 }
 
 export const AVR109Flasher = { flash, rebootToApplicationMode };

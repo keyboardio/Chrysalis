@@ -387,10 +387,6 @@ async function handleSubmit(e) {
         if (value[0] == 13) {
           await leaveProgrammingMode(writer); //"L" -> leave programming mode
           state = 4;
-          /*state = -1;
-                                          gear.classList.remove('spinning');
-                                          console.log("finished!");
-                                          reader.cancel();*/
         } else {
           console.log("NACK");
         }

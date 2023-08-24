@@ -235,9 +235,6 @@ function parseIntelHex(data) {
   throw new Error("Unexpected end of input: missing or invalid EOF record.");
 }
 
-//credits: https://www.30secondsofcode.org/articles/s/javascript-array-comparison
-const equals = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
-
 /****************/
 // 1.) reset mega32u4 into bootloader mode (user interaction required)
 /****************/
@@ -261,7 +258,24 @@ async function handleReset(e) {
   await delay(500);
 }
 
+const AVR109_RESPONSE_OK = "\r";
+const AVR109_CMD_ENTER_PROG_MODE = "P";
+const AVR109_CMD_EXIT_BOOTLOADER = "E";
+const AVR109_CMD_LEAVE_PROG_MODE = "L";
+const AVR109_CMD_RETURN_SOFTWARE_ID = "S";
 const PAGE_SIZE = 128;
+
+const AVR109States = {
+  UNINITIALIZED: 0,
+  PROGRAMMING_MODE: 1,
+  FLASHING_PAGE: 2,
+  FLASHING_COMPLETE: 3,
+  LEFT_PROGRAMMING_MODE: 4,
+  COMPLETE: -1,
+};
+
+const decoder = new TextDecoder();
+const encoder = new TextEncoder();
 /****************/
 // 2.) open the new bootloader USB-serial (new USB-PID!); user interaction required
 /****************/
@@ -284,7 +298,7 @@ async function handleSubmit(e) {
 
     //request serial port
     const filters = [
-      { usbVendorId: 0x2341, usbProductId: 0x0036 },
+      //  { usbVendorId: 0x2341, usbProductId: 0x0036 },
       //TODO: I think there are more possible PIDs...
     ];
     const port = await navigator.serial.requestPort({ filters });
@@ -299,14 +313,17 @@ async function handleSubmit(e) {
     const reader = port.readable.getReader();
 
     //trigger update by sending programmer ID command
-    await writer.write(new Uint8Array([0x53]));
+    sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
 
     // Listen to data coming from the serial device.
-    let state = 0;
+    let state = AVR109States.UNINITIALIZED;
     let pageStart = 0;
     let address = 0;
+
     // eslint-disable-next-line no-constant-condition
     while (true) {
+      // value is a Uint8Array.
+
       const { value, done } = await reader.read();
       if (done) {
         // Allow the serial port to be closed later.
@@ -315,29 +332,29 @@ async function handleSubmit(e) {
         break;
       }
       // value is a Uint8Array.
-      console.log(value);
+      const responseString = decoder.decode(value);
 
       /****************/
       // 3.) flashing the .hex file (event driven by the received data from the ATMega32U4).
-      // most commands are acknowledged with 13d.
+      // most commands are acknowledged with 13d. (\r)
       /****************/
-      if (state == 0) {
+      if (state == AVR109States.UNINITIALIZED) {
         //1.) "S" => "CATERIN" - get programmer ID
-        if (equals(value, [67, 65, 84, 69, 82, 73, 78])) {
+        if (responseString?.equals("CATERIN")) {
           console.log(
             'programmer "CATERIN" detected, entering programming mode'
           );
-          await writer.write(new Uint8Array([0x50]));
+          await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
           await delay(5);
-          state = 1;
+          state = AVR109States.PROGRAMMING_MODE;
         } else {
           console.log(
             'error: unexpected RX value in state 0, waited for "CATERIN"'
           );
         }
-      } else if (state == 1) {
+      } else if (state == AVR109States.PROGRAMMING_MODE) {
         //2.) "P" => 13d - enter programming mode
-        if (equals(value, [13])) {
+        if (responseString?.equals(AVR109_RESPONSE_OK)) {
           console.log("setting address to: " + address);
           const data = new Uint8Array([
             0x41,
@@ -347,15 +364,15 @@ async function handleSubmit(e) {
           console.log("O: " + data);
           await writer.write(data);
           await delay(5);
-          state = 2;
+          state = AVR109States.FLASHING_PAGE;
         } else {
-          console.log("error: unexpected RX value in state 1, waited for 13");
+          console.log("error: unexpected RX value in state 1, waited for \r");
         }
-      } else if (state == 2) {
+      } else if (state == AVR109States.FLASHING_PAGE) {
         //3.) now flash page
         let txx;
         let data;
-        if (equals(value, [13])) {
+        if (responseString?.equals(AVR109_RESPONSE_OK)) {
           const cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
 
           //determine if this is the last page (maybe incomplete -> fill with 0xFF)
@@ -365,35 +382,34 @@ async function handleSubmit(e) {
             pad.fill(0xff);
             txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
             console.log("last page");
-            state = 3;
+            state = AVR109States.FLASHING_COMPLETE;
           } else {
             data = flashData.data.slice(pageStart, pageStart + PAGE_SIZE); //take one page subarray
             txx = Uint8Array.from([...cmd, ...data]); //concate command with page data
-            state = 1;
+            state = AVR109States.PROGRAMMING_MODE;
           }
 
           console.log("adress set, writing one page: " + data);
-          pageStart += PAGE_SIZE;
-          address += 64;
           //write control + flash data
           await writer.write(txx);
-          console.log("O: " + txx);
           await delay(5);
+          pageStart += PAGE_SIZE;
+          address += PAGE_SIZE / 2; // TODO is the address always page_size/2?
         } else {
           console.log("error: state 2");
         }
-      } else if (state == 3) {
+      } else if (state == AVR109States.FLASHING_COMPLETE) {
         //4.) last page sent, finish update
-        if (value[0] == 13) {
-          await leaveProgrammingMode(writer); //"L" -> leave programming mode
-          state = 4;
+        if (responseString?.equals(AVR109_RESPONSE_OK)) {
+          await sendCommand(writer, AVR109_CMD_LEAVE_PROG_MODE);
+          state = AVR109States.LEFT_PROGRAMMING_MODE;
         } else {
           console.log("NACK");
         }
-      } else if (state == 4) {
+      } else if (state == AVR109States.LEFT_PROGRAMMING_MODE) {
         //5.) left programming mode, exiting bootloader
-        if (value[0] == 13) {
-          state = -1;
+        if (responseString?.equals(AVR109_RESPONSE_OK)) {
+          state = AVR109States.COMPLETE;
 
           await rebootToApplicationMode(writer, reader);
         } else {
@@ -406,16 +422,14 @@ async function handleSubmit(e) {
   readerF.readAsText(file);
 }
 
-async function leaveProgrammingMode(writer) {
-  console.log("Last page write, leaving programming mode");
-  //finish flashing and exit bootloader
-  await writer.write(new Uint8Array([0x4c]));
+async function sendCommand(writer, command) {
+  await writer.write(encoder.encode(command));
 }
 
 async function rebootToApplicationMode(writer, reader) {
   console.log("Exiting bootloader");
   //finish flashing and exit bootloader
-  await writer.write(new Uint8Array([0x45])); //"E" -> exit bootloader
+  await sendCommand(writer, AVR109_CMD_EXIT_BOOTLOADER);
   console.log("finished!");
   reader.cancel();
 }

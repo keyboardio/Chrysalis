@@ -34,6 +34,7 @@ import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { ProductStatus } from "./KeyboardSelect/ProductStatus";
 import { Firmware0_90_1 } from "@renderer/breaking-news";
+import { WebSerialCheck } from "@renderer/components/WebSerialCheck";
 
 const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
@@ -78,6 +79,7 @@ const KeyboardSelect = (props) => {
       {" "}
       <Box sx={{ paddingBottom: 3 }}>
         <PageTitle title={t("app.menu.connectAKeyboard")} />
+        <WebSerialCheck />
         {loading && (
           <LinearProgress
             variant="query"

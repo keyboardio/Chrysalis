@@ -266,135 +266,155 @@ async function handleSubmit(e) {
   let filecontents;
   const file = fileInput.files[0];
   const readerF = new FileReader();
+}
 
-  readerF.onload = async function (event) {
-    filecontents = event.target.result;
-  };
+readerF.onload = async function (event) {
+  const filecontents = event.target.result;
+  await flashHexToDevice(filecontents);
+};
 
-  const requestBootloaderPort = async () => {
-    //request serial port
-    const filters = [
-      //  { usbVendorId: 0x2341, usbProductId: 0x0036 },
-      //TODO: I think there are more possible PIDs...
-    ];
-    const port = await navigator.serial.requestPort({ filters });
-    return port;
-  };
+const requestBootloaderPort = async () => {
+  //request serial port
+  const filters = [
+    //  { usbVendorId: 0x2341, usbProductId: 0x0036 },
+    //TODO: I think there are more possible PIDs...
+  ];
+  const port = await navigator.serial.requestPort({ filters });
+  return port;
+};
 
-  const flashHexToDevice = async (filecontents) => {
-    //parse intel hex
-    const flashData = parseIntelHex(filecontents);
+const flashHexToDevice = async (filecontents) => {
+  //parse intel hex
+  const flashData = parseIntelHex(filecontents);
 
-    const port = await requestBootloaderPort();
+  const port = await requestBootloaderPort();
 
-    //open & close
-    // Wait for the serial port to open.
-    await port.open({ baudRate: 57600 });
+  //open & close
+  // Wait for the serial port to open.
+  await port.open({ baudRate: 57600 });
 
-    //open writing facilities
-    const writer = port.writable.getWriter();
-    //open reading stream
-    const reader = port.readable.getReader();
+  //open writing facilities
+  const writer = port.writable.getWriter();
+  //open reading stream
+  const reader = port.readable.getReader();
 
-    // Listen to data coming from the serial device.
-    let state = AVR109States.UNINITIALIZED;
-    let pageStart = 0;
-    let address = 0;
+  // Listen to data coming from the serial device.
+  let state = AVR109States.UNINITIALIZED;
+  let pageStart = 0;
+  let address = 0;
 
-    //trigger update by sending programmer ID command
-    sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
+  //trigger update by sending programmer ID command
+  sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      // value is a Uint8Array.
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // value is a Uint8Array.
 
-      const { value, done } = await reader.read();
-      if (done) {
-        // Allow the serial port to be closed later.
-        reader.releaseLock();
-        writer.releaseLock();
-        break;
-      }
-      // value is a Uint8Array.
-      const responseString = decoder.decode(value);
+    const { value, done } = await reader.read();
+    if (done) {
+      // Allow the serial port to be closed later.
+      reader.releaseLock();
+      writer.releaseLock();
+      break;
+    }
+    // value is a Uint8Array.
+    const responseString = decoder.decode(value);
 
-      /****************/
-      // 3.) flashing the .hex file (event driven by the received data from the ATMega32U4).
-      /****************/
-      if (state == AVR109States.UNINITIALIZED) {
-        //1.) "S" => "CATERIN" - get programmer ID
-        if (responseString?.equals("CATERIN")) {
-          await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
-          state = AVR109States.PROGRAMMING_MODE;
-        } else {
+    /****************/
+    // 3.) flashing the .hex file (event driven by the received data from the ATMega32U4).
+    /****************/
+
+    switch (state) {
+      case AVR109States.UNINITIALIZED:
+        if (!responseString?.equals("CATERIN")) {
           console.log(
             'error: unexpected RX value in state 0, waited for "CATERIN"'
           );
+          break;
         }
-      } else if (state == AVR109States.PROGRAMMING_MODE) {
-        //2.) "P" => 13d - enter programming mode
-        if (deviceRespondedOk(responseString)) {
-          const data = new Uint8Array([
-            0x41,
-            (address >> 8) & 0xff,
-            address & 0xff,
-          ]); // 'A' high low
-          await writeToDevice(writer, data);
-          state = AVR109States.FLASHING_PAGE;
-        } else {
+
+        await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
+        state = AVR109States.PROGRAMMING_MODE;
+        break;
+
+      case AVR109States.PROGRAMMING_MODE:
+        if (!deviceRespondedOk(responseString)) {
           console.log("error: unexpected RX value in state 1, waited for \r");
+          break;
         }
-      } else if (state == AVR109States.FLASHING_PAGE) {
-        //3.) now flash page
-        let txx;
-        let data;
-        if (deviceRespondedOk(responseString)) {
-          const cmd = new Uint8Array([0x42, 0x00, 0x80, 0x46]); //flash page write command ('B' + 2bytes size + 'F')
 
-          //determine if this is the last page (maybe incomplete -> fill with 0xFF)
-          if (pageStart + PAGE_SIZE > flashData.data.length) {
-            data = flashData.data.slice(pageStart); //take the remaining bit
-            const pad = new Uint8Array(PAGE_SIZE - data.length); //create a new padding array
-            pad.fill(0xff);
-            txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
-            state = AVR109States.FLASHING_COMPLETE;
-          } else {
-            data = flashData.data.slice(pageStart, pageStart + PAGE_SIZE); //take one page subarray
-            txx = Uint8Array.from([...cmd, ...data]); //concate command with page data
-            state = AVR109States.PROGRAMMING_MODE;
-          }
+        await setPageAddress(writer, address);
+        state = AVR109States.FLASHING_PAGE;
+        break;
 
-          //write control + flash data
-          await writeToDevice(writer, txx);
+      case AVR109States.FLASHING_PAGE:
+        if (!deviceRespondedOk(responseString)) {
+          console.log("error flashing page");
+          break;
+        }
+
+        await flashPageToDevice(writer, flashData, pageStart);
+
+        if (pageStart + PAGE_SIZE > flashData.data.length) {
+          state = AVR109States.FLASHING_COMPLETE;
+        } else {
           pageStart += PAGE_SIZE;
           address += PAGE_SIZE / 2; // TODO is the address always page_size/2?
-        } else {
-          console.log("error: state 2");
-        }
-      } else if (state == AVR109States.FLASHING_COMPLETE) {
-        //4.) last page sent, finish update
-        if (deviceRespondedOk(responseString)) {
-          await sendCommand(writer, AVR109_CMD_LEAVE_PROG_MODE);
-          state = AVR109States.LEFT_PROGRAMMING_MODE;
-        } else {
-          console.log("NACK");
-        }
-      } else if (state == AVR109States.LEFT_PROGRAMMING_MODE) {
-        //5.) left programming mode, exiting bootloader
-        if (deviceRespondedOk(responseString)) {
-          state = AVR109States.COMPLETE;
 
-          await rebootToApplicationMode(port);
-        } else {
-          console.log("NACK");
+          state = AVR109States.PROGRAMMING_MODE;
         }
-      }
+
+        break;
+      case AVR109States.FLASHING_COMPLETE:
+        if (!deviceRespondedOk(responseString)) {
+          console.log("NACK");
+          break;
+        }
+
+        await sendCommand(writer, AVR109_CMD_LEAVE_PROG_MODE);
+        state = AVR109States.LEFT_PROGRAMMING_MODE;
+        break;
+      case AVR109States.LEFT_PROGRAMMING_MODE:
+        if (!deviceRespondedOk(responseString)) {
+          console.log("NACK");
+          break;
+        }
+        state = AVR109States.COMPLETE;
+        await rebootToApplicationMode(port);
+
+        break;
+      default:
+        console.log("error: unknown state");
+        break;
     }
     await port.close();
-  };
-  readerF.readAsText(file);
-}
+  }
+};
 
+const flashPageToDevice = async (writer, flashData, pageStart) => {
+  const cmd = new Uint8Array([
+    0x42,
+    (PAGE_SIZE >> 8) & 0xff,
+    PAGE_SIZE & 0xff,
+    0x46,
+  ]); //flash page write command ('B' + 2bytes size + 'F')
+
+  // If this is the last page and it's not aligned with page size,
+  // pad the remaining bytes with 0xFF.
+  // If the page is exactly PAGE_SIZE, the padding is a no-op.
+  const data = flashData.data.slice(pageStart, pageStart + PAGE_SIZE); //take one page subarray. If the data is not one page in size, get what we can
+
+  const pad = new Uint8Array(PAGE_SIZE - data.length); //create a new padding array
+  pad.fill(0xff);
+  const txx = Uint8Array.from([...cmd, ...data, ...pad]); //concat command, remaining data and padding
+
+  //write control + flash data
+  await writeToDevice(writer, txx);
+};
+export const setPageAddress = async (writer, address) => {
+  const data = new Uint8Array([0x41, (address >> 8) & 0xff, address & 0xff]); // 'A' high low
+  await writeToDevice(writer, data);
+};
 const deviceRespondedOk = (responseString) => {
   return responseString?.equals(AVR109_RESPONSE_OK);
 };

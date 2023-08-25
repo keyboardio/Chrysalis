@@ -322,7 +322,7 @@ class Focus {
   }
 
   async supported_commands() {
-    if (this._supported_commands.length == 0) {
+    if (this._supported_commands?.length == 0) {
       this._supported_commands = await this.request("help");
     }
     return this._supported_commands;
@@ -339,7 +339,7 @@ class Focus {
     if (!this.isInApplicationMode()) return undefined;
 
     if (
-      this._supported_commands.length > 0 &&
+      this._supported_commands?.length > 0 &&
       !this._supported_commands.includes(cmd)
     ) {
       logger("focus").verbose("request (noop)", {

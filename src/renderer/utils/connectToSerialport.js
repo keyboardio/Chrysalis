@@ -19,11 +19,20 @@ import { Hardware, supportedDeviceVIDPIDs } from "@api/hardware";
 
 // returns a promise that resolves to a Focus object
 export const connectToSerialport = async () => {
-  const filters = supportedDeviceVIDPIDs();
+  const focus = new Focus();
   let serialPort;
 
   const openPort = async () => {
-    serialPort = await navigator.serial.requestPort({ filters: filters });
+    try {
+      serialPort = await navigator.serial.requestPort({
+        filters: supportedDeviceVIDPIDs(),
+      });
+    } finally {
+      if (!serialPort) {
+        return;
+      }
+    }
+
     // Wait for the serial port to open.
     if (serialPort.readable && serialPort.writable) {
       await serialPort.close();
@@ -32,15 +41,17 @@ export const connectToSerialport = async () => {
   };
 
   await openPort();
+
+  if (!serialPort) {
+    console.log("The user didn't select a serialport");
+    return;
+  }
   const info = serialPort.getInfo();
 
   const dVid = info.usbVendorId;
   const dPid = info.usbProductId;
 
-  const focus = new Focus();
-
   for (const hw of Hardware.devices) {
-    console.log("Hardware is", hw);
     let found = false;
     let bootloader = false;
     if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
@@ -60,7 +71,5 @@ export const connectToSerialport = async () => {
     if (!found) continue;
   }
 
-  console.log(serialPort.getInfo());
-  console.log(focus);
   return focus;
 };

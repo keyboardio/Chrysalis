@@ -51,8 +51,13 @@ const KeyboardSelect = (props) => {
     setLoading(true);
     console.log("scanDevices");
     const focus = await connectToSerialport();
-    props.onConnect(focus);
-    console.log("Got a device - here's its focus object: ", focus);
+    if (focus) {
+      props.onConnect(focus);
+      console.log("Got a device - here's its focus object: ", focus);
+    } else {
+      console.log("looks like the user aborted");
+      setOpening(false);
+    }
   };
 
   const onDisconnect = () => {

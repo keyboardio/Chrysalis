@@ -13,8 +13,8 @@ fi
 
 URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
 
-curl -s -L "${URL}" | tar -C static -xzf -
-git add static/**/default.{hex,bin} static/firmware-changelog.md static/build-info.yml
+curl -s -L "${URL}" | tar -C public -xzf -
+git add public/**/default.{hex,bin} public/firmware-changelog.md public/build-info.yml
 
 TMP=$(mktemp)
 cat >${TMP} <<EOF

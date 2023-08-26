@@ -17,6 +17,7 @@
   },
   "scripts": {
     "precompile": "node tools/precompile.js",
+    "update-firmware": "tools/maintainer/firmware-update",
     "start": "webpack serve --config config/webpack.dev.js --progress",
     "build": "webpack --config config/webpack.prod.js",
     "prod": "http-server ./dist -a localhost -p 8005 -o",

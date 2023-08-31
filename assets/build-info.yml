@@ -1,22 +1,154 @@
 ---
-version: 0.91.1+74
-build: 74
+version: 0.92.0+77
+build: 77
 
 dependencies:
   cores:
-    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@f5c4ba0b32b301c1b0846bbce935b49c1d5dc2c9
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@062f5cab65a42e0c9faf1b39faa2dbf5d2dd86c0
+    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@67c408a38df81817e542ab38385ba654ef498467
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@b141855b7906cd393dd60eedcba5b084164e9655
   libraries:
     avr:
       - keyboardio/KeyboardioHID@1caab9b6fd6d28f96d00d733f5c62eaef3c9c217
     gd32:
       - keyboardio/KeyboardioHID@1caab9b6fd6d28f96d00d733f5c62eaef3c9c217
     common:
-      - keyboardio/Kaleidoscope@90abb32cc9eee25fa32560528e4b7b52d6441c6d
-      - keyboardio/Chrysalis-Firmware-Bundle@b7d025c0c13db313c3704e80d86f526f60d2d315
+      - keyboardio/Kaleidoscope@f936f0984c24c87a9e5b324e29570e83c09b5738
+      - keyboardio/Chrysalis-Firmware-Bundle@bf9d5b721c3b7085a959d8b6852f6541b092cb7e
 
 firmware:
   Keyboardio:
+    Model100:
+      plugins:
+        - AlphaSquareEffect
+        - BootGreetingEffect
+        - ColormapEffect
+        - DefaultLEDModeConfig
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - GeminiPR
+        - HostPowerManagement
+        - IdleLEDs
+        - LEDBreatheEffect
+        - LEDBrightnessConfig
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - LayerNames
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - MouseKeysConfig
+        - NumPad
+        - OneShot
+        - OneShotConfig
+        - PersistentIdleLEDs
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
+        - StalkerEffect
+        - USBQuirks
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - LayerNames
+        - Macros
+        - MouseKeys
+        - OneShot
+        - OneShotConfig
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
+    Model01:
+      plugins:
+        - BootGreetingEffect
+        - ColormapEffect
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - HostPowerManagement
+        - LEDBreatheEffect
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - NumPad
+        - Qukeys
+        - USBQuirks
   EZ:
+    ErgoDox:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - MouseKeys
+        - OneShot
+        - Qukeys
+        - SpaceCadet
   Technomancy:
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - Macros
+        - MouseKeys
+        - OneShot
+        - Qukeys
+        - SpaceCadet
   SOFTHRUF:
+    Splitography:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - GeminiPR
+        - MouseKeys
+        - MultiSwitcher
+        - OneShot
+        - Qukeys
+        - SpaceCadet

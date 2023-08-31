@@ -30,7 +30,7 @@ fs.readFile(packageJsonPath, 'utf8', (err, data) => {
   const domainName = url.hostname;
 
   // Write the domain name to the CNAME file
-  fs.writeFile('CNAME', domainName, (writeErr) => {
+  fs.writeFile('dist/CNAME', domainName, (writeErr) => {
     if (writeErr) {
       console.error('Error writing to CNAME:', writeErr);
       return;

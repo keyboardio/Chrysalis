@@ -101,7 +101,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.21.1",
     "css-loader": "^6.0.0",
-    "electron": "23.1.1",
+    "electron": "23.3.13",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-import-resolver-babel-module": "^5.3.1",

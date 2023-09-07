@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { RebootMessage } from "@api/flash";
 import Focus from "@api/focus";
 import { logger } from "@api/log";
+import { updateDeviceFirmware, RebootMessage } from "@api/flash";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Alert from "@mui/material/Alert";
@@ -27,21 +27,21 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import React, { useState, useContext } from "react";
-import Switch from "@mui/material/Switch";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
-import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
+import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
+import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
-import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
@@ -95,12 +95,9 @@ const FirmwareUpdate = (props) => {
       setFlashNotificationOpen(msg !== RebootMessage.clear);
     };
 
-    return focusDeviceDescriptor.flash(
-      focus._port,
-      selectedFirmwareType === "default"
-        ? defaultFirmwareFilename()
-        : firmwareFilename,
-
+    console.log("About to call flash.flash()  ");
+    return updateDeviceFirmware(
+      "file",
       Object.assign({}, options, {
         device: focusDeviceDescriptor,
         focus: focus,

@@ -33,6 +33,7 @@ const FirmwareSelect = (props) => {
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
+    console.log("Handling file upload: ", file);
     setFirmwareFilename(file.name);
   };
 
@@ -142,7 +143,6 @@ const FirmwareSelect = (props) => {
                 type="file"
                 onChange={handleFileUpload}
                 accept=".hex, .bin"
-                style={{ display: "none" }}
                 id="fileUpload"
               />
               <label htmlFor="fileUpload">

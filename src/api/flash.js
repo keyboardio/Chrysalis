@@ -18,14 +18,15 @@ import { logger } from "@api/log";
 import { FocusCommands } from "./flash/FocusCommands";
 import { delay, reportUpdateStatus } from "./flash/utils";
 
-import { AVRGirlFlasher } from "./flash/AVRGirlFlasher";
-import { DFUFlasher } from "./flash/DFUFlasher";
+import { AVR109Flasher } from "./flash/AVR109Flasher";
+
+import { WebDFUFlasher } from "./flash/WebDFUFlasher";
 
 const NOTIFICATION_THRESHOLD = 5;
 
 export const flashers = {
-  avr109: AVRGirlFlasher,
-  dfu: DFUFlasher,
+  avr109: AVR109Flasher,
+  dfu: WebDFUFlasher,
 };
 
 export const RebootMessage = {
@@ -40,9 +41,18 @@ export const RebootMessage = {
   clear: "CLEAR",
 };
 
-export const flash = async (flasher, board, port, filename, options) => {
+export const updateDeviceFirmware = async (filename, options) => {
+  console.log("Inside flash.js flash function");
+
+  console.log(options);
+
+  const port = options.focus._port;
   const focusCommands = new FocusCommands(options);
   const device = options.device;
+
+  const flasher = flashers[device.usb.bootloader.protocol];
+  console.log("DEBUG: flasher = ", flasher);
+
   const startFromBootloader = device.bootloader;
   const callback = options
     ? options.callback
@@ -95,6 +105,9 @@ export const flash = async (flasher, board, port, filename, options) => {
       }
       // Wait a few seconds to let the device properly reboot into bootloader
       // mode, and enumerate.
+      navigator.serial.requestPort();
+
+      // TODO - from here, we need to go back to the UI and let the user explicitly connect to the keyboard
       await delay(2000);
 
       bootloaderFound = await options.focus.checkBootloader(options.device);
@@ -126,7 +139,7 @@ export const flash = async (flasher, board, port, filename, options) => {
   /***
    * Flash new firmware
    ***/
-  await flasher.flash(board, port, filename, options);
+  await flasher.flash(port, filename, options);
 
   // If we were in bootloader mode, and aren't doing a factory reset, we're
   // pretty much done here.

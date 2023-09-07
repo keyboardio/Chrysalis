@@ -15,11 +15,11 @@
  */
 
 import { logger } from "@api/log";
-import { delay, reportUpdateStatus } from "./utils";
+import { reportUpdateStatus } from "./utils";
 import { parseIntelHex } from "./IntelHexParser";
 import { flashDevice, rebootToApplicationMode } from "./flashDevice";
 
-const flash = async (board, port, filename, options) => {
+const oldflash = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -27,6 +27,7 @@ const flash = async (board, port, filename, options) => {
       };
 
   await reportUpdateStatus(callback)("flash");
+  /*
   return new Promise((resolve, reject) => {
     try {
       if (port.isOpen) {
@@ -39,7 +40,7 @@ const flash = async (board, port, filename, options) => {
             try {
               avrgirl.connection.serialPort.close();
             } catch (_) {
-              /* ignore the error */
+              // ignore the error
             }
           }
           reject(error);
@@ -53,22 +54,31 @@ const flash = async (board, port, filename, options) => {
       reject(e);
     }
   });
+*/
 };
 
-const flashHexToDevice = async (port, filecontents) => {
-  //parse intel hex
-  const flashData = parseIntelHex(filecontents);
+const flash = async (port, filecontents, options) => {
+  return new Promise((resolve, reject) => {
+    try {
+      //parse intel hex
+      const flashData = parseIntelHex(filecontents);
 
-  //open & close
-  // Wait for the serial port to open.
-  await port.open({ baudRate: 57600 });
+      //open & close
+      // Wait for the serial port to open.
+      port.open({ baudRate: 57600 });
 
-  //open writing facilities
-  const writer = port.writable.getWriter();
-  //open reading stream
-  const reader = port.readable.getReader();
-  await flashDevice(writer, reader, flashData);
-  await port.close();
+      //open writing facilities
+      const writer = port.writable.getWriter();
+      //open reading stream
+      const reader = port.readable.getReader();
+      flashDevice(writer, reader, flashData);
+    } catch (e) {
+      logger("flash").error("Error during flash", { error: e });
+      reject(e);
+    } finally {
+      port.close();
+    }
+  });
 };
 
 export const AVR109Flasher = { flash, rebootToApplicationMode };

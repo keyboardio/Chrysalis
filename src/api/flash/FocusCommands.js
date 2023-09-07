@@ -48,7 +48,7 @@ export function FocusCommands(options) {
 
     // Try rebooting. No need to catch errors here, the caller will do that
     // anyway.
-    await focus.reboot(this.__deviceResetSupported);
+    await focus.reboot(false);
   };
 
   this.eraseEEPROM = async () => {

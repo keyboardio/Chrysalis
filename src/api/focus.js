@@ -211,6 +211,7 @@ class Focus {
   }
 
   async find(...device_descriptors) {
+    // This will only show devices the user has previously authorized.
     const portList = await navigator.serial.getPorts();
 
     console.log("portList", portList);
@@ -366,7 +367,7 @@ class Focus {
 
   async _processQueue() {
     if (this._processingRequest || this._requestQueue.length === 0) return;
-
+    console.log("processing request queue");
     this._processingRequest = true;
 
     const { cmd, args, resolve } = this._requestQueue.shift();

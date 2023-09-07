@@ -18,10 +18,6 @@ import { logger } from "@api/log";
 
 import { reportUpdateStatus } from "./utils";
 
-const runDFUError = {
-  SOFT_FAIL: 1,
-  HARD_FAIL: 2,
-};
 /*
 const runDFU = async (args) => {
   const dfuUtil = (
@@ -121,4 +117,4 @@ const flash = async (board, port, filename, options) => {
   */
 };
 
-export const DFUFlasher = { rebootToApplicationMode, flash };
+export const WebDFUFlasher = { rebootToApplicationMode, flash };

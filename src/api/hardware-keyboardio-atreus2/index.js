@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { flash, flashers } from "@api/flash";
 import Keymap from "./components/Keymap";
 
 const Atreus2 = {
@@ -52,17 +51,6 @@ const Atreus2 = {
   },
   components: {
     keymap: Keymap,
-  },
-
-  flash: async (port, filename, options) => {
-    const board = {
-      name: "Keyboardio Atreus",
-      baud: 9600,
-      productId: ["0x2302", "0x2303"],
-      protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    };
-    return flash(flashers.avr109, board, port, filename, options);
   },
 };
 

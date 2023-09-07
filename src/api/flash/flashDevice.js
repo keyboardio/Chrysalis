@@ -138,9 +138,9 @@ const writeToDevice = async (writer, data) => {
   await delay(5);
 };
 
-export const rebootToApplicationMode = async (writer, reader) => {
-  const reader = port.readable.getReader();
-  const writer = port.writable.getWriter();
+export const rebootToApplicationMode = async (port, writer, reader) => {
+  reader ||= port.readable.getReader();
+  writer ||= port.writable.getWriter();
   console.log("Exiting bootloader");
   //finish flashing and exit bootloader
   await sendCommand(writer, AVR109_CMD_EXIT_BOOTLOADER);

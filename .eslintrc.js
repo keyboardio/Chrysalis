@@ -37,7 +37,7 @@ module.exports = {
                 'paths': ['src'],
                 'extensions': ['.js','.jsx', '.ts', '.d.ts', '.tsx']
     },
-    webpack: { config: "./webpack.renderer.config.js" },
+    webpack: { config: "./config/webpack.dev.js" },
     },
 
     react: {

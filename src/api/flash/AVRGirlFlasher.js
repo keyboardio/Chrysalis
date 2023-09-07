@@ -16,7 +16,7 @@
 
 import { logger } from "@api/log";
 //import { SerialPort } from "serialport";
-import AvrGirl from "avrgirl-arduino";
+// import AvrGirl from "avrgirl-arduino";
 import { reportUpdateStatus } from "./utils";
 
 const rebootToApplicationMode = async (port, _) => {

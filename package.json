@@ -6,7 +6,7 @@
     "name": "Keyboardio",
     "email": "help@keyboard.io"
   },
-  "homepage": "https://keyboardio.github.io/chrysalis",
+  "homepage": "https://chrysalis.keyboard.io",
   "productName": "Chrysalis",
   "description": "A keyboard configuration tool",
   "main": ".webpack/main",
@@ -17,6 +17,7 @@
   },
   "scripts": {
     "precompile": "node tools/precompile.js",
+    "update-firmware": "tools/maintainer/firmware-update",
     "start": "webpack serve --config config/webpack.dev.js --progress",
     "build": "webpack --config config/webpack.prod.js",
     "prod": "http-server ./dist -a localhost -p 8005 -o",
@@ -25,7 +26,8 @@
     "lint:js": "eslint src/**/*.js",
     "lint:css": "stylelint src/**/*.css",
     "clean:code": "npm-run-all prettier lint:all",
-    "predeploy": "yarn run precompile; yarn run build",
+    "cname": "node tools/write-cname.js",
+    "predeploy": "yarn run precompile; yarn run build; yarn run cname",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
@@ -131,9 +133,6 @@
     "winston": "^3.8.2"
   },
   "resolutions": {
-    "teensy-loader/usb": "^2.8.1",
-    "avrgirl-arduino/stk500-v2/async": "^2.6.4",
-    "avrgirl-arduino/stk500/async": "^2.6.4",
     "cacache/y18n": "^4.0.1",
     "yargs/y18n": "^4.0.1",
     "**/node-forge": "^1.3.0",

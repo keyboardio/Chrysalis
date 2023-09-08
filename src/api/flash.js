@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { delay, reportUpdateStatus } from "./flash/utils";
+import { delay } from "./flash/utils";
 
 export const RebootMessage = {
   enter: {
@@ -34,26 +34,24 @@ export const factoryReset = async (filename, options) => {
   if (!options.activeDevice.bootloaderDetected()) {
     await enterBootloader(options);
   }
+  await options.onStepChange("flash");
+
   await options.activeDevice
     .getFlasher()
     .flash(options.activeDevice.port, filename, options);
   await reconnectAfterFlashing(options);
-  await reportUpdateStatus(options.callback)("factoryRestore");
+  await options.onStepChange("factoryRestore");
   await options.activeDevice.clearEEPROM();
 
   return;
 };
 
 export const updateDeviceFirmware = async (filename, options) => {
-  console.log(" updateDeviceFirmware", filename, options);
-
   const flasher = options.activeDevice.getFlasher();
 
-  const startingFromBootloader = options.activeDevice.bootloaderDetected();
+  if (options.activeDevice.bootloaderDetected()) {
+    await options.onStepChange("flash");
 
-  let saveKey;
-
-  if (startingFromBootloader) {
     await flasher.flash(options.activeDevice.port, filename, options);
     await flasher.rebootToApplicationMode(
       options.activeDevice.port,
@@ -61,14 +59,16 @@ export const updateDeviceFirmware = async (filename, options) => {
     );
     return;
   } else {
-    await reportUpdateStatus(options.callback)("saveEEPROM");
-    saveKey = await options.activeDevice.saveEEPROM();
+    await options.onStepChange("saveEEPROM");
+    const saveKey = await options.activeDevice.saveEEPROM();
     await enterBootloader(options);
+    await options.onStepChange("flash");
+
     await flasher.flash(options.activeDevice.port, filename, options);
     await reconnectAfterFlashing(options);
     await options.activeDevice.clearEEPROM();
     await reconnectAfterFlashing(options);
-    await reportUpdateStatus(options.callback)("restoreEEPROM");
+    await options.onStepChange("restoreEEPROM");
     await options.activeDevice.restoreEEPROM(saveKey);
   }
 };
@@ -83,7 +83,7 @@ const reconnectAfterFlashing = async (options) => {
    * - In either case, wait and try again.
    ***/
 
-  await reportUpdateStatus(options.callback)("reconnect");
+  await options.onStepChange("reconnect");
 
   // Wait a few seconds to let the keyboard settle, in case it was rebooting after a flash.
   await delay(2000);
@@ -91,9 +91,7 @@ const reconnectAfterFlashing = async (options) => {
   let device_detected = false;
   let attempts = 0;
   while (!device_detected) {
-    device_detected = await options.activeDevice.focus.reconnectToKeyboard(
-      options.activeDevice.focusDeviceDescriptor()
-    );
+    device_detected = await options.activeDevice.reconnect();
     if (device_detected) break;
     attempts += 1;
 
@@ -135,14 +133,13 @@ export const enterBootloader = async (options) => {
    * - If not found for N attempts, show a notification
    ***/
 
-  await reportUpdateStatus(options.callback)("bootloader");
+  await options.onStepChange("bootloader");
   let bootloaderFound = false;
   let attempts = 0;
   while (!bootloaderFound) {
     const deviceInApplicationMode = await options.activeDevice.focusDetected();
     try {
       await options.activeDevice.focus.reboot();
-      console.log("should have rebooted");
     } catch (e) {
       // Log the error, but otherwise ignore it.
       console.error("Error during reboot", { error: e });
@@ -165,9 +162,7 @@ export const enterBootloader = async (options) => {
     // TODO - from here, we need to go back to the UI and let the user explicitly connect to the keyboard
     await delay(2000);
 
-    bootloaderFound = await options.activeDevice.focus.checkBootloader(
-      options.activeDevice.focusDeviceDescriptor()
-    );
+    bootloaderFound = await options.activeDevice.bootloaderDetected();
     attempts += 1;
 
     if (bootloaderFound) break;

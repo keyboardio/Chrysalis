@@ -15,7 +15,6 @@
  */
 
 import { logger } from "@api/log";
-import { reportUpdateStatus } from "./utils";
 import { parseIntelHex } from "./IntelHexParser";
 import { flashDevice, rebootToApplicationMode } from "./flashDevice";
 
@@ -26,7 +25,6 @@ const oldflash = async (board, port, filename, options) => {
         return;
       };
 
-  await reportUpdateStatus(callback)("flash");
   /*
   return new Promise((resolve, reject) => {
     try {

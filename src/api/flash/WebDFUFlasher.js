@@ -16,7 +16,6 @@
 
 import { logger } from "@api/log";
 
-import { reportUpdateStatus } from "./utils";
 
 /*
 const runDFU = async (args) => {
@@ -99,7 +98,6 @@ const flash = async (board, port, filename, options) => {
       };
   const device = options.device;
 
-  await reportUpdateStatus(callback)("flash");
   /* TODO
 
   await runDFUUtil([

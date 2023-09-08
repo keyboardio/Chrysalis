@@ -14,13 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
 
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-export const reportUpdateStatus = (callback) => async (step) => {
-  logger("flash").info("executing step", { step: step });
-  if (callback) {
-    return callback(step);
-  }
-};

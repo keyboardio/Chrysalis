@@ -80,6 +80,8 @@ const FirmwareUpdate = (props) => {
   };
   const _flash = async (options, steps) => {
     const nextStep = async (desiredState) => {
+      console.info("executing step", { step: step });
+
       setActiveStep(Math.min(activeStep + 1, steps.length));
       steps.forEach((step, index) => {
         if (step == desiredState) {
@@ -97,7 +99,7 @@ const FirmwareUpdate = (props) => {
 
     options = Object.assign({}, options, {
       activeDevice: activeDevice,
-      callback: nextStep,
+      onStepChange: nextStep,
       onError: onError,
     });
 

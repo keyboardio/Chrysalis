@@ -28,6 +28,7 @@ export function FocusCommands(options) {
   });
 
   this.reboot = async (devicePort, focusDeviceDescriptor) => {
+    /* Commented out since disconnecting in order to connect is less fun with webserial
     const focus = options.focus;
     let port = focus._port;
 
@@ -45,9 +46,12 @@ export function FocusCommands(options) {
       port = await focus.open(devicePort.path, focusDeviceDescriptor);
       await delay(2000);
     }
+    */
 
     // Try rebooting. No need to catch errors here, the caller will do that
     // anyway.
+    const focus = options.focus;
+
     await focus.reboot(false);
   };
 

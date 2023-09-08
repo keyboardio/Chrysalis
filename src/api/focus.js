@@ -50,8 +50,9 @@ class Focus {
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
+    console.log("in checkSerialDevice", focusDeviceDescriptor, usbInfo);
     const portList = await navigator.serial.getPorts();
-
+    console.log("portList", portList);
     logger("focus").debug("serial port list obtained", {
       portList: portList,
       device: usbInfo,
@@ -120,6 +121,7 @@ class Focus {
   }
 
   async checkBootloader(focusDeviceDescriptor) {
+    console.log("in checkBootloader", focusDeviceDescriptor);
     if (!focusDeviceDescriptor.usb.bootloader) {
       logger().warn("No bootloader defined in the device descriptor", {
         descriptor: focusDeviceDescriptor,
@@ -131,8 +133,10 @@ class Focus {
     });
 
     if (focusDeviceDescriptor.usb.bootloader.protocol !== "avr109") {
+      console.log("checking a non-serial bootloader");
       return await this.checkNonSerialBootloader(focusDeviceDescriptor);
     } else {
+      console.log("Checking a serial bootloader");
       return await this.checkSerialBootloader(focusDeviceDescriptor);
     }
   }
@@ -161,24 +165,18 @@ class Focus {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
     };
 
-    const baudUpdate = () => {
-      return new Promise((resolve) => {
-        logger("focus").debug("reboot: baud update");
-        port.update({ baudRate: 1200 }, async () => {
-          await delay(timeouts.dtrToggle);
-          resolve();
-        });
-      });
+    const baudUpdate = async () => {
+      logger("focus").debug("reboot: baud update");
+      await port.close();
+      await port.open({ baudRate: 1200 });
+      await delay(timeouts.dtrToggle);
     };
 
-    const dtrToggle = (state) => {
-      return new Promise((resolve) => {
-        logger("focus").debug(`reboot: dtr ${state ? "on" : "off"}`);
-        port.set({ dtr: state }, async () => {
-          await delay(timeouts.dtrToggle);
-          resolve();
-        });
-      });
+    const dtrToggle = async (state) => {
+      logger("focus").debug(`reboot: dtr ${state ? "on" : "off"}`);
+
+      await port.setSignals({ dataTerminalReady: state });
+      await delay(timeouts.dtrToggle);
     };
 
     // If the device supports the `device.reset` command, try doing that first.
@@ -367,7 +365,6 @@ class Focus {
 
   async _processQueue() {
     if (this._processingRequest || this._requestQueue.length === 0) return;
-    console.log("processing request queue");
     this._processingRequest = true;
 
     const { cmd, args, resolve } = this._requestQueue.shift();
@@ -407,13 +404,10 @@ class Focus {
     const encoder = new TextEncoder();
     const writer = this._port.writable.getWriter();
     const data = encoder.encode(request);
-    console.log("Gonna write data", request);
     await writer.write(data);
-    console.log("Data written");
     writer.releaseLock();
     let response = "";
 
-    console.log("Request sent");
     // Read the response up to a single line containing only a .
     const decoder = new TextDecoder();
     const reader = this._port.readable.getReader();
@@ -432,13 +426,11 @@ class Focus {
         }
       }
     } finally {
-      console.log("Response", { data: response });
       logger("focus").debug("Returning response", response);
       reader.releaseLock();
     }
 
     response = response.trim();
-    console.log("Returning response", { data: response });
     return response; // Return the response string
   }
 

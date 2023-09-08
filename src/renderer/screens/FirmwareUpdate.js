@@ -34,7 +34,6 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
@@ -62,6 +61,7 @@ const FirmwareUpdate = (props) => {
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
   const [factoryReset, setFactoryReset] = useState(isBootloader);
+  const [requestInteractionOpen, setRequestInteractionOpen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -77,8 +77,6 @@ const FirmwareUpdate = (props) => {
     return cVendor + "/" + cProduct + "/default." + firmwareType;
   };
   const _flash = async (options, steps) => {
-    const focus = new Focus();
-
     const nextStep = async (desiredState) => {
       setActiveStep(Math.min(activeStep + 1, steps.length));
       steps.forEach((step, index) => {
@@ -95,16 +93,18 @@ const FirmwareUpdate = (props) => {
       setFlashNotificationOpen(msg !== RebootMessage.clear);
     };
 
-    console.log("About to call flash.flash()  ");
-    return updateDeviceFirmware(
-      "file",
-      Object.assign({}, options, {
-        device: focusDeviceDescriptor,
-        focus: focus,
-        callback: nextStep,
-        onError: onError,
-      })
-    );
+    Object.assign({}, options, {
+      device: focusDeviceDescriptor,
+      focus: new Focus(),
+      callback: nextStep,
+      onError: onError,
+    });
+
+    if (options.factoryReset) {
+      return factoryReset("file", options);
+    } else {
+      return updateDeviceFirmware("file", options);
+    }
   };
 
   const upload = async (options) => {
@@ -250,6 +250,12 @@ const FirmwareUpdate = (props) => {
         </Paper>
       </Container>
       <FlashSteps steps={flashSteps} activeStep={activeStep} />
+
+      <ConfirmationDialog
+        open={requestInteractionOpen}
+        title={requestInteractionMessage}
+        onConfirm={afterRequestingInteraction}
+      />
 
       <ConfirmationDialog
         title={t("firmwareUpdate.factoryConfirmDialog.title")}

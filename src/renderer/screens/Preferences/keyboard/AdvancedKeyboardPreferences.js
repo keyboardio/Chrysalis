@@ -15,13 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { FocusCommands } from "@api/flash/FocusCommands";
 import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import clearEEPROM from "@renderer/utils/clearEEPROM";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -36,15 +34,13 @@ const AdvancedKeyboardPreferences = (props) => {
     useState(false);
   const [working, setWorking] = useState(false);
 
-  const focusCommands = new FocusCommands({ focus: activeDevice.focus });
-
   const resetEEPROM = async () => {
     await setWorking(true);
     closeEEPROMResetConfirmation();
 
-    await clearEEPROM();
+    await activeDevice.clearEEPROM();
     try {
-      focusCommands.reboot();
+      activeDevice.focus.reboot();
     } catch (_) {
       /* ignore any errors */
     }

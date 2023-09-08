@@ -20,5 +20,7 @@ export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const reportUpdateStatus = (callback) => async (step) => {
   logger("flash").info("executing step", { step: step });
-  return callback(step);
+  if (callback) {
+    return callback(step);
+  }
 };

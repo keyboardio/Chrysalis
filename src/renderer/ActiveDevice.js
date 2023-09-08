@@ -18,6 +18,10 @@
 import Focus from "@api/focus";
 import cloneDeep from "lodash.clonedeep";
 import isEqual from "lodash.isequal";
+import { v4 as uuidv4 } from "uuid";
+
+import { AVR109Flasher } from "@api/flash/AVR109Flasher";
+import { WebDFUFlasher } from "@api/flash/WebDFUFlasher";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -28,6 +32,11 @@ export function ActiveDevice() {
 
   this.focus = new Focus();
 
+  this._flashers = {
+    avr109: AVR109Flasher,
+    dfu: WebDFUFlasher,
+  };
+
   this.plugins = async () => {
     return await this.focus.plugins();
   };
@@ -37,6 +46,10 @@ export function ActiveDevice() {
       this.focus.chunked_writes = Boolean(newValue);
     }
     return this.focus.chunked_writes;
+  };
+
+  this.serialPort = () => {
+    return this.focus._port;
   };
 
   // This method is called when the device is connected.
@@ -76,6 +89,15 @@ export function ActiveDevice() {
       return false;
     }
   };
+
+  this.bootloaderDetected = () => {
+    if (this.focusDeviceDescriptor().bootloader) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   this.hasCustomizableKeymaps = async () => {
     if (
       this.supportsFocusCommand("keymap.custom") ||
@@ -165,5 +187,69 @@ export function ActiveDevice() {
       this._storage.version = await this.focus.command("version");
     }
     return this._storage.version;
+  };
+
+  this.clearEEPROM = async () => {
+    const focus = new Focus();
+
+    if (this.supportsFocusCommand("eeprom.erase")) {
+      try {
+        focus.command("eeprom.erase");
+      } catch (_) {
+        /* ignore any errors */
+      }
+
+      // Once we send the eeprom.erase command, the device will eventually reboot.
+      // Wait 10 seconds, and then reboot, to pretend we got something back.
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 10000);
+      });
+      return;
+    } else {
+      // We have to do this the bad old way
+      let eeprom = await focus.command("eeprom.contents");
+      eeprom = eeprom
+        .split(" ")
+        .filter((v) => v.length > 0)
+        .map(() => 255)
+        .join(" ");
+      await focus.command("eeprom.contents", eeprom);
+    }
+  };
+
+  this.saveEEPROM = async () => {
+    const structured_dump = await this.focus.readKeyboardConfiguration();
+    const json_dump = JSON.stringify(structured_dump);
+
+    const key =
+      ".internal.backups.save-file" +
+      this.focusDeviceDescriptor().info +
+      Date.now() +
+      uuidv4();
+    console.debug("Writing structured EEPROM data to session storage", {
+      key: key,
+      eeprom: structured_dump,
+    });
+    sessionStorage.setItem(key, json_dump);
+
+    return key;
+  };
+  this.restoreEEPROM = async (saveKey) => {
+    const structured_dump = JSON.parse(sessionStorage.getItem(saveKey));
+
+    console.debug("Restoring structured EEPROM data from session storage", {
+      key: saveKey,
+      eeprom: structured_dump,
+    });
+    await this.focus.writeKeyboardConfiguration(structured_dump);
+    sessionStorage.removeItem(saveKey);
+  };
+
+  this.getFlasher = () => {
+    return this._flashers[
+      this.focusDeviceDescriptor()?.usb?.bootloader?.protocol
+    ];
   };
 }

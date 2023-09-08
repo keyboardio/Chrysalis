@@ -14,20 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
-import { FocusCommands } from "./flash/FocusCommands";
 import { delay, reportUpdateStatus } from "./flash/utils";
-
-import { AVR109Flasher } from "./flash/AVR109Flasher";
-
-import { WebDFUFlasher } from "./flash/WebDFUFlasher";
-
-const NOTIFICATION_THRESHOLD = 5;
-
-export const flashers = {
-  avr109: AVR109Flasher,
-  dfu: WebDFUFlasher,
-};
 
 export const RebootMessage = {
   enter: {
@@ -41,100 +28,48 @@ export const RebootMessage = {
   clear: "CLEAR",
 };
 
-const getFlasher = (device) => {
-  return flashers[device.usb.bootloader.protocol];
-};
+const NOTIFICATION_THRESHOLD = 5;
 
 export const factoryReset = async (filename, options) => {
-  const port = options.focus._port;
-
-  const startingFromBootloader = options.device.bootloader;
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-
-  if (!startingFromBootloader) {
+  if (!options.activeDevice.bootloaderDetected()) {
     await enterBootloader(options);
   }
-
-  await getFlasher(options.device).flash(port, filename, options);
-
+  await options.activeDevice
+    .getFlasher()
+    .flash(options.activeDevice.port, filename, options);
   await reconnectAfterFlashing(options);
-  await reportUpdateStatus(callback)("factoryRestore");
-
-  await eraseEEPROM(options);
+  await reportUpdateStatus(options.callback)("factoryRestore");
+  await options.activeDevice.clearEEPROM();
 
   return;
 };
 
 export const updateDeviceFirmware = async (filename, options) => {
-  const port = options.focus._port;
+  console.log(" updateDeviceFirmware", filename, options);
 
-  const startingFromBootloader = options.device.bootloader;
+  const flasher = options.activeDevice.getFlasher();
+
+  const startingFromBootloader = options.activeDevice.bootloaderDetected();
 
   let saveKey;
-  if (!startingFromBootloader) {
-    saveKey = await saveEEPROM();
-
-    await enterBootloader(options);
-  }
-
-  await getFlasher(options.device).flash(port, filename, options);
 
   if (startingFromBootloader) {
-    await getFlasher(options.device).rebootToApplicationMode(
-      port,
-      options.device
+    await flasher.flash(options.activeDevice.port, filename, options);
+    await flasher.rebootToApplicationMode(
+      options.activeDevice.port,
+      options.activeDevice.focusDeviceDescriptor()
     );
     return;
-  }
-
-  await reconnectAfterFlashing(options);
-  await eraseEEPROM(options);
-  await reconnectAfterFlashing(options);
-  await restoreEEPROM(saveKey, options);
-};
-
-export const restoreEEPROM = async (saveKey, options) => {
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-  const focusCommands = new FocusCommands(options);
-
-  await reportUpdateStatus(callback)("restoreEEPROM");
-
-  await focusCommands.restoreEEPROM(saveKey);
-};
-
-export const saveEEPROM = async (options) => {
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-  const focusCommands = new FocusCommands(options);
-  await reportUpdateStatus(callback)("saveEEPROM");
-
-  const saveKey = await focusCommands.saveEEPROM();
-  return saveKey;
-};
-
-export const eraseEEPROM = async (options) => {
-  const focusCommands = new FocusCommands(options);
-
-  // Clear the EEPROM before restoring. We do this so that if the layout
-  // changed, any space that changed owners will not have garbage in it, but
-  // either uninitialized bytes, or whatever the restore later restores.
-  try {
-    await focusCommands.eraseEEPROM();
-  } catch (e) {
-    if (e != "Communication timeout") {
-      throw new Error(e);
-    }
+  } else {
+    await reportUpdateStatus(options.callback)("saveEEPROM");
+    saveKey = await options.activeDevice.saveEEPROM();
+    await enterBootloader(options);
+    await flasher.flash(options.activeDevice.port, filename, options);
+    await reconnectAfterFlashing(options);
+    await options.activeDevice.clearEEPROM();
+    await reconnectAfterFlashing(options);
+    await reportUpdateStatus(options.callback)("restoreEEPROM");
+    await options.activeDevice.restoreEEPROM(saveKey);
   }
 };
 
@@ -148,20 +83,7 @@ const reconnectAfterFlashing = async (options) => {
    * - In either case, wait and try again.
    ***/
 
-  const onError = options
-    ? options.onError
-    : function () {
-        return;
-      };
-
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-
-  const device = options.device;
-  await reportUpdateStatus(callback)("reconnect");
+  await reportUpdateStatus(options.callback)("reconnect");
 
   // Wait a few seconds to let the keyboard settle, in case it was rebooting after a flash.
   await delay(2000);
@@ -169,32 +91,36 @@ const reconnectAfterFlashing = async (options) => {
   let device_detected = false;
   let attempts = 0;
   while (!device_detected) {
-    device_detected = await options.focus.reconnectToKeyboard(device);
+    device_detected = await options.activeDevice.focus.reconnectToKeyboard(
+      options.activeDevice.focusDeviceDescriptor()
+    );
     if (device_detected) break;
     attempts += 1;
 
-    const bootloaderFound = await options.focus.checkBootloader(options.device);
+    const bootloaderFound = await options.activeDevice.bootloaderDetected();
 
     if (attempts == NOTIFICATION_THRESHOLD) {
       if (bootloaderFound) {
-        onError(RebootMessage.reconnect.stillBootloader);
+        options.onError(RebootMessage.reconnect.stillBootloader);
       } else {
-        onError(RebootMessage.reconnect.notFound);
+        options.onError(RebootMessage.reconnect.notFound);
       }
     }
 
     if (bootloaderFound) {
-      getFlasher(options.device).rebootToApplicationMode(
-        bootloaderFound,
-        options.device
-      );
+      options.activeDevice
+        .getFlasher()
+        .rebootToApplicationMode(
+          bootloaderFound,
+          options.activeDevice.focusDeviceDescriptor()
+        );
     }
 
     // Wait a few seconds to not overwhelm the system with rapid reboot
     // attempts.
     await delay(2000);
   }
-  onError(RebootMessage.clear);
+  options.onError(RebootMessage.clear);
 
   // Wait a few seconds after rebooting too, to let the keyboard come back up
   // fully.
@@ -209,33 +135,17 @@ export const enterBootloader = async (options) => {
    * - If not found for N attempts, show a notification
    ***/
 
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-
-  const onError = options
-    ? options.onError
-    : function () {
-        return;
-      };
-
-  await reportUpdateStatus(callback)("bootloader");
+  await reportUpdateStatus(options.callback)("bootloader");
   let bootloaderFound = false;
   let attempts = 0;
   while (!bootloaderFound) {
-    const deviceInApplicationMode = await options.focus.checkSerialDevice(
-      options.device,
-      options.device.usb
-    );
-
+    const deviceInApplicationMode = await options.activeDevice.focusDetected();
     try {
-      await options.focus.reboot();
+      await options.activeDevice.focus.reboot();
       console.log("should have rebooted");
     } catch (e) {
       // Log the error, but otherwise ignore it.
-      logger("flash").error("Error during reboot", { error: e });
+      console.error("Error during reboot", { error: e });
     }
     // Wait a few seconds to let the device properly reboot into bootloader
     // mode, and enumerate.
@@ -255,28 +165,20 @@ export const enterBootloader = async (options) => {
     // TODO - from here, we need to go back to the UI and let the user explicitly connect to the keyboard
     await delay(2000);
 
-    bootloaderFound = await options.focus.checkBootloader(options.device);
+    bootloaderFound = await options.activeDevice.focus.checkBootloader(
+      options.activeDevice.focusDeviceDescriptor()
+    );
     attempts += 1;
 
     if (bootloaderFound) break;
 
     if (attempts == NOTIFICATION_THRESHOLD) {
       if (deviceInApplicationMode) {
-        onError(RebootMessage.enter.stillApplication);
+        options.onError(RebootMessage.enter.stillApplication);
       } else {
-        onError(RebootMessage.enter.notFound);
+        options.onError(RebootMessage.enter.notFound);
       }
     }
   }
-  onError(RebootMessage.clear);
-
-  // When we rebooted into programmable mode, close our previous port, it is not
-  // needed anymore.
-  if (options.focus._port.isOpen) {
-    try {
-      await options.focus._port.close();
-    } catch (_) {
-      /* empty */
-    } // Ignore the error
-  }
+  options.onError(RebootMessage.clear);
 };

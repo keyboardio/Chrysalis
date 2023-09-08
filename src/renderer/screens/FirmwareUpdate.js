@@ -15,9 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { RebootMessage, updateDeviceFirmware } from "@api/flash";
 import Focus from "@api/focus";
-import { logger } from "@api/log";
-import { updateDeviceFirmware, RebootMessage } from "@api/flash";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Alert from "@mui/material/Alert";
@@ -30,9 +29,10 @@ import Paper from "@mui/material/Paper";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
@@ -44,6 +44,8 @@ import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
+  const globalContext = useContext(GlobalContext);
+  const [activeDevice] = globalContext.state.activeDevice;
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
@@ -55,19 +57,19 @@ const FirmwareUpdate = (props) => {
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
   const isBootloader = focusDeviceDescriptor.bootloader;
 
-  const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
   const [factoryReset, setFactoryReset] = useState(isBootloader);
-  const [requestInteractionOpen, setRequestInteractionOpen] = useState(false);
-
-  const { t } = useTranslation();
 
   const toggleFactoryReset = () => {
     setFactoryReset(!factoryReset);
   };
+
+  const [requestInteractionOpen, setRequestInteractionOpen] = useState(false);
+
+  const { t } = useTranslation();
 
   const defaultFirmwareFilename = () => {
     const { vendor, product } = focusDeviceDescriptor.info;
@@ -93,13 +95,13 @@ const FirmwareUpdate = (props) => {
       setFlashNotificationOpen(msg !== RebootMessage.clear);
     };
 
-    Object.assign({}, options, {
-      device: focusDeviceDescriptor,
-      focus: new Focus(),
+    options = Object.assign({}, options, {
+      activeDevice: activeDevice,
       callback: nextStep,
       onError: onError,
     });
 
+    console.log(options);
     if (options.factoryReset) {
       return factoryReset("file", options);
     } else {
@@ -109,7 +111,7 @@ const FirmwareUpdate = (props) => {
 
   const upload = async (options) => {
     let steps;
-
+    setConfirmationOpen(false);
     if (focusDeviceDescriptor?.bootloader) {
       if (options?.factoryReset) {
         steps = ["flash", "reconnect", "factoryRestore"];
@@ -131,28 +133,26 @@ const FirmwareUpdate = (props) => {
     }
     setFlashSteps(steps);
 
-    setConfirmationOpen(false);
-    setFactoryConfirmationOpen(false);
-
     await props.toggleFlashing();
     setProgress("flashing");
 
-    logger().info("Starting to flash");
+    console.info("Starting to flash");
     try {
       await _flash(options, steps);
       setActiveStep(steps.length);
     } catch (e) {
-      logger().error("Error while uploading firmware", { error: e });
+      console.error("Error while uploading firmware", { error: e });
       setProgress("error");
       setActiveStep(-1);
       toast.error(t("firmwareUpdate.flashing.error"));
       props.toggleFlashing();
       props.onDisconnect();
-      return;
+    } finally {
+      setConfirmationOpen(false);
     }
 
     setProgress("success");
-    logger().info("Successfully flashed");
+    console.info("Successfully flashed");
     return new Promise((resolve) => {
       setTimeout(() => {
         toast.success(t("firmwareUpdate.flashing.success"), {
@@ -179,11 +179,7 @@ const FirmwareUpdate = (props) => {
     (selectedFirmwareType == "custom" && !firmwareFilename);
 
   const onUpdateClick = () => {
-    if (factoryReset) {
-      setFactoryConfirmationOpen(true);
-    } else {
-      setConfirmationOpen(true);
-    }
+    setConfirmationOpen(true);
   };
 
   const uploadVariant = isBootloader ? "outlined" : "contained";
@@ -253,35 +249,29 @@ const FirmwareUpdate = (props) => {
 
       <ConfirmationDialog
         open={requestInteractionOpen}
-        title={requestInteractionMessage}
-        onConfirm={afterRequestingInteraction}
+        title={"You need to do something TKTKTK"}
+        onConfirm={() => setRequestInteractionOpen(false)}
       />
 
       <ConfirmationDialog
-        title={t("firmwareUpdate.factoryConfirmDialog.title")}
-        open={factoryConfirmationOpen}
-        onConfirm={() => upload({ factoryReset: true })}
-        onCancel={() => setFactoryConfirmationOpen(false)}
-        confirmLabel={t("dialog.continue")}
-      >
-        <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareUpdate.factoryConfirmDialog.contents")}
-        </Typography>
-        {instructions}
-      </ConfirmationDialog>
-
-      <ConfirmationDialog
-        title={t("firmwareUpdate.confirmDialog.title")}
+        title={
+          factoryReset
+            ? t("firmwareUpdate.factoryConfirmDialog.title")
+            : t("firmwareUpdate.confirmDialog.title")
+        }
         open={confirmationOpen}
-        onConfirm={() => upload()}
+        onConfirm={() => upload({ factoryReset: factoryReset ? true : false })}
         onCancel={() => setConfirmationOpen(false)}
         confirmLabel={t("dialog.continue")}
       >
         <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareUpdate.confirmDialog.description")}
+          {factoryReset
+            ? t("firmwareUpdate.factoryConfirmDialog.contents")
+            : t("firmwareUpdate.confirmDialog.description")}
         </Typography>
         {instructions}
       </ConfirmationDialog>
+
       <FlashNotification
         open={flashNotificationOpen}
         message={flashNotificationMsg}

@@ -80,7 +80,7 @@ const FirmwareUpdate = (props) => {
   };
   const _flash = async (options, steps) => {
     const nextStep = async (desiredState) => {
-      console.info("executing step", { step: step });
+      console.info("executing step", { step: desiredState });
 
       setActiveStep(Math.min(activeStep + 1, steps.length));
       steps.forEach((step, index) => {
@@ -167,15 +167,6 @@ const FirmwareUpdate = (props) => {
     });
   };
 
-  const instructions = (
-    <Alert severity="info">
-      <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
-      <Typography component="p" gutterBottom>
-        {t("hardware.updateInstructions")}
-      </Typography>
-    </Alert>
-  );
-
   const buttonsDisabled =
     progress == "flashing" ||
     (selectedFirmwareType == "custom" && !firmwareFilename);
@@ -184,7 +175,6 @@ const FirmwareUpdate = (props) => {
     setConfirmationOpen(true);
   };
 
-  const uploadVariant = isBootloader ? "outlined" : "contained";
   const uploadLabel = isBootloader
     ? t("firmwareUpdate.flashing.anywayButton")
     : t("firmwareUpdate.flashing.button");
@@ -223,7 +213,6 @@ const FirmwareUpdate = (props) => {
               startIcon={
                 progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
               }
-              variant={uploadVariant}
               onClick={onUpdateClick}
               disabled={buttonsDisabled}
               color={
@@ -271,7 +260,12 @@ const FirmwareUpdate = (props) => {
             ? t("firmwareUpdate.factoryConfirmDialog.contents")
             : t("firmwareUpdate.confirmDialog.description")}
         </Typography>
-        {instructions}
+        <Alert severity="info">
+          <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
+          <Typography component="p" gutterBottom>
+            {t("hardware.updateInstructions")}
+          </Typography>
+        </Alert>
       </ConfirmationDialog>
 
       <FlashNotification

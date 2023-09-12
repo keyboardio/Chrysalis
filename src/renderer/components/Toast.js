@@ -46,7 +46,7 @@ export const toast = {
   },
   toast: async (msg) => {
     if (!msg.progress) {
-      logger().debug("Toast message received", {
+      console.debug("Toast message received", {
         msg: {
           variant: msg.variant,
           message: msg.message.toString(),

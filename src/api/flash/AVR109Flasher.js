@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
 import { parseIntelHex } from "./IntelHexParser";
 import { flashDevice, rebootToApplicationMode } from "./flashDevice";
 
@@ -43,7 +42,7 @@ const oldflash = async (board, port, filename, options) => {
           }
           reject(error);
         } else {
-          logger("flash").debug("flashing done");
+          console.debug("flashing done");
           resolve();
         }
       });

@@ -34,8 +34,8 @@ const SaveChangesButton = (props) => {
 
   const handleButtonClick = async (event) => {
     setInProgress(true);
-    logger().debug("about to do async stuff", { label: "save-changes" });
-    logger().debug("about to call the onlick handler", {
+    console.debug("about to do async stuff", { label: "save-changes" });
+    console.debug("about to call the onlick handler", {
       label: "save-changes",
     });
     try {
@@ -43,14 +43,14 @@ const SaveChangesButton = (props) => {
     } catch (e) {
       return props.onError(e);
     }
-    logger().debug("Got back from click", { label: "save-changes" });
+    console.debug("Got back from click", { label: "save-changes" });
 
     setSuccess(true);
     setInProgress(false);
     setTimeout(() => {
-      logger().debug("running the timeout callback", { label: "save-changes" });
+      console.debug("running the timeout callback", { label: "save-changes" });
       setSuccess(false);
-      logger().debug("finishied timeout callback", { label: "save-changes" });
+      console.debug("finishied timeout callback", { label: "save-changes" });
     }, 2000);
   };
 

@@ -26,7 +26,7 @@ const runDFU = async (args) => {
   const maxFlashingTime = 1000 * 60 * 5;
 
   return new Promise((resolve, reject) => {
-    logger("flash").debug("running dfu-util", { dfuUtil, args });
+    console.debug("running dfu-util", { dfuUtil, args });
     const child = spawn(dfuUtil, args);
     const timer = setTimeout(() => {
       child.kill();
@@ -39,15 +39,15 @@ const runDFU = async (args) => {
       reject(runDFUError.HARD_FAIL);
     });
     child.stdout.on("data", (data) => {
-      logger("flash").debug("dfu-util:stdout:", { data: data.toString() });
+      console.debug("dfu-util:stdout:", { data: data.toString() });
     });
     child.stderr.on("data", (data) => {
-      logger("flash").debug("dfu-util:stderr:", { data: data.toString() });
+      console.debug("dfu-util:stderr:", { data: data.toString() });
     });
     child.on("exit", (code) => {
       clearTimeout(timer);
       if (code == 0 || code == 251) {
-        logger("flash").debug("dfu-util done");
+        console.debug("dfu-util done");
         resolve();
       } else if (code == 74) {
         logger("flash").error("dfu-util exited abnormally", {
@@ -71,7 +71,7 @@ const formatDeviceUSBId = (desc) => {
 };
 
 const rebootToApplicationMode = async (port, device) => {
-  logger("flash").debug("rebooting to application mode");
+  console.debug("rebooting to application mode");
   /* TODO
 
   try {

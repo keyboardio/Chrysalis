@@ -30,7 +30,7 @@ const deviceReset = async () => {
 
   const baudUpdate = () => {
     return new Promise((resolve) => {
-      logger("focus").debug("baud update");
+      console.debug("baud update");
       port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();
@@ -40,7 +40,7 @@ const deviceReset = async () => {
 
   const dtrToggle = (state) => {
     return new Promise((resolve) => {
-      logger("focus").debug(`dtr ${state ? "on" : "off"}`);
+      console.debug(`dtr ${state ? "on" : "off"}`);
       port.set({ dtr: state }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();

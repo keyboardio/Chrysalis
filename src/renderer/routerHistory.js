@@ -20,6 +20,6 @@ import { createHistory, createMemorySource } from "@gatsbyjs/reach-router";
 const source = createMemorySource("/sanity-check");
 export const history = createHistory(source);
 export const navigate = (...args) => {
-  logger().debug("navigating to location", { args: args });
+  console.debug("navigating to location", { args: args });
   return history.navigate(...args);
 };

@@ -15,7 +15,6 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { collectLogs, logger } from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -49,8 +48,6 @@ function SystemInfo(props) {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
-  const [collecting, setCollecting] = useState(false);
-  const [collected, setCollected] = useState(false);
   const [info, setInfo] = useState({});
   const [viewing, setViewing] = useState(false);
 
@@ -87,7 +84,6 @@ function SystemInfo(props) {
       };
     }
 
-    sysInfo.logs = await collectLogs();
 
     setCollecting(false);
     setCollected(true);
@@ -163,7 +159,6 @@ function SystemInfo(props) {
         <CardActions>
           <Box sx={{ flexGrow: 1 }} />
           <Button
-            disabled={collecting}
             color="primary"
             variant="outlined"
             onClick={async () => {

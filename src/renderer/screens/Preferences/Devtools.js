@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getLogLevel, setLogLevel } from "@api/log";
 import Divider from "@mui/material/Divider";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -31,20 +30,12 @@ import Focus from "@api/focus";
 function DevtoolsPreferences(props) {
   const { t } = useTranslation();
 
-  const [verbose, setVerbose] = useState(false);
   const [chunked, setChunked] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const initialize = async () => {
       setChunked(settings.get("focus.chunked_writes", true));
-
-      const logLevel = getLogLevel();
-      if (logLevel == "info") {
-        setVerbose(false);
-      } else {
-        setVerbose(true);
-      }
 
       setLoaded(true);
     };
@@ -55,12 +46,6 @@ function DevtoolsPreferences(props) {
     return () => {};
   });
 
-  const toggleVerbose = (event) => {
-    const verbose = event.target.checked;
-    setVerbose(verbose);
-
-    setLogLevel(verbose ? "verbose" : "info");
-  };
 
   const toggleChunked = (event) => {
     const chunked = event.target.checked;
@@ -81,12 +66,6 @@ function DevtoolsPreferences(props) {
   return (
     <PreferenceSection name="devtools.main">
       <Divider sx={{ my: 2, mx: -2 }} />
-      <PreferenceSwitch
-        loaded={loaded}
-        option="devtools.verboseLogging"
-        checked={verbose}
-        onChange={toggleVerbose}
-      />
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         loaded={loaded}

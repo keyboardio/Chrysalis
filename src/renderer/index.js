@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { setupLogging } from "@api/log";
 
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -27,7 +26,6 @@ import { GlobalContextProvider } from "./components/GlobalContext";
 import { Error } from "./Error";
 import "./i18n"; // to initialize the i18n system
 
-setupLogging();
 
 // Enable Hot Module Reload in dev
 if (module.hot) module.hot.accept();

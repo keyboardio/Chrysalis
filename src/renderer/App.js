@@ -185,9 +185,9 @@ const App = (props) => {
     setActiveDevice(newActiveDevice);
 
     if (!focus.focusDeviceDescriptor?.bootloader) {
-      logger().info("Probing for focus support...");
+      console.info("Probing for focus support...");
       focus.setLayerSize(focus.focusDeviceDescriptor);
-      logger().info("Set the layer size", focus.focusDeviceDescriptor);
+      console.info("Set the layer size", focus.focusDeviceDescriptor);
     }
 
     i18n.refreshHardware(focus.focusDeviceDescriptor);
@@ -206,7 +206,7 @@ const App = (props) => {
 
   const onKeyboardDisconnect = async () => {
     if (activeDevice) {
-      logger().info("Disconnecting from keyboard", {
+      console.info("Disconnecting from keyboard", {
         activeDevice: activeDevice,
       });
     }

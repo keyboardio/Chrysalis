@@ -30,12 +30,12 @@ const runDFU = async (args) => {
     const child = spawn(dfuUtil, args);
     const timer = setTimeout(() => {
       child.kill();
-      logger("flash").error("dfu-util timed out");
+      console.error("dfu-util timed out");
       reject(runDFUError.HARD_FAIL);
     }, maxFlashingTime);
     child.on("error", (err) => {
       clearTimeout(timer);
-      logger("flash").error("error starting dfu-util", { err: err.toString() });
+      console.error("error starting dfu-util", { err: err.toString() });
       reject(runDFUError.HARD_FAIL);
     });
     child.stdout.on("data", (data) => {
@@ -50,12 +50,12 @@ const runDFU = async (args) => {
         console.debug("dfu-util done");
         resolve();
       } else if (code == 74) {
-        logger("flash").error("dfu-util exited abnormally", {
+        console.error("dfu-util exited abnormally", {
           exitCode: code,
         });
         reject(runDFUError.SOFT_FAIL);
       } else {
-        logger("flash").error("dfu-util exited abnormally", {
+        console.error("dfu-util exited abnormally", {
           exitCode: code,
         });
         reject(runDFUError.HARD_FAIL);

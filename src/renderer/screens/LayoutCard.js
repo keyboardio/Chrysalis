@@ -79,7 +79,7 @@ const LayoutCard = (props) => {
         setColormap(deviceColormap);
       }
     } catch (e) {
-      logger().error("error while fetching keymap & colormap", {
+      console.error("error while fetching keymap & colormap", {
         error: e,
       });
       toast.error(e);

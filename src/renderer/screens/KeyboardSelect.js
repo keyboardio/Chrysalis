@@ -70,7 +70,7 @@ const KeyboardSelect = (props) => {
     try {
       await scanDevices();
     } catch (err) {
-      logger().error("error while trying to connect", {
+      console.error("error while trying to connect", {
         error: err,
         device: activeDevice,
       });

@@ -58,7 +58,7 @@ export const useFirmwareAutoUpdate = () => {
       setFirmwareUpdateWarning(false);
     };
     const onUpdateError = (event, error) => {
-      logger().error("Update error", {
+      console.error("Update error", {
         error: error,
         label: "firmware-update",
       });

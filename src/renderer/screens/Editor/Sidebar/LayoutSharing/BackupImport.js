@@ -46,7 +46,7 @@ export const BackupImport = (props) => {
 
     if (error) {
       // TODO(anyone): show toast
-      logger().error("error loading a layout file", {
+      console.error("error loading a layout file", {
         device: deviceDescriptor.info,
         fileName: item,
         error: error,

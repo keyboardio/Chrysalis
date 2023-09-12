@@ -32,7 +32,7 @@ const oldflash = async (board, port, filename, options) => {
       }
       avrgirl.flash(filename, async (error) => {
         if (error) {
-          logger("flash").error("Error during flash", { error: error });
+          console.error("Error during flash", { error: error });
           if (avrgirl.connection.serialPort.isOpen) {
             try {
               avrgirl.connection.serialPort.close();
@@ -47,7 +47,7 @@ const oldflash = async (board, port, filename, options) => {
         }
       });
     } catch (e) {
-      logger("flash").error("Error during flash", { error: e });
+      console.error("Error during flash", { error: e });
       reject(e);
     }
   });

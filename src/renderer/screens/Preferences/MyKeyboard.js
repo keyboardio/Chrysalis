@@ -52,7 +52,7 @@ const MyKeyboardPreferences = (props) => {
   };
 
   const onError = async (error) => {
-    logger("prefs").error("Error applying keyboard preferences", {
+    console.error("Error applying keyboard preferences", {
       error: error,
     });
     toast.error(error);
@@ -69,7 +69,7 @@ const MyKeyboardPreferences = (props) => {
       if (content instanceof Function) {
         await content();
       } else {
-        logger("prefs").error(
+        console.error(
           "Unable to save changes because an onSaveChanges no longer takes strings that are focus commands",
           { cmd, content }
         );

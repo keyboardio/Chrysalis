@@ -15,7 +15,7 @@ export const loadLayout = async (fileName) => {
     }
     fileData = await response.text();
   } catch (e) {
-    logger().error("Unable to read layout", {
+    console.error("Unable to read layout", {
       filename: fileName,
       error: e.message,
     });
@@ -27,7 +27,7 @@ export const loadLayout = async (fileName) => {
   try {
     layoutData = JSON.parse(fileData);
   } catch (e) {
-    logger().error("Failed to parse layout JSON", {
+    console.error("Failed to parse layout JSON", {
       filename: fileName,
       error: e.message,
     });
@@ -45,7 +45,7 @@ export const loadLayout = async (fileName) => {
       });
     });
   } catch (_) {
-    logger().error("Layout file did not contain valid layout data", {
+    console.error("Layout file did not contain valid layout data", {
       filename: fileName,
     });
     toast.error(t("editor.sharing.errors.invalidLayoutData"));

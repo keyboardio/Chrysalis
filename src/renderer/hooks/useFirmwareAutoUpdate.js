@@ -20,7 +20,6 @@ import Store from "@renderer/localStore";
 import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
-import { logger } from "@api/log";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { toast } from "@renderer/components/Toast";
 
@@ -36,7 +35,7 @@ export const useFirmwareAutoUpdate = () => {
     const settings = new Store();
 
     const onUpdateAvailable = (event, info) => {
-      logger().verbose("Update available", {
+      console.info("Update available", {
         updateInfo: info,
         label: "firmware-update",
       });
@@ -48,7 +47,7 @@ export const useFirmwareAutoUpdate = () => {
       toast.progress(progress.percent);
     };
     const onUpdateDownloaded = (event, info) => {
-      logger().verbose("Update downloaded", {
+      console.debug("Update downloaded", {
         updateInfo: info,
         label: "firmware-update",
       });
@@ -66,7 +65,7 @@ export const useFirmwareAutoUpdate = () => {
       setFirmwareUpdateWarning(true);
     };
     const onUpdateWarning = (event, error) => {
-      logger().warn("Update warning", {
+      console.warn("Update warning", {
         warning: error,
         label: "firmware-update",
       });

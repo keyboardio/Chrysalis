@@ -154,12 +154,6 @@ const App = (props) => {
 
   const toggleFlashing = async () => {
     flashing = !flashing;
-    if (!flashing) {
-      setConnected(false);
-      setFocusDeviceDescriptor(null);
-
-      await navigate("/keyboard-select");
-    }
   };
 
   const onKeyboardConnect = async (focus) => {

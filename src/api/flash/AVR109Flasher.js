@@ -71,7 +71,7 @@ const flash = async (port, filecontents, options) => {
       const reader = port.readable.getReader();
       flashDevice(writer, reader, flashData);
     } catch (e) {
-      logger("flash").error("Error during flash", { error: e });
+      console.error("Error during flash", { error: e });
       reject(e);
     } finally {
       port.close();

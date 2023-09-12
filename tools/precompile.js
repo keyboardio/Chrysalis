@@ -39,4 +39,5 @@ const generateCLDRData = async () => {
   );
 
 };
-exports.generateCLDRData = generateCLDRData;
+
+generateCLDRData();

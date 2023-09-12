@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
+
 import { createHistory, createMemorySource } from "@gatsbyjs/reach-router";
 
 const source = createMemorySource("/sanity-check");

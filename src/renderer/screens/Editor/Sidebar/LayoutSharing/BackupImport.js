@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
+
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";

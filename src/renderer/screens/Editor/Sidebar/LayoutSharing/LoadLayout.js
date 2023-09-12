@@ -1,5 +1,5 @@
 import KeymapDB from "@api/focus/keymap/db";
-import { logger } from "@api/log";
+
 import { t } from "i18next";
 import { toast } from "@renderer/components/Toast";
 

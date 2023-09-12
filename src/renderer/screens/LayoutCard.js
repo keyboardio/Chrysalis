@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
+
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

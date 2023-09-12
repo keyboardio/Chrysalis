@@ -17,7 +17,7 @@
 
 import Focus from "@api/focus";
 import KeymapDB from "@api/focus/keymap/db";
-import { logger } from "@api/log";
+
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";

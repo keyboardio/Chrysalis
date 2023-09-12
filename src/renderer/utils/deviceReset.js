@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import { logger } from "@api/log";
+
 
 const deviceReset = async () => {
   const focus = new Focus();

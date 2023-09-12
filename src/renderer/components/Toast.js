@@ -17,7 +17,7 @@
 
 import React, { useState, useEffect } from "react";
 
-import { logger } from "@api/log";
+
 import Alert from "@mui/material/Alert";
 import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";

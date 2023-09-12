@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import { logger } from "@api/log";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

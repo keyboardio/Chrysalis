@@ -19,7 +19,7 @@ import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
-import { logger } from "@api/log";
+
 import Box from "@mui/material/Box";
 import {
   hideContextBar,

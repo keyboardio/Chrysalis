@@ -18,7 +18,7 @@ import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
-import { logger } from "@api/log";
+
 
 global.chrysalis_focus_instance = null;
 

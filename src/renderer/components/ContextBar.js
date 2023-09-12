@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { logger } from "@api/log";
 
 const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -28,6 +27,6 @@ export const hideContextBar = () => {
 };
 
 export const contextBarChangesDiscarded = () => {
-  logger().verbose("posting a changes-discarded message");
+  console.debug("posting a changes-discarded message");
   context_bar_channel.postMessage("changes-discarded");
 };

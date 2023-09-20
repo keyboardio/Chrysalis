@@ -16,6 +16,7 @@
  */
 
 import { RebootMessage } from "@api/flash";
+import { delay } from "@api/flash/utils";
 import Focus from "@api/focus";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -34,6 +35,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { connectToSerialport } from "../utils/connectToSerialport";
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
@@ -41,7 +43,7 @@ import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
-import { delay } from "@api/flash/utils";
+
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
   const globalContext = useContext(GlobalContext);
@@ -66,11 +68,8 @@ const FirmwareUpdate = (props) => {
   const [promptForBootloaderConnection, setPromptForBootloaderConnection] =
     useState(false);
 
-  const toggleFactoryReset = () => {
-    setFactoryReset(!factoryReset);
-  };
-
-  const [requestInteractionOpen, setRequestInteractionOpen] = useState(false);
+  const [afterBootloaderConnectCallback, setAfterBootloaderConnectCallback] =
+    useState(null);
 
   const { t } = useTranslation();
 
@@ -84,37 +83,35 @@ const FirmwareUpdate = (props) => {
     return cVendor + "/" + cProduct + "/default." + firmwareType;
   };
 
-  const doFactoryReset = async (filename, options) => {
-    const activeDevice = options.activeDevice;
-    const onStepChange = options.onStepChange;
-    const onError = options.onError;
+  const doFactoryReset = async (filename) => {
+    const tasksInBootloaderMode = async () => {
+      await flashDeviceFirmwareFromBootloader(filename);
+
+      await onStepChange("reconnect");
+      await reconnectAfterFlashing();
+
+      await onStepChange("factoryRestore");
+      await activeDevice.clearEEPROM();
+    };
 
     if (!activeDevice.bootloaderDetected()) {
       await onStepChange("bootloader");
-
-      await rebootToBootloader(activeDevice, onError);
-      await connectToBootloader(activeDevice, onError);
+      await rebootToBootloader();
+      await connectToBootloader(tasksInBootloaderMode);
+    } else {
+      console.log("We're already in bootloader mode");
+      await tasksInBootloaderMode();
     }
-
-    await flashDeviceFirmwareFromBootloader(filename, options);
-
-    await onStepChange("reconnect");
-    await reconnectAfterFlashing(activeDevice, onError);
-
-    await onStepChange("factoryRestore");
-    await activeDevice.clearEEPROM();
 
     return;
   };
 
-  const flashDeviceFirmwareFromBootloader = async (filename, options) => {
-    const activeDevice = options.activeDevice;
-    const onStepChange = options.onStepChange;
+  const flashDeviceFirmwareFromBootloader = async (filename) => {
+    const options = [];
+
     const flasher = activeDevice.getFlasher();
-
     await onStepChange("flash");
-
-    await flasher.flash(activeDevice.port, filename, options);
+    await flasher.flash(activeDevice.port, filename, options); // TODO what is options
     await flasher.rebootToApplicationMode(
       activeDevice.port,
       activeDevice.focusDeviceDescriptor()
@@ -122,32 +119,35 @@ const FirmwareUpdate = (props) => {
     return;
   };
 
-  const updateDeviceFirmware = async (filename, options) => {
-    const activeDevice = options.activeDevice;
-    const onStepChange = options.onStepChange;
-    const onError = options.onError;
-
+  const updateDeviceFirmware = async (filename) => {
     if (activeDevice.bootloaderDetected()) {
-      await flashDeviceFirmwareFromBootloader(filename, options);
+      await flashDeviceFirmwareFromBootloader(filename);
       return;
     } else {
       await onStepChange("saveEEPROM");
       const saveKey = await activeDevice.saveEEPROM();
       await onStepChange("bootloader");
-      await rebootToBootloader(activeDevice, onError);
 
-      await flashDeviceFirmwareFromBootloader(filename, options);
+      const tasksInBootloaderMode = async () => {
+        console.trace();
+        console.log("Runing tasks in bootloader mode");
+        await flashDeviceFirmwareFromBootloader(filename);
 
-      await onStepChange("reconnect");
+        await onStepChange("reconnect");
 
-      await reconnectAfterFlashing(activeDevice, onError);
-      await activeDevice.clearEEPROM();
-      await reconnectAfterFlashing(activeDevice, onError);
-      await onStepChange("restoreEEPROM");
-      await activeDevice.restoreEEPROM(saveKey);
+        await reconnectAfterFlashing();
+        await activeDevice.clearEEPROM();
+        await reconnectAfterFlashing();
+        await onStepChange("restoreEEPROM");
+        await activeDevice.restoreEEPROM(saveKey);
+      };
+
+      await rebootToBootloader();
+      console.log("about to connect to bootloader");
+      await connectToBootloader(tasksInBootloaderMode);
     }
   };
-  const reconnectAfterFlashing = async (activeDevice, onError) => {
+  const reconnectAfterFlashing = async () => {
     /**
      * Reconnect to the keyboard
      * - Periodically scan for the keyboard
@@ -170,7 +170,7 @@ const FirmwareUpdate = (props) => {
       const bootloaderFound = await activeDevice.bootloaderDetected();
 
       if (attempts == NOTIFICATION_THRESHOLD) {
-        onError(
+        setFlashNotificationMsg(
           bootloaderFound
             ? RebootMessage.reconnect.stillBootloader
             : RebootMessage.reconnect.notFound
@@ -190,14 +190,14 @@ const FirmwareUpdate = (props) => {
       // attempts.
       await delay(2000);
     }
-    onError(RebootMessage.clear);
+    setFlashNotificationMsg(RebootMessage.clear);
 
     // Wait a few seconds after rebooting too, to let the keyboard come back up
     // fully.
     await delay(2000);
   };
 
-  const rebootToBootloader = async (activeDevice, onError) => {
+  const rebootToBootloader = async () => {
     const deviceInApplicationMode = await activeDevice.focusDetected();
     try {
       await activeDevice.focus.reboot();
@@ -208,16 +208,21 @@ const FirmwareUpdate = (props) => {
     // Wait a few seconds to let the device properly reboot into bootloadermode, and enumerate.
 
     await delay(2000);
-    setPromptForBootloaderConnection(true);
   };
 
-  const connectToBootloader = async (activeDevice, onError) => {
+  const connectToBootloader = async (callback) => {
     /***
      * Enter programmable mode:
      * - Attempt rebooting the device;  Check for the bootloader every 2s
      * - If not found, try again
      * - If not found for N attempts, show a notification
      ***/
+
+    console.log("set the callback");
+    setAfterBootloaderConnectCallback(() => {
+      callback;
+    });
+    setPromptForBootloaderConnection(true);
 
     let bootloaderFound = false;
     let attempts = 0;
@@ -239,62 +244,38 @@ const FirmwareUpdate = (props) => {
       if (bootloaderFound) break;
 
       if (attempts == NOTIFICATION_THRESHOLD) {
-        onError(
+        setFlashNotificationMsg(
           deviceInApplicationMode
             ? RebootMessage.enter.stillApplication
             : RebootMessage.enter.notFound
         );
       }
     }
-    onError(RebootMessage.clear);
+    setFlashNotificationMsg(RebootMessage.clear);
   };
 
-  const performUpdate = async (options, steps) => {
-    const nextStep = async (desiredState) => {
-      console.info("executing step", { step: desiredState });
-
-      setActiveStep(Math.min(activeStep + 1, steps.length));
-      steps.forEach((step, index) => {
-        if (step == desiredState) {
-          setActiveStep(index);
-        }
-      });
-    };
-
-    const onError = (msg) => {
-      if (msg !== RebootMessage.clear) {
-        setFlashNotificationMsg(msg);
+  const onStepChange = async (desiredState) => {
+    console.info("executing step", { step: desiredState });
+    setActiveStep(Math.min(activeStep + 1, flashSteps.length));
+    flashSteps.forEach((step, index) => {
+      if (step == desiredState) {
+        setActiveStep(index);
       }
-    };
-
-    options = Object.assign({}, options, {
-      activeDevice: activeDevice,
-      onStepChange: nextStep,
-      onError: onError,
     });
-
-    console.log(options);
-    if (options.factoryReset) {
-      return doFactoryReset("file", options);
-    } else {
-      return updateDeviceFirmware("file", options);
-    }
   };
 
-  const upload = async (options) => {
-    let steps;
-    setConfirmationOpen(false);
+  const setFlashingProcessSteps = () => {
     if (focusDeviceDescriptor?.bootloader) {
-      if (options?.factoryReset) {
-        steps = ["flash", "reconnect", "factoryRestore"];
+      if (factoryReset) {
+        return ["flash", "reconnect", "factoryRestore"];
       } else {
-        steps = ["flash"];
+        return ["flash"];
       }
     } else {
-      if (options?.factoryReset) {
-        steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
+      if (factoryReset) {
+        return ["bootloader", "flash", "reconnect", "factoryRestore"];
       } else {
-        steps = [
+        return [
           "saveEEPROM",
           "bootloader",
           "flash",
@@ -303,22 +284,28 @@ const FirmwareUpdate = (props) => {
         ];
       }
     }
-    setFlashSteps(steps);
+  };
+
+  const upload = async () => {
+    setConfirmationOpen(false);
+    setFlashSteps(setFlashingProcessSteps());
 
     await props.toggleFlashing();
     setProgress("flashing");
 
-    console.info("Starting to flash");
     try {
-      await performUpdate(options, steps);
-      setActiveStep(steps.length);
+      if (factoryReset) {
+        await doFactoryReset("file");
+      } else {
+        await updateDeviceFirmware("file");
+      }
+      setActiveStep(flashSteps.length); // set our state to the last step
     } catch (e) {
       console.error("Error while uploading firmware", { error: e });
       setProgress("error");
       setActiveStep(-1);
       toast.error(t("firmwareUpdate.flashing.error"));
       props.toggleFlashing();
-      //  props.onDisconnect();
       setConfirmationOpen(false);
       return;
     }
@@ -340,10 +327,6 @@ const FirmwareUpdate = (props) => {
   const buttonsDisabled =
     progress == "flashing" ||
     (selectedFirmwareType == "custom" && !firmwareFilename);
-
-  const onUpdateClick = () => {
-    setConfirmationOpen(true);
-  };
 
   return (
     <>
@@ -367,7 +350,12 @@ const FirmwareUpdate = (props) => {
               {t("firmwareUpdate.factoryResetTitle")}
             </Typography>
             <Typography sx={{ ml: 3 }}>
-              <Switch checked={factoryReset} onChange={toggleFactoryReset} />
+              <Switch
+                checked={factoryReset}
+                onChange={() => {
+                  setFactoryReset(!factoryReset);
+                }}
+              />
               {t("firmwareUpdate.factoryResetDescription")}
             </Typography>
           </Box>
@@ -379,7 +367,9 @@ const FirmwareUpdate = (props) => {
               startIcon={
                 progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
               }
-              onClick={onUpdateClick}
+              onClick={() => {
+                setConfirmationOpen(true);
+              }}
               disabled={buttonsDisabled}
               color={
                 ((progress == "success" || progress == "error") && progress) ||
@@ -410,7 +400,13 @@ const FirmwareUpdate = (props) => {
         open={promptForBootloaderConnection}
         title={"You need to do something TKTKTK"}
         onConfirm={() => {
-          setPromptForBootloaderConnection(false);
+          connectToSerialport().then(() => {
+            console.debug("connected to serial port");
+            setPromptForBootloaderConnection(false);
+            console.log("Runnign in onconfirm");
+            console.log(afterBootloaderConnectCallback);
+            afterBootloaderConnectCallback();
+          });
         }}
       />
 
@@ -421,7 +417,7 @@ const FirmwareUpdate = (props) => {
             : t("firmwareUpdate.confirmDialog.title")
         }
         open={confirmationOpen}
-        onConfirm={() => upload({ factoryReset: factoryReset ? true : false })}
+        onConfirm={() => upload()}
         onCancel={() => setConfirmationOpen(false)}
         confirmLabel={t("dialog.continue")}
       >

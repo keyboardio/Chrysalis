@@ -20,6 +20,12 @@ const FirmwareSelect = (props) => {
   const [firmwareFilename, setFirmwareFilename] = props.firmwareFilename;
   const [firmwareVersion, setFirmwareVersion] = useState(version);
   const [firmwareChangelog, setFirmwareChangelog] = useState(null);
+  const [firmwareContent, setFirmwareContent] = props.firmwareContent;
+  const [selectedValue, setSelectedValue] = useState("default");
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
   const downloadFirmware = async (url) => {
     try {
@@ -35,6 +41,15 @@ const FirmwareSelect = (props) => {
     const file = event.target.files[0];
     console.log("Handling file upload: ", file);
     setFirmwareFilename(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const arrayBuffer = event.target.result;
+      const bytes = new Uint8Array(arrayBuffer);
+      console.log("Raw bytes of the file:", bytes);
+      setFirmwareContent(bytes);
+    };
+    reader.readAsArrayBuffer(file);
   };
 
   const selectFirmware = (event) => {
@@ -65,6 +80,8 @@ const FirmwareSelect = (props) => {
             <Grid container justifyContent="flex-start">
               <FormControlLabel
                 value="default"
+                checked={selectedValue === "default"}
+                onChange={handleRadioChange}
                 control={<Radio />}
                 label={
                   <Typography sx={{ ml: 0 }}>
@@ -78,11 +95,7 @@ const FirmwareSelect = (props) => {
               />
               <Box sx={{ width: "1rem" }} />
 
-              <Button
-                sx={{}}
-                color="info"
-                onClick={() => setChangelogOpen(true)}
-              >
+              <Button color="info" onClick={() => setChangelogOpen(true)}>
                 {t("firmwareUpdate.firmwareChangelog.view", {
                   version: firmwareVersion,
                 })}
@@ -91,6 +104,8 @@ const FirmwareSelect = (props) => {
             <Grid container justifyContent="flex-start">
               <FormControlLabel
                 value="custom"
+                checked={selectedValue === "custom"}
+                onChange={handleRadioChange}
                 control={<Radio />}
                 label={
                   <Typography sx={{ ml: 0 }}>
@@ -108,49 +123,18 @@ const FirmwareSelect = (props) => {
                 {t("firmwareUpdate.customFirmwareLinkText")}
               </Button>
             </Grid>
-            <Grid container justifyContent="flex-start">
-              <FormControlLabel
-                value="fromURL"
-                control={<Radio />}
-                label={
-                  <Typography sx={{ ml: 0 }}>
-                    {t("firmwareUpdate.fromURL")}
-                  </Typography>
-                }
-              />
-              <Box sx={{ width: "1rem" }} />
-              <Button
-                color="info"
-                onClick={() =>
-                  downloadFirmware("https://example.com/firmware.hex")
-                }
-              >
-                {t("firmwareUpdate.downloadFirmwareLinkText")}
-              </Button>
-            </Grid>
-            <Grid container justifyContent="flex-start">
-              <FormControlLabel
-                value="fromFile"
-                control={<Radio />}
-                label={
-                  <Typography sx={{ ml: 0 }}>
-                    {t("firmwareUpdate.fromFile")}
-                  </Typography>
-                }
-              />
-              <Box sx={{ width: "1rem" }} />
-              <input
-                type="file"
-                onChange={handleFileUpload}
-                accept=".hex, .bin"
-                id="fileUpload"
-              />
-              <label htmlFor="fileUpload">
-                <Button color="info" component="span">
-                  {t("firmwareUpdate.uploadFirmwareLinkText")}
-                </Button>
-              </label>
-            </Grid>
+
+            {selectedValue === "custom" && (
+              <Grid container justifyContent="flex-start">
+                <Box sx={{ width: "1rem" }} />
+                <input
+                  type="file"
+                  onChange={handleFileUpload}
+                  accept=".hex, .bin"
+                  id="fileUpload"
+                />
+              </Grid>
+            )}
           </RadioGroup>
         </Box>
       </FormControl>

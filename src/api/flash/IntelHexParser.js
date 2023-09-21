@@ -1,5 +1,10 @@
 const fromHexString = (hexString) => {
-  new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+  console.log("fromHexString", { hexString });
+  const result = new Uint8Array(
+    hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+  );
+  console.log("fromHexString", { result });
+  return result;
 };
 //  <!-- Intel HEX parser by https://github.com/bminer/intel-hex.js -->
 //Intel Hex record types

@@ -29,7 +29,7 @@ export const connectToSerialport = async () => {
       });
     } finally {
       if (!serialPort) {
-        return;
+        //return;
       }
     }
 

@@ -19,7 +19,6 @@ import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
 
-
 global.chrysalis_focus_instance = null;
 
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));

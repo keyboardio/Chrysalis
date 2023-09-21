@@ -55,26 +55,36 @@ const oldflash = async (board, port, filename, options) => {
 };
 
 const flash = async (port, filecontents, options) => {
+  var enc = new TextDecoder("utf-8");
+  var hexAsText = enc.decode(filecontents);
+  console.log("flash", { port, filecontents, options, hexAsText });
   return new Promise((resolve, reject) => {
-    try {
-      //parse intel hex
-      const flashData = parseIntelHex(filecontents);
+    (async () => {
+      try {
+        //parse intel hex
+        const flashData = parseIntelHex(hexAsText);
+        console.log("Flashdata is ", flashData);
+        //open & close
+        // Wait for the serial port to open.
+        // Wait for the serial port to open.
+        if (port.readable && port.writable) {
+          await port.close();
+        }
+        await port.open({ baudRate: 57600 });
 
-      //open & close
-      // Wait for the serial port to open.
-      port.open({ baudRate: 57600 });
-
-      //open writing facilities
-      const writer = port.writable.getWriter();
-      //open reading stream
-      const reader = port.readable.getReader();
-      flashDevice(writer, reader, flashData);
-    } catch (e) {
-      console.error("Error during flash", { error: e });
-      reject(e);
-    } finally {
-      port.close();
-    }
+        //open writing facilities
+        const writer = await port.writable.getWriter();
+        //open reading stream
+        const reader = await port.readable.getReader();
+        await flashDevice(writer, reader, flashData);
+        console.log("Flash done");
+      } catch (e) {
+        console.error("Error during flash", { error: e });
+        reject(e);
+      } finally {
+        await port.close();
+      }
+    })();
   });
 };
 

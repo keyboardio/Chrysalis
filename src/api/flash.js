@@ -27,4 +27,3 @@ export const RebootMessage = {
   },
   clear: "CLEAR",
 };
-

@@ -17,6 +17,7 @@ const AVR109States = {
 };
 
 const decoder = new TextDecoder();
+const encoder = new TextEncoder();
 
 export const flashDevice = async (writer, reader, flashData) => {
   // Listen to data coming from the serial device.
@@ -45,7 +46,7 @@ export const flashDevice = async (writer, reader, flashData) => {
     /****************/
     switch (state) {
       case AVR109States.UNINITIALIZED:
-        if (!responseString?.equals("CATERIN")) {
+        if (responseString !== "CATERIN") {
           console.log(
             'error: unexpected RX value in state 0, waited for "CATERIN"'
           );
@@ -128,19 +129,21 @@ export const setPageAddress = async (writer, address) => {
   await writeToDevice(writer, data);
 };
 const deviceRespondedOk = (responseString) => {
-  return responseString?.equals(AVR109_RESPONSE_OK);
+  return responseString === AVR109_RESPONSE_OK;
 };
 export async function sendCommand(writer, command) {
-  await writeToDevice(writer, command);
+  const commandAsArrayBuffer = encoder.encode(command);
+  await writeToDevice(writer, commandAsArrayBuffer);
 }
 const writeToDevice = async (writer, data) => {
+  console.log("writing", data);
   await writer.write(data);
   await delay(5);
 };
 
 export const rebootToApplicationMode = async (port, writer, reader) => {
-  reader ||= port.readable.getReader();
-  writer ||= port.writable.getWriter();
+  reader ||= port.readable?.getReader();
+  writer ||= port.writable?.getWriter();
   console.log("Exiting bootloader");
   //finish flashing and exit bootloader
   await sendCommand(writer, AVR109_CMD_EXIT_BOOTLOADER);

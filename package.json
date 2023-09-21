@@ -164,7 +164,7 @@
     "serialport": "^10.4.0",
     "source-map-support": "^0.5.16",
     "sudo-prompt": "^9.2.1",
-    "systeminformation": "^5.17.12",
+    "systeminformation": "^5.21.7",
     "teensy-loader": "^0.3.1",
     "tmp": "^0.2.1",
     "typeface-roboto": "^0.0.54",

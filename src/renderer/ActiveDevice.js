@@ -229,7 +229,9 @@ export function ActiveDevice() {
 
     const key =
       ".internal.backups.save-file" +
-      this.focusDeviceDescriptor().info +
+      this.focusDeviceDescriptor().info.vendor +
+      "-" +
+      this.focusDeviceDescriptor().info.product +
       Date.now() +
       uuidv4();
     console.debug("Writing structured EEPROM data to session storage", {

@@ -115,10 +115,7 @@ const FirmwareUpdate = (props) => {
     await onStepChange("flash");
     console.log(focus);
     await flasher.flash(focus._port, firmwareContent, options); // TODO what is options
-    await flasher.rebootToApplicationMode(
-      focus._port,
-      activeDevice.focusDeviceDescriptor()
-    );
+
     await reportSuccessfulFlashing();
     return;
   };
@@ -136,14 +133,19 @@ const FirmwareUpdate = (props) => {
         console.trace();
         console.log("Runing tasks in bootloader mode");
         await flashDeviceFirmwareFromBootloader(firmwareContent);
-
+        console.log("flashed device firmware");
         await onStepChange("reconnect");
 
         await reconnectAfterFlashing();
+        console.log("reconnected after flashing");
         await activeDevice.clearEEPROM();
+        console.log("cleared eeprom");
         await reconnectAfterFlashing();
+        console.log("reconnected after clearing eeprom");
         await onStepChange("restoreEEPROM");
+        console.log("about to restore eeprom");
         await activeDevice.restoreEEPROM(saveKey);
+        console.log("restored eeprom");
         await reportSuccessfulFlashing();
       };
 
@@ -182,13 +184,13 @@ const FirmwareUpdate = (props) => {
         );
       }
 
+      const port = focus._port;
+      const writer = await port.writable.getWriter();
+      //open reading stream
+      const reader = await port.readable.getReader();
+
       if (bootloaderFound) {
-        activeDevice
-          .getFlasher()
-          .rebootToApplicationMode(
-            bootloaderFound,
-            activeDevice.focusDeviceDescriptor()
-          );
+        activeDevice.getFlasher().rebootToApplicationMode(writer, reader);
       }
 
       // Wait a few seconds to not overwhelm the system with rapid reboot

@@ -36,7 +36,7 @@ const AVR109States = {
 const decoder = new TextDecoder();
 const encoder = new TextEncoder();
 
-const flash = async (port, filecontents, options) => {
+const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");
   var hexAsText = enc.decode(filecontents);
   return new Promise((resolve, reject) => {
@@ -58,6 +58,7 @@ const flash = async (port, filecontents, options) => {
         const reader = await port.readable.getReader();
         await flashDevice(writer, reader, flashData);
         console.log("Flash done");
+        resolve();
       } catch (e) {
         console.error("Error during flash", { error: e });
         await port.close();

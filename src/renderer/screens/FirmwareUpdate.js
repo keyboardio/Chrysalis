@@ -74,6 +74,12 @@ const FirmwareUpdate = (props) => {
   const [afterBootloaderConnectCallback, setAfterBootloaderConnectCallback] =
     useState(null);
 
+  const [promptForFocusConnection, setPromptForFocusConnection] =
+    useState(false);
+
+  const [afterFocusConnectCallback, setAfterFocusConnectCallback] =
+    useState(null);
+
   const { t } = useTranslation();
 
   const NOTIFICATION_THRESHOLD = 5;
@@ -91,10 +97,13 @@ const FirmwareUpdate = (props) => {
       await flashDeviceFirmwareFromBootloader(firmwareContent);
 
       await onStepChange("reconnect");
-      await reconnectAfterFlashing();
 
       await onStepChange("factoryRestore");
-      await activeDevice.clearEEPROM();
+      const tasksInFocusMode = async () => {
+        await activeDevice.clearEEPROM();
+        await reportSuccessfulFlashing();
+      };
+      await connectToFocus(tasksInFocusMode);
     };
 
     if (!activeDevice.bootloaderDetected()) {
@@ -110,14 +119,10 @@ const FirmwareUpdate = (props) => {
   };
 
   const flashDeviceFirmwareFromBootloader = async () => {
-    const options = [];
     const flasher = activeDevice.getFlasher();
     await onStepChange("flash");
     console.log(focus);
-    await flasher.flash(focus._port, firmwareContent, options); // TODO what is options
-
-    await reportSuccessfulFlashing();
-    return;
+    await flasher.flash(focus._port, firmwareContent);
   };
 
   const updateDeviceFirmware = async () => {
@@ -136,17 +141,21 @@ const FirmwareUpdate = (props) => {
         console.log("flashed device firmware");
         await onStepChange("reconnect");
 
-        await reconnectAfterFlashing();
         console.log("reconnected after flashing");
-        await activeDevice.clearEEPROM();
-        console.log("cleared eeprom");
-        await reconnectAfterFlashing();
-        console.log("reconnected after clearing eeprom");
-        await onStepChange("restoreEEPROM");
-        console.log("about to restore eeprom");
-        await activeDevice.restoreEEPROM(saveKey);
-        console.log("restored eeprom");
-        await reportSuccessfulFlashing();
+        const tasksInFocusMode = async () => {
+          await activeDevice.clearEEPROM();
+          console.log("cleared eeprom");
+          const tasksAfterEepromCleared = async () => {
+            console.log("reconnected after clearing eeprom");
+            await onStepChange("restoreEEPROM");
+            console.log("about to restore eeprom");
+            await activeDevice.restoreEEPROM(saveKey);
+            console.log("restored eeprom");
+            await reportSuccessfulFlashing();
+          };
+          await connectToFocus(tasksAfterEepromCleared);
+        };
+        await connectToFocus(tasksInFocusMode);
       };
 
       await rebootToBootloader();
@@ -170,29 +179,15 @@ const FirmwareUpdate = (props) => {
     let device_detected = false;
     let attempts = 0;
     while (!device_detected) {
+      console.log(activeDevice);
+      const focus = undefined; //; TODO  = connectToSerialport();
+      activeDevice.focus = focus;
       device_detected = await activeDevice.reconnect();
       if (device_detected) break;
       attempts += 1;
 
-      const bootloaderFound = await activeDevice.bootloaderDetected();
-
-      if (attempts == NOTIFICATION_THRESHOLD) {
-        setFlashNotificationMsg(
-          bootloaderFound
-            ? RebootMessage.reconnect.stillBootloader
-            : RebootMessage.reconnect.notFound
-        );
-      }
-
       const port = focus._port;
-      const writer = await port.writable.getWriter();
-      //open reading stream
-      const reader = await port.readable.getReader();
-
-      if (bootloaderFound) {
-        activeDevice.getFlasher().rebootToApplicationMode(writer, reader);
-      }
-
+      console.log(port);
       // Wait a few seconds to not overwhelm the system with rapid reboot
       // attempts.
       await delay(2000);
@@ -228,6 +223,11 @@ const FirmwareUpdate = (props) => {
     setAfterBootloaderConnectCallback(() => callback);
 
     setPromptForBootloaderConnection(true);
+  };
+
+  const connectToFocus = async (callback) => {
+    setAfterFocusConnectCallback(() => callback);
+    setPromptForFocusConnection(true);
   };
 
   const onStepChange = async (desiredState) => {
@@ -385,6 +385,19 @@ const FirmwareUpdate = (props) => {
             console.log("Runnign in onconfirm");
             console.log(afterBootloaderConnectCallback);
             afterBootloaderConnectCallback();
+          });
+        }}
+      />
+      <ConfirmationDialog
+        open={promptForFocusConnection}
+        title={"You need to do something TKTKTK"}
+        onConfirm={() => {
+          connectToSerialport().then((focus) => {
+            console.debug("connected to serial port");
+            setPromptForFocusConnection(false);
+            console.log("Runnign in onconfirm");
+            console.log(afterFocusConnectCallback);
+            afterFocusConnectCallback();
           });
         }}
       />

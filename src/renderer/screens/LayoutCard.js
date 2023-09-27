@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -83,14 +82,12 @@ const LayoutCard = (props) => {
         error: e,
       });
       toast.error(e);
-      props.onDisconnect();
     }
   };
 
   useEffectOnce(() => {
     const initialize = async () => {
       await scanKeyboard();
-
       setOneLayerPerPage(settings.get("ui.layoutCards.oneLayerPerPage", false));
 
       setLoading(false);
@@ -146,6 +143,7 @@ const LayoutCard = (props) => {
       }
     }
   }
+
 
   return (
     <React.Fragment>

@@ -197,6 +197,7 @@ const App = (props) => {
   };
 
   const onKeyboardDisconnect = async () => {
+    console.log("onKeyboardDisconnect called");
     if (activeDevice) {
       console.info("Disconnecting from keyboard", {
         activeDevice: activeDevice,

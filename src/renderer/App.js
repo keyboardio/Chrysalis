@@ -123,14 +123,12 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
-    //    ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
-
     setTheme(settings.get("ui.theme", "system"));
-    navigate("/keyboard-select");
+    if (!connected) {
+      navigate("/keyboard-select");
+    }
     // Specify how to clean up after this effect:
-    return function cleanup() {
-      //    ipcRenderer.removeListener(        "usb.device-disconnected",        handleDeviceDisconnect      );
-    };
+    return function cleanup() {};
   });
 
   const uiTheme = createTheme({

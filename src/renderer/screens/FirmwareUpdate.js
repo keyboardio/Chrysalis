@@ -386,11 +386,13 @@ const FirmwareUpdate = (props) => {
         title={"You need to do something TKTKTK"}
         onConfirm={() => {
           connectToSerialport().then((focus) => {
-            console.debug("connected to serial port");
-            setPromptForBootloaderConnection(false);
-            console.log("Runnign in onconfirm");
-            console.log(afterBootloaderConnectCallback);
-            afterBootloaderConnectCallback();
+            if (focus) {
+              setPromptForBootloaderConnection(false);
+              console.log(afterBootloaderConnectCallback);
+              afterBootloaderConnectCallback();
+            } else {
+              console.log("We need to try that connect again");
+            }
           });
         }}
       />
@@ -399,11 +401,15 @@ const FirmwareUpdate = (props) => {
         title={"You need to do something TKTKTK"}
         onConfirm={() => {
           connectToSerialport().then((focus) => {
-            console.debug("connected to serial port");
-            setPromptForFocusConnection(false);
-            console.log("Runnign in onconfirm");
-            console.log(afterFocusConnectCallback);
-            afterFocusConnectCallback();
+            if (focus) {
+              console.debug("connected to serial port");
+              setPromptForFocusConnection(false);
+              console.log("Runnign in onconfirm");
+              console.log(afterFocusConnectCallback);
+              afterFocusConnectCallback();
+            } else {
+              console.log("We need to try that connect again");
+            }
           });
         }}
       />

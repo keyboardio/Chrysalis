@@ -47,11 +47,14 @@ const flash = async (port, filecontents) => {
         //open & close
         // Wait for the serial port to open.
         // Wait for the serial port to open.
-        if (port.readable && port.writable) {
-          await port.close();
-        }
-        await port.open({ baudRate: 57600 });
 
+        try {
+          if (!port.readable && !port.writable) {
+            await port.open({ baudRate: 57600 });
+          }
+        } catch (e) {
+          console.error("Error opening port", { error: e });
+        }
         //open writing facilities
         const writer = await port.writable.getWriter();
         //open reading stream
@@ -61,7 +64,11 @@ const flash = async (port, filecontents) => {
         resolve();
       } catch (e) {
         console.error("Error during flash", { error: e });
-        await port.close();
+        try {
+          await port.close();
+        } catch (err) {
+          console.error("Failed to close the port:", err);
+        }
 
         reject(e);
       }

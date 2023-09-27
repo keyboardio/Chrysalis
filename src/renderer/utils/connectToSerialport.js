@@ -23,13 +23,16 @@ export const connectToSerialport = async () => {
   let serialPort;
 
   const openPort = async () => {
-    try {
-      serialPort = await navigator.serial.requestPort({
-        filters: supportedDeviceVIDPIDs(),
-      });
-    } finally {
-      if (!serialPort) {
-        //return;
+    while (!serialPort) {
+      try {
+        serialPort = await navigator.serial.requestPort({
+          filters: supportedDeviceVIDPIDs(),
+        });
+      } catch (e) {
+        if (!serialPort) {
+          console.error("Failed to open serial port", e);
+          return;
+        }
       }
     }
 

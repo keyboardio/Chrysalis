@@ -39,7 +39,7 @@ import Header from "./components/Header";
 import Toast, { toast } from "./components/Toast";
 import { history, navigate } from "./routerHistory";
 import ChangeLog from "./screens/ChangeLog";
-import Editor from "./screens/Editor/Editor";
+import Editor from "./screens/Editor";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import FocusNotDetected from "./screens/FocusNotDetected";
 import KeyboardSelect from "./screens/KeyboardSelect";

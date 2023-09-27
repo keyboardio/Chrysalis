@@ -33,13 +33,13 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
-import { LegacyAlert } from "./components/LegacyAlert";
-import { MacroStorageAlert } from "./components/MacroStorageAlert";
-import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
-import OnlyCustomScreen from "./components/OnlyCustomScreen";
-import MacroEditor from "./Macros/MacroEditor";
-import Sidebar, { sidebarWidth } from "./Sidebar";
+import { FloatingKeyPicker } from "./Editor/components/FloatingKeyPicker";
+import { LegacyAlert } from "./Editor/components/LegacyAlert";
+import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
+import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
+import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
+import MacroEditor from "./Editor/Macros/MacroEditor";
+import Sidebar, { sidebarWidth } from "./Editor/Sidebar";
 
 const db = new KeymapDB();
 

@@ -231,27 +231,33 @@ const FirmwareUpdate = (props) => {
   };
 
   const onStepChange = async (desiredState) => {
-    console.info("executing step", { step: desiredState });
+    console.info("executing step", {
+      step: desiredState,
+      flashSteps: flashSteps,
+    });
     setActiveStep(Math.min(activeStep + 1, flashSteps.length));
     flashSteps.forEach((step, index) => {
+      console.log("Considering ", { step, index });
       if (step == desiredState) {
+        console.log("Found the step we're looking for:" + step);
         setActiveStep(index);
       }
     });
   };
 
-  const setFlashingProcessSteps = () => {
+  useEffect(() => {
+    let steps;
     if (focusDeviceDescriptor?.bootloader) {
       if (factoryReset) {
-        return ["flash", "reconnect", "factoryRestore"];
+        steps = ["flash", "reconnect", "factoryRestore"];
       } else {
-        return ["flash"];
+        steps["flash"];
       }
     } else {
       if (factoryReset) {
-        return ["bootloader", "flash", "reconnect", "factoryRestore"];
+        steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
       } else {
-        return [
+        steps = [
           "saveEEPROM",
           "bootloader",
           "flash",
@@ -260,11 +266,11 @@ const FirmwareUpdate = (props) => {
         ];
       }
     }
-  };
+    setFlashSteps(steps);
+  }, [factoryReset, focusDeviceDescriptor]);
 
   const upload = async () => {
     setConfirmationOpen(false);
-    setFlashSteps(setFlashingProcessSteps());
 
     await props.toggleFlashing();
     setProgress("flashing");

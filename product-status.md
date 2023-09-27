@@ -4,10 +4,11 @@ This is an *early test release* of the next version of Chrysalis, the graphical 
 
 ## What doesn't work
 
-- Firmware updates
+- Firmware updates for the Model 100
+- Loading stock firmware for the Atreus and Model 01
 - Loading "pre-configured" layouts
-- Saving app configuration locally
 - Device disconnect detection
+- Backup and restore (outside of flashing)
 
 ## What should work
 
@@ -15,6 +16,7 @@ This is an *early test release* of the next version of Chrysalis, the graphical 
 - Changing your LED configuration
 - Changing device settings
 - Factory reset
+- Custom firmware updates for the Atreus and Model 01
 
 ## Device support
 

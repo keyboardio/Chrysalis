@@ -1,1 +1,15 @@
-{}
+{
+    "breakingNews": {
+        "firmware0_90_1": {
+            "button": "Instructions de mise à jour"
+        }
+    },
+    "sanity-check": {
+        "download-latest": "Télécharger la version officielle",
+        "header": "Échec de la vérification de l'environnement"
+    },
+    "language": "Anglais",
+    "errors": {
+        "deviceDisconnected": "Clavier déconnecté"
+    }
+}

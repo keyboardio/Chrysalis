@@ -84,17 +84,34 @@ const FirmwareUpdate = (props) => {
 
   const NOTIFICATION_THRESHOLD = 5;
 
-  const defaultFirmwareFilename = () => {
+  const loadDefaultFirmwareContent = async () => {
     const { vendor, product } = focusDeviceDescriptor.info;
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return cVendor + "/" + cProduct + "/default." + firmwareType;
+    const firmwareURL = `/assets/firmware/${cVendor}/${cProduct}/default.${firmwareType}`;
+
+    let defaultFirmwareContent;
+    try {
+      const response = await fetch(firmwareURL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const firmwareBlob = await response.blob();
+      defaultFirmwareContent = await firmwareBlob.arrayBuffer();
+    } catch (err) {
+      console.error(`Failed to fetch firmware file from ${firmwareURL}:`, err);
+      throw err;
+    }
+    console.log("Firmware content", defaultFirmwareContent);
+
+    setFirmwareContent(defaultFirmwareContent);
+    return defaultFirmwareContent;
   };
 
   const doFactoryReset = async () => {
     const tasksInBootloaderMode = async () => {
-      await flashDeviceFirmwareFromBootloader(firmwareContent);
+      await flashDeviceFirmwareFromBootloader();
 
       await onStepChange("reconnect");
 
@@ -121,13 +138,21 @@ const FirmwareUpdate = (props) => {
   const flashDeviceFirmwareFromBootloader = async () => {
     const flasher = activeDevice.getFlasher();
     await onStepChange("flash");
+    let firmwareToSend = firmwareContent;
     console.log(focus);
-    await flasher.flash(focus._port, firmwareContent);
+    if (selectedFirmwareType == "default") {
+      firmwareToSend = await loadDefaultFirmwareContent();
+    }
+    console.log("about to flash");
+    console.log(" firmware content is ", firmwareToSend);
+    await flasher.flash(focus._port, firmwareToSend);
   };
 
   const updateDeviceFirmware = async () => {
+    // If the user selected the factory firmware, we need to fetch it from the
+    // server. Otherwise, we'll use the file the user uploaded.
     if (activeDevice.bootloaderDetected()) {
-      await flashDeviceFirmwareFromBootloader(firmwareContent);
+      await flashDeviceFirmwareFromBootloader();
       return;
     } else {
       await onStepChange("saveEEPROM");
@@ -137,7 +162,7 @@ const FirmwareUpdate = (props) => {
       const tasksInBootloaderMode = async () => {
         console.trace();
         console.log("Runing tasks in bootloader mode");
-        await flashDeviceFirmwareFromBootloader(firmwareContent);
+        await flashDeviceFirmwareFromBootloader();
         console.log("flashed device firmware");
         await onStepChange("reconnect");
 

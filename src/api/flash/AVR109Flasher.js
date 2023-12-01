@@ -38,6 +38,9 @@ const encoder = new TextEncoder();
 
 const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");
+  console.log("filecontents");
+  console.log(filecontents);
+
   var hexAsText = enc.decode(filecontents);
   return new Promise((resolve, reject) => {
     (async () => {

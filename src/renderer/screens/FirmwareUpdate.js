@@ -408,7 +408,7 @@ const FirmwareUpdate = (props) => {
 
       <ConfirmationDialog
         open={promptForBootloaderConnection}
-        title={"You need to do something TKTKTK"}
+        title={t("firmwareupdate.BootloaderConnectDialog.title")}
         onConfirm={() => {
           connectToSerialport().then((focus) => {
             if (focus) {
@@ -420,10 +420,14 @@ const FirmwareUpdate = (props) => {
             }
           });
         }}
-      />
+      >
+        <Typography component="p" sx={{ mb: 2 }}>
+          {t("firmwareupdate.bootloaderConnectDialog.contents")}
+        </Typography>
+      </ConfirmationDialog>
       <ConfirmationDialog
         open={promptForFocusConnection}
-        title={"You need to do something TKTKTK"}
+        title={t("firmwareupdate.ReconnectDialog.title")}
         onConfirm={() => {
           connectToSerialport().then((focus) => {
             if (focus) {
@@ -437,8 +441,11 @@ const FirmwareUpdate = (props) => {
             }
           });
         }}
-      />
-
+      >
+        <Typography component="p" sx={{ mb: 2 }}>
+          {t("firmwareupdate.reconnectDialog.contents")}
+        </Typography>
+      </ConfirmationDialog>
       <ConfirmationDialog
         title={
           factoryReset

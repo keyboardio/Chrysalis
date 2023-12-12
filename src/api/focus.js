@@ -511,6 +511,7 @@ class Focus {
   eepromBackupCommands = [
     ...this.eepromRestoreCommands,
     "help",
+    "version",
     "plugins",
     "eeprom.contents",
     "eeprom.free",

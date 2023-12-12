@@ -322,9 +322,10 @@ class Focus {
     return supported;
   }
 
-  async supported_commands() {
+  supported_commands() {
     if (this._supported_commands?.length == 0) {
-      this._supported_commands = await this.request("help");
+      // _request to do it immediately to avoid a race
+      this._supported_commands = this._request("help");
     }
     return this._supported_commands;
   }

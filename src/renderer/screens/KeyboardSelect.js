@@ -39,7 +39,6 @@ import { WebSerialCheck } from "@renderer/components/WebSerialCheck";
 const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [devices, setDevices] = useState(null);
 
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;

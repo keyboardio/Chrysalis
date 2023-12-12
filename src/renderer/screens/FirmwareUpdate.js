@@ -16,9 +16,7 @@
  */
 
 import { RebootMessage } from "@api/flash";
-import { delay } from "@api/flash/utils";
 import Focus from "@api/focus";
-import { ActiveDevice } from "../ActiveDevice";
 
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -45,6 +43,8 @@ import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();

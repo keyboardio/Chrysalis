@@ -15,7 +15,6 @@
  */
 
 import { parseIntelHex } from "./IntelHexParser";
-import { delay } from "./utils";
 
 const AVR109_RESPONSE_OK = "\r";
 const AVR109_CMD_ENTER_PROG_MODE = "P";
@@ -35,6 +34,8 @@ const AVR109States = {
 
 const decoder = new TextDecoder();
 const encoder = new TextEncoder();
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");

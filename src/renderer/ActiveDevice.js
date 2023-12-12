@@ -68,6 +68,7 @@ export function ActiveDevice() {
     this._storage = {};
     await this.focus.supported_commands();
     await this.plugins();
+    await this.version();
   };
 
   this.supported_commands = () => {
@@ -147,6 +148,7 @@ export function ActiveDevice() {
   };
 
   const cacheableFocusCommands = {
+    version: "version",
     defaultLayer: "settings.defaultLayer",
     keymap: "keymap",
     colormap: "colormap",

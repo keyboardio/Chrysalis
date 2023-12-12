@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { delay } from "./flash/utils";
-
 export const RebootMessage = {
   enter: {
     stillApplication: "ENTER_STILL_APPLICATION",

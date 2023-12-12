@@ -52,16 +52,16 @@ var dfu = {};
   };
 
   dfu.findDeviceDfuInterfaces = function (device) {
-    let interfaces = [];
-    for (let conf of device.configurations) {
-      for (let intf of conf.interfaces) {
-        for (let alt of intf.alternates) {
+    const interfaces = [];
+    for (const conf of device.configurations) {
+      for (const intf of conf.interfaces) {
+        for (const alt of intf.alternates) {
           if (
             alt.interfaceClass == 0xfe &&
             alt.interfaceSubclass == 0x01 &&
             (alt.interfaceProtocol == 0x01 || alt.interfaceProtocol == 0x02)
           ) {
-            let settings = {
+            const settings = {
               configuration: conf,
               interface: intf,
               alternate: alt,
@@ -78,10 +78,10 @@ var dfu = {};
 
   dfu.findAllDfuInterfaces = function () {
     return navigator.usb.getDevices().then((devices) => {
-      let matches = [];
-      for (let device of devices) {
-        let interfaces = dfu.findDeviceDfuInterfaces(device);
-        for (let interface_ of interfaces) {
+      const matches = [];
+      for (const device of devices) {
+        const interfaces = dfu.findDeviceDfuInterfaces(device);
+        for (const interface_ of interfaces) {
           matches.push(new dfu.Device(device, interface_));
         }
       }
@@ -211,7 +211,7 @@ var dfu = {};
       result = await this.device_.controlTransferIn(request_setup, bLength);
       if (result.status == "ok") {
         const len = (bLength - 2) / 2;
-        let u16_words = [];
+        const u16_words = [];
         for (let i = 0; i < len; i++) {
           u16_words.push(result.data.getUint16(2 + i * 2, true));
         }
@@ -231,20 +231,20 @@ var dfu = {};
   dfu.Device.prototype.readInterfaceNames = async function () {
     const DT_INTERFACE = 4;
 
-    let configs = {};
-    let allStringIndices = new Set();
+    const configs = {};
+    const allStringIndices = new Set();
     for (
       let configIndex = 0;
       configIndex < this.device_.configurations.length;
       configIndex++
     ) {
       const rawConfig = await this.readConfigurationDescriptor(configIndex);
-      let configDesc = dfu.parseConfigurationDescriptor(rawConfig);
-      let configValue = configDesc.bConfigurationValue;
+      const configDesc = dfu.parseConfigurationDescriptor(rawConfig);
+      const configValue = configDesc.bConfigurationValue;
       configs[configValue] = {};
 
       // Retrieve string indices for interface names
-      for (let desc of configDesc.descriptors) {
+      for (const desc of configDesc.descriptors) {
         if (desc.bDescriptorType == DT_INTERFACE) {
           if (!(desc.bInterfaceNumber in configs[configValue])) {
             configs[configValue][desc.bInterfaceNumber] = {};
@@ -258,9 +258,9 @@ var dfu = {};
       }
     }
 
-    let strings = {};
+    const strings = {};
     // Retrieve interface name strings
-    for (let index of allStringIndices) {
+    for (const index of allStringIndices) {
       try {
         strings[index] = await this.readStringDescriptor(index, 0x0409);
       } catch (error) {
@@ -269,9 +269,9 @@ var dfu = {};
       }
     }
 
-    for (let configValue in configs) {
-      for (let intfNumber in configs[configValue]) {
-        for (let alt in configs[configValue][intfNumber]) {
+    for (const configValue in configs) {
+      for (const intfNumber in configs[configValue]) {
+        for (const alt in configs[configValue][intfNumber]) {
           const iIndex = configs[configValue][intfNumber][alt];
           configs[configValue][intfNumber][alt] = strings[iIndex];
         }
@@ -301,8 +301,8 @@ var dfu = {};
   };
 
   dfu.parseConfigurationDescriptor = function (data) {
-    let descriptorData = new DataView(data.buffer.slice(9));
-    let descriptors = dfu.parseSubDescriptors(descriptorData);
+    const descriptorData = new DataView(data.buffer.slice(9));
+    const descriptors = dfu.parseSubDescriptors(descriptorData);
     return {
       bLength: data.getUint8(0),
       bDescriptorType: data.getUint8(1),
@@ -349,13 +349,13 @@ var dfu = {};
     const USB_CLASS_APP_SPECIFIC = 0xfe;
     const USB_SUBCLASS_DFU = 0x01;
     let remainingData = descriptorData;
-    let descriptors = [];
+    const descriptors = [];
     let currIntf;
     let inDfuIntf = false;
     while (remainingData.byteLength > 2) {
-      let bLength = remainingData.getUint8(0);
-      let bDescriptorType = remainingData.getUint8(1);
-      let descData = new DataView(remainingData.buffer.slice(0, bLength));
+      const bLength = remainingData.getUint8(0);
+      const bDescriptorType = remainingData.getUint8(1);
+      const descData = new DataView(remainingData.buffer.slice(0, bLength));
       if (bDescriptorType == DT_INTERFACE) {
         currIntf = dfu.parseInterfaceDescriptor(descData);
         if (
@@ -368,11 +368,11 @@ var dfu = {};
         }
         descriptors.push(currIntf);
       } else if (inDfuIntf && bDescriptorType == DT_DFU_FUNCTIONAL) {
-        let funcDesc = dfu.parseFunctionalDescriptor(descData);
+        const funcDesc = dfu.parseFunctionalDescriptor(descData);
         descriptors.push(funcDesc);
         currIntf.descriptors.push(funcDesc);
       } else {
-        let desc = {
+        const desc = {
           bLength: bLength,
           bDescriptorType: bDescriptorType,
           data: descData,
@@ -488,8 +488,8 @@ var dfu = {};
   };
 
   dfu.Device.prototype.waitDisconnected = async function (timeout) {
-    let device = this;
-    let usbDevice = this.device_;
+    const device = this;
+    const usbDevice = this.device_;
     return new Promise(function (resolve, reject) {
       let timeoutID;
       if (timeout > 0) {
@@ -578,7 +578,7 @@ var dfu = {};
     first_block = 0
   ) {
     let transaction = first_block;
-    let blocks = [];
+    const blocks = [];
     let bytes_read = 0;
 
     this.logInfo("Copying data from DFU device to browser");
@@ -614,7 +614,7 @@ var dfu = {};
   dfu.Device.prototype.poll_until = async function (state_predicate) {
     let dfu_status = await this.getStatus();
 
-    let device = this;
+    const device = this;
     function async_sleep(duration_ms) {
       return new Promise(function (resolve, reject) {
         device.logDebug("Sleeping for " + duration_ms + "ms");
@@ -643,7 +643,7 @@ var dfu = {};
     manifestationTolerant
   ) {
     let bytes_sent = 0;
-    let expected_size = data.byteLength;
+    const expected_size = data.byteLength;
     let transaction = 0;
 
     this.logInfo("Copying data from browser to DFU device");
@@ -724,7 +724,7 @@ var dfu = {};
       this.logInfo("manifestation not tolerant");
       // Try polling once to initiate manifestation
       try {
-        let final_status = await this.getStatus();
+        const final_status = await this.getStatus();
         this.logDebug(
           `Final DFU status: state=${final_status.state}, status=${final_status.status}`
         );

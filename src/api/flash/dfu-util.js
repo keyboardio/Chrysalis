@@ -70,7 +70,7 @@ var device = null;
     const intf = device.settings["interface"].interfaceNumber;
     const alt = device.settings.alternate.alternateSetting;
     const serial = device.device_.serialNumber;
-    let info = `${mode}: [${vid}:${pid}] cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}" serial="${serial}"`;
+    const info = `${mode}: [${vid}:${pid}] cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}" serial="${serial}"`;
     return info;
   }
 
@@ -94,17 +94,17 @@ var device = null;
     // Check if any interface names were not read correctly
     if (interfaces.some((intf) => intf.name == null)) {
       // Manually retrieve the interface name string descriptors
-      let tempDevice = new dfu.Device(device_, interfaces[0]);
+      const tempDevice = new dfu.Device(device_, interfaces[0]);
       await tempDevice.device_.open();
       await tempDevice.device_.selectConfiguration(1);
-      let mapping = await tempDevice.readInterfaceNames();
+      const mapping = await tempDevice.readInterfaceNames();
       await tempDevice.close();
 
-      for (let intf of interfaces) {
+      for (const intf of interfaces) {
         if (intf.name === null) {
-          let configIndex = intf.configuration.configurationValue;
-          let intfNumber = intf["interface"].interfaceNumber;
-          let alt = intf.alternate.alternateSetting;
+          const configIndex = intf.configuration.configurationValue;
+          const intfNumber = intf["interface"].interfaceNumber;
+          const alt = intf.alternate.alternateSetting;
           intf.name = mapping[configIndex][intfNumber][alt];
         }
       }
@@ -112,27 +112,27 @@ var device = null;
   }
 
   function populateInterfaceList(form, device_, interfaces) {
-    let old_choices = Array.from(form.getElementsByTagName("div"));
-    for (let radio_div of old_choices) {
+    const old_choices = Array.from(form.getElementsByTagName("div"));
+    for (const radio_div of old_choices) {
       form.removeChild(radio_div);
     }
 
-    let button = form.getElementsByTagName("button")[0];
+    const button = form.getElementsByTagName("button")[0];
 
     for (let i = 0; i < interfaces.length; i++) {
-      let radio = document.createElement("input");
+      const radio = document.createElement("input");
       radio.type = "radio";
       radio.name = "interfaceIndex";
       radio.value = i;
       radio.id = "interface" + i;
       radio.required = true;
 
-      let label = document.createElement("label");
+      const label = document.createElement("label");
       label.textContent = formatDFUInterfaceAlternate(interfaces[i]);
       label.className = "radio";
       label.setAttribute("for", "interface" + i);
 
-      let div = document.createElement("div");
+      const div = document.createElement("div");
       div.appendChild(radio);
       div.appendChild(label);
       form.insertBefore(div, button);
@@ -144,11 +144,11 @@ var device = null;
     // TODO: read the selected configuration's descriptor
     return device.readConfigurationDescriptor(0).then(
       (data) => {
-        let configDesc = dfu.parseConfigurationDescriptor(data);
+        const configDesc = dfu.parseConfigurationDescriptor(data);
         let funcDesc = null;
-        let configValue = device.settings.configuration.configurationValue;
+        const configValue = device.settings.configuration.configurationValue;
         if (configDesc.bConfigurationValue == configValue) {
-          for (let desc of configDesc.descriptors) {
+          for (const desc of configDesc.descriptors) {
             if (
               desc.bDescriptorType == 0x21 &&
               desc.hasOwnProperty("bcdDFUVersion")
@@ -201,7 +201,7 @@ var device = null;
     console.log(msg);
 
     if (logContext) {
-      let info = document.createElement("p");
+      const info = document.createElement("p");
       info.className = "info";
       info.textContent = msg;
       logContext.appendChild(info);
@@ -212,7 +212,7 @@ var device = null;
     console.log(msg);
 
     if (logContext) {
-      let warning = document.createElement("p");
+      const warning = document.createElement("p");
       warning.className = "warning";
       warning.textContent = msg;
       logContext.appendChild(warning);
@@ -223,7 +223,7 @@ var device = null;
     console.log(msg);
 
     if (logContext) {
-      let error = document.createElement("p");
+      const error = document.createElement("p");
       error.className = "error";
       error.textContent = msg;
       logContext.appendChild(error);
@@ -248,16 +248,16 @@ var device = null;
   }
 
   document.addEventListener("DOMContentLoaded", (event) => {
-    let connectButton = document.querySelector("#connect");
-    let downloadButton = document.querySelector("#download");
-    let statusDisplay = document.querySelector("#status");
-    let infoDisplay = document.querySelector("#usbInfo");
-    let dfuDisplay = document.querySelector("#dfuInfo");
-    let vidField = document.querySelector("#vid");
-    let interfaceDialog = document.querySelector("#interfaceDialog");
-    let interfaceForm = document.querySelector("#interfaceForm");
+    const connectButton = document.querySelector("#connect");
+    const downloadButton = document.querySelector("#download");
+    const statusDisplay = document.querySelector("#status");
+    const infoDisplay = document.querySelector("#usbInfo");
+    const dfuDisplay = document.querySelector("#dfuInfo");
+    const vidField = document.querySelector("#vid");
+    const interfaceDialog = document.querySelector("#interfaceDialog");
+    const interfaceForm = document.querySelector("#interfaceForm");
 
-    let searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(window.location.search);
     let fromLandingPage = false;
     let vid; // = parseInt("0x3496"); // Default to keyboardio devices
     // Set the vendor ID from the landing page URL
@@ -287,18 +287,18 @@ var device = null;
       fromLandingPage = true;
     }
 
-    let configForm = document.querySelector("#configForm");
+    const configForm = document.querySelector("#configForm");
 
     let transferSize = 1024;
 
     let firmwareFile = null;
-    let downloadLog = document.querySelector("#downloadLog");
-    let firmwareVersionSelect = document.getElementById("firmwareVersion");
+    const downloadLog = document.querySelector("#downloadLog");
+    const firmwareVersionSelect = document.getElementById("firmwareVersion");
 
     let manifestationTolerant = true;
 
     async function fetchSelectedFirmware() {
-      let firmwareVersion =
+      const firmwareVersion =
         firmwareVersionSelect.options[firmwareVersionSelect.selectedIndex]
           .value;
 
@@ -379,10 +379,10 @@ var device = null;
         throw error;
       }
 
-      let memorySummary = "";
+      const memorySummary = "";
       if (desc && Object.keys(desc).length > 0) {
         device.properties = desc;
-        let info = `WillDetach=${desc.WillDetach}, ManifestationTolerant=${
+        const info = `WillDetach=${desc.WillDetach}, ManifestationTolerant=${
           desc.ManifestationTolerant
         }, CanUpload=${desc.CanUpload}, CanDnload=${
           desc.CanDnload
@@ -393,12 +393,6 @@ var device = null;
         transferSize = desc.TransferSize;
         if (desc.CanDnload) {
           manifestationTolerant = desc.ManifestationTolerant;
-        }
-
-        if (device.settings.alternate.interfaceProtocol == 0x02) {
-          if (!desc.CanDnload) {
-            dnloadButton.disabled = true;
-          }
         }
       }
 
@@ -442,8 +436,8 @@ var device = null;
 
     function autoConnect(vid, serial) {
       dfu.findAllDfuInterfaces().then(async (dfu_devices) => {
-        let matching_devices = [];
-        for (let dfu_device of dfu_devices) {
+        const matching_devices = [];
+        for (const dfu_device of dfu_devices) {
           if (serial) {
             if (dfu_device.device_.serialNumber == serial) {
               matching_devices.push(dfu_device);
@@ -475,12 +469,14 @@ var device = null;
       vid = parseInt(vidField.value, 16);
     });
 
-    connectButton.addEventListener("click", function () {
+    connectButton.addEventListener("click", clickConnect);
+
+    const clickConnect = () => {
       if (device) {
         device.close().then(onDisconnect);
         device = null;
       } else {
-        let filters = [];
+        const filters = [];
         if (serial) {
           filters.push({ serialNumber: serial });
         } else if (vid) {
@@ -489,7 +485,7 @@ var device = null;
         navigator.usb
           .requestDevice({ filters: filters })
           .then(async (selectedDevice) => {
-            let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
+            const interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
             console.log(selectedDevice.productId);
 
             if (selectedDevice.productId == 0x0006) {
@@ -536,9 +532,10 @@ var device = null;
             statusDisplay.textContent = error;
           });
       }
-    });
+    };
 
-    downloadButton.addEventListener("click", async function (event) {
+    downloadButton.addEventListener("click", clickDownload);
+    const clickDownload = async (event) => {
       event.preventDefault();
       event.stopPropagation();
       if (!configForm.checkValidity()) {
@@ -551,7 +548,7 @@ var device = null;
         setLogContext(downloadLog);
         clearLog(downloadLog);
         try {
-          let status = await device.getStatus();
+          const status = await device.getStatus();
           if (status.state == dfu.dfuERROR) {
             await device.clearStatus();
           }
@@ -562,7 +559,6 @@ var device = null;
           .do_download(transferSize, firmwareFile, manifestationTolerant)
           .then(
             () => {
-              logInfo("Done!");
               setLogContext(null);
               if (!manifestationTolerant) {
                 device.waitDisconnected(5000).then(
@@ -589,7 +585,7 @@ var device = null;
       }
 
       //return false;
-    });
+    };
 
     // Check if WebUSB is available
     if (typeof navigator.usb !== "undefined") {

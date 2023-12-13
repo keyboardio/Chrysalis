@@ -466,7 +466,7 @@ class Focus {
   }
 
   async _help(s) {
-    const data = await this.request("help");
+    const data = await s.request("help");
     return data.split(/\r?\n/).filter((v) => v.length > 0);
   }
 

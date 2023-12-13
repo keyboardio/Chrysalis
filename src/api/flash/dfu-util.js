@@ -18,83 +18,19 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
 
+import { DFUDeviceState, DFUUSBDevice, DFUDescriptorType, DFU } from "./dfu";
 var device = null;
 
 (function () {
   "use strict";
 
-  function hex4(n) {
-    let s = n.toString(16);
-    while (s.length < 4) {
-      s = "0" + s;
-    }
-    return s;
-  }
 
-  function hexAddr8(n) {
-    let s = n.toString(16);
-    while (s.length < 8) {
-      s = "0" + s;
-    }
-    return "0x" + s;
-  }
-
-  function niceSize(n) {
-    const gigabyte = 1024 * 1024 * 1024;
-    const megabyte = 1024 * 1024;
-    const kilobyte = 1024;
-    if (n >= gigabyte) {
-      return n / gigabyte + "GiB";
-    } else if (n >= megabyte) {
-      return n / megabyte + "MiB";
-    } else if (n >= kilobyte) {
-      return n / kilobyte + "KiB";
-    } else {
-      return n + "B";
-    }
-  }
-
-  function formatDFUSummary(device) {
-    const vid = hex4(device.device_.vendorId);
-    const pid = hex4(device.device_.productId);
-    const name = device.device_.productName;
-
-    let mode = "Unknown";
-    if (device.settings.alternate.interfaceProtocol == 0x01) {
-      mode = "Runtime";
-    } else if (device.settings.alternate.interfaceProtocol == 0x02) {
-      mode = "DFU";
-    }
-
-    const cfg = device.settings.configuration.configurationValue;
-    const intf = device.settings["interface"].interfaceNumber;
-    const alt = device.settings.alternate.alternateSetting;
-    const serial = device.device_.serialNumber;
-    const info = `${mode}: [${vid}:${pid}] cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}" serial="${serial}"`;
-    return info;
-  }
-
-  function formatDFUInterfaceAlternate(settings) {
-    let mode = "Unknown";
-    if (settings.alternate.interfaceProtocol == 0x01) {
-      mode = "Runtime";
-    } else if (settings.alternate.interfaceProtocol == 0x02) {
-      mode = "DFU";
-    }
-
-    const cfg = settings.configuration.configurationValue;
-    const intf = settings["interface"].interfaceNumber;
-    const alt = settings.alternate.alternateSetting;
-    const name = settings.name ? settings.name : "UNKNOWN";
-
-    return `${mode}: cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}"`;
-  }
 
   async function fixInterfaceNames(device_, interfaces) {
     // Check if any interface names were not read correctly
     if (interfaces.some((intf) => intf.name == null)) {
       // Manually retrieve the interface name string descriptors
-      const tempDevice = new dfu.Device(device_, interfaces[0]);
+      const tempDevice = new DFUUSBDevice(device_, interfaces[0]);
       await tempDevice.device_.open();
       await tempDevice.device_.selectConfiguration(1);
       const mapping = await tempDevice.readInterfaceNames();
@@ -128,8 +64,7 @@ var device = null;
       radio.required = true;
 
       const label = document.createElement("label");
-      label.textContent = formatDFUInterfaceAlternate(interfaces[i]);
-      label.className = "radio";
+\      label.className = "radio";
       label.setAttribute("for", "interface" + i);
 
       const div = document.createElement("div");
@@ -139,113 +74,45 @@ var device = null;
     }
   }
 
-  function getDFUDescriptorProperties(device) {
-    // Attempt to read the DFU functional descriptor
-    // TODO: read the selected configuration's descriptor
-    return device.readConfigurationDescriptor(0).then(
-      (data) => {
-        const configDesc = dfu.parseConfigurationDescriptor(data);
-        let funcDesc = null;
-        const configValue = device.settings.configuration.configurationValue;
-        if (configDesc.bConfigurationValue == configValue) {
-          for (const desc of configDesc.descriptors) {
-            if (
-              desc.bDescriptorType == 0x21 &&
-              desc.hasOwnProperty("bcdDFUVersion")
-            ) {
-              funcDesc = desc;
-              break;
-            }
+  async function getDFUDescriptorProperties(device) {
+    try {
+      const data = await device.readConfigurationDescriptor(0);
+      const configDesc = USBParser.parseConfigurationDescriptor(data);
+      let funcDesc = null;
+      const configValue = device.settings.configuration.configurationValue;
+
+      if (configDesc.bConfigurationValue === configValue) {
+        for (const desc of configDesc.descriptors) {
+          if (
+            desc.bDescriptorType === DFUDescriptorType.DFU_FUNCTIONAL &&
+            desc.hasOwnProperty("bcdDFUVersion")
+          ) {
+            funcDesc = desc;
+            break;
           }
         }
-
-        if (funcDesc) {
-          return {
-            WillDetach: (funcDesc.bmAttributes & 0x08) != 0,
-            ManifestationTolerant: (funcDesc.bmAttributes & 0x04) != 0,
-            CanUpload: (funcDesc.bmAttributes & 0x02) != 0,
-            CanDnload: (funcDesc.bmAttributes & 0x01) != 0,
-            TransferSize: funcDesc.wTransferSize,
-            DetachTimeOut: funcDesc.wDetachTimeOut,
-            DFUVersion: funcDesc.bcdDFUVersion,
-          };
-        } else {
-          return {};
-        }
-      },
-      (error) => {}
-    );
-  }
-
-  // Current log div element to append to
-  let logContext = null;
-
-  function setLogContext(div) {
-    logContext = div;
-  }
-
-  function clearLog(context) {
-    if (typeof context === "undefined") {
-      context = logContext;
-    }
-    if (context) {
-      context.innerHTML = "";
-    }
-  }
-
-  function logDebug(msg) {
-    console.log(msg);
-  }
-
-  function logInfo(msg) {
-    console.log(msg);
-
-    if (logContext) {
-      const info = document.createElement("p");
-      info.className = "info";
-      info.textContent = msg;
-      logContext.appendChild(info);
-    }
-  }
-
-  function logWarning(msg) {
-    console.log(msg);
-
-    if (logContext) {
-      const warning = document.createElement("p");
-      warning.className = "warning";
-      warning.textContent = msg;
-      logContext.appendChild(warning);
-    }
-  }
-
-  function logError(msg) {
-    console.log(msg);
-
-    if (logContext) {
-      const error = document.createElement("p");
-      error.className = "error";
-      error.textContent = msg;
-      logContext.appendChild(error);
-    }
-  }
-
-  function logProgress(done, total) {
-    if (logContext) {
-      let progressBar;
-      if (logContext.lastChild.tagName.toLowerCase() == "progress") {
-        progressBar = logContext.lastChild;
       }
-      if (!progressBar) {
-        progressBar = document.createElement("progress");
-        logContext.appendChild(progressBar);
+
+      if (funcDesc) {
+        return {
+          WillDetach: (funcDesc.bmAttributes & 0x08) !== 0,
+          ManifestationTolerant: (funcDesc.bmAttributes & 0x04) !== 0,
+          CanUpload: (funcDesc.bmAttributes & 0x02) !== 0,
+          CanDnload: (funcDesc.bmAttributes & 0x01) !== 0,
+          TransferSize: funcDesc.wTransferSize,
+          DetachTimeOut: funcDesc.wDetachTimeOut,
+          DFUVersion: funcDesc.bcdDFUVersion,
+        };
+      } else {
+        return {};
       }
-      progressBar.value = done;
-      if (typeof total !== "undefined") {
-        progressBar.max = total;
-      }
+    } catch (error) {
+      // Handle or log the error as needed
+      console.error("Error reading DFU descriptor: ", error);
+      return {};
     }
   }
+
 
   document.addEventListener("DOMContentLoaded", (event) => {
     const connectButton = document.querySelector("#connect");
@@ -253,7 +120,6 @@ var device = null;
     const statusDisplay = document.querySelector("#status");
     const infoDisplay = document.querySelector("#usbInfo");
     const dfuDisplay = document.querySelector("#dfuInfo");
-    const vidField = document.querySelector("#vid");
     const interfaceDialog = document.querySelector("#interfaceDialog");
     const interfaceForm = document.querySelector("#interfaceForm");
 
@@ -269,7 +135,6 @@ var device = null;
         } else {
           vid = parseInt(vidString, 10);
         }
-        vidField.value = "0x" + hex4(vid).toUpperCase();
         fromLandingPage = true;
       } catch (error) {
         console.log("Bad VID " + vidString + ":" + error);
@@ -287,12 +152,9 @@ var device = null;
       fromLandingPage = true;
     }
 
-    const configForm = document.querySelector("#configForm");
-
     let transferSize = 1024;
 
     let firmwareFile = null;
-    const downloadLog = document.querySelector("#downloadLog");
     const firmwareVersionSelect = document.getElementById("firmwareVersion");
 
     let manifestationTolerant = true;
@@ -313,14 +175,7 @@ var device = null;
     //let device;
 
     function onDisconnect(reason) {
-      if (reason) {
-        statusDisplay.textContent = reason;
-      }
-
-      connectButton.textContent = "Connect";
-      infoDisplay.textContent = "";
-      dfuDisplay.textContent = "";
-      downloadButton.disabled = true;
+      console.log("Disconnected: " + reason);
     }
 
     function onUnexpectedDisconnect(event) {
@@ -332,36 +187,33 @@ var device = null;
         }
       }
     }
-
-    function detach() {
+    async function detach() {
       if (device) {
-        device.detach().then(
-          async (len) => {
-            let detached = false;
-            try {
-              await device.close();
-              await device.waitDisconnected(5000);
-              detached = true;
-            } catch (err) {
-              console.log("Detach failed: " + err);
-            }
+        try {
+          await device.detach();
+          let detached = false;
 
-            onDisconnect();
-            device = null;
-            if (detached) {
-              // Wait a few seconds and try reconnecting
-              setTimeout(autoConnect, 5000);
-            }
-          },
-          async (error) => {
+          try {
             await device.close();
-            onDisconnect(error);
-            device = null;
+            await device.waitDisconnected(5000);
+            detached = true;
+          } catch (err) {
+            console.log("Detach failed: " + err);
           }
-        );
+
+          onDisconnect();
+          device = null;
+
+          if (detached) {
+            setTimeout(autoConnect, 5000); // Wait a few seconds and try reconnecting
+          }
+        } catch (error) {
+          await device.close();
+          onDisconnect(error);
+          device = null;
+        }
       }
     }
-
     async function connect(device) {
       try {
         await device.open();
@@ -379,32 +231,15 @@ var device = null;
         throw error;
       }
 
-      const memorySummary = "";
       if (desc && Object.keys(desc).length > 0) {
         device.properties = desc;
-        const info = `WillDetach=${desc.WillDetach}, ManifestationTolerant=${
-          desc.ManifestationTolerant
-        }, CanUpload=${desc.CanUpload}, CanDnload=${
-          desc.CanDnload
-        }, TransferSize=${desc.TransferSize}, DetachTimeOut=${
-          desc.DetachTimeOut
-        }, Version=${hex4(desc.DFUVersion)}`;
-        dfuDisplay.textContent += "\n" + info;
+
         transferSize = desc.TransferSize;
         if (desc.CanDnload) {
           manifestationTolerant = desc.ManifestationTolerant;
         }
       }
 
-      // Bind logging methods
-      device.logDebug = logDebug;
-      device.logInfo = logInfo;
-      device.logWarning = logWarning;
-      device.logError = logError;
-      device.logProgress = logProgress;
-
-      // Clear logs
-      clearLog(downloadLog);
 
       // Display basic USB information
       statusDisplay.textContent = "";
@@ -421,7 +256,7 @@ var device = null;
         "\n";
 
       // Display basic dfu-util style info
-      dfuDisplay.textContent = formatDFUSummary(device) + "\n" + memorySummary;
+      dfuDisplay.textContent = "";
 
       // Update buttons based on capabilities
       if (device.settings.alternate.interfaceProtocol == 0x01) {
@@ -434,103 +269,86 @@ var device = null;
       return device;
     }
 
-    function autoConnect(vid, serial) {
-      dfu.findAllDfuInterfaces().then(async (dfu_devices) => {
-        const matching_devices = [];
-        for (const dfu_device of dfu_devices) {
+    async function autoConnect(vid, serial) {
+      try {
+        const dfu_devices = await DFU.findAllDfuInterfaces();
+        const matching_devices = dfu_devices.filter((dfu_device) => {
           if (serial) {
-            if (dfu_device.device_.serialNumber == serial) {
-              matching_devices.push(dfu_device);
-            }
-          } else if (dfu_device.device_.vendorId == vid) {
-            matching_devices.push(dfu_device);
+            return dfu_device.device_.serialNumber === serial;
+          } else {
+            return dfu_device.device_.vendorId === vid;
           }
-        }
+        });
 
-        if (matching_devices.length == 0) {
-          statusDisplay.textContent = "No device found.";
+        if (matching_devices.length === 0) {
+          console.log("No device found." );
         } else {
-          if (matching_devices.length == 1) {
-            statusDisplay.textContent = "Connecting...";
+          if (matching_devices.length === 1) {
+            console.log("Connecting");
             device = matching_devices[0];
             console.log(device);
             device = await connect(device);
           } else {
-            statusDisplay.textContent = "Multiple DFU interfaces found.";
+            console.log( "Multiple DFU interfaces found.");
           }
-          vidField.value =
-            "0x" + hex4(matching_devices[0].device_.vendorId).toUpperCase();
+
           vid = matching_devices[0].device_.vendorId;
         }
-      });
+      } catch (error) {
+        statusDisplay.textContent = `Error in autoConnect: ${error}`;
+      }
     }
-
-    vidField.addEventListener("change", function () {
-      vid = parseInt(vidField.value, 16);
-    });
 
     connectButton.addEventListener("click", clickConnect);
 
-    const clickConnect = () => {
-      if (device) {
-        device.close().then(onDisconnect);
-        device = null;
-      } else {
-        const filters = [];
-        if (serial) {
-          filters.push({ serialNumber: serial });
-        } else if (vid) {
-          filters.push({ vendorId: vid });
-        }
-        navigator.usb
-          .requestDevice({ filters: filters })
-          .then(async (selectedDevice) => {
-            const interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
-            console.log(selectedDevice.productId);
+    const clickConnect = async () => {
+      try {
+        if (device) {
+          await device.close();
+          onDisconnect();
+          device = null;
+        } else {
+          const filters = [];
+          if (serial) {
+            filters.push({ serialNumber: serial });
+          } else if (vid) {
+            filters.push({ vendorId: vid });
+          }
 
-            if (selectedDevice.productId == 0x0006) {
-              console.log(selectedDevice);
-              document.getElementById("found-device-need-bootloader").set;
-              statusDisplay.textContent = "Your Model 100 is in keyboard mode";
-            } else if (interfaces.length == 0) {
-              console.log(selectedDevice);
-              statusDisplay.textContent =
-                "The sxelected device does not have any USB DFU interfaces.";
-            } else if (interfaces.length == 1) {
-              await fixInterfaceNames(selectedDevice, interfaces);
+          const selectedDevice = await navigator.usb.requestDevice({ filters });
+          const interfaces = DFU.findDeviceDfuInterfaces(selectedDevice);
+          console.log(selectedDevice.productId);
+
+          if (selectedDevice.productId === 0x0006) {
+            console.log(selectedDevice);
+            document.getElementById("found-device-need-bootloader").set;
+            statusDisplay.textContent = "Your Model 100 is in keyboard mode";
+          } else if (interfaces.length === 0) {
+            console.log(selectedDevice);
+ console.log(              "The selected device does not have any USB DFU interfaces.");
+          } else {
+            await fixInterfaceNames(selectedDevice, interfaces);
+
+            if (interfaces.length === 1) {
               device = await connect(
-                new dfu.Device(selectedDevice, interfaces[0])
+                new DFUUSBDevice(selectedDevice, interfaces[0])
               );
             } else {
-              await fixInterfaceNames(selectedDevice, interfaces);
               populateInterfaceList(interfaceForm, selectedDevice, interfaces);
-              async function connectToSelectedInterface() {
-                interfaceForm.removeEventListener("submit", this);
+              interfaceForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
                 const index = interfaceForm.elements["interfaceIndex"].value;
                 device = await connect(
-                  new dfu.Device(selectedDevice, interfaces[index])
-                );
-              }
-
-              interfaceForm.addEventListener(
-                "submit",
-                connectToSelectedInterface
-              );
-
-              interfaceDialog.addEventListener("cancel", function () {
-                interfaceDialog.removeEventListener("cancel", this);
-                interfaceForm.removeEventListener(
-                  "submit",
-                  connectToSelectedInterface
+                  new DFUUSBDevice(selectedDevice, interfaces[index])
                 );
               });
 
               interfaceDialog.showModal();
             }
-          })
-          .catch((error) => {
-            statusDisplay.textContent = error;
-          });
+          }
+        }
+      } catch (error) {
+        statusDisplay.textContent = error;
       }
     };
 
@@ -538,65 +356,53 @@ var device = null;
     const clickDownload = async (event) => {
       event.preventDefault();
       event.stopPropagation();
-      if (!configForm.checkValidity()) {
-        configForm.reportValidity();
-        return false;
-      }
 
       firmwareFile = await fetchSelectedFirmware();
       if (device && firmwareFile != null) {
-        setLogContext(downloadLog);
-        clearLog(downloadLog);
         try {
           const status = await device.getStatus();
-          if (status.state == dfu.dfuERROR) {
+          if (status.state === DFUDeviceState.dfuERROR) {
             await device.clearStatus();
           }
-        } catch (error) {
-          device.logWarning("Failed to clear status");
-        }
-        await device
-          .do_download(transferSize, firmwareFile, manifestationTolerant)
-          .then(
-            () => {
-              setLogContext(null);
-              if (!manifestationTolerant) {
-                device.waitDisconnected(5000).then(
-                  (dev) => {
-                    onDisconnect();
-                    device = null;
-                  },
-                  (error) => {
-                    // It didn't reset and disconnect for some reason...
-                    console.log("Device unexpectedly tolerated manifestation.");
-                  }
-                );
-              } else {
-                detach();
+
+          try {
+            await device.do_download(
+              transferSize,
+              firmwareFile,
+              manifestationTolerant
+            );
+            if (!manifestationTolerant) {
+              try {
+                await device.waitDisconnected(5000);
+                onDisconnect();
+                device = null;
+              } catch (error) {
+                console.log("Device unexpectedly tolerated manifestation.");
               }
-            },
-            (error) => {
-              logError(error);
-              setLogContext(null);
+            } else {
+              detach();
             }
-          );
+          } catch (error) {
+            console.error(error);
+          }
+        } catch (error) {
+          console.error("Failed to clear status");
+        }
       } else {
         console.log("No device or firmware file", device, firmwareFile);
       }
-
-      //return false;
     };
 
     // Check if WebUSB is available
-    if (typeof navigator.usb !== "undefined") {
+    if (typeof navigator.usb === "undefined") {
+      statusDisplay.textContent = "WebUSB not available.";
+      connectButton.disabled = true;
+    } else {
       navigator.usb.addEventListener("disconnect", onUnexpectedDisconnect);
       // Try connecting automatically
       if (fromLandingPage) {
         autoConnect(vid, serial);
       }
-    } else {
-      statusDisplay.textContent = "WebUSB not available.";
-      connectButton.disabled = true;
     }
   });
 })();

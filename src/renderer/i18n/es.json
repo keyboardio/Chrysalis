@@ -94,6 +94,37 @@
             "blanks": {
                 "title": "Espacios en blanco",
                 "help": "Teclas bloqueadas y transparentes."
+            },
+            "overview": {
+                "sharing": "Respaldar y restaurar",
+                "pasteLayer": "Pegar capa",
+                "help": "Una presentación de las asignaciones para la tecla seleccionada actualmente. Para cambiar la capa mostrada, haga clic en su fila.",
+                "key": "Tecla #{{index}}",
+                "showEmptyLayers": "Mostrar capas vacías...",
+                "copyLayer": "Copiar capa",
+                "color": "Color",
+                "hideEmptyLayers": "Ocultar capas vacías..."
+            },
+            "consumer": {
+                "volume": "Volumen",
+                "media": "Controles de medios"
+            },
+            "secondary": {
+                "whenHeld": "Al mantener",
+                "targetLayer": "Capa",
+                "title": "Acción secundario",
+                "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
+                "help": "Le permite asignar funcionalidad secundaria a una tecla. Al pulsar esas teclas aumentadas, la función primaria realizará. Al mantenerlas, la acción secundaria realizará.",
+                "modifier": "Modificadora",
+                "type": {
+                    "none": "Ninguna acción secundaria",
+                    "layer": "Capa desplazamiento",
+                    "modifier": "Modificadora"
+                }
+            },
+            "colors": {
+                "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
+                "title": "Colores"
             }
         }
     },

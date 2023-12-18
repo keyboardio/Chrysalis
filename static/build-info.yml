@@ -1,22 +1,106 @@
 ---
-version: 0.91.1+74
-build: 74
+version: 0.92.1+94
+build: 94
 
 dependencies:
   cores:
-    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@f5c4ba0b32b301c1b0846bbce935b49c1d5dc2c9
-    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@062f5cab65a42e0c9faf1b39faa2dbf5d2dd86c0
+    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@d65eb1e23e52f096efc365ead5df4986be28500a
+    gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     avr:
-      - keyboardio/KeyboardioHID@1caab9b6fd6d28f96d00d733f5c62eaef3c9c217
+      - keyboardio/KeyboardioHID@
     gd32:
-      - keyboardio/KeyboardioHID@1caab9b6fd6d28f96d00d733f5c62eaef3c9c217
+      - keyboardio/KeyboardioHID@
     common:
-      - keyboardio/Kaleidoscope@90abb32cc9eee25fa32560528e4b7b52d6441c6d
-      - keyboardio/Chrysalis-Firmware-Bundle@b7d025c0c13db313c3704e80d86f526f60d2d315
+      - keyboardio/Kaleidoscope@e6a0d44b6d2eb1516f50ece86175f76e4c654492
+      - keyboardio/Chrysalis-Firmware-Bundle@ba1784b3ac1195db1fd99654de61fb3bb45e5427
 
 firmware:
   Keyboardio:
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - LayerNames
+        - Macros
+        - MouseKeys
+        - OneShot
+        - OneShotConfig
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
+    Model01:
+      plugins:
+        - BootGreetingEffect
+        - ColormapEffect
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - HostPowerManagement
+        - LEDBreatheEffect
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - NumPad
+        - Qukeys
+        - USBQuirks
+    Model100:
+      plugins:
+        - AlphaSquareEffect
+        - BootGreetingEffect
+        - ColormapEffect
+        - DefaultLEDModeConfig
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - GeminiPR
+        - HostPowerManagement
+        - IdleLEDs
+        - LEDBreatheEffect
+        - LEDBrightnessConfig
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - LayerNames
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - MouseKeysConfig
+        - NumPad
+        - OneShot
+        - OneShotConfig
+        - PersistentIdleLEDs
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
+        - StalkerEffect
+        - USBQuirks
   EZ:
   Technomancy:
   SOFTHRUF:

@@ -277,4 +277,8 @@ export const registerFirmwareHandlers = () => {
 
     event.returnValue = buildInfo.version.match(/[^+]*/)[0];
   });
+
+  ipcMain.on("firmware.get-base-directory", (event) => {
+    event.returnValue = getFirmwareBaseDirectory();
+  });
 };

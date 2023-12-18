@@ -79,8 +79,11 @@ const FirmwareUpdate = (props) => {
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return getFilesystemPathForStaticAsset(
-      path.join(cVendor, cProduct, "default." + firmwareType)
+    return path.join(
+      ipcRenderer.sendSync("firmware.get-base-directory"),
+      cVendor,
+      cProduct,
+      "default." + firmwareType
     );
   };
   const _flash = async (options, steps) => {

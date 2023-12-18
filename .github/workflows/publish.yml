@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-13-arm64, ubuntu-latest, windows-latest]
+        os: [macos-13, ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -33,7 +33,7 @@ jobs:
         if: ${{ endsWith( env.PACKAGE_VERSION, '-snapshot') }}
 
       - name: Install the Apple certificate and provisioning profile
-        if: matrix.os == 'macos-13-arm64' && startsWith(github.ref, 'refs/tags/')
+        if: matrix.os == 'macos-13' && startsWith(github.ref, 'refs/tags/')
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.mac_certs }}
           P12_PASSWORD: ${{ secrets.mac_certs_password }}
@@ -69,7 +69,7 @@ jobs:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
       - name: Release (macos)
-        if: matrix.os == 'macos-13-arm64'
+        if: matrix.os == 'macos-13'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -77,7 +77,7 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run:  yarn run publish --arch=universal
       - name: Release (non-macos)
-        if: matrix.os != 'macos-13-arm64'
+        if: matrix.os != 'macos-13'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:  yarn run publish 

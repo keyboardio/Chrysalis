@@ -75,7 +75,9 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run:  yarn run publish --arch=universal
+        run: |
+          sudo -H pip install setuptools
+          yarn run publish --arch=universal
       - name: Release (non-macos)
         if: matrix.os != 'macos-13'
         env:

@@ -36,7 +36,9 @@ jobs:
         env:
           UNTRUSTED: 1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:  yarn run publish --arch=universal --dry-run
+        run: |
+          sudo -H pip install setuptools
+          yarn run publish --arch=universal --dry-run
       - name: Release (non-macos)
         if: matrix.os != 'macos-13'
         env:

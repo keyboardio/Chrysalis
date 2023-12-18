@@ -14,62 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-
-/*
-const runDFU = async (args) => {
-  const dfuUtil = (
-    path.join("dfu-util", `${process.platform}-${process.arch}`, "dfu-util")
-  );
-
-  const maxFlashingTime = 1000 * 60 * 5;
-
-  return new Promise((resolve, reject) => {
-    console.debug("running dfu-util", { dfuUtil, args });
-    const child = spawn(dfuUtil, args);
-    const timer = setTimeout(() => {
-      child.kill();
-      console.error("dfu-util timed out");
-      reject(runDFUError.HARD_FAIL);
-    }, maxFlashingTime);
-    child.on("error", (err) => {
-      clearTimeout(timer);
-      console.error("error starting dfu-util", { err: err.toString() });
-      reject(runDFUError.HARD_FAIL);
-    });
-    child.stdout.on("data", (data) => {
-      console.debug("dfu-util:stdout:", { data: data.toString() });
-    });
-    child.stderr.on("data", (data) => {
-      console.debug("dfu-util:stderr:", { data: data.toString() });
-    });
-    child.on("exit", (code) => {
-      clearTimeout(timer);
-      if (code == 0 || code == 251) {
-        console.debug("dfu-util done");
-        resolve();
-      } else if (code == 74) {
-        console.error("dfu-util exited abnormally", {
-          exitCode: code,
-        });
-        reject(runDFUError.SOFT_FAIL);
-      } else {
-        console.error("dfu-util exited abnormally", {
-          exitCode: code,
-        });
-        reject(runDFUError.HARD_FAIL);
-      }
-    });
-  });
-};
-
-*/
-
-const formatDeviceUSBId = (desc) => {
-  return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
-};
-
 const rebootToApplicationMode = async (port, device) => {
   console.debug("rebooting to application mode");
   /* TODO

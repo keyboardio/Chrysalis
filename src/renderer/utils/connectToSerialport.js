@@ -25,6 +25,16 @@ export const connectToSerialport = async () => {
   const openPort = async () => {
     while (!serialPort) {
       try {
+        try {
+          let devices = await navigator.usb.getDevices();
+          console.log("devices", devices);
+          usb = await navigator.usb.requestDevice({
+            filters: supportedDeviceVIDPIDs(),
+          });
+        } catch (e) {
+          console.error("Failed to open usb port", e);
+        }
+
         serialPort = await navigator.serial.requestPort({
           filters: supportedDeviceVIDPIDs(),
         });

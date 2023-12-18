@@ -155,9 +155,12 @@ const FirmwareUpdate = (props) => {
       await flashDeviceFirmwareFromBootloader();
       return;
     } else {
+      console.log("about to save eeprom");
       await onStepChange("saveEEPROM");
       const saveKey = await activeDevice.saveEEPROM();
+      console.log("Done saving eeprom");
       await onStepChange("bootloader");
+      console.log("done saving eeprom");
 
       const tasksInBootloaderMode = async () => {
         console.trace();
@@ -182,7 +185,7 @@ const FirmwareUpdate = (props) => {
         };
         await connectToFocus(tasksInFocusMode);
       };
-
+      console.log("About to reboot to bootloader");
       await rebootToBootloader();
       console.log("about to connect to bootloader");
       await connectToBootloader(tasksInBootloaderMode);
@@ -251,6 +254,7 @@ const FirmwareUpdate = (props) => {
   };
 
   const connectToFocus = async (callback) => {
+    console.log("In connectToFocus");
     setAfterFocusConnectCallback(() => callback);
     setPromptForFocusConnection(true);
   };
@@ -266,6 +270,8 @@ const FirmwareUpdate = (props) => {
       if (step == desiredState) {
         console.log("Found the step we're looking for:" + step);
         setActiveStep(index);
+        // exit the foreach
+        return;
       }
     });
   };

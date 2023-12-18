@@ -708,6 +708,11 @@ class DFUUSBDevice {
     }
 
     // Reset to exit MANIFEST_WAIT_RESET
+    this.resetToApplicationMode();
+    return;
+  }
+
+  async resetToApplicationMode() {
     try {
       console.log("Attempting a device reset");
       await this.device_.reset();
@@ -723,8 +728,6 @@ class DFUUSBDevice {
         throw "Error during reset for manifestation: " + error;
       }
     }
-
-    return;
   }
 }
 
@@ -758,7 +761,7 @@ const DFU = {
     return navigator.usb.getDevices().then((devices) => {
       const matches = [];
       for (const device of devices) {
-        const interfaces = dfu.findDeviceDfuInterfaces(device);
+        const interfaces = DFU.findDeviceDfuInterfaces(device);
         for (const interface_ of interfaces) {
           matches.push(new DFUUSBDevice(device, interface_));
         }

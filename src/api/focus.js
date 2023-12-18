@@ -212,6 +212,7 @@ class Focus {
 
   async find(...device_descriptors) {
     // This will only show devices the user has previously authorized.
+    console.log("in focus.find");
     const portList = await navigator.serial.getPorts();
 
     console.log("portList", portList);

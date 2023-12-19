@@ -1,6 +1,6 @@
-Chrysalis 0.13.3-snapshot
-=========================
-**UNRELEASED**
+Chrysalis 0.13.3
+================
+Released on 2023-12-19
 
 This release fixes a bug in the previous 0.13 series releases that prevented
 Chrysalis from being able to automatically install firmware downloaded

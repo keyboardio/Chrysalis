@@ -59,7 +59,10 @@ jobs:
       - name: Install udev-dev
         run: sudo apt update && sudo apt install libudev-dev
         if: runner.os == 'Linux'
-
+      - name: Workaround a missing python dep
+        if: matrix.os == 'macos-13'
+        run: |
+          sudo -H pip install setuptools
       - name: Set up yarn network timeout
         run: yarn config set network-timeout 1000000 -g
 
@@ -76,7 +79,6 @@ jobs:
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          sudo -H pip install setuptools
           yarn run publish --arch=universal
       - name: Release (non-macos)
         if: matrix.os != 'macos-13'

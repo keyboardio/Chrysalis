@@ -1,13 +1,13 @@
 const { spawnSync } = require("child_process");
 const { generateCLDRData } = require("./tools/precompile.js");
-const { glob } = require('glob');
-const fs = require('fs');
-const path = require('path');
+const { glob } = require("glob");
+const fs = require("fs");
+const path = require("path");
 
-let config = { 
+let config = {
   packagerConfig: {
     asar: true,
-    appBundleId: 'keyboardio.chrysalis',
+    appBundleId: "keyboardio.chrysalis",
     darwinDarkModeSupport: "true",
     icon: "build/icon",
     name: "Chrysalis",
@@ -37,13 +37,13 @@ let config = {
   },
   rebuildConfig: {},
   makers: [
-    {    
-      name: '@electron-forge/maker-squirrel',
+    {
+      name: "@electron-forge/maker-squirrel",
       config: {
-        certificateFile: './cert.pfx',
+        certificateFile: "./cert.pfx",
         certificatePassword: process.env.WINDOWS_CERTIFICATE_PASSWORD,
       },
-		},
+    },
     {
       name: "@electron-forge/maker-dmg",
       config: {},
@@ -51,40 +51,37 @@ let config = {
     {
       name: "@electron-forge/maker-zip",
     },
-{
-  name: "@reforged/maker-appimage",
-  config: {
-    options: {
-      // Package name.
-      // name: "example-app",
-      // Executable name.
-      bin: "Chrysalis",
-      // Human-friendly name of the application.
-      // productName: "Example Electron Application",
-      // `GenericName` in generated `.desktop` file.
-      // genericName: "Example application",
-      // Path to application's icon.
-      icon: "build/icon.png",
-      // `Categories` in generated `.desktop` file.
-      categories: [ "Utility" ],
-      // Actions of generated `.desktop` file.
-      // actions: {
-      //  new_window: {
-      //    Name: "Launch in new window!",
-      //    Icon: "/path/to/new-window.png",
-      //    Exec: "example-app --new-window"
-      //  }
-      //},
-      // Desktop file to be used instead of the configuration above.
-      // desktopFile: "/path/to/example-app.desktop",
-      // Release of `AppImage/AppImageKit`, either number or "continuous".
-      // AppImageKitRelease: "continuous"
-    }
-  }
-}
-
-
-
+    {
+      name: "@reforged/maker-appimage",
+      config: {
+        options: {
+          // Package name.
+          // name: "example-app",
+          // Executable name.
+          bin: "Chrysalis",
+          // Human-friendly name of the application.
+          // productName: "Example Electron Application",
+          // `GenericName` in generated `.desktop` file.
+          // genericName: "Example application",
+          // Path to application's icon.
+          icon: "build/icon.png",
+          // `Categories` in generated `.desktop` file.
+          categories: ["Utility"],
+          // Actions of generated `.desktop` file.
+          // actions: {
+          //  new_window: {
+          //    Name: "Launch in new window!",
+          //    Icon: "/path/to/new-window.png",
+          //    Exec: "example-app --new-window"
+          //  }
+          //},
+          // Desktop file to be used instead of the configuration above.
+          // desktopFile: "/path/to/example-app.desktop",
+          // Release of `AppImage/AppImageKit`, either number or "continuous".
+          // AppImageKitRelease: "continuous"
+        },
+      },
+    },
   ],
   publishers: [
     {
@@ -133,7 +130,7 @@ let config = {
       // only copy deps if there isn't any
       if (Object.keys(packageJson.dependencies).length === 0) {
         const originalPackageJson = await fs.readJson(
-          path.resolve(__dirname, "package.json")
+          path.resolve(__dirname, "package.json"),
         );
         const webpackConfigJs = require("./webpack.renderer.config.js");
         Object.keys(webpackConfigJs.externals).forEach((package) => {
@@ -202,8 +199,8 @@ let config = {
   },
 };
 if (process.env.UNTRUSTED) {
-    delete config['packagerConfig']['osxSign'];
-    delete config['packagerConfig']['osxNotarize'];
+  delete config["packagerConfig"]["osxSign"];
+  delete config["packagerConfig"]["osxNotarize"];
 }
 
 module.exports = config;

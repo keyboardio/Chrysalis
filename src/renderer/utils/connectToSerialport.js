@@ -26,7 +26,7 @@ export const connectToSerialport = async () => {
     while (!serialPort) {
       try {
         try {
-          let devices = await navigator.usb.getDevices();
+          const devices = await navigator.usb.getDevices();
           console.log("devices", devices);
           usb = await navigator.usb.requestDevice({
             filters: supportedDeviceVIDPIDs(),
@@ -77,7 +77,7 @@ export const connectToSerialport = async () => {
     ) {
       found = true;
       bootloader = true;
-      console.log("Found a bootloader keyboard", hw);
+      console.log("Found a keyboard bootloader", hw);
 
       focus.open(serialPort, hw);
     }

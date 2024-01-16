@@ -36,6 +36,7 @@ import { toast } from "@renderer/components/Toast";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connectToSerialport } from "../utils/connectToSerialport";
+import { connectToDfuUsbPort } from "../utils/connectToDfuUsbPort";
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
@@ -234,6 +235,16 @@ const FirmwareUpdate = (props) => {
     await delay(2000);
   };
 
+  const connectToBootloaderPort = async () => {
+    if (bootloaderProtocol == "avr109") {
+      const focus = await connectToSerialport();
+      return focus;
+    } else if (bootloaderProtocol == "dfu") {
+      const usb = await connectToDfuUsbPort();
+      return usb;
+    }
+  };
+
   const connectToBootloader = async (callback) => {
     /***
      * Enter programmable mode:
@@ -243,7 +254,6 @@ const FirmwareUpdate = (props) => {
      ***/
 
     setAfterBootloaderConnectCallback(() => callback);
-
     setPromptForBootloaderConnection(true);
   };
 
@@ -276,7 +286,7 @@ const FirmwareUpdate = (props) => {
       if (factoryReset) {
         steps = ["flash", "reconnect", "factoryRestore"];
       } else {
-        steps["flash"];
+        steps = ["flash"];
       }
     } else {
       if (factoryReset) {
@@ -333,6 +343,10 @@ const FirmwareUpdate = (props) => {
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
       <FirmwareUpdateWarning />
+      <Typography component="p" sx={{ mb: 2 }}>
+        Bootloader type: {bootloaderProtocol} / {focus.focusDeviceDescriptor.usb.bootloader.protocol}
+      </Typography>
+
       <Container sx={{ my: 4, minWidth: "600px", width: "80%" }}>
         <Typography variant="h6" gutterBottom>
           {t("firmwareUpdate.yourFirmware")}
@@ -391,10 +405,10 @@ const FirmwareUpdate = (props) => {
 
       <ConfirmationDialog
         open={promptForBootloaderConnection}
-        title={t("firmwareupdate.BootloaderConnectDialog.title")}
+        title={t("firmwareUpdate.bootloaderConnectDialog.title")}
         onConfirm={() => {
-          connectToSerialport().then((focus) => {
-            if (focus) {
+          connectToBootloaderPort().then((success) => {
+            if (success) {
               setPromptForBootloaderConnection(false);
               console.log(afterBootloaderConnectCallback);
               afterBootloaderConnectCallback();
@@ -405,7 +419,7 @@ const FirmwareUpdate = (props) => {
         }}
       >
         <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareupdate.bootloaderConnectDialog.contents")}
+          {t("firmwareUpdate.bootloaderConnectDialog.contents")}
         </Typography>
       </ConfirmationDialog>
       <ConfirmationDialog

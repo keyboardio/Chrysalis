@@ -532,6 +532,10 @@
     "firmwareSources": "Source code",
     "calloutTitle": "Important!",
     "factoryResetTitle": "Factory reset",
+    "bootloaderConnectDialog": {
+      "title": "Connecting to your keyboard...",
+      "contents": "Next up, we need to connect to your keyboard's bootloader. After you click the button below, select your keyboard from the list of devices shown by your browser."
+    },
     "factoryResetDescription": "Erase everything on your keyboard, restoring it to factory defaults.",
     "factoryResetWarning": "Selecting this option will not backup your current layout or settings.",
     "dialog": {

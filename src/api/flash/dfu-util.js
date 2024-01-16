@@ -26,26 +26,6 @@ var device = null;
 
 
 
-  async function fixInterfaceNames(device_, interfaces) {
-    // Check if any interface names were not read correctly
-    if (interfaces.some((intf) => intf.name == null)) {
-      // Manually retrieve the interface name string descriptors
-      const tempDevice = new DFUUSBDevice(device_, interfaces[0]);
-      await tempDevice.device_.open();
-      await tempDevice.device_.selectConfiguration(1);
-      const mapping = await tempDevice.readInterfaceNames();
-      await tempDevice.close();
-
-      for (const intf of interfaces) {
-        if (intf.name === null) {
-          const configIndex = intf.configuration.configurationValue;
-          const intfNumber = intf["interface"].interfaceNumber;
-          const alt = intf.alternate.alternateSetting;
-          intf.name = mapping[configIndex][intfNumber][alt];
-        }
-      }
-    }
-  }
 
   function populateInterfaceList(form, device_, interfaces) {
     const old_choices = Array.from(form.getElementsByTagName("div"));
@@ -71,45 +51,6 @@ var device = null;
       div.appendChild(radio);
       div.appendChild(label);
       form.insertBefore(div, button);
-    }
-  }
-
-  async function getDFUDescriptorProperties(device) {
-    try {
-      const data = await device.readConfigurationDescriptor(0);
-      const configDesc = USBParser.parseConfigurationDescriptor(data);
-      let funcDesc = null;
-      const configValue = device.settings.configuration.configurationValue;
-
-      if (configDesc.bConfigurationValue === configValue) {
-        for (const desc of configDesc.descriptors) {
-          if (
-            desc.bDescriptorType === DFUDescriptorType.DFU_FUNCTIONAL &&
-            desc.hasOwnProperty("bcdDFUVersion")
-          ) {
-            funcDesc = desc;
-            break;
-          }
-        }
-      }
-
-      if (funcDesc) {
-        return {
-          WillDetach: (funcDesc.bmAttributes & 0x08) !== 0,
-          ManifestationTolerant: (funcDesc.bmAttributes & 0x04) !== 0,
-          CanUpload: (funcDesc.bmAttributes & 0x02) !== 0,
-          CanDnload: (funcDesc.bmAttributes & 0x01) !== 0,
-          TransferSize: funcDesc.wTransferSize,
-          DetachTimeOut: funcDesc.wDetachTimeOut,
-          DFUVersion: funcDesc.bcdDFUVersion,
-        };
-      } else {
-        return {};
-      }
-    } catch (error) {
-      // Handle or log the error as needed
-      console.error("Error reading DFU descriptor: ", error);
-      return {};
     }
   }
 
@@ -213,60 +154,6 @@ var device = null;
           device = null;
         }
       }
-    }
-    async function connect(device) {
-      try {
-        await device.open();
-      } catch (error) {
-        onDisconnect(error);
-        throw error;
-      }
-
-      // Attempt to parse the DFU functional descriptor
-      let desc = {};
-      try {
-        desc = await getDFUDescriptorProperties(device);
-      } catch (error) {
-        onDisconnect(error);
-        throw error;
-      }
-
-      if (desc && Object.keys(desc).length > 0) {
-        device.properties = desc;
-
-        transferSize = desc.TransferSize;
-        if (desc.CanDnload) {
-          manifestationTolerant = desc.ManifestationTolerant;
-        }
-      }
-
-
-      // Display basic USB information
-      statusDisplay.textContent = "";
-      connectButton.textContent = "Disconnect";
-      infoDisplay.textContent =
-        "Name: " +
-        device.device_.productName +
-        "\n" +
-        "MFG: " +
-        device.device_.manufacturerName +
-        "\n" +
-        "Serial: " +
-        device.device_.serialNumber +
-        "\n";
-
-      // Display basic dfu-util style info
-      dfuDisplay.textContent = "";
-
-      // Update buttons based on capabilities
-      if (device.settings.alternate.interfaceProtocol == 0x01) {
-        // Runtime
-        downloadButton.disabled = true;
-      } else {
-        // DFU
-        downloadButton.disabled = false;
-      }
-      return device;
     }
 
     async function autoConnect(vid, serial) {

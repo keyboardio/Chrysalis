@@ -44,6 +44,14 @@ const DFUDescriptorType = {
   ENDPOINT: 5,
   DFU_FUNCTIONAL: 0x21,
 };
+
+const DFUFunctionalDescriptor = {
+  WILL_DETACH: 0x08,
+  MANIFEST_TOLERANT: 0x04,
+  CAN_UPLOAD: 0x02,
+  CAN_DNLOAD: 0x01,
+};
+
 const USBRequest = {
   GET_DESCRIPTOR: 0x06,
 };
@@ -269,6 +277,52 @@ class DFUUSBDevice {
       console.log(error);
     }
   }
+
+  async getDFUDescriptorProperties() {
+    try {
+      const data = await this.readConfigurationDescriptor(0);
+      const configDesc = USBParser.parseConfigurationDescriptor(data);
+      let funcDesc = null;
+      const configValue = this.settings.configuration.configurationValue;
+
+      if (configDesc.bConfigurationValue === configValue) {
+        for (const desc of configDesc.descriptors) {
+          if (
+            desc.bDescriptorType === DFUDescriptorType.DFU_FUNCTIONAL &&
+            desc.hasOwnProperty("bcdDFUVersion")
+          ) {
+            funcDesc = desc;
+            break;
+          }
+        }
+      }
+
+      if (funcDesc) {
+        return {
+          WillDetach:
+            (funcDesc.bmAttributes & DFUFunctionalDescriptor.WILL_DETACH) !== 0,
+          ManifestationTolerant:
+            (funcDesc.bmAttributes &
+              DFUFunctionalDescriptor.MANIFEST_TOLERANT) !==
+            0,
+          CanUpload:
+            (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_UPLOAD) !== 0,
+          CanDnload:
+            (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_DNLOAD) !== 0,
+          TransferSize: funcDesc.wTransferSize,
+          DetachTimeOut: funcDesc.wDetachTimeOut,
+          DFUVersion: funcDesc.bcdDFUVersion,
+        };
+      } else {
+        return {};
+      }
+    } catch (error) {
+      // Handle or log the error as needed
+      console.error("Error reading DFU descriptor: ", error);
+      return {};
+    }
+  }
+
   async readDeviceDescriptor() {
     const wValue = DFUDescriptorType.DEVICE << 8;
 
@@ -325,6 +379,27 @@ class DFUUSBDevice {
     }
 
     throw `Failed to read string descriptor ${index}: ${result.status}`;
+  }
+
+  async fixInterfaceNames(interfaces) {
+    // Check if any interface names were not read correctly
+    if (interfaces.some((intf) => intf.name == null)) {
+      // Manually retrieve the interface name string descriptors
+      const tempDevice = new DFUUSBDevice(this.device, interfaces[0]);
+      await tempDevice.device_.open();
+      await tempDevice.device_.selectConfiguration(1);
+      const mapping = await tempDevice.readInterfaceNames();
+      await tempDevice.close();
+
+      for (const intf of interfaces) {
+        if (intf.name === null) {
+          const configIndex = intf.configuration.configurationValue;
+          const intfNumber = intf["interface"].interfaceNumber;
+          const alt = intf.alternate.alternateSetting;
+          intf.name = mapping[configIndex][intfNumber][alt];
+        }
+      }
+    }
   }
 
   async readInterfaceNames() {

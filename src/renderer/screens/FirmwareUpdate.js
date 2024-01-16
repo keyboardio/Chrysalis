@@ -55,30 +55,24 @@ const FirmwareUpdate = (props) => {
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
   const [firmwareContent, setFirmwareContent] = useState(null);
 
-  const [flashNotificationMsg, setFlashNotificationMsg] = useState(
-    RebootMessage.clear
-  );
+  const [flashNotificationMsg, setFlashNotificationMsg] = useState(RebootMessage.clear);
 
-  const focusDeviceDescriptor =
-    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+  const focusDeviceDescriptor = props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
   const isBootloader = focusDeviceDescriptor.bootloader;
+  const [bootloaderProtocol, setbootloaderProtocol] = useState(focus.focusDeviceDescriptor.usb.bootloader.protocol);
 
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
   const [factoryReset, setFactoryReset] = useState(!!isBootloader);
-  const [promptForBootloaderConnection, setPromptForBootloaderConnection] =
-    useState(false);
+  const [promptForBootloaderConnection, setPromptForBootloaderConnection] = useState(false);
 
-  const [afterBootloaderConnectCallback, setAfterBootloaderConnectCallback] =
-    useState(null);
+  const [afterBootloaderConnectCallback, setAfterBootloaderConnectCallback] = useState(null);
 
-  const [promptForFocusConnection, setPromptForFocusConnection] =
-    useState(false);
+  const [promptForFocusConnection, setPromptForFocusConnection] = useState(false);
 
-  const [afterFocusConnectCallback, setAfterFocusConnectCallback] =
-    useState(null);
+  const [afterFocusConnectCallback, setAfterFocusConnectCallback] = useState(null);
 
   const { t } = useTranslation();
 
@@ -288,13 +282,7 @@ const FirmwareUpdate = (props) => {
       if (factoryReset) {
         steps = ["bootloader", "flash", "reconnect", "factoryRestore"];
       } else {
-        steps = [
-          "saveEEPROM",
-          "bootloader",
-          "flash",
-          "reconnect",
-          "restoreEEPROM",
-        ];
+        steps = ["saveEEPROM", "bootloader", "flash", "reconnect", "restoreEEPROM"];
       }
     }
     setFlashSteps(steps);
@@ -339,9 +327,7 @@ const FirmwareUpdate = (props) => {
     });
   };
 
-  const buttonsDisabled =
-    progress == "flashing" ||
-    (selectedFirmwareType == "custom" && !firmwareFilename);
+  const buttonsDisabled = progress == "flashing" || (selectedFirmwareType == "custom" && !firmwareFilename);
 
   return (
     <>
@@ -362,9 +348,7 @@ const FirmwareUpdate = (props) => {
           />
 
           <Box sx={{ mb: 2 }}>
-            <Typography variant="h6">
-              {t("firmwareUpdate.factoryResetTitle")}
-            </Typography>
+            <Typography variant="h6">{t("firmwareUpdate.factoryResetTitle")}</Typography>
             <Typography sx={{ ml: 3 }}>
               <Switch
                 checked={factoryReset}
@@ -380,21 +364,14 @@ const FirmwareUpdate = (props) => {
           <Box sx={{ p: 2, display: "flex" }}>
             <Box sx={{ flexGrow: 1 }} />
             <Button
-              startIcon={
-                progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
-              }
+              startIcon={progress == "success" ? <CheckIcon /> : <CloudUploadIcon />}
               onClick={() => {
                 setConfirmationOpen(true);
               }}
               disabled={buttonsDisabled}
-              color={
-                ((progress == "success" || progress == "error") && progress) ||
-                "primary"
-              }
+              color={((progress == "success" || progress == "error") && progress) || "primary"}
             >
-              {isBootloader
-                ? t("firmwareUpdate.flashing.anywayButton")
-                : t("firmwareUpdate.flashing.button")}
+              {isBootloader ? t("firmwareUpdate.flashing.anywayButton") : t("firmwareUpdate.flashing.button")}
             </Button>
             {isBootloader && (
               <Button
@@ -453,11 +430,7 @@ const FirmwareUpdate = (props) => {
         </Typography>
       </ConfirmationDialog>
       <ConfirmationDialog
-        title={
-          factoryReset
-            ? t("firmwareUpdate.factoryConfirmDialog.title")
-            : t("firmwareUpdate.confirmDialog.title")
-        }
+        title={factoryReset ? t("firmwareUpdate.factoryConfirmDialog.title") : t("firmwareUpdate.confirmDialog.title")}
         open={confirmationOpen}
         onConfirm={() => upload()}
         onCancel={() => setConfirmationOpen(false)}
@@ -476,10 +449,7 @@ const FirmwareUpdate = (props) => {
         </Alert>
       </ConfirmationDialog>
 
-      <FlashNotification
-        open={flashNotificationMsg !== RebootMessage.clear}
-        message={flashNotificationMsg}
-      />
+      <FlashNotification open={flashNotificationMsg !== RebootMessage.clear} message={flashNotificationMsg} />
     </>
   );
 };

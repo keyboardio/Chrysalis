@@ -71,10 +71,7 @@ export const connectToSerialport = async () => {
       found = true;
       console.log("Found a keyboard", hw);
       focus.open(serialPort, hw);
-    } else if (
-      dVid == hw.usb.bootloader?.vendorId &&
-      dPid == hw.usb.bootloader?.productId
-    ) {
+    } else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
       found = true;
       bootloader = true;
       console.log("Found a keyboard bootloader", hw);

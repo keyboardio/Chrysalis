@@ -176,9 +176,7 @@ const USBParser = {
     while (remainingData.byteLength > 2) {
       const bLength = remainingData.getUint8(0);
       const bDescriptorType = remainingData.getUint8(1);
-      const descriptorData = new DataView(
-        remainingData.buffer.slice(0, bLength)
-      );
+      const descriptorData = new DataView(remainingData.buffer.slice(0, bLength));
       if (bDescriptorType == DFUDescriptorType.INTERFACE) {
         currentInterface = this.parseInterfaceDescriptor(descriptorData);
         if (
@@ -190,12 +188,8 @@ const USBParser = {
           inDfuInterface = false;
         }
         descriptors.push(currentInterface);
-      } else if (
-        inDfuInterface &&
-        bDescriptorType == DFUDescriptorType.DFU_FUNCTIONAL
-      ) {
-        const functionalDescriptor =
-          this.parseFunctionalDescriptor(descriptorData);
+      } else if (inDfuInterface && bDescriptorType == DFUDescriptorType.DFU_FUNCTIONAL) {
+        const functionalDescriptor = this.parseFunctionalDescriptor(descriptorData);
         descriptors.push(functionalDescriptor);
         currentInterface.descriptors.push(functionalDescriptor);
       } else {
@@ -234,10 +228,7 @@ class DFUUSBDevice {
   async open() {
     await this.device_.open();
     const confValue = this.settings.configuration.configurationValue;
-    if (
-      this.device_.configuration === null ||
-      this.device_.configuration.configurationValue != confValue
-    ) {
+    if (this.device_.configuration === null || this.device_.configuration.configurationValue != confValue) {
       await this.device_.selectConfiguration(confValue);
     }
 
@@ -248,21 +239,12 @@ class DFUUSBDevice {
 
     const altSetting = this.settings.alternate.alternateSetting;
     const intf = this.device_.configuration.interfaces[intfNumber];
-    if (
-      intf.alternate === null ||
-      intf.alternate.alternateSetting != altSetting ||
-      intf.alternates.length > 1
-    ) {
+    if (intf.alternate === null || intf.alternate.alternateSetting != altSetting || intf.alternates.length > 1) {
       try {
         await this.device_.selectAlternateInterface(intfNumber, altSetting);
       } catch (error) {
-        if (
-          intf.alternate.alternateSetting == altSetting &&
-          error.endsWith("Unable to set device interface.")
-        ) {
-          console.warn(
-            `Redundant SET_INTERFACE request to select altSetting ${altSetting} failed`
-          );
+        if (intf.alternate.alternateSetting == altSetting && error.endsWith("Unable to set device interface.")) {
+          console.warn(`Redundant SET_INTERFACE request to select altSetting ${altSetting} failed`);
         } else {
           throw error;
         }
@@ -287,10 +269,7 @@ class DFUUSBDevice {
 
       if (configDesc.bConfigurationValue === configValue) {
         for (const desc of configDesc.descriptors) {
-          if (
-            desc.bDescriptorType === DFUDescriptorType.DFU_FUNCTIONAL &&
-            desc.hasOwnProperty("bcdDFUVersion")
-          ) {
+          if (desc.bDescriptorType === DFUDescriptorType.DFU_FUNCTIONAL && desc.hasOwnProperty("bcdDFUVersion")) {
             funcDesc = desc;
             break;
           }
@@ -299,16 +278,10 @@ class DFUUSBDevice {
 
       if (funcDesc) {
         return {
-          WillDetach:
-            (funcDesc.bmAttributes & DFUFunctionalDescriptor.WILL_DETACH) !== 0,
-          ManifestationTolerant:
-            (funcDesc.bmAttributes &
-              DFUFunctionalDescriptor.MANIFEST_TOLERANT) !==
-            0,
-          CanUpload:
-            (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_UPLOAD) !== 0,
-          CanDnload:
-            (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_DNLOAD) !== 0,
+          WillDetach: (funcDesc.bmAttributes & DFUFunctionalDescriptor.WILL_DETACH) !== 0,
+          ManifestationTolerant: (funcDesc.bmAttributes & DFUFunctionalDescriptor.MANIFEST_TOLERANT) !== 0,
+          CanUpload: (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_UPLOAD) !== 0,
+          CanDnload: (funcDesc.bmAttributes & DFUFunctionalDescriptor.CAN_DNLOAD) !== 0,
           TransferSize: funcDesc.wTransferSize,
           DetachTimeOut: funcDesc.wDetachTimeOut,
           DFUVersion: funcDesc.bcdDFUVersion,
@@ -405,11 +378,7 @@ class DFUUSBDevice {
   async readInterfaceNames() {
     const configs = {};
     const allStringIndices = new Set();
-    for (
-      let configIndex = 0;
-      configIndex < this.device_.configurations.length;
-      configIndex++
-    ) {
+    for (let configIndex = 0; configIndex < this.device_.configurations.length; configIndex++) {
       const rawConfig = await this.readConfigurationDescriptor(configIndex);
       const configDesc = USBParser.parseConfigurationDescriptor(rawConfig);
       const configValue = configDesc.bConfigurationValue;
@@ -421,8 +390,7 @@ class DFUUSBDevice {
           if (!(desc.bInterfaceNumber in configs[configValue])) {
             configs[configValue][desc.bInterfaceNumber] = {};
           }
-          configs[configValue][desc.bInterfaceNumber][desc.bAlternateSetting] =
-            desc.iInterface;
+          configs[configValue][desc.bInterfaceNumber][desc.bAlternateSetting] = desc.iInterface;
           if (desc.iInterface > 0) {
             allStringIndices.add(desc.iInterface);
           }
@@ -674,10 +642,7 @@ class DFUUSBDevice {
       });
     }
 
-    while (
-      !state_predicate(dfu_status.state) &&
-      dfu_status.state != DFUDeviceState.dfuERROR
-    ) {
+    while (!state_predicate(dfu_status.state) && dfu_status.state != DFUDeviceState.dfuERROR) {
       await async_sleep(dfu_status.pollTimeout);
       dfu_status = await this.getStatus();
     }
@@ -706,10 +671,7 @@ class DFUUSBDevice {
       let bytes_written = 0;
       let dfu_status;
       try {
-        bytes_written = await this._downloadBytes(
-          data.slice(bytes_sent, bytes_sent + chunk_size),
-          transaction++
-        );
+        bytes_written = await this._downloadBytes(data.slice(bytes_sent, bytes_sent + chunk_size), transaction++);
         console.debug("Sent " + bytes_written + " bytes");
         dfu_status = await this._poll_until_idle(DFUDeviceState.dfuDNLOAD_IDLE);
       } catch (error) {
@@ -743,26 +705,18 @@ class DFUUSBDevice {
         // Wait until it returns to idle.
         // If it's not really manifestation tolerant, it might transition to MANIFEST_WAIT_RESET
         dfu_status = await this._poll_until(
-          (state) =>
-            state == DFUDeviceState.dfuIDLE ||
-            state == DFUDeviceState.dfuMANIFEST_WAIT_RESET
+          (state) => state == DFUDeviceState.dfuIDLE || state == DFUDeviceState.dfuMANIFEST_WAIT_RESET
         );
         if (dfu_status.state == DFUDeviceState.dfuMANIFEST_WAIT_RESET) {
-          console.debug(
-            "Device transitioned to MANIFEST_WAIT_RESET even though it is manifestation tolerant"
-          );
+          console.debug("Device transitioned to MANIFEST_WAIT_RESET even though it is manifestation tolerant");
         }
         if (dfu_status.status != DFUDeviceStatus.OK) {
           throw `DFU MANIFEST failed state=${dfu_status.state}, status=${dfu_status.status}`;
         }
       } catch (error) {
         if (
-          error.endsWith(
-            "ControlTransferIn failed: NotFoundError: Device unavailable."
-          ) ||
-          error.endsWith(
-            "ControlTransferIn failed: NotFoundError: The device was disconnected."
-          )
+          error.endsWith("ControlTransferIn failed: NotFoundError: Device unavailable.") ||
+          error.endsWith("ControlTransferIn failed: NotFoundError: The device was disconnected.")
         ) {
           console.warn("Unable to poll final manifestation status");
         } else {
@@ -774,9 +728,7 @@ class DFUUSBDevice {
       // Try polling once to initiate manifestation
       try {
         const final_status = await this.getStatus();
-        console.debug(
-          `Final DFU status: state=${final_status.state}, status=${final_status.status}`
-        );
+        console.debug(`Final DFU status: state=${final_status.state}, status=${final_status.status}`);
       } catch (error) {
         console.debug("Manifest GET_STATUS poll error: " + error);
       }

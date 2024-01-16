@@ -106,9 +106,7 @@ const flash = async (port, filecontents) => {
         }
       }
     } else {
-      console.error(
-        "Multiple interfaces found, please write code that lets the user select one."
-      );
+      console.error("Multiple interfaces found, please write code that lets the user select one.");
       /* populateInterfaceList(interfaceForm, selectedDevice, interfaces);
         interfaceForm.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -131,11 +129,7 @@ const flash = async (port, filecontents) => {
       }
 
       try {
-        await device.do_download(
-          transferSize,
-          firmwareFile,
-          manifestationTolerant
-        );
+        await device.do_download(transferSize, firmwareFile, manifestationTolerant);
         if (!manifestationTolerant) {
           try {
             await device.waitDisconnected(5000);

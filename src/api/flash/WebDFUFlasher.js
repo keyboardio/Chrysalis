@@ -35,15 +35,12 @@ const rebootToApplicationMode = async (port, device) => {
   */
 };
 
-const decoder = new TextDecoder();
-const encoder = new TextEncoder();
-
-const flash = async (port, filecontents) => {
+const flash = async (selectedDevice, filecontents) => {
   var enc = new TextDecoder("utf-8");
 
   // todo - i think that for 'selecteddevice' below, we want the port we passed in above.
 
-  var firmwareFile = enc.decode(filecontents);
+  var firmwareFile = filecontents; //enc.decode(filecontents);
   /*
   if (device) {
     await device.close();
@@ -57,12 +54,11 @@ const flash = async (port, filecontents) => {
       filters.push({ vendorId: vid });
     }
 */
-  const filters = [];
-  const selectedDevice = await navigator.usb.requestDevice({ filters });
   let device;
   let transferSize = 1024;
   let manifestationTolerant = true;
 
+  console.log(" Selected device: ", selectedDevice);
   const interfaces = DFU.findDeviceDfuInterfaces(selectedDevice);
   console.log(selectedDevice.productId);
 
@@ -75,8 +71,10 @@ const flash = async (port, filecontents) => {
     console.log(selectedDevice);
     console.error("The selected device does not have any USB DFU interfaces.");
   } else {
-    await DFU.fixInterfaceNames(interfaces);
+    device = new DFUUSBDevice(selectedDevice, interfaces[0]);
+    await device.fixInterfaceNames(interfaces);
 
+    console.log(device);
     if (interfaces.length === 1) {
       try {
         await device.open();
@@ -129,17 +127,21 @@ const flash = async (port, filecontents) => {
       }
 
       try {
+        console.log("Downloading firmware");
+        console.log("Transfer size:", transferSize);
+        console.log("Manifestation tolerant:", manifestationTolerant);
+        console.log("Firmware file:", firmwareFile);
         await device.do_download(transferSize, firmwareFile, manifestationTolerant);
         if (!manifestationTolerant) {
           try {
             await device.waitDisconnected(5000);
-            onDisconnect();
+            // XXX TOOD onDisconnect();
             device = null;
           } catch (error) {
             console.log("Device unexpectedly tolerated manifestation.");
           }
         } else {
-          detach();
+          device.detach();
         }
       } catch (error) {
         console.error(error);

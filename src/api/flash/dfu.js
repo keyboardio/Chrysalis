@@ -354,27 +354,6 @@ class DFUUSBDevice {
     throw `Failed to read string descriptor ${index}: ${result.status}`;
   }
 
-  async fixInterfaceNames(interfaces) {
-    // Check if any interface names were not read correctly
-    if (interfaces.some((intf) => intf.name == null)) {
-      // Manually retrieve the interface name string descriptors
-      const tempDevice = new DFUUSBDevice(this.device, interfaces[0]);
-      await tempDevice.device_.open();
-      await tempDevice.device_.selectConfiguration(1);
-      const mapping = await tempDevice.readInterfaceNames();
-      await tempDevice.close();
-
-      for (const intf of interfaces) {
-        if (intf.name === null) {
-          const configIndex = intf.configuration.configurationValue;
-          const intfNumber = intf["interface"].interfaceNumber;
-          const alt = intf.alternate.alternateSetting;
-          intf.name = mapping[configIndex][intfNumber][alt];
-        }
-      }
-    }
-  }
-
   async readInterfaceNames() {
     const configs = {};
     const allStringIndices = new Set();
@@ -419,6 +398,30 @@ class DFUUSBDevice {
     }
 
     return configs;
+  }
+
+  async fixInterfaceNames(interfaces) {
+    // Check if any interface names were not read correctly
+    if (interfaces.some((intf) => intf.name == null)) {
+      // Manually retrieve the interface name string descriptors
+      const tempDevice = new DFUUSBDevice(this.device_, interfaces[0]);
+      console.log(this);
+      console.log(interfaces);
+      console.log(tempDevice);
+      await tempDevice.device_.open();
+      await tempDevice.device_.selectConfiguration(1);
+      const mapping = await tempDevice.readInterfaceNames();
+      await tempDevice.close();
+
+      for (const intf of interfaces) {
+        if (intf.name === null) {
+          const configIndex = intf.configuration.configurationValue;
+          const intfNumber = intf["interface"].interfaceNumber;
+          const alt = intf.alternate.alternateSetting;
+          intf.name = mapping[configIndex][intfNumber][alt];
+        }
+      }
+    }
   }
   async readConfigurationDescriptor(index) {
     const wValue = (DFUDescriptorType.CONFIGURATION << 8) | index;
@@ -660,6 +663,8 @@ class DFUUSBDevice {
     let transaction = 0;
 
     console.log("Copying data from browser to DFU device");
+    console.log("Expected size", expected_size);
+    console.log(data);
 
     // Initialize progress to 0
     this.logProgress(bytes_sent, expected_size);

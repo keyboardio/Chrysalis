@@ -579,6 +579,10 @@
       "title": "Replace the firmware and reset to factory defaults?",
       "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
     },
+    "reconnectDialog": {
+      "title": "Reconnect to your keyboard",
+      "contents": "Chrysalis needs to reconnect to your keyboard. After you click the button below, select your keyboard from the list of devices shown by your browser."
+    },
     "yourFirmware": "Update your keyboard's firmware",
     "chooseFirmware": "Update firmware",
     "defaultFirmwareDescription": "Latest version for your keyboard",

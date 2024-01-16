@@ -52,6 +52,7 @@ const FirmwareUpdate = (props) => {
   const globalContext = useContext(GlobalContext);
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
+  const [usbDevice, setUsbDevice] = useState(null);
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
   const [firmwareContent, setFirmwareContent] = useState(null);
@@ -105,8 +106,9 @@ const FirmwareUpdate = (props) => {
   };
 
   const doFactoryReset = async () => {
-    const tasksInBootloaderMode = async () => {
-      await flashDeviceFirmwareFromBootloader();
+    const tasksInBootloaderMode = async (port) => {
+      console.log("TasksinBootloaderMode for doFactoryReset, port is ", port);
+      await flashDeviceFirmwareFromBootloader(port);
 
       await onStepChange("reconnect");
 
@@ -130,7 +132,7 @@ const FirmwareUpdate = (props) => {
     return;
   };
 
-  const flashDeviceFirmwareFromBootloader = async () => {
+  const flashDeviceFirmwareFromBootloader = async (port) => {
     const flasher = activeDevice.getFlasher();
     await onStepChange("flash");
     let firmwareToSend = firmwareContent;
@@ -139,15 +141,22 @@ const FirmwareUpdate = (props) => {
       firmwareToSend = await loadDefaultFirmwareContent();
     }
     console.log("about to flash");
+    console.log(" the usb device is ", port);
+
     console.log(" firmware content is ", firmwareToSend);
-    await flasher.flash(focus._port, firmwareToSend);
+    if (bootloaderProtocol == "avr109") {
+      await flasher.flash(focus._port, firmwareToSend);
+    } else if (bootloaderProtocol == "dfu") {
+      await flasher.flash(port, firmwareToSend);
+    }
   };
 
   const updateDeviceFirmware = async () => {
     // If the user selected the factory firmware, we need to fetch it from the
     // server. Otherwise, we'll use the file the user uploaded.
     if (activeDevice.bootloaderDetected()) {
-      await flashDeviceFirmwareFromBootloader();
+      // This path only works if we have a device with a serial bootloader, so we abuse focus._port
+      await flashDeviceFirmwareFromBootloader(focus._port);
       return;
     } else {
       console.log("about to save eeprom");
@@ -157,10 +166,12 @@ const FirmwareUpdate = (props) => {
       await onStepChange("bootloader");
       console.log("done saving eeprom");
 
-      const tasksInBootloaderMode = async () => {
+      const tasksInBootloaderMode = async (port) => {
+        console.log("TasksinBootloaderMode for updateDeviceFirmware, port is ", port);
+
         console.trace();
         console.log("Runing tasks in bootloader mode");
-        await flashDeviceFirmwareFromBootloader();
+        await flashDeviceFirmwareFromBootloader(port);
         console.log("flashed device firmware");
         await onStepChange("reconnect");
 
@@ -253,7 +264,7 @@ const FirmwareUpdate = (props) => {
      * - If not found for N attempts, show a notification
      ***/
 
-    setAfterBootloaderConnectCallback(() => callback);
+    setAfterBootloaderConnectCallback((port) => callback);
     setPromptForBootloaderConnection(true);
   };
 
@@ -411,7 +422,7 @@ const FirmwareUpdate = (props) => {
             if (success) {
               setPromptForBootloaderConnection(false);
               console.log(afterBootloaderConnectCallback);
-              afterBootloaderConnectCallback();
+              afterBootloaderConnectCallback(success);
             } else {
               console.log("We need to try that connect again");
             }
@@ -424,7 +435,7 @@ const FirmwareUpdate = (props) => {
       </ConfirmationDialog>
       <ConfirmationDialog
         open={promptForFocusConnection}
-        title={t("firmwareupdate.ReconnectDialog.title")}
+        title={t("firmwareUpdate.reconnectDialog.title")}
         onConfirm={() => {
           connectToSerialport().then((focus) => {
             if (focus) {
@@ -440,7 +451,7 @@ const FirmwareUpdate = (props) => {
         }}
       >
         <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareupdate.reconnectDialog.contents")}
+          {t("firmwareUpdate.reconnectDialog.contents")}
         </Typography>
       </ConfirmationDialog>
       <ConfirmationDialog

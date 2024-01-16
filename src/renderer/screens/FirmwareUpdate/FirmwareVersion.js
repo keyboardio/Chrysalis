@@ -49,9 +49,7 @@ const FirmwareVersion = (props) => {
 
   return (
     <Box sx={{ mb: 2 }}>
-      <Typography variant="h6">
-        {t("firmwareUpdate.currentFirmwareVersion")}
-      </Typography>
+      <Typography variant="h6">{t("firmwareUpdate.currentFirmwareVersion")}</Typography>
       <Typography color="secondary" sx={{ ml: 3 }}>
         {fwVersion || <Skeleton variant="rectangle" width={120} height={24} />}
       </Typography>

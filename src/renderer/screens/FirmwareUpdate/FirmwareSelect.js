@@ -6,22 +6,74 @@ import Grid from "@mui/material/Grid";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
-import pkg from "@root/package.json";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
 
-const version = pkg.version;
+import yaml from "js-yaml";
+
+// Function to load and parse YAML file
+async function loadYamlFile(url) {
+  try {
+    const response = await fetch(url);
+    const text = await response.text();
+    const data = yaml.load(text);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
 
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();
+
+  const buildInfoURL = "./assets/firmware/build-info.yml"; // Adjust the URL/path as needed
+
+  const changelogURL = "./assets/firmware/firmware-changelog.md"; // Adjust the URL/path as needed
+
   const [changelogOpen, setChangelogOpen] = useState(false);
   const [selected, setSelected] = props.selectedFirmware;
   const [firmwareFilename, setFirmwareFilename] = props.firmwareFilename;
-  const [firmwareVersion, setFirmwareVersion] = useState(version);
+  const [firmwareVersion, setFirmwareVersion] = useState(null);
   const [firmwareChangelog, setFirmwareChangelog] = useState(null);
   const [firmwareContent, setFirmwareContent] = props.firmwareContent;
   const [selectedValue, setSelectedValue] = useState("default");
+
+  useEffect(() => {
+    const loadYamlFile = async (url) => {
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const yamlData = yaml.load(text);
+        return yamlData ? yamlData.version : null;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    };
+
+    loadYamlFile(buildInfoURL).then((version) => {
+      setFirmwareVersion(version);
+    });
+  }, []); // Empty dependency array means this effect runs once on mount
+
+  useEffect(() => {
+    const loadFirmwareChangelog = async (url) => {
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        return text;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    };
+
+    loadFirmwareChangelog(changelogURL).then((text) => {
+      setFirmwareChangelog(text);
+    });
+  }, []); // Empty dependency array means this effect runs once on mount
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -46,7 +98,6 @@ const FirmwareSelect = (props) => {
     reader.onload = (event) => {
       const arrayBuffer = event.target.result;
       const bytes = new Uint8Array(arrayBuffer);
-      console.log("Raw bytes of the file:", bytes);
       setFirmwareContent(bytes);
     };
     reader.readAsArrayBuffer(file);
@@ -68,15 +119,9 @@ const FirmwareSelect = (props) => {
   return (
     <>
       <FormControl fullWidth>
-        <Typography variant="h6">
-          {t("firmwareUpdate.chooseFirmware")}
-        </Typography>
+        <Typography variant="h6">{t("firmwareUpdate.chooseFirmware")}</Typography>
         <Box sx={{ display: "flex", width: "100%" }}>
-          <RadioGroup
-            sx={{ ml: 2, width: "100%" }}
-            value={selected}
-            onChange={selectFirmware}
-          >
+          <RadioGroup sx={{ ml: 2, width: "100%" }} value={selected} onChange={selectFirmware}>
             <Grid container justifyContent="flex-start">
               <FormControlLabel
                 value="default"
@@ -109,17 +154,12 @@ const FirmwareSelect = (props) => {
                 control={<Radio />}
                 label={
                   <Typography sx={{ ml: 0 }}>
-                    {t("firmwareUpdate.custom")}{" "}
-                    {filename ? `(${filename})` : ""}
+                    {t("firmwareUpdate.custom")} {filename ? `(${filename})` : ""}
                   </Typography>
                 }
               />
               <Box sx={{ width: "1rem" }} />
-              <Button
-                href="https://kaleidoscope.readthedocs.io/"
-                color="info"
-                target="_blank"
-              >
+              <Button href="https://kaleidoscope.readthedocs.io/" color="info" target="_blank">
                 {t("firmwareUpdate.customFirmwareLinkText")}
               </Button>
             </Grid>
@@ -127,12 +167,7 @@ const FirmwareSelect = (props) => {
             {selectedValue === "custom" && (
               <Grid container justifyContent="flex-start">
                 <Box sx={{ width: "1rem" }} />
-                <input
-                  type="file"
-                  onChange={handleFileUpload}
-                  accept=".hex, .bin"
-                  id="fileUpload"
-                />
+                <input type="file" onChange={handleFileUpload} accept=".hex, .bin" id="fileUpload" />
               </Grid>
             )}
           </RadioGroup>

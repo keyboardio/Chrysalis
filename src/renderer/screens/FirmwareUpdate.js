@@ -354,9 +354,6 @@ const FirmwareUpdate = (props) => {
     <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
       <FirmwareUpdateWarning />
-      <Typography component="p" sx={{ mb: 2 }}>
-        Bootloader type: {bootloaderProtocol} / {focus.focusDeviceDescriptor.usb.bootloader.protocol}
-      </Typography>
 
       <Container sx={{ my: 4, minWidth: "600px", width: "80%" }}>
         <Typography variant="h6" gutterBottom>

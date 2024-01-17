@@ -199,9 +199,13 @@ class Focus {
 
     // If we reach this point, then either `device.reset` isn't available, or it
     // failed to reboot the device. Try the 1200 baud tickle.
-    await baudUpdate();
-    await dtrToggle(true);
-    await dtrToggle(false);
+    try {
+      await baudUpdate();
+      await dtrToggle(true);
+      await dtrToggle(false);
+    } catch (e) {
+      console.log("Unable to baud-update and dtr toggle. This is probably because the orginal reboot worked", e);
+    }
   }
 
   async find(...device_descriptors) {

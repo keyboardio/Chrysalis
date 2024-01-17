@@ -53,10 +53,9 @@ const Collapsible = (props) => {
           marginLeft: 2,
           my: 0,
         },
-        "&.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters":
-          {
-            my: 0,
-          },
+        "&.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters": {
+          my: 0,
+        },
       }}
     >
       <Typography>{title}</Typography>

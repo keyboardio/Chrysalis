@@ -28,16 +28,11 @@ export default function usePluginVisibility(plugin) {
   useEffect(() => {
     const fetchData = async () => {
       const plugins = await activeDevice.plugins();
-      const hideUnavailableFeatures = settings.get(
-        "ui.hideFeaturesNotAvailableInCurrentFirmware",
-        true
-      );
+      const hideUnavailableFeatures = settings.get("ui.hideFeaturesNotAvailableInCurrentFirmware", true);
       const commands = await activeDevice.supported_commands();
 
       if (commands.includes("plugins")) {
-        setPluginSupported(
-          !hideUnavailableFeatures || plugins.includes(plugin)
-        );
+        setPluginSupported(!hideUnavailableFeatures || plugins.includes(plugin));
       } else {
         setPluginSupported(!hideUnavailableFeatures);
       }

@@ -32,21 +32,11 @@ const BlankKeys = (props) => {
   ];
 
   const keyButtons = keys.map((button, index) => {
-    return (
-      <KeyButton
-        key={`blank-${index}`}
-        onKeyChange={props.onKeyChange}
-        keyObj={button}
-        noHint
-      />
-    );
+    return <KeyButton key={`blank-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
   return (
-    <Collapsible
-      title={t("editor.sidebar.blanks.title")}
-      help={t("editor.sidebar.blanks.help")}
-    >
+    <Collapsible title={t("editor.sidebar.blanks.title")} help={t("editor.sidebar.blanks.help")}>
       {keyButtons}
     </Collapsible>
   );

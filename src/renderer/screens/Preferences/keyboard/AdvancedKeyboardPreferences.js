@@ -30,8 +30,7 @@ const AdvancedKeyboardPreferences = (props) => {
   const globalContext = useContext(GlobalContext);
 
   const [activeDevice] = globalContext.state.activeDevice;
-  const [EEPROMResetConfirmationOpen, setEEPROMResetConfirmationOpen] =
-    useState(false);
+  const [EEPROMResetConfirmationOpen, setEEPROMResetConfirmationOpen] = useState(false);
   const [working, setWorking] = useState(false);
 
   const resetEEPROM = async () => {
@@ -57,12 +56,7 @@ const AdvancedKeyboardPreferences = (props) => {
 
   return (
     <PreferenceSection name="keyboard.advanced">
-      <Button
-        disabled={working}
-        variant="outlined"
-        color="secondary"
-        onClick={openEEPROMResetConfirmation}
-      >
+      <Button disabled={working} variant="outlined" color="secondary" onClick={openEEPROMResetConfirmation}>
         {t("preferences.keyboard.factoryReset.button")}
       </Button>
       <ConfirmationDialog
@@ -73,10 +67,7 @@ const AdvancedKeyboardPreferences = (props) => {
       >
         {t("preferences.keyboard.factoryReset.dialog.contents")}
       </ConfirmationDialog>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={working}
-      >
+      <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={working}>
         <CircularProgress />
       </Backdrop>
     </PreferenceSection>

@@ -41,9 +41,7 @@ export const Firmware0_90_1 = (props) => {
   if (!hasModel100) return null;
 
   const openInstructions = () => {
-    openURL(
-      "https://community.keyboard.io/t/model-100-firmware-update-to-fix-corruption-issues/5553"
-    )();
+    openURL("https://community.keyboard.io/t/model-100-firmware-update-to-fix-corruption-issues/5553")();
   };
 
   return (

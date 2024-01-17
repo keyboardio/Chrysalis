@@ -43,8 +43,7 @@ const OnlyCustomScreen = (props) => {
   };
 
   const openFeatureRequest = async () => {
-    const url =
-      "https://github.com/keyboardio/Chrysalis/issues/new?labels=enhancement&template=feature_request.md";
+    const url = "https://github.com/keyboardio/Chrysalis/issues/new?labels=enhancement&template=feature_request.md";
     const opener = openURL(url);
     await opener();
   };

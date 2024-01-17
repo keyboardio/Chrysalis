@@ -33,20 +33,9 @@ const VolumeKeys = (props) => {
   ];
 
   const keyButtons = keys.map((button, index) => {
-    return (
-      <KeyButton
-        key={`consumer-volume-${index}`}
-        onKeyChange={props.onKeyChange}
-        keyObj={button}
-        noHint
-      />
-    );
+    return <KeyButton key={`consumer-volume-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
-  return (
-    <Collapsible title={t("editor.sidebar.consumer.volume")}>
-      {keyButtons}
-    </Collapsible>
-  );
+  return <Collapsible title={t("editor.sidebar.consumer.volume")}>{keyButtons}</Collapsible>;
 };
 export default VolumeKeys;

@@ -115,9 +115,7 @@ const KeyboardSelect = (props) => {
             }}
           >
             {focus.focusDeviceDescriptor ? (
-              <DeviceImage
-                focusDeviceDescriptor={focus.focusDeviceDescriptor}
-              />
+              <DeviceImage focusDeviceDescriptor={focus.focusDeviceDescriptor} />
             ) : (
               <Grid container justifyContent="center">
                 <img src={logo} alt={t("components.logo.altText")} />
@@ -129,9 +127,7 @@ const KeyboardSelect = (props) => {
             <ConnectionButton
               disabled={opening}
               connected={
-                focus.focusDeviceDescriptor &&
-                activeDevice?.focusDeviceDescriptor ==
-                  focus.focusDeviceDescriptor
+                focus.focusDeviceDescriptor && activeDevice?.focusDeviceDescriptor == focus.focusDeviceDescriptor
               }
               opening={opening}
               connectKeyboard={connectKeyboard}

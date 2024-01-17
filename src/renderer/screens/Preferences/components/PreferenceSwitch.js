@@ -40,10 +40,7 @@ const PreferenceSwitch = (props) => {
     const secondary = t("preferences." + props.option + ".help", "");
     return (
       <ListItem disablePadding>
-        <ListItemText
-          primary={t("preferences." + props.option + ".label")}
-          secondary={secondary}
-        />
+        <ListItemText primary={t("preferences." + props.option + ".label")} secondary={secondary} />
       </ListItem>
     );
   };

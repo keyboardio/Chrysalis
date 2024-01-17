@@ -41,8 +41,7 @@ function Header({ device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
   const [contextBarVisibility, setContextBarVisibility] = useState(false);
-  const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] =
-    useState(false);
+  const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] = useState(false);
   const [quitNotifyChannel, setQuitNotifyChannel] = useState(false);
   const isPrinting = useMediaQuery("print");
 
@@ -105,44 +104,19 @@ function Header({ device }) {
   return (
     <>
       <MainMenu open={mainMenu} closeMenu={closeMainMenu} />
-      <AppBar
-        position="sticky"
-        color={contextBarVisibility ? "secondary" : "primary"}
-        id="appbar"
-      >
+      <AppBar position="sticky" color={contextBarVisibility ? "secondary" : "primary"} id="appbar">
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={contextOnClick}
-            sx={{ mr: 2 }}
-          >
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={contextOnClick} sx={{ mr: 2 }}>
             {contextBarVisibility ? <CloseIcon /> : <MenuIcon />}
           </IconButton>
-          <Typography
-            variant="h6"
-            color="inherit"
-            id="page-title"
-            component="div"
-          />
+          <Typography variant="h6" color="inherit" id="page-title" component="div" />
           <Box sx={{ flexGrow: 1 }} />
           {device && (
-            <Button
-              onClick={openBoardMenu}
-              disabled={!device.urls}
-              sx={{ color: "inherit" }}
-            >
+            <Button onClick={openBoardMenu} disabled={!device.urls} sx={{ color: "inherit" }}>
               {device.displayName}
             </Button>
           )}
-          {device && device.urls && (
-            <BoardMenu
-              boardAnchor={boardAnchor}
-              boardClose={closeBoardMenu}
-              device={device}
-            />
-          )}
+          {device && device.urls && <BoardMenu boardAnchor={boardAnchor} boardClose={closeBoardMenu} device={device} />}
         </Toolbar>
       </AppBar>
       <ConfirmationDialog

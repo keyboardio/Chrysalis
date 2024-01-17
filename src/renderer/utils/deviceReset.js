@@ -17,7 +17,6 @@
 
 import Focus from "@api/focus";
 
-
 const deviceReset = async () => {
   const focus = new Focus();
   const timeouts = {

@@ -88,11 +88,7 @@ export const PluginSliderWithInput = (props) => {
             min={min}
             step={1}
             InputProps={{
-              endAdornment: props.in_ms && (
-                <InputAdornment position="end">
-                  {t("units.in_ms")}
-                </InputAdornment>
-              ),
+              endAdornment: props.in_ms && <InputAdornment position="end">{t("units.in_ms")}</InputAdornment>,
             }}
             InputLabelProps={{
               shrink: true,

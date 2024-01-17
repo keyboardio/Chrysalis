@@ -39,17 +39,10 @@ const StickynessConfig = (props) => {
   const tPrefix = "preferences.keyboard.plugins.oneshot.stickyness";
 
   return (
-    <PreferenceWithHeading
-      heading={t(`${tPrefix}.label`)}
-      subheading={t(`${tPrefix}.help`)}
-    >
+    <PreferenceWithHeading heading={t(`${tPrefix}.label`)} subheading={t(`${tPrefix}.help`)}>
       {props.loaded ? (
         <FormControl size="small">
-          <Select
-            sx={{ width: "17em" }}
-            value={props.value}
-            onChange={props.onChange}
-          >
+          <Select sx={{ width: "17em" }} value={props.value} onChange={props.onChange}>
             <MenuItem value={65535}>{t(`${tPrefix}.enable`)}</MenuItem>
             <MenuItem value={65280}>{t(`${tPrefix}.layers_only`)}</MenuItem>
             <MenuItem value={255}>{t(`${tPrefix}.modifiers_only`)}</MenuItem>
@@ -145,9 +138,7 @@ const OneShotPreferences = (props) => {
           onChange={onEscOneShotChange}
         />
       )}
-      {plugins?.EscapeOneShot && plugins?.OneShotConfig && (
-        <Divider sx={{ my: 2 }} />
-      )}
+      {plugins?.EscapeOneShot && plugins?.OneShotConfig && <Divider sx={{ my: 2 }} />}
       {plugins?.OneShotConfig && (
         <>
           <PluginSliderWithInput
@@ -170,11 +161,7 @@ const OneShotPreferences = (props) => {
             onSaveChanges={onSaveChanges}
             in_ms
           />
-          <StickynessConfig
-            loaded={loaded}
-            value={OSStickableKeys}
-            onChange={onStickableKeysChange}
-          />
+          <StickynessConfig loaded={loaded} value={OSStickableKeys} onChange={onStickableKeysChange} />
           <Divider sx={{ my: 2 }} />
           <PreferenceSwitch
             option="keyboard.plugins.oneshot.auto_mods"

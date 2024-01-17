@@ -91,9 +91,7 @@ export const LibraryImport = (props) => {
 
   return (
     <Box sx={{ sb: 2 }}>
-      <Typography variant="h5">
-        {t("editor.sharing.loadFromLibrary")}
-      </Typography>
+      <Typography variant="h5">{t("editor.sharing.loadFromLibrary")}</Typography>
       <MenuList>{layouts}</MenuList>
 
       <Divider />

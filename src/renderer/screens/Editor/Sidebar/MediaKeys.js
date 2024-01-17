@@ -34,21 +34,10 @@ const MediaKeys = (props) => {
   ];
 
   const keyButtons = keys.map((button, index) => {
-    return (
-      <KeyButton
-        key={`consumer-media-${index}`}
-        onKeyChange={props.onKeyChange}
-        keyObj={button}
-        noHint
-      />
-    );
+    return <KeyButton key={`consumer-media-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
-  return (
-    <Collapsible title={t("editor.sidebar.consumer.media")}>
-      {keyButtons}
-    </Collapsible>
-  );
+  return <Collapsible title={t("editor.sidebar.consumer.media")}>{keyButtons}</Collapsible>;
 };
 
 export default MediaKeys;

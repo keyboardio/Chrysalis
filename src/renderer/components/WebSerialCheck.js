@@ -15,9 +15,8 @@ export const WebSerialCheck = () => {
         <Alert variant="filled" severity="error">
           <h1>Chrysalis requires WebSerial support to function</h1>
           <p>
-            Unfortunately, your browser doesn't support the WebSerial standard.
-            You'll need to use a Chromium-based browser like Chrome, Chromium,
-            Edge, Arc or Brave to flash or configure your keyboard.
+            Unfortunately, your browser doesn't support the WebSerial standard. You'll need to use a Chromium-based
+            browser like Chrome, Chromium, Edge, Arc or Brave to flash or configure your keyboard.
           </p>
         </Alert>
       </Modal>

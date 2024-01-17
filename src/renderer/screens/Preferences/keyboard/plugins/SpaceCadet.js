@@ -84,11 +84,7 @@ const SpaceCadetPreferences = (props) => {
               shrink: true,
             }}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  {t("units.in_ms")}
-                </InputAdornment>
-              ),
+              endAdornment: <InputAdornment position="end">{t("units.in_ms")}</InputAdornment>,
             }}
           />
         ) : (

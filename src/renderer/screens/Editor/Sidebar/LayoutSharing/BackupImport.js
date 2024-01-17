@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -33,16 +32,9 @@ export const BackupImport = (props) => {
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
   const deviceDescriptor = activeDevice.focusDeviceDescriptor();
 
-  const library = ipcRenderer.sendSync(
-    "backups.list-library",
-    deviceDescriptor.info
-  );
+  const library = ipcRenderer.sendSync("backups.list-library", deviceDescriptor.info);
   const selectBackupItem = (item) => () => {
-    const [layoutFileData, error] = ipcRenderer.sendSync(
-      "backups.load-file",
-      deviceDescriptor.info,
-      item
-    );
+    const [layoutFileData, error] = ipcRenderer.sendSync("backups.load-file", deviceDescriptor.info, item);
 
     if (error) {
       // TODO(anyone): show toast
@@ -72,12 +64,7 @@ export const BackupImport = (props) => {
     const label = formatName(name);
 
     return (
-      <MenuItem
-        selected={layoutName == name}
-        value={name}
-        key={`backup-item-${name}`}
-        onClick={selectBackupItem(name)}
-      >
+      <MenuItem selected={layoutName == name} value={name} key={`backup-item-${name}`} onClick={selectBackupItem(name)}>
         {label}
       </MenuItem>
     );

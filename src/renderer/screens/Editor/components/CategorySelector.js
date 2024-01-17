@@ -31,11 +31,7 @@ const CategorySelector = (props) => {
     <React.Fragment>
       <Collapsible title={props.title} help={props.help}>
         {props.children}
-        <KeyButtonList
-          keys={db.selectCategory(props.category)}
-          onKeyChange={onKeyChange}
-          showHints={false}
-        />
+        <KeyButtonList keys={db.selectCategory(props.category)} onKeyChange={onKeyChange} showHints={false} />
       </Collapsible>
     </React.Fragment>
   );

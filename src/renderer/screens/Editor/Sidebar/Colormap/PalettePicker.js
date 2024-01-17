@@ -54,12 +54,7 @@ const PalettePicker = (props) => {
       }}
     >
       {colors.map((c, i) => (
-        <Swatch
-          key={`palette-swatch-${i}`}
-          color={colors[i]}
-          active={i == color}
-          onClick={() => onClick(i)}
-        />
+        <Swatch key={`palette-swatch-${i}`} color={colors[i]} active={i == color} onClick={() => onClick(i)} />
       ))}
     </Box>
   );

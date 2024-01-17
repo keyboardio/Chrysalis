@@ -37,17 +37,12 @@ const FirmwareChangesDialog = (props) => {
       <DialogTitle sx={{ display: "flex" }}>
         {t("firmwareUpdate.firmwareChangelog.title")}
         <Box sx={{ flexGrow: 1 }} />
-        <Button
-          startIcon={<OpenInNewIcon />}
-          href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle"
-        >
+        <Button startIcon={<OpenInNewIcon />} href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle">
           {t("firmwareUpdate.firmwareSources")}
         </Button>
       </DialogTitle>
       <DialogContent dividers>
-        <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
-          {props.changelog}
-        </ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>{props.changelog}</ReactMarkdown>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>{t("dialog.close")}</Button>

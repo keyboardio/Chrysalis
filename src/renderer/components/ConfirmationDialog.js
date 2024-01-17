@@ -26,12 +26,7 @@ import { useTranslation } from "react-i18next";
 const ConfirmationDialog = (props) => {
   const { t } = useTranslation();
   return (
-    <Dialog
-      disableEscapeKeyDown
-      open={props.open}
-      onClose={props.onCancel}
-      fullWidth
-    >
+    <Dialog disableEscapeKeyDown open={props.open} onClose={props.onCancel} fullWidth>
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>

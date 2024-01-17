@@ -123,11 +123,7 @@ class KeymapDB {
     for (const key of codeTable) {
       if (this._codetable[key.code]) {
         const base = this._codetable[key.code];
-        this._codetable[key.code].label = Object.assign(
-          {},
-          base.label,
-          key.label
-        );
+        this._codetable[key.code].label = Object.assign({}, base.label, key.label);
       } else {
         this._codetable[key.code] = Object.assign({}, key);
       }
@@ -141,10 +137,7 @@ class KeymapDB {
         const dumCode = key.code + 49169 + m * 256;
         if (this._codetable[dumCode]) {
           const base = this._codetable[dumCode];
-          this._codetable[dumCode].label = Object.assign(
-            {},
-            { hint: base.label.hint, base: key.label.base }
-          );
+          this._codetable[dumCode].label = Object.assign({}, { hint: base.label.hint, base: key.label.base });
         }
       }
 
@@ -153,10 +146,7 @@ class KeymapDB {
         const dulCode = key.code + 51218 + l * 256;
         if (this._codetable[dulCode]) {
           const base = this._codetable[dulCode];
-          this._codetable[dulCode].label = Object.assign(
-            {},
-            { hint: base.label.hint, base: key.label.base }
-          );
+          this._codetable[dulCode].label = Object.assign({}, { hint: base.label.hint, base: key.label.base });
         }
       }
     }
@@ -177,9 +167,7 @@ class KeymapDB {
 
     const key = this.lookup(keyCode);
 
-    return (
-      (key && key.categories && key.categories.includes(category)) || false
-    );
+    return (key && key.categories && key.categories.includes(category)) || false;
   }
 
   selectCategory(category) {
@@ -217,10 +205,7 @@ class KeymapDB {
       }
 
       if (key.label && key.label.any) {
-        match &=
-          key.label.any == k.label.base ||
-          key.label.any == k.label.shifted ||
-          key.label.any == k.label.altgr;
+        match &= key.label.any == k.label.base || key.label.any == k.label.shifted || key.label.any == k.label.altgr;
       }
 
       if (match) return k;
@@ -270,9 +255,7 @@ class KeymapDB {
 
     if (options?.layerNames && this.isInCategory(key.code, "layer")) {
       if (this.isInCategory(key.code, "dualuse")) {
-        hint = options.layerNames.names[key.target]
-          ? options.layerNames.names[key.target] + "/"
-          : hint;
+        hint = options.layerNames.names[key.target] ? options.layerNames.names[key.target] + "/" : hint;
       } else {
         label = options.layerNames.names[key.target] || label;
       }

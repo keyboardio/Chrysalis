@@ -44,11 +44,7 @@ const PreferenceSection = (props) => {
         {t("preferences." + props.name + ".label")}
       </Typography>
       <Paper sx={{ p: 2, width: "75%" }}>
-        {loaded ? (
-          props.children
-        ) : (
-          <Skeleton variant="rectangle" width="100%" height={80} />
-        )}
+        {loaded ? props.children : <Skeleton variant="rectangle" width="100%" height={80} />}
       </Paper>
     </Box>
   );

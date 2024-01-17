@@ -57,13 +57,9 @@ const LayoutSharing = (props) => {
   const onImport = () => {
     const { keymap, colormap } = props;
 
-    const newKeymap = layout.keymaps.concat(
-      keymap.custom.slice(layout.keymaps.length)
-    );
+    const newKeymap = layout.keymaps.concat(keymap.custom.slice(layout.keymaps.length));
     const newColormap = layout.colormaps
-      ? layout.colormaps.concat(
-          colormap.colorMap.slice(layout.colormaps.length)
-        )
+      ? layout.colormaps.concat(colormap.colorMap.slice(layout.colormaps.length))
       : colormap.colorMap;
     const newPalette = layout.palette || colormap.palette;
 
@@ -84,9 +80,7 @@ const LayoutSharing = (props) => {
   const Keymap = activeDevice.focusDeviceDescriptor().components.keymap;
   const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
   const palette = layout.palette || colormap.palette;
-  const previewColormap = layout.colormaps
-    ? layout.colormaps[0]
-    : colormap.colorMap[0];
+  const previewColormap = layout.colormaps ? layout.colormaps[0] : colormap.colorMap[0];
 
   return (
     <Dialog open={open} onClose={onClose} fullScreen>
@@ -120,20 +114,11 @@ const LayoutSharing = (props) => {
           }}
         >
           <Box sx={{ overflow: "auto", padding: 3 }}>
-            <LibraryImport
-              setLayout={setLayout}
-              layoutName={layoutName}
-              {...others}
-            />
+            <LibraryImport setLayout={setLayout} layoutName={layoutName} {...others} />
             <FileImport setLayout={setLayout} {...others} />
             <ExportToFile keymap={keymap} colormap={colormap} />
 
-            <Button
-              disabled={layoutName == null}
-              variant="outlined"
-              color="primary"
-              onClick={openImportConfirm}
-            >
+            <Button disabled={layoutName == null} variant="outlined" color="primary" onClick={openImportConfirm}>
               {t("editor.sharing.import")}
             </Button>
             <ConfirmationDialog
@@ -155,12 +140,7 @@ const LayoutSharing = (props) => {
             width: `calc(100% - ${sidebarWidth}px)`,
           }}
         >
-          <Keymap
-            keymap={previewLayout}
-            palette={palette}
-            colormap={previewColormap}
-            theme={theme}
-          />{" "}
+          <Keymap keymap={previewLayout} palette={palette} colormap={previewColormap} theme={theme} />{" "}
         </Box>
       </DialogContent>
     </Dialog>

@@ -16,11 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-import {
-  hideContextBar,
-  showContextBar,
-} from "@renderer/components/ContextBar";
+import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
@@ -103,11 +99,7 @@ const MyKeyboardPreferences = (props) => {
       <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences onDisconnect={props.onDisconnect} />
 
-      <SaveChangesButton
-        onClick={saveChanges}
-        onError={onError}
-        disabled={!modified}
-      >
+      <SaveChangesButton onClick={saveChanges} onError={onError} disabled={!modified}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </>

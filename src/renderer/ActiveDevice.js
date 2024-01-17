@@ -104,10 +104,7 @@ export function ActiveDevice() {
   };
 
   this.hasCustomizableKeymaps = async () => {
-    if (
-      this.supportsFocusCommand("keymap.custom") ||
-      this.supportsFocusCommand("keymap.map")
-    ) {
+    if (this.supportsFocusCommand("keymap.custom") || this.supportsFocusCommand("keymap.map")) {
       return true;
     } else {
       return false;
@@ -115,10 +112,7 @@ export function ActiveDevice() {
   };
 
   this.hasCustomizableLEDMaps = async () => {
-    if (
-      this.supportsFocusCommand("colormap.map") ||
-      this.supportsFocusCommand("palette")
-    ) {
+    if (this.supportsFocusCommand("colormap.map") || this.supportsFocusCommand("palette")) {
       return true;
     } else {
       return false;
@@ -140,10 +134,7 @@ export function ActiveDevice() {
       this._cache[command] = await this.focus.command(command);
       console.log("Got a previosuly uncached value", [this._cache[command]]);
     }
-    console.log(
-      "Returning a cached value for " + command + ":",
-      this._cache[command]
-    );
+    console.log("Returning a cached value for " + command + ":", this._cache[command]);
     return cloneDeep(this._cache[command]);
   };
 
@@ -179,10 +170,7 @@ export function ActiveDevice() {
 
   Object.keys(cacheableFocusCommands).forEach((command) => {
     this[command] = async (newValue) => {
-      return await this._cachedDeviceData(
-        cacheableFocusCommands[command],
-        newValue
-      );
+      return await this._cachedDeviceData(cacheableFocusCommands[command], newValue);
     };
   });
 
@@ -254,8 +242,6 @@ export function ActiveDevice() {
   };
 
   this.getFlasher = () => {
-    return this._flashers[
-      this.focusDeviceDescriptor()?.usb?.bootloader?.protocol
-    ];
+    return this._flashers[this.focusDeviceDescriptor()?.usb?.bootloader?.protocol];
   };
 }

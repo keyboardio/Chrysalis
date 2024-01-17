@@ -32,21 +32,10 @@ const BrightnessKeys = (props) => {
   ];
 
   const keyButtons = keys.map((button, index) => {
-    return (
-      <KeyButton
-        key={`consumer-brightness-${index}`}
-        onKeyChange={props.onKeyChange}
-        keyObj={button}
-        noHint
-      />
-    );
+    return <KeyButton key={`consumer-brightness-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
-  return (
-    <Collapsible title={t("editor.sidebar.consumer.brightness")}>
-      {keyButtons}
-    </Collapsible>
-  );
+  return <Collapsible title={t("editor.sidebar.consumer.brightness")}>{keyButtons}</Collapsible>;
 };
 
 export default BrightnessKeys;

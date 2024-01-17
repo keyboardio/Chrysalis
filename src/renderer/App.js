@@ -21,11 +21,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  createTheme,
-  StyledEngineProvider,
-  ThemeProvider,
-} from "@mui/material/styles";
+import { createTheme, StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -57,14 +53,12 @@ const App = (props) => {
   const { t, i18n } = useTranslation();
 
   const settingsLanguage = settings.get("ui.language");
-  if (settingsLanguage && i18n.language !== settingsLanguage)
-    i18n.changeLanguage(settingsLanguage);
+  if (settingsLanguage && i18n.language !== settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
   const globalContext = useContext(GlobalContext);
 
   const [connected, setConnected] = globalContext.state.connected;
-  const [focusDeviceDescriptor, setFocusDeviceDescriptor] =
-    globalContext.state.focusDeviceDescriptor;
+  const [focusDeviceDescriptor, setFocusDeviceDescriptor] = globalContext.state.focusDeviceDescriptor;
   const [theme, setTheme] = globalContext.state.theme;
   const darkMode = globalContext.state.darkMode;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
@@ -76,10 +70,7 @@ const App = (props) => {
     if (!focus.focusDeviceDescriptor) return;
     if (flashing) return;
 
-    if (
-      focus.focusDeviceDescriptor.usb.vendorId != vid ||
-      focus.focusDeviceDescriptor.usb.productId != pid
-    ) {
+    if (focus.focusDeviceDescriptor.usb.vendorId != vid || focus.focusDeviceDescriptor.usb.productId != pid) {
       return;
     }
     // Must await this to stop re-render of components reliant on `focus.focusDeviceDescriptor`
@@ -110,10 +101,7 @@ const App = (props) => {
 
   useEffect(() => {
     async function setupLayout() {
-      const layoutSetting = await settings.get(
-        "keyboard.layout",
-        "English (US)"
-      );
+      const layoutSetting = await settings.get("keyboard.layout", "English (US)");
 
       const db = new KeymapDB();
       await db.loadLayouts();
@@ -190,9 +178,7 @@ const App = (props) => {
     }
     setConnected(true);
 
-    await navigate(
-      newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected"
-    );
+    await navigate(newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected");
     return true;
   };
 
@@ -215,8 +201,7 @@ const App = (props) => {
     await navigate("/keyboard-select");
   };
 
-  const deviceInfo =
-    focus?.focusDeviceDescriptor?.info || focusDeviceDescriptor?.info;
+  const deviceInfo = focus?.focusDeviceDescriptor?.info || focusDeviceDescriptor?.info;
 
   return (
     <Suspense>
@@ -248,29 +233,20 @@ const App = (props) => {
                         focusDeviceDescriptor={focusDeviceDescriptor}
                         onConnect={onKeyboardConnect}
                       />
-                      <LayoutCard
-                        path="/layout-card"
-                        onDisconnect={onKeyboardDisconnect}
-                      />
+                      <LayoutCard path="/layout-card" onDisconnect={onKeyboardDisconnect} />
                       <KeyboardSelect
                         path="/keyboard-select"
                         onConnect={onKeyboardConnect}
                         onDisconnect={onKeyboardDisconnect}
                       />
-                      <Editor
-                        path="/editor"
-                        onDisconnect={onKeyboardDisconnect}
-                      />
+                      <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
                       <FirmwareUpdate
                         path="/firmware-update"
                         focusDeviceDescriptor={focusDeviceDescriptor}
                         toggleFlashing={toggleFlashing}
                         onDisconnect={onKeyboardDisconnect}
                       />
-                      <Preferences
-                        path="/preferences"
-                        onDisconnect={onKeyboardDisconnect}
-                      />
+                      <Preferences path="/preferences" onDisconnect={onKeyboardDisconnect} />
                       <SystemInfo path="/system-info" />
                       <ChangeLog path="/changelog" />
                     </Router>

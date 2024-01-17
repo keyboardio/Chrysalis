@@ -59,44 +59,18 @@ const IdleTimeLimit = (props) => {
     >
       {loaded ? (
         <FormControl size="small">
-          <Select
-            onChange={onChange}
-            value={ledIdleTimeLimit}
-            sx={{ width: "10em" }}
-          >
-            <MenuItem value={0}>
-              {t("preferences.keyboard.led.idle.disabled")}
-            </MenuItem>
-            <MenuItem value={60}>
-              {t("preferences.keyboard.led.idle.oneMinute")}
-            </MenuItem>
-            <MenuItem value={120}>
-              {t("preferences.keyboard.led.idle.twoMinutes")}
-            </MenuItem>
-            <MenuItem value={180}>
-              {t("preferences.keyboard.led.idle.threeMinutes")}
-            </MenuItem>
-            <MenuItem value={240}>
-              {t("preferences.keyboard.led.idle.fourMinutes")}
-            </MenuItem>
-            <MenuItem value={300}>
-              {t("preferences.keyboard.led.idle.fiveMinutes")}
-            </MenuItem>
-            <MenuItem value={600}>
-              {t("preferences.keyboard.led.idle.tenMinutes")}
-            </MenuItem>
-            <MenuItem value={900}>
-              {t("preferences.keyboard.led.idle.fifteenMinutes")}
-            </MenuItem>
-            <MenuItem value={1200}>
-              {t("preferences.keyboard.led.idle.twentyMinutes")}
-            </MenuItem>
-            <MenuItem value={1800}>
-              {t("preferences.keyboard.led.idle.thirtyMinutes")}
-            </MenuItem>
-            <MenuItem value={3600}>
-              {t("preferences.keyboard.led.idle.sixtyMinutes")}
-            </MenuItem>
+          <Select onChange={onChange} value={ledIdleTimeLimit} sx={{ width: "10em" }}>
+            <MenuItem value={0}>{t("preferences.keyboard.led.idle.disabled")}</MenuItem>
+            <MenuItem value={60}>{t("preferences.keyboard.led.idle.oneMinute")}</MenuItem>
+            <MenuItem value={120}>{t("preferences.keyboard.led.idle.twoMinutes")}</MenuItem>
+            <MenuItem value={180}>{t("preferences.keyboard.led.idle.threeMinutes")}</MenuItem>
+            <MenuItem value={240}>{t("preferences.keyboard.led.idle.fourMinutes")}</MenuItem>
+            <MenuItem value={300}>{t("preferences.keyboard.led.idle.fiveMinutes")}</MenuItem>
+            <MenuItem value={600}>{t("preferences.keyboard.led.idle.tenMinutes")}</MenuItem>
+            <MenuItem value={900}>{t("preferences.keyboard.led.idle.fifteenMinutes")}</MenuItem>
+            <MenuItem value={1200}>{t("preferences.keyboard.led.idle.twentyMinutes")}</MenuItem>
+            <MenuItem value={1800}>{t("preferences.keyboard.led.idle.thirtyMinutes")}</MenuItem>
+            <MenuItem value={3600}>{t("preferences.keyboard.led.idle.sixtyMinutes")}</MenuItem>
           </Select>
         </FormControl>
       ) : (

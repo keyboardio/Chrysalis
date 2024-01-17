@@ -40,8 +40,7 @@ export default class Colormap {
 
   _chunk(a, chunkSize) {
     var R = [];
-    for (var i = 0; i < a.length; i += chunkSize)
-      R.push(a.slice(i, i + chunkSize));
+    for (var i = 0; i < a.length; i += chunkSize) R.push(a.slice(i, i + chunkSize));
     return R;
   }
 
@@ -90,9 +89,7 @@ export default class Colormap {
   }
 
   async _updatePalette(s, palette) {
-    const args = this._flatten(
-      palette.map((color) => [color.r, color.g, color.b])
-    ).map((v) => v?.toString());
+    const args = this._flatten(palette.map((color) => [color.r, color.g, color.b])).map((v) => v?.toString());
 
     return await s.request("palette", ...args);
   }

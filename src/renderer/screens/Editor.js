@@ -21,10 +21,7 @@ import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
 
 import Box from "@mui/material/Box";
-import {
-  hideContextBar,
-  showContextBar,
-} from "@renderer/components/ContextBar";
+import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
@@ -176,11 +173,7 @@ const Editor = (props) => {
 
   const onKeyChangeForMacros = async (keyCode) => {
     const currStepType = macros.macros[currentMacroId][currentMacroStep].type;
-    if (
-      ![MacroStep.TAP, MacroStep.KEYDOWN, MacroStep.KEYUP].includes(
-        currStepType
-      )
-    ) {
+    if (![MacroStep.TAP, MacroStep.KEYDOWN, MacroStep.KEYUP].includes(currStepType)) {
       return;
     }
 
@@ -438,8 +431,7 @@ const Editor = (props) => {
     title = t("app.menu.colormapEditor");
   }
 
-  const currentKey =
-    selectorKey || keymap.custom[currentLayer][currentKeyIndex];
+  const currentKey = selectorKey || keymap.custom[currentLayer][currentKeyIndex];
 
   let mainWidget;
   if (openMacroEditor) {
@@ -475,8 +467,7 @@ const Editor = (props) => {
   const saveChangesDisabled =
     !modified ||
     M.getStoredSize(macros) > macros.storageSize ||
-    (layerNames.storageSize > 0 &&
-      L.getStoredSize(layerNames) > layerNames.storageSize);
+    (layerNames.storageSize > 0 && L.getStoredSize(layerNames) > layerNames.storageSize);
 
   return (
     <React.Fragment>
@@ -490,9 +481,7 @@ const Editor = (props) => {
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
-        {layerNames.storageSize > 0 && (
-          <LayerNamesStorageAlert layerNames={layerNames} />
-        )}
+        {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}
         {mainWidget}
       </Box>
       <Sidebar
@@ -524,11 +513,7 @@ const Editor = (props) => {
         keymap={keymap}
         currentKey={currentKey}
       />
-      <SaveChangesButton
-        onClick={onApply}
-        onError={onApplyError}
-        disabled={saveChangesDisabled}
-      >
+      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>

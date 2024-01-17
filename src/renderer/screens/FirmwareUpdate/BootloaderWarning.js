@@ -30,9 +30,7 @@ const BootloaderWarning = (props) => {
   return (
     <>
       <Alert severity="warning">
-        <Typography component="p">
-          {t("firmwareUpdate.bootloaderWarning")}
-        </Typography>
+        <Typography component="p">{t("firmwareUpdate.bootloaderWarning")}</Typography>
       </Alert>
       <Divider sx={{ my: 2 }} />
     </>

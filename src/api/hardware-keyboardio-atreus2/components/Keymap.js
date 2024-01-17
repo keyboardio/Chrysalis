@@ -30,9 +30,7 @@ const Keymap = (props) => {
   const KeySpacingY = 64;
   const keySpacingX = 64;
   const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
-  const colOffsetX = [
-    0, 0, 0, 0, 0, 0, -71.5, -71.5, -71.5, -71.5, -71.5, -71.5,
-  ];
+  const colOffsetX = [0, 0, 0, 0, 0, 0, -71.5, -71.5, -71.5, -71.5, -71.5, -71.5];
   const rowOffsetX = [2, 2, 2, 2];
   const layer = props.index;
   const onKeySelect = props.onKeySelect;
@@ -80,28 +78,12 @@ const Keymap = (props) => {
     let legendClass = "";
     let mainLegendClass = "";
     const legend = key && db.format(key, { layerNames: props.layerNames });
-    if (key && (legend.main || "").length <= 1 && !legend.hint)
-      legendClass = "short-legend";
-    if (key && (legend.main || "").length <= 1)
-      mainLegendClass = "short-legend";
+    if (key && (legend.main || "").length <= 1 && !legend.hint) legendClass = "short-legend";
+    if (key && (legend.main || "").length <= 1) mainLegendClass = "short-legend";
     if (key && key.code == 0) textColor = "#888888";
     return (
-      <g
-        onClick={onClick}
-        className="key"
-        data-key-index={keyIndex}
-        data-layer={layer}
-      >
-        <rect
-          x={x}
-          y={y}
-          rx={2}
-          width={width}
-          height={height}
-          stroke={stroke}
-          strokeWidth={1.55}
-          fill={buttonColor}
-        />
+      <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
+        <rect x={x} y={y} rx={2} width={width} height={height} stroke={stroke} strokeWidth={1.55} fill={buttonColor} />
         <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
           {legend?.hint}
         </text>

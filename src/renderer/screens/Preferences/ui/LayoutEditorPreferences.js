@@ -77,19 +77,13 @@ function LayoutEditorPreferences(props) {
   };
 
   const toggleHideUnavailableFeatures = () => {
-    settings.set(
-      "ui.hideFeaturesNotAvailableInCurrentFirmware",
-      !hideUnavailableFeatures
-    );
+    settings.set("ui.hideFeaturesNotAvailableInCurrentFirmware", !hideUnavailableFeatures);
     setHideUnavailableFeatures(!hideUnavailableFeatures);
   };
 
   useEffect(() => {
     const initialize = async () => {
-      const hideUnavail = settings.get(
-        "ui.hideFeaturesNotAvailableInCurrentFirmware",
-        true
-      );
+      const hideUnavail = settings.get("ui.hideFeaturesNotAvailableInCurrentFirmware", true);
       await setHideUnavailableFeatures(hideUnavail);
       if (!loaded) {
         await initializeHostKeyboardLayout();
@@ -103,15 +97,8 @@ function LayoutEditorPreferences(props) {
 
   return (
     <PreferenceSection name="ui.layoutEditor">
-      <PreferenceWithHeading
-        heading={t("preferences.ui.host.label")}
-        subheading={t("preferences.ui.host.help")}
-      >
-        {loaded ? (
-          <LayoutSelect layout={layout} setLayout={changeLayout} />
-        ) : (
-          <Skeleton variant="rectangular" />
-        )}
+      <PreferenceWithHeading heading={t("preferences.ui.host.label")} subheading={t("preferences.ui.host.help")}>
+        {loaded ? <LayoutSelect layout={layout} setLayout={changeLayout} /> : <Skeleton variant="rectangular" />}
       </PreferenceWithHeading>
       <Paper variant="outlined" square sx={{ p: 2, mt: 1 }}>
         <Keyboard104 onKeySelect={() => null} layout={layout} />

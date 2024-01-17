@@ -43,9 +43,5 @@ export const GlobalContextProvider = (props) => {
     hideHeaderInPrint: [hideHeaderInPrint, setHideHeaderInPrint],
   };
 
-  return (
-    <GlobalContext.Provider value={{ state }}>
-      {props.children}
-    </GlobalContext.Provider>
-  );
+  return <GlobalContext.Provider value={{ state }}>{props.children}</GlobalContext.Provider>;
 };

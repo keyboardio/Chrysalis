@@ -86,21 +86,11 @@ const MacroStepAdd = (props) => {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={selectType("TAP")}>
-          {t("editor.macros.steps.TAP")}
-        </MenuItem>
-        <MenuItem onClick={selectType("KEYDOWN")}>
-          {t("editor.macros.steps.KEYDOWN")}
-        </MenuItem>
-        <MenuItem onClick={selectType("KEYUP")}>
-          {t("editor.macros.steps.KEYUP")}
-        </MenuItem>
-        <MenuItem onClick={selectType("WAIT")}>
-          {t("editor.macros.steps.WAIT")}
-        </MenuItem>
-        <MenuItem onClick={selectType("INTERVAL")}>
-          {t("editor.macros.steps.INTERVAL")}
-        </MenuItem>
+        <MenuItem onClick={selectType("TAP")}>{t("editor.macros.steps.TAP")}</MenuItem>
+        <MenuItem onClick={selectType("KEYDOWN")}>{t("editor.macros.steps.KEYDOWN")}</MenuItem>
+        <MenuItem onClick={selectType("KEYUP")}>{t("editor.macros.steps.KEYUP")}</MenuItem>
+        <MenuItem onClick={selectType("WAIT")}>{t("editor.macros.steps.WAIT")}</MenuItem>
+        <MenuItem onClick={selectType("INTERVAL")}>{t("editor.macros.steps.INTERVAL")}</MenuItem>
         <Divider />
         <MenuItem onClick={closeMenu}>{t("dialog.close")}</MenuItem>
       </Menu>

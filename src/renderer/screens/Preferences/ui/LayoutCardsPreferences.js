@@ -44,9 +44,7 @@ function LayoutCardsPreferences(props) {
   useEffect(() => {
     const initialize = async () => {
       await setColoredLayoutCards(settings.get("ui.layoutCards.colored"));
-      await setOneLayerPerPage(
-        settings.get("ui.layoutCards.oneLayerPerPage", false)
-      );
+      await setOneLayerPerPage(settings.get("ui.layoutCards.oneLayerPerPage", false));
       await setLoaded(true);
     };
 

@@ -1,7 +1,5 @@
 const fromHexString = (hexString) => {
-  const result = new Uint8Array(
-    hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
-  );
+  const result = new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
   return result;
 };
 //  <!-- Intel HEX parser by https://github.com/bminer/intel-hex.js -->
@@ -40,10 +38,7 @@ export function parseIntelHex(data) {
   const SMALLEST_LINE = 11;
   while (pos + SMALLEST_LINE <= data.length) {
     //Parse an entire line
-    if (data.charAt(pos++) != ":")
-      throw new Error(
-        "Line " + (lineNum + 1) + " does not start with a colon (:)."
-      );
+    if (data.charAt(pos++) != ":") throw new Error("Line " + (lineNum + 1) + " does not start with a colon (:).");
     else lineNum++;
     //Number of bytes (hex digit pairs) in the data field
     var dataLength = parseInt(data.substr(pos, 2), 16);
@@ -67,20 +62,11 @@ export function parseIntelHex(data) {
     var checksum = parseInt(data.substr(pos, 2), 16);
     pos += 2;
     //Validate checksum
-    var calcChecksum =
-      (dataLength + (lowAddress >> 8) + lowAddress + recordType) & 255;
-    for (var i = 0; i < dataLength; i++)
-      calcChecksum = (calcChecksum + dataFieldBuf[i]) & 255;
+    var calcChecksum = (dataLength + (lowAddress >> 8) + lowAddress + recordType) & 255;
+    for (var i = 0; i < dataLength; i++) calcChecksum = (calcChecksum + dataFieldBuf[i]) & 255;
     calcChecksum = (256 - calcChecksum) & 255;
     if (checksum != calcChecksum)
-      throw new Error(
-        "Invalid checksum on line " +
-          lineNum +
-          ": got " +
-          checksum +
-          ", but expected " +
-          calcChecksum
-      );
+      throw new Error("Invalid checksum on line " + lineNum + ": got " + checksum + ", but expected " + calcChecksum);
     //Parse the record based on its recordType
     switch (recordType) {
       case DATA:
@@ -93,8 +79,7 @@ export function parseIntelHex(data) {
                                         buf = tmp;
                                 }*/
         //Write over skipped bytes with EMPTY_VALUE
-        if (absoluteAddress > bufLength)
-          buf.fill(EMPTY_VALUE, bufLength, absoluteAddress);
+        if (absoluteAddress > bufLength) buf.fill(EMPTY_VALUE, bufLength, absoluteAddress);
         //Write the dataFieldBuf to buf
         //dataFieldBuf.copy(buf, absoluteAddress);
         dataFieldBuf.forEach(function (val, index) {
@@ -103,8 +88,7 @@ export function parseIntelHex(data) {
         bufLength = Math.max(bufLength, absoluteAddress + dataLength);
         break;
       case END_OF_FILE:
-        if (dataLength != 0)
-          throw new Error("Invalid EOF record on line " + lineNum + ".");
+        if (dataLength != 0) throw new Error("Invalid EOF record on line " + lineNum + ".");
         return {
           data: buf.slice(0, bufLength),
           startSegmentAddress: startSegmentAddress,
@@ -112,36 +96,26 @@ export function parseIntelHex(data) {
         };
       case EXT_SEGMENT_ADDR:
         if (dataLength != 2 || lowAddress != 0)
-          throw new Error(
-            "Invalid extended segment address record on line " + lineNum + "."
-          );
+          throw new Error("Invalid extended segment address record on line " + lineNum + ".");
         highAddress = parseInt(dataField, 16) << 4;
         break;
       case START_SEGMENT_ADDR:
         if (dataLength != 4 || lowAddress != 0)
-          throw new Error(
-            "Invalid start segment address record on line " + lineNum + "."
-          );
+          throw new Error("Invalid start segment address record on line " + lineNum + ".");
         startSegmentAddress = parseInt(dataField, 16);
         break;
       case EXT_LINEAR_ADDR:
         if (dataLength != 2 || lowAddress != 0)
-          throw new Error(
-            "Invalid extended linear address record on line " + lineNum + "."
-          );
+          throw new Error("Invalid extended linear address record on line " + lineNum + ".");
         highAddress = parseInt(dataField, 16) << 16;
         break;
       case START_LINEAR_ADDR:
         if (dataLength != 4 || lowAddress != 0)
-          throw new Error(
-            "Invalid start linear address record on line " + lineNum + "."
-          );
+          throw new Error("Invalid start linear address record on line " + lineNum + ".");
         startLinearAddress = parseInt(dataField, 16);
         break;
       default:
-        throw new Error(
-          "Invalid record type (" + recordType + ") on line " + lineNum
-        );
+        throw new Error("Invalid record type (" + recordType + ") on line " + lineNum);
     }
     //Advance to the next line
     if (data.charAt(pos) == "\r") pos++;

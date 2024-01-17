@@ -90,11 +90,7 @@ export const FloatingKeyPicker = (props) => {
           m: 1,
         }}
       >
-        <Keyboard104
-          onKeySelect={onKeyChange}
-          currentKeyCode={key.baseCode || key.code}
-          keymap={keymap}
-        />
+        <Keyboard104 onKeySelect={onKeyChange} currentKeyCode={key.baseCode || key.code} keymap={keymap} />
       </Box>
     </Rnd>
   );

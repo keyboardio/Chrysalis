@@ -336,16 +336,13 @@ const Macros = function () {
 
     // Downscale
     for (const step of m) {
-      if (step.type == Step.KEYUP && fitsInU8(step.value))
-        step.type = Step.KEYCODEUP;
-      if (step.type == Step.KEYDOWN && fitsInU8(step.value))
-        step.type = Step.KEYCODEDOWN;
+      if (step.type == Step.KEYUP && fitsInU8(step.value)) step.type = Step.KEYCODEUP;
+      if (step.type == Step.KEYDOWN && fitsInU8(step.value)) step.type = Step.KEYCODEDOWN;
       if (step.type == Step.TAPSEQUENCE && step.value.length == 1) {
         step.type = Step.TAP;
         step.value = step.value[0];
       }
-      if (step.type == Step.TAP && fitsInU8(step.value))
-        step.type = Step.TAPCODE;
+      if (step.type == Step.TAP && fitsInU8(step.value)) step.type = Step.TAPCODE;
       if (step.type == Step.TAPSEQUENCE) {
         if (step.value.filter((c) => !fitsInU8(c)).length == 0) {
           step.type = Step.TAPCODESEQUENCE;
@@ -363,8 +360,7 @@ const Macros = function () {
     };
   };
 
-  this.getStoredSize = (macros) =>
-    this.serialize(this.compress(macros), false).length;
+  this.getStoredSize = (macros) => this.serialize(this.compress(macros), false).length;
 
   const fill = (macros) => {
     const rem = 32 - macros.length;
@@ -395,9 +391,7 @@ const Macros = function () {
 
       return {
         storageSize: macroMap.length,
-        macros: fill(
-          this.parse(macroMap).map((m) => indexMacro(expandMacro(m)))
-        ),
+        macros: fill(this.parse(macroMap).map((m) => indexMacro(expandMacro(m)))),
       };
     }
   };

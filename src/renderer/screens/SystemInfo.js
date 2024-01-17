@@ -84,7 +84,6 @@ function SystemInfo(props) {
       };
     }
 
-
     setCollecting(false);
     setCollected(true);
     setViewing(true);
@@ -125,12 +124,7 @@ function SystemInfo(props) {
     <Dialog open={viewing} scroll="paper" onClose={closeViewBundle} fullScreen>
       <DialogTitle>{t("systeminfo.title")}</DialogTitle>
       <DialogContent dividers>
-        <TextField
-          disabled
-          multiline
-          fullWidth
-          value={stringify(info, { maxLength: 1024 })}
-        />
+        <TextField disabled multiline fullWidth value={stringify(info, { maxLength: 1024 })} />
       </DialogContent>
     </Dialog>
   );
@@ -151,9 +145,7 @@ function SystemInfo(props) {
 
           <Typography component="p">{t("systeminfo.privacyNote")}</Typography>
           <Typography component="p">
-            <Link href="https://github.com/keyboardio/Chrysalis/issues">
-              {t("systeminfo.bugTracker")}
-            </Link>
+            <Link href="https://github.com/keyboardio/Chrysalis/issues">{t("systeminfo.bugTracker")}</Link>
           </Typography>
         </CardContent>
         <CardActions>

@@ -40,10 +40,7 @@ const CustomKey = (props) => {
 
   return (
     <React.Fragment>
-      <Collapsible
-        title={t("editor.sidebar.custom.title")}
-        help={t("editor.sidebar.custom.help")}
-      >
+      <Collapsible title={t("editor.sidebar.custom.title")} help={t("editor.sidebar.custom.help")}>
         <div>
           <TextField
             label={t("editor.sidebar.custom.label")}

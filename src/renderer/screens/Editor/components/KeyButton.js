@@ -29,9 +29,7 @@ const KeyButton = (props) => {
 
   const active = keyObj?.code == currentKey?.code;
 
-  const buttonColor = active
-    ? theme.palette.primary.light
-    : theme.palette.background.paper;
+  const buttonColor = active ? theme.palette.primary.light : theme.palette.background.paper;
 
   const textColor = theme.palette.getContrastText(buttonColor);
 

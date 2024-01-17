@@ -17,7 +17,6 @@
 
 import React, { useState, useEffect } from "react";
 
-
 import Alert from "@mui/material/Alert";
 import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";
@@ -26,9 +25,7 @@ const toast_channel = new BroadcastChannel("notifications");
 
 export const toast = {
   warning: (message, options) => {
-    toast.toast(
-      Object.assign({ variant: "warning", message: message }, options)
-    );
+    toast.toast(Object.assign({ variant: "warning", message: message }, options));
   },
   info: (message, options) => {
     toast.toast(Object.assign({ variant: "info", message: message }, options));
@@ -37,9 +34,7 @@ export const toast = {
     toast.toast(Object.assign({ variant: "error", message: message }, options));
   },
   success: (message, options) => {
-    toast.toast(
-      Object.assign({ variant: "success", message: message }, options)
-    );
+    toast.toast(Object.assign({ variant: "success", message: message }, options));
   },
   progress: (progress) => {
     toast.toast({ progress: progress });
@@ -97,13 +92,7 @@ export default function Toast() {
 
   return (
     <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={onClose}>
-      <Alert
-        elevation={6}
-        variant="filled"
-        onClose={!progress && onClose}
-        severity={variant}
-        sx={{ width: "100%" }}
-      >
+      <Alert elevation={6} variant="filled" onClose={!progress && onClose} severity={variant} sx={{ width: "100%" }}>
         {message}
         {progress && <LinearProgress variant="determinate" value={progress} />}
       </Alert>

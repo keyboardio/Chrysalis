@@ -83,8 +83,7 @@ const Overview = (props) => {
 
   if (props.macroEditorOpen) return null;
 
-  const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } =
-    props;
+  const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
   const db = new KeymapDB();
 
   const lastUsedLayer = findLastUsedLayer();
@@ -102,11 +101,7 @@ const Overview = (props) => {
       layerNames: props.layerNames,
     });
     let colorWidget;
-    if (
-      colormap &&
-      colormap.palette.length > 0 &&
-      colormap.colorMap.length > index
-    ) {
+    if (colormap && colormap.palette.length > 0 && colormap.colorMap.length > index) {
       const colorIndex = colormap.colorMap[index][selectedLed];
       const color = colormap.palette[colorIndex];
 
@@ -135,32 +130,21 @@ const Overview = (props) => {
         sx={{ cursor: "pointer" }}
       >
         <TableCell size="small" align="left">
-          <LayerNameInput
-            value={layerNames.names[index]}
-            index={index}
-            setLayerName={props.setLayerName}
-          />
+          <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
         </TableCell>
         <TableCell>
           {label.hint} {label.main}
         </TableCell>
-        {colormap && colormap.palette.length > 0 && (
-          <TableCell>{colorWidget}</TableCell>
-        )}
+        {colormap && colormap.palette.length > 0 && <TableCell>{colorWidget}</TableCell>}
       </TableRow>
     );
   });
 
   const emptyLayers = lastUsedLayer + 1 < keymap.custom.length && (
     <TableRow>
-      <TableCell
-        colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
-        align="right"
-      >
+      <TableCell colSpan={colormap && colormap.palette.length > 0 ? 3 : 2} align="right">
         <Button onClick={() => setShowAll(!showAll)}>
-          {showAll
-            ? t("editor.sidebar.overview.hideEmptyLayers")
-            : t("editor.sidebar.overview.showEmptyLayers")}
+          {showAll ? t("editor.sidebar.overview.hideEmptyLayers") : t("editor.sidebar.overview.showEmptyLayers")}
         </Button>
       </TableCell>
     </TableRow>
@@ -175,13 +159,8 @@ const Overview = (props) => {
           borderBottom: "none",
         }}
       >
-        <Button onClick={() => props.copyLayer(layer)}>
-          {t("editor.sidebar.overview.copyLayer")}
-        </Button>
-        <Button
-          onClick={() => props.pasteLayer()}
-          disabled={!props.hasCopiedLayer()}
-        >
+        <Button onClick={() => props.copyLayer(layer)}>{t("editor.sidebar.overview.copyLayer")}</Button>
+        <Button onClick={() => props.pasteLayer()} disabled={!props.hasCopiedLayer()}>
           {t("editor.sidebar.overview.pasteLayer")}
         </Button>
       </TableCell>
@@ -203,9 +182,7 @@ const Overview = (props) => {
                     index: selectedKey,
                   })}
                 </TableCell>
-                {colormap && colormap.palette.length > 0 && (
-                  <TableCell>{t("editor.sidebar.overview.color")}</TableCell>
-                )}
+                {colormap && colormap.palette.length > 0 && <TableCell>{t("editor.sidebar.overview.color")}</TableCell>}
               </TableRow>
             </TableHead>
           </Tooltip>
@@ -216,11 +193,7 @@ const Overview = (props) => {
           </TableFooter>
         </Table>
       </TableContainer>
-      <Button
-        onClick={() => setDialogOpen(true)}
-        color="secondary"
-        variant="outlined"
-      >
+      <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
         {t("editor.sidebar.overview.sharing")}
       </Button>
       <LayoutSharing

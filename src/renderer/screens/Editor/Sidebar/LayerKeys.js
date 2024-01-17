@@ -77,15 +77,10 @@ const LayerKeys = (props) => {
   const max = getMaxLayer();
   return (
     <React.Fragment>
-      <Collapsible
-        title={t("editor.sidebar.layer.title")}
-        help={t("editor.sidebar.layer.help")}
-      >
+      <Collapsible title={t("editor.sidebar.layer.title")} help={t("editor.sidebar.layer.help")}>
         <div>
           <FormControl>
-            <InputLabel id="editor.layerswitch.type">
-              {t("editor.layerswitch.type")}
-            </InputLabel>
+            <InputLabel id="editor.layerswitch.type">{t("editor.layerswitch.type")}</InputLabel>
             <Select
               value={type}
               onChange={onTypeChange}
@@ -115,9 +110,7 @@ const LayerKeys = (props) => {
             </Select>
           </FormControl>
           <FormControl sx={{ mx: 1 }}>
-            <InputLabel id="editor.layerswitch.target">
-              {t("editor.layerswitch.target")}
-            </InputLabel>
+            <InputLabel id="editor.layerswitch.target">{t("editor.layerswitch.target")}</InputLabel>
             <Select
               labelId="editor.layerswitch.target"
               value={targetLayer}

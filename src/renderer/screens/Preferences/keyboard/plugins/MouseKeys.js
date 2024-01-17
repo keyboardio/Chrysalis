@@ -48,8 +48,7 @@ const MouseKeysPreferences = (props) => {
     const _initSpeed = await activeDevice.mousekeys_init_speed();
     const _baseSpeed = await activeDevice.mousekeys_base_speed();
     const _accelDuration = await activeDevice.mousekeys_accel_duration();
-    const _warpGridSize =
-      (await activeDevice.mousekeys_warp_grid_size()) || "0";
+    const _warpGridSize = (await activeDevice.mousekeys_warp_grid_size()) || "0";
 
     setScrollInterval(parseInt(_scrollInterval));
     setInitSpeed(parseInt(_initSpeed));
@@ -112,25 +111,12 @@ const MouseKeysPreferences = (props) => {
         <>
           <Divider sx={{ my: 1 }} />
           <PreferenceWithHeading
-            heading={t(
-              "preferences.keyboard.plugins.mousekeys.warp_grid_size.label"
-            )}
-            subheading={t(
-              "preferences.keyboard.plugins.mousekeys.warp_grid_size.help"
-            )}
+            heading={t("preferences.keyboard.plugins.mousekeys.warp_grid_size.label")}
+            subheading={t("preferences.keyboard.plugins.mousekeys.warp_grid_size.help")}
           >
-            <Select
-              size="small"
-              value={warpGridSize}
-              onChange={updateWarpGridSize}
-              sx={{ minWidth: "6em" }}
-            >
-              <MenuItem value={2}>
-                {t("preferences.keyboard.plugins.mousekeys.warp_grid_size.2x2")}
-              </MenuItem>
-              <MenuItem value={3}>
-                {t("preferences.keyboard.plugins.mousekeys.warp_grid_size.3x3")}
-              </MenuItem>
+            <Select size="small" value={warpGridSize} onChange={updateWarpGridSize} sx={{ minWidth: "6em" }}>
+              <MenuItem value={2}>{t("preferences.keyboard.plugins.mousekeys.warp_grid_size.2x2")}</MenuItem>
+              <MenuItem value={3}>{t("preferences.keyboard.plugins.mousekeys.warp_grid_size.3x3")}</MenuItem>
             </Select>
           </PreferenceWithHeading>
         </>

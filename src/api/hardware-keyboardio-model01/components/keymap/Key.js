@@ -41,10 +41,7 @@ const Key = (props) => {
 
   const key = props.keymap[keyIndex];
 
-  const stroke =
-    props.selectedKey === keyIndex
-      ? theme.palette.primary.light
-      : theme.palette.grey[500];
+  const stroke = props.selectedKey === keyIndex ? theme.palette.primary.light : theme.palette.grey[500];
 
   const getColor = () => {
     const ledIndex = led_map[parseInt(props.row)][parseInt(props.col)];
@@ -67,32 +64,19 @@ const Key = (props) => {
       />
     );
   } else {
-    shape = (
-      <path
-        fill={getColor()}
-        stroke={stroke}
-        strokeWidth="3.5"
-        d={props.shape}
-      />
-    );
+    shape = <path fill={getColor()} stroke={stroke} strokeWidth="3.5" d={props.shape} />;
   }
 
   let legendClass = "";
   let mainLegendClass = "";
   const legend = key && db.format(key, { layerNames: props.layerNames });
-  if (key && (legend.main || "").length <= 1 && !legend.hint)
-    legendClass = "short-legend";
+  if (key && (legend.main || "").length <= 1 && !legend.hint) legendClass = "short-legend";
   if (key && (legend.main || "").length <= 1) mainLegendClass = "short-legend";
 
   if (props.extraLabelTransform && legend?.hint) {
     extraLabel = (
       <g transform={props.extraLabelTransform}>
-        <text
-          x={props.x}
-          y={props.y - 3}
-          className={legendClass}
-          fill={theme.palette.getContrastText(getColor())}
-        >
+        <text x={props.x} y={props.y - 3} className={legendClass} fill={theme.palette.getContrastText(getColor())}>
           {legend?.hint}
         </text>
       </g>
@@ -109,12 +93,7 @@ const Key = (props) => {
     >
       {shape}
       <g transform={props.primaryLabelTransform}>
-        <text
-          x={props.x}
-          y={props.y}
-          fill={theme.palette.getContrastText(getColor())}
-          className={mainLegendClass}
-        >
+        <text x={props.x} y={props.y} fill={theme.palette.getContrastText(getColor())} className={mainLegendClass}>
           {legend?.main}
         </text>
       </g>

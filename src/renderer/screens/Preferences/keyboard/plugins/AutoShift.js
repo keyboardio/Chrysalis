@@ -45,16 +45,7 @@ const AutoShiftPreferences = (props) => {
 
   const loaded = usePluginEffect(initialize);
 
-  const categories = [
-    "letters",
-    "numbers",
-    "symbols",
-    "arrows",
-    "functions",
-    undefined,
-    undefined,
-    "all",
-  ];
+  const categories = ["letters", "numbers", "symbols", "arrows", "functions", undefined, undefined, "all"];
 
   const onCategoryChange = (category) => async (event) => {
     const v = event.target.checked;

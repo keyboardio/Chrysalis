@@ -44,8 +44,7 @@ import PlatformAppleKeys from "./Sidebar/PlatformAppleKeys";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
-  const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } =
-    props;
+  const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } = props;
 
   const widgets = [
     KeyPicker,

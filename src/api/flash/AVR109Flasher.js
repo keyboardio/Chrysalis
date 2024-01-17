@@ -108,9 +108,7 @@ export const flashDevice = async (writer, reader, flashData) => {
     switch (state) {
       case AVR109States.UNINITIALIZED:
         if (responseString !== "CATERIN") {
-          console.log(
-            'error: unexpected RX value in state 0, waited for "CATERIN"'
-          );
+          console.log('error: unexpected RX value in state 0, waited for "CATERIN"');
           break;
         }
 

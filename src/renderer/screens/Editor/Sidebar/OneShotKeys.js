@@ -61,15 +61,8 @@ const OneShotKeys = (props) => {
 
   return (
     <React.Fragment>
-      <Collapsible
-        title={t("editor.sidebar.oneshot.title")}
-        help={t("editor.sidebar.oneshot.help")}
-      >
-        <KeyButton
-          keyObj={db.lookup(c.ONESHOT_CANCEL)}
-          onKeyChange={props.onKeyChange}
-          keycapSize="1u"
-        />
+      <Collapsible title={t("editor.sidebar.oneshot.title")} help={t("editor.sidebar.oneshot.help")}>
+        <KeyButton keyObj={db.lookup(c.ONESHOT_CANCEL)} onKeyChange={props.onKeyChange} keycapSize="1u" />
 
         {metaOneShotVisible ? metaOneShot : null}
       </Collapsible>

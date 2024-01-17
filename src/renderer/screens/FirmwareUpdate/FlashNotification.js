@@ -88,9 +88,7 @@ export const FlashNotification = (props) => {
 
   return (
     <Dialog disableEscapeKeyDown open={props.open} fullWidth>
-      <DialogTitle>
-        {t("firmwareUpdate.flashing.notifications.title")}
-      </DialogTitle>
+      <DialogTitle>{t("firmwareUpdate.flashing.notifications.title")}</DialogTitle>
       <DialogContent>{contents}</DialogContent>
     </Dialog>
   );

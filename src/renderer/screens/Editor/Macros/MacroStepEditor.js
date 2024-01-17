@@ -66,11 +66,7 @@ const MacroStepEditor = (props) => {
           shrink: true,
         }}
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              {t("editor.macros.steps.in_ms")}
-            </InputAdornment>
-          ),
+          endAdornment: <InputAdornment position="end">{t("editor.macros.steps.in_ms")}</InputAdornment>,
         }}
       />
     </Box>

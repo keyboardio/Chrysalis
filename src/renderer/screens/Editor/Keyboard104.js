@@ -55,10 +55,7 @@ const KeySelector = (props) => {
       keycapSize: (props.width <= 2 ? 1 : props.width) + "u",
     });
 
-    let fontSize =
-      label.main.length <= 4 * props.width
-        ? Math.round(keycapunit / 3)
-        : Math.round(keycapunit / 4);
+    let fontSize = label.main.length <= 4 * props.width ? Math.round(keycapunit / 3) : Math.round(keycapunit / 4);
     let mainLegendY = y + height / 2;
 
     if (label.shifted) {
@@ -66,9 +63,7 @@ const KeySelector = (props) => {
       mainLegendY += fontSize / 2 + 2;
     }
 
-    const buttonColor = active
-      ? theme.palette.primary.light
-      : theme.palette.background.paper;
+    const buttonColor = active ? theme.palette.primary.light : theme.palette.background.paper;
 
     const textColor = theme.palette.getContrastText(buttonColor);
 
@@ -78,16 +73,7 @@ const KeySelector = (props) => {
 
     return (
       <g onClick={onClick} className="key" data-key-code={key.code}>
-        <rect
-          x={x}
-          y={y}
-          rx={2}
-          width={width}
-          height={height}
-          stroke={stroke}
-          strokeWidth={1.55}
-          fill={buttonColor}
-        />
+        <rect x={x} y={y} rx={2} width={width} height={height} stroke={stroke} strokeWidth={1.55} fill={buttonColor} />
         {label.shifted && (
           <text
             x={x + width / 2}
@@ -121,12 +107,7 @@ const KeySelector = (props) => {
       }}
     >
       <svg
-        viewBox={
-          "0 0 " +
-          Math.round(23 * keycapunit).toString() +
-          " " +
-          Math.round(6.5 * keycapunit).toString()
-        }
+        viewBox={"0 0 " + Math.round(23 * keycapunit).toString() + " " + Math.round(6.5 * keycapunit).toString()}
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMin meet"
         width="100%"

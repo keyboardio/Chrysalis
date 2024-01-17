@@ -83,10 +83,7 @@ class Focus {
   }
 
   async checkSerialBootloader(focusDeviceDescriptor) {
-    return await this.checkSerialDevice(
-      focusDeviceDescriptor,
-      focusDeviceDescriptor.usb.bootloader
-    );
+    return await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb.bootloader);
   }
 
   async checkNonSerialBootloader(focusDeviceDescriptor) {
@@ -144,10 +141,7 @@ class Focus {
     console.info("reconnecting to keyboard", {
       descriptor: focusDeviceDescriptor,
     });
-    const usbDeviceDescriptor = await this.checkSerialDevice(
-      focusDeviceDescriptor,
-      focusDeviceDescriptor.usb
-    );
+    const usbDeviceDescriptor = await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb);
     if (!usbDeviceDescriptor) return false;
 
     await this.open(usbDeviceDescriptor.path, usbDeviceDescriptor);
@@ -228,10 +222,7 @@ class Focus {
         const pid = parseInt("0x" + port.productId),
           vid = parseInt("0x" + port.vendorId);
 
-        if (
-          pid == device_descriptor.usb.productId &&
-          vid == device_descriptor.usb.vendorId
-        ) {
+        if (pid == device_descriptor.usb.productId && vid == device_descriptor.usb.vendorId) {
           const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = device_descriptor;
           newPort.focusDeviceDescriptor.bootloader = false;
@@ -274,10 +265,7 @@ class Focus {
   }
 
   isInApplicationMode() {
-    if (
-      !this.focusDeviceDescriptor ||
-      this.focusDeviceDescriptor.bootloader == true
-    ) {
+    if (!this.focusDeviceDescriptor || this.focusDeviceDescriptor.bootloader == true) {
       return false;
     } else {
       return true;
@@ -341,10 +329,7 @@ class Focus {
   request(cmd, ...args) {
     if (!this.isInApplicationMode()) return undefined;
 
-    if (
-      this._supported_commands?.length > 0 &&
-      !this._supported_commands.includes(cmd)
-    ) {
+    if (this._supported_commands?.length > 0 && !this._supported_commands.includes(cmd)) {
       console.debug("request (noop)", {
         command: cmd,
         args: args,

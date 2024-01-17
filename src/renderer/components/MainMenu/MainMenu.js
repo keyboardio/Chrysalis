@@ -100,67 +100,34 @@ function MainMenu({ open, closeMenu, classes }) {
         </IconButton>
       </div>
       {connected && (
-        <List
-          subheader={
-            <ListSubheader disableSticky>
-              {t("app.menu.keyboardSection")}
-            </ListSubheader>
-          }
-        >
+        <List subheader={<ListSubheader disableSticky>{t("app.menu.keyboardSection")}</ListSubheader>}>
           {activeDevice &&
             !activeDevice.focusDetected() &&
-            listItem(
-              <InfoIcon />,
-              t("app.menu.focus-not-detected"),
-              "/focus-not-detected"
-            )}
+            listItem(<InfoIcon />, t("app.menu.focus-not-detected"), "/focus-not-detected")}
           {activeDevice?.hasCustomizableKeymaps() &&
             listItem(
               <KeyboardIcon />,
-              activeDevice?.hasCustomizableLEDMaps()
-                ? t("app.menu.editor")
-                : t("app.menu.layoutEditor"),
+              activeDevice?.hasCustomizableLEDMaps() ? t("app.menu.editor") : t("app.menu.layoutEditor"),
 
               "/editor"
             )}
-          {activeDevice &&
-            listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
+          {activeDevice && listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
 
-          {listItem(
-            <CloudUploadIcon />,
-            t("app.menu.firmwareUpdate"),
-            "/firmware-update"
-          )}
+          {listItem(<CloudUploadIcon />, t("app.menu.firmwareUpdate"), "/firmware-update")}
         </List>
       )}
       {connected && <Divider />}
-      <List
-        subheader={
-          <ListSubheader disableSticky>
-            {t("app.menu.chrysalisSection")}
-          </ListSubheader>
-        }
-      >
+      <List subheader={<ListSubheader disableSticky>{t("app.menu.chrysalisSection")}</ListSubheader>}>
         {listItem(
           <KeyboardIcon />,
-          connected
-            ? t("app.menu.connectAnotherKeyboard")
-            : t("app.menu.connectAKeyboard"),
+          connected ? t("app.menu.connectAnotherKeyboard") : t("app.menu.connectAKeyboard"),
           "/keyboard-select"
         )}
         {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}
       </List>
       <Divider />
-      <List
-        subheader={
-          <ListSubheader disableSticky>
-            {t("app.menu.miscSection")}
-          </ListSubheader>
-        }
-      >
-        {listItem(<ChatIcon />, t("app.menu.chat"), null, () =>
-          openExternalPage("https://keyboard.io/discord-invite")
-        )}
+      <List subheader={<ListSubheader disableSticky>{t("app.menu.miscSection")}</ListSubheader>}>
+        {listItem(<ChatIcon />, t("app.menu.chat"), null, () => openExternalPage("https://keyboard.io/discord-invite"))}
 
         {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
         {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
@@ -168,10 +135,7 @@ function MainMenu({ open, closeMenu, classes }) {
       <Divider />
       <List>
         <ListItem disabled>
-          <ListItemText
-            primary={`Chrysalis ${version}`}
-            sx={{ textAlign: "right" }}
-          />
+          <ListItemText primary={`Chrysalis ${version}`} sx={{ textAlign: "right" }} />
         </ListItem>
       </List>
     </Drawer>

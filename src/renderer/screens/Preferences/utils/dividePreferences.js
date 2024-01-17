@@ -22,12 +22,8 @@ export const dividePreferences = (plugins, components, onSaveChanges, key) => {
   const result = [];
   components.forEach(({ plugin, Component }, index) => {
     if (plugins[plugin]) {
-      result.push(
-        <Component onSaveChanges={onSaveChanges} key={`${key}/${index}`} />
-      );
-      result.push(
-        <Divider sx={{ mx: -2, my: 2 }} key={`${key}/${index}/divider`} />
-      );
+      result.push(<Component onSaveChanges={onSaveChanges} key={`${key}/${index}`} />);
+      result.push(<Divider sx={{ mx: -2, my: 2 }} key={`${key}/${index}/divider`} />);
     }
   });
   result.pop();

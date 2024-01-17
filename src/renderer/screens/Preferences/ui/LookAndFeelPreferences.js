@@ -140,26 +140,14 @@ function LookAndFeelPreferences(props) {
   });
 
   const systemSvg = (
-    <svg
-      width="120"
-      height="73"
-      viewBox="0 0 120 73"
-      fill="none"
-      xmlns="https://www.w3.org/2000/svg"
-    >
+    <svg width="120" height="73" viewBox="0 0 120 73" fill="none" xmlns="https://www.w3.org/2000/svg">
       <path d="M0 0L120 73H0V0Z" fill="#1B1B1B" />
       <path d="M120 73L5.94475e-06 -7.78063e-06L120 0L120 73Z" fill="#EDEDED" />
     </svg>
   );
 
   const solidSvg = (color) => (
-    <svg
-      width="120"
-      height="73"
-      viewBox="0 0 120 73"
-      fill="none"
-      xmlns="https://www.w3.org/2000/svg"
-    >
+    <svg width="120" height="73" viewBox="0 0 120 73" fill="none" xmlns="https://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill={color} />
     </svg>
   );
@@ -173,33 +161,13 @@ function LookAndFeelPreferences(props) {
         {t("preferences.ui.theme.label")}
       </Typography>
       <Box sx={{ display: "inline-flex", my: 2, flexWrap: "wrap" }}>
-        <ModeCard
-          name="system"
-          image={systemSvg}
-          raised={theme == "system"}
-          onClick={changeTheme("system")}
-        />
-        <ModeCard
-          name="light"
-          image={lightSvg}
-          raised={theme == "light"}
-          onClick={changeTheme("light")}
-        />
-        <ModeCard
-          name="dark"
-          image={darkSvg}
-          raised={theme == "dark"}
-          onClick={changeTheme("dark")}
-        />
+        <ModeCard name="system" image={systemSvg} raised={theme == "system"} onClick={changeTheme("system")} />
+        <ModeCard name="light" image={lightSvg} raised={theme == "light"} onClick={changeTheme("light")} />
+        <ModeCard name="dark" image={darkSvg} raised={theme == "dark"} onClick={changeTheme("dark")} />
       </Box>
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceWithHeading heading={t("preferences.ui.language.help")}>
-        <Select
-          size="small"
-          value={language}
-          onChange={updateLanguage}
-          sx={{ minWidth: "10em" }}
-        >
+        <Select size="small" value={language} onChange={updateLanguage} sx={{ minWidth: "10em" }}>
           {languages}
         </Select>
       </PreferenceWithHeading>

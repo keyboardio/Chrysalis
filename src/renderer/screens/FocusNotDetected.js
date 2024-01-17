@@ -34,8 +34,7 @@ import { useTranslation } from "react-i18next";
 const FocusNotDetected = (props) => {
   const { t } = useTranslation();
   const focus = new Focus();
-  const focusDeviceDescriptor =
-    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+  const focusDeviceDescriptor = props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   const reconnect = async () => {
     try {

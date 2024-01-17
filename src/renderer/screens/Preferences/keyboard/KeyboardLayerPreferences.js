@@ -78,14 +78,8 @@ const KeyboardLayerPreferences = (props) => {
       >
         {loaded ? (
           <FormControl size="small">
-            <Select
-              onChange={selectDefaultLayer}
-              value={defaultLayer}
-              sx={{ minWidth: "10em" }}
-            >
-              <MenuItem value={126}>
-                {t("preferences.keyboard.defaultLayer.noDefault")}
-              </MenuItem>
+            <Select onChange={selectDefaultLayer} value={defaultLayer} sx={{ minWidth: "10em" }}>
+              <MenuItem value={126}>{t("preferences.keyboard.defaultLayer.noDefault")}</MenuItem>
               {layers}
             </Select>
           </FormControl>

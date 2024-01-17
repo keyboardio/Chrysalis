@@ -46,11 +46,7 @@ const ChangeLog = (props) => {
             components={{
               h1({ node, ...props }) {
                 return (
-                  <Typography
-                    component="h1"
-                    variant="h1"
-                    sx={{ textDecoration: "underline" }}
-                  >
+                  <Typography component="h1" variant="h1" sx={{ textDecoration: "underline" }}>
                     {node.children[0].value}
                   </Typography>
                 );

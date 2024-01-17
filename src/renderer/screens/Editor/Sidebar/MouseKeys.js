@@ -137,62 +137,17 @@ const MouseWarpKeys = (props) => {
         <Typography color="textSecondary" gutterBottom>
           {t("editor.sidebar.mousekeys.warp")}
         </Typography>
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpNW}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpN}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpNE}
-          noHint
-          keycapSize="1u"
-        />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpNW} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpN} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpNE} noHint keycapSize="1u" />
         <br />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpW}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpZ}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpE}
-          noHint
-          keycapSize="1u"
-        />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpW} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpZ} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpE} noHint keycapSize="1u" />
         <br />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpSW}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpS}
-          noHint
-          keycapSize="1u"
-        />
-        <KeyButton
-          onKeyChange={onKeyChange}
-          keyObj={warpSE}
-          noHint
-          keycapSize="1u"
-        />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpSW} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpS} noHint keycapSize="1u" />
+        <KeyButton onKeyChange={onKeyChange} keyObj={warpSE} noHint keycapSize="1u" />
         <br />
         <KeyButton onKeyChange={onKeyChange} keyObj={warpEnd} noHint />
       </div>
@@ -215,27 +170,13 @@ const MouseKeys = (props) => {
   if (!pluginVisible) return null;
   if (!loaded) return null;
 
-  const subWidgets = [
-    MouseMovementKeys,
-    MouseButtonKeys,
-    MouseWheelKeys,
-    MouseWarpKeys,
-  ];
+  const subWidgets = [MouseMovementKeys, MouseButtonKeys, MouseWheelKeys, MouseWarpKeys];
   const widgets = subWidgets.map((Widget, index) => {
-    return (
-      <Widget
-        key={`mousekeys-group-${index}`}
-        onKeyChange={props.onKeyChange}
-        warpGridSize={gridSize}
-      />
-    );
+    return <Widget key={`mousekeys-group-${index}`} onKeyChange={props.onKeyChange} warpGridSize={gridSize} />;
   });
 
   return (
-    <Collapsible
-      title={t("editor.sidebar.mousekeys.title")}
-      help={t("editor.sidebar.mousekeys.help")}
-    >
+    <Collapsible title={t("editor.sidebar.mousekeys.title")} help={t("editor.sidebar.mousekeys.help")}>
       {widgets}
     </Collapsible>
   );

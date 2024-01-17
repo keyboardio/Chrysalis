@@ -49,11 +49,7 @@ export const ConnectionButton = (props) => {
         onClick={connectKeyboard}
         sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
-        {opening ? (
-          <CircularProgress color="secondary" size={16} />
-        ) : (
-          t("keyboardSelect.connect")
-        )}
+        {opening ? <CircularProgress color="secondary" size={16} /> : t("keyboardSelect.connect")}
       </Button>
     );
   }

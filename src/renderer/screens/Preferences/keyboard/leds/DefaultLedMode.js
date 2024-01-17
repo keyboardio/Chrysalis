@@ -48,10 +48,7 @@ const DefaultLedMode = (props) => {
 
   const onLedModeChange = async (event) => {
     const v = event.target.value;
-    const mode = Math.max(
-      minIndex,
-      Math.min(maxIndex, v == "" ? minIndex : parseInt(v))
-    );
+    const mode = Math.max(minIndex, Math.min(maxIndex, v == "" ? minIndex : parseInt(v)));
     await setLedModeDefault(mode);
     await onSaveChanges("led_mode.default", function () {
       activeDevice.led_mode_default(mode);

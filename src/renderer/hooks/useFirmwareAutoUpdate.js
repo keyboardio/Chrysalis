@@ -27,8 +27,7 @@ export const useFirmwareAutoUpdate = () => {
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
 
-  const [_, setFirmwareUpdateWarning] =
-    globalContext.state.firmwareUpdateWarning;
+  const [_, setFirmwareUpdateWarning] = globalContext.state.firmwareUpdateWarning;
   const [updateInfo, setUpdateInfo] = useState(null);
 
   useEffect(() => {
@@ -51,9 +50,7 @@ export const useFirmwareAutoUpdate = () => {
         updateInfo: info,
         label: "firmware-update",
       });
-      toast.success(
-        t("firmwareAutoUpdate.downloaded", { version: info.version })
-      );
+      toast.success(t("firmwareAutoUpdate.downloaded", { version: info.version }));
       setFirmwareUpdateWarning(false);
     };
     const onUpdateError = (event, error) => {
@@ -72,10 +69,7 @@ export const useFirmwareAutoUpdate = () => {
       setFirmwareUpdateWarning(true);
     };
 
-    ipcRenderer.invoke(
-      "firmware-update.check-for-updates",
-      settings.get("firmwareAutoUpdate.mode", "automatic")
-    );
+    ipcRenderer.invoke("firmware-update.check-for-updates", settings.get("firmwareAutoUpdate.mode", "automatic"));
 
     ipcRenderer.on("firmware-update.update-available", onUpdateAvailable);
     ipcRenderer.on("firmware-update.download-progress", onDownloadProgress);
@@ -84,18 +78,9 @@ export const useFirmwareAutoUpdate = () => {
     ipcRenderer.on("firmware-update.warning", onUpdateWarning);
 
     return function cleanup() {
-      ipcRenderer.removeListener(
-        "firmware-update.update-available",
-        onUpdateAvailable
-      );
-      ipcRenderer.removeListener(
-        "firmware-update.download-progress",
-        onDownloadProgress
-      );
-      ipcRenderer.removeListener(
-        "firmware-update.update-downloaded",
-        onUpdateDownloaded
-      );
+      ipcRenderer.removeListener("firmware-update.update-available", onUpdateAvailable);
+      ipcRenderer.removeListener("firmware-update.download-progress", onDownloadProgress);
+      ipcRenderer.removeListener("firmware-update.update-downloaded", onUpdateDownloaded);
       ipcRenderer.removeListener("firmware-update.error", onUpdateError);
       ipcRenderer.removeListener("firmware-update.warning", onUpdateWarning);
     };

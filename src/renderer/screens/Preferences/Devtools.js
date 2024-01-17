@@ -46,7 +46,6 @@ function DevtoolsPreferences(props) {
     return () => {};
   });
 
-
   const toggleChunked = (event) => {
     const chunked = event.target.checked;
     setChunked(chunked);
@@ -67,12 +66,7 @@ function DevtoolsPreferences(props) {
     <PreferenceSection name="devtools.main">
       <Divider sx={{ my: 2, mx: -2 }} />
       <Divider sx={{ my: 2, mx: -2 }} />
-      <PreferenceSwitch
-        loaded={loaded}
-        option="focus.chunked_writes"
-        checked={chunked}
-        onChange={toggleChunked}
-      />
+      <PreferenceSwitch loaded={loaded} option="focus.chunked_writes" checked={chunked} onChange={toggleChunked} />
     </PreferenceSection>
   );
 }

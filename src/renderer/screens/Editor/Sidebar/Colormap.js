@@ -56,22 +56,11 @@ const Colormap = (props) => {
   const color = colormap.palette[colorIndex];
 
   return (
-    <Collapsible
-      title={t("editor.sidebar.colors.title")}
-      help={t("editor.sidebar.colors.help")}
-    >
-      <PalettePicker
-        color={colorIndex}
-        colors={colormap.palette}
-        onClick={onPaletteSwatchChange}
-      />
+    <Collapsible title={t("editor.sidebar.colors.title")} help={t("editor.sidebar.colors.help")}>
+      <PalettePicker color={colorIndex} colors={colormap.palette} onClick={onPaletteSwatchChange} />
       <br />
       <Box sx={{ justifyContent: "center", display: "flex" }}>
-        <ChromePicker
-          color={color}
-          disableAlpha
-          onChangeComplete={colorChangeComplete}
-        />
+        <ChromePicker color={color} disableAlpha onChangeComplete={colorChangeComplete} />
       </Box>
     </Collapsible>
   );

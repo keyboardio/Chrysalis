@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 const context_bar_channel = new BroadcastChannel("context_bar");
 
 export const showContextBar = () => {

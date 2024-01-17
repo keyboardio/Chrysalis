@@ -51,8 +51,7 @@ const MacroStep = (props) => {
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
@@ -105,22 +104,14 @@ const MacroStep = (props) => {
       });
       return (format.hint ? format.hint + " " : "") + format.main;
     }
-    if (
-      [Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(
-        step.type
-      )
-    ) {
+    if ([Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(step.type)) {
       return t("editor.macros.steps." + step.type);
     }
     return t("editor.macros.steps.unknown");
   };
 
   const formatLabel = (step) => {
-    if (
-      [Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(
-        step.type
-      )
-    ) {
+    if ([Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(step.type)) {
       return t("editor.macros.steps.unsupported");
     }
     return t("editor.macros.steps." + step.type);

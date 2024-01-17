@@ -44,10 +44,7 @@ function getDeviceProtocol(vid, pid) {
       }
 
       // Check bootloader vid/pid
-      if (
-        device.usb.bootloader.vendorId === vid &&
-        device.usb.bootloader.productId === pid
-      ) {
+      if (device.usb.bootloader.vendorId === vid && device.usb.bootloader.productId === pid) {
         return device.usb.bootloader.protocol; // Returns 'avr109' or 'dfu' or any other bootloader protocol
       }
     }

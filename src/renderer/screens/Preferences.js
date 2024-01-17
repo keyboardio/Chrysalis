@@ -95,21 +95,9 @@ function Preferences(props) {
           bottom: 0,
         }}
       >
-        <Tab
-          label={t("preferences.interface")}
-          disabled={inContext}
-          {...a11yProps(0)}
-        />
-        <Tab
-          label={t("preferences.keyboard.title")}
-          {...a11yProps(1)}
-          disabled={!connected}
-        />
-        <Tab
-          label={t("preferences.devtools.main.label")}
-          disabled={inContext}
-          {...a11yProps(2)}
-        />
+        <Tab label={t("preferences.interface")} disabled={inContext} {...a11yProps(0)} />
+        <Tab label={t("preferences.keyboard.title")} {...a11yProps(1)} disabled={!connected} />
+        <Tab label={t("preferences.devtools.main.label")} disabled={inContext} {...a11yProps(2)} />
       </Tabs>
       <Box
         sx={{
@@ -122,10 +110,7 @@ function Preferences(props) {
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <MyKeyboardPreferences
-            setInContext={setInContext}
-            onDisconnect={props.onDisconnect}
-          />
+          <MyKeyboardPreferences setInContext={setInContext} onDisconnect={props.onDisconnect} />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <DevtoolsPreferences />

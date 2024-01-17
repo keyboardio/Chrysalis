@@ -144,7 +144,6 @@ const LayoutCard = (props) => {
     }
   }
 
-
   return (
     <React.Fragment>
       <PageTitle title={title} />

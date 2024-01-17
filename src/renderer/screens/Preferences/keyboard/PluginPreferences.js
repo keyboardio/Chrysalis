@@ -73,11 +73,7 @@ const PluginPreferences = (props) => {
     const key = `preferences.plugins.${name}`;
 
     return (
-      <PreferenceSection
-        name={`keyboard.plugins.${name}`}
-        loaded={loaded}
-        key={`${key}/${index}`}
-      >
+      <PreferenceSection name={`keyboard.plugins.${name}`} loaded={loaded} key={`${key}/${index}`}>
         <Component onSaveChanges={onSaveChanges} plugins={plugins} />
       </PreferenceSection>
     );

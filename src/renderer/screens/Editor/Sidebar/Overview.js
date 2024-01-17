@@ -51,7 +51,6 @@ const LayerNameInput = (props) => {
 };
 
 const Overview = (props) => {
-  const [showAll, setShowAll] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const { t } = useTranslation();
@@ -77,10 +76,6 @@ const Overview = (props) => {
     return lastUsedLayer;
   };
 
-  const toggleAllLayers = () => {
-    setShowAll(!showAll);
-  };
-
   if (props.macroEditorOpen) return null;
 
   const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
@@ -89,12 +84,7 @@ const Overview = (props) => {
   const lastUsedLayer = findLastUsedLayer();
   let usedLayers;
 
-  if (showAll) {
-    usedLayers = keymap.custom;
-  } else {
-    usedLayers = keymap.custom.slice(0, lastUsedLayer + 1);
-  }
-
+  usedLayers = keymap.custom;
   const config = usedLayers.map((layerData, index) => {
     const label = db.format(layerData[selectedKey], {
       keycapSize: "full",
@@ -140,16 +130,6 @@ const Overview = (props) => {
     );
   });
 
-  const emptyLayers = lastUsedLayer + 1 < keymap.custom.length && (
-    <TableRow>
-      <TableCell colSpan={colormap && colormap.palette.length > 0 ? 3 : 2} align="right">
-        <Button onClick={() => setShowAll(!showAll)}>
-          {showAll ? t("editor.sidebar.overview.hideEmptyLayers") : t("editor.sidebar.overview.showEmptyLayers")}
-        </Button>
-      </TableCell>
-    </TableRow>
-  );
-
   const layerCopyPaste = (
     <TableRow>
       <TableCell
@@ -187,10 +167,7 @@ const Overview = (props) => {
             </TableHead>
           </Tooltip>
           <TableBody>{config}</TableBody>
-          <TableFooter>
-            {layerCopyPaste}
-            {emptyLayers}
-          </TableFooter>
+          <TableFooter>{layerCopyPaste}</TableFooter>
         </Table>
       </TableContainer>
       <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">

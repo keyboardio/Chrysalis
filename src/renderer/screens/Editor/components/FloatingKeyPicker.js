@@ -139,7 +139,7 @@ export const FloatingKeyPicker = (props) => {
         zIndex: theme.zIndex.appBar - 50,
         backgroundColor: theme.palette.background.paper,
       }}
-      minWidth={400}
+      minWidth={350}
       lockAspectRatio={true}
       bounds="window"
     >

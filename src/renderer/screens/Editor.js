@@ -36,6 +36,7 @@ import { MacroStorageAlert } from "./components/MacroStorageAlert";
 import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import MacroEditor from "./Macros/MacroEditor";
+import Overview from "./Sidebar/Overview";
 
 const db = new KeymapDB();
 
@@ -466,9 +467,43 @@ const Editor = (props) => {
 
       {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
       {macros && <MacroStorageAlert macros={macros} />}
-      <Box component="main" sx={{ marginLeft: 20, marginRight: 20 }}>
+      <Box component="main" sx={{ marginLeft: 20, marginRight: 50 }}>
         {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}
         {mainWidget}
+      </Box>
+      <Box
+        sx={{
+          position: "fixed",
+          top: 60, // Adjust for title bar or safe area
+          right: 5,
+          width: 250,
+          height: "auto",
+          zIndex: 1300, // Adjust the zIndex if necessary to bring the component above other elements
+        }}
+      >
+        <Overview
+          macroEditorOpen={openMacroEditor}
+          macros={macros}
+          keymap={keymap}
+          colormap={colormap}
+          selectedKey={currentKeyIndex}
+          selectedLed={currentLedIndex}
+          layer={currentLayer}
+          setLayer={onLayerChange}
+          copyLayer={copyLayer}
+          hasCopiedLayer={hasCopiedLayer}
+          pasteLayer={pasteLayer}
+          layerNames={layerNames}
+          setLayerName={setLayerName}
+          onKeyChange={onKeyChange}
+          onKeymapChange={onKeymapChange}
+          onColormapChange={onColormapChange}
+          onPaletteChange={onPaletteChange}
+          onColormapAndPaletteChange={onColormapAndPaletteChange}
+          onLedChange={onLedChange}
+          setOpenMacroEditor={maybeOpenMacroEditor}
+          currentKey={currentKey}
+        />
       </Box>
       <FloatingKeyPicker
         macroEditorOpen={openMacroEditor}

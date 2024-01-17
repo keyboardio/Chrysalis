@@ -1,425 +1,425 @@
 {
-    "breakingNews": {
-        "firmware0_90_1": {
-            "button": "Instructions de mise à jour"
+  "breakingNews": {
+    "firmware0_90_1": {
+      "button": "Instructions de mise à jour"
+    }
+  },
+  "sanity-check": {
+    "download-latest": "Télécharger la version officielle",
+    "header": "Échec de la vérification de l'environnement"
+  },
+  "language": "Anglais",
+  "errors": {
+    "deviceDisconnected": "Clavier déconnecté",
+    "saveFile": "Erreur lors de l'enregistrement du fichier : {{ error }}"
+  },
+  "keyboardSelect": {
+    "noUdev": "Chrysalis nécessite udev pour pouvoir rechercher des appareils, mais il semble que cela n'est pas disponible.",
+    "connect": "Connecter",
+    "noDevices": "Aucun clavier trouvé.",
+    "permissionErrorSuggestion": "Chrysalis peut corriger ceci en ajouter un fichier de règles udev dans /etc/udev/rules.d/.",
+    "disconnect": "Déconnecter",
+    "installUdevRules": "Corriger",
+    "permissionError": "Votre ordinateur n'autorise pas Chrysalis à communiquer avec votre clavier (Vous n'avez pas la permission de lecture/écriture sur {{path}})",
+    "unknown": "Inconnu"
+  },
+  "firmwareUpdate": {
+    "flashing": {
+      "steps": {
+        "bootloader": "Entrée en mode programmable",
+        "reconnect": "Reconnexion",
+        "reboot": "Redémarrage",
+        "flash": "Installation",
+        "factoryRestore": "Restauration des paramètres d'usine"
+      },
+      "notifications": {
+        "enter": {
+          "stillApplication": "Le clavier n'est pas en mode programmable. Veillez à bien suivre les instructions ci-dessous.",
+          "notFound": "Impossible de trouver le clavier. Veuillez signaler le problème."
+        },
+        "unknownMessage": "Message inconnu reçu au cours de l'installation : {{ message }}",
+        "title": "Une problème est survenu lors de l'installation",
+        "reconnect": {
+          "notFound": "Impossible de trouver le clavier. Veuillez signaler le problème.",
+          "stillBootloader": "Le clavier est encore en mode programmable. Veuillez relâcher toutes les touches."
         }
+      },
+      "error": "Erreur lors de l'installation du micrologiciel",
+      "success": "Le micrologiciel a bien été installé !",
+      "anywayButton": "Mettre à jour quand même",
+      "button": "Mettre à jour",
+      "cancelAndDisconnectButton": "Annuler et déconnecter"
     },
-    "sanity-check": {
-        "download-latest": "Télécharger la version officielle",
-        "header": "Échec de la vérification de l'environnement"
+    "confirmDialog": {
+      "description": "L'installation d'un nouveau micrologiciel remplacera le micrologiciel existant sur l'appareil. Une fois le nouveau micrologiciel installé, Chrysalis vous ramènera à l'écran de sélection du clavier.",
+      "title": "Voulez-vous vraiment effectuer la mise à jour ?"
     },
-    "language": "Anglais",
-    "errors": {
-        "deviceDisconnected": "Clavier déconnecté",
-        "saveFile": "Erreur lors de l'enregistrement du fichier : {{ error }}"
-    },
-    "keyboardSelect": {
-        "noUdev": "Chrysalis nécessite udev pour pouvoir rechercher des appareils, mais il semble que cela n'est pas disponible.",
-        "connect": "Connecter",
-        "noDevices": "Aucun clavier trouvé.",
-        "permissionErrorSuggestion": "Chrysalis peut corriger ceci en ajouter un fichier de règles udev dans /etc/udev/rules.d/.",
-        "disconnect": "Déconnecter",
-        "installUdevRules": "Corriger",
-        "permissionError": "Votre ordinateur n'autorise pas Chrysalis à communiquer avec votre clavier (Vous n'avez pas la permission de lecture/écriture sur {{path}})",
-        "unknown": "Inconnu"
-    },
-    "firmwareUpdate": {
-        "flashing": {
-            "steps": {
-                "bootloader": "Entrée en mode programmable",
-                "reconnect": "Reconnexion",
-                "reboot": "Redémarrage",
-                "flash": "Installation",
-                "factoryRestore": "Restauration des paramètres d'usine"
-            },
-            "notifications": {
-                "enter": {
-                    "stillApplication": "Le clavier n'est pas en mode programmable. Veillez à bien suivre les instructions ci-dessous.",
-                    "notFound": "Impossible de trouver le clavier. Veuillez signaler le problème."
-                },
-                "unknownMessage": "Message inconnu reçu au cours de l'installation : {{ message }}",
-                "title": "Une problème est survenu lors de l'installation",
-                "reconnect": {
-                    "notFound": "Impossible de trouver le clavier. Veuillez signaler le problème.",
-                    "stillBootloader": "Le clavier est encore en mode programmable. Veuillez relâcher toutes les touches."
-                }
-            },
-            "error": "Erreur lors de l'installation du micrologiciel",
-            "success": "Le micrologiciel a bien été installé !",
-            "anywayButton": "Mettre à jour quand même",
-            "button": "Mettre à jour",
-            "cancelAndDisconnectButton": "Annuler et déconnecter"
-        },
-        "confirmDialog": {
-            "description": "L'installation d'un nouveau micrologiciel remplacera le micrologiciel existant sur l'appareil. Une fois le nouveau micrologiciel installé, Chrysalis vous ramènera à l'écran de sélection du clavier.",
-            "title": "Voulez-vous vraiment effectuer la mise à jour ?"
-        },
-        "customFirmwareLinkText": "En savoir plus sur la compilation du micrologiciel",
-        "factoryConfirmDialog": {
-            "contents": "Cette opération remplacera le micrologiciel de l'appareil et réinitialisera tous les paramètres aux valeurs d'usine. Vous perdrez toutes les personnalisations effectuées. Une fois le nouveau micrologiciel installé, Chrysalis vous ramènera à l'écran de sélection du clavier.",
-            "title": "Remplacer le micrologiciel et réinitialiser aux valeurs d'usine ?"
-        },
-        "dialog": {
-            "firmwareFiles": "Fichiers de micrologiciel",
-            "allFiles": "Tous les fichiers",
-            "selectFirmware": "Sélectionner un micrologiciel"
-        },
-        "firmwareVersion": "{{version}}",
-        "factoryResetTitle": "Réinitialisation",
-        "firmwareSources": "Code source",
-        "factoryResetDescription": "Effacez tout ce qui se trouve sur votre clavier et rétablissez les paramètres d'usine.",
-        "currentFirmwareVersion": "Version actuelle du micrologiciel",
-        "factoryResetWarning": "Sélectionnez cette option ne sauvegardera pas votre disposition ni vos paramètres actuels.",
-        "custom": "Micrologiciel personnalisé",
-        "yourFirmware": "Mettez à jour le micrologiciel de votre clavier",
-        "customChooseFile": "Sélectionner un fichier…",
-        "defaultFirmwareDescription": "Dernière version pour votre clavier",
-        "currentFirmwareVersionUnavailable": "Version du micrologiciel indisponible",
-        "customFirmwareExplanation": "Vous pouvez installer un micrologiciel compilé téléchargé ou compilé localement.",
-        "firmwareChangelog": {
-            "view": "Quoi de neuf dans la version {{version}} ?",
-            "title": "Notes de version du micrologiciel"
-        },
-        "calloutTitle": "Important !",
-        "chooseFirmware": "Mettre à jour le micrologiciel"
+    "customFirmwareLinkText": "En savoir plus sur la compilation du micrologiciel",
+    "factoryConfirmDialog": {
+      "contents": "Cette opération remplacera le micrologiciel de l'appareil et réinitialisera tous les paramètres aux valeurs d'usine. Vous perdrez toutes les personnalisations effectuées. Une fois le nouveau micrologiciel installé, Chrysalis vous ramènera à l'écran de sélection du clavier.",
+      "title": "Remplacer le micrologiciel et réinitialiser aux valeurs d'usine ?"
     },
     "dialog": {
-        "continue": "Continuer",
-        "close": "Fermer",
-        "cancel": "Annuler",
-        "ok": "OK"
+      "firmwareFiles": "Fichiers de micrologiciel",
+      "allFiles": "Tous les fichiers",
+      "selectFirmware": "Sélectionner un micrologiciel"
     },
-    "app": {
-        "actionRequired": "Action requise",
-        "menu": {
-            "selectAKeyboard": "Sélectionner un clavier",
-            "preferences": "Préférences",
-            "chat": "Conversation Discord",
-            "exit": "Quitter",
-            "miscSection": "Divers",
-            "focus-not-detected": "Bienvenue",
-            "chrysalisSection": "Chrysalis",
-            "restart": "Appliquer la mise à jour et relancer",
-            "changelog": "Notes de version",
-            "systemInfo": "Signaler un problème",
-            "firmwareUpdate": "Mise à jour du micrologiciel",
-            "selectAnotherKeyboard": "Sélectionner un autre clavier",
-            "layoutEditor": "Éditeur de disposition",
-            "keyboardSection": "Clavier"
+    "firmwareVersion": "{{version}}",
+    "factoryResetTitle": "Réinitialisation",
+    "firmwareSources": "Code source",
+    "factoryResetDescription": "Effacez tout ce qui se trouve sur votre clavier et rétablissez les paramètres d'usine.",
+    "currentFirmwareVersion": "Version actuelle du micrologiciel",
+    "factoryResetWarning": "Sélectionnez cette option ne sauvegardera pas votre disposition ni vos paramètres actuels.",
+    "custom": "Micrologiciel personnalisé",
+    "yourFirmware": "Mettez à jour le micrologiciel de votre clavier",
+    "customChooseFile": "Sélectionner un fichier…",
+    "defaultFirmwareDescription": "Dernière version pour votre clavier",
+    "currentFirmwareVersionUnavailable": "Version du micrologiciel indisponible",
+    "customFirmwareExplanation": "Vous pouvez installer un micrologiciel compilé téléchargé ou compilé localement.",
+    "firmwareChangelog": {
+      "view": "Quoi de neuf dans la version {{version}} ?",
+      "title": "Notes de version du micrologiciel"
+    },
+    "calloutTitle": "Important !",
+    "chooseFirmware": "Mettre à jour le micrologiciel"
+  },
+  "dialog": {
+    "continue": "Continuer",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "ok": "OK"
+  },
+  "app": {
+    "actionRequired": "Action requise",
+    "menu": {
+      "selectAKeyboard": "Sélectionner un clavier",
+      "preferences": "Préférences",
+      "chat": "Conversation Discord",
+      "exit": "Quitter",
+      "miscSection": "Divers",
+      "focus-not-detected": "Bienvenue",
+      "chrysalisSection": "Chrysalis",
+      "restart": "Appliquer la mise à jour et relancer",
+      "changelog": "Notes de version",
+      "systemInfo": "Signaler un problème",
+      "firmwareUpdate": "Mise à jour du micrologiciel",
+      "selectAnotherKeyboard": "Sélectionner un autre clavier",
+      "layoutEditor": "Éditeur de disposition",
+      "keyboardSection": "Clavier"
+    },
+    "cancelPending": {
+      "content": "Vous avez des modifications non sauvegardées. Si vous continuez, elles seront perdues.",
+      "title": "Annuler les modifications en attente ?"
+    },
+    "deviceMenu": {
+      "Chat": "Tchat",
+      "Forum": "Forum",
+      "Homepage": "Page d'accueil"
+    }
+  },
+  "autoUpdate": {
+    "error": "Erreur lors de la mise à jour : {{ error }}",
+    "downloaded": "Version {{ version }} téléchargée, relancez Chrysalis pour terminer l'installation",
+    "available": "Nouvelle version disponible : {{ version }}"
+  },
+  "editor": {
+    "sidebar": {
+      "mousekeys": {
+        "title": "Contrôle de la souris",
+        "wheel": "Molette",
+        "help": "Émulez une souris en utilisant les touches de votre clavier.",
+        "movement": "Mouvement",
+        "buttons": "Boutons"
+      },
+      "overview": {
+        "sharing": "Sauvegarde et restauration",
+        "pasteLayer": "Coller le calque",
+        "help": "Un aperçu des associations de la touche actuellement sélectionnée. Pour modifier le calque affiché, cliquez sur sa ligne.",
+        "key": "Touche #{{index}}",
+        "showEmptyLayers": "Afficher les calques vides…",
+        "copyLayer": "Copier le calque",
+        "color": "Couleur",
+        "hideEmptyLayers": "Masquer les calques vides…"
+      },
+      "consumer": {
+        "volume": "Volume",
+        "brightness": "Luminosité",
+        "media": "Contrôle des médias"
+      },
+      "language_intl": {
+        "help": "Touches additionnelles spécifiques à une langue.",
+        "title": "Langue"
+      },
+      "ledcontrol": {
+        "title": "Contrôle des LED",
+        "help": "Contrôlez le thème et les effets des LED de votre clavier."
+      },
+      "keypicker": {
+        "topsyturvy": {
+          "label": "Inverser Maj",
+          "tooltip": "Inverse le comportement de la touche Maj (Par exemple, envoyer « A » par défaut et « a » si enfoncée)"
         },
-        "cancelPending": {
-            "content": "Vous avez des modifications non sauvegardées. Si vous continuez, elles seront perdues.",
-            "title": "Annuler les modifications en attente ?"
-        },
-        "deviceMenu": {
-            "Chat": "Tchat",
-            "Forum": "Forum",
-            "Homepage": "Page d'accueil"
+        "mods": "Déclencheurs",
+        "modsHelp": "Sélectionnez les touche de déclencheur qui sont automatiquement activées lorsque vous appuyez sur cette touche."
+      },
+      "secondary": {
+        "targetLayer": "Calque",
+        "title": "Action secondaire",
+        "modifier": "Déclencheur",
+        "type": {
+          "none": "Pas d'action secondaire",
+          "modifier": "Déclencheur"
         }
+      },
+      "layer": {
+        "help": "Touches qui vous permettent de changer de calque.",
+        "title": "Calques et associations"
+      },
+      "custom": {
+        "title": "Code de touche personnalisé",
+        "label": "Code de touche personnalisé",
+        "help": "Vous permet d'assigner un code de touche personnalisé à une touche, ou bien un code actuellement non reconnu par Chrysalis."
+      },
+      "colors": {
+        "help": "Assignez une couleur à la touche sélectionnée en cliquant sur l'un des carrés de la palette ci-dessous. Pour modifier la couleur d'une entrée de la palette, utilisez le sélecteur de couleur.",
+        "title": "Couleurs"
+      },
+      "platform_apple": {
+        "title": "Touches Mac / iPad",
+        "help": "Codes de touche spécifiques aux appareils Apple."
+      },
+      "dynmacros": {
+        "usage_overview": {
+          "usage": "{{ used }}/{{ size }}",
+          "bytes": "octets"
+        }
+      },
+      "blanks": {
+        "help": "Touches bloquées et transparentes.",
+        "title": "Espaces"
+      }
+    },
+    "macros": {
+      "steps": {
+        "KEYUP": "Relâcher la touche",
+        "unsupported": "Non pris en charge",
+        "in_ms": "ms",
+        "unknown": "<inconnu>",
+        "KEYDOWN": "Maintenir la touche",
+        "time_ms": "{{ value }}ms"
+      },
+      "edit": "Modifier la macro",
+      "title": "Macro #{{ index }}",
+      "out_of_space": "Les macros dynamique occupent trop d'espace, veuillez libérer {{ overflow }} octets."
+    },
+    "sharing": {
+      "loadFromLibrary": "Charger depuis la bibliothèque",
+      "importConfirm": {
+        "title": "Importer la disposition sélectionnée ?",
+        "contents": "Cela écrasera votre disposition actuelle, et toute modification non sauvegardée sera perdue. Voulez-vous vraiment continuer ?"
+      },
+      "errors": {
+        "unableToLoad": "Impossible de charger une disposition depuis le fichier sélectionné.",
+        "invalidLayoutData": "Le fichier ne contient pas de données de disposition valides.",
+        "parseFail": "Échec de l'analyse des données de la disposition."
+      },
+      "loadFromFile": "Charger depuis un fichier…",
+      "title": "Sauvegarde et restauration",
+      "exportToFile": "Exporter vers un fichier…",
+      "dialog": {
+        "layoutFiles": "Fichiers de disposition",
+        "allFiles": "Tous les fichiers"
+      },
+      "selectExportFile": "Sélectionner un fichier vers lequel exporter la disposition",
+      "loadFromBackup": "Charger depuis les sauvegardes",
+      "import": "Importer",
+      "selectLoadFile": "Sélectionner un fichier depuis lequel charger la disposition"
+    },
+    "onlyCustom": {
+      "openFR": "Demander une nouvelle fonctionnalité"
+    },
+    "legacy": {
+      "warning": "Nous avons trouvé d'anciennes touches dans le schéma des touches qui ne sont plus valides. Pour migrer vers les nouveaux codes, veuillez cliquer sur le bouton Migrer.",
+      "migrate": "Migrer"
+    },
+    "layerswitch": {
+      "target": "Calque"
+    },
+    "layernames": {
+      "out_of_space": "Le nom de votre calque est trop long de {{ overflow }} octets pour être enregistré dans votre clavier."
+    }
+  },
+  "preferences": {
+    "keyboard": {
+      "led": {
+        "idle": {
+          "twentyMinutes": "20 minutes",
+          "label": "Délai avant que les LED ne s'éteignent",
+          "oneMinute": "1 minute",
+          "help": "Sauf si désactivé, les LED s'éteindront après le délai configuré.",
+          "thirtyMinutes": "30 minutes",
+          "fourMinutes": "4 minutes",
+          "disabled": "Désactivé",
+          "fiveMinutes": "5 minutes",
+          "tenMinutes": "10 minutes",
+          "threeMinutes": "3 minutes",
+          "twoMinutes": "2 minutes",
+          "fifteenMinutes": "15 minutes",
+          "sixtyMinutes": "60 minutes"
+        },
+        "brightness": {
+          "help": "Ajustez la luminosité des LED sur le clavier.",
+          "label": "Luminosité des LED"
+        },
+        "label": "LED",
+        "default": {
+          "label": "Mode par défaut des LED",
+          "help": "Sélectionnez le mode des LED avec lequel le clavier doit être configuré par défaut."
+        }
+      },
+      "plugins": {
+        "spacecadet": {
+          "mode": {
+            "enabled": "Activé",
+            "disabled": "Désactivé",
+            "enabled_without_delay": "Activé (sans délai)"
+          },
+          "timeout": {
+            "label": "Délai"
+          }
+        },
+        "mousekeys": {
+          "warp_grid_size": {
+            "3x3": "3x3",
+            "2x2": "2x2"
+          },
+          "scroll_interval": {
+            "label": "Vitesse de défilement",
+            "help": "Délai entre les événements de défilement. Plus le délai est élevé, plus le défilement est lent."
+          },
+          "init_speed": {
+            "label": "Vitesse initiale du curseur de la souris",
+            "help": "Plus la valeur est élevée, plus la vitesse initiale du curseur de la souris est élevée."
+          }
+        },
+        "oneshot": {
+          "hold_timeout": {
+            "label": "Délai de maintien"
+          },
+          "timeout": {
+            "label": "Délai"
+          },
+          "stickyness": {
+            "disable": "Rien"
+          }
+        },
+        "label": "Extensions"
+      },
+      "advanced": {
+        "description": "Ce sont des outils dangereux, assurez-vous de savoir ce qu'il font avant de les utiliser.",
+        "label": "Outils avancés"
+      },
+      "title": "Mon clavier",
+      "defaultLayer": {
+        "label": "Calque par défaut",
+        "help": "Le calque par défaut avec lequel sera configuré le clavier.",
+        "noDefault": "Aucun par défaut"
+      },
+      "layers": {
+        "label": "Calques"
+      }
+    },
+    "ui": {
+      "language": {
+        "label": "Langue",
+        "help": "Sélectionner la langue de Chrysalis"
+      },
+      "lookNFeel": {
+        "label": "Apparence"
+      },
+      "theme": {
+        "dark": "Sombre",
+        "label": "Thème",
+        "system": "Système",
+        "light": "Clair"
+      },
+      "coloredLayoutCards": {
+        "help": "Si activé, les cartes de disposition n'afficheront pas uniquement le nom des touches, mais également les couleurs.",
+        "label": "Activer les couleurs sur les cartes de disposition"
+      },
+      "layoutCards": {
+        "label": "Cartes de disposition"
+      },
+      "host": {
+        "help": "Sélectionnez la disposition de touches que vous utilisez sur votre ordinateur",
+        "label": "Disposition du clavier"
+      },
+      "hideUnavailableFeatures": {
+        "help": "Si activé, Chrysalis n'affichera par les options de configuration pour les fonctionnalités que le micrologiciel de votre clavier ne prend pas en charge.",
+        "label": "Masquer les fonctionnalités non prises en charge par la version actuelle du micrologiciel de votre clavier"
+      },
+      "layoutEditor": {
+        "label": "Éditeur de disposition"
+      },
+      "oneLayerPerPage": {
+        "label": "Afficher un calque par page"
+      }
+    },
+    "devtools": {
+      "main": {
+        "label": "Outils de développement"
+      },
+      "console": {
+        "label": "Ouvrir la console de développement"
+      }
     },
     "autoUpdate": {
-        "error": "Erreur lors de la mise à jour : {{ error }}",
-        "downloaded": "Version {{ version }} téléchargée, relancez Chrysalis pour terminer l'installation",
-        "available": "Nouvelle version disponible : {{ version }}"
+      "mode": {
+        "label": "Télécharger automatiquement les nouvelles versions de Chrysalis",
+        "help": "Si activé, Chrysalis vérifieras les mises à jour au lancement et téléchargera automatiquement les nouvelles versions."
+      },
+      "label": "Mises à jour automatiques",
+      "firmwareMode": {
+        "help": "Si activé, Chrysalis vérifiera les mises à jour du micrologiciel au lancement, et téléchargera automatiquement les nouvelles versions.",
+        "label": "Télécharger automatiquement les nouvelles versions du micrologiciel"
+      }
     },
-    "editor": {
-        "sidebar": {
-            "mousekeys": {
-                "title": "Contrôle de la souris",
-                "wheel": "Molette",
-                "help": "Émulez une souris en utilisant les touches de votre clavier.",
-                "movement": "Mouvement",
-                "buttons": "Boutons"
-            },
-            "overview": {
-                "sharing": "Sauvegarde et restauration",
-                "pasteLayer": "Coller le calque",
-                "help": "Un aperçu des associations de la touche actuellement sélectionnée. Pour modifier le calque affiché, cliquez sur sa ligne.",
-                "key": "Touche #{{index}}",
-                "showEmptyLayers": "Afficher les calques vides…",
-                "copyLayer": "Copier le calque",
-                "color": "Couleur",
-                "hideEmptyLayers": "Masquer les calques vides…"
-            },
-            "consumer": {
-                "volume": "Volume",
-                "brightness": "Luminosité",
-                "media": "Contrôle des médias"
-            },
-            "language_intl": {
-                "help": "Touches additionnelles spécifiques à une langue.",
-                "title": "Langue"
-            },
-            "ledcontrol": {
-                "title": "Contrôle des LED",
-                "help": "Contrôlez le thème et les effets des LED de votre clavier."
-            },
-            "keypicker": {
-                "topsyturvy": {
-                    "label": "Inverser Maj",
-                    "tooltip": "Inverse le comportement de la touche Maj (Par exemple, envoyer « A » par défaut et « a » si enfoncée)"
-                },
-                "mods": "Déclencheurs",
-                "modsHelp": "Sélectionnez les touche de déclencheur qui sont automatiquement activées lorsque vous appuyez sur cette touche."
-            },
-            "secondary": {
-                "targetLayer": "Calque",
-                "title": "Action secondaire",
-                "modifier": "Déclencheur",
-                "type": {
-                    "none": "Pas d'action secondaire",
-                    "modifier": "Déclencheur"
-                }
-            },
-            "layer": {
-                "help": "Touches qui vous permettent de changer de calque.",
-                "title": "Calques et associations"
-            },
-            "custom": {
-                "title": "Code de touche personnalisé",
-                "label": "Code de touche personnalisé",
-                "help": "Vous permet d'assigner un code de touche personnalisé à une touche, ou bien un code actuellement non reconnu par Chrysalis."
-            },
-            "colors": {
-                "help": "Assignez une couleur à la touche sélectionnée en cliquant sur l'un des carrés de la palette ci-dessous. Pour modifier la couleur d'une entrée de la palette, utilisez le sélecteur de couleur.",
-                "title": "Couleurs"
-            },
-            "platform_apple": {
-                "title": "Touches Mac / iPad",
-                "help": "Codes de touche spécifiques aux appareils Apple."
-            },
-            "dynmacros": {
-                "usage_overview": {
-                    "usage": "{{ used }}/{{ size }}",
-                    "bytes": "octets"
-                }
-            },
-            "blanks": {
-                "help": "Touches bloquées et transparentes.",
-                "title": "Espaces"
-            }
-        },
-        "macros": {
-            "steps": {
-                "KEYUP": "Relâcher la touche",
-                "unsupported": "Non pris en charge",
-                "in_ms": "ms",
-                "unknown": "<inconnu>",
-                "KEYDOWN": "Maintenir la touche",
-                "time_ms": "{{ value }}ms"
-            },
-            "edit": "Modifier la macro",
-            "title": "Macro #{{ index }}",
-            "out_of_space": "Les macros dynamique occupent trop d'espace, veuillez libérer {{ overflow }} octets."
-        },
-        "sharing": {
-            "loadFromLibrary": "Charger depuis la bibliothèque",
-            "importConfirm": {
-                "title": "Importer la disposition sélectionnée ?",
-                "contents": "Cela écrasera votre disposition actuelle, et toute modification non sauvegardée sera perdue. Voulez-vous vraiment continuer ?"
-            },
-            "errors": {
-                "unableToLoad": "Impossible de charger une disposition depuis le fichier sélectionné.",
-                "invalidLayoutData": "Le fichier ne contient pas de données de disposition valides.",
-                "parseFail": "Échec de l'analyse des données de la disposition."
-            },
-            "loadFromFile": "Charger depuis un fichier…",
-            "title": "Sauvegarde et restauration",
-            "exportToFile": "Exporter vers un fichier…",
-            "dialog": {
-                "layoutFiles": "Fichiers de disposition",
-                "allFiles": "Tous les fichiers"
-            },
-            "selectExportFile": "Sélectionner un fichier vers lequel exporter la disposition",
-            "loadFromBackup": "Charger depuis les sauvegardes",
-            "import": "Importer",
-            "selectLoadFile": "Sélectionner un fichier depuis lequel charger la disposition"
-        },
-        "onlyCustom": {
-            "openFR": "Demander une nouvelle fonctionnalité"
-        },
-        "legacy": {
-            "warning": "Nous avons trouvé d'anciennes touches dans le schéma des touches qui ne sont plus valides. Pour migrer vers les nouveaux codes, veuillez cliquer sur le bouton Migrer.",
-            "migrate": "Migrer"
-        },
-        "layerswitch": {
-            "target": "Calque"
-        },
-        "layernames": {
-            "out_of_space": "Le nom de votre calque est trop long de {{ overflow }} octets pour être enregistré dans votre clavier."
-        }
-    },
-    "preferences": {
-        "keyboard": {
-            "led": {
-                "idle": {
-                    "twentyMinutes": "20 minutes",
-                    "label": "Délai avant que les LED ne s'éteignent",
-                    "oneMinute": "1 minute",
-                    "help": "Sauf si désactivé, les LED s'éteindront après le délai configuré.",
-                    "thirtyMinutes": "30 minutes",
-                    "fourMinutes": "4 minutes",
-                    "disabled": "Désactivé",
-                    "fiveMinutes": "5 minutes",
-                    "tenMinutes": "10 minutes",
-                    "threeMinutes": "3 minutes",
-                    "twoMinutes": "2 minutes",
-                    "fifteenMinutes": "15 minutes",
-                    "sixtyMinutes": "60 minutes"
-                },
-                "brightness": {
-                    "help": "Ajustez la luminosité des LED sur le clavier.",
-                    "label": "Luminosité des LED"
-                },
-                "label": "LED",
-                "default": {
-                    "label": "Mode par défaut des LED",
-                    "help": "Sélectionnez le mode des LED avec lequel le clavier doit être configuré par défaut."
-                }
-            },
-            "plugins": {
-                "spacecadet": {
-                    "mode": {
-                        "enabled": "Activé",
-                        "disabled": "Désactivé",
-                        "enabled_without_delay": "Activé (sans délai)"
-                    },
-                    "timeout": {
-                        "label": "Délai"
-                    }
-                },
-                "mousekeys": {
-                    "warp_grid_size": {
-                        "3x3": "3x3",
-                        "2x2": "2x2"
-                    },
-                    "scroll_interval": {
-                        "label": "Vitesse de défilement",
-                        "help": "Délai entre les événements de défilement. Plus le délai est élevé, plus le défilement est lent."
-                    },
-                    "init_speed": {
-                        "label": "Vitesse initiale du curseur de la souris",
-                        "help": "Plus la valeur est élevée, plus la vitesse initiale du curseur de la souris est élevée."
-                    }
-                },
-                "oneshot": {
-                    "hold_timeout": {
-                        "label": "Délai de maintien"
-                    },
-                    "timeout": {
-                        "label": "Délai"
-                    },
-                    "stickyness": {
-                        "disable": "Rien"
-                    }
-                },
-                "label": "Extensions"
-            },
-            "advanced": {
-                "description": "Ce sont des outils dangereux, assurez-vous de savoir ce qu'il font avant de les utiliser.",
-                "label": "Outils avancés"
-            },
-            "title": "Mon clavier",
-            "defaultLayer": {
-                "label": "Calque par défaut",
-                "help": "Le calque par défaut avec lequel sera configuré le clavier.",
-                "noDefault": "Aucun par défaut"
-            },
-            "layers": {
-                "label": "Calques"
-            }
-        },
-        "ui": {
-            "language": {
-                "label": "Langue",
-                "help": "Sélectionner la langue de Chrysalis"
-            },
-            "lookNFeel": {
-                "label": "Apparence"
-            },
-            "theme": {
-                "dark": "Sombre",
-                "label": "Thème",
-                "system": "Système",
-                "light": "Clair"
-            },
-            "coloredLayoutCards": {
-                "help": "Si activé, les cartes de disposition n'afficheront pas uniquement le nom des touches, mais également les couleurs.",
-                "label": "Activer les couleurs sur les cartes de disposition"
-            },
-            "layoutCards": {
-                "label": "Cartes de disposition"
-            },
-            "host": {
-                "help": "Sélectionnez la disposition de touches que vous utilisez sur votre ordinateur",
-                "label": "Disposition du clavier"
-            },
-            "hideUnavailableFeatures": {
-                "help": "Si activé, Chrysalis n'affichera par les options de configuration pour les fonctionnalités que le micrologiciel de votre clavier ne prend pas en charge.",
-                "label": "Masquer les fonctionnalités non prises en charge par la version actuelle du micrologiciel de votre clavier"
-            },
-            "layoutEditor": {
-                "label": "Éditeur de disposition"
-            },
-            "oneLayerPerPage": {
-                "label": "Afficher un calque par page"
-            }
-        },
-        "devtools": {
-            "main": {
-                "label": "Outils de développement"
-            },
-            "console": {
-                "label": "Ouvrir la console de développement"
-            }
-        },
-        "autoUpdate": {
-            "mode": {
-                "label": "Télécharger automatiquement les nouvelles versions de Chrysalis",
-                "help": "Si activé, Chrysalis vérifieras les mises à jour au lancement et téléchargera automatiquement les nouvelles versions."
-            },
-            "label": "Mises à jour automatiques",
-            "firmwareMode": {
-                "help": "Si activé, Chrysalis vérifiera les mises à jour du micrologiciel au lancement, et téléchargera automatiquement les nouvelles versions.",
-                "label": "Télécharger automatiquement les nouvelles versions du micrologiciel"
-            }
-        },
-        "interface": "Interface utilisateur",
-        "focus": {
-            "chunked_writes": {
-                "label": "Envoyer les données par petits paquets"
-            }
-        }
-    },
-    "firmwareAutoUpdate": {
-        "warning": "Chrysalis n'a pas trouvé de nouvelle version du micrologiciel. Une version plus récente est peut-être disponible en ligne.",
-        "downloaded": "Version {{ version }} du micrologiciel téléchargée et disponible pour l'installation",
-        "available": "Nouvelle version du micrologiciel disponible : {{ version }}",
-        "error": "Erreur lors du téléchargement de la nouvelle version du micrologiciel."
-    },
-    "focus-not-detected": {
-        "reconnect": "Reconnecter",
-        "contents": "Chrysalis reconnaît votre clavier, mais doit mettre à jour son micrologiciel avant que vous puissiez continuer.",
-        "title": "Bienvenue dans Chrysalis",
-        "gotoUpdate": "Mettre à jour le micrologiciel"
-    },
-    "components": {
-        "layerRaw": "Couche",
-        "loading": "Lecture des données depuis l'appareil…",
-        "layer": "Couche {{index}}",
-        "save": {
-            "saveChanges": "Enregistrer les modifications"
-        },
-        "none": "Aucun"
-    },
-    "systeminfo": {
-        "bugTracker": "Vous pouvez retrouver une liste des problèmes connus (ou signaler un problème) sur GitHub",
-        "title": "Signaler un problème"
-    },
-    "units": {
-        "in_ms": "ms"
-    },
-    "changelog": {
-        "title": "Notes de version"
+    "interface": "Interface utilisateur",
+    "focus": {
+      "chunked_writes": {
+        "label": "Envoyer les données par petits paquets"
+      }
     }
+  },
+  "firmwareAutoUpdate": {
+    "warning": "Chrysalis n'a pas trouvé de nouvelle version du micrologiciel. Une version plus récente est peut-être disponible en ligne.",
+    "downloaded": "Version {{ version }} du micrologiciel téléchargée et disponible pour l'installation",
+    "available": "Nouvelle version du micrologiciel disponible : {{ version }}",
+    "error": "Erreur lors du téléchargement de la nouvelle version du micrologiciel."
+  },
+  "focus-not-detected": {
+    "reconnect": "Reconnecter",
+    "contents": "Chrysalis reconnaît votre clavier, mais doit mettre à jour son micrologiciel avant que vous puissiez continuer.",
+    "title": "Bienvenue dans Chrysalis",
+    "gotoUpdate": "Mettre à jour le micrologiciel"
+  },
+  "components": {
+    "layerRaw": "Couche",
+    "loading": "Lecture des données depuis l'appareil…",
+    "layer": "Couche {{index}}",
+    "save": {
+      "saveChanges": "Enregistrer les modifications"
+    },
+    "none": "Aucun"
+  },
+  "systeminfo": {
+    "bugTracker": "Vous pouvez retrouver une liste des problèmes connus (ou signaler un problème) sur GitHub",
+    "title": "Signaler un problème"
+  },
+  "units": {
+    "in_ms": "ms"
+  },
+  "changelog": {
+    "title": "Notes de version"
+  }
 }

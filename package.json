@@ -87,6 +87,7 @@
     "@gatsbyjs/reach-router": "^1.3.6",
     "@mui/base": "^5.0.0-beta.9",
     "@mui/icons-material": "^5.14.3",
+    "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.14.3",
     "@mui/system": "^5.14.3",
     "@mui/utils": "^5.14.3",

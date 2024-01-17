@@ -2,7 +2,22 @@ Chrysalis 0.13.3-snapshot
 =========================
 **UNRELEASED**
 
-No changes yet.
+This release fixes a bug in the previous 0.13 series releases that prevented
+Chrysalis from being able to automatically install firmware downloaded
+from the official firmware release server.
+
+The copy of the Kaleidoscope firmware bundled with this release of Chrysalis
+has been updated to 0.92.1.
+
+Unfortunately, due to a change in Windows codesigning rules, this release of 
+Chrysalis needs to be manually installed on Windows. We're currently hard at
+work on moving future versions of Chrysalis to your web browser. This will
+help ensure that you always have the latest version of Chrysalis and that you
+don't need to install or update custom software in order to configure your
+keyboard
+
+As of this release, we no longer distribute firmware builds for keyboards not
+made by Keyboardio.
 
 Chrysalis 0.13.2
 ================

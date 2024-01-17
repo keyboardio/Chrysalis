@@ -24,9 +24,6 @@ var device = null;
 (function () {
   "use strict";
 
-
-
-
   function populateInterfaceList(form, device_, interfaces) {
     const old_choices = Array.from(form.getElementsByTagName("div"));
     for (const radio_div of old_choices) {
@@ -44,7 +41,7 @@ var device = null;
       radio.required = true;
 
       const label = document.createElement("label");
-\      label.className = "radio";
+      label.className = "radio";
       label.setAttribute("for", "interface" + i);
 
       const div = document.createElement("div");
@@ -53,7 +50,6 @@ var device = null;
       form.insertBefore(div, button);
     }
   }
-
 
   document.addEventListener("DOMContentLoaded", (event) => {
     const connectButton = document.querySelector("#connect");
@@ -101,14 +97,10 @@ var device = null;
     let manifestationTolerant = true;
 
     async function fetchSelectedFirmware() {
-      const firmwareVersion =
-        firmwareVersionSelect.options[firmwareVersionSelect.selectedIndex]
-          .value;
+      const firmwareVersion = firmwareVersionSelect.options[firmwareVersionSelect.selectedIndex].value;
 
       console.log("Firmware filename is ", firmwareVersion);
-      const response = await fetch(
-        "firmware/" + firmwareVersion + "/Keyboardio/Model100/default.bin"
-      );
+      const response = await fetch("firmware/" + firmwareVersion + "/Keyboardio/Model100/default.bin");
       const firmware = await response.arrayBuffer();
       console.log(firmware);
       return firmware;
@@ -168,7 +160,7 @@ var device = null;
         });
 
         if (matching_devices.length === 0) {
-          console.log("No device found." );
+          console.log("No device found.");
         } else {
           if (matching_devices.length === 1) {
             console.log("Connecting");
@@ -176,7 +168,7 @@ var device = null;
             console.log(device);
             device = await connect(device);
           } else {
-            console.log( "Multiple DFU interfaces found.");
+            console.log("Multiple DFU interfaces found.");
           }
 
           vid = matching_devices[0].device_.vendorId;
@@ -212,22 +204,18 @@ var device = null;
             statusDisplay.textContent = "Your Model 100 is in keyboard mode";
           } else if (interfaces.length === 0) {
             console.log(selectedDevice);
- console.log(              "The selected device does not have any USB DFU interfaces.");
+            console.log("The selected device does not have any USB DFU interfaces.");
           } else {
             await fixInterfaceNames(selectedDevice, interfaces);
 
             if (interfaces.length === 1) {
-              device = await connect(
-                new DFUUSBDevice(selectedDevice, interfaces[0])
-              );
+              device = await connect(new DFUUSBDevice(selectedDevice, interfaces[0]));
             } else {
               populateInterfaceList(interfaceForm, selectedDevice, interfaces);
               interfaceForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
                 const index = interfaceForm.elements["interfaceIndex"].value;
-                device = await connect(
-                  new DFUUSBDevice(selectedDevice, interfaces[index])
-                );
+                device = await connect(new DFUUSBDevice(selectedDevice, interfaces[index]));
               });
 
               interfaceDialog.showModal();
@@ -253,11 +241,7 @@ var device = null;
           }
 
           try {
-            await device.do_download(
-              transferSize,
-              firmwareFile,
-              manifestationTolerant
-            );
+            await device.do_download(transferSize, firmwareFile, manifestationTolerant);
             if (!manifestationTolerant) {
               try {
                 await device.waitDisconnected(5000);

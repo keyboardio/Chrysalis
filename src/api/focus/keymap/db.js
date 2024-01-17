@@ -137,7 +137,7 @@ class KeymapDB {
       if (key.code >= 256) continue;
 
       // dual-use modifiers
-      for (const m of [0, 1, 2, 3, 6]) {
+      for (const m of [0, 1, 2, 3, 4, 5, 6, 7]) {
         const dumCode = key.code + 49169 + m * 256;
         if (this._codetable[dumCode]) {
           const base = this._codetable[dumCode];

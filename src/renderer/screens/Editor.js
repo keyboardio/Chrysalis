@@ -36,7 +36,6 @@ import { MacroStorageAlert } from "./components/MacroStorageAlert";
 import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import MacroEditor from "./Macros/MacroEditor";
-import Sidebar, { sidebarWidth } from "./Sidebar";
 
 const db = new KeymapDB();
 
@@ -467,40 +466,11 @@ const Editor = (props) => {
 
       {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
       {macros && <MacroStorageAlert macros={macros} />}
-      <Box
-        component="main"
-        sx={{
-          width: `calc(100% - ${sidebarWidth}px)`,
-        }}
-      >
+      <Box component="main" sx={{ marginLeft: 20, marginRight: 20 }}>
         {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}
         {mainWidget}
       </Box>
-      <Sidebar
-        macroEditorOpen={openMacroEditor}
-        macros={macros}
-        keymap={keymap}
-        colormap={colormap}
-        selectedKey={currentKeyIndex}
-        selectedLed={currentLedIndex}
-        layer={currentLayer}
-        setLayer={onLayerChange}
-        copyLayer={copyLayer}
-        hasCopiedLayer={hasCopiedLayer}
-        pasteLayer={pasteLayer}
-        layerNames={layerNames}
-        setLayerName={setLayerName}
-        onKeyChange={onKeyChange}
-        onKeymapChange={onKeymapChange}
-        onColormapChange={onColormapChange}
-        onPaletteChange={onPaletteChange}
-        onColormapAndPaletteChange={onColormapAndPaletteChange}
-        onLedChange={onLedChange}
-        setOpenMacroEditor={maybeOpenMacroEditor}
-        currentKey={currentKey}
-      />
       <FloatingKeyPicker
-        sidebarWidth={sidebarWidth}
         macroEditorOpen={openMacroEditor}
         macros={macros}
         keymap={keymap}

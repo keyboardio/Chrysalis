@@ -55,8 +55,6 @@ import LayerKeys from "../Sidebar/LayerKeys";
 import SecondaryFunction from "../Sidebar/SecondaryFunction";
 import Modifiers from "../Sidebar/Modifiers";
 
-import Overview from "../Sidebar/Overview";
-
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
@@ -146,25 +144,6 @@ export const FloatingKeyPicker = (props) => {
       bounds="window"
     >
       <Stack direction="row">
-        <Overview
-          macroEditorOpen={props.macroEditorOpen}
-          keymap={props.keymap}
-          colormap={props.colormap}
-          selectedKey={props.selectedKey}
-          selectedLed={props.selectedLed}
-          layer={props.layer}
-          setLayer={props.setLayer}
-          copyLayer={props.copyLayer}
-          hasCopiedLayer={props.hasCopiedLayer}
-          pasteLayer={props.pasteLayer}
-          layerNames={props.layerNames}
-          setLayerName={props.setLayerName}
-          onKeymapChange={props.onKeymapChange}
-          onPaletteChange={props.onPaletteChange}
-          onColormapChange={props.onColormapChange}
-          onColormapAndPaletteChange={props.onColormapAndPaletteChange}
-        />
-
         <TabContext value={tabValue}>
           <Box
             boxShadow={3}

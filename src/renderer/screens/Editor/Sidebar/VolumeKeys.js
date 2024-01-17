@@ -18,9 +18,9 @@
 import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import Box from "@mui/material/Box";
 import KeyButton from "../components/KeyButton";
-
+import { SectionTitle } from "@renderer/components/SectionTitle";
 const db = new KeymapDB();
 
 const VolumeKeys = (props) => {
@@ -36,6 +36,11 @@ const VolumeKeys = (props) => {
     return <KeyButton key={`consumer-volume-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
-  return <Collapsible title={t("editor.sidebar.consumer.volume")}>{keyButtons}</Collapsible>;
+  return (
+    <>
+      <SectionTitle>{t("editor.sidebar.consumer.volume")}</SectionTitle>
+      <Box sx={{ display: "flex", flexDirection: "column", padding: 0 }}>{keyButtons}</Box>
+    </>
+  );
 };
 export default VolumeKeys;

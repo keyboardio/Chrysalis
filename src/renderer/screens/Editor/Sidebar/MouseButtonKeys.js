@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import KeyButton from "../components/KeyButton";
 import { SectionTitle } from "@renderer/components/SectionTitle";
 import KeymapDB from "@api/focus/keymap/db";
+import Grid from "@mui/material/Grid";
 
 export const MouseButtonKeys = (props) => {
   const { t } = useTranslation();
@@ -20,17 +21,29 @@ export const MouseButtonKeys = (props) => {
   };
 
   return (
-    <div>
+    <>
       <SectionTitle>{t("editor.sidebar.mousekeys.buttons")}</SectionTitle>
 
-      <Box mx="auto" p={1} textAlign="center">
-        <KeyButton {...sharedProps} keyObj={left} noHint />
-        <KeyButton {...sharedProps} keyObj={middle} noHint />
-        <KeyButton {...sharedProps} keyObj={right} noHint />
-        <br />
-        <KeyButton {...sharedProps} keyObj={back} noHint />
-        <KeyButton {...sharedProps} keyObj={fwd} noHint />
-      </Box>
-    </div>
+      <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+        <Grid item xs>
+          <KeyButton {...sharedProps} keyObj={left} noHint />
+        </Grid>
+        <Grid item xs>
+          <KeyButton {...sharedProps} keyObj={middle} noHint />
+        </Grid>
+        <Grid item xs>
+          <KeyButton {...sharedProps} keyObj={right} noHint />
+        </Grid>
+      </Grid>
+
+      <Grid container justifyContent="center">
+        <Grid item>
+          <KeyButton {...sharedProps} keyObj={back} noHint />
+        </Grid>
+        <Grid item>
+          <KeyButton {...sharedProps} keyObj={fwd} noHint />
+        </Grid>
+      </Grid>
+    </>
   );
 };

@@ -58,13 +58,14 @@ const KeyButton = (props) => {
       color={active ? "primary" : "secondary"}
       sx={{
         m: 0,
-        px: 0.5,
-        py: 0.5,
+        px: 1,
+        py: 1,
         color: textColor,
         borderColor: theme.palette.divider,
         borderRadius: 0,
         fontSize: 10,
         backgroundColor: buttonColor,
+        minWidth: 48,
       }}
       onClick={onClick(keyObj.code)}
     >

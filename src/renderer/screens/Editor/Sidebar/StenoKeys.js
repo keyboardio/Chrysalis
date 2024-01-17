@@ -18,7 +18,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const StenoKeys = (props) => {
   const { t } = useTranslation();
@@ -28,8 +28,7 @@ const StenoKeys = (props) => {
   if (props.macroEditorOpen) return null;
 
   return (
-    <CategorySelector
-      title={t("editor.sidebar.steno.title")}
+    <FKPCategorySelector
       help={t("editor.sidebar.steno.help")}
       category="steno"
       currentKey={props.currentKey}

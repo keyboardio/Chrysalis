@@ -20,10 +20,10 @@ import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 import Macros from "@api/focus/macros";
 import KeymapDB from "@api/focus/keymap/db";
@@ -48,48 +48,44 @@ const DynamicMacroKeys = (props) => {
   };
 
   return (
-    <CategorySelector
-      title={t("editor.sidebar.dynmacros.title")}
-      help={t("editor.sidebar.dynmacros.help")}
-      category="dynmacros"
-      currentKey={currentKey}
-      onKeyChange={props.onKeyChange}
-    >
+    <>
+      <FKPCategorySelector
+        help={t("editor.sidebar.dynmacros.help")}
+        category="dynmacros"
+        currentKey={currentKey}
+        onKeyChange={props.onKeyChange}
+      />
       {props.macros.storageSize > 0 && (
-        <Stack spacing={2}>
-          <Paper
-            variant="outlined"
-            sx={{
-              p: 1,
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            <Typography variant="body2">
-              {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
-              <strong>
-                {t("editor.sidebar.dynmacros.usage_overview.usage", {
-                  used: used,
-                  size: props.macros.storageSize,
-                })}
-              </strong>{" "}
-              {t("editor.sidebar.dynmacros.usage_overview.bytes")}
-            </Typography>
-          </Paper>
-          <Box
-            sx={{
-              mb: 2,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+        <Grid container>
+          <Grid item sm={9} spacing={2}>
+            <Paper
+              variant="outlined"
+              sx={{
+                p: 1,
+                justifyContent: "center",
+                display: "flex",
+              }}
+            >
+              <Typography variant="body2">
+                {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
+                <strong>
+                  {t("editor.sidebar.dynmacros.usage_overview.usage", {
+                    used: used,
+                    size: props.macros.storageSize,
+                  })}
+                </strong>{" "}
+                {t("editor.sidebar.dynmacros.usage_overview.bytes")}
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item sm={3}>
             <Button variant="contained" disabled={disabled} onClick={onClick}>
               {t("editor.macros.edit")}
             </Button>
-          </Box>
-        </Stack>
+          </Grid>
+        </Grid>
       )}
-    </CategorySelector>
+    </>
   );
 };
 

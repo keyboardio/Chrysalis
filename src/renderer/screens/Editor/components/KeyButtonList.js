@@ -17,7 +17,6 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import React from "react";
 import KeyButton from "./KeyButton";
 
@@ -42,7 +41,7 @@ const KeyButtonList = (props) => {
     <Box
       sx={{
         flexGrow: 1,
-        margin: 1,
+        margin: 0,
       }}
     >
       {buttons}

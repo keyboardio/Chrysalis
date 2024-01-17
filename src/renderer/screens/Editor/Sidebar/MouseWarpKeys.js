@@ -4,6 +4,7 @@ import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import KeyButton from "../components/KeyButton";
 import { SectionTitle } from "@renderer/components/SectionTitle";
 import KeymapDB from "@api/focus/keymap/db";
+import Grid from "@mui/material/Grid";
 
 export const MouseWarpKeys = (props) => {
   const { t } = useTranslation();
@@ -36,35 +37,44 @@ export const MouseWarpKeys = (props) => {
 
   if (gridSize == 2) {
     return (
-      <div>
+      <>
         <SectionTitle>{t("editor.sidebar.mousekeys.warp")}</SectionTitle>
-        <KeyButton {...sharedProps} keyObj={warpNW} noHint />
-        <KeyButton {...sharedProps} keyObj={warpNE} noHint />
-        <br />
-        <KeyButton {...sharedProps} keyObj={warpSW} noHint />
-        <KeyButton {...sharedProps} keyObj={warpSE} noHint />
-        <br />
-        <KeyButton {...sharedProps} keyObj={warpEnd} noHint />
-      </div>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpNW} noHint />
+          <KeyButton {...sharedProps} keyObj={warpNE} noHint />
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpSW} noHint />
+          <KeyButton {...sharedProps} keyObj={warpSE} noHint />
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpEnd} noHint />
+        </Grid>
+      </>
     );
   } else {
     return (
-      <div>
+      <>
         <SectionTitle>{t("editor.sidebar.mousekeys.warp")}</SectionTitle>
-        <KeyButton {...sharedProps} keyObj={warpNW} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpN} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpNE} noHint keycapSize="1u" />
-        <br />
-        <KeyButton {...sharedProps} keyObj={warpW} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpZ} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpE} noHint keycapSize="1u" />
-        <br />
-        <KeyButton {...sharedProps} keyObj={warpSW} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpS} noHint keycapSize="1u" />
-        <KeyButton {...sharedProps} keyObj={warpSE} noHint keycapSize="1u" />
-        <br />
-        <KeyButton {...sharedProps} keyObj={warpEnd} noHint />
-      </div>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpNW} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpN} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpNE} noHint keycapSize="1u" />
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpW} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpZ} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpE} noHint keycapSize="1u" />
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpSW} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpS} noHint keycapSize="1u" />
+          <KeyButton {...sharedProps} keyObj={warpSE} noHint keycapSize="1u" />
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} wrap="nowrap">
+          <KeyButton {...sharedProps} keyObj={warpEnd} noHint />
+        </Grid>
+      </>
     );
   }
 };

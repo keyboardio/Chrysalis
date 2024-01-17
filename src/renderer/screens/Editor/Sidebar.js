@@ -29,16 +29,12 @@ import LayerKeys from "./Sidebar/LayerKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
 import MacroKeys from "./Sidebar/MacroKeys";
-import MediaKeys from "./Sidebar/MediaKeys";
 import KeyPicker from "./Sidebar/Modifiers";
-import MouseKeys from "./Sidebar/MouseKeys";
 import OneShotKeys from "./Sidebar/OneShotKeys";
 import Overview from "./Sidebar/Overview";
 import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
-import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
-import VolumeKeys from "./Sidebar/VolumeKeys";
 import PlatformAppleKeys from "./Sidebar/PlatformAppleKeys";
 
 const sidebarWidth = 360;
@@ -52,19 +48,14 @@ const Sidebar = (props) => {
     Colormap,
     LayerKeys,
     BrightnessKeys,
-    VolumeKeys,
-    MediaKeys,
-    MouseKeys,
     LEDKeys,
     PlatformAppleKeys,
     LanguageKeys,
-    DynamicMacroKeys,
     MacroKeys,
     TapDanceKeys,
     OneShotKeys,
     SpaceCadetKeys,
     LeaderKeys,
-    StenoKeys,
     BlankKeys,
     CustomKey,
   ];

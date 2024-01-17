@@ -29,14 +29,15 @@ const Swatch = (props) => {
   return (
     <Avatar
       sx={{
-        width: "24px",
-        height: "24px",
+        width: "36px",
+        height: "36px",
         margin: "2.25px",
       }}
       variant="square"
       style={{
         color: color.rgb,
-        background: active ? "transparent" : color.rgb,
+        background: color.rgb,
+        border: active ? "2px solid #ccc" : "transparent",
       }}
       onClick={onClick}
     >

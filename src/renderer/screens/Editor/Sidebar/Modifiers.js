@@ -18,7 +18,7 @@
 import KeymapDB from "@api/focus/keymap/db";
 import { GuiLabel } from "@api/focus/keymap/db/base/gui";
 import { addModifier, removeModifier } from "@api/focus/keymap/db/modifiers";
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
@@ -27,7 +27,7 @@ import Tooltip from "@mui/material/Tooltip";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const db = new KeymapDB();
 
@@ -117,7 +117,8 @@ const KeyPicker = (props) => {
   const topsyTurvyVisible = usePluginVisibility("TopsyTurvy");
 
   return (
-    <Collapsible title={t("editor.sidebar.keypicker.mods")} help={t("editor.sidebar.keypicker.modsHelp")}>
+    <>
+      <Typography>{t("editor.sidebar.keypicker.modsHelp")}</Typography>
       <Box sx={{ margin: "2 0" }}>
         <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
           <FormGroup row>
@@ -152,7 +153,7 @@ const KeyPicker = (props) => {
         </FormControl>
         {oneShot}
       </Box>
-    </Collapsible>
+    </>
   );
 };
 

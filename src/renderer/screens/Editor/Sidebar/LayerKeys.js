@@ -23,7 +23,7 @@ import Select from "@mui/material/Select";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const db = new KeymapDB();
 
@@ -76,59 +76,57 @@ const LayerKeys = (props) => {
   }
   const max = getMaxLayer();
   return (
-    <React.Fragment>
-      <Collapsible title={t("editor.sidebar.layer.title")} help={t("editor.sidebar.layer.help")}>
-        <div>
-          <FormControl>
-            <InputLabel id="editor.layerswitch.type">{t("editor.layerswitch.type")}</InputLabel>
-            <Select
-              value={type}
-              onChange={onTypeChange}
-              labelid="editor.layerswitch.type"
-              label={t("editor.layerswitch.type")}
-            >
-              <MenuItem value="none" disabled selected>
-                {t("components.none")}
+    <FKPCategorySelector title={t("editor.sidebar.layer.title")} help={t("editor.sidebar.layer.help")}>
+      <div>
+        <FormControl>
+          <InputLabel id="editor.layerswitch.type">{t("editor.layerswitch.type")}</InputLabel>
+          <Select
+            value={type}
+            onChange={onTypeChange}
+            labelid="editor.layerswitch.type"
+            label={t("editor.layerswitch.type")}
+          >
+            <MenuItem value="none" disabled selected>
+              {t("components.none")}
+            </MenuItem>
+            <MenuItem value="shifttolayer" selected={type == "shifttolayer"}>
+              {t("editor.layerswitch.shiftTo")}
+            </MenuItem>
+            <MenuItem value="locktolayer" selected={type == "locktolayer"}>
+              {t("editor.layerswitch.lockTo")}
+            </MenuItem>
+            <MenuItem value="movetolayer" selected={type == "movetolayer"}>
+              {t("editor.layerswitch.moveTo")}
+            </MenuItem>
+            {oneShotVisible && (
+              <MenuItem value="oneshot" selected={type == "oneshot"}>
+                {t("editor.layerswitch.oneshot")}
               </MenuItem>
-              <MenuItem value="shifttolayer" selected={type == "shifttolayer"}>
-                {t("editor.layerswitch.shiftTo")}
+            )}
+            <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
+              {t("editor.layerswitch.dualuse")}
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{ mx: 1 }}>
+          <InputLabel id="editor.layerswitch.target">{t("editor.layerswitch.target")}</InputLabel>
+          <Select
+            labelId="editor.layerswitch.target"
+            value={targetLayer}
+            onChange={(event) => onTargetLayerChange(event, max)}
+            label={t("editor.layerswitch.target")}
+            disabled={targetLayer < 0}
+          >
+            <MenuItem value="-1" disabled></MenuItem>
+            {[...Array(max)].map((x, i) => (
+              <MenuItem key={i} name={i} value={i}>
+                {props.layerNames?.names[i]}
               </MenuItem>
-              <MenuItem value="locktolayer" selected={type == "locktolayer"}>
-                {t("editor.layerswitch.lockTo")}
-              </MenuItem>
-              <MenuItem value="movetolayer" selected={type == "movetolayer"}>
-                {t("editor.layerswitch.moveTo")}
-              </MenuItem>
-              {oneShotVisible && (
-                <MenuItem value="oneshot" selected={type == "oneshot"}>
-                  {t("editor.layerswitch.oneshot")}
-                </MenuItem>
-              )}
-              <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
-                {t("editor.layerswitch.dualuse")}
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{ mx: 1 }}>
-            <InputLabel id="editor.layerswitch.target">{t("editor.layerswitch.target")}</InputLabel>
-            <Select
-              labelId="editor.layerswitch.target"
-              value={targetLayer}
-              onChange={(event) => onTargetLayerChange(event, max)}
-              label={t("editor.layerswitch.target")}
-              disabled={targetLayer < 0}
-            >
-              <MenuItem value="-1" disabled></MenuItem>
-              {[...Array(max)].map((x, i) => (
-                <MenuItem key={i} name={i} value={i}>
-                  {props.layerNames?.names[i]}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-      </Collapsible>
-    </React.Fragment>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    </FKPCategorySelector>
   );
 };
 

@@ -18,7 +18,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import CategorySelector from "../components/CategorySelector";
+import FKPCCategorySelector from "../components/FKPCategorySelector";
 
 const SpaceCadetKeys = (props) => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const SpaceCadetKeys = (props) => {
   if (!pluginVisible) return null;
 
   return (
-    <CategorySelector
+    <FKPCCategorySelector
       title={t("editor.sidebar.spacecadet.title")}
       help={t("editor.sidebar.spacecadet.help")}
       category="spacecadet"

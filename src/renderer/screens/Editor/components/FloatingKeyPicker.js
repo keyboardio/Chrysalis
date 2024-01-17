@@ -18,18 +18,16 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TabContext from "@mui/lab/TabContext";
-
+import Stack from "@mui/material/Stack";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/material/styles/useTheme";
 import { useWindowSize } from "@renderer/hooks/useWindowSize";
 import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import Keyboard104 from "../Keyboard104";
-import PropTypes from "prop-types";
 import MediaKeys from "../Sidebar/MediaKeys";
 import VolumeKeys from "../Sidebar/VolumeKeys";
 import { MouseWarpKeys } from "../Sidebar/MouseWarpKeys";
@@ -38,9 +36,24 @@ import { MouseMovementKeys } from "../Sidebar/MouseMovementKeys";
 import { MouseButtonKeys } from "../Sidebar/MouseButtonKeys";
 import StenoKeys from "../Sidebar/StenoKeys";
 import DynamicMacroKeys from "../Sidebar/DynamicMacroKeys";
+import MacroKeys from "../Sidebar/MacroKeys";
+import CustomKey from "../Sidebar/CustomKey";
+import BlankKeys from "../Sidebar/BlankKeys";
+import SpaceCadetKeys from "../Sidebar/SpaceCadetKeys";
+import TapDanceKeys from "../Sidebar/TapDanceKeys";
+import OneShotKeys from "../Sidebar/OneShotKeys";
+import PlatformAppleKeys from "../Sidebar/PlatformAppleKeys";
+import BrightnessKeys from "../Sidebar/BrightnessKeys";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 
 import VerticalSectionDivider from "./VerticalSectionDivider";
+import LEDKeys from "../Sidebar/LEDKeys";
+import Colormap from "../Sidebar/Colormap";
+import LanguageKeys from "../Sidebar/LanguageKeys";
+import LeaderKeys from "../Sidebar/LeaderKeys";
+import LayerKeys from "../Sidebar/LayerKeys";
+import SecondaryFunction from "../Sidebar/SecondaryFunction";
+import Modifiers from "../Sidebar/Modifiers";
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
@@ -63,11 +76,10 @@ export const FloatingKeyPicker = (props) => {
     setTabValue(newValue);
   };
 
-  const mouseKeysVisible = false;
-  //usePluginVisibility("MouseKeys");
+  const mouseKeysVisible = usePluginVisibility("MouseKeys");
   const stenoKeysVisible = usePluginVisibility("GeminiPR");
   const dynamicMacrosVisible = usePluginVisibility("DynamicMacros");
-
+  const ledControlVisible = true; // XXX TODO this is wrong
   const windowSize = useWindowSize();
 
   if (windowSize.height && windowSize.height != lastWindowSize.height) {
@@ -96,6 +108,14 @@ export const FloatingKeyPicker = (props) => {
     macros: props.macros,
     macroEditorOpen: props.macroEditorOpen,
     setOpenMacroEditor: props.setOpenMacroEditor,
+    keymap: props.keymap,
+    colormap: props.colormap,
+    selectedKey: props.selectedKey,
+    selectedLed: props.selectedLed,
+    layer: props.layer,
+    layerNames: props.layerNames,
+    onLedChange: props.onLedChange,
+    onPaletteChange: props.onPaletteChange,
   };
 
   return (
@@ -129,18 +149,31 @@ export const FloatingKeyPicker = (props) => {
         >
           {" "}
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleTabChange} aria-label="">
-              <Tab value="keyboard" label="Keyboard" display={true} />
-              <Tab value="mouse" label="Mouse" display={mouseKeysVisible} />
-              <Tab value="media" label="Media" display={true} />
-              <Tab value="steno" label="Steno" display={stenoKeysVisible} />
-              <Tab value="macros" label="Macros" display={dynamicMacrosVisible} />
+            <TabList onChange={handleTabChange} aria-label="" variant="scrollable" scrollButtons="auto">
+              <Tab value="keyboard" label="Keyboard" />
+              <Tab value="modifiers" label="Modifiers" />
+              {mouseKeysVisible && <Tab value="mouse" label="Mouse" />}
+              <Tab value="language" label="Language" />
+              <Tab value="control" label="Control" />
+              {stenoKeysVisible && <Tab value="steno" label="Steno" />}
+              {dynamicMacrosVisible && <Tab value="macros" label="Macros" />}
+              {ledControlVisible && <Tab value="leds" label="LEDs" />}
+              <Tab value="layers" label="Layers" />
+              <Tab value="advanced" label="Advanced" />
             </TabList>
           </Box>
-          <TabPanel value="keyboard" display={true}>
+          <TabPanel value="keyboard">
             <Keyboard104 onKeySelect={onKeyChange} currentKeyCode={key.baseCode || key.code} keymap={keymap} />
           </TabPanel>
-          <TabPanel value="mouse" display={mouseKeysVisible}>
+          <TabPanel value="modifiers">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <Modifiers {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+            </Grid>
+          </TabPanel>
+          <TabPanel value="mouse">
             <Grid container spacing={0}>
               <Grid item xs>
                 <MouseMovementKeys {...sharedProps} />
@@ -162,7 +195,10 @@ export const FloatingKeyPicker = (props) => {
               </Grid>
             </Grid>
           </TabPanel>
-          <TabPanel value="media" display={true}>
+          <TabPanel value="language">
+            <LanguageKeys {...sharedProps} />
+          </TabPanel>
+          <TabPanel value="control">
             <Grid container spacing={0}>
               <Grid item xs>
                 <MediaKeys {...sharedProps} />
@@ -171,13 +207,76 @@ export const FloatingKeyPicker = (props) => {
               <Grid item xs>
                 <VolumeKeys {...sharedProps} />
               </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <PlatformAppleKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <BrightnessKeys {...sharedProps} />
+              </Grid>
             </Grid>
           </TabPanel>
-          <TabPanel value="steno" display={stenoKeysVisible}>
+          <TabPanel value="steno">
             <StenoKeys {...sharedProps} />
           </TabPanel>
-          <TabPanel value="macros" display={dynamicMacrosVisible}>
-            <DynamicMacroKeys {...sharedProps} />
+          <TabPanel value="macros">
+            <Stack container spacing={0}>
+              <DynamicMacroKeys {...sharedProps} />
+              <MacroKeys {...sharedProps} />
+            </Stack>
+          </TabPanel>
+          <TabPanel value="advanced">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <BlankKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <CustomKey {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <SpaceCadetKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <OneShotKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <TapDanceKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <LeaderKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <SecondaryFunction {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="leds">
+            <Grid container spacing={2}>
+              <Grid item xs={9}>
+                <Colormap {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <LEDKeys {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="layers">
+            <LayerKeys {...sharedProps} />
           </TabPanel>
         </Box>
       </TabContext>

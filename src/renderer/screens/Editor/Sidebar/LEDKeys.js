@@ -17,17 +17,16 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const LEDKeys = (props) => {
-  const { colormap } = props;
   const { t } = useTranslation();
-  if (!colormap || colormap.palette.length == 0) {
+  if (!props.colormap || props.colormap.palette.length == 0) {
     return null;
   }
 
   return (
-    <CategorySelector
+    <FKPCategorySelector
       title={t("editor.sidebar.ledcontrol.title")}
       help={t("editor.sidebar.ledcontrol.help")}
       category="ledkeys"

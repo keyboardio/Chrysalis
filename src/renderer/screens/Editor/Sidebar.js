@@ -19,67 +19,12 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import React from "react";
-import BlankKeys from "./Sidebar/BlankKeys";
-import BrightnessKeys from "./Sidebar/BrightnessKeys";
-import Colormap from "./Sidebar/Colormap";
-import CustomKey from "./Sidebar/CustomKey";
-import DynamicMacroKeys from "./Sidebar/DynamicMacroKeys";
-import LanguageKeys from "./Sidebar/LanguageKeys";
-import LayerKeys from "./Sidebar/LayerKeys";
-import LeaderKeys from "./Sidebar/LeaderKeys";
-import LEDKeys from "./Sidebar/LEDKeys";
-import MacroKeys from "./Sidebar/MacroKeys";
-import KeyPicker from "./Sidebar/Modifiers";
-import OneShotKeys from "./Sidebar/OneShotKeys";
 import Overview from "./Sidebar/Overview";
-import SecondaryFunction from "./Sidebar/SecondaryFunction";
-import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
-import TapDanceKeys from "./Sidebar/TapDanceKeys";
-import PlatformAppleKeys from "./Sidebar/PlatformAppleKeys";
 
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
   const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } = props;
-
-  const widgets = [
-    KeyPicker,
-    SecondaryFunction,
-    Colormap,
-    LayerKeys,
-    BrightnessKeys,
-    LEDKeys,
-    PlatformAppleKeys,
-    LanguageKeys,
-    MacroKeys,
-    TapDanceKeys,
-    OneShotKeys,
-    SpaceCadetKeys,
-    LeaderKeys,
-    BlankKeys,
-    CustomKey,
-  ];
-  const categories = widgets.map((Widget, index) => {
-    return (
-      <Widget
-        key={`sidebar-category-${index}`}
-        macroEditorOpen={macroEditorOpen}
-        keymap={keymap}
-        colormap={colormap}
-        selectedKey={selectedKey}
-        selectedLed={selectedLed}
-        layer={layer}
-        layerNames={props.layerNames}
-        onKeyChange={props.onKeyChange}
-        onLedChange={props.onLedChange}
-        onPaletteChange={props.onPaletteChange}
-        macros={props.macros}
-        setOpenMacroEditor={props.setOpenMacroEditor}
-        currentKey={props.currentKey}
-        sx={{ p: 2 }}
-      />
-    );
-  });
 
   return (
     <Drawer
@@ -87,38 +32,35 @@ const Sidebar = (props) => {
       anchor="right"
       sx={{
         flexShrink: 0,
-        zIndex: (theme) => theme.zIndex.appBar - 100,
+        zIndex: (theme) => theme.zIndex.drawer - 50,
         width: sidebarWidth,
         "& .MuiDrawer-paper": {
           width: sidebarWidth,
           boxSizing: "border-box",
           p: 0,
-          zIndex: (theme) => theme.zIndex.appBar - 100,
+          zIndex: (theme) => theme.zIndex.drawer - 50,
         },
       }}
     >
       <Toolbar />
-      <Box sx={{ px: 1, mb: 2 }}>
-        <Overview
-          macroEditorOpen={macroEditorOpen}
-          keymap={keymap}
-          colormap={colormap}
-          selectedKey={selectedKey}
-          selectedLed={selectedLed}
-          layer={layer}
-          setLayer={props.setLayer}
-          copyLayer={props.copyLayer}
-          hasCopiedLayer={props.hasCopiedLayer}
-          pasteLayer={props.pasteLayer}
-          layerNames={props.layerNames}
-          setLayerName={props.setLayerName}
-          onKeymapChange={props.onKeymapChange}
-          onPaletteChange={props.onPaletteChange}
-          onColormapChange={props.onColormapChange}
-          onColormapAndPaletteChange={props.onColormapAndPaletteChange}
-        />
-        {categories}
-      </Box>
+      <Overview
+        macroEditorOpen={macroEditorOpen}
+        keymap={keymap}
+        colormap={colormap}
+        selectedKey={selectedKey}
+        selectedLed={selectedLed}
+        layer={layer}
+        setLayer={props.setLayer}
+        copyLayer={props.copyLayer}
+        hasCopiedLayer={props.hasCopiedLayer}
+        pasteLayer={props.pasteLayer}
+        layerNames={props.layerNames}
+        setLayerName={props.setLayerName}
+        onKeymapChange={props.onKeymapChange}
+        onPaletteChange={props.onPaletteChange}
+        onColormapChange={props.onColormapChange}
+        onColormapAndPaletteChange={props.onColormapAndPaletteChange}
+      />
     </Drawer>
   );
 };

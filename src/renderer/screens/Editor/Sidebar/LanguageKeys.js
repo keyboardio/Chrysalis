@@ -17,13 +17,13 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const LanguageKeys = (props) => {
   const { t } = useTranslation();
 
   return (
-    <CategorySelector
+    <FKPCategorySelector
       title={t("editor.sidebar.language_intl.title")}
       help={t("editor.sidebar.language_intl.help")}
       category="lang_intl"

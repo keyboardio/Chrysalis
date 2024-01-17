@@ -26,7 +26,7 @@ import Select from "@mui/material/Select";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const db = new KeymapDB();
 
@@ -169,29 +169,27 @@ const SecondaryFunction = (props) => {
   }
 
   return (
-    <React.Fragment>
-      <Collapsible title={t("editor.sidebar.secondary.title")} help={helpText}>
-        <div>
-          <FormControl disabled={!keySupportsSecondaryAction(key)}>
-            <FormGroup row>
-              <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>
-              <Select value={type} onChange={onTypeChange} label={t("editor.sidebar.secondary.whenHeld")}>
-                <MenuItem value="none" selected={type == "none"}>
-                  {t("editor.sidebar.secondary.type.none")}
-                </MenuItem>
-                <MenuItem value="modifier" selected={type == "modifier"}>
-                  {t("editor.sidebar.secondary.type.modifier")}
-                </MenuItem>
-                <MenuItem value="layer" selected={type == "layer"}>
-                  {t("editor.sidebar.secondary.type.layer")}
-                </MenuItem>
-              </Select>
-            </FormGroup>
-          </FormControl>
-          {actionTarget}
-        </div>
-      </Collapsible>
-    </React.Fragment>
+    <FKPCategorySelector title={t("editor.sidebar.secondary.title")} help={helpText}>
+      <div>
+        <FormControl disabled={!keySupportsSecondaryAction(key)}>
+          <FormGroup row>
+            <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>
+            <Select value={type} onChange={onTypeChange} label={t("editor.sidebar.secondary.whenHeld")}>
+              <MenuItem value="none" selected={type == "none"}>
+                {t("editor.sidebar.secondary.type.none")}
+              </MenuItem>
+              <MenuItem value="modifier" selected={type == "modifier"}>
+                {t("editor.sidebar.secondary.type.modifier")}
+              </MenuItem>
+              <MenuItem value="layer" selected={type == "layer"}>
+                {t("editor.sidebar.secondary.type.layer")}
+              </MenuItem>
+            </Select>
+          </FormGroup>
+        </FormControl>
+        {actionTarget}
+      </div>
+    </FKPCategorySelector>
   );
 };
 

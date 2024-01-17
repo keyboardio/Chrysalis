@@ -18,7 +18,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const TapDanceKeys = (props) => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const TapDanceKeys = (props) => {
   if (props.macroEditorOpen) return null;
 
   return (
-    <CategorySelector
+    <FKPCategorySelector
       title={t("editor.sidebar.tapdance.title")}
       help={t("editor.sidebar.tapdance.help")}
       category="tapdance"

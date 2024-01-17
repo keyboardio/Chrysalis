@@ -509,12 +509,27 @@ const Editor = (props) => {
       />
       <FloatingKeyPicker
         sidebarWidth={sidebarWidth}
-        onKeyChange={onKeyChange}
-        keymap={keymap}
-        currentKey={currentKey}
         macroEditorOpen={openMacroEditor}
-        setOpenMacroEditor={maybeOpenMacroEditor}
         macros={macros}
+        keymap={keymap}
+        colormap={colormap}
+        selectedKey={currentKeyIndex}
+        selectedLed={currentLedIndex}
+        layer={currentLayer}
+        setLayer={onLayerChange}
+        copyLayer={copyLayer}
+        hasCopiedLayer={hasCopiedLayer}
+        pasteLayer={pasteLayer}
+        layerNames={layerNames}
+        setLayerName={setLayerName}
+        onKeyChange={onKeyChange}
+        onKeymapChange={onKeymapChange}
+        onColormapChange={onColormapChange}
+        onPaletteChange={onPaletteChange}
+        onColormapAndPaletteChange={onColormapAndPaletteChange}
+        onLedChange={onLedChange}
+        setOpenMacroEditor={maybeOpenMacroEditor}
+        currentKey={currentKey}
       />
       <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled}>
         {t("components.save.saveChanges")}

@@ -16,11 +16,11 @@
  */
 
 import React from "react";
-import Box from "@mui/material/Box";
 import { ChromePicker } from "react-color";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
 import PalettePicker from "./Colormap/PalettePicker";
+import FKPCategorySelector from "../components/FKPCategorySelector";
+import Stack from "@mui/material/Stack";
 
 const Colormap = (props) => {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ const Colormap = (props) => {
   };
 
   const { selectedLed, layer, colormap } = props;
-
+  console.log(props);
   if (!colormap || colormap.palette.length == 0) return null;
   if (props.macroEditorOpen) return null;
   if (layer >= colormap.colorMap.length) return null;
@@ -56,13 +56,15 @@ const Colormap = (props) => {
   const color = colormap.palette[colorIndex];
 
   return (
-    <Collapsible title={t("editor.sidebar.colors.title")} help={t("editor.sidebar.colors.help")}>
-      <PalettePicker color={colorIndex} colors={colormap.palette} onClick={onPaletteSwatchChange} />
-      <br />
-      <Box sx={{ justifyContent: "center", display: "flex" }}>
-        <ChromePicker color={color} disableAlpha onChangeComplete={colorChangeComplete} />
-      </Box>
-    </Collapsible>
+    <Stack direction="row" spacing={2}>
+      <Stack direction="column">
+        <FKPCategorySelector title={t("editor.sidebar.colors.title")} help={t("editor.sidebar.colors.help")}>
+          <PalettePicker color={colorIndex} colors={colormap.palette} onClick={onPaletteSwatchChange} />
+        </FKPCategorySelector>
+      </Stack>
+
+      <ChromePicker color={color} disableAlpha onChangeComplete={colorChangeComplete} />
+    </Stack>
   );
 };
 export { Colormap as default };

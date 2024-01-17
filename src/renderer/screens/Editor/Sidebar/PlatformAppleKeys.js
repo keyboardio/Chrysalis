@@ -17,13 +17,13 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const PlatformKeys = (props) => {
   const { t } = useTranslation();
 
   return (
-    <CategorySelector
+    <FKPCategorySelector
       title={t("editor.sidebar.platform_apple.title")}
       help={t("editor.sidebar.platform_apple.help")}
       category="platform_apple"

@@ -18,7 +18,7 @@
 import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 import KeyButton from "../components/KeyButton";
 
 const db = new KeymapDB();
@@ -36,9 +36,9 @@ const BlankKeys = (props) => {
   });
 
   return (
-    <Collapsible title={t("editor.sidebar.blanks.title")} help={t("editor.sidebar.blanks.help")}>
+    <FKPCategorySelector title={t("editor.sidebar.blanks.title")} help={t("editor.sidebar.blanks.help")}>
       {keyButtons}
-    </Collapsible>
+    </FKPCategorySelector>
   );
 };
 

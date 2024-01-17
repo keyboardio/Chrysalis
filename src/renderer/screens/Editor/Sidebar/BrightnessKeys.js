@@ -18,9 +18,9 @@
 import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Collapsible from "../components/Collapsible";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 import KeyButton from "../components/KeyButton";
-
+import Stack from "@mui/material/Stack";
 const db = new KeymapDB();
 
 const BrightnessKeys = (props) => {
@@ -35,7 +35,11 @@ const BrightnessKeys = (props) => {
     return <KeyButton key={`consumer-brightness-${index}`} onKeyChange={props.onKeyChange} keyObj={button} noHint />;
   });
 
-  return <Collapsible title={t("editor.sidebar.consumer.brightness")}>{keyButtons}</Collapsible>;
+  return (
+    <FKPCategorySelector title={t("editor.sidebar.consumer.brightness")}>
+      <Stack direction="column">{keyButtons}</Stack>
+    </FKPCategorySelector>
+  );
 };
 
 export default BrightnessKeys;

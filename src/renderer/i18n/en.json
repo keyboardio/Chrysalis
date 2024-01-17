@@ -124,8 +124,8 @@
         "help": "Language-specific extra keys."
       },
       "custom": {
-        "title": "Custom key code",
-        "help": "Lets you assign a custom key code to a key, or a code not currently known to Chrysalis.",
+        "title": "Key code",
+        "help": "Assign a custom Kaleidoscope key code.",
         "label": "Custom key code"
       },
       "platform_apple": {
@@ -148,7 +148,7 @@
       },
       "secondary": {
         "title": "Secondary action",
-        "help": "Lets you assign secondary functionality to a key. When tapping these augmented keys, you'll get the primary function. When holding them, the secondary action will be performed.",
+        "help": "When tapped, you get the primary function. When held you get the secondary action.",
         "help-layerLimit": "Due to firmware limitations, shifting to layers above \"{{ layer8 }}\" is not supported via secondary actions.",
         "whenHeld": "When held",
         "type": {
@@ -161,7 +161,7 @@
       },
       "colors": {
         "title": "Colors",
-        "help": "Assign a color to the selected key by clicking one of the palette squares below. To change the color of a palette entry, use the color picker."
+        "help": "Set a key's color by clicking the palette below. Use the color picker to adjust the palette."
       },
       "consumer": {
         "volume": "Volume",
@@ -170,7 +170,7 @@
       },
       "keypicker": {
         "mods": "Modifiers",
-        "modsHelp": "Choose modifier keys that are automatically pressed as you press this key.",
+        "modsHelp": "Modifiers that are automatically pressed as you press this key.",
         "oneshot": {
           "label": "Sticky",
           "tooltip": "Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier."
@@ -186,11 +186,11 @@
       },
       "leader": {
         "title": "Leader",
-        "help": "Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard."
+        "help": "Assign Leader keys. To configure this feature, customize the Kaleidoscope sketch file for your keyboard."
       },
       "oneshot": {
         "title": "One-shot",
-        "help": "Click the button below to choose a dedicated key to cancel one-shot keys."
+        "help": "A dedicated key to cancel one-shot keys."
       },
       "oneshotMetaKeys": {
         "title": "One-shot meta keys",
@@ -208,7 +208,7 @@
       },
       "macros": {
         "title": "Macros",
-        "help": "Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard."
+        "help": "Assign hardcoded macros built into your firmware to keys."
       },
       "dynmacros": {
         "title": "Dynamic Macros",
@@ -229,15 +229,15 @@
       },
       "spacecadet": {
         "title": "SpaceCadet",
-        "help": "SpaceCadet turns your left and right shift keys into your left and right parens, when tapped without also tapping any other keys. Using the Arduino IDE, you can add additional SpaceCadet mappings."
+        "help": "Make left & right 'Shift' act as left & right parens when tapped."
       },
       "steno": {
         "title": "Steno",
-        "help": "Your keyboard supports the GeminiPR protocol for Stenographic input. Using these keys instead of Plover's QWERTY input offer a more seamless Steno experience."
+        "help": "Use these keys to enable GeminiPR Stenographic input instead of Plover's QWERTY input."
       },
       "tapdance": {
         "title": "TapDance",
-        "help": "Tap-dance keys are general purpose, multi-use keys, which trigger a different action based on the number of times you tap them."
+        "help": "Multi-function keys, which trigger different actions based on the number of times you tap."
       }
     },
     "layerswitch": {
@@ -339,11 +339,11 @@
       },
       "language": {
         "label": "Language",
-        "help": "Choose the language Chrysalis should use"
+        "help": "What language should Chrysalis speak"
       },
       "coloredLayoutCards": {
-        "label": "Enable colors on the layout cards",
-        "help": "When enabled, the layout cards will show not only key labels, but if available, colors too."
+        "label": "Show colors on layout cards",
+        "help": "When enabled, layout cards will show colors in addition to key labels, if available."
       },
       "host": {
         "label": "Keyboard layout",

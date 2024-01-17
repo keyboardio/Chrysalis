@@ -17,7 +17,7 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
-import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import { useTranslation } from "react-i18next";
 import KeyButton from "../components/KeyButton";
 import { SectionTitle } from "@renderer/components/SectionTitle";
@@ -40,7 +40,7 @@ const MediaKeys = (props) => {
   return (
     <>
       <SectionTitle>Music</SectionTitle>
-      <Box sx={{ display: "flex", flexDirection: "column", padding: 0 }}>{keyButtons}</Box>
+      <Stack direction="column">{keyButtons}</Stack>
     </>
   );
 };

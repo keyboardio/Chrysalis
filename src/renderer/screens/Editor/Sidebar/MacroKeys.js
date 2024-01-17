@@ -18,7 +18,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import CategorySelector from "../components/CategorySelector";
+import FKPCategorySelector from "../components/FKPCategorySelector";
 
 const MacroKeys = (props) => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const MacroKeys = (props) => {
   if (!pluginVisible) return null;
 
   return (
-    <CategorySelector
+    <FKPCategorySelector
       title={t("editor.sidebar.macros.title")}
       help={t("editor.sidebar.macros.help")}
       category="macros"

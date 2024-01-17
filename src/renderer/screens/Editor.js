@@ -19,7 +19,7 @@ import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
-
+import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -30,13 +30,13 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FloatingKeyPicker } from "./Editor/components/FloatingKeyPicker";
-import { LegacyAlert } from "./Editor/components/LegacyAlert";
-import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
-import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
-import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
-import MacroEditor from "./Editor/Macros/MacroEditor";
-import Sidebar, { sidebarWidth } from "./Editor/Sidebar";
+import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
+import { LegacyAlert } from "./components/LegacyAlert";
+import { MacroStorageAlert } from "./components/MacroStorageAlert";
+import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
+import OnlyCustomScreen from "./components/OnlyCustomScreen";
+import MacroEditor from "./Macros/MacroEditor";
+import Sidebar, { sidebarWidth } from "./Sidebar";
 
 const db = new KeymapDB();
 
@@ -264,7 +264,7 @@ const Editor = (props) => {
     }
 
     if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-      console.info("Custom keymap is empty, copying defaults");
+      logger().info("Custom keymap is empty, copying defaults");
       for (let i = 0; i < deviceKeymap.default.length; i++) {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
@@ -278,7 +278,6 @@ const Editor = (props) => {
     try {
       let deviceKeymap = await activeDevice.keymap();
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
-      console.log(deviceKeymap);
       const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
@@ -287,33 +286,26 @@ const Editor = (props) => {
 
       const deviceMacros = await activeDevice.macros();
       setMacros(deviceMacros);
+
       const defLayer = await activeDevice.defaultLayer();
       if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
 
-      await loadLayerNames(deviceKeymap);
+      const deviceLayerNames = await activeDevice.layernames();
+      if (deviceLayerNames) {
+        // We set up default names for the layers here, so that they're easily
+        // editable, without having to keep track of whether it is a default
+        // name we're editing, or a custom one.
+        const names = Array(deviceKeymap.custom.length)
+          .fill()
+          .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
+        setLayerNames({
+          storageSize: deviceLayerNames.storageSize,
+          names: names,
+        });
+      }
     } catch (e) {
       toast.error(e);
-      console.error("Error scanning keyboard. Disconnecting.", {
-        error: e,
-      });
       props.onDisconnect();
-    }
-  };
-
-  const loadLayerNames = async (deviceKeymap) => {
-    const deviceLayerNames = await activeDevice.layernames();
-
-    if (deviceLayerNames) {
-      // We set up default names for the layers here, so that they're easily
-      // editable, without having to keep track of whether it is a default
-      // name we're editing, or a custom one.
-      const names = Array(deviceKeymap.custom.length)
-        .fill()
-        .map((_, i) => deviceLayerNames.names[i] || `#${i}`);
-      setLayerNames({
-        storageSize: deviceLayerNames.storageSize,
-        names: names,
-      });
     }
   };
 
@@ -350,7 +342,7 @@ const Editor = (props) => {
   });
 
   const onApplyError = async (error) => {
-    console.error("Error applying layout editor changes", { error: error });
+    logger().error("Error applying layout editor changes", { error: error });
     toast.error(error);
 
     hideContextBar();
@@ -364,7 +356,7 @@ const Editor = (props) => {
     await activeDevice.layernames(layerNames);
 
     setModified(false);
-    console.info("Changes saved.");
+    logger().info("Changes saved.");
     hideContextBar();
   };
 
@@ -379,7 +371,7 @@ const Editor = (props) => {
       custom: newKeymap,
     });
 
-    console.info("Legacy keycodes migrated to new ones.");
+    logger().info("Legacy keycodes migrated to new ones.");
 
     showContextBar();
   };

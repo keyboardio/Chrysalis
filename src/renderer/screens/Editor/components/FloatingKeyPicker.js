@@ -54,16 +54,19 @@ import LeaderKeys from "../Sidebar/LeaderKeys";
 import LayerKeys from "../Sidebar/LayerKeys";
 import SecondaryFunction from "../Sidebar/SecondaryFunction";
 import Modifiers from "../Sidebar/Modifiers";
+
+import Overview from "../Sidebar/Overview";
+
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
-  const { sidebarWidth, onKeyChange, keymap } = props;
+  const { onKeyChange, keymap } = props;
   const key = props.currentKey;
 
   const [visible, setVisible] = useState(true);
-  const [width, setWidth] = useState(800);
-  const [height, setHeight] = useState(300);
-  const [x, setX] = useState((window.innerWidth - sidebarWidth) / 2 - width / 2);
+  const [width, setWidth] = useState(1300);
+  const [height, setHeight] = useState(400);
+  const [x, setX] = useState(window.innerWidth / 2 - width / 2);
   const [y, setY] = useState(window.innerHeight - (height + 28));
   const [lastWindowSize, setLastWindowSize] = useState({
     width: window.innerWidth,
@@ -120,7 +123,10 @@ export const FloatingKeyPicker = (props) => {
 
   return (
     <Rnd
-      size={{ width: width, height: height }}
+      size={{
+        width: width,
+        height: height,
+      }}
       position={{ x: x, y: y }}
       onDragStop={(e, d) => {
         setX(d.x);
@@ -133,153 +139,175 @@ export const FloatingKeyPicker = (props) => {
       style={{
         overflow: "hidden",
         zIndex: theme.zIndex.appBar - 50,
+        backgroundColor: theme.palette.background.paper,
       }}
       minWidth={400}
       lockAspectRatio={true}
       bounds="window"
     >
-      <TabContext value={tabValue}>
-        <Box
-          boxShadow={3}
-          sx={{
-            bgcolor: "background.paper",
-            p: 1,
-            m: 1,
-          }}
-        >
-          {" "}
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleTabChange} aria-label="" variant="scrollable" scrollButtons="auto">
-              <Tab value="keyboard" label="Keyboard" />
-              <Tab value="modifiers" label="Modifiers" />
-              {mouseKeysVisible && <Tab value="mouse" label="Mouse" />}
-              <Tab value="language" label="Language" />
-              <Tab value="control" label="Control" />
-              {stenoKeysVisible && <Tab value="steno" label="Steno" />}
-              {dynamicMacrosVisible && <Tab value="macros" label="Macros" />}
-              {ledControlVisible && <Tab value="leds" label="LEDs" />}
-              <Tab value="layers" label="Layers" />
-              <Tab value="advanced" label="Advanced" />
-            </TabList>
+      <Stack direction="row">
+        <Overview
+          macroEditorOpen={props.macroEditorOpen}
+          keymap={props.keymap}
+          colormap={props.colormap}
+          selectedKey={props.selectedKey}
+          selectedLed={props.selectedLed}
+          layer={props.layer}
+          setLayer={props.setLayer}
+          copyLayer={props.copyLayer}
+          hasCopiedLayer={props.hasCopiedLayer}
+          pasteLayer={props.pasteLayer}
+          layerNames={props.layerNames}
+          setLayerName={props.setLayerName}
+          onKeymapChange={props.onKeymapChange}
+          onPaletteChange={props.onPaletteChange}
+          onColormapChange={props.onColormapChange}
+          onColormapAndPaletteChange={props.onColormapAndPaletteChange}
+        />
+
+        <TabContext value={tabValue}>
+          <Box
+            boxShadow={3}
+            sx={{
+              bgcolor: "background.paper",
+              p: 1,
+              m: 1,
+            }}
+          >
+            {" "}
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList onChange={handleTabChange} aria-label="" variant="scrollable" scrollButtons="auto">
+                <Tab value="keyboard" label="Keyboard" />
+                <Tab value="modifiers" label="Modifiers" />
+                {mouseKeysVisible && <Tab value="mouse" label="Mouse" />}
+                <Tab value="language" label="Language" />
+                <Tab value="control" label="Control" />
+                {stenoKeysVisible && <Tab value="steno" label="Steno" />}
+                {dynamicMacrosVisible && <Tab value="macros" label="Macros" />}
+                {ledControlVisible && <Tab value="leds" label="LEDs" />}
+                <Tab value="layers" label="Layers" />
+                <Tab value="advanced" label="Advanced" />
+              </TabList>
+            </Box>
+            <TabPanel value="keyboard">
+              <Keyboard104 onKeySelect={onKeyChange} currentKeyCode={key.baseCode || key.code} keymap={keymap} />
+            </TabPanel>
+            <TabPanel value="modifiers">
+              <Grid container spacing={0}>
+                <Grid item xs>
+                  <Modifiers {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="mouse">
+              <Grid container spacing={0}>
+                <Grid item xs>
+                  <MouseMovementKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <MouseButtonKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <MouseWheelKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <MouseWarpKeys {...sharedProps} />
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel value="language">
+              <LanguageKeys {...sharedProps} />
+            </TabPanel>
+            <TabPanel value="control">
+              <Grid container spacing={0}>
+                <Grid item xs>
+                  <MediaKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+                <Grid item xs>
+                  <VolumeKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <PlatformAppleKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <BrightnessKeys {...sharedProps} />
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel value="steno">
+              <StenoKeys {...sharedProps} />
+            </TabPanel>
+            <TabPanel value="macros">
+              <Stack container spacing={0}>
+                <DynamicMacroKeys {...sharedProps} />
+                <MacroKeys {...sharedProps} />
+              </Stack>
+            </TabPanel>
+            <TabPanel value="advanced">
+              <Grid container spacing={0}>
+                <Grid item xs>
+                  <BlankKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <CustomKey {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <SpaceCadetKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <OneShotKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <TapDanceKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+                <Grid item xs>
+                  <LeaderKeys {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+                <Grid item xs>
+                  <SecondaryFunction {...sharedProps} />
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel value="leds">
+              <Grid container spacing={2}>
+                <Grid item xs={9}>
+                  <Colormap {...sharedProps} />
+                </Grid>
+                <VerticalSectionDivider />
+
+                <Grid item xs>
+                  <LEDKeys {...sharedProps} />
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel value="layers">
+              <LayerKeys {...sharedProps} />
+            </TabPanel>
           </Box>
-          <TabPanel value="keyboard">
-            <Keyboard104 onKeySelect={onKeyChange} currentKeyCode={key.baseCode || key.code} keymap={keymap} />
-          </TabPanel>
-          <TabPanel value="modifiers">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <Modifiers {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-            </Grid>
-          </TabPanel>
-          <TabPanel value="mouse">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <MouseMovementKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <MouseButtonKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <MouseWheelKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <MouseWarpKeys {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="language">
-            <LanguageKeys {...sharedProps} />
-          </TabPanel>
-          <TabPanel value="control">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <MediaKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <VolumeKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <PlatformAppleKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <BrightnessKeys {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="steno">
-            <StenoKeys {...sharedProps} />
-          </TabPanel>
-          <TabPanel value="macros">
-            <Stack container spacing={0}>
-              <DynamicMacroKeys {...sharedProps} />
-              <MacroKeys {...sharedProps} />
-            </Stack>
-          </TabPanel>
-          <TabPanel value="advanced">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <BlankKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <CustomKey {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <SpaceCadetKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <OneShotKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <TapDanceKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <LeaderKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <SecondaryFunction {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="leds">
-            <Grid container spacing={2}>
-              <Grid item xs={9}>
-                <Colormap {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <LEDKeys {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="layers">
-            <LayerKeys {...sharedProps} />
-          </TabPanel>
-        </Box>
-      </TabContext>
+        </TabContext>
+      </Stack>
     </Rnd>
   );
 };

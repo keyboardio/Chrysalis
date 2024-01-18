@@ -19,7 +19,6 @@ import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
-import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -30,13 +29,13 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
-import { LegacyAlert } from "./components/LegacyAlert";
-import { MacroStorageAlert } from "./components/MacroStorageAlert";
-import { LayerNamesStorageAlert } from "./components/LayerNamesStorageAlert";
-import OnlyCustomScreen from "./components/OnlyCustomScreen";
-import MacroEditor from "./Macros/MacroEditor";
-import Overview from "./Sidebar/Overview";
+import { FloatingKeyPicker } from "./Editor/components/FloatingKeyPicker";
+import { LegacyAlert } from "./Editor/components/LegacyAlert";
+import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
+import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
+import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
+import MacroEditor from "./Editor/Macros/MacroEditor";
+import Overview from "./Editor/Sidebar/Overview";
 
 const db = new KeymapDB();
 

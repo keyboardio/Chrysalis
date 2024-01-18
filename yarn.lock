@@ -3638,7 +3638,7 @@ emojis-list@^3.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
   integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
 
-emoticon@^4.0.1:
+emoticon@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/emoticon/-/emoticon-4.0.1.tgz#2d2bbbf231ce3a5909e185bbb64a9da703a1e749"
   integrity sha512-dqx7eA9YaqyvYtUhJwT4rC1HIp82j5ybS1/vQ42ur+jBe17dJMwZE4+gvL1XadSFfxaPFFGt3Xsw+Y8akThDlw==
@@ -5900,7 +5900,7 @@ mdast-util-definitions@^5.0.0:
     "@types/unist" "^2.0.0"
     unist-util-visit "^4.0.0"
 
-mdast-util-find-and-replace@^2.0.0, mdast-util-find-and-replace@^2.2.2:
+mdast-util-find-and-replace@^2.0.0:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/mdast-util-find-and-replace/-/mdast-util-find-and-replace-2.2.2.tgz#cc2b774f7f3630da4bd592f61966fecade8b99b1"
   integrity sha512-MTtdFRz/eMDHXzeK6W3dO7mXUlF82Gom4y0oOgvHhh/HXZAGvIQDUvQ0SuUx+j2tv44b8xTHOm8K/9OoRFnXKw==
@@ -7819,14 +7819,14 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
 
-remark-emoji@^3.0.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/remark-emoji/-/remark-emoji-3.1.2.tgz#5eb738a119cbd0f50393e2541fdd01a76f59b62d"
-  integrity sha512-QwhAzNk27Ol64uV4z/3n55MKrNz9bhr8wg+mO5aGqIYDS+jUarS1d8Y0ZIeEBVhfGkXj6gGYM+727sOgAPvV/A==
+remark-emoji@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/remark-emoji/-/remark-emoji-3.0.1.tgz#984286b79f708405519e8d09e79b650bee7fde30"
+  integrity sha512-fjHrb2Znv3Y7rTVswpqtxp+UHECq27eQ6uN5JJC/weAr1Tt9ddMMqi0jl8TU32VNqErIV2ez1g6RYoSDyO7lyQ==
   dependencies:
-    emoticon "^4.0.1"
-    mdast-util-find-and-replace "^2.2.2"
+    emoticon "^4.0.0"
     node-emoji "^1.11.0"
+    unist-util-visit "^4.0.0"
 
 remark-gfm@^3.0.1:
   version "3.0.1"

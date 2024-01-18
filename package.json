@@ -119,7 +119,7 @@
     "react-i18next": "^11.8.5",
     "react-markdown": "^7.1.0",
     "react-rnd": "^10.3.7",
-    "remark-emoji": "^3.0.2",
+    "remark-emoji": "3.0.1",
     "remark-gfm": "^3.0.1",
     "sass": "^1.64.2",
     "sass-loader": "^13.3.2",

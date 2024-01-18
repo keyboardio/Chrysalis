@@ -154,7 +154,7 @@ const Overview = (props) => {
           <TableFooter>{layerCopyPaste}</TableFooter>
         </Table>
       </TableContainer>
-      {{ layoutSharing }}
+      {layoutSharing}
     </Box>
   );
 };

@@ -39,6 +39,7 @@ import MacroEditor from "./Editor/Macros/MacroEditor";
 import Overview from "./Editor/Sidebar/Overview";
 
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
+import { LayerCopyPaste } from "./Editor/Sidebar/LayerCopyPaste";
 
 const db = new KeymapDB();
 
@@ -471,11 +472,14 @@ const Editor = (props) => {
               selectedLed={currentLedIndex}
               layer={currentLayer}
               setLayer={onLayerChange}
-              copyLayer={copyLayer}
-              hasCopiedLayer={hasCopiedLayer}
-              pasteLayer={pasteLayer}
               layerNames={layerNames}
               setLayerName={setLayerName}
+            />
+            <LayerCopyPaste
+              layer={currentLayer}
+              copyLayer={copyLayer}
+              pasteLayer={pasteLayer}
+              hasCopiedLayer={hasCopiedLayer}
             />
             {layoutSharing}
           </>

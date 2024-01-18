@@ -24,13 +24,11 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableFooter from "@mui/material/TableFooter";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { LayerCopyPaste } from "./LayerCopyPaste";
 import { LayerNameInput } from "./LayerNameInput";
 
 const Overview = (props) => {
@@ -109,15 +107,6 @@ const Overview = (props) => {
             </TableHead>
           </Tooltip>
           <TableBody>{config}</TableBody>
-          <TableFooter>
-            <LayerCopyPaste
-              colspan={colormap && colormap.palette.length > 0 ? 3 : 2}
-              layer={layer}
-              copyLayer={props.copyLayer}
-              pasteLayer={props.pasteLayer}
-              hasCopiedLayer={props.hasCopiedLayer}
-            />
-          </TableFooter>
         </Table>
       </TableContainer>
     </Box>

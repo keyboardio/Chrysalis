@@ -263,7 +263,7 @@ const Editor = (props) => {
     }
 
     if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-      logger().info("Custom keymap is empty, copying defaults");
+      console.info("Custom keymap is empty, copying defaults");
       for (let i = 0; i < deviceKeymap.default.length; i++) {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
@@ -341,7 +341,7 @@ const Editor = (props) => {
   });
 
   const onApplyError = async (error) => {
-    logger().error("Error applying layout editor changes", { error: error });
+    console.error("Error applying layout editor changes", { error: error });
     toast.error(error);
 
     hideContextBar();
@@ -355,7 +355,7 @@ const Editor = (props) => {
     await activeDevice.layernames(layerNames);
 
     setModified(false);
-    logger().info("Changes saved.");
+    console.info("Changes saved.");
     hideContextBar();
   };
 
@@ -370,7 +370,7 @@ const Editor = (props) => {
       custom: newKeymap,
     });
 
-    logger().info("Legacy keycodes migrated to new ones.");
+    console.info("Legacy keycodes migrated to new ones.");
 
     showContextBar();
   };

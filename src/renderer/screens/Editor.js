@@ -30,7 +30,6 @@ import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./Editor/components/FloatingKeyPicker";
-import { LegacyAlert } from "./Editor/components/LegacyAlert";
 import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
 import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
@@ -57,7 +56,6 @@ const Editor = (props) => {
   const [modified, setModified] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
-  const [hasLegacy, setHasLegacy] = useState(false);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
@@ -138,14 +136,6 @@ const Editor = (props) => {
     const newKey = db.lookup(keyCode);
     newKeymap.custom[currentLayer][currentKeyIndex] = newKey;
 
-    if (hasLegacy) {
-      const k = new Keymap();
-      setHasLegacy(k.hasLegacyCodes(newKeymap.custom));
-    }
-    if (newKey.legacy) {
-      setHasLegacy(true);
-    }
-
     setSelectorKey(newKey);
     setKeymap(newKeymap);
 
@@ -216,7 +206,6 @@ const Editor = (props) => {
     const k = new Keymap();
     const updatedKeymap = { ...keymap };
     updatedKeymap.custom = newKeymap;
-    setHasLegacy(k.hasLegacyCodes(keymap.custom));
     setModified(true);
     setKeymap(updatedKeymap);
 
@@ -266,7 +255,6 @@ const Editor = (props) => {
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
       const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
-      setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
 
@@ -344,22 +332,6 @@ const Editor = (props) => {
     setModified(false);
     console.info("Changes saved.");
     hideContextBar();
-  };
-
-  const migrateLegacy = async () => {
-    const k = new Keymap();
-    const newKeymap = k.migrateLegacyCodes(keymap.custom);
-    setHasLegacy(false);
-    setModified(true);
-    setKeymap({
-      default: keymap.default,
-      onlyCustom: keymap.onlyCustom,
-      custom: newKeymap,
-    });
-
-    console.info("Legacy keycodes migrated to new ones.");
-
-    showContextBar();
   };
 
   const copyLayer = (index) => {
@@ -451,7 +423,6 @@ const Editor = (props) => {
     <React.Fragment>
       <PageTitle title={title} />
 
-      {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
       {macros && <MacroStorageAlert macros={macros} />}
       <Box component="main" sx={{ marginLeft: 20, marginRight: 50 }}>
         {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}

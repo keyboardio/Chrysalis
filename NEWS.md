@@ -1,3 +1,12 @@
+
+2024-01-18
+==========
+
+* Support for Legacy (2019 and earlier) keycodes removed
+* New key selector UI
+
+
+
 Chrysalis 0.13.3
 ================
 Released on 2023-12-19

@@ -83,67 +83,49 @@ const LayoutSharing = (props) => {
   const previewColormap = layout.colormaps ? layout.colormaps[0] : colormap.colorMap[0];
 
   return (
-    <Dialog open={open} onClose={onClose} fullScreen>
-      <DialogTitle>
-        <Typography>{t("editor.sharing.title")}</Typography>
-        <IconButton
-          onClick={onClose}
-          size="large"
-          sx={{
-            position: "absolute",
-            right: 1,
-            top: 1,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <Divider />
-      <DialogContent>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          sx={{ width: sidebarWidth, flexShrink: 0 }}
-          PaperProps={{
-            sx: {
-              width: sidebarWidth,
-              marginTop: "65px",
-              paddingBottom: "65px",
-            },
-          }}
-        >
-          <Box sx={{ overflow: "auto", padding: 3 }}>
-            <LibraryImport setLayout={setLayout} layoutName={layoutName} {...others} />
-            <FileImport setLayout={setLayout} {...others} />
-            <ExportToFile keymap={keymap} colormap={colormap} />
+    <>
+      <Drawer
+        variant="permanent"
+        anchor="right"
+        sx={{ width: sidebarWidth, flexShrink: 0 }}
+        PaperProps={{
+          sx: {
+            width: sidebarWidth,
+            marginTop: "65px",
+            paddingBottom: "65px",
+          },
+        }}
+      >
+        <Box sx={{ overflow: "auto", padding: 3 }}>
+          <LibraryImport setLayout={setLayout} layoutName={layoutName} {...others} />
+          <FileImport setLayout={setLayout} {...others} />
+          <ExportToFile keymap={keymap} colormap={colormap} />
 
-            <Button disabled={layoutName == null} variant="outlined" color="primary" onClick={openImportConfirm}>
-              {t("editor.sharing.import")}
-            </Button>
-            <ConfirmationDialog
-              title={t("editor.sharing.importConfirm.title")}
-              open={importConfirmOpen}
-              onConfirm={onImport}
-              onCancel={closeImportConfirm}
-            >
-              {t("editor.sharing.importConfirm.contents")}
-            </ConfirmationDialog>
-          </Box>
-        </Drawer>
-
-        <Box
-          sx={{
-            flexGrow: 1,
-            padding: 3,
-            marginLeft: `${sidebarWidth}px`,
-            width: `calc(100% - ${sidebarWidth}px)`,
-          }}
-        >
-          <Keymap keymap={previewLayout} palette={palette} colormap={previewColormap} theme={theme} />{" "}
+          <Button disabled={layoutName == null} variant="outlined" color="primary" onClick={openImportConfirm}>
+            {t("editor.sharing.import")}
+          </Button>
+          <ConfirmationDialog
+            title={t("editor.sharing.importConfirm.title")}
+            open={importConfirmOpen}
+            onConfirm={onImport}
+            onCancel={closeImportConfirm}
+          >
+            {t("editor.sharing.importConfirm.contents")}
+          </ConfirmationDialog>
         </Box>
-      </DialogContent>
-    </Dialog>
+      </Drawer>
+
+      <Box
+        sx={{
+          flexGrow: 1,
+          padding: 3,
+          marginLeft: `${sidebarWidth}px`,
+          width: `calc(100% - ${sidebarWidth}px)`,
+        }}
+      >
+        <Keymap keymap={previewLayout} palette={palette} colormap={previewColormap} theme={theme} />{" "}
+      </Box>
+    </>
   );
 };
 export default LayoutSharing;

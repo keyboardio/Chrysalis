@@ -112,6 +112,7 @@ function MainMenu({ open, closeMenu, classes }) {
               "/editor"
             )}
           {activeDevice && listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
+          {activeDevice && listItem(<InfoIcon />, t("app.menu.importExport"), "/import-export")}
 
           {listItem(<CloudUploadIcon />, t("app.menu.firmwareUpdate"), "/firmware-update")}
         </List>

@@ -42,6 +42,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
+import ImportExport from "./screens/ImportExport";
 
 import { Store } from "@renderer/localStore";
 const settings = new Store();
@@ -234,6 +235,8 @@ const App = (props) => {
                         onConnect={onKeyboardConnect}
                       />
                       <LayoutCard path="/layout-card" onDisconnect={onKeyboardDisconnect} />
+                      <ImportExport path="/import-export" onDisconnect={onKeyboardDisconnect} />
+
                       <KeyboardSelect
                         path="/keyboard-select"
                         onConnect={onKeyboardConnect}

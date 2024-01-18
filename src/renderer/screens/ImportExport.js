@@ -377,81 +377,31 @@ const Editor = (props) => {
 
   const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
-  let title;
-  if (openMacroEditor) {
-    title = t("app.menu.macroEditor");
-  } else if (hasColormap() && hasKeymap()) {
-    title = t("app.menu.editor");
-  } else if (hasKeymap()) {
-    title = t("app.menu.layoutEditor");
-  } else {
-    title = t("app.menu.colormapEditor");
-  }
-
-  const currentKey = selectorKey || keymap.custom[currentLayer][currentKeyIndex];
-
-  let mainWidget;
-  if (openMacroEditor) {
-    mainWidget = (
-      <MacroEditor
-        onClose={onMacroEditorClose}
-        onMacroChange={onMacroChange}
-        macroId={currentMacroId}
-        macro={macros.macros[currentMacroId]}
-        macroStep={currentMacroStep}
-        setMacroStep={setCurrentMacroStep}
-        currentKey={currentKey}
-        setSelectorKey={setSelectorKey}
-      />
-    );
-  } else {
-    mainWidget = (
-      <KeymapSVG
-        className="layer"
-        layerNames={layerNames}
-        index={currentLayer}
-        keymap={keymap?.custom[currentLayer]}
-        onKeySelect={onKeySelect}
-        selectedKey={currentKeyIndex}
-        palette={colormap.palette}
-        colormap={colormap.colorMap[currentLayer]}
-      />
-    );
-  }
+  const title = t("app.menu.importExport");
 
   const M = new Macros();
   const L = new LayerNames();
-  const saveChangesDisabled =
-    !modified ||
-    M.getStoredSize(macros) > macros.storageSize ||
-    (layerNames.storageSize > 0 && L.getStoredSize(layerNames) > layerNames.storageSize);
 
-  const layoutSharing = (
-    <>
-      <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
-        {t("editor.overview.sharing")}
-      </Button>
-      <LayoutSharing
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        keymap={keymap}
-        colormap={colormap}
-        layer={currentLayer}
-        onKeymapChange={onKeymapChange}
-        onPaletteChange={onPaletteChange}
-        onColormapChange={onColormapChange}
-        onColormapAndPaletteChange={onColormapAndPaletteChange}
-      />
-    </>
-  );
   return (
     <React.Fragment>
       <PageTitle title={title} />
 
-      {macros && <MacroStorageAlert macros={macros} />}
+      <h1>Coming soon!</h1>
+      <h2>
+        Import/Export functionality is not yet availabe in the browser-based version of Chrysalis. Nothing on this page
+        will work.
+      </h2>
       <Box component="main" sx={{ marginLeft: 20, marginRight: 50 }}>
-        {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}
-        {mainWidget}
+        <LayoutSharing
+          open={true}
+          keymap={keymap}
+          colormap={colormap}
+          layer={currentLayer}
+          onKeymapChange={onKeymapChange}
+          onPaletteChange={onPaletteChange}
+          onColormapChange={onColormapChange}
+          onColormapAndPaletteChange={onColormapAndPaletteChange}
+        />{" "}
       </Box>
       <Box
         sx={{
@@ -463,53 +413,25 @@ const Editor = (props) => {
           zIndex: 1300, // Adjust the zIndex if necessary to bring the component above other elements
         }}
       >
-        {openMacroEditor || (
-          <>
-            <Overview
-              keymap={keymap}
-              colormap={colormap}
-              selectedKey={currentKeyIndex}
-              selectedLed={currentLedIndex}
-              layer={currentLayer}
-              setLayer={onLayerChange}
-              layerNames={layerNames}
-              setLayerName={setLayerName}
-            />
-            <LayerCopyPaste
-              layer={currentLayer}
-              copyLayer={copyLayer}
-              pasteLayer={pasteLayer}
-              hasCopiedLayer={hasCopiedLayer}
-            />
-          </>
-        )}
+        <>
+          <Overview
+            keymap={keymap}
+            colormap={colormap}
+            selectedKey={currentKeyIndex}
+            selectedLed={currentLedIndex}
+            layer={currentLayer}
+            setLayer={onLayerChange}
+            layerNames={layerNames}
+            setLayerName={setLayerName}
+          />
+          <LayerCopyPaste
+            layer={currentLayer}
+            copyLayer={copyLayer}
+            pasteLayer={pasteLayer}
+            hasCopiedLayer={hasCopiedLayer}
+          />
+        </>
       </Box>
-      <FloatingKeyPicker
-        macroEditorOpen={openMacroEditor}
-        macros={macros}
-        keymap={keymap}
-        colormap={colormap}
-        selectedKey={currentKeyIndex}
-        selectedLed={currentLedIndex}
-        layer={currentLayer}
-        setLayer={onLayerChange}
-        copyLayer={copyLayer}
-        hasCopiedLayer={hasCopiedLayer}
-        pasteLayer={pasteLayer}
-        layerNames={layerNames}
-        setLayerName={setLayerName}
-        onKeyChange={onKeyChange}
-        onKeymapChange={onKeymapChange}
-        onColormapChange={onColormapChange}
-        onPaletteChange={onPaletteChange}
-        onColormapAndPaletteChange={onColormapAndPaletteChange}
-        onLedChange={onLedChange}
-        setOpenMacroEditor={maybeOpenMacroEditor}
-        currentKey={currentKey}
-      />
-      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled}>
-        {t("components.save.saveChanges")}
-      </SaveChangesButton>
     </React.Fragment>
   );
 };

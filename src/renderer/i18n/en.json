@@ -38,6 +38,11 @@
       "altText": "Chrysalis logo"
     }
   },
+  "saveChangesButton": {
+    "saveChanges": "Save Changes",
+    "savingChanges": "Saving Changes",
+    "savedChanges": "Saved Changes"
+  },
   "autoUpdate": {
     "available": "New version available: {{ version }}",
     "downloaded": "Version {{ version }} downloaded, restart Chrysalis to finish installing",

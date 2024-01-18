@@ -23,7 +23,7 @@ import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
 import i18n from "@renderer/i18n";
 import React from "react";
-
+import Typography from "@mui/material/Typography";
 const SaveChangesButton = (props) => {
   const [inProgress, setInProgress] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -52,7 +52,16 @@ const SaveChangesButton = (props) => {
     }, 2000);
   };
 
-  const icon = props.icon || <SaveAltIcon />;
+  let icon = props.icon || <SaveAltIcon />;
+  let label = props.label || i18n.t("saveChangesButton.saveChanges");
+
+  if (success) {
+    icon = <CheckIcon />;
+    label = successMessage || i18n.t("saveChangesButton.savedChanges");
+  } else if (inProgress) {
+    icon = <CircularProgress size={24} />;
+    label = i18n.t("saveChangesButton.savingChanges");
+  }
 
   return (
     <Tooltip title={props.children}>
@@ -63,7 +72,7 @@ const SaveChangesButton = (props) => {
           justifyContent: "flex-end",
           position: "fixed",
           bottom: 32,
-          left: 32,
+          right: 32,
           zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
@@ -72,21 +81,10 @@ const SaveChangesButton = (props) => {
             disabled={inProgress || (props.disabled && !success)}
             color={success ? "success" : "primary"}
             onClick={handleButtonClick}
+            variant="extended"
           >
-            {success ? <CheckIcon /> : icon}
+            {icon} <Typography sx={{ ml: 1 }}>{label}</Typography>
           </Fab>
-          {inProgress && (
-            <CircularProgress
-              size={68}
-              color="success"
-              sx={{
-                position: "absolute",
-                top: -6,
-                left: -6,
-                zIndex: 1,
-              }}
-            />
-          )}
         </Box>
       </Box>
     </Tooltip>

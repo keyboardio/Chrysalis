@@ -43,26 +43,13 @@ const Editor = (props) => {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
-  const [colormap, setColormap] = useState({
-    palette: [],
-    colorMap: [],
-  });
+  const [colormap, setColormap] = useState({ palette: [], colorMap: [] });
 
-  const [keymap, setKeymap] = useState({
-    custom: [],
-    default: [],
-    onlyCustom: false,
-  });
+  const [keymap, setKeymap] = useState({ custom: [], default: [], onlyCustom: false });
 
-  const [copiedLayer, setCopiedLayer] = useState({
-    keymap: [],
-    colorMap: [],
-  });
+  const [copiedLayer, setCopiedLayer] = useState({ keymap: [], colorMap: [] });
 
-  const [layerNames, setLayerNames] = useState({
-    storageSize: 0,
-    names: [],
-  });
+  const [layerNames, setLayerNames] = useState({ storageSize: 0, names: [] });
 
   const [macros, setMacros] = useState(null);
   const [currentLedIndex, setCurrentLedIndex] = useState(0);

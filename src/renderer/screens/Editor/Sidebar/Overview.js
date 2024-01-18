@@ -19,7 +19,6 @@ import KeymapDB from "@api/focus/keymap/db";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -31,7 +30,7 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import React from "react";
 import { useTranslation } from "react-i18next";
-
+import { LayerCopyPaste } from "./LayerCopyPaste";
 import { LayerNameInput } from "./LayerNameInput";
 
 const Overview = (props) => {
@@ -90,23 +89,6 @@ const Overview = (props) => {
     );
   });
 
-  const layerCopyPaste = (
-    <TableRow>
-      <TableCell
-        colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
-        align="right"
-        sx={{
-          borderBottom: "none",
-        }}
-      >
-        <Button onClick={() => props.copyLayer(layer)}>{t("editor.overview.copyLayer")}</Button>
-        <Button onClick={() => props.pasteLayer()} disabled={!props.hasCopiedLayer()}>
-          {t("editor.overview.pasteLayer")}
-        </Button>
-      </TableCell>
-    </TableRow>
-  );
-
   return (
     <Box sx={{ mb: 2 }}>
       <TableContainer component={Paper} sx={{ mb: 2 }}>
@@ -127,7 +109,15 @@ const Overview = (props) => {
             </TableHead>
           </Tooltip>
           <TableBody>{config}</TableBody>
-          <TableFooter>{layerCopyPaste}</TableFooter>
+          <TableFooter>
+            <LayerCopyPaste
+              colspan={colormap && colormap.palette.length > 0 ? 3 : 2}
+              layer={layer}
+              copyLayer={props.copyLayer}
+              pasteLayer={props.pasteLayer}
+              hasCopiedLayer={props.hasCopiedLayer}
+            />
+          </TableFooter>
         </Table>
       </TableContainer>
     </Box>

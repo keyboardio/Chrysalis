@@ -19,6 +19,8 @@ import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
+import Button from "@mui/material/Button";
+
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -35,6 +37,8 @@ import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAle
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
 import MacroEditor from "./Editor/Macros/MacroEditor";
 import Overview from "./Editor/Sidebar/Overview";
+
+import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
 
 const db = new KeymapDB();
 
@@ -60,6 +64,8 @@ const Editor = (props) => {
   const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
   const [selectorKey, setSelectorKey] = useState(null);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -419,6 +425,24 @@ const Editor = (props) => {
     M.getStoredSize(macros) > macros.storageSize ||
     (layerNames.storageSize > 0 && L.getStoredSize(layerNames) > layerNames.storageSize);
 
+  const layoutSharing = (
+    <>
+      <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
+        {t("editor.overview.sharing")}
+      </Button>
+      <LayoutSharing
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        keymap={keymap}
+        colormap={colormap}
+        layer={currentLayer}
+        onKeymapChange={onKeymapChange}
+        onPaletteChange={onPaletteChange}
+        onColormapChange={onColormapChange}
+        onColormapAndPaletteChange={onColormapAndPaletteChange}
+      />
+    </>
+  );
   return (
     <React.Fragment>
       <PageTitle title={title} />
@@ -438,29 +462,24 @@ const Editor = (props) => {
           zIndex: 1300, // Adjust the zIndex if necessary to bring the component above other elements
         }}
       >
-        <Overview
-          macroEditorOpen={openMacroEditor}
-          macros={macros}
-          keymap={keymap}
-          colormap={colormap}
-          selectedKey={currentKeyIndex}
-          selectedLed={currentLedIndex}
-          layer={currentLayer}
-          setLayer={onLayerChange}
-          copyLayer={copyLayer}
-          hasCopiedLayer={hasCopiedLayer}
-          pasteLayer={pasteLayer}
-          layerNames={layerNames}
-          setLayerName={setLayerName}
-          onKeyChange={onKeyChange}
-          onKeymapChange={onKeymapChange}
-          onColormapChange={onColormapChange}
-          onPaletteChange={onPaletteChange}
-          onColormapAndPaletteChange={onColormapAndPaletteChange}
-          onLedChange={onLedChange}
-          setOpenMacroEditor={maybeOpenMacroEditor}
-          currentKey={currentKey}
-        />
+        {openMacroEditor || (
+          <>
+            <Overview
+              keymap={keymap}
+              colormap={colormap}
+              selectedKey={currentKeyIndex}
+              selectedLed={currentLedIndex}
+              layer={currentLayer}
+              setLayer={onLayerChange}
+              copyLayer={copyLayer}
+              hasCopiedLayer={hasCopiedLayer}
+              pasteLayer={pasteLayer}
+              layerNames={layerNames}
+              setLayerName={setLayerName}
+            />
+            {layoutSharing}
+          </>
+        )}
       </Box>
       <FloatingKeyPicker
         macroEditorOpen={openMacroEditor}

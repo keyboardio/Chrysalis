@@ -29,22 +29,17 @@ import TableFooter from "@mui/material/TableFooter";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
-import LayoutSharing from "./LayoutSharing";
 import { LayerNameInput } from "./LayerNameInput";
 
 const Overview = (props) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   const { t } = useTranslation();
 
   const selectLayer = (index) => () => {
     props.setLayer(index);
   };
-
-  if (props.macroEditorOpen) return null;
 
   const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
   const db = new KeymapDB();
@@ -112,25 +107,6 @@ const Overview = (props) => {
     </TableRow>
   );
 
-  const layoutSharing = (
-    <>
-      <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
-        {t("editor.overview.sharing")}
-      </Button>
-      <LayoutSharing
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        keymap={keymap}
-        colormap={colormap}
-        layer={layer}
-        onKeymapChange={props.onKeymapChange}
-        onPaletteChange={props.onPaletteChange}
-        onColormapChange={props.onColormapChange}
-        onColormapAndPaletteChange={props.onColormapAndPaletteChange}
-      />
-    </>
-  );
-
   return (
     <Box sx={{ mb: 2 }}>
       <TableContainer component={Paper} sx={{ mb: 2 }}>
@@ -154,7 +130,6 @@ const Overview = (props) => {
           <TableFooter>{layerCopyPaste}</TableFooter>
         </Table>
       </TableContainer>
-      {layoutSharing}
     </Box>
   );
 };

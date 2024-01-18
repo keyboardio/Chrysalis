@@ -20,7 +20,6 @@ import CropSquareIcon from "@mui/icons-material/CropSquare";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -33,22 +32,8 @@ import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
 import LayoutSharing from "./LayoutSharing";
-
-const LayerNameInput = (props) => {
-  const [loaded, plugins] = useCheckDeviceSupportsPlugins(["LayerNames"]);
-
-  const onChange = (event) => {
-    props.setLayerName(props.index, event.target.value);
-  };
-
-  if (!loaded || !plugins["LayerNames"]) {
-    return `${props.value}`;
-  }
-
-  return <InputBase sx={{ flex: 1 }} value={props.value} onChange={onChange} />;
-};
+import { LayerNameInput } from "./LayerNameInput";
 
 const Overview = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -59,32 +44,12 @@ const Overview = (props) => {
     props.setLayer(index);
   };
 
-  const findLastUsedLayer = () => {
-    let lastUsedLayer = 0;
-    const { keymap } = props;
-
-    for (let index = 0; index < keymap.custom.length; index++) {
-      const layer = keymap.custom[index];
-      for (let keyIdx = 0; keyIdx < layer.length; keyIdx++) {
-        if (layer[keyIdx].code != db.constants.codes.EMPTY) {
-          lastUsedLayer = index;
-          break;
-        }
-      }
-    }
-
-    return lastUsedLayer;
-  };
-
   if (props.macroEditorOpen) return null;
 
   const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
   const db = new KeymapDB();
 
-  const lastUsedLayer = findLastUsedLayer();
-  let usedLayers;
-
-  usedLayers = keymap.custom;
+  const usedLayers = keymap.custom;
   const config = usedLayers.map((layerData, index) => {
     const label = db.format(layerData[selectedKey], {
       keycapSize: "full",
@@ -139,39 +104,18 @@ const Overview = (props) => {
           borderBottom: "none",
         }}
       >
-        <Button onClick={() => props.copyLayer(layer)}>{t("editor.sidebar.overview.copyLayer")}</Button>
+        <Button onClick={() => props.copyLayer(layer)}>{t("editor.overview.copyLayer")}</Button>
         <Button onClick={() => props.pasteLayer()} disabled={!props.hasCopiedLayer()}>
-          {t("editor.sidebar.overview.pasteLayer")}
+          {t("editor.overview.pasteLayer")}
         </Button>
       </TableCell>
     </TableRow>
   );
 
-  return (
-    <Box sx={{ mb: 2 }}>
-      <TableContainer component={Paper} sx={{ mb: 2 }}>
-        <Table size="small">
-          <Tooltip title={t("editor.sidebar.overview.help")}>
-            <TableHead>
-              <TableRow>
-                <TableCell size="small" width="33%">
-                  {t("components.layerRaw")}
-                </TableCell>
-                <TableCell>
-                  {t("editor.sidebar.overview.key", {
-                    index: selectedKey,
-                  })}
-                </TableCell>
-                {colormap && colormap.palette.length > 0 && <TableCell>{t("editor.sidebar.overview.color")}</TableCell>}
-              </TableRow>
-            </TableHead>
-          </Tooltip>
-          <TableBody>{config}</TableBody>
-          <TableFooter>{layerCopyPaste}</TableFooter>
-        </Table>
-      </TableContainer>
+  const layoutSharing = (
+    <>
       <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
-        {t("editor.sidebar.overview.sharing")}
+        {t("editor.overview.sharing")}
       </Button>
       <LayoutSharing
         open={dialogOpen}
@@ -184,6 +128,33 @@ const Overview = (props) => {
         onColormapChange={props.onColormapChange}
         onColormapAndPaletteChange={props.onColormapAndPaletteChange}
       />
+    </>
+  );
+
+  return (
+    <Box sx={{ mb: 2 }}>
+      <TableContainer component={Paper} sx={{ mb: 2 }}>
+        <Table size="small">
+          <Tooltip title={t("editor.overview.help")}>
+            <TableHead>
+              <TableRow>
+                <TableCell size="small" width="33%">
+                  {t("components.layerRaw")}
+                </TableCell>
+                <TableCell>
+                  {t("editor.overview.key", {
+                    index: selectedKey,
+                  })}
+                </TableCell>
+                {colormap && colormap.palette.length > 0 && <TableCell>{t("editor.overview.color")}</TableCell>}
+              </TableRow>
+            </TableHead>
+          </Tooltip>
+          <TableBody>{config}</TableBody>
+          <TableFooter>{layerCopyPaste}</TableFooter>
+        </Table>
+      </TableContainer>
+      {{ layoutSharing }}
     </Box>
   );
 };

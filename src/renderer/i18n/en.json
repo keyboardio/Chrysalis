@@ -118,6 +118,16 @@
         "contents": "This will overwrite your current layout, and any unsaved changes will be lost. Are you sure you want to continue?"
       }
     },
+    "overview": {
+      "key": "Key #{{index}}",
+      "color": "Color",
+      "hideEmptyLayers": "Hide empty layers...",
+      "showEmptyLayers": "Show empty layers...",
+      "copyLayer": "Copy layer",
+      "pasteLayer": "Paste layer",
+      "sharing": "Backup & Restore",
+      "help": "An overview of the mappings for the currently selected key. To change the shown layer, click on its row."
+    },
     "sidebar": {
       "language_intl": {
         "title": "Language / International",
@@ -136,16 +146,7 @@
         "title": "Blanks",
         "help": "Blocked & transparent keys."
       },
-      "overview": {
-        "key": "Key #{{index}}",
-        "color": "Color",
-        "hideEmptyLayers": "Hide empty layers...",
-        "showEmptyLayers": "Show empty layers...",
-        "copyLayer": "Copy layer",
-        "pasteLayer": "Paste layer",
-        "sharing": "Backup & Restore",
-        "help": "An overview of the mappings for the currently selected key. To change the shown layer, click on its row."
-      },
+
       "secondary": {
         "title": "Secondary action",
         "help": "When tapped, you get the primary function. When held you get the secondary action.",

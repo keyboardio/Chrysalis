@@ -507,9 +507,7 @@ const Editor = (props) => {
         setOpenMacroEditor={maybeOpenMacroEditor}
         currentKey={currentKey}
       />
-      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled}>
-        {t("components.save.saveChanges")}
-      </SaveChangesButton>
+      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled} />
     </React.Fragment>
   );
 };

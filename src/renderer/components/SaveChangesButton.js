@@ -32,10 +32,6 @@ const SaveChangesButton = (props) => {
 
   const handleButtonClick = async (event) => {
     setInProgress(true);
-    console.debug("about to do async stuff", { label: "save-changes" });
-    console.debug("about to call the onlick handler", {
-      label: "save-changes",
-    });
     try {
       await props.onClick(event);
     } catch (e) {
@@ -64,30 +60,28 @@ const SaveChangesButton = (props) => {
   }
 
   return (
-    <Tooltip title={props.children}>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          position: "fixed",
-          bottom: 32,
-          right: 32,
-          zIndex: (theme) => theme.zIndex.drawer - 1,
-        }}
-      >
-        <Box sx={{ position: "relative" }}>
-          <Fab
-            disabled={inProgress || (props.disabled && !success)}
-            color={success ? "success" : "primary"}
-            onClick={handleButtonClick}
-            variant="extended"
-          >
-            {icon} <Typography sx={{ ml: 1 }}>{label}</Typography>
-          </Fab>
-        </Box>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        position: "fixed",
+        bottom: 32,
+        right: 32,
+        zIndex: (theme) => theme.zIndex.drawer - 1,
+      }}
+    >
+      <Box sx={{ position: "relative" }}>
+        <Fab
+          disabled={inProgress || (props.disabled && !success)}
+          color={success ? "success" : "primary"}
+          onClick={handleButtonClick}
+          variant="extended"
+        >
+          {icon} <Typography sx={{ ml: 1 }}>{label}</Typography>
+        </Fab>
       </Box>
-    </Tooltip>
+    </Box>
   );
 };
 

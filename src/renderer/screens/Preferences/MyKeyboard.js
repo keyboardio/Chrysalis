@@ -99,9 +99,7 @@ const MyKeyboardPreferences = (props) => {
       <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences onDisconnect={props.onDisconnect} />
 
-      <SaveChangesButton onClick={saveChanges} onError={onError} disabled={!modified}>
-        {t("components.save.saveChanges")}
-      </SaveChangesButton>
+      <SaveChangesButton onClick={saveChanges} onError={onError} disabled={!modified} />
     </>
   );
 };

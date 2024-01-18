@@ -30,9 +30,6 @@
     "layer": "Layer {{index}}",
     "layerRaw": "Layer",
     "none": "None",
-    "save": {
-      "saveChanges": "Save Changes"
-    },
     "loading": "Reading data from device...",
     "logo": {
       "altText": "Chrysalis logo"

@@ -31,7 +31,7 @@ import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FloatingKeyPicker } from "./Editor/components/FloatingKeyPicker";
+import { KeyPicker } from "./Editor/components/KeyPicker";
 import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
 import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";

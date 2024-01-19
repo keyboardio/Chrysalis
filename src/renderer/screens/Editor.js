@@ -37,7 +37,7 @@ import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAle
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
 import MacroEditor from "./Editor/Macros/MacroEditor";
 import Overview from "./Editor/Sidebar/Overview";
-
+import Drawer from "@mui/material/Drawer";
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
 import { LayerCopyPaste } from "./Editor/Sidebar/LayerCopyPaste";
 
@@ -484,29 +484,31 @@ const Editor = (props) => {
           </>
         )}
       </Box>
-      <KeyPicker
-        macroEditorOpen={openMacroEditor}
-        macros={macros}
-        keymap={keymap}
-        colormap={colormap}
-        selectedKey={currentKeyIndex}
-        selectedLed={currentLedIndex}
-        layer={currentLayer}
-        setLayer={onLayerChange}
-        copyLayer={copyLayer}
-        hasCopiedLayer={hasCopiedLayer}
-        pasteLayer={pasteLayer}
-        layerNames={layerNames}
-        setLayerName={setLayerName}
-        onKeyChange={onKeyChange}
-        onKeymapChange={onKeymapChange}
-        onColormapChange={onColormapChange}
-        onPaletteChange={onPaletteChange}
-        onColormapAndPaletteChange={onColormapAndPaletteChange}
-        onLedChange={onLedChange}
-        setOpenMacroEditor={maybeOpenMacroEditor}
-        currentKey={currentKey}
-      />
+      <Drawer variant="permanent" anchor="bottom" sx={{ "& .MuiDrawer-paper": { height: "25rem" } }}>
+        <KeyPicker
+          macroEditorOpen={openMacroEditor}
+          macros={macros}
+          keymap={keymap}
+          colormap={colormap}
+          selectedKey={currentKeyIndex}
+          selectedLed={currentLedIndex}
+          layer={currentLayer}
+          setLayer={onLayerChange}
+          copyLayer={copyLayer}
+          hasCopiedLayer={hasCopiedLayer}
+          pasteLayer={pasteLayer}
+          layerNames={layerNames}
+          setLayerName={setLayerName}
+          onKeyChange={onKeyChange}
+          onKeymapChange={onKeymapChange}
+          onColormapChange={onColormapChange}
+          onPaletteChange={onPaletteChange}
+          onColormapAndPaletteChange={onColormapAndPaletteChange}
+          onLedChange={onLedChange}
+          setOpenMacroEditor={maybeOpenMacroEditor}
+          currentKey={currentKey}
+        />
+      </Drawer>
       <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled} />
     </React.Fragment>
   );

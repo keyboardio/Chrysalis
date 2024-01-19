@@ -126,6 +126,7 @@ export const KeyPicker = (props) => {
           boxShadow={3}
           sx={{
             bgcolor: "background.paper",
+            width: "100%",
             p: 1,
             m: 1,
           }}

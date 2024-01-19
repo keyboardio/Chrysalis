@@ -68,7 +68,7 @@ const SaveChangesButton = (props) => {
         position: "fixed",
         bottom: 32,
         right: 32,
-        zIndex: (theme) => theme.zIndex.drawer - 1,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
       <Box sx={{ position: "relative" }}>

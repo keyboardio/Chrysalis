@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { GuiLabel, GuiShortLabel } from "./base/gui";
+import { GuiLabel, GuiShortLabel } from "./base";
 
 const modMap = {
   ctrl: 1 << 8,

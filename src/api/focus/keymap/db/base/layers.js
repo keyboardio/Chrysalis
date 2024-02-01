@@ -13,30 +13,21 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 const layer = (base, hint, type, index) => ({
   code: base + index,
-  label: {
-    hint: hint,
-    base: "#" + index.toString(),
-  },
+  label: { hint: hint, base: "#" + index.toString() },
   target: index,
   rangeStart: base,
   categories: ["layer", type],
 });
-
 const shiftToLayer = Array(32)
   .fill()
   .map((_, index) => layer(17450, "ShiftTo", "shifttolayer", index));
-
 const lockToLayer = Array(32)
   .fill()
   .map((_, index) => layer(17408, "LockTo", "locktolayer", index));
-
 const moveToLayer = Array(32)
   .fill()
   .map((_, index) => layer(17492, "MoveTo", "movetolayer", index));
-
 const layers = shiftToLayer.concat(lockToLayer).concat(moveToLayer);
-
 export { layers };

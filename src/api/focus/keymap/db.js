@@ -100,11 +100,6 @@ class KeymapDB {
     // Base codetable
     for (const key of Base.codetable) {
       this._codetable[key.code] = Object.assign({}, key);
-      if (key.legacyCode) {
-        this._codetable[key.legacyCode] = Object.assign({}, key, {
-          legacy: true,
-        });
-      }
     }
 
     // Fallback to US QWERTY

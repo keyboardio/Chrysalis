@@ -17,7 +17,7 @@
 import i18n from "i18next";
 import cldr_data from "./cldr_data";
 import { Base } from "./db/base";
-import { USQwerty } from "./db/us/qwerty";
+import { USQwerty } from "./db/base";
 import { constants } from "./db/constants";
 import { withModifiers } from "./db/modifiers";
 

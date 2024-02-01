@@ -28,6 +28,7 @@ const createModCombination = (categories, labelFunc = (key) => modLabelFunc(key,
   offset: categories.reduce((acc, mod) => acc + modifiers[mod].flag, 0),
   label: labelFunc,
 });
+
 const modLabelFunc = (key, mods) => {
   const isHyper = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt") && mods.includes("gui");
   const isMeh = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt");

@@ -34,7 +34,7 @@ const KeyButtonList = (props) => {
   const buttons = keys.map((k, index) => {
     const key = "key-" + props.category + "-" + index.toString();
     const label = db.format(k, { keycapSize: "full" });
-    return <KeyButton keyObj={k} key={key} onKeyChange={onClick(k)} noHint={!showHints} />;
+    return <KeyButton keyObj={k} key={key} onKeyChange={onClick(k)} noHint={!showHints} disabled={props.disabled} />;
   });
 
   return (

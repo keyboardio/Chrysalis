@@ -24,7 +24,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
-import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
+import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
@@ -33,7 +33,7 @@ const db = new KeymapDB();
 
 const KeyPicker = (props) => {
   const { t } = useTranslation();
-  const oneShotVisible = usePluginVisibility("OneShot");
+  const oneShotAvailable = usePluginAvailable("OneShot");
 
   const isStandardKey = (props) => {
     const { currentKey: key } = props;
@@ -41,18 +41,6 @@ const KeyPicker = (props) => {
     const stdRange = db.constants.ranges.standard;
 
     return code >= stdRange.start && code <= stdRange.end && !db.isInCategory(key.code, "dualuse");
-  };
-
-  const isOSM = () => {
-    const { currentKey: key } = props;
-
-    return db.isInCategory(key.code, "modifier") && db.isInCategory(key.code, "oneshot");
-  };
-
-  const isDualUse = () => {
-    const { currentKey: key } = props;
-
-    return db.isInCategory(key.code, "dualuse");
   };
 
   const toggleModifier = (mod) => (event) => {
@@ -90,68 +78,83 @@ const KeyPicker = (props) => {
 
   const { currentKey: key } = props;
 
-  let oneShot;
-  if (oneShotVisible && db.isInCategory(key.baseCode || key.code, "modifier")) {
-    const osmControl = <Switch checked={db.isInCategory(key, "oneshot")} color="primary" onChange={toggleOneShot} />;
+  const disableOneShot = !oneShotAvailable || !db.isInCategory(key.baseCode || key.code, "modifier");
+  const osmControl = (
+    <Switch
+      checked={db.isInCategory(key, "oneshot")}
+      color="primary"
+      onChange={toggleOneShot}
+      disabled={disableOneShot || db.isInCategory(key.code, "dualuse")}
+    />
+  );
 
-    oneShot = (
-      <FormControl
-        component="fieldset"
-        sx={{ mt: 1 }}
-        disabled={!db.isInCategory(key.code, "modifier") || db.isInCategory(key.code, "dualuse")}
-      >
-        <FormGroup row>
-          <Tooltip title={t("editor.sidebar.keypicker.oneshot.tooltip")}>
-            <FormControlLabel control={osmControl} label={t("editor.sidebar.keypicker.oneshot.label")} />
-          </Tooltip>
-        </FormGroup>
-      </FormControl>
-    );
-  }
-
-  const isDU = db.isInCategory(key.code, "dualuse");
+  const isDualUse = db.isInCategory(key.code, "dualuse");
   const isShifted = db.isInCategory(key.code, "shift");
   const isTopsyTurvy = db.isInCategory(key.code, "topsyturvy");
+
+  const isOSM = () => {
+    const { currentKey: key } = props;
+
+    return db.isInCategory(key.code, "modifier") && db.isInCategory(key.code, "oneshot");
+  };
   const isMod = (key, mod) => key.baseCode == mod || key.code == mod;
+
   const c = db.constants.codes;
-  const topsyTurvyVisible = usePluginVisibility("TopsyTurvy");
+  const topsyTurvyAvailable = usePluginAvailable("TopsyTurvy");
 
   return (
     <>
-      <Typography>{t("editor.sidebar.keypicker.modsHelp")}</Typography>
       <Box sx={{ margin: "2 0" }}>
-        <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
-          <FormGroup row>
-            <FormControlLabel
-              control={makeSwitch("shift")}
-              label="Shift"
-              disabled={isMod(key, c.LEFT_SHIFT) || isTopsyTurvy || isDU}
-            />
-            <FormControlLabel
-              control={makeSwitch("ctrl")}
-              label="Control"
-              disabled={isMod(key, c.LEFT_CONTROL) || isDU}
-            />
-            <FormControlLabel control={makeSwitch("alt")} label="Alt" disabled={isMod(key, c.LEFT_ALT) || isDU} />
-            <FormControlLabel
-              control={makeSwitch("gui")}
-              label={GuiLabel.full}
-              disabled={isMod(key, c.LEFT_GUI) || isDU}
-            />
-            <FormControlLabel control={makeSwitch("altgr")} label="AltGr" disabled={isMod(key, c.RIGHT_ALT) || isDU} />
+        <FormGroup row>
+          <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
+            <Typography>{t("editor.sidebar.keypicker.modsHelp")}</Typography>
 
-            {topsyTurvyVisible && (
+            <FormGroup column>
+              <FormControlLabel
+                control={makeSwitch("shift")}
+                label="Shift"
+                disabled={isMod(key, c.LEFT_SHIFT) || isTopsyTurvy || isDualUse}
+              />
+              <FormControlLabel
+                control={makeSwitch("ctrl")}
+                label="Control"
+                disabled={isMod(key, c.LEFT_CONTROL) || isDualUse}
+              />
+              <FormControlLabel
+                control={makeSwitch("alt")}
+                label="Alt"
+                disabled={isMod(key, c.LEFT_ALT) || isDualUse}
+              />
+              <FormControlLabel
+                control={makeSwitch("gui")}
+                label={GuiLabel.full}
+                disabled={isMod(key, c.LEFT_GUI) || isDualUse}
+              />
+              <FormControlLabel
+                control={makeSwitch("altgr")}
+                label="AltGr"
+                disabled={isMod(key, c.RIGHT_ALT) || isDualUse}
+              />
+            </FormGroup>
+          </FormControl>
+          <FormGroup column>
+            <Typography>{t("editor.sidebar.keypicker.specialModsHelp")}</Typography>
+
+            <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
               <Tooltip title={t("editor.sidebar.keypicker.topsyturvy.tooltip")}>
                 <FormControlLabel
                   control={makeSwitch("topsyturvy")}
                   label={t("editor.sidebar.keypicker.topsyturvy.label")}
-                  disabled={isMod(key, c.LEFT_SHIFT) || isShifted || isDU}
+                  disabled={!topsyTurvyAvailable || isMod(key, c.LEFT_SHIFT) || isShifted || isDualUse}
                 />
               </Tooltip>
-            )}
+
+              <Tooltip title={t("editor.sidebar.keypicker.oneshot.tooltip")}>
+                <FormControlLabel control={osmControl} label={t("editor.sidebar.keypicker.oneshot.label")} />
+              </Tooltip>
+            </FormControl>
           </FormGroup>
-        </FormControl>
-        {oneShot}
+        </FormGroup>
       </Box>
     </>
   );

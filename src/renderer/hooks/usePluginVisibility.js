@@ -27,6 +27,8 @@ export default function usePluginVisibility(plugin) {
 
   useEffect(() => {
     const fetchData = async () => {
+      // if called without a plugin, it's a built in category. always return true.
+      if (!plugin) setPluginSupported(true);
       const plugins = await activeDevice.plugins();
       const hideUnavailableFeatures = settings.get("ui.hideFeaturesNotAvailableInCurrentFirmware", true);
       const commands = await activeDevice.supported_commands();

@@ -31,6 +31,9 @@ export const constants = {
     ONESHOT_CANCEL: 53630,
     BLOCKED: 65535,
 
+    // Dual use keycodes
+    DUAL_USE_MODIFIER_BASE: 49169,
+    DUAL_USE_LAYER_BASE: 51218,
     // Aliases
     FIRST_MODIFIER: 224,
     FIRST_ONESHOT_MODIFIER: 49153,

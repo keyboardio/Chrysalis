@@ -129,12 +129,12 @@ class KeymapDB {
       }
       // If there is no dualuse key for this keycode, continue with the next
       // one.
-      if (!this._codetable[key.code + 49169]?.baseCode) continue;
+      if (!this._codetable[key.code + constants.codes.DUAL_USE_MODIFIER_BASE]?.baseCode) continue;
       if (key.code >= 256) continue;
 
       // dual-use modifiers
       for (const m of [0, 1, 2, 3, 4, 5, 6, 7]) {
-        const dumCode = key.code + 49169 + m * 256;
+        const dumCode = key.code + constants.codes.DUAL_USE_MODIFIER_BASE + m * 256;
         if (this._codetable[dumCode]) {
           const base = this._codetable[dumCode];
           this._codetable[dumCode].label = Object.assign({}, { hint: base.label.hint, base: key.label.base });
@@ -143,7 +143,7 @@ class KeymapDB {
 
       // dual-use layers
       for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
-        const dulCode = key.code + 51218 + l * 256;
+        const dulCode = key.code + constants.codes.DUAL_USE_LAYER_BASE + l * 256;
         if (this._codetable[dulCode]) {
           const base = this._codetable[dulCode];
           this._codetable[dulCode].label = Object.assign({}, { hint: base.label.hint, base: key.label.base });

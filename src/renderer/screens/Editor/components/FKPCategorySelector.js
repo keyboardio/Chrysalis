@@ -20,25 +20,46 @@ import { SectionTitle } from "@renderer/components/SectionTitle";
 import React from "react";
 import KeyButtonList from "../components/KeyButtonList";
 import FormHelperText from "@mui/material/FormHelperText";
-
+import Tooltip from "@mui/material/Tooltip";
+import { useTranslation } from "react-i18next";
+import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 const db = new KeymapDB();
 
 const FKPCategorySelector = (props) => {
+  const { t } = useTranslation();
+  let tooltip;
+  let disabled = props.disabled;
+  const pluginUnavailable = !usePluginAvailable(props.plugin);
+  if (pluginUnavailable && props.plugin) {
+    tooltip = t("editor.plugin_unavailable");
+    disabled = true;
+  } else if (props.disabledInMacroEditor && props.macroEditorOpen) {
+    tooltip = t("editor.plugin_unavailable_for_macros");
+    disabled = true;
+  }
+  let title = props.title;
+  if (!title && props.category) {
+    title = t("editor.sidebar." + props.category + ".title");
+  }
+  let help = props.help;
+  if (!help && props.category) {
+    help = t("editor.sidebar." + props.category + ".help");
+  }
+
   return (
     <React.Fragment>
-      {props.title && <SectionTitle>{props.title}</SectionTitle>}
-
-      {props.help && (
-        <FormHelperText
-          sx={{
-            mb: 2,
-          }}
-        >
-          {props.help}
-        </FormHelperText>
-      )}
-      {props.children}
-      <KeyButtonList keys={db.selectCategory(props.category)} onKeyChange={props.onKeyChange} showHints={false} />
+      <Tooltip title={tooltip}>
+        {title && <SectionTitle>{title}</SectionTitle>}
+        {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
+        {props.children || (
+          <KeyButtonList
+            keys={db.selectCategory(props.category)}
+            onKeyChange={props.onKeyChange}
+            disabled={disabled}
+            showHints={false}
+          />
+        )}
+      </Tooltip>
     </React.Fragment>
   );
 };

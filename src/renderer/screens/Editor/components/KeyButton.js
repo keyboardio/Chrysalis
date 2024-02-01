@@ -56,6 +56,7 @@ const KeyButton = (props) => {
       variant="outlined"
       size="small"
       color={active ? "primary" : "secondary"}
+    disabled={props.disabled}
       sx={{
         m: 0,
         px: 1,

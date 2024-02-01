@@ -94,6 +94,8 @@
     "title": "Changelog"
   },
   "editor": {
+    "plugin_unavailable": "Your keyboard's firmware does not include support for this feature.",
+    "plugin_unavailable_for_macros": "This function isn't available in macros",
     "sharing": {
       "title": "Backup & Restore",
       "loadFromLibrary": "Load from library",
@@ -128,7 +130,7 @@
       "help": "An overview of the mappings for the currently selected key. To change the shown layer, click on its row."
     },
     "sidebar": {
-      "language_intl": {
+      "lang_intl": {
         "title": "Language / International",
         "help": "Language-specific extra keys."
       },
@@ -170,7 +172,8 @@
       },
       "keypicker": {
         "mods": "Modifiers",
-        "modsHelp": "Modifiers that are automatically pressed as you press this key.",
+        "modsHelp": "Modifiers to add as you press this key.",
+        "specialModsHelp": "Change how modifiers affect this key.",
         "oneshot": {
           "label": "Sticky",
           "tooltip": "Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier."
@@ -202,7 +205,7 @@
           "tooltip": "Makes any currently-pressed keys sticky until tapped again."
         }
       },
-      "ledcontrol": {
+      "ledkeys": {
         "title": "LED control",
         "help": "Control your keyboard's LED themes and effects."
       },

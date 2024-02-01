@@ -13,52 +13,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import { withModifiers } from "../modifiers";
-
 const miscellaneous = withModifiers([
-  {
-    code: 57,
-    label: {
-      base: {
-        full: "Caps Lock",
-        "1u": "Caps",
-      },
-    },
-  },
-  {
-    code: 70,
-    label: {
-      base: {
-        full: "Print Screen",
-        "1u": "PrSc",
-      },
-    },
-  },
-  {
-    code: 71,
-    label: {
-      base: {
-        full: "Scroll Lock",
-        "1u": "ScLk",
-      },
-    },
-  },
-  {
-    code: 72,
-    label: {
-      base: {
-        full: "Pause / Break",
-        "1u": "Brk",
-      },
-    },
-  },
-  {
-    code: 101,
-    label: {
-      base: "Menu",
-    },
-  },
+  { code: 57, label: { base: { full: "Caps Lock", "1u": "Caps" } } },
+  { code: 70, label: { base: { full: "Print Screen", "1u": "PrSc" } } },
+  { code: 71, label: { base: { full: "Scroll Lock", "1u": "ScLk" } } },
+  { code: 72, label: { base: { full: "Pause / Break", "1u": "Brk" } } },
+  { code: 101, label: { base: "Menu" } },
 ]);
-
 export { miscellaneous };

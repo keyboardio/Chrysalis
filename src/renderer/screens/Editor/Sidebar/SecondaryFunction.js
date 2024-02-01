@@ -15,7 +15,8 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import KeymapDB, { GuiLabel } from "@api/focus/keymap/db";
+import KeymapDB from "@api/focus/keymap/db";
+import { GuiLabel } from "@api/focus/keymap/db/gui";
 import { addDualUseLayer, addDualUseModifier } from "@api/focus/keymap/db/base";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";

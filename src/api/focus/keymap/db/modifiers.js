@@ -1,21 +1,38 @@
 import { GuiLabel, GuiShortLabel } from "./gui";
 
 const modifiers = {
-  ctrl: { flag: 256, label: { full: "Ctrl+", "1u": "C+" } },
-  alt: { flag: 512, label: { full: "Alt+", "1u": "A+" } },
-  altgr: { flag: 1024, label: { full: "AltGr+", "1u": "AGr+" } },
-  shift: { flag: 2048, label: { full: "Shift+", "1u": "S+" } },
-  gui: { flag: 4096, label: { full: GuiLabel.full + "+", "1u": GuiShortLabel + "+" } },
-  topsyturvy: { flag: 53293, label: { full: "TopsyTurvy+", "1u": "Ƨ+" } },
-  meh: { flag: 2816, label: { full: "Meh+", "1u": "M+" } },
-  hyper: { flag: 6912, label: { full: "Hyper+", "1u": "H+" } },
+  ctrl: { keycode_flags: 256, label: { full: "Ctrl+", "1u": "C+" } },
+  alt: { keycode_flags: 512, label: { full: "Alt+", "1u": "A+" } },
+  altgr: { keycode_flags: 1024, label: { full: "AltGr+", "1u": "AGr+" } },
+  shift: { keycode_flags: 2048, label: { full: "Shift+", "1u": "S+" } },
+  gui: { keycode_flags: 4096, label: { full: GuiLabel.full + "+", "1u": GuiShortLabel + "+" } },
+  topsyturvy: { keycode_flags: 53293, label: { full: "TopsyTurvy+", "1u": "Ƨ+" } },
+  meh: { keycode_flags: 2816, label: { full: "Meh+", "1u": "M+" } },
+  hyper: { keycode_flags: 6912, label: { full: "Hyper+", "1u": "H+" } },
 };
 
-const addModifier = (keyCode, mod) => keyCode + modifiers[mod].flag;
-const removeModifier = (keyCode, mod) => keyCode - modifiers[mod].flag;
+const addModifier = (keyCode, mod) => keyCode + modifiers[mod].keycode_flags;
+const removeModifier = (keyCode, mod) => keyCode - modifiers[mod].keycode_flags;
 
-const combineLabels = (mods) =>
-  mods.reduce(
+const createModCombination = (categories, labelFunc = (key) => setModifiersLabel(key, categories)) => ({
+  categories,
+  offset: categories.reduce((acc, mod) => acc + modifiers[mod].keycode_flags, 0),
+  label: labelFunc,
+});
+
+const setModifiersLabel = (key, mods) => {
+  const isHyper = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt") && mods.includes("gui");
+  const isMeh = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt");
+  const isTopsy = mods.includes("topsyturvy");
+
+  let label = { full: "", "1u": "" };
+
+  if (isMeh || isHyper) {
+    const restatedMods = mods.filter((mod) => !["ctrl", "shift", "alt", "gui"].includes(mod));
+    restatedMods.push(isHyper ? "hyper" : "meh");
+    mods = restatedMods;
+  }
+  label = mods.reduce(
     (acc, mod) => ({
       full: acc.full + modifiers[mod].label.full,
       "1u": acc["1u"] + modifiers[mod].label["1u"],
@@ -23,31 +40,11 @@ const combineLabels = (mods) =>
     { full: "", "1u": "" }
   );
 
-const createModCombination = (categories, labelFunc = (key) => modLabelFunc(key, categories)) => ({
-  categories,
-  offset: categories.reduce((acc, mod) => acc + modifiers[mod].flag, 0),
-  label: labelFunc,
-});
-
-const modLabelFunc = (key, mods) => {
-  const isHyper = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt") && mods.includes("gui");
-  const isMeh = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt");
-  const isTopsy = mods.includes("topsyturvy");
-
-  let label = { full: "", "1u": "" };
-  if (isMeh || isHyper) {
-    const restatedMods = mods.filter((mod) => !["ctrl", "shift", "alt", "gui"].includes(mod));
-    restatedMods.push(isHyper ? "hyper" : "meh");
-    label = combineLabels(restatedMods);
-  } else {
-    label = combineLabels(mods);
-  }
-
   const baseLabel = isTopsy ? key.label.shifted || key.label.base : key.label.base;
   return { hint: label, base: baseLabel };
 };
 
-const generateCombinations = () => {
+const generateModifierCombinations = () => {
   const modKeys = ["ctrl", "alt", "altgr", "shift", "gui", "topsyturvy"];
   const combinations = [];
 
@@ -81,7 +78,7 @@ const generateCombinations = () => {
   return combinations;
 };
 
-const modifierCombinations = generateCombinations();
+const modifierCombinations = generateModifierCombinations();
 
 // add versions of keys in `keys` with all possible modifier combinations to the keymap
 const withModifiers = (keys) => {

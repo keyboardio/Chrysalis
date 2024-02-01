@@ -62,7 +62,7 @@ const KEYCODE_OFFSET = {
   SAFE_START: 53696, // 0xd1d4
 };
 
-const addCategories = (categories, keys) => {
+const assignKeysToCategory = (categories, keys) => {
   const newKeys = [];
 
   for (const key of keys) {
@@ -132,7 +132,7 @@ const USQwerty = {
   codetable: withModifiers(baseKeyCodeTable),
 };
 
-const blanks = addCategories(
+const blanks = assignKeysToCategory(
   ["blanks"],
   [
     { code: 0, label: { base: { full: "Blocked", "1u": "Blkd" } } },
@@ -215,7 +215,7 @@ const miscellaneous = withModifiers([
   { code: 72, label: { base: { full: "Pause / Break", "1u": "Brk" } } },
   { code: 101, label: { base: "Menu" } },
 ]);
-const consumer = addCategories(
+const consumer = assignKeysToCategory(
   ["consumer"],
   [
     { code: 0xe2 + KEYCODE_OFFSET.CONSUMER, label: { base: "Mute" } },
@@ -242,7 +242,7 @@ const consumer = addCategories(
   ]
 );
 
-const mousekeys = addCategories(
+const mousekeys = assignKeysToCategory(
   ["mousekeys"],
   [
     // Mouse movement
@@ -342,7 +342,7 @@ const tapdances = Array(16)
   .fill()
   .map((_, index) => tapdance(index));
 
-const stenokeys = addCategories(
+const stenokeys = assignKeysToCategory(
   ["steno"],
   [
     { code: KEYCODE_OFFSET.STENO + 0, label: { hint: "Steno", base: "FN" } },
@@ -389,7 +389,7 @@ const stenokeys = addCategories(
     { code: KEYCODE_OFFSET.STENO + 41, label: { hint: "Steno", base: "ZR" } },
   ]
 );
-const ledkeys = addCategories(
+const ledkeys = assignKeysToCategory(
   ["ledkeys"],
   [
     { code: KEYCODE_OFFSET.LED + 0, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: "Next" } },
@@ -403,7 +403,7 @@ const ledkeys = addCategories(
     },
   ]
 );
-const spacecadet = addCategories(
+const spacecadet = assignKeysToCategory(
   ["spacecadet"],
   [
     {
@@ -435,7 +435,7 @@ const moveToLayer = Array(32)
   .map((_, index) => layer(KEYCODE_OFFSET.LAYER + 84, "MoveTo", "movetolayer", index));
 const layers = shiftToLayer.concat(lockToLayer).concat(moveToLayer);
 
-const platform_apple = addCategories(
+const platform_apple = assignKeysToCategory(
   ["platform_apple"],
   [
     {
@@ -456,7 +456,7 @@ const platform_apple = addCategories(
     },
   ]
 );
-const lang_intl = addCategories(
+const lang_intl = assignKeysToCategory(
   ["lang_intl"],
   [
     { code: 144, label: { base: { full: "Lang1" } } },
@@ -480,7 +480,7 @@ const lang_intl = addCategories(
   ]
 );
 const modifiers = withModifiers(
-  addCategories(
+  assignKeysToCategory(
     ["modifier"],
     [
       { code: 224, label: { base: { full: "Control", "1u": "Ctrl" } }, location: "left" },
@@ -546,7 +546,7 @@ const oneshot = [
   },
 ];
 
-const keySet = []
+const keysAvailableForDualUse = []
   .concat(baseKeyCodeTable)
   .concat(miscellaneous)
   .concat(numbered_f_keys)
@@ -582,7 +582,7 @@ const addDualUseModifier = (key, mod) => ({
 });
 const dual_use_layers = () => {
   const l = [];
-  for (const k of keySet) {
+  for (const k of keysAvailableForDualUse) {
     // We only want to augment the base set, but `keySet` contains
     // modifier-augmented variants too. We don't want to add dual-use layer
     // augmentation to those, because that messes up the labels badly.
@@ -595,7 +595,7 @@ const dual_use_layers = () => {
 };
 const dual_use_modifier = (mod) => {
   const m = [];
-  for (const k of keySet) {
+  for (const k of keysAvailableForDualUse) {
     // We only want to augment the base set, but `keySet` contains
     // modifier-augmented variants too. We don't want to add dual-use modifier
     // augmentation to those, because that messes up the labels badly.

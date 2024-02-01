@@ -13,39 +13,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import addCategories from "../addCategories";
-
 const spacecadet = addCategories(
   ["spacecadet"],
   [
-    {
-      code: 53592,
-      label: {
-        hint: {
-          full: "SpaceCadet",
-          "1u": "SC",
-        },
-        base: {
-          full: "Enable",
-          "1u": "On",
-        },
-      },
-    },
-    {
-      code: 53593,
-      label: {
-        hint: {
-          full: "SpaceCadet",
-          "1u": "SC",
-        },
-        base: {
-          full: "Disable",
-          "1u": "Off",
-        },
-      },
-    },
-  ]
+    { code: 53592, label: { hint: { full: "SpaceCadet", "1u": "SC" }, base: { full: "Enable", "1u": "On" } } },
+    { code: 53593, label: { hint: { full: "SpaceCadet", "1u": "SC" }, base: { full: "Disable", "1u": "Off" } } },
+  ],
 );
-
 export { spacecadet };

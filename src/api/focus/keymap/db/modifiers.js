@@ -83,6 +83,7 @@ const generateCombinations = () => {
 
 const modifierCombinations = generateCombinations();
 
+// add versions of keys in `keys` with all possible modifier combinations to the keymap
 const withModifiers = (keys) => {
   const newKeys = [];
 

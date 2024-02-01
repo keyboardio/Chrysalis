@@ -13,22 +13,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 const dynmacro = (index) => ({
   code: 53596 + index,
-  label: {
-    hint: {
-      full: "Dynamic Macro",
-      "1u": "DM",
-    },
-    base: "#" + index.toString(),
-  },
+  label: { hint: { full: "Dynamic Macro", "1u": "DM" }, base: "#" + index.toString() },
   rangeStart: 53596,
   categories: ["dynmacros"],
 });
-
 const dynmacros = Array(32)
   .fill()
   .map((_, index) => dynmacro(index));
-
 export { dynmacros };

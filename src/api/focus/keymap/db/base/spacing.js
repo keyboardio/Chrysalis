@@ -13,61 +13,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import { withModifiers } from "../modifiers";
-
 const spacing = withModifiers([
-  {
-    code: 41,
-    label: {
-      base: "Esc",
-    },
-  },
-  {
-    code: 43,
-    label: {
-      base: "Tab",
-    },
-  },
-  {
-    code: 44,
-    label: {
-      base: "Space",
-    },
-  },
-  {
-    code: 40,
-    label: {
-      base: "Enter",
-    },
-  },
-  {
-    code: 42,
-    label: {
-      base: {
-        full: "Backspace",
-        "1u": "Bksp",
-      },
-    },
-  },
-  {
-    code: 73,
-    label: {
-      base: {
-        full: "Insert",
-        "1u": "Ins",
-      },
-    },
-  },
-  {
-    code: 76,
-    label: {
-      base: {
-        full: "Delete",
-        "1u": "Del",
-      },
-    },
-  },
+  { code: 41, label: { base: "Esc" } },
+  { code: 43, label: { base: "Tab" } },
+  { code: 44, label: { base: "Space" } },
+  { code: 40, label: { base: "Enter" } },
+  { code: 42, label: { base: { full: "Backspace", "1u": "Bksp" } } },
+  { code: 73, label: { base: { full: "Insert", "1u": "Ins" } } },
+  { code: 76, label: { base: { full: "Delete", "1u": "Del" } } },
 ]);
-
 export { spacing };

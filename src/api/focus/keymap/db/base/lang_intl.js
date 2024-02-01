@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import addCategories from "../addCategories";
-
 const lang_intl = addCategories(
   ["lang_intl"],
   [
@@ -37,7 +35,6 @@ const lang_intl = addCategories(
     { code: 141, label: { base: { full: "Intl7" } } },
     { code: 142, label: { base: { full: "Intl8" } } },
     { code: 143, label: { base: { full: "Intl9" } } },
-  ]
+  ],
 );
-
 export { lang_intl };

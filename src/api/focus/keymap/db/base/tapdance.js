@@ -13,22 +13,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 const tapdance = (index) => ({
   code: 53267 + index,
-  label: {
-    hint: {
-      full: "TapDance",
-      "1u": "TD",
-    },
-    base: "#" + index.toString(),
-  },
+  label: { hint: { full: "TapDance", "1u": "TD" }, base: "#" + index.toString() },
   rangeStart: 53267,
   categories: ["tapdance"],
 });
-
 const tapdances = Array(16)
   .fill()
   .map((_, index) => tapdance(index));
-
 export { tapdances };

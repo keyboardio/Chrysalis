@@ -13,31 +13,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import addCategories from "../addCategories";
-
 const blanks = addCategories(
   ["blanks"],
   [
-    {
-      code: 0,
-      label: {
-        base: {
-          full: "Blocked",
-          "1u": "Blkd",
-        },
-      },
-    },
-    {
-      code: 65535,
-      label: {
-        base: {
-          full: "Transparent",
-          "1u": " ",
-        },
-      },
-    },
-  ]
+    { code: 0, label: { base: { full: "Blocked", "1u": "Blkd" } } },
+    { code: 65535, label: { base: { full: "Transparent", "1u": " " } } },
+  ],
 );
-
 export { blanks };

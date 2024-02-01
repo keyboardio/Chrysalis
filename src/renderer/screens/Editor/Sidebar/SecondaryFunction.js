@@ -15,9 +15,8 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import KeymapDB from "@api/focus/keymap/db";
-import { addDUL, addDUM } from "@api/focus/keymap/db/base/dualuse";
-import { GuiLabel } from "@api/focus/keymap/db/base/gui";
+import KeymapDB, { GuiLabel } from "@api/focus/keymap/db";
+import { addDualUseLayer, addDualUseModifier } from "@api/focus/keymap/db/base";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
@@ -40,7 +39,7 @@ const SecondaryFunction = (props) => {
     if (target < 0) target = maxLayer;
     if (target > maxLayer) target = 0;
 
-    props.onKeyChange(addDUL(db.lookup(code), target).code);
+    props.onKeyChange(addDualUseLayer(db.lookup(code), target).code);
   };
 
   const onModifierChange = (event) => {
@@ -48,7 +47,7 @@ const SecondaryFunction = (props) => {
     const modifier = event.target.value;
     const code = key.baseCode || key.code;
 
-    props.onKeyChange(addDUM(db.lookup(code), modifier).code);
+    props.onKeyChange(addDualUseModifier(db.lookup(code), modifier).code);
   };
 
   const onTypeChange = (event) => {
@@ -60,11 +59,11 @@ const SecondaryFunction = (props) => {
       return props.onKeyChange(code);
     }
     if (type == "layer") {
-      const newKey = addDUL(db.lookup(code), 0);
+      const newKey = addDualUseLayer(db.lookup(code), 0);
       return props.onKeyChange(newKey.code);
     }
     if (type == "modifier") {
-      const newKey = addDUM(db.lookup(code), "ctrl");
+      const newKey = addDualUseModifier(db.lookup(code), "ctrl");
       return props.onKeyChange(newKey.code);
     }
   };

@@ -14,18 +14,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { baseCodeTable } from "./us/qwerty";
+
 import { withModifiers } from "./modifiers";
-
-import { dualuse } from "./base/dualuse";
-
-const GuiLabels = {
-  linux: { full: "Super", "1u": "Sup.", short: "Su" },
-  win32: { full: "Windows", "1u": "Win", short: "W" },
-  darwin: { full: "Command", "1u": "Cmd", short: "Cm" },
-  default: { full: "Gui", "1u": "Gui", short: "G" },
-};
-const GuiLabel = GuiLabels.default; // TODO: GuiLabels[process.platform] || GuiLabels.default;
-const GuiShortLabel = GuiLabel.short;
+import { GuiLabel } from "./gui";
 
 const addCategories = (categories, keys) => {
   const newKeys = [];
@@ -399,6 +391,75 @@ const oneshot = [
   { code: 53630, label: { hint: { full: "OneShot", "1u": "OS" }, base: "Cancel" }, categories: ["oneshot"] },
 ];
 
+const keySet = []
+  .concat(baseCodeTable)
+  .concat(miscellaneous)
+  .concat(fx)
+  .concat(navigation)
+  .concat(numpad)
+  .concat(spacing);
+
+const addDualUseLayer = (key, layer) => ({
+  code: 51218 + layer * 256 + key.code,
+  baseCode: key.code,
+  label: { hint: "Layer #" + layer.toString() + "/", base: key.label.base },
+  target: layer,
+  rangeStart: 51218,
+  categories: ["layer", "dualuse"],
+});
+const dualUseModifiers = {
+  ctrl: { index: 0, name: "Control" },
+  shift: { index: 1, name: "Shift" },
+  alt: { index: 2, name: "Alt" },
+  gui: { index: 3, name: GuiLabel.full },
+  rctrl: { index: 4, name: "Right Control" },
+  rshift: { index: 5, name: "Right Shift" },
+  altgr: { index: 6, name: "AltGr" },
+  rgui: { index: 7, name: `Right ${GuiLabel.full}` },
+};
+const addDualUseModifier = (key, mod) => ({
+  code: 49169 + dualUseModifiers[mod].index * 256 + key.code,
+  baseCode: key.code,
+  label: { hint: dualUseModifiers[mod].name + "/", base: key.label.base },
+  modifier: dualUseModifiers[mod].name,
+  rangeStart: 49169,
+  categories: ["modifier", "dualuse", mod],
+});
+const dual_use_layers = () => {
+  const l = [];
+  for (const k of keySet) {
+    // We only want to augment the base set, but `keySet` contains
+    // modifier-augmented variants too. We don't want to add dual-use layer
+    // augmentation to those, because that messes up the labels badly.
+    if (k.code > 255) continue;
+    for (let layer = 0; layer < 8; layer++) {
+      l.push(addDualUseLayer(k, layer));
+    }
+  }
+  return l;
+};
+const dual_use_modifier = (mod) => {
+  const m = [];
+  for (const k of keySet) {
+    // We only want to augment the base set, but `keySet` contains
+    // modifier-augmented variants too. We don't want to add dual-use modifier
+    // augmentation to those, because that messes up the labels badly.
+    if (k.code > 255) continue;
+    m.push(addDualUseModifier(k, mod));
+  }
+  return m;
+};
+const dualuse = []
+  .concat(dual_use_layers())
+  .concat(dual_use_modifier("ctrl"))
+  .concat(dual_use_modifier("shift"))
+  .concat(dual_use_modifier("alt"))
+  .concat(dual_use_modifier("gui"))
+  .concat(dual_use_modifier("rctrl"))
+  .concat(dual_use_modifier("rshift"))
+  .concat(dual_use_modifier("altgr"))
+  .concat(dual_use_modifier("rgui"));
+
 const keyCodeTable = []
   .concat(blanks)
   .concat(modifiers)
@@ -435,4 +496,4 @@ const Base = {
   layout: key_layout_104key,
 };
 
-export { Base, GuiLabel, GuiShortLabel };
+export { Base, addDualUseModifier, addDualUseLayer };

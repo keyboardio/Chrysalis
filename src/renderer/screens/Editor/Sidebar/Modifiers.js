@@ -16,7 +16,7 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import { GuiLabel } from "@api/focus/keymap/db/base/gui";
+import { GuiLabel } from "@api/focus/keymap/db/gui";
 import { addModifier, removeModifier } from "@api/focus/keymap/db/modifiers";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
@@ -27,7 +27,6 @@ import Tooltip from "@mui/material/Tooltip";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import FKPCategorySelector from "../components/FKPCategorySelector";
 import Box from "@mui/material/Box";
 const db = new KeymapDB();
 

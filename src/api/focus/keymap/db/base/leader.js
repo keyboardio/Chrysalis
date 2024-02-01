@@ -13,19 +13,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 const leader = (index) => ({
   code: 53283 + index,
-  label: {
-    hint: "Leader ",
-    base: "#" + index.toString(),
-  },
+  label: { hint: "Leader ", base: "#" + index.toString() },
   rangeStart: 53283,
   categories: ["leader"],
 });
-
 const leaders = Array(8)
   .fill()
   .map((_, index) => leader(index));
-
 export { leaders };

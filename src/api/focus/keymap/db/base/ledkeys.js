@@ -13,49 +13,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import addCategories from "../addCategories";
-
 const ledkeys = addCategories(
   ["ledkeys"],
   [
-    {
-      code: 17152,
-      label: {
-        hint: {
-          full: "LEDEffect",
-          "1u": "LED",
-        },
-        base: "Next",
-      },
-    },
-    {
-      code: 17153,
-      label: {
-        hint: {
-          full: "LEDEffect",
-          "1u": "LED",
-        },
-        base: {
-          full: "Previous",
-          "1u": "Prev.",
-        },
-      },
-    },
-    {
-      code: 17154,
-      label: {
-        hint: {
-          full: "LEDEffect",
-          "1u": "LED",
-        },
-        base: {
-          full: "Toggle",
-          "1u": "Togg.",
-        },
-      },
-    },
-  ]
+    { code: 17152, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: "Next" } },
+    { code: 17153, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: { full: "Previous", "1u": "Prev." } } },
+    { code: 17154, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: { full: "Toggle", "1u": "Togg." } } },
+  ],
 );
-
 export { ledkeys };

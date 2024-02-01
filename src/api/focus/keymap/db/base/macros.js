@@ -13,19 +13,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 const macro = (index) => ({
   code: 24576 + index,
-  label: {
-    hint: "Macro",
-    base: "#" + index.toString(),
-  },
+  label: { hint: "Macro", base: "#" + index.toString() },
   rangeStart: 24576,
   categories: ["macros"],
 });
-
 const macros = Array(32)
   .fill()
   .map((_, index) => macro(index));
-
 export { macros };

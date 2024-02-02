@@ -389,6 +389,7 @@ const stenokeys = assignKeysToCategory(
     { code: KEYCODE_OFFSET.STENO + 41, label: { hint: "Steno", base: "ZR" } },
   ]
 );
+
 const ledkeys = assignKeysToCategory(
   ["ledkeys"],
   [

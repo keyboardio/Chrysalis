@@ -39,6 +39,7 @@ i18n // eslint-disable-line import/no-named-as-default-member
     lng: "en",
     keySeparator: ".",
     ns: ["messages"],
+    returnEmptyString: true,
     defaultNS: "messages",
     fallbackLng: "en",
     interpolation: {

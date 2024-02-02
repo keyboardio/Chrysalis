@@ -27,6 +27,7 @@ import { useTranslation } from "react-i18next";
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
 import MacroStepEditor from "./MacroStepEditor";
+import { Divider } from "@mui/material";
 
 const MacroEditor = (props) => {
   const { macroId, macro, onMacroChange, macroStep, setMacroStep } = props;
@@ -163,8 +164,10 @@ const MacroEditor = (props) => {
         <CardContent>
           <Stack direction="row" flexWrap="wrap">
             {steps}
-            <MacroStepAdd addStep={addStep} />
           </Stack>
+          <Divider />
+
+          <MacroStepAdd addStep={addStep} />
           <MacroStepEditor
             setSelectorKey={props.setSelectorKey}
             onChange={onMacroStepChange}

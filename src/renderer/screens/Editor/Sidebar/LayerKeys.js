@@ -42,10 +42,6 @@ const LayerKeys = (props) => {
     return max;
   };
 
-  const onKeyChange = (keyCode) => {
-    props.onKeyChange(keyCode);
-  };
-
   const onTargetLayerChange = (event, max) => {
     const target = Math.min(parseInt(event.target.value) || 0, max);
 
@@ -74,9 +70,8 @@ const LayerKeys = (props) => {
     targetLayer = key.target;
     type = key.categories[1];
   }
-  const max = getMaxLayer();
   return (
-    <FKPCategorySelector title={t("editor.sidebar.layer.title")} help={t("editor.sidebar.layer.help")}>
+    <FKPCategorySelector category="layer">
       <div>
         <FormControl>
           <InputLabel id="editor.layerswitch.type">{t("editor.layerswitch.type")}</InputLabel>
@@ -98,11 +93,9 @@ const LayerKeys = (props) => {
             <MenuItem value="movetolayer" selected={type == "movetolayer"}>
               {t("editor.layerswitch.moveTo")}
             </MenuItem>
-            {oneShotVisible && (
-              <MenuItem value="oneshot" selected={type == "oneshot"}>
-                {t("editor.layerswitch.oneshot")}
-              </MenuItem>
-            )}
+            <MenuItem value="oneshot" selected={type == "oneshot"} disabled={!oneShotVisible}>
+              {t("editor.layerswitch.oneshot")}
+            </MenuItem>
             <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
               {t("editor.layerswitch.dualuse")}
             </MenuItem>
@@ -113,12 +106,12 @@ const LayerKeys = (props) => {
           <Select
             labelId="editor.layerswitch.target"
             value={targetLayer}
-            onChange={(event) => onTargetLayerChange(event, max)}
+            onChange={(event) => onTargetLayerChange(event, getMaxLayer())}
             label={t("editor.layerswitch.target")}
             disabled={targetLayer < 0}
           >
             <MenuItem value="-1" disabled></MenuItem>
-            {[...Array(max)].map((x, i) => (
+            {[...Array(getMaxLayer())].map((x, i) => (
               <MenuItem key={i} name={i} value={i}>
                 {props.layerNames?.names[i]}
               </MenuItem>

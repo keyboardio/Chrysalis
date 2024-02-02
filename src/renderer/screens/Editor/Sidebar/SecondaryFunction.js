@@ -23,10 +23,10 @@ import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
+import { Typography } from "@mui/material";
 
 const db = new KeymapDB();
 
@@ -76,10 +76,6 @@ const SecondaryFunction = (props) => {
       db.isInCategory(key.code, "dualuse")
     );
   };
-
-  const pluginVisible = usePluginVisibility("Qukeys");
-  if (!pluginVisible) return null;
-  if (props.macroEditorOpen) return null;
 
   const { currentKey: key, keymap } = props;
   const maxLayer = keymap.custom.length;
@@ -158,19 +154,17 @@ const SecondaryFunction = (props) => {
     }
   }
 
-  let helpText = t("editor.sidebar.secondary.help");
+  let layerLimitText = "";
   if (maxLayer > secondaryActionLayerLimit) {
-    helpText =
-      helpText +
-      " " +
-      t("editor.sidebar.secondary.help-layerLimit", {
-        layer8: props.layerNames?.names[secondaryActionLayerLimit],
-      });
+    layerLimitText = t("editor.sidebar.secondary.help-layerLimit", {
+      layer8: props.layerNames?.names[secondaryActionLayerLimit],
+    });
   }
 
   return (
-    <FKPCategorySelector title={t("editor.sidebar.secondary.title")} help={helpText}>
+    <FKPCategorySelector category="secondary" plugin="Qukeys" disabledInMacroEditor={true}>
       <div>
+        <Typography variant="body2">{layerLimitText}</Typography>
         <FormControl disabled={!keySupportsSecondaryAction(key)}>
           <FormGroup row>
             <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>

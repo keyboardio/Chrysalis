@@ -46,18 +46,19 @@ const FKPCategorySelector = (props) => {
     help = t("editor.sidebar." + props.category + ".help");
   }
 
+  console.log(props);
+
+  
+  // Generate keys from keyCodes
+  const keys = props.keyCodes?.map((code) => db.lookup(code)) || props.keys || db.selectCategory(props.category);
+  console.log("For category", props.category, "keys are", keys);
   return (
     <React.Fragment>
       <Tooltip title={tooltip}>
         {title && <SectionTitle>{title}</SectionTitle>}
         {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
         {props.children || (
-          <KeyButtonList
-            keys={db.selectCategory(props.category)}
-            onKeyChange={props.onKeyChange}
-            disabled={disabled}
-            showHints={false}
-          />
+          <KeyButtonList keys={keys} onKeyChange={props.onKeyChange} disabled={disabled} showHints={false} />
         )}
       </Tooltip>
     </React.Fragment>

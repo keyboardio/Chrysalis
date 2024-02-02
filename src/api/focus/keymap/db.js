@@ -159,17 +159,18 @@ class KeymapDB {
 
   isInCategory(keyCode, category) {
     if (keyCode < 0) return false;
-
-    const key = this.lookup(keyCode);
-
-    return (key && key.categories && key.categories.includes(category)) || false;
+    return this.lookup(keyCode)?.categories?.includes(category) || false;
   }
 
   selectCategory(category) {
     const cdb = [];
+    console.log("in sleectCategory");
+    console.log("category", category);
+
+    console.log("this._codetable", this._codetable);
 
     for (const k of this._codetable) {
-      if (k && k.categories && k.categories.includes(category)) {
+      if (k?.categories?.includes(category)) {
         cdb.push(k);
       }
     }

@@ -18,82 +18,37 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Divider from "@mui/material/Divider";
-import Fab from "@mui/material/Fab";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import AddIcon from "@mui/icons-material/Add";
-
 import KeymapDB from "@api/focus/keymap/db";
-
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 const MacroStepAdd = (props) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const { addStep } = props;
   const { t } = useTranslation();
 
   const db = new KeymapDB();
+  const stepTypeDefaults = {
+    TAP: db.lookup(),
+    KEYDOWN: db.lookup(0),
+    KEYUP: db.lookup(0),
 
-  const openMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+    WAIT: 0,
+    INTERVAL: 0,
   };
-
-  const closeMenu = () => {
-    setAnchorEl(null);
+  const stepButton = (stepType) => {
+    return (
+      <Button
+        onClick={() => {
+          addStep({ type: stepType, value: stepTypeDefaults[stepType] });
+        }}
+      >
+        {t("editor.macros.steps." + stepType)}
+      </Button>
+    );
   };
-
-  const selectType = (stepType) => () => {
-    const defaults = {
-      INTERVAL: 0,
-      WAIT: 0,
-      KEYDOWN: db.lookup(0),
-      KEYUP: db.lookup(0),
-      TAP: db.lookup(),
-    };
-    const step = { type: stepType };
-    if (defaults[stepType] !== undefined) {
-      step.value = defaults[stepType];
-    } else {
-      return closeMenu();
-    }
-
-    addStep(step);
-    closeMenu();
-  };
-
   return (
     <React.Fragment>
-      <Fab
-        onClick={openMenu}
-        size="small"
-        color="success"
-        sx={{
-          m: 0.5,
-        }}
-      >
-        <AddIcon />
-      </Fab>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={closeMenu}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem onClick={selectType("TAP")}>{t("editor.macros.steps.TAP")}</MenuItem>
-        <MenuItem onClick={selectType("KEYDOWN")}>{t("editor.macros.steps.KEYDOWN")}</MenuItem>
-        <MenuItem onClick={selectType("KEYUP")}>{t("editor.macros.steps.KEYUP")}</MenuItem>
-        <MenuItem onClick={selectType("WAIT")}>{t("editor.macros.steps.WAIT")}</MenuItem>
-        <MenuItem onClick={selectType("INTERVAL")}>{t("editor.macros.steps.INTERVAL")}</MenuItem>
-        <Divider />
-        <MenuItem onClick={closeMenu}>{t("dialog.close")}</MenuItem>
-      </Menu>
+      <Typography>{t("editor.macros.steps.add")}</Typography>
+      {Object.keys(stepTypeDefaults).map((stepType) => stepButton(stepType))}
     </React.Fragment>
   );
 };

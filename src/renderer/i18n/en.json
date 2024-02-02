@@ -165,10 +165,20 @@
         "title": "Colors",
         "help": "Set a key's color by clicking the palette below. Use the color picker to adjust the palette."
       },
+      "volume": {
+        "title": "Volume",
+        "help": "Volume control keys."
+      },
+      "media": {
+        "title": "Media control",
+        "help": "Media control keys."
+      },
+
       "consumer": {
-        "volume": "Volume",
-        "media": "Media control",
-        "brightness": "Brightness"
+        "brightness": {
+          "title": "Brightness",
+          "help": "Adjust screen brightness."
+        }
       },
       "keypicker": {
         "mods": "Modifiers",
@@ -197,7 +207,7 @@
       },
       "oneshotMetaKeys": {
         "title": "One-shot meta keys",
-        "help": "These options create special OneShot keys that can make any key \"sticky\", not just modifiers or layer-shift keys.",
+        "help": "These keys can make any key \"sticky\", not just modifiers or layer-shift keys.",
         "metaStickyKey": {
           "tooltip": "Makes the next key pressed sticky until tapped again."
         },
@@ -224,23 +234,27 @@
       },
       "mousekeys": {
         "title": "Mouse control",
-        "help": "Emulate a mouse using your keyboard's keys.",
-        "movement": "Movement",
-        "buttons": "Buttons",
-        "wheel": "Wheel",
-        "warp": "Warp"
+        "help": "Emulate a mouse using your keyboard's keys",
+        "movement": { "title": "Movement", "help": "Move the mouse with your keyboard" },
+        "buttons": { "title": "Buttons", "help": "Emulate mouse buttons using your keyboard's keys" },
+
+        "wheel": {
+          "title": "Wheel",
+          "help": "Emulate mouse wheel scrolling"
+        },
+        "warp": { "title": "Warp", "help": "Zoom your mouse across the screen in a couple of keypresses" }
       },
       "spacecadet": {
         "title": "SpaceCadet",
-        "help": "Make left & right 'Shift' act as left & right parens when tapped."
+        "help": "Make left & right 'Shift' act as '(' and ')' when tapped"
       },
       "steno": {
         "title": "Steno",
-        "help": "Use these keys to enable GeminiPR Stenographic input instead of Plover's QWERTY input."
+        "help": "Enable GeminiPR Stenographic input instead of Plover's QWERTY input"
       },
       "tapdance": {
         "title": "TapDance",
-        "help": "Multi-function keys, which trigger different actions based on the number of times you tap."
+        "help": "These keys trigger different actions based on the number of times you tap"
       }
     },
     "layerswitch": {
@@ -265,6 +279,7 @@
       "edit": "Edit macro",
       "out_of_space": "Dynamic macros are using too much space, please free up {{ overflow }} bytes.",
       "steps": {
+        "add": "Add a step",
         "time_ms": "{{ value }}ms",
         "in_ms": "ms",
         "unknown": "<unknown>",

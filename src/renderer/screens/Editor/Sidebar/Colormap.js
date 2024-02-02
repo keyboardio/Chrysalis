@@ -47,23 +47,25 @@ const Colormap = (props) => {
   };
 
   const { selectedLed, layer, colormap } = props;
-  console.log(props);
-  if (!colormap || colormap.palette.length == 0) return null;
-  if (props.macroEditorOpen) return null;
-  if (layer >= colormap.colorMap.length) return null;
 
-  const colorIndex = colormap.colorMap[layer][selectedLed];
-  const color = colormap.palette[colorIndex];
+  const disabled = !colormap || colormap?.palette?.length == 0 || layer >= colormap?.colorMap?.length;
 
+  const colorIndex = colormap?.colorMap?.[layer]?.[selectedLed];
   return (
     <Stack direction="row" spacing={2}>
       <Stack direction="column">
-        <FKPCategorySelector title={t("editor.sidebar.colors.title")} help={t("editor.sidebar.colors.help")}>
-          <PalettePicker color={colorIndex} colors={colormap.palette} onClick={onPaletteSwatchChange} />
+        <FKPCategorySelector category="colors" plugin="LEDControl" disabledInMacroEditor={true} disabled={disabled}>
+          <PalettePicker
+            color={colorIndex}
+            colors={colormap?.palette}
+            disabled={disabled}
+            onClick={onPaletteSwatchChange}
+          />
         </FKPCategorySelector>
       </Stack>
-
-      <ChromePicker color={color} disableAlpha onChangeComplete={colorChangeComplete} />
+      {disabled || (
+        <ChromePicker color={colormap?.palette[colorIndex]} disableAlpha onChangeComplete={colorChangeComplete} />
+      )}
     </Stack>
   );
 };

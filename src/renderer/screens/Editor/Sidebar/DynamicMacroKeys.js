@@ -17,14 +17,12 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-
+import Divider from "@mui/material/Divider";
 import Macros from "@api/focus/macros";
 import KeymapDB from "@api/focus/keymap/db";
 
@@ -32,59 +30,51 @@ const DynamicMacroKeys = (props) => {
   const { currentKey } = props;
   const { t } = useTranslation();
 
-  const pluginVisible = usePluginVisibility("DynamicMacros");
-  if (!pluginVisible) return null;
-
   if (!props.macros) return null;
 
-  const m = new Macros();
   const db = new KeymapDB();
 
-  const used = m.getStoredSize(props.macros);
-  const disabled = (currentKey && !db.isInCategory(currentKey, "dynmacros")) || props.macroEditorOpen;
-
-  const onClick = () => {
-    props.setOpenMacroEditor(true);
-  };
+  const used = new Macros().getStoredSize(props.macros);
 
   return (
     <>
       <FKPCategorySelector
         help={t("editor.sidebar.dynmacros.help")}
         category="dynmacros"
+        plugin="DynamicMacros"
         currentKey={currentKey}
+        disabledInMacroEditor={true}
+        disabled={props.macros.storageSize == 0}
         onKeyChange={props.onKeyChange}
       />
-      {props.macros.storageSize > 0 && (
-        <Grid container>
-          <Grid item sm={9} spacing={2}>
-            <Paper
-              variant="outlined"
-              sx={{
-                p: 1,
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <Typography variant="body2">
-                {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
-                <strong>
-                  {t("editor.sidebar.dynmacros.usage_overview.usage", {
-                    used: used,
-                    size: props.macros.storageSize,
-                  })}
-                </strong>{" "}
-                {t("editor.sidebar.dynmacros.usage_overview.bytes")}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item sm={3}>
-            <Button variant="contained" disabled={disabled} onClick={onClick}>
-              {t("editor.macros.edit")}
-            </Button>
-          </Grid>
+      <Divider orientation="horizontal" flexItem sx={{ my: 2, mx: 3 }} />
+      <Grid container>
+        <Grid item sm={9} spacing={2}>
+          <Paper variant="outlined" sx={{ p: 1, justifyContent: "center", display: "flex" }}>
+            <Typography variant="body2">
+              {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
+              <strong>
+                {t("editor.sidebar.dynmacros.usage_overview.usage", {
+                  used: used,
+                  size: props.macros.storageSize,
+                })}
+              </strong>{" "}
+              {t("editor.sidebar.dynmacros.usage_overview.bytes")}
+            </Typography>
+          </Paper>
         </Grid>
-      )}
+        <Grid item sm={3}>
+          <Button
+            variant="contained"
+            disabled={currentKey && !db.isInCategory(currentKey, "dynmacros")}
+            onClick={() => {
+              props.setOpenMacroEditor(true);
+            }}
+          >
+            {t("editor.macros.edit")}
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };

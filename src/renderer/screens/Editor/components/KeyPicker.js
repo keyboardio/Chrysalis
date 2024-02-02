@@ -22,23 +22,12 @@ import Stack from "@mui/material/Stack";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-
-import useTheme from "@mui/material/styles/useTheme";
+import TextField from "@mui/material/TextField";
 import { useWindowSize } from "@renderer/hooks/useWindowSize";
 import React, { useState, useEffect } from "react";
-import { Rnd } from "react-rnd";
 import Keyboard104 from "../Keyboard104";
-import MediaKeys from "../Sidebar/MediaKeys";
-import VolumeKeys from "../Sidebar/VolumeKeys";
 import { MouseWarpKeys } from "../Sidebar/MouseWarpKeys";
-import { MouseWheelKeys } from "../Sidebar/MouseWheelKeys";
-import { MouseMovementKeys } from "../Sidebar/MouseMovementKeys";
-import { MouseButtonKeys } from "../Sidebar/MouseButtonKeys";
 import DynamicMacroKeys from "../Sidebar/DynamicMacroKeys";
-import MacroKeys from "../Sidebar/MacroKeys";
-import CustomKey from "../Sidebar/CustomKey";
-import BlankKeys from "../Sidebar/BlankKeys";
-import BrightnessKeys from "../Sidebar/BrightnessKeys";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import KeymapDB from "@api/focus/keymap/db";
 import KeyButton from "../components/KeyButton";
@@ -48,6 +37,7 @@ import Colormap from "../Sidebar/Colormap";
 import LayerKeys from "../Sidebar/LayerKeys";
 import SecondaryFunction from "../Sidebar/SecondaryFunction";
 import Modifiers from "../Sidebar/Modifiers";
+import SpecialModifiers from "../Sidebar/SpecialModifiers";
 import FKPCategorySelector from "../components/FKPCategorySelector";
 import { useTranslation } from "react-i18next";
 
@@ -130,9 +120,9 @@ export const KeyPicker = (props) => {
               <Tab value="mouse" label="Mouse" disabled={!mouseKeysAvailable} />
               <Tab value="language" label="Language" />
               <Tab value="control" label="Control" />
-              <Tab value="steno" label="Steno" disabled={stenoKeysAvailable} />
+              <Tab value="steno" label="Steno" disabled={!stenoKeysAvailable} />
               <Tab value="macros" label="Macros" disabled={!dynamicMacrosAvailable} />
-              <Tab value="leds" label="LEDs" disabled={!ledKeysDisabled} />
+              <Tab value="leds" label="LEDs" disabled={ledKeysDisabled} />
               <Tab value="layers" label="Layers" />
               <Tab value="advanced" label="Advanced" />
             </TabList>
@@ -146,6 +136,11 @@ export const KeyPicker = (props) => {
                 <Modifiers {...sharedProps} />
               </Grid>
               <VerticalSectionDivider />
+              <Grid item>
+                <SpecialModifiers {...sharedProps} />
+                <VerticalSectionDivider />
+              </Grid>{" "}
+              <VerticalSectionDivider />
               <Grid item xs>
                 <SecondaryFunction {...sharedProps} />
               </Grid>
@@ -154,17 +149,45 @@ export const KeyPicker = (props) => {
           <TabPanel value="mouse">
             <Grid container spacing={0}>
               <Grid item xs>
-                <MouseMovementKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="mousekeys.movement"
+                  keyCodes={[
+                    20481, // Mouse move up
+                    20484, // Mouse move left
+                    20482, // Mouse move down
+                    20488, // Mouse move right
+                  ]}
+                  {...sharedProps}
+                />
               </Grid>
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <MouseButtonKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="mousekeys.buttons"
+                  keyCodes={[
+                    20545, // Left mouse button
+                    20548, // Middle mouse button
+                    20546, // Right mouse button
+                    20552, // Back mouse button
+                    20560, // Forward mouse button
+                  ]}
+                  {...sharedProps}
+                />
               </Grid>
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <MouseWheelKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="mousekeys.wheel"
+                  keyCodes={[
+                    20497, // Mouse wheel up
+                    20498, // Mouse wheel down
+                    20500, // Mouse wheel left
+                    20504, // Mouse wheel right
+                  ]}
+                  {...sharedProps}
+                />
               </Grid>
               <VerticalSectionDivider />
 
@@ -179,11 +202,28 @@ export const KeyPicker = (props) => {
           <TabPanel value="control">
             <Grid container spacing={0}>
               <Grid item xs>
-                <MediaKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="media"
+                  {...sharedProps}
+                  keyCodes={[
+                    18614, // prev
+                    18613, // next track
+                    18615, // stop
+                    18637, // play/pause
+                  ]}
+                />
               </Grid>
               <VerticalSectionDivider />
               <Grid item xs>
-                <VolumeKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="volume"
+                  {...sharedProps}
+                  keyCodes={[
+                    18658, // mute
+                    18665, // up
+                    18666, // down
+                  ]}
+                />
               </Grid>
               <VerticalSectionDivider />
 
@@ -193,7 +233,14 @@ export const KeyPicker = (props) => {
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <BrightnessKeys {...sharedProps} />
+                <FKPCategorySelector
+                  category="consumer.brightness"
+                  keyCodes={[
+                    18543, // up
+                    18544, // down
+                  ]}
+                  {...sharedProps}
+                />
               </Grid>
             </Grid>
           </TabPanel>
@@ -201,20 +248,45 @@ export const KeyPicker = (props) => {
             <FKPCategorySelector category="steno" plugin="GeminiPR" disabledInMacroEditor={true} {...sharedProps} />
           </TabPanel>
           <TabPanel value="macros">
-            <Stack container spacing={0}>
-              <DynamicMacroKeys {...sharedProps} />
-              <MacroKeys {...sharedProps} />
-            </Stack>
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <DynamicMacroKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <FKPCategorySelector plugin="Macros" category="macros" {...sharedProps} />
+              </Grid>
+            </Grid>
           </TabPanel>
           <TabPanel value="advanced">
             <Grid container spacing={0}>
               <Grid item xs>
-                <BlankKeys {...sharedProps} />
+                <FKPCategorySelector category="blanks" {...sharedProps} />
               </Grid>
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <CustomKey {...sharedProps} />
+                <FKPCategorySelector category="custom" {...sharedProps}>
+                  <div>
+                    <TextField
+                      label={t("editor.sidebar.custom.label")}
+                      variant="outlined"
+                      min={0}
+                      max={65535}
+                      value={props.currentKey.code}
+                      onChange={(event) => {
+                        let value = parseInt(event.target.value);
+                        if (value < 0) {
+                          value = 65535;
+                        }
+                        if (value > 65535) {
+                          value = 0;
+                        }
+                        props.onKeyChange(value);
+                      }}
+                    />
+                  </div>
+                </FKPCategorySelector>
               </Grid>
               <VerticalSectionDivider />
 
@@ -224,9 +296,12 @@ export const KeyPicker = (props) => {
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <FKPCategorySelector category="oneshot" plugin="OneShot" {...sharedProps}>
-                  <KeyButton keyObj={db.lookup(db.constants.codes.ONESHOT_CANCEL)} onKeyChange={props.onKeyChange} />
-                </FKPCategorySelector>
+                <FKPCategorySelector
+                  category="oneshot"
+                  plugin="OneShot"
+                  keyCodes={[db.constants.codes.ONESHOT_CANCEL]}
+                  {...sharedProps}
+                />
                 <FKPCategorySelector category="oneshotMetaKeys" plugin="OneShotMetaKeys" {...sharedProps}>
                   <KeyButton
                     keyObj={db.lookup(db.constants.codes.ONESHOT_META_STICKY)}

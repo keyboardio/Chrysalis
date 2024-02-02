@@ -1,14 +1,21 @@
 import { GuiLabel, GuiShortLabel } from "./gui";
 
+const CTRL_FLAG = 1 << 8;
+const ALT_FLAG = 1 << 9;
+const ALTGR_FLAG = 1 << 10;
+const SHIFT_FLAG = 1 << 11;
+const GUI_FLAG = 1 << 12;
+const TOPSYTURVY_FLAG = (1 << 15) | (1 << 0) | (1 << 1);
+
 const modifiers = {
-  ctrl: { keycode_flags: 256, label: { full: "Ctrl+", "1u": "C+" } },
-  alt: { keycode_flags: 512, label: { full: "Alt+", "1u": "A+" } },
-  altgr: { keycode_flags: 1024, label: { full: "AltGr+", "1u": "AGr+" } },
-  shift: { keycode_flags: 2048, label: { full: "Shift+", "1u": "S+" } },
-  gui: { keycode_flags: 4096, label: { full: GuiLabel.full + "+", "1u": GuiShortLabel + "+" } },
-  topsyturvy: { keycode_flags: 53293, label: { full: "TopsyTurvy+", "1u": "Ƨ+" } },
-  meh: { keycode_flags: 2816, label: { full: "Meh+", "1u": "M+" } },
-  hyper: { keycode_flags: 6912, label: { full: "Hyper+", "1u": "H+" } },
+  ctrl: { keycode_flags: CTRL_FLAG, label: { full: "Ctrl+", "1u": "C+" } },
+  alt: { keycode_flags: ALT_FLAG, label: { full: "Alt+", "1u": "A+" } },
+  altgr: { keycode_flags: ALTGR_FLAG, label: { full: "AltGr+", "1u": "AGr+" } },
+  shift: { keycode_flags: SHIFT_FLAG, label: { full: "Shift+", "1u": "S+" } },
+  gui: { keycode_flags: GUI_FLAG, label: { full: GuiLabel.full + "+", "1u": GuiShortLabel + "+" } },
+  topsyturvy: { keycode_flags: TOPSYTURVY_FLAG, label: { full: "TopsyTurvy+", "1u": "Ƨ+" } },
+  meh: { keycode_flags: CTRL_FLAG | ALT_FLAG | SHIFT_FLAG, label: { full: "Meh+", "1u": "M+" } },
+  hyper: { keycode_flags: CTRL_FLAG | ALT_FLAG | SHIFT_FLAG | GUI_FLAG, label: { full: "Hyper+", "1u": "H+" } },
 };
 
 const addModifier = (keyCode, mod) => keyCode + modifiers[mod].keycode_flags;
@@ -16,7 +23,7 @@ const removeModifier = (keyCode, mod) => keyCode - modifiers[mod].keycode_flags;
 
 const createModCombination = (categories, labelFunc = (key) => setModifiersLabel(key, categories)) => ({
   categories,
-  offset: categories.reduce((acc, mod) => acc + modifiers[mod].keycode_flags, 0),
+  offset: categories.reduce((acc, mod) => acc | modifiers[mod].keycode_flags, 0),
   label: labelFunc,
 });
 

@@ -31,7 +31,6 @@ import DynamicMacroKeys from "../Sidebar/DynamicMacroKeys";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import KeymapDB from "@api/focus/keymap/db";
 import KeyButton from "../components/KeyButton";
-
 import VerticalSectionDivider from "./VerticalSectionDivider";
 import Colormap from "../Sidebar/Colormap";
 import LayerKeys from "../Sidebar/LayerKeys";
@@ -40,7 +39,7 @@ import Modifiers from "../Sidebar/Modifiers";
 import SpecialModifiers from "../Sidebar/SpecialModifiers";
 import FKPCategorySelector from "../components/FKPCategorySelector";
 import { useTranslation } from "react-i18next";
-
+import { constants } from "@api/focus/keymap/db/constants";
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const KeyPicker = (props) => {
@@ -66,7 +65,6 @@ export const KeyPicker = (props) => {
   const db = new KeymapDB();
 
   const mouseKeysAvailable = usePluginAvailable("MouseKeys");
-  const stenoKeysAvailable = usePluginAvailable("GeminiPR");
   const dynamicMacrosAvailable = usePluginAvailable("DynamicMacros");
   const oneShotMetaDisabled = !usePluginAvailable("OneShotMetaKeys");
   const ledKeysDisabled = !props.colormap || props.colormap.palette.length == 0;
@@ -120,7 +118,6 @@ export const KeyPicker = (props) => {
               <Tab value="mouse" label="Mouse" disabled={!mouseKeysAvailable} />
               <Tab value="language" label="Language" />
               <Tab value="control" label="Control" />
-              <Tab value="steno" label="Steno" disabled={!stenoKeysAvailable} />
               <Tab value="macros" label="Macros" disabled={!dynamicMacrosAvailable} />
               <Tab value="leds" label="LEDs" disabled={ledKeysDisabled} />
               <Tab value="layers" label="Layers" />
@@ -132,166 +129,13 @@ export const KeyPicker = (props) => {
           </TabPanel>
           <TabPanel value="modifiers">
             <Grid container spacing={0}>
-              <Grid item>
+              <Grid item xs>
                 <Modifiers {...sharedProps} />
               </Grid>
               <VerticalSectionDivider />
-              <Grid item>
+              <Grid item xs>
                 <SpecialModifiers {...sharedProps} />
                 <VerticalSectionDivider />
-              </Grid>{" "}
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <SecondaryFunction {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="mouse">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="mousekeys.movement"
-                  keyCodes={[
-                    20481, // Mouse move up
-                    20484, // Mouse move left
-                    20482, // Mouse move down
-                    20488, // Mouse move right
-                  ]}
-                  {...sharedProps}
-                />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="mousekeys.buttons"
-                  keyCodes={[
-                    20545, // Left mouse button
-                    20548, // Middle mouse button
-                    20546, // Right mouse button
-                    20552, // Back mouse button
-                    20560, // Forward mouse button
-                  ]}
-                  {...sharedProps}
-                />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="mousekeys.wheel"
-                  keyCodes={[
-                    20497, // Mouse wheel up
-                    20498, // Mouse wheel down
-                    20500, // Mouse wheel left
-                    20504, // Mouse wheel right
-                  ]}
-                  {...sharedProps}
-                />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <MouseWarpKeys {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="language">
-            <FKPCategorySelector category="lang_intl" {...sharedProps} />
-          </TabPanel>
-          <TabPanel value="control">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="media"
-                  {...sharedProps}
-                  keyCodes={[
-                    18614, // prev
-                    18613, // next track
-                    18615, // stop
-                    18637, // play/pause
-                  ]}
-                />
-              </Grid>
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="volume"
-                  {...sharedProps}
-                  keyCodes={[
-                    18658, // mute
-                    18665, // up
-                    18666, // down
-                  ]}
-                />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector category="platform_apple" {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector
-                  category="consumer.brightness"
-                  keyCodes={[
-                    18543, // up
-                    18544, // down
-                  ]}
-                  {...sharedProps}
-                />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="steno">
-            <FKPCategorySelector category="steno" plugin="GeminiPR" disabledInMacroEditor={true} {...sharedProps} />
-          </TabPanel>
-          <TabPanel value="macros">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <DynamicMacroKeys {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-              <Grid item xs>
-                <FKPCategorySelector plugin="Macros" category="macros" {...sharedProps} />
-              </Grid>
-            </Grid>
-          </TabPanel>
-          <TabPanel value="advanced">
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <FKPCategorySelector category="blanks" {...sharedProps} />
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector category="custom" {...sharedProps}>
-                  <div>
-                    <TextField
-                      label={t("editor.sidebar.custom.label")}
-                      variant="outlined"
-                      min={0}
-                      max={65535}
-                      value={props.currentKey.code}
-                      onChange={(event) => {
-                        let value = parseInt(event.target.value);
-                        if (value < 0) {
-                          value = 65535;
-                        }
-                        if (value > 65535) {
-                          value = 0;
-                        }
-                        props.onKeyChange(value);
-                      }}
-                    />
-                  </div>
-                </FKPCategorySelector>
-              </Grid>
-              <VerticalSectionDivider />
-
-              <Grid item xs>
-                <FKPCategorySelector category="spacecadet" plugin="SpaceCadet" {...sharedProps} />
               </Grid>
               <VerticalSectionDivider />
 
@@ -319,6 +163,162 @@ export const KeyPicker = (props) => {
                   />
                 </FKPCategorySelector>
               </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <SecondaryFunction {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <FKPCategorySelector category="spacecadet" plugin="SpaceCadet" {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="mouse">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="mousekeys.movement"
+                  keyCodes={[
+                    constants.codes.MOUSE_MOVE_UP,
+                    constants.codes.MOUSE_MOVE_LEFT,
+                    constants.codes.MOUSE_MOVE_DOWN,
+                    constants.codes.MOUSE_MOVE_RIGHT,
+                  ]}
+                  {...sharedProps}
+                />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="mousekeys.buttons"
+                  keyCodes={[
+                    constants.codes.MOUSE_BUTTON_LEFT,
+                    constants.codes.MOUSE_BUTTON_MIDDLE,
+                    constants.codes.MOUSE_BUTTON_RIGHT,
+                    constants.codes.MOUSE_BUTTON_BACK,
+                    constants.codes.MOUSE_BUTTON_FORWARD,
+                  ]}
+                  {...sharedProps}
+                />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="mousekeys.wheel"
+                  keyCodes={[
+                    constants.codes.MOUSE_WHEEL_UP,
+                    constants.codes.MOUSE_WHEEL_DOWN,
+                    constants.codes.MOUSE_WHEEL_LEFT,
+                    constants.codes.MOUSE_WHEEL_RIGHT,
+                  ]}
+                  {...sharedProps}
+                />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <MouseWarpKeys {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="language">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <FKPCategorySelector category="lang_intl" {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <FKPCategorySelector category="steno" plugin="GeminiPR" disabledInMacroEditor={true} {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="control">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="media"
+                  {...sharedProps}
+                  keyCodes={[
+                    constants.codes.CONSUMER_MEDIA_PREV_TRACK,
+                    constants.codes.CONSUMER_MEDIA_NEXT_TRACK,
+                    constants.codes.CONSUMER_MEDIA_STOP,
+                    constants.codes.CONSUMER_MEDIA_PLAY_PAUSE,
+                  ]}
+                />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="volume"
+                  {...sharedProps}
+                  keyCodes={[
+                    constants.codes.CONSUMER_MEDIA_MUTE,
+                    constants.codes.CONSUMER_MEDIA_VOLUME_UP,
+                    constants.codes.CONSUMER_MEDIA_VOLUME_DOWN,
+                  ]}
+                />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <FKPCategorySelector category="platform_apple" {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
+                <FKPCategorySelector
+                  category="consumer.brightness"
+                  keyCodes={[constants.codes.CONSUMER_BRIGHTNESS_UP, constants.codes.CONSUMER_BRIGHTNESS_DOWN]}
+                  {...sharedProps}
+                />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="macros">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <DynamicMacroKeys {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <FKPCategorySelector plugin="Macros" category="macros" {...sharedProps} />
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value="advanced">
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <FKPCategorySelector category="blanks" {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+              <Grid item xs>
+                <FKPCategorySelector category="custom" {...sharedProps}>
+                  <div>
+                    <TextField
+                      label={t("editor.sidebar.custom.label")}
+                      variant="outlined"
+                      min={0}
+                      max={65535}
+                      value={props.currentKey.code}
+                      onChange={(event) => {
+                        let value = parseInt(event.target.value);
+                        if (value < 0) {
+                          value = 65535;
+                        }
+                        if (value > 65535) {
+                          value = 0;
+                        }
+                        props.onKeyChange(value);
+                      }}
+                    />
+                  </div>
+                </FKPCategorySelector>
+              </Grid>
+
               <VerticalSectionDivider />
 
               <Grid item xs>

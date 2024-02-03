@@ -154,7 +154,7 @@
         "help-layerLimit": "Due to firmware limitations, shifting to layers above \"{{ layer8 }}\" is not supported via secondary actions.",
         "whenHeld": "When held",
         "type": {
-          "none": "No secondary action",
+          "none": "Normal",
           "layer": "Layer shift",
           "modifier": "Modifier"
         },
@@ -202,11 +202,11 @@
         "help": "Assign Leader keys. To configure this feature, customize the Kaleidoscope sketch file for your keyboard."
       },
       "oneshot": {
-        "title": "One-shot",
-        "help": "A dedicated key to cancel one-shot keys."
+        "title": "Sticky",
+        "help": "A dedicated key to cancel sticky keys."
       },
       "oneshotMetaKeys": {
-        "title": "One-shot meta keys",
+        "title": "",
         "help": "These keys can make any key \"sticky\", not just modifiers or layer-shift keys.",
         "metaStickyKey": {
           "tooltip": "Makes the next key pressed sticky until tapped again."

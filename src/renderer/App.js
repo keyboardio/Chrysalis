@@ -133,6 +133,20 @@ const App = (props) => {
         default: darkMode() ? "#353535" : "#f5f5f5",
       },
     },
+    components: {
+      MuiMenuItem: {
+        defaultProps: {
+          dense: true,
+        },
+      },
+      MuiFormControlLabel: {
+        styleOverrides: {
+          label: {
+            fontSize: "0.9rem", // Set the font size you want
+          },
+        },
+      },
+    },
   });
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import KeyButton from "../components/KeyButton";
 import KeymapDB from "@api/focus/keymap/db";
 import Grid from "@mui/material/Grid";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-
+import { constants } from "@api/focus/keymap/db/constants";
 export const MouseWarpKeys = (props) => {
   const [gridSize, setGridSize] = useState(undefined);
   const db = new KeymapDB();
@@ -17,16 +17,16 @@ export const MouseWarpKeys = (props) => {
   const loaded = usePluginEffect(initialize);
   if (!loaded) return null;
 
-  const warpNW = db.lookup(20517);
-  const warpNE = db.lookup(20521);
-  const warpSW = db.lookup(20518);
-  const warpSE = db.lookup(20522);
-  const warpN = db.lookup(20513);
-  const warpS = db.lookup(20514);
-  const warpZ = db.lookup(20515);
-  const warpW = db.lookup(20516);
-  const warpE = db.lookup(20520);
-  const warpEnd = db.lookup(20576);
+  const warpNW = db.lookup(constants.codes.MOUSE_WARP_NW);
+  const warpNE = db.lookup(constants.codes.MOUSE_WARP_NE);
+  const warpSW = db.lookup(constants.codes.MOUSE_WARP_SW);
+  const warpSE = db.lookup(constants.codes.MOUSE_WARP_SE);
+  const warpN = db.lookup(constants.codes.MOUSE_WARP_N);
+  const warpS = db.lookup(constants.codes.MOUSE_WARP_S);
+  const warpZ = db.lookup(constants.codes.MOUSE_WARP_Z);
+  const warpW = db.lookup(constants.codes.MOUSE_WARP_W);
+  const warpE = db.lookup(constants.codes.MOUSE_WARP_E);
+  const warpEnd = db.lookup(constants.codes.MOUSE_WARP_END);
 
   const sharedProps = {
     onKeyChange: props.onKeyChange,

@@ -20,7 +20,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
 import Button from "@mui/material/Button";
-
+import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -464,7 +464,7 @@ const Editor = (props) => {
         }}
       >
         {openMacroEditor || (
-          <>
+          <Paper>
             <Overview
               keymap={keymap}
               colormap={colormap}
@@ -481,7 +481,7 @@ const Editor = (props) => {
               pasteLayer={pasteLayer}
               hasCopiedLayer={hasCopiedLayer}
             />
-          </>
+          </Paper>
         )}
       </Box>
       <Drawer variant="permanent" anchor="bottom" sx={{ "& .MuiDrawer-paper": { height: "25rem" } }}>

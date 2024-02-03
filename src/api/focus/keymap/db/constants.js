@@ -14,6 +14,49 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+const keycode_ranges = {
+  standard: {
+    start: 4,
+    end: 255,
+  },
+  dual_use_layer: {
+    start: 0xc812,
+    end: 0xd012,
+  },
+  dual_use_modifier: {
+    start: 0xc011,
+    end: 0xc811,
+  },
+  oneshot_layer: {
+    start: 0xc009,
+    end: 0xc010,
+  },
+  oneshot_modifier: {
+    start: 0xc001,
+    end: 0xc008,
+  },
+  steno: {
+    start: 0xd12d,
+    end: 0xd16f,
+  },
+  consumer: {
+    start: 0x4800,
+  },
+  mouse: {
+    start: 0x5000,
+    warp: 0x20,
+    button: 0x40,
+    move: 0x00,
+    wheel: 0x10,
+  },
+  macro: { start: 0x6000 },
+  leader: { start: 0xd023, end: 0xd02a },
+  dynamic_macro: { start: 0xd174, end: 0xd192 },
+  led: { start: 0x4300 },
+  layer: { start: 0x4400 },
+  tapdance: { start: 0xd013, end: 0xd022 },
+  spacecadet: { start: 0xd170, end: 0xd171 },
+};
 export const constants = {
   codes: {
     // Keycodes
@@ -26,38 +69,39 @@ export const constants = {
     RIGHT_SHIFT: 229,
     RIGHT_ALT: 230,
     RIGHT_GUI: 231,
-    MOUSE_WARP_NW: 20517,
-    MOUSE_WARP_NE: 20521,
-    MOUSE_WARP_SW: 20518,
-    MOUSE_WARP_SE: 20522,
-    MOUSE_WARP_N: 20513,
-    MOUSE_WARP_S: 20514,
-    MOUSE_WARP_Z: 20515,
-    MOUSE_WARP_W: 20516,
-    MOUSE_WARP_E: 20520,
-    MOUSE_WARP_END: 20576,
-    MOUSE_BUTTON_LEFT: 20545,
-    MOUSE_BUTTON_MIDDLE: 20548,
-    MOUSE_BUTTON_RIGHT: 20546,
-    MOUSE_BUTTON_BACK: 20552,
-    MOUSE_BUTTON_FORWARD: 20560,
-    MOUSE_MOVE_UP: 20481,
-    MOUSE_MOVE_LEFT: 20484,
-    MOUSE_MOVE_DOWN: 20482,
-    MOUSE_MOVE_RIGHT: 20488,
-    MOUSE_WHEEL_UP: 20497,
-    MOUSE_WHEEL_DOWN: 20498,
-    MOUSE_WHEEL_LEFT: 20500,
-    MOUSE_WHEEL_RIGHT: 20504,
-    CONSUMER_MEDIA_PREV_TRACK: 18614,
-    CONSUMER_MEDIA_NEXT_TRACK: 18613,
-    CONSUMER_MEDIA_STOP: 18615,
-    CONSUMER_MEDIA_PLAY_PAUSE: 18637,
-    CONSUMER_MEDIA_MUTE: 18658,
-    CONSUMER_MEDIA_VOLUME_UP: 18665,
-    CONSUMER_MEDIA_VOLUME_DOWN: 18666,
-    CONSUMER_BRIGHTNESS_UP: 18543,
-    CONSUMER_BRIGHTNESS_DOWN: 18544,
+    MOUSE_WARP_NW: keycode_ranges.mouse.start | 0x25,
+    MOUSE_WARP_NE: keycode_ranges.mouse.start | 0x29,
+    MOUSE_WARP_SW: keycode_ranges.mouse.start | 0x26,
+    MOUSE_WARP_SE: keycode_ranges.mouse.start | 0x2a,
+    MOUSE_WARP_N: keycode_ranges.mouse.start | 0x21,
+    MOUSE_WARP_S: keycode_ranges.mouse.start | 0x22,
+    MOUSE_WARP_Z: keycode_ranges.mouse.start | 0x23,
+    MOUSE_WARP_W: keycode_ranges.mouse.start | 0x24,
+    MOUSE_WARP_E: keycode_ranges.mouse.start | 0x28,
+    MOUSE_WARP_END: keycode_ranges.mouse.start | 0x60,
+    MOUSE_BUTTON_LEFT: keycode_ranges.mouse.start | 0x41,
+    MOUSE_BUTTON_MIDDLE: keycode_ranges.mouse.start | 0x44,
+    MOUSE_BUTTON_RIGHT: keycode_ranges.mouse.start | 0x42,
+    MOUSE_BUTTON_BACK: keycode_ranges.mouse.start | 0x48,
+    MOUSE_BUTTON_FORWARD: keycode_ranges.mouse.start | 0x50,
+    MOUSE_MOVE_UP: keycode_ranges.mouse.start | 0x1,
+    MOUSE_MOVE_LEFT: keycode_ranges.mouse.start | 0x4,
+    MOUSE_MOVE_DOWN: keycode_ranges.mouse.start | 0x2,
+    MOUSE_MOVE_RIGHT: keycode_ranges.mouse.start | 0x8,
+    MOUSE_WHEEL_UP: keycode_ranges.mouse.start | 0x11,
+    MOUSE_WHEEL_DOWN: keycode_ranges.mouse.start | 0x12,
+    MOUSE_WHEEL_LEFT: keycode_ranges.mouse.start | 0x14,
+    MOUSE_WHEEL_RIGHT: keycode_ranges.mouse.start | 0x18,
+
+    CONSUMER_MEDIA_PREV_TRACK: keycode_ranges.consumer.start | 0x82,
+    CONSUMER_MEDIA_NEXT_TRACK: keycode_ranges.consumer.start | 0x81,
+    CONSUMER_MEDIA_STOP: keycode_ranges.consumer.start | 0x83,
+    CONSUMER_MEDIA_PLAY_PAUSE: keycode_ranges.consumer.start | 0xa5,
+    CONSUMER_MEDIA_MUTE: keycode_ranges.consumer.start | 0xda,
+    CONSUMER_MEDIA_VOLUME_UP: keycode_ranges.consumer.start | 0xe1,
+    CONSUMER_MEDIA_VOLUME_DOWN: keycode_ranges.consumer.start | 0xe2,
+    CONSUMER_BRIGHTNESS_UP: keycode_ranges.consumer.start | 0x4b,
+    CONSUMER_BRIGHTNESS_DOWN: keycode_ranges.consumer.start | 0x4c,
 
     ONESHOT_META_STICKY: 53628,
     ONESHOT_ACTIVE_STICKY: 53629,
@@ -73,45 +117,7 @@ export const constants = {
     FIRST_ONESHOT_MODIFIER: 49153,
     EMPTY: 65535,
   },
-  ranges: {
-    standard: {
-      start: 4,
-      end: 255,
-    },
-    dual_use_layer: {
-      start: 0xc812,
-      end: 0xd012,
-    },
-    dual_use_modifier: {
-      start: 0xc011,
-      end: 0xc811,
-    },
-    oneshot_layer: {
-      start: 0xc009,
-      end: 0xc010,
-    },
-    oneshot_modifier: {
-      start: 0xc001,
-      end: 0xc008,
-    },
-    steno: {
-      start: 0xd12d,
-      end: 0xd16f,
-    },
-    consumer: {
-      start: 0x4800,
-    },
-    mouse: {
-      start: 0x5000,
-    },
-    macro: { start: 0x6000 },
-    leader: { start: 0xd023, end: 0xd02a },
-    dynamic_macro: { start: 0xd174, end: 0xd192 },
-    led: { start: 0x4300 },
-    layer: { start: 0x4400 },
-    tapdance: { start: 0xd013, end: 0xd022 },
-    spacecadet: { start: 0xd170, end: 0xd171 },
-  },
+  ranges: keycode_ranges,
 };
 
 // Most of these numbers come from the Kaleidoscope-Ranges plugin

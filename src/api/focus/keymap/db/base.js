@@ -16,51 +16,7 @@
 
 import { withModifiers } from "./modifiers";
 import { GuiLabel } from "./gui";
-
-// Most of these numbers come from the Kaleidoscope-Ranges plugin
-// They represent the offsets of eeprom-stored key codes for various types of key.
-
-const KEYCODE_OFFSET = {
-  LAYER: 17408, // 0x4400,
-  LED: 17152, // 0x4300,
-  CONSUMER: 18432, // 0x4800,
-  MOUSE: 20480, // 0x5000,
-  MACRO: 24576, // 0x6000,
-  OS: 49153, // 0xc001
-  OSM: 49153, // 0xc001
-  OSM_LAST: 49160, // 0xc008
-  OSL: 49161, // 0xc009
-  OSL_LAST: 49168, // 0xc010
-  OS_LAST: 49168, // 0xc010
-  DU: 49169, // 0xc011
-  DUM: 49169, // 0xc011
-  DUM_LAST: 51217, // 0xc811
-  DUL: 51218, // 0xc812
-  DUL_LAST: 53266, // 0xd012
-  DU_LAST: 53266, // 0xd012
-  TD: 53267, // 0xd013
-  TD_LAST: 53282, // 0xd022
-  LEAD: 53283, // 0xd023
-  LEAD_LAST: 53290, // 0xd02a
-  CYCLE: 53291, // 0xd02b
-  SYSTER: 53292, // 0xd02c
-  TT: 53293, // 0xd02d
-  TT_LAST: 53548, // 0xd12c
-  STENO: 53549, // 0xd12d
-  STENO_LAST: 53591, // 0xd16f
-  SC: 53592, // 0xd170
-  SC_LAST: 53593, // 0xd171
-  REDIAL: 53594, // 0xd172
-  TURBO: 53595, // 0xd173
-  DYNAMIC_MACRO: 53596, // 0xd174
-  DYNAMIC_MACRO_LAST: 53627, // 0xd192
-  OS_META_STICKY: 53628, // 0xd193
-  OS_ACTIVE_STICKY: 53629, // 0xd194
-  OS_CANCEL: 53630, // 0xd195
-  CS: 53631, // 0xd196
-  CS_LAST: 53695, // 0xd1d3
-  SAFE_START: 53696, // 0xd1d4
-};
+import { constants } from "./constants";
 
 const assignKeysToCategory = (categories, keys) => {
   const newKeys = [];
@@ -135,8 +91,8 @@ const USQwerty = {
 const blanks = assignKeysToCategory(
   ["blanks"],
   [
-    { code: 0, label: { base: { full: "Blocked", "1u": "Blkd" } } },
-    { code: 65535, label: { base: { full: "Transparent", "1u": " " } } },
+    { code: constants.codes.BLOCKED, label: { base: { full: "Blocked", "1u": "Blkd" } } },
+    { code: constants.codes.TRANSPARENT, label: { base: { full: "Transparent", "1u": " " } } },
   ]
 );
 
@@ -218,25 +174,25 @@ const miscellaneous = withModifiers([
 const consumer = assignKeysToCategory(
   ["consumer"],
   [
-    { code: 0xe2 + KEYCODE_OFFSET.CONSUMER, label: { base: "Mute" } },
-    { code: 0xb5 + KEYCODE_OFFSET.CONSUMER, label: { base: { full: "Next track", "1u": "⏭" } } },
-    { code: 0xb6 + KEYCODE_OFFSET.CONSUMER, label: { base: { full: "Previous track", "1u": "⏮" } } },
-    { code: 0xb7 + KEYCODE_OFFSET.CONSUMER, label: { base: "Stop" } },
-    { code: 0xcd + KEYCODE_OFFSET.CONSUMER, label: { base: { full: "Play / pause", "1u": "⏯" } } },
+    { code: 0xe2 + constants.ranges.consumer.start, label: { base: "Mute" } },
+    { code: 0xb5 + constants.ranges.consumer.start, label: { base: { full: "Next track", "1u": "⏭" } } },
+    { code: 0xb6 + constants.ranges.consumer.start, label: { base: { full: "Previous track", "1u": "⏮" } } },
+    { code: 0xb7 + constants.ranges.consumer.start, label: { base: "Stop" } },
+    { code: 0xcd + constants.ranges.consumer.start, label: { base: { full: "Play / pause", "1u": "⏯" } } },
     {
-      code: 0xe9 + KEYCODE_OFFSET.CONSUMER,
+      code: 0xe9 + constants.ranges.consumer.start,
       label: { hint: { full: "Volume", "1u": "Vol." }, base: { full: "Up", "1u": "🔊" } },
     },
     {
-      code: 0xea + KEYCODE_OFFSET.CONSUMER,
+      code: 0xea + constants.ranges.consumer.start,
       label: { hint: { full: "Volume", "1u": "Vol." }, base: { full: "Down", "1u": "🔉" } },
     },
     {
-      code: 0x6f + KEYCODE_OFFSET.CONSUMER,
+      code: 0x6f + constants.ranges.consumer.start,
       label: { hint: { full: "Brightness", "1u": "Brght." }, base: { full: "Up", "1u": "🔆" } },
     },
     {
-      code: 0x70 + KEYCODE_OFFSET.CONSUMER,
+      code: 0x70 + constants.ranges.consumer.start,
       label: { hint: { full: "Brightness", "1u": "Brght." }, base: { full: "Down", "1u": "🔅" } },
     },
   ]
@@ -246,66 +202,75 @@ const mousekeys = assignKeysToCategory(
   ["mousekeys"],
   [
     // Mouse movement
-    { code: KEYCODE_OFFSET.MOUSE + 1, label: { hint: "Mouse", base: "Up" } },
-    { code: KEYCODE_OFFSET.MOUSE + 2, label: { hint: "Mouse", base: "Down" } },
-    { code: KEYCODE_OFFSET.MOUSE + 4, label: { hint: "Mouse", base: "Left" } },
-    { code: KEYCODE_OFFSET.MOUSE + 8, label: { hint: "Mouse", base: "Right" } },
+    { code: constants.ranges.mouse.start + 1, label: { hint: "Mouse", base: "Up" } },
+    { code: constants.ranges.mouse.start + 2, label: { hint: "Mouse", base: "Down" } },
+    { code: constants.ranges.mouse.start + 4, label: { hint: "Mouse", base: "Left" } },
+    { code: constants.ranges.mouse.start + 8, label: { hint: "Mouse", base: "Right" } },
     // Mouse wheel
-    { code: KEYCODE_OFFSET.MOUSE + 17, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Up" } },
-    { code: KEYCODE_OFFSET.MOUSE + 18, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Down" } },
-    { code: KEYCODE_OFFSET.MOUSE + 20, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Left" } },
-    { code: KEYCODE_OFFSET.MOUSE + 24, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Right" } },
+    { code: constants.ranges.mouse.start + 17, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Up" } },
+    { code: constants.ranges.mouse.start + 18, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Down" } },
+    { code: constants.ranges.mouse.start + 20, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Left" } },
+    { code: constants.ranges.mouse.start + 24, label: { hint: { full: "Mouse Wheel", "1u": "M.Whl" }, base: "Right" } },
     // Mouse buttons
-    { code: KEYCODE_OFFSET.MOUSE + 65, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Left" } },
-    { code: KEYCODE_OFFSET.MOUSE + 66, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Right" } },
-    { code: KEYCODE_OFFSET.MOUSE + 68, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Middle" } },
-    { code: KEYCODE_OFFSET.MOUSE + 72, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Back" } },
-    { code: KEYCODE_OFFSET.MOUSE + 80, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Forward" } },
-    // Mouse warp
-    { code: KEYCODE_OFFSET.MOUSE + 96, label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: "End" } },
+    { code: constants.ranges.mouse.start + 65, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Left" } },
     {
-      code: KEYCODE_OFFSET.MOUSE + 33,
+      code: constants.ranges.mouse.start + 66,
+      label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Right" },
+    },
+    {
+      code: constants.ranges.mouse.start + 68,
+      label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Middle" },
+    },
+    { code: constants.ranges.mouse.start + 72, label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Back" } },
+    {
+      code: constants.ranges.mouse.start + 80,
+      label: { hint: { full: "Mouse Button", "1u": "M.Btn" }, base: "Forward" },
+    },
+    // Mouse warp
+    { code: constants.ranges.mouse.start + 96, label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: "End" } },
+    {
+      code: constants.ranges.mouse.start + 33,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "North", "1u": "North" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 34,
+      code: constants.ranges.mouse.start + 34,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "South", "1u": "South" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 35,
+      code: constants.ranges.mouse.start + 35,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "Zoom", "1u": "Zoom" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 36,
+      code: constants.ranges.mouse.start + 36,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "West", "1u": "West" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 37,
+      code: constants.ranges.mouse.start + 37,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "North-West", "1u": "NW" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 38,
+      code: constants.ranges.mouse.start + 38,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "South-West", "1u": "SW" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 40,
+      code: constants.ranges.mouse.start + 40,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "East", "1u": "East" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 41,
+      code: constants.ranges.mouse.start + 41,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "North-East", "1u": "NE" } },
     },
     {
-      code: KEYCODE_OFFSET.MOUSE + 42,
+      code: constants.ranges.mouse.start + 42,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "South-East", "1u": "SE" } },
     },
   ]
 );
 
 const macro = (index) => ({
-  code: KEYCODE_OFFSET.MACRO + index,
+  code: constants.ranges.macro.start + index,
   label: { hint: "Macro", base: "#" + index.toString() },
-  rangeStart: KEYCODE_OFFSET.MACRO,
+  rangeStart: constants.ranges.macro.start,
   categories: ["macros"],
 });
 const macros = Array(32)
@@ -313,9 +278,9 @@ const macros = Array(32)
   .map((_, index) => macro(index));
 
 const dynmacro = (index) => ({
-  code: KEYCODE_OFFSET.DYNAMIC_MACRO + index,
+  code: constants.ranges.dynamic_macro.start + index,
   label: { hint: { full: "Dynamic Macro", "1u": "DM" }, base: "#" + index.toString() },
-  rangeStart: KEYCODE_OFFSET.DYNAMIC_MACRO,
+  rangeStart: constants.ranges.dynamic_macro.start,
   categories: ["dynmacros"],
 });
 const dynmacros = Array(32)
@@ -323,9 +288,9 @@ const dynmacros = Array(32)
   .map((_, index) => dynmacro(index));
 
 const leader = (index) => ({
-  code: KEYCODE_OFFSET.LEAD + index,
+  code: constants.ranges.leader.start + index,
   label: { hint: "Leader ", base: "#" + index.toString() },
-  rangeStart: KEYCODE_OFFSET.LEAD,
+  rangeStart: constants.ranges.leader.start,
   categories: ["leader"],
 });
 const leaders = Array(8)
@@ -333,9 +298,9 @@ const leaders = Array(8)
   .map((_, index) => leader(index));
 
 const tapdance = (index) => ({
-  code: KEYCODE_OFFSET.TD + index,
+  code: constants.ranges.tapdance.start + index,
   label: { hint: { full: "TapDance", "1u": "TD" }, base: "#" + index.toString() },
-  rangeStart: KEYCODE_OFFSET.TD,
+  rangeStart: constants.ranges.tapdance.start,
   categories: ["tapdance"],
 });
 const tapdances = Array(16)
@@ -345,61 +310,61 @@ const tapdances = Array(16)
 const stenokeys = assignKeysToCategory(
   ["steno"],
   [
-    { code: KEYCODE_OFFSET.STENO + 0, label: { hint: "Steno", base: "FN" } },
-    { code: KEYCODE_OFFSET.STENO + 1, label: { hint: "Steno", base: "N1" } },
-    { code: KEYCODE_OFFSET.STENO + 2, label: { hint: "Steno", base: "N2" } },
-    { code: KEYCODE_OFFSET.STENO + 3, label: { hint: "Steno", base: "N3" } },
-    { code: KEYCODE_OFFSET.STENO + 4, label: { hint: "Steno", base: "N4" } },
-    { code: KEYCODE_OFFSET.STENO + 5, label: { hint: "Steno", base: "N5" } },
-    { code: KEYCODE_OFFSET.STENO + 6, label: { hint: "Steno", base: "N6" } },
-    { code: KEYCODE_OFFSET.STENO + 7, label: { hint: "Steno", base: "S1" } },
-    { code: KEYCODE_OFFSET.STENO + 8, label: { hint: "Steno", base: "S2" } },
-    { code: KEYCODE_OFFSET.STENO + 9, label: { hint: "Steno", base: "TL" } },
-    { code: KEYCODE_OFFSET.STENO + 10, label: { hint: "Steno", base: "KL" } },
-    { code: KEYCODE_OFFSET.STENO + 11, label: { hint: "Steno", base: "PL" } },
-    { code: KEYCODE_OFFSET.STENO + 12, label: { hint: "Steno", base: "WL" } },
-    { code: KEYCODE_OFFSET.STENO + 13, label: { hint: "Steno", base: "HL" } },
-    { code: KEYCODE_OFFSET.STENO + 14, label: { hint: "Steno", base: "RL" } },
-    { code: KEYCODE_OFFSET.STENO + 15, label: { hint: "Steno", base: "A" } },
-    { code: KEYCODE_OFFSET.STENO + 16, label: { hint: "Steno", base: "O" } },
-    { code: KEYCODE_OFFSET.STENO + 17, label: { hint: "Steno", base: "ST1" } },
-    { code: KEYCODE_OFFSET.STENO + 18, label: { hint: "Steno", base: "ST2" } },
-    { code: KEYCODE_OFFSET.STENO + 19, label: { hint: "Steno", base: "RE1" } },
-    { code: KEYCODE_OFFSET.STENO + 20, label: { hint: "Steno", base: "RE2" } },
-    { code: KEYCODE_OFFSET.STENO + 21, label: { hint: "Steno", base: "PWR" } },
-    { code: KEYCODE_OFFSET.STENO + 22, label: { hint: "Steno", base: "ST3" } },
-    { code: KEYCODE_OFFSET.STENO + 23, label: { hint: "Steno", base: "ST4" } },
-    { code: KEYCODE_OFFSET.STENO + 24, label: { hint: "Steno", base: "E" } },
-    { code: KEYCODE_OFFSET.STENO + 25, label: { hint: "Steno", base: "U" } },
-    { code: KEYCODE_OFFSET.STENO + 26, label: { hint: "Steno", base: "FR" } },
-    { code: KEYCODE_OFFSET.STENO + 27, label: { hint: "Steno", base: "RR" } },
-    { code: KEYCODE_OFFSET.STENO + 28, label: { hint: "Steno", base: "PR" } },
-    { code: KEYCODE_OFFSET.STENO + 29, label: { hint: "Steno", base: "BR" } },
-    { code: KEYCODE_OFFSET.STENO + 30, label: { hint: "Steno", base: "LR" } },
-    { code: KEYCODE_OFFSET.STENO + 31, label: { hint: "Steno", base: "GR" } },
-    { code: KEYCODE_OFFSET.STENO + 32, label: { hint: "Steno", base: "TR" } },
-    { code: KEYCODE_OFFSET.STENO + 33, label: { hint: "Steno", base: "SR" } },
-    { code: KEYCODE_OFFSET.STENO + 34, label: { hint: "Steno", base: "DR" } },
-    { code: KEYCODE_OFFSET.STENO + 35, label: { hint: "Steno", base: "N7" } },
-    { code: KEYCODE_OFFSET.STENO + 36, label: { hint: "Steno", base: "N8" } },
-    { code: KEYCODE_OFFSET.STENO + 37, label: { hint: "Steno", base: "N9" } },
-    { code: KEYCODE_OFFSET.STENO + 38, label: { hint: "Steno", base: "NA" } },
-    { code: KEYCODE_OFFSET.STENO + 39, label: { hint: "Steno", base: "NB" } },
-    { code: KEYCODE_OFFSET.STENO + 40, label: { hint: "Steno", base: "NC" } },
-    { code: KEYCODE_OFFSET.STENO + 41, label: { hint: "Steno", base: "ZR" } },
+    { code: constants.ranges.steno.start + 0, label: { hint: "Steno", base: "FN" } },
+    { code: constants.ranges.steno.start + 1, label: { hint: "Steno", base: "N1" } },
+    { code: constants.ranges.steno.start + 2, label: { hint: "Steno", base: "N2" } },
+    { code: constants.ranges.steno.start + 3, label: { hint: "Steno", base: "N3" } },
+    { code: constants.ranges.steno.start + 4, label: { hint: "Steno", base: "N4" } },
+    { code: constants.ranges.steno.start + 5, label: { hint: "Steno", base: "N5" } },
+    { code: constants.ranges.steno.start + 6, label: { hint: "Steno", base: "N6" } },
+    { code: constants.ranges.steno.start + 7, label: { hint: "Steno", base: "S1" } },
+    { code: constants.ranges.steno.start + 8, label: { hint: "Steno", base: "S2" } },
+    { code: constants.ranges.steno.start + 9, label: { hint: "Steno", base: "TL" } },
+    { code: constants.ranges.steno.start + 10, label: { hint: "Steno", base: "KL" } },
+    { code: constants.ranges.steno.start + 11, label: { hint: "Steno", base: "PL" } },
+    { code: constants.ranges.steno.start + 12, label: { hint: "Steno", base: "WL" } },
+    { code: constants.ranges.steno.start + 13, label: { hint: "Steno", base: "HL" } },
+    { code: constants.ranges.steno.start + 14, label: { hint: "Steno", base: "RL" } },
+    { code: constants.ranges.steno.start + 15, label: { hint: "Steno", base: "A" } },
+    { code: constants.ranges.steno.start + 16, label: { hint: "Steno", base: "O" } },
+    { code: constants.ranges.steno.start + 17, label: { hint: "Steno", base: "ST1" } },
+    { code: constants.ranges.steno.start + 18, label: { hint: "Steno", base: "ST2" } },
+    { code: constants.ranges.steno.start + 19, label: { hint: "Steno", base: "RE1" } },
+    { code: constants.ranges.steno.start + 20, label: { hint: "Steno", base: "RE2" } },
+    { code: constants.ranges.steno.start + 21, label: { hint: "Steno", base: "PWR" } },
+    { code: constants.ranges.steno.start + 22, label: { hint: "Steno", base: "ST3" } },
+    { code: constants.ranges.steno.start + 23, label: { hint: "Steno", base: "ST4" } },
+    { code: constants.ranges.steno.start + 24, label: { hint: "Steno", base: "E" } },
+    { code: constants.ranges.steno.start + 25, label: { hint: "Steno", base: "U" } },
+    { code: constants.ranges.steno.start + 26, label: { hint: "Steno", base: "FR" } },
+    { code: constants.ranges.steno.start + 27, label: { hint: "Steno", base: "RR" } },
+    { code: constants.ranges.steno.start + 28, label: { hint: "Steno", base: "PR" } },
+    { code: constants.ranges.steno.start + 29, label: { hint: "Steno", base: "BR" } },
+    { code: constants.ranges.steno.start + 30, label: { hint: "Steno", base: "LR" } },
+    { code: constants.ranges.steno.start + 31, label: { hint: "Steno", base: "GR" } },
+    { code: constants.ranges.steno.start + 32, label: { hint: "Steno", base: "TR" } },
+    { code: constants.ranges.steno.start + 33, label: { hint: "Steno", base: "SR" } },
+    { code: constants.ranges.steno.start + 34, label: { hint: "Steno", base: "DR" } },
+    { code: constants.ranges.steno.start + 35, label: { hint: "Steno", base: "N7" } },
+    { code: constants.ranges.steno.start + 36, label: { hint: "Steno", base: "N8" } },
+    { code: constants.ranges.steno.start + 37, label: { hint: "Steno", base: "N9" } },
+    { code: constants.ranges.steno.start + 38, label: { hint: "Steno", base: "NA" } },
+    { code: constants.ranges.steno.start + 39, label: { hint: "Steno", base: "NB" } },
+    { code: constants.ranges.steno.start + 40, label: { hint: "Steno", base: "NC" } },
+    { code: constants.ranges.steno.start + 41, label: { hint: "Steno", base: "ZR" } },
   ]
 );
 
 const ledkeys = assignKeysToCategory(
   ["ledkeys"],
   [
-    { code: KEYCODE_OFFSET.LED + 0, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: "Next" } },
+    { code: constants.ranges.led.start + 0, label: { hint: { full: "LEDEffect", "1u": "LED" }, base: "Next" } },
     {
-      code: KEYCODE_OFFSET.LED + 1,
+      code: constants.ranges.led.start + 1,
       label: { hint: { full: "LEDEffect", "1u": "LED" }, base: { full: "Previous", "1u": "Prev." } },
     },
     {
-      code: KEYCODE_OFFSET.LED + 2,
+      code: constants.ranges.led.start + 2,
       label: { hint: { full: "LEDEffect", "1u": "LED" }, base: { full: "Toggle", "1u": "Togg." } },
     },
   ]
@@ -408,11 +373,11 @@ const spacecadet = assignKeysToCategory(
   ["spacecadet"],
   [
     {
-      code: KEYCODE_OFFSET.SC + 0,
+      code: constants.ranges.spacecadet.start + 0,
       label: { hint: { full: "SpaceCadet", "1u": "SC" }, base: { full: "Enable", "1u": "On" } },
     },
     {
-      code: KEYCODE_OFFSET.SC + 1,
+      code: constants.ranges.spacecadet.start + 1,
       label: { hint: { full: "SpaceCadet", "1u": "SC" }, base: { full: "Disable", "1u": "Off" } },
     },
   ]
@@ -427,32 +392,32 @@ const layer = (base, hint, type, index) => ({
 });
 const shiftToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(KEYCODE_OFFSET.LAYER + 42, "ShiftTo", "shifttolayer", index));
+  .map((_, index) => layer(constants.ranges.layer.start + 42, "ShiftTo", "shifttolayer", index));
 const lockToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(KEYCODE_OFFSET.LAYER, "LockTo", "locktolayer", index));
+  .map((_, index) => layer(constants.ranges.layer.start, "LockTo", "locktolayer", index));
 const moveToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(KEYCODE_OFFSET.LAYER + 84, "MoveTo", "movetolayer", index));
+  .map((_, index) => layer(constants.ranges.layer.start + 84, "MoveTo", "movetolayer", index));
 const layers = shiftToLayer.concat(lockToLayer).concat(moveToLayer);
 
 const platform_apple = assignKeysToCategory(
   ["platform_apple"],
   [
     {
-      code: KEYCODE_OFFSET.CONSUMER + 0x29d,
+      code: constants.ranges.consumer.start + 0x29d,
       label: { base: { full: "Globe", "1u": "🌐" } },
     },
     {
-      code: KEYCODE_OFFSET.CONSUMER + 0x19e,
+      code: constants.ranges.consumer.start + 0x19e,
       label: { base: { full: "Lock Screen", "1u": "Lock" } },
     },
     {
-      code: KEYCODE_OFFSET.CONSUMER + 0x2a2,
+      code: constants.ranges.consumer.start + 0x2a2,
       label: { base: { full: "Mission Control", "1u": "Mission" } },
     },
     {
-      code: KEYCODE_OFFSET.CONSUMER + 0x29f,
+      code: constants.ranges.consumer.start + 0x29f,
       label: { base: { full: "Exposé" } },
     },
   ]
@@ -500,16 +465,16 @@ const modifiers = withModifiers(
   { code: 3043, baseCode: 227, categories: ["ctrl", "shift", "alt"], label: { base: "Hyper" } },
 ]);
 const oneshot_modifier = (index, mod) => ({
-  code: KEYCODE_OFFSET.OSM + index,
+  code: constants.ranges.oneshot_modifier.start + index,
   label: { hint: { full: "OneShot", "1u": "OSM" }, base: mod },
-  rangeStart: KEYCODE_OFFSET.OSM,
+  rangeStart: constants.ranges.oneshot_modifier.start,
   categories: ["oneshot", "modifier"],
 });
 const oneshot_layer = (index) => ({
-  code: KEYCODE_OFFSET.OSL + index,
+  code: constants.ranges.oneshot_layer.start + index,
   label: { hint: { full: "OneShot", "1u": "OSL" }, base: "#" + index.toString() },
   target: index,
-  rangeStart: KEYCODE_OFFSET.OSL,
+  rangeStart: constants.ranges.oneshot_layer.start,
   categories: ["layer", "oneshot"],
 });
 
@@ -531,17 +496,17 @@ const oneshot = [
   oneshot_layer(6),
   oneshot_layer(7),
   {
-    code: KEYCODE_OFFSET.OS_META_STICKY,
+    code: constants.codes.ONESHOT_META_STICKY,
     label: { hint: { full: "OneShot Sticky", "1u": "Sticky" }, base: "Next" },
     categories: ["oneshot"],
   },
   {
-    code: KEYCODE_OFFSET.OS_ACTIVE_STICKY,
+    code: constants.codes.ONESHOT_ACTIVE_STICKY,
     label: { hint: { full: "OneShot Sticky", "1u": "Sticky" }, base: "Active" },
     categories: ["oneshot"],
   },
   {
-    code: KEYCODE_OFFSET.OS_CANCEL,
+    code: constants.codes.ONESHOT_CANCEL,
     label: { hint: { full: "OneShot", "1u": "OS" }, base: "Cancel" },
     categories: ["oneshot"],
   },
@@ -556,11 +521,11 @@ const keysAvailableForDualUse = []
   .concat(spacing);
 
 const addDualUseLayer = (key, layer) => ({
-  code: KEYCODE_OFFSET.DUL + layer * 256 + key.code,
+  code: constants.ranges.dual_use_layer.start + layer * 256 + key.code,
   baseCode: key.code,
   label: { hint: "Layer #" + layer.toString() + "/", base: key.label.base },
   target: layer,
-  rangeStart: KEYCODE_OFFSET.DUL,
+  rangeStart: constants.ranges.dual_use_layer.start,
   categories: ["layer", "dualuse"],
 });
 const dualUseModifiers = {
@@ -574,11 +539,11 @@ const dualUseModifiers = {
   rgui: { index: 7, name: `Right ${GuiLabel.full}` },
 };
 const addDualUseModifier = (key, mod) => ({
-  code: KEYCODE_OFFSET.DUM + dualUseModifiers[mod].index * 256 + key.code,
+  code: constants.ranges.dual_use_modifier.start + dualUseModifiers[mod].index * 256 + key.code,
   baseCode: key.code,
   label: { hint: dualUseModifiers[mod].name + "/", base: key.label.base },
   modifier: dualUseModifiers[mod].name,
-  rangeStart: KEYCODE_OFFSET.DUM,
+  rangeStart: constants.ranges.dual_use_modifier.start,
   categories: ["modifier", "dualuse", mod],
 });
 const dual_use_layers = () => {

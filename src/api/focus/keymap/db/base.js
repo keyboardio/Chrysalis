@@ -507,7 +507,7 @@ const oneshot = [
   },
   {
     code: constants.codes.ONESHOT_CANCEL,
-    label: { hint: { full: "OneShot", "1u": "OS" }, base: "Cancel" },
+    label: { hint: { full: "OneShot Sticky", "1u": "Sticky" }, base: "Cancel" },
     categories: ["oneshot"],
   },
 ];

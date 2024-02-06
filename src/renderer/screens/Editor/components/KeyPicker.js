@@ -140,13 +140,13 @@ export const KeyPicker = (props) => {
               <VerticalSectionDivider />
 
               <Grid item xs>
-                <FKPCategorySelector
-                  category="oneshot"
-                  plugin="OneShot"
-                  keyCodes={[db.constants.codes.ONESHOT_CANCEL]}
-                  {...sharedProps}
-                />
-                <FKPCategorySelector category="oneshotMetaKeys" plugin="OneShotMetaKeys" {...sharedProps}>
+                <FKPCategorySelector category="oneshot" plugin="OneShot" {...sharedProps}>
+                  <KeyButton
+                    keyObj={db.lookup(db.constants.codes.ONESHOT_CANCEL)}
+                    onKeyChange={props.onKeyChange}
+                    title={t("editor.sidebar.oneshot.cancelStickyKey.tooltip")}
+                    keycapSize="1u"
+                  />
                   <KeyButton
                     keyObj={db.lookup(db.constants.codes.ONESHOT_META_STICKY)}
                     onKeyChange={props.onKeyChange}

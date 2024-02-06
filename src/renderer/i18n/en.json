@@ -203,11 +203,14 @@
       },
       "oneshot": {
         "title": "Sticky",
-        "help": "A dedicated key to cancel sticky keys."
+        "help": "",
+        "cancelStickyKey": {
+          "tooltip": "A dedicated key to cancel sticky keys."
+        }
       },
       "oneshotMetaKeys": {
         "title": "",
-        "help": "These keys can make any key \"sticky\", not just modifiers or layer-shift keys.",
+        "help": "",
         "metaStickyKey": {
           "tooltip": "Makes the next key pressed sticky until tapped again."
         },

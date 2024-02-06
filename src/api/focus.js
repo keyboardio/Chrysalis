@@ -161,7 +161,6 @@ class Focus {
 
     // Attempt to close and release any existing writer locks
     if (this._port.writable && this._port.writable.locked) {
-      console.log("close writer?");
       const writer = this._port.writable.getWriter();
       await writer.close();
       writer.releaseLock();

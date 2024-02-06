@@ -237,15 +237,15 @@
       },
       "mousekeys": {
         "title": "Mouse control",
-        "help": "Emulate a mouse using your keyboard's keys",
+        "help": "Move the mouse with your keyboard",
         "movement": { "title": "Movement", "help": "Move the mouse with your keyboard" },
-        "buttons": { "title": "Buttons", "help": "Emulate mouse buttons using your keyboard's keys" },
+        "buttons": { "title": "Buttons", "help": "Press mouse buttons with your keyboard" },
 
         "wheel": {
           "title": "Wheel",
-          "help": "Emulate mouse wheel scrolling"
+          "help": " Mouse wheel scrolling"
         },
-        "warp": { "title": "Warp", "help": "Zoom your mouse across the screen in a couple of keypresses" }
+        "warp": { "title": "Warp", "help": "Zoom your mouse across the screen in a few keypresses" }
       },
       "spacecadet": {
         "title": "SpaceCadet",

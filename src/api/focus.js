@@ -297,11 +297,23 @@ class Focus {
     }
   }
 
-  async open(device_identifier, info) {
-    this._port = device_identifier;
-    if (!info) throw new Error("Device descriptor argument is mandatory");
+  async open(port, deviceDescriptor) {
+    this._port = port;
+    if (!deviceDescriptor) throw new Error("Device descriptor argument is mandatory");
 
-    this.focusDeviceDescriptor = info;
+    const info = this._port.getInfo();
+
+    const dVid = info.usbVendorId;
+    const dPid = info.usbProductId;
+
+    if (
+      deviceDescriptor.usb.bootloader &&
+      dPid == deviceDescriptor.usb.bootloader.productId &&
+      dVid == deviceDescriptor.usb.bootloader.vendorId
+    ) {
+      deviceDescriptor.bootloader = true;
+    }
+    this.focusDeviceDescriptor = deviceDescriptor;
 
     this.resetDeviceState();
     return this._port;

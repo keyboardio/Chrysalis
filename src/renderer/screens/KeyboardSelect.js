@@ -46,19 +46,6 @@ const KeyboardSelect = (props) => {
   const { t } = useTranslation();
   const focus = new Focus();
 
-  const scanDevices = async () => {
-    setLoading(true);
-    console.log("scanDevices");
-    const focus = await connectToSerialport();
-    if (focus) {
-      props.onConnect(focus);
-      console.log("Got a device - here's its focus object: ", focus);
-    } else {
-      console.log("looks like the user aborted");
-      setOpening(false);
-    }
-  };
-
   const onDisconnect = () => {
     props.onDisconnect();
   };
@@ -67,7 +54,17 @@ const KeyboardSelect = (props) => {
     setOpening(true);
 
     try {
-      await scanDevices();
+      setLoading(true);
+      console.log("in connectToKeyboard");
+      const focus = await connectToSerialport();
+      if (focus) {
+        console.log("Calling props.onConnect with the focus object");
+        props.onConnect(focus);
+        console.log("Got a device - here's its focus object: ", focus);
+      } else {
+        console.log("looks like the user aborted");
+        setOpening(false);
+      }
     } catch (err) {
       console.error("error while trying to connect", {
         error: err,

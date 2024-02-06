@@ -66,13 +66,19 @@ export function ActiveDevice() {
     // different one.
     this._cache = {};
     this._storage = {};
-    await this.focus.supported_commands();
-    await this.plugins();
-    await this.version();
+    if (this.focusDetected()) {
+      await this.supported_commands();
+      await this.plugins();
+      await this.version();
+    }
   };
 
   this.supported_commands = () => {
-    return this.focus.supported_commands();
+    if (this.focusDetected()) {
+      return this.focus.supported_commands();
+    } else {
+      return [];
+    }
   };
 
   this.focusDeviceDescriptor = () => {

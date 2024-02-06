@@ -151,6 +151,29 @@ class Focus {
     return true;
   }
 
+  async closePort() {
+    // Attempt to cancel and release any existing reader locks
+    if (this._port.readable && this._port.readable.locked) {
+      const reader = this._port.readable.getReader();
+      await reader.cancel();
+      reader.releaseLock();
+    }
+
+    // Attempt to close and release any existing writer locks
+    if (this._port.writable && this._port.writable.locked) {
+      console.log("close writer?");
+      const writer = this._port.writable.getWriter();
+      await writer.close();
+      writer.releaseLock();
+    }
+
+    try {
+      await this._port.close();
+    } catch (error) {
+      console.error("Failed to safely close the port:", error);
+    }
+  }
+
   async reboot(withDeviceReset) {
     const port = this._port;
 
@@ -160,9 +183,7 @@ class Focus {
 
     const baudUpdate = async () => {
       console.debug("reboot: baud update");
-      if (port.readable || port.writable) {
-        await port.close();
-      }
+      await this.closePort();
 
       await port.open({ baudRate: 1200 });
       await delay(timeouts.dtrToggle);
@@ -286,10 +307,8 @@ class Focus {
     return this._port;
   }
 
-  close() {
-    if ((this._port !== null && this._port.readable) || this._port.writable) {
-      this._port.close();
-    }
+  async close() {
+    await this.closePort();
     this._port = null;
     this._parser = null;
     this.focusDeviceDescriptor = null;

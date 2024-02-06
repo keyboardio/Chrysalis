@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Focus from "@api/focus";
+
 import { parseIntelHex } from "./IntelHexParser";
 
 const AVR109_RESPONSE_OK = "\r";
@@ -41,6 +43,7 @@ const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");
   console.log("filecontents");
   console.log(filecontents);
+  const focus = new Focus();
 
   var hexAsText = enc.decode(filecontents);
   return new Promise((resolve, reject) => {
@@ -52,6 +55,7 @@ const flash = async (port, filecontents) => {
         // Wait for the serial port to open.
         // Wait for the serial port to open.
 
+        await focus.closePort();
         try {
           if (!port.readable && !port.writable) {
             await port.open({ baudRate: 57600 });

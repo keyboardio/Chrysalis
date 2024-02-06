@@ -59,8 +59,8 @@ class Focus {
     });
 
     for (const port of portList) {
-      const pid = parseInt("0x" + port.productId),
-        vid = parseInt("0x" + port.vendorId);
+      const pid = port.productId;
+      const vid = port.vendorId;
 
       if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
         const newPort = Object.assign({}, port);
@@ -223,8 +223,8 @@ class Focus {
 
     for (const port of portList) {
       for (const device_descriptor of device_descriptors) {
-        const pid = parseInt("0x" + port.productId),
-          vid = parseInt("0x" + port.vendorId);
+        const pid = port.productId;
+        const vid = port.vendorId;
 
         if (pid == device_descriptor.usb.productId && vid == device_descriptor.usb.vendorId) {
           const newPort = Object.assign({}, port);

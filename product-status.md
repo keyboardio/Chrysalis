@@ -1,6 +1,6 @@
-# Keyboardio Chrysalis 
+# Keyboardio Chrysalis
 
-This is a *test release* of the next version of Chrysalis, the graphical configuration tool for Keyboardio's Kaleidoscope-powered keyboards. 
+This is a _test release_ of the next version of Chrysalis, the graphical configuration tool for Keyboardio's Kaleidoscope-powered keyboards.
 
 ## What doesn't work
 
@@ -13,9 +13,9 @@ This is a *test release* of the next version of Chrysalis, the graphical configu
 - Changing your layout
 - Changing your LED configuration
 - Changing device settings
+- Loading stock firmware
+- Custom firmware updates
 - Factory reset
-- Custom firmware updates for the Atreus and Model 01
-- Loading stock firmware for the Atreus and Model 01
 
 ## Device support
 
@@ -23,7 +23,7 @@ This is a *test release* of the next version of Chrysalis, the graphical configu
 - Keyboardio Atreus
 - Keyboardio Model 01
 
-*Note:* On macOS, the Atreus and Model 01 may experience unreliable connectivity with firmware versions before 0.92.1
+_Note:_ On macOS, the Atreus and Model 01 may experience unreliable connectivity with firmware versions before 0.92.1
 
 ## Browser support
 
@@ -31,4 +31,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Last Updated
 
-January 16, 2024
+Feb 5, 2024

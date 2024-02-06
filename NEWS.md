@@ -1,14 +1,10 @@
+# 2024-01-18
 
-2024-01-18
-==========
+- Support for Legacy (2019 and earlier) keycodes removed
+- New key selector UI
 
-* Support for Legacy (2019 and earlier) keycodes removed
-* New key selector UI
+# Chrysalis 0.13.3
 
-
-
-Chrysalis 0.13.3
-================
 Released on 2023-12-19
 
 This release fixes a bug in the previous 0.13 series releases that prevented
@@ -18,7 +14,7 @@ from the official firmware release server.
 The copy of the Kaleidoscope firmware bundled with this release of Chrysalis
 has been updated to 0.92.1.
 
-Unfortunately, due to a change in Windows codesigning rules, this release of 
+Unfortunately, due to a change in Windows codesigning rules, this release of
 Chrysalis needs to be manually installed on Windows. We're currently hard at
 work on moving future versions of Chrysalis to your web browser. This will
 help ensure that you always have the latest version of Chrysalis and that you
@@ -28,15 +24,15 @@ keyboard
 As of this release, we no longer distribute firmware builds for keyboards not
 made by Keyboardio.
 
-Chrysalis 0.13.2
-================
+# Chrysalis 0.13.2
+
 Released on 2023-05-10
 
 This is the same release as 0.13.1, re-released to work around some technical
 difficulties in the release pipeline.
 
-Chrysalis 0.13.1
-================
+# Chrysalis 0.13.1
+
 Released on 2023-05-09
 
 ## Bugfixes
@@ -46,8 +42,8 @@ which resulted in flashing not working, and Chrysalis complaining about a broken
 environment. This issue has been corrected, Chrysalis should no longer complain,
 and flashing should work correctly now.
 
-Chrysalis 0.13.0
-================
+# Chrysalis 0.13.0
+
 Released on 2023-05-06
 
 ## New features
@@ -58,12 +54,12 @@ long-press a key to make it as if `Shift` was pressed alongside with it,
 allowing one to - for example - type a capital `A` by long-pressing the `a` key.
 The second is a special kind of modifier: it is like `Shift`, but inverted.
 
- [k:autoshift]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-AutoShift.html
- [k:topsyturvy]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-TopsyTurvy.html
+[k:autoshift]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-AutoShift.html
+[k:topsyturvy]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-TopsyTurvy.html
 
 [OneShot Meta Keys][k:os-meta] are now supported by Chrysalis, and can be assigned to keys, if the firmware has the plugin enabled.
 
- [k:os-meta]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-OneShotMetaKeys.html
+[k:os-meta]: https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-OneShotMetaKeys.html
 
 None of the firmware shipped with Chrysalis have the above plugins enabled, but
 custom firmware having them can now tweak them via Chrysalis!
@@ -83,10 +79,10 @@ Chrysalis is not able to save and restore settings in that case).
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.91.1] for more details.
 
- [fw:0.91.1]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.1
+[fw:0.91.1]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.1
 
-Chrysalis 0.12.0
-================
+# Chrysalis 0.12.0
+
 Released on 2022-10-26
 
 ## New features
@@ -134,10 +130,10 @@ The Dutch translation of Chrysalis is once again complete and up to date.
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.91.0] for more details.
 
- [fw:0.91.0]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.0
+[fw:0.91.0]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.91.0
 
-Chrysalis 0.11.9
-================
+# Chrysalis 0.11.9
+
 Released on 2022-10-22
 
 ## New features
@@ -184,10 +180,10 @@ eligible. If the application itself is at a snapshot version, however, it will.
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.90.6] for more details.
 
- [fw:0.90.6]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.6
+[fw:0.90.6]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.6
 
-Chrysalis 0.11.8
-================
+# Chrysalis 0.11.8
+
 Released on 2022-10-09
 
 ## Bugfixes
@@ -205,10 +201,10 @@ a white screen with no obvious remedy.
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.90.5] for more details.
 
- [fw:0.90.5]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.5
+[fw:0.90.5]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.5
 
-Chrysalis 0.11.7
-================
+# Chrysalis 0.11.7
+
 Released on 2022-10-08
 
 ## New features
@@ -234,10 +230,10 @@ unaffected by the bug). It is now possible to connect to the Keyboardio Model
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.90.4] for more details.
 
- [fw:0.90.4]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.4
+[fw:0.90.4]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.4
 
-Chrysalis 0.11.6
-================
+# Chrysalis 0.11.6
+
 Released on 2022-10-03
 
 ## Bugfixes
@@ -295,10 +291,10 @@ as secondary action, not just `AltGr`.
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.90.3] for more details.
 
- [fw:0.90.3]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.3
+[fw:0.90.3]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.3
 
-Chrysalis 0.11.5
-================
+# Chrysalis 0.11.5
+
 Released on 2022-09-28
 
 ## New features
@@ -337,10 +333,10 @@ match the most recent version of the flashing process.
 The firmware shipped with Chrysalis have been updated, see its [own
 changelog][fw:0.90.2] for more details.
 
- [fw:0.90.2]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.2
+[fw:0.90.2]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases/tag/v0.90.2
 
-Chrysalis 0.11.4
-================
+# Chrysalis 0.11.4
+
 Released on 2022-09-26
 
 ## Firmware update
@@ -370,8 +366,8 @@ present.
 Chrysalis now defaults to enabling firmware auto-update by default. You can
 still opt out of it, and existing settings will not be overwritten.
 
-Chrysalis 0.11.3
-================
+# Chrysalis 0.11.3
+
 Released on 2022-09-22
 
 ## Bugfixes
@@ -387,8 +383,8 @@ Chrysalis.
 Chrysalis now ships with a Colemak DH layout for the Keyboardio Model 100 to
 match the keycaps also available for the keyboard.
 
-Chrysalis 0.11.2
-================
+# Chrysalis 0.11.2
+
 Released on 2022-09-21
 
 ## New features
@@ -426,9 +422,8 @@ even if the label has a text on the top of the key, too.
 The auto-update preferences have been lifted out from the "User Interface"
 section onto their own.
 
+# Chrysalis 0.11.1
 
-Chrysalis 0.11.1
-================
 Released on 2022-09-09
 
 ## Known issues
@@ -461,8 +456,8 @@ wording of the instructions better.
 
 We have reduced the size of the pre-built binaries by a good few megabytes.
 
-Chrysalis 0.11.0
-================
+# Chrysalis 0.11.0
+
 Released on 2022-07-28
 
 ## New features
@@ -478,7 +473,7 @@ names, which will be displayed throughout the application instead of the default
 layer indexes.
 
 We have completely redesigned the flashing process, to be safer, more reliable,
-and more durable. The process is now able to recover from a *lot* of scenarios
+and more durable. The process is now able to recover from a _lot_ of scenarios
 where it previously either errored out, or was futilely trying to do the same
 thing forever, without changing anything. Most issues were around steps that
 involved rebooting the keyboard, and Chrysalis is now able to retry reboots,
@@ -532,8 +527,8 @@ now.
 
 The firmware shipped with Chrysalis have been updated, see its [own changelog](static/firmware-changelog.md) for more details.
 
-Chrysalis 0.10.4
-================
+# Chrysalis 0.10.4
+
 Released on 2022-07-07
 
 ## Firmware update
@@ -544,8 +539,8 @@ the Keyboardio Atreus. There are no changes other than in the firmware files.
 Both of these firmware updates fix important, breaking bugs in the firmware, and
 owners of these keyboards are strongly encouraged to update their firmware.
 
-Chrysalis 0.10.3
-================
+# Chrysalis 0.10.3
+
 Released on 2022-07-06
 
 ## New features
@@ -605,8 +600,8 @@ The Windows builds - similar to the macOS builds - are now signed, which should
 make installation simpler in the long run. We're also providing portable Windows
 executables that lets you run Chrysalis without installing it.
 
-Chrysalis 0.10.2
-================
+# Chrysalis 0.10.2
+
 Released on 2022-06-09
 
 ## Bugfixes
@@ -629,8 +624,8 @@ layout is now properly loaded and initialized on application startup.
 The dropdown used to select the language Chrysalis uses now functions correctly,
 and will show the active language.
 
-Chrysalis 0.10.1
-================
+# Chrysalis 0.10.1
+
 Released on 2022-06-08
 
 ## New features
@@ -687,8 +682,8 @@ finds unexpected files.
 Worked around an issue in Electron that caused Chrysalis to crash on Windows and
 macOS when trying to print.
 
-Chrysalis 0.10.0
-================
+# Chrysalis 0.10.0
+
 Released on 2022-05-30
 
 ## New features
@@ -733,8 +728,8 @@ match production keyboards, and a layout library has been added too.
 We fixed an issue that prevented Chrysalis from connecting to keyboards on
 Windows, and we also improved Chrysalis' stability on Linux under Wayland.
 
-Chrysalis 0.9.5
-===============
+# Chrysalis 0.9.5
+
 Released on 2022-05-27
 
 ## UI/UX improvements
@@ -772,8 +767,8 @@ Chromium does not support that under Wayland yet. This allows Chrysalis to start
 up under Wayland out of the box, without further command-line arguments or
 workarounds, still using the Wayland backend.
 
-Chrysalis 0.9.4
-===============
+# Chrysalis 0.9.4
+
 Released on 2022-05-25
 
 This release is mostly about stabilizing and improving the Keyboard.io Model 100
@@ -813,8 +808,8 @@ keyboards. Our support for these devices haven't been up to the standards one
 would expect, so rather than carrying them around in an inferior state, we opted
 to remove support for the time being.
 
-Chrysalis 0.9.3
-===============
+# Chrysalis 0.9.3
+
 Released on 2022-05-20
 
 ## New features
@@ -857,8 +852,8 @@ type of keyboard.
 Additionally, we also fixed an issue where the "Backup & Restore" screen made
 the application unresponsive until one flashed new firmware onto a keyboard.
 
-Chrysalis 0.9.2
-===============
+# Chrysalis 0.9.2
+
 Released on 2022-05-20
 
 ## New features
@@ -891,8 +886,8 @@ When there is a single supported keyboard available, Chrysalis will now
 automatically connect to it when starting up, removing the need to click the
 "Connect" button first.
 
-Chrysalis 0.9.1
-===============
+# Chrysalis 0.9.1
+
 Released on 2022-05-18
 
 ## Bugfixes
@@ -900,8 +895,8 @@ Released on 2022-05-18
 A number of small, but particularly painful display issues (such as the color
 swatches above the color picker being tiny) were fixed.
 
-Chrysalis 0.9.0
-===============
+# Chrysalis 0.9.0
+
 Released on 2022-05-17
 
 ## New features
@@ -955,8 +950,8 @@ single screen, as both are about bug reporting.
 "Layout sharing" has been renamed to "Backup and Restore", because that's what
 it essentially is.
 
-Chrysalis 0.8.6
-===============
+# Chrysalis 0.8.6
+
 Released on 2021-10-02
 
 ## Bugfixes
@@ -968,8 +963,8 @@ Fixed a typo in the Keyboardio Model01 flashing instructions.
 The macOS pre-built binaries are signed once again, making their installation
 more straightforward and secure.
 
-Chrysalis 0.8.5
-===============
+# Chrysalis 0.8.5
+
 Released on 2021-09-27
 
 ## Firmware update
@@ -989,8 +984,8 @@ been improved.
 The tooltip for sticky modifier keys no longer have the word "modifier"
 duplicated.
 
-Chrysalis 0.8.4
-===============
+# Chrysalis 0.8.4
+
 Released on 2021-04-05
 
 ## Bugfixes
@@ -998,8 +993,8 @@ Released on 2021-04-05
 This release has additional fixes for consumer keys, including a way to
 automatically migrate from old keycodes to new ones.
 
-Chrysalis 0.8.3
-===============
+# Chrysalis 0.8.3
+
 Released on 2021-03-29
 
 ## Bugfixes
@@ -1052,8 +1047,8 @@ single-letter.
 Chrysalis now allows you to choose Croatian as the host keyboard layout, and has
 initial support - albeit untested - for Wayland under Linux.
 
-Chrysalis 0.8.2
-===============
+# Chrysalis 0.8.2
+
 Released on 2021-01-28
 
 ## Bugfixes
@@ -1088,8 +1083,8 @@ Certain combinations of modifiers will be displayed with a shorter, perhaps more
 familiar name: Control-Shift-Alt will show up as Meh, while
 Control-Shift-Alt-Gui will show as Hyper.
 
-Chrysalis 0.8.1
-===============
+# Chrysalis 0.8.1
+
 Released on 2021-01-26
 
 This release is primarily a bugfix release, with a number of small, but rather
@@ -1137,8 +1132,8 @@ binaries for that platform anymore.
 Furthermore, we currently do not sign our macOS builds - this is a temporary
 regression only, however.
 
-Chrysalis 0.8.0
-===============
+# Chrysalis 0.8.0
+
 Released on 2021-01-12
 
 ## UI/UX improvements
@@ -1208,8 +1203,8 @@ All shipped firmware files have been updated to use the latest Kaleidoscope, and
 The macOS pre-built binaries are now signed, making their installation more
 straightforward and secure.
 
-Chrysalis 0.7.9
-===============
+# Chrysalis 0.7.9
+
 Released on 2020-07-03
 
 ## UI/UX improvements
@@ -1233,8 +1228,8 @@ All shipped firmware files have been updated to use the latest Kaleidoscope, and
 Chrysalis 0.7.8 was the same release as this, but with broken packaging. We
 opted to cut a new release and delisting the broken one.
 
-Chrysalis 0.7.7
-===============
+# Chrysalis 0.7.7
+
 Released on 2020-06-17
 
 ## UI/UX improvements
@@ -1247,8 +1242,8 @@ bells and whistles.
 
 All shipped firmware files have been updated to use the latest Kaleidoscope, and the latest layouts.
 
-Chrysalis 0.7.6
-===============
+# Chrysalis 0.7.6
+
 Released on 2020-06-17
 
 ## UI/UX improvements
@@ -1281,8 +1276,8 @@ Fixed a number of crashes related to not having a colormap when importing, or
 when clearing a layer. These features now correctly ignore the colormap if there
 isn't any to work with.
 
-Chrysalis 0.7.5
-===============
+# Chrysalis 0.7.5
+
 Released on 2020-05-05
 
 ## UI/UX improvements
@@ -1336,11 +1331,11 @@ don't want to cancel any confirmation dialogs while holding the `Prog` key.
 
 ### Miscellaneous
 
-* The application header bar should now display its text in white while in dark
+- The application header bar should now display its text in white while in dark
   mode.
-* When a keyboard disconnects while we have pending, unsaved changes, we now
+- When a keyboard disconnects while we have pending, unsaved changes, we now
   forget all about those, and restore the application bar to its normal state.
-* Plenty of internal changes and cleanups were made in order to reduce errors
+- Plenty of internal changes and cleanups were made in order to reduce errors
   and warnings on the developer console: we catch and handle more (expected)
   errors.
 
@@ -1351,8 +1346,8 @@ with plenty of bugfixes, including, but not limited to, restoring proper 6KRO
 support, so that the firmware will work correctly on the macOS login screen and
 older BIOSes that do not support NKRO.
 
-Chrysalis 0.7.4
-===============
+# Chrysalis 0.7.4
+
 Released on 2020-03-22
 
 ## UI/UX Improvements
@@ -1370,8 +1365,8 @@ The default firmware shipped with Chrysalis for the Keyboardio Atreus has been
 updated to have a default layout that matches the layout card, and the intended
 factory layout for the keyboard.
 
-Chrysalis 0.7.3
-===============
+# Chrysalis 0.7.3
+
 Released on 2020-03-07
 
 ## Bugfixes
@@ -1381,8 +1376,8 @@ keyboard required an unplug and a replug after flashing to become available
 again, has been fixed. Flashing will now result in a keyboard that's usable
 immediately after.
 
-Chrysalis 0.7.2
-===============
+# Chrysalis 0.7.2
+
 Released on 2020-03-07
 
 ## Bugfixes
@@ -1396,8 +1391,8 @@ Keyboardio Atreus. Additionally, the Atreus keymap image has been fixed to scale
 better to the available space, without the labels getting misaligned from the
 keys.
 
-Chrysalis 0.7.1
-===============
+# Chrysalis 0.7.1
+
 Released on 2020-03-06
 
 ## New features
@@ -1408,7 +1403,7 @@ keys, we now use an image of the keyboard as a background. This looks much more
 like the real keyboard. The font sizes for most keys were also increased, both
 to match the keycaps, and to make them easier to see.
 
- [kickstarter:atreus]: https://www.kickstarter.com/projects/keyboardio/atreus
+[kickstarter:atreus]: https://www.kickstarter.com/projects/keyboardio/atreus
 
 When flashing new firmware onto the keyboard, Chrysalis now displays flashing
 instructions aswell.
@@ -1421,8 +1416,8 @@ displayed as Unicode arrow symbols; and digits show their shifted symbol on top
 now. Additionally, the "Gui" key is now properly labeled on each operating
 system: `Super` on Linux, `Win` on Windows, and `Cmd` on macOS.
 
-Chrysalis 0.7.0
-===============
+# Chrysalis 0.7.0
+
 Released on 2020-03-02
 
 ## New features
@@ -1445,12 +1440,12 @@ Kaleidoscope version, too.
 
 ## Bugfixes
 
-* We fixed a number of issues around importing keymaps.
-* Notifications can - once again - be dismissed.
-* One can now use `AltGr` as a modifier when setting up dual-use keys.
+- We fixed a number of issues around importing keymaps.
+- Notifications can - once again - be dismissed.
+- One can now use `AltGr` as a modifier when setting up dual-use keys.
 
-Chrysalis 0.6.2
-===============
+# Chrysalis 0.6.2
+
 Released on 2019-08-23
 
 ## New features
@@ -1467,8 +1462,8 @@ doing so via a Hub. The bundled firmwares were also updated to use a version of
 Kaleidoscope with a number of important issues fixed (such as the Colormap
 plugin coloring the wrong keys).
 
-Chrysalis 0.6.1
-===============
+# Chrysalis 0.6.1
+
 Released on 2019-07-29
 
 ## Bugfixes
@@ -1476,8 +1471,8 @@ Released on 2019-07-29
 Fixed an issue affecting OSX users, which prevented Chrysalis from being able to
 connect to the keyboard.
 
-Chrysalis 0.6.0
-===============
+# Chrysalis 0.6.0
+
 Released on 2019-07-19
 
 ## UI/UX improvements
@@ -1507,8 +1502,8 @@ We also made sure that pre-built binaries work correctly on all platforms. The
 default and experimental firmware files were updated to their latest versions
 too, bringing in plenty of improvements and bugfixes.
 
-Chrysalis 0.5.0
-===============
+# Chrysalis 0.5.0
+
 Released on 2019-03-09
 
 ## UI/UX improvements
@@ -1552,8 +1547,8 @@ it possible to transfer layers and colormaps from one keyboard to another.
 Chrysalis now supports the [Splitography][splitography] keyboard, one designed
 to be used for Steno with [Plover][plover].
 
- [splitography]: https://softhruf.love/collections/writers
- [plover]: http://www.openstenoproject.org/plover/
+[splitography]: https://softhruf.love/collections/writers
+[plover]: http://www.openstenoproject.org/plover/
 
 ## Bugfixes
 
@@ -1561,8 +1556,8 @@ We fixed a fair amount of bugs, ranging from navigation issues to small subtle
 things that were confusing, like the keyboard image's strange jumps in size when
 resizing the window - that should be much smoother now.
 
-Chrysalis 0.4.0
-===============
+# Chrysalis 0.4.0
+
 Released on 2019-02-06
 
 ## UI/UX improvements
@@ -1585,15 +1580,15 @@ custom layers only all moved to the new "Keyboard settings" screen.
 Major contributors to this release were [@TreTuna][u:TreTuna], [@obra][u:obra],
 and [@algernon][u:algernon].
 
- [u:TreTuna]: https://github.com/TreTuna
- [u:obra]: https://github.com/obra
- [u:algernon]: https://github.com/algernon
+[u:TreTuna]: https://github.com/TreTuna
+[u:obra]: https://github.com/obra
+[u:algernon]: https://github.com/algernon
 
 Thanks to everyone who tried Chrysalis, gave feedback, or reported issues - your
 guidance drives Chrysalis forward.
 
-Chrysalis 0.3.3
-===============
+# Chrysalis 0.3.3
+
 Released on 2019-01-25
 
 ## Bugfixes
@@ -1615,8 +1610,8 @@ with an "XXX" label until we implement a better way to distinguish the two.
 
 Chrysalis can now properly display the non-US backslash / pipe keycode. It will also correctly label the SpaceCadet enable / disable keys (they were previously labeled SpaceCadet left/right, which was wrong).
 
-Chrysalis 0.3.2
-===============
+# Chrysalis 0.3.2
+
 Released on 2019-01-21
 
 ## UI/UX Improvements
@@ -1676,8 +1671,8 @@ Chrysalis now ships with two firmware variants for all boards:
 The idea is that the default firmware shouldn't be surprising. We now have the
 experimental variant for testing features not in the original.
 
-Chrysalis 0.3.1
-===============
+# Chrysalis 0.3.1
+
 Released on 2019-01-17
 
 ## Bugfixes
@@ -1704,8 +1699,8 @@ to fix a bug related to the `Colormap` plugin.
 Updating the firmware of the Atreus and the ErgoDox should now work on Windows
 and OSX too, alongside Linux where it already worked before.
 
-Chrysalis 0.3.0
-===============
+# Chrysalis 0.3.0
+
 Released on 2019-01-15
 
 ## UI/UX changes
@@ -1763,7 +1758,7 @@ We made it easier to toggle the developer tools, in case something goes wrong (C
 The [ErgoDox EZ][ergodox:ez] (and any other ErgoDox that is compatible with the
 original) is now also supported.
 
- [ergodox:ez]: https://ergodox-ez.com/
+[ergodox:ez]: https://ergodox-ez.com/
 
 ### Default firmware
 
@@ -1772,8 +1767,8 @@ we no longer require them to be flashed with Kaleidoscope prior to using
 Chrysalis. Instead, we offer a firmware upgrade, with reasonable defaults - just
 like we do for boards that do come with Kaleidoscope by default.
 
-Chrysalis 0.2.0
-===============
+# Chrysalis 0.2.0
+
 Released on 2018-12-31
 
 ## Hardware support
@@ -1782,24 +1777,24 @@ Chrysalis now supports the [Atreus][atreus] keyboard, when it is running a
 Chrysalis-enabled [Kaleidoscope][kaleidoscope] firmware. We ship with
 [one][chrysalis-bundle:atreus], just in case.
 
- [atreus]: https://atreus.technomancy.us/
- [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
- [chrysalis-bundle:atreus]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/tree/master/Technomancy/Atreus
+[atreus]: https://atreus.technomancy.us/
+[kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
+[chrysalis-bundle:atreus]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/tree/master/Technomancy/Atreus
 
 Chrysalis also has preliminary support for [Dygma Raise][raise] - it should
 work, but it is untested on real hardware at this time.
 
- [raise]: https://www.dygma.com/raise/
+[raise]: https://www.dygma.com/raise/
 
 ## UI/UX changes
 
-* The dropdown on the keyboard selection page will now list not only the ports,
+- The dropdown on the keyboard selection page will now list not only the ports,
   but which keyboard they belong to, too.
-* The previous "Information" page was replaced by a bottom bar, providing the
+- The previous "Information" page was replaced by a bottom bar, providing the
   same functionality, in a more accessible place.
 
-Chrysalis 0.1.0
-===============
+# Chrysalis 0.1.0
+
 Released on 2018-12-24
 
 Initial alpha release.

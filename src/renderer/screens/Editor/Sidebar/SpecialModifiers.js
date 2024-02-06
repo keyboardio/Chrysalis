@@ -16,60 +16,32 @@ export const SpecialModifiers = (props) => {
   const { t } = useTranslation();
   const oneShotAvailable = usePluginAvailable("OneShot");
 
-  const isStandardKey = (props) => {
-    const { currentKey: key } = props;
-    const code = key.baseCode || key.code;
-    const stdRange = db.constants.ranges.standard;
-
-    return code >= stdRange.start && code <= stdRange.end && !db.isInCategory(key.code, "dualuse");
-  };
-
   const toggleModifier = (mod) => (event) => {
     const { currentKey: key } = props;
-
-    if (event.target.checked) {
-      props.onKeyChange(addModifier(key.code, mod));
-    } else {
-      props.onKeyChange(removeModifier(key.code, mod));
-    }
-  };
-
-  const toggleOneShot = (event) => {
-    const { currentKey: key } = props;
     const c = db.constants.codes;
-
-    if (event.target.checked) {
-      props.onKeyChange(key.code - c.FIRST_MODIFIER + c.FIRST_ONESHOT_MODIFIER);
+    if (mod === "oneshot") {
+      props.onKeyChange(
+        event.target.checked
+          ? key.code - c.FIRST_MODIFIER + c.FIRST_ONESHOT_MODIFIER
+          : key.code - key.rangeStart + c.FIRST_MODIFIER
+      );
     } else {
-      props.onKeyChange(key.code - key.rangeStart + c.FIRST_MODIFIER);
+      props.onKeyChange(event.target.checked ? addModifier(key.code, mod) : removeModifier(key.code, mod));
     }
   };
 
   const makeSwitch = (mod) => {
     const { currentKey: key } = props;
-    return (
-      <Switch
-        checked={db.isInCategory(key, mod) && !db.isInCategory(key.code, "dualuse")}
-        color="primary"
-        onChange={toggleModifier(mod)}
-      />
-    );
+    let isChecked = false;
+    if (mod === "oneshot") {
+      isChecked = db.isInCategory(key, mod);
+    } else {
+      isChecked = db.isInCategory(key, mod) && !db.isInCategory(key.code, "dualuse");
+    }
+    return <Switch size="small" checked={isChecked} color="primary" onChange={toggleModifier(mod)} />;
   };
 
   const { currentKey: key } = props;
-
-  const osmControl = (
-    <Switch
-      checked={db.isInCategory(key, "oneshot")}
-      color="primary"
-      onChange={toggleOneShot}
-      disabled={
-        !oneShotAvailable ||
-        !db.isInCategory(key.baseCode || key.code, "modifier") ||
-        db.isInCategory(key.code, "dualuse")
-      }
-    />
-  );
 
   const isDualUse = db.isInCategory(key.code, "dualuse");
   const isShifted = db.isInCategory(key.code, "shift");
@@ -84,9 +56,9 @@ export const SpecialModifiers = (props) => {
       <FKPCategorySelector
         help={t("editor.sidebar.keypicker.specialModsHelp")}
         plugin="TopsyTurvy"
-        disabled={!isStandardKey(props)}
+        disabled={!db.isStandardKey(key)}
       >
-        <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
+        <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!db.isStandardKey(key)}>
           <Tooltip title={t("editor.sidebar.keypicker.topsyturvy.tooltip")}>
             <FormControlLabel
               control={makeSwitch("topsyturvy")}
@@ -96,10 +68,18 @@ export const SpecialModifiers = (props) => {
           </Tooltip>
         </FormControl>
       </FKPCategorySelector>
-      <FKPCategorySelector disabled={!isStandardKey(props)}>
-        <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
+      <FKPCategorySelector disabled={!db.isStandardKey(key)}>
+        <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!db.isStandardKey(key)}>
           <Tooltip title={t("editor.sidebar.keypicker.oneshot.tooltip")}>
-            <FormControlLabel control={osmControl} label={t("editor.sidebar.keypicker.oneshot.label")} />
+            <FormControlLabel
+              control={makeSwitch("oneshot")}
+              label={t("editor.sidebar.keypicker.oneshot.label")}
+              disabled={
+                !oneShotAvailable ||
+                !db.isInCategory(key.baseCode || key.code, "modifier") ||
+                db.isInCategory(key.code, "dualuse")
+              }
+            />
           </Tooltip>
         </FormControl>
       </FKPCategorySelector>

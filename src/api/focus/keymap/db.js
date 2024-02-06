@@ -162,6 +162,15 @@ class KeymapDB {
     return this.lookup(keyCode)?.categories?.includes(category) || false;
   }
 
+  isStandardKey(key) {
+    return this.isInRange(key, this.constants.ranges.standard) && !this.isInCategory(key.code, "dualuse");
+  }
+  // Is this key object in the range object passed in as 'range'
+  // This only works if a range has both start and end defined.
+  isInRange(key, range) {
+    const code = key.baseCode || key.code;
+    return code >= range.start && range.end !== undefined && code <= range.end;
+  }
   selectCategory(category) {
     const cdb = [];
     console.log("in sleectCategory");

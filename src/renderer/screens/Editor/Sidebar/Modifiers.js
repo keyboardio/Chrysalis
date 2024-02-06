@@ -42,27 +42,21 @@ const Modifiers = (props) => {
 
   const c = db.constants.codes;
 
-  const keyLabels = {
-    shift: "Shift",
-    ctrl: "Control",
-    alt: "Alt",
-    gui: GuiLabel.full,
-    altgr: "AltGr",
-    topsyturvy: "TopsyTurvy",
-  };
-  const constantCodes = {
-    shift: c.LEFT_SHIFT,
-    ctrl: c.LEFT_CONTROL,
-    alt: c.LEFT_ALT,
-    gui: c.LEFT_GUI,
-    altgr: c.RIGHT_ALT,
+  const modifiers = {
+    shift: { label: "Shift", code: c.LEFT_SHIFT },
+    ctrl: { label: "Control", code: c.LEFT_CONTROL },
+    alt: { label: "Alt", code: c.LEFT_ALT },
+    gui: { label: GuiLabel.full, code: c.LEFT_GUI },
+    altgr: { label: "AltGr", code: c.RIGHT_ALT },
   };
 
   const modifierControl = (mod) => {
+    const modifier = modifiers[mod];
     return (
       <FormControlLabel
         control={
           <Switch
+            size="small"
             checked={db.isInCategory(key.code, mod) && !db.isInCategory(key.code, "dualuse")}
             color="primary"
             onChange={() => {
@@ -70,11 +64,11 @@ const Modifiers = (props) => {
             }}
           />
         }
-        label={keyLabels[mod]}
+        label={modifier.label}
         disabled={
-          !isStandardKey(props) ||
-          key.baseCode == constantCodes[mod] ||
-          key.code == constantCodes[mod] ||
+          !db.isStandardKey(key) ||
+          key.baseCode == modifier.code ||
+          key.code == modifier.code ||
           db.isInCategory(key.code, "dualuse") ||
           (db.isInCategory(key.code, "topsyturvy") && mod == "shift")
         }
@@ -85,10 +79,9 @@ const Modifiers = (props) => {
   return (
     <FKPCategorySelector help={t("editor.sidebar.keypicker.modsHelp")} disabled={!isStandardKey(props)}>
       <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
-        <FormGroup column>{["shift", "ctrl", "alt", "gui", "altgr"].map(modifierControl)}</FormGroup>
+        <FormGroup column>{Object.keys(modifiers).map(modifierControl)}</FormGroup>
       </FormControl>
     </FKPCategorySelector>
   );
 };
-
 export { Modifiers as default };

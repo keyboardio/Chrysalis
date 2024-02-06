@@ -484,7 +484,7 @@ const Editor = (props) => {
           </Paper>
         )}
       </Box>
-      <Drawer variant="permanent" anchor="bottom" sx={{ "& .MuiDrawer-paper": { height: "25rem" } }}>
+      <Drawer variant="permanent" anchor="bottom" sx={{ "& .MuiDrawer-paper": { height: "20rem" } }}>
         <KeyPicker
           macroEditorOpen={openMacroEditor}
           macros={macros}

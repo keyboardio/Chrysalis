@@ -179,21 +179,24 @@ const App = (props) => {
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
 
-    if (!focus.focusDeviceDescriptor?.bootloader) {
-      console.info("Probing for focus support...");
-      focus.setLayerSize(focus.focusDeviceDescriptor);
-      console.info("Set the layer size", focus.focusDeviceDescriptor);
+    if (focus.focusDeviceDescriptor?.bootloader) {
+      setConnected(true);
+
+      await navigate("/focus-not-detected");
+      return true;
     }
+
+    console.info("Probing for focus support...");
+    focus.setLayerSize(focus.focusDeviceDescriptor);
+    console.info("Set the layer size", focus.focusDeviceDescriptor);
 
     i18n.refreshHardware(focus.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
 
-    if (!focus.focusDeviceDescriptor?.bootloader) {
-      await newActiveDevice.loadConfigFromDevice();
-    }
+    await newActiveDevice.loadConfigFromDevice();
     setConnected(true);
 
-    await navigate(newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected");
+    await navigate("/editor");
     return true;
   };
 

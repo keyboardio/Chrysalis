@@ -151,7 +151,7 @@
       "secondary": {
         "title": "Secondary action",
         "help": "When tapped, you get the primary function. When held you get the secondary action.",
-        "help-layerLimit": "Due to firmware limitations, shifting to layers above \"{{ layer8 }}\" is not supported via secondary actions.",
+        "help-layerLimit": "Due to firmware limitations, shifting to layers above \"{{ layer7 }}\" is not supported via secondary actions.",
         "whenHeld": "When held",
         "type": {
           "none": "Normal",

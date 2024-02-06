@@ -27,7 +27,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
 import { Typography } from "@mui/material";
-
+import Tooltip from "@mui/material/Tooltip";
 const db = new KeymapDB();
 
 const SecondaryFunction = (props) => {
@@ -80,8 +80,9 @@ const SecondaryFunction = (props) => {
   const { currentKey: key, keymap } = props;
   const maxLayer = keymap.custom.length;
   // Using a secondary action for layer shifts is limited to 8 layers due to
-  // technical reasons.
-  const secondaryActionLayerLimit = 8;
+  // technical reasons in Kaleidoscope. We overflow the key range assigned to
+  // secondary actions if we got beyond layer 7. (Layer 0 is the first layer.)
+  const secondaryActionLayerLimit = 7;
 
   let type = "none",
     targetLayer = -1,
@@ -130,42 +131,43 @@ const SecondaryFunction = (props) => {
     } else if (db.isInCategory(key.code, "layer")) {
       targetLayer = key.target;
 
+      let layerLimitText = "";
+      if (maxLayer > secondaryActionLayerLimit) {
+        layerLimitText = t("editor.sidebar.secondary.help-layerLimit", {
+          layer7: props.layerNames?.names[secondaryActionLayerLimit],
+        });
+      }
+
       actionTarget = (
-        <FormControl sx={{ mx: 1 }}>
+        <FormControl sx={{ mx: 1 }} size="small">
           <InputLabel id="editor.sidebar.secondary.targetLayer">
             {t("editor.sidebar.secondary.targetLayer")}{" "}
           </InputLabel>
-          <Select
-            labelId="editor.sidebar.secondary.targetLayer"
-            value={targetLayer}
-            onChange={(event) => onTargetLayerChange(event, maxLayer)}
-            label={t("editor.sidebar.secondary.targetLayer")}
-            disabled={targetLayer < 0}
-          >
-            <MenuItem value="-1" disabled></MenuItem>
-            {[...Array(maxLayer)].map((x, i) => (
-              <MenuItem name={i} key={`dualuse-dropdown-${i}`} value={i} disabled={i > secondaryActionLayerLimit}>
-                {props.layerNames?.names[i]}
-              </MenuItem>
-            ))}
-          </Select>
+          <Tooltip title={maxLayer > secondaryActionLayerLimit && layerLimitText}>
+            <Select
+              labelId="editor.sidebar.secondary.targetLayer"
+              value={targetLayer}
+              onChange={(event) => onTargetLayerChange(event, maxLayer)}
+              label={t("editor.sidebar.secondary.targetLayer")}
+              disabled={targetLayer < 0}
+            >
+              <MenuItem value="-1" disabled></MenuItem>
+              {[...Array(maxLayer)].map((x, i) => (
+                <MenuItem name={i} key={`dualuse-dropdown-${i}`} value={i} disabled={i > secondaryActionLayerLimit}>
+                  {props.layerNames?.names[i]}
+                </MenuItem>
+              ))}
+            </Select>
+          </Tooltip>
         </FormControl>
       );
     }
   }
 
-  let layerLimitText = "";
-  if (maxLayer > secondaryActionLayerLimit) {
-    layerLimitText = t("editor.sidebar.secondary.help-layerLimit", {
-      layer8: props.layerNames?.names[secondaryActionLayerLimit],
-    });
-  }
-
   return (
     <FKPCategorySelector category="secondary" plugin="Qukeys" disabledInMacroEditor={true}>
       <div>
-        <Typography variant="body2">{layerLimitText}</Typography>
-        <FormControl disabled={!keySupportsSecondaryAction(key)}>
+        <FormControl disabled={!keySupportsSecondaryAction(key)} size="small">
           <FormGroup row>
             <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>
             <Select value={type} onChange={onTypeChange} label={t("editor.sidebar.secondary.whenHeld")}>

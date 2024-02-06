@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AVR109Flasher } from "@api/flash/AVR109Flasher";
 import { WebDFUFlasher } from "@api/flash/WebDFUFlasher";
+import { t } from "i18next";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -74,7 +75,7 @@ export function ActiveDevice() {
   };
 
   this.supported_commands = () => {
-    if (this.focusDetected()) {
+    if (this.focus.isInApplicationMode()) {
       return this.focus.supported_commands();
     } else {
       return [];

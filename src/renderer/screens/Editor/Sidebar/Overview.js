@@ -42,21 +42,26 @@ const Overview = (props) => {
   const db = new KeymapDB();
 
   const usedLayers = keymap.custom;
+  const showColors = colormap && colormap.palette.length > 0;
+
   const config = usedLayers.map((layerData, index) => {
     const label = db.format(layerData[selectedKey], { keycapSize: "full", layerNames: props.layerNames });
     let colorWidget;
-    if (colormap && colormap.palette.length > 0 && colormap.colorMap.length > index) {
+
+    if (showColors && colormap.colorMap.length > index) {
       const colorIndex = colormap.colorMap[index][selectedLed];
       const color = colormap.palette[colorIndex];
 
       colorWidget = (
-        <Avatar
-          sx={{ width: (theme) => theme.spacing(3), height: (theme) => theme.spacing(3) }}
-          variant="square"
-          style={{ color: color?.rgb, background: color?.rgb }}
-        >
-          <CropSquareIcon />
-        </Avatar>
+        <TableCell size="small" padding="none">
+          <Avatar
+            sx={{ width: (theme) => theme.spacing(3), height: (theme) => theme.spacing(3) }}
+            variant="square"
+            style={{ color: color?.rgb, background: color?.rgb }}
+          >
+            <CropSquareIcon />
+          </Avatar>
+        </TableCell>
       );
     }
 
@@ -69,13 +74,13 @@ const Overview = (props) => {
         }}
         sx={{ cursor: "pointer" }}
       >
-        <TableCell size="small" align="left">
+        <TableCell size="small" padding="none" align="left">
           <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
         </TableCell>
-        <TableCell>
+        <TableCell size="small" padding="none">
           {label.hint} {label.main}
         </TableCell>
-        {colormap && colormap.palette.length > 0 && <TableCell>{colorWidget}</TableCell>}
+        {showColors && colorWidget}
       </TableRow>
     );
   });
@@ -91,7 +96,7 @@ const Overview = (props) => {
                   {t("components.layerRaw")}
                 </TableCell>
                 <TableCell>{t("editor.overview.key", { index: selectedKey })} </TableCell>
-                {colormap && colormap.palette.length > 0 && <TableCell>{t("editor.overview.color")}</TableCell>}
+                {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
               </TableRow>
             </TableHead>
           </Tooltip>

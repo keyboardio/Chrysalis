@@ -16,7 +16,7 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 const db = new KeymapDB();
@@ -43,25 +43,21 @@ const KeySelector = (props) => {
 
     const key = getKey(row, col);
 
-    const x = props.x * keycapunit;
-    const y = props.y * keycapunit;
-    const active = key.code == currentKeyCode;
-    const stroke = theme.palette.divider;
-    const height = props.height * keycapunit;
-    const width = props.width * keycapunit;
-
     // Let's use the 1u versions of labels for 1.25, 1.5, 1.75, 2 u keys so we can make the text bigger
     const label = db.format(key, {
       keycapSize: (props.width <= 2 ? 1 : props.width) + "u",
     });
 
-    let fontSize = label.main.length <= 4 * props.width ? Math.round(keycapunit / 3) : Math.round(keycapunit / 4);
-    let mainLegendY = y + height / 2;
+    const y_factor = keycapunit * 0.8;
 
-    if (label.shifted) {
-      fontSize -= 3;
-      mainLegendY += fontSize / 2 + 2;
-    }
+    const x = props.x * keycapunit;
+    const y = props.y * y_factor;
+    const active = key.code == currentKeyCode;
+    const stroke = theme.palette.divider;
+    const height = props.height * y_factor;
+    const width = props.width * keycapunit;
+    const fontSize = label.main.length <= 4 * props.width ? Math.round(keycapunit / 3) : Math.round(keycapunit / 4);
+    const mainLegendY = y + height / 2;
 
     const buttonColor = active ? theme.palette.primary.light : theme.palette.background.paper;
 
@@ -71,32 +67,37 @@ const KeySelector = (props) => {
       return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
     };
 
+    let tooltipText = "";
+    if (label.shifted) {
+      tooltipText = label.main + " / " + label.shifted;
+    }
+
     return (
-      <g onClick={onClick} className="key" data-key-code={key.code}>
-        <rect x={x} y={y} rx={2} width={width} height={height} stroke={stroke} strokeWidth={1.55} fill={buttonColor} />
-        {label.shifted && (
+      <Tooltip title={tooltipText} placement="top">
+        <g onClick={onClick} className="key" data-key-code={key.code}>
+          <rect
+            x={x}
+            y={y}
+            rx={2}
+            width={width}
+            height={height}
+            stroke={stroke}
+            strokeWidth={1.55}
+            fill={buttonColor}
+          />
+
           <text
             x={x + width / 2}
-            y={mainLegendY - (fontSize + 2)}
+            y={mainLegendY}
             fill={textColor}
             dominantBaseline="middle"
             textAnchor="middle"
             fontSize={fontSize}
           >
-            {label.shifted}
+            {label.main}
           </text>
-        )}
-        <text
-          x={x + width / 2}
-          y={mainLegendY}
-          fill={textColor}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontSize={fontSize}
-        >
-          {label.main}
-        </text>
-      </g>
+        </g>
+      </Tooltip>
     );
   };
 
@@ -109,7 +110,6 @@ const KeySelector = (props) => {
       className={props.className}
       style={{
         display: "block",
-        fontFamily: '"Source Code Pro", "monospace"',
         fontWeight: 700,
         fontSize: Math.round(keycapunit / 4),
       }}

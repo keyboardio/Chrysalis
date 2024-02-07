@@ -33,12 +33,6 @@ const KeyButton = (props) => {
 
   const textColor = theme.palette.getContrastText(buttonColor);
 
-  const onClick = (keyCode) => {
-    return () => {
-      onKeyChange(keyCode);
-    };
-  };
-
   const wrapWithTooltip = (button) => {
     // <Tooltip> doesn't work around <Button> without a <span> or <div>.
     return !title ? (
@@ -50,13 +44,14 @@ const KeyButton = (props) => {
     );
   };
 
+  const minWidth = props.minWidth || 32;
   const label = db.format(keyObj, { keycapSize: props.keycapSize || "full" });
   return wrapWithTooltip(
     <Button
       variant="outlined"
       size="small"
       color={active ? "primary" : "secondary"}
-    disabled={props.disabled}
+      disabled={props.disabled}
       sx={{
         m: 0,
         px: 1,
@@ -66,9 +61,11 @@ const KeyButton = (props) => {
         borderRadius: 0,
         fontSize: 10,
         backgroundColor: buttonColor,
-        minWidth: 48,
+        minWidth: { minWidth },
       }}
-      onClick={onClick(keyObj.code)}
+      onClick={() => {
+        onKeyChange(keyObj.code);
+      }}
     >
       {!noHint && label.hint} {label.main}
     </Button>

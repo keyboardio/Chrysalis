@@ -232,6 +232,7 @@ const App = (props) => {
                   display: "flex",
                   flexDirection: "column",
                   height: "100%",
+                  userSelect: "none",
                 }}
               >
                 <LocationProvider history={history}>

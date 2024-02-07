@@ -109,7 +109,7 @@ export const KeyPicker = (props) => {
   return (
     <Stack direction="row">
       <TabContext value={tabValue}>
-        <Box boxShadow={3} sx={{ bgcolor: "background.paper", width: "100%", p: 1, m: 1 }}>
+        <Box boxShadow={3} sx={{ bgcolor: "background.paper", width: "100%", px: 1 }}>
           {" "}
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleTabChange} aria-label="" variant="scrollable" scrollButtons="auto">
@@ -232,7 +232,13 @@ export const KeyPicker = (props) => {
               </Grid>
               <VerticalSectionDivider />
               <Grid item xs>
-                <FKPCategorySelector category="steno" plugin="GeminiPR" disabledInMacroEditor={true} {...sharedProps} />
+                <FKPCategorySelector
+                  category="steno"
+                  plugin="GeminiPR"
+                  disabledInMacroEditor={true}
+                  minButtonWidth={40}
+                  {...sharedProps}
+                />
               </Grid>
             </Grid>
           </TabPanel>

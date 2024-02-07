@@ -30,6 +30,7 @@ const SaveChangesButton = (props) => {
 
   const { successMessage } = props;
 
+  const bottom = props.bottom || "1rem";
   const handleButtonClick = async (event) => {
     setInProgress(true);
     try {
@@ -37,14 +38,11 @@ const SaveChangesButton = (props) => {
     } catch (e) {
       return props.onError(e);
     }
-    console.debug("Got back from click", { label: "save-changes" });
 
     setSuccess(true);
     setInProgress(false);
     setTimeout(() => {
-      console.debug("running the timeout callback", { label: "save-changes" });
       setSuccess(false);
-      console.debug("finishied timeout callback", { label: "save-changes" });
     }, 2000);
   };
 
@@ -66,8 +64,8 @@ const SaveChangesButton = (props) => {
         alignItems: "center",
         justifyContent: "flex-end",
         position: "fixed",
-        bottom: 32,
-        right: 32,
+        bottom: bottom,
+        right: "1rem",
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >

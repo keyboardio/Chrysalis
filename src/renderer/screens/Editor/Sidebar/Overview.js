@@ -27,10 +27,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import React from "react";
+import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import { LayerNameInput } from "./LayerNameInput";
-
+import Card from "@mui/material/Card";
+import Draggable from "react-draggable";
+import CardContent from "@mui/material/CardContent";
+import React, { useState, useEffect } from "react";
+import { Icon, IconButton } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Resizable } from "re-resizable";
 const Overview = (props) => {
   const { t } = useTranslation();
 
@@ -41,8 +51,80 @@ const Overview = (props) => {
   const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
   const db = new KeymapDB();
 
+  const componentWidth = 200; // Assume a fixed width for the component
+  const [defaultPosition, setDefaultPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const calculatePosition = () => {
+      const screenWidth = window.innerWidth;
+      const xPosition = screenWidth - componentWidth - 20; // 20px margin from the right edge
+      setDefaultPosition({ x: xPosition, y: 60 }); // Adjust `y` as needed for top margin
+    };
+
+    // Calculate initial position
+    calculatePosition();
+
+    // Optional: Recalculate on window resize
+    window.addEventListener("resize", calculatePosition);
+
+    // Cleanup listener
+    return () => window.removeEventListener("resize", calculatePosition);
+  }, [componentWidth]); // Depend on componentWidth if dynamic
+
   const usedLayers = keymap.custom;
   const showColors = colormap && colormap.palette.length > 0;
+
+  // Update the position on drag stop
+  const handleStop = (e, data) => {
+    setDefaultPosition({ x: data.x, y: data.y });
+  };
+
+  function HamburgerMenu(index) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const handleMenuItemCopy = () => {
+      props.copyLayer(index);
+      handleClose(); // Close the menu after selection
+    };
+    const handleMenuItemPaste = () => {
+      props.pasteLayer(index);
+      handleClose(); // Close the menu after selection
+    };
+
+    return (
+      <div>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          sx={{
+            opacity: open ? 1 : 0.1, // Full opacity when open, faded otherwise
+            transition: "opacity 0.3s ease", // Smooth transition for the opacity
+            "&:hover": {
+              opacity: 1, // Full opacity on hover
+            },
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu id="long-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
+          <MenuItem onClick={() => handleMenuItemCopy()}>{t("editor.overview.copyLayer")}</MenuItem>
+          <MenuItem disabled={!props.hasCopiedLayer()} onClick={() => handleMenuItemPaste()}>
+            {t("editor.overview.pasteLayer")}
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  }
 
   const config = usedLayers.map((layerData, index) => {
     const label = db.format(layerData[selectedKey], { keycapSize: "full", layerNames: props.layerNames });
@@ -72,38 +154,62 @@ const Overview = (props) => {
         onClick={() => {
           props.setLayer(index);
         }}
-        sx={{ cursor: "pointer" }}
+        sx={{ cursor: "pointer", alignItems: "baseline" }}
       >
         <TableCell size="small" padding="none" align="left">
           <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
         </TableCell>
         <TableCell size="small" padding="none">
-          {label.hint} {label.main}
+          <Typography sx={{ fontSize: "0.8rem" }}>
+            {label.hint} {label.main}
+          </Typography>
         </TableCell>
         {showColors && colorWidget}
+        <TableCell size="small" padding="none">
+          {HamburgerMenu(index)}
+        </TableCell>
       </TableRow>
     );
   });
 
   return (
-    <Box sx={{ mb: 2 }}>
-      <TableContainer component={Paper} sx={{ mb: 2 }}>
-        <Table size="small">
-          <Tooltip title={t("editor.overview.help")}>
-            <TableHead>
-              <TableRow>
-                <TableCell size="small" width="33%">
-                  {t("components.layerRaw")}
-                </TableCell>
-                <TableCell>{t("editor.overview.key", { index: selectedKey })} </TableCell>
-                {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
-              </TableRow>
-            </TableHead>
-          </Tooltip>
-          <TableBody>{config}</TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <Draggable
+      sx={{ position: "fixed" }}
+      onStop={handleStop}
+      handle=".overview-header"
+      defaultPosition={defaultPosition}
+    >
+      <Card sx={{ overflow: "visible" }}>
+        <CardContent>
+          <Box
+            sx={{
+              width: "100%",
+              height: 4,
+              backgroundColor: "darkgray",
+              borderRadius: "2px",
+              // Additional styling for the drag indicator
+            }}
+          ></Box>
+          <TableContainer component={Paper} sx={{}}>
+            <Table size="small">
+              <Tooltip title={t("editor.overview.help")}>
+                <TableHead className="overview-header">
+                  <TableRow>
+                    <TableCell size="small" width="3">
+                      {t("components.layerRaw")}
+                    </TableCell>
+                    <TableCell size="small">{t("editor.overview.key", { index: selectedKey })} </TableCell>
+                    {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
+                    <TableCell size="small" />
+                  </TableRow>
+                </TableHead>
+              </Tooltip>
+              <TableBody>{config}</TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </Card>
+    </Draggable>
   );
 };
 

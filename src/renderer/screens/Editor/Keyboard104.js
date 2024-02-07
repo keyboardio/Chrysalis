@@ -106,11 +106,11 @@ const KeySelector = (props) => {
       viewBox={"0 0 " + Math.round(23 * keycapunit).toString() + " " + Math.round(6.5 * keycapunit).toString()}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMin meet"
-      height="16rem"
+      height="15rem"
       className={props.className}
       style={{
         display: "block",
-        fontWeight: 700,
+        fontWeight: 400,
         fontSize: Math.round(keycapunit / 4),
       }}
     >

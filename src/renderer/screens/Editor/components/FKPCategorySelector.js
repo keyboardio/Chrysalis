@@ -48,7 +48,6 @@ const FKPCategorySelector = (props) => {
 
   console.log(props);
 
-  
   // Generate keys from keyCodes
   const keys = props.keyCodes?.map((code) => db.lookup(code)) || props.keys || db.selectCategory(props.category);
   console.log("For category", props.category, "keys are", keys);
@@ -58,7 +57,13 @@ const FKPCategorySelector = (props) => {
         {title && <SectionTitle>{title}</SectionTitle>}
         {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
         {props.children || (
-          <KeyButtonList keys={keys} onKeyChange={props.onKeyChange} disabled={disabled} showHints={false} />
+          <KeyButtonList
+            keys={keys}
+            onKeyChange={props.onKeyChange}
+            disabled={disabled}
+            showHints={false}
+            minButtonWidth={props.minButtonWidth}
+          />
         )}
       </Tooltip>
     </React.Fragment>

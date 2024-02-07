@@ -991,6 +991,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.23.9":
+  version "7.23.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.9.tgz#47791a15e4603bb5f905bc0753801cf21d6345f7"
+  integrity sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.22.15":
   version "7.22.15"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.15.tgz#09576efc3830f0430f4548ef971dde1350ef2f38"
@@ -1345,12 +1352,12 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.5.tgz#e8e060133ea0e92b1c0e30c441522cab37d0be79"
   integrity sha512-VhT8klyXy8GrWrARqLMoM6Nzz809Jc3Wn5wd7WOZfre2vFO1rBV1dBANAPBhBqpaQI0HCMRTWEYoSyOFgRnz4A==
 
-"@mui/icons-material@^5.14.3":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.15.5.tgz#2a2abeadcc5cc6acdfc1d002c252b43a22edff18"
-  integrity sha512-qiql0fd1JY7TZ1wm1RldvU7sL8QUatE9OC12i/qm5rnm/caTFyAfOyTIR7qqxorsJvoZGyrzwoMkal6Ij9kM0A==
+"@mui/icons-material@^5.15.8":
+  version "5.15.8"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.15.8.tgz#67fafa52f18fb5712e5062fb1af08faea28caafb"
+  integrity sha512-3Ikivf+BOJ7jT1/71HrbKeicgF9ENM4qo+J1050HMJLtLiJEVXbicnsg2oWJZL+0AsrOMaKnTmx1URBpkctLWg==
   dependencies:
-    "@babel/runtime" "^7.23.8"
+    "@babel/runtime" "^7.23.9"
 
 "@mui/lab@^5.0.0-alpha.124":
   version "5.0.0-alpha.161"
@@ -7527,6 +7534,11 @@ re-resizable@6.9.6:
   dependencies:
     fast-memoize "^2.5.1"
 
+re-resizable@^6.9.11:
+  version "6.9.11"
+  resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-6.9.11.tgz#f356e27877f12d926d076ab9ad9ff0b95912b475"
+  integrity sha512-a3hiLWck/NkmyLvGWUuvkAmN1VhwAz4yOhS6FdMTaxCUVN9joIWkT11wsO68coG/iEYuwn+p/7qAmfQzRhiPLQ==
+
 react-color@^2.14.1:
   version "2.19.3"
   resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.19.3.tgz#ec6c6b4568312a3c6a18420ab0472e146aa5683d"
@@ -7570,6 +7582,14 @@ react-draggable@4.4.5:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.4.5.tgz#9e37fe7ce1a4cf843030f521a0a4cc41886d7e7c"
   integrity sha512-OMHzJdyJbYTZo4uQE393fHcqqPYsEtkjfMgvCHr6rejT+Ezn4OZbNyGH50vv+SunC1RMvwOTSWkEODQLzw1M9g==
+  dependencies:
+    clsx "^1.1.1"
+    prop-types "^15.8.1"
+
+react-draggable@^4.4.6:
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.4.6.tgz#63343ee945770881ca1256a5b6fa5c9f5983fe1e"
+  integrity sha512-LtY5Xw1zTPqHkVmtM3X8MUOxNDOUhv/khTgBgrUvwaS064bwVvxT+q5El0uUFNx5IEPKXuRejr7UqLwBIg5pdw==
   dependencies:
     clsx "^1.1.1"
     prop-types "^15.8.1"

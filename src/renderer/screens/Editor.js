@@ -20,7 +20,6 @@ import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -39,7 +38,7 @@ import MacroEditor from "./Editor/Macros/MacroEditor";
 import Overview from "./Editor/Sidebar/Overview";
 import Drawer from "@mui/material/Drawer";
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
-import { LayerCopyPaste } from "./Editor/Sidebar/LayerCopyPaste";
+import useTheme from "@mui/material/styles/useTheme";
 
 const db = new KeymapDB();
 
@@ -47,6 +46,7 @@ const Editor = (props) => {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
+  const theme = useTheme();
   const [colormap, setColormap] = useState({ palette: [], colorMap: [] });
 
   const [keymap, setKeymap] = useState({ custom: [], default: [], onlyCustom: false });
@@ -68,6 +68,7 @@ const Editor = (props) => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const drawerHeightInRem = 20;
   const { t } = useTranslation();
 
   const maybeOpenMacroEditor = (state) => {
@@ -348,14 +349,14 @@ const Editor = (props) => {
     });
   };
 
-  const pasteLayer = () => {
+  const pasteLayer = (targetLayer) => {
     if (!hasCopiedLayer()) return;
 
     const newKeymap = { ...keymap };
-    newKeymap.custom[currentLayer] = copiedLayer.keymap;
+    newKeymap.custom[targetLayer] = copiedLayer.keymap;
 
     const newColormap = { ...colormap };
-    newColormap.colorMap[currentLayer] = copiedLayer.colorMap;
+    newColormap.colorMap[targetLayer] = copiedLayer.colorMap;
 
     setKeymap(newKeymap);
     setColormap(newColormap);
@@ -387,6 +388,7 @@ const Editor = (props) => {
   } else {
     title = t("app.menu.colormapEditor");
   }
+  console.log(theme);
 
   const currentKey = selectorKey || keymap.custom[currentLayer][currentKeyIndex];
 
@@ -454,17 +456,19 @@ const Editor = (props) => {
         {mainWidget}
       </Box>
       <Box
-        sx={{
-          position: "fixed",
-          top: 60, // Adjust for title bar or safe area
-          right: 5,
-          width: 250,
-          height: "auto",
-          zIndex: 1300, // Adjust the zIndex if necessary to bring the component above other elements
-        }}
+        sx={
+          /* set the z index to be above all drawers */
+
+          {
+            zIndex: theme.zIndex.drawer + 1,
+            position: "fixed",
+            top: "4rem",
+            right: "1rem",
+          }
+        }
       >
         {openMacroEditor || (
-          <Paper>
+          <>
             <Overview
               keymap={keymap}
               colormap={colormap}
@@ -474,17 +478,25 @@ const Editor = (props) => {
               setLayer={onLayerChange}
               layerNames={layerNames}
               setLayerName={setLayerName}
-            />
-            <LayerCopyPaste
-              layer={currentLayer}
               copyLayer={copyLayer}
               pasteLayer={pasteLayer}
               hasCopiedLayer={hasCopiedLayer}
             />
-          </Paper>
+          </>
         )}
       </Box>
-      <Drawer variant="permanent" anchor="bottom" sx={{ "& .MuiDrawer-paper": { height: "20rem" } }}>
+      <SaveChangesButton
+        onClick={onApply}
+        onError={onApplyError}
+        disabled={saveChangesDisabled}
+        bottom={`${drawerHeightInRem + 1}rem`}
+      />
+
+      <Drawer
+        variant="permanent"
+        anchor="bottom"
+        sx={{ "& .MuiDrawer-paper": { height: `${drawerHeightInRem}rem`, overflow: "hidden" } }}
+      >
         <KeyPicker
           macroEditorOpen={openMacroEditor}
           macros={macros}
@@ -509,7 +521,6 @@ const Editor = (props) => {
           currentKey={currentKey}
         />
       </Drawer>
-      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled} />
     </React.Fragment>
   );
 };

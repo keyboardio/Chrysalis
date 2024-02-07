@@ -124,7 +124,14 @@ export const KeyPicker = (props) => {
               <Tab value="advanced" label="Advanced" />
             </TabList>
           </Box>
-          <TabPanel value="keyboard">
+          <TabPanel
+            value="keyboard"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Keyboard104 onKeySelect={onKeyChange} currentKeyCode={key.baseCode || key.code} keymap={keymap} />
           </TabPanel>
           <TabPanel value="modifiers">

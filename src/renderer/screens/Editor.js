@@ -69,6 +69,25 @@ const Editor = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const drawerHeightInRem = 20;
+  const [maxKeyboardHeight, setMaxKeyboardHeight] = useState("auto");
+
+  useEffect(() => {
+    function updateMaxKeyboardHeight() {
+      const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const maxHeightValue = window.innerHeight - (drawerHeightInRem + 3) * remInPixels;
+      setMaxKeyboardHeight(`${maxHeightValue}px`);
+    }
+
+    // Set the initial maxHeight
+    updateMaxKeyboardHeight();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", updateMaxKeyboardHeight);
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", updateMaxKeyboardHeight);
+  }, []);
+
   const { t } = useTranslation();
 
   const maybeOpenMacroEditor = (state) => {
@@ -388,7 +407,6 @@ const Editor = (props) => {
   } else {
     title = t("app.menu.colormapEditor");
   }
-  console.log(theme);
 
   const currentKey = selectorKey || keymap.custom[currentLayer][currentKeyIndex];
 
@@ -410,6 +428,7 @@ const Editor = (props) => {
     mainWidget = (
       <KeymapSVG
         className="layer"
+        maxHeight={maxKeyboardHeight}
         layerNames={layerNames}
         index={currentLayer}
         keymap={keymap?.custom[currentLayer]}
@@ -451,7 +470,7 @@ const Editor = (props) => {
       <PageTitle title={title} />
 
       {macros && <MacroStorageAlert macros={macros} />}
-      <Box component="main" sx={{ marginLeft: 20, marginRight: 50 }}>
+      <Box component="main" sx={{ marginLeft: 0, marginRight: "14rem" }}>
         {layerNames.storageSize > 0 && <LayerNamesStorageAlert layerNames={layerNames} />}
         {mainWidget}
       </Box>

@@ -56,6 +56,10 @@ const Keymap = (props) => {
       clipRule="evenodd"
       viewBox="0 0 875 435"
       className={props.className || "layer"}
+      preserveAspectRatio="xMinYMin meet"
+      style={{
+        maxHeight: props.maxHeight || "100%",
+      }}
     >
       <g transform="matrix(1,0,0,1,-70,-55)">
         <Key

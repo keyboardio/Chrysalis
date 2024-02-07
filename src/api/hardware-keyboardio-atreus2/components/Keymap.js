@@ -94,13 +94,14 @@ const Keymap = (props) => {
     );
   };
 
-  const { classes } = props;
+  const { classes, maxHeight } = props;
   return (
     <svg
       viewBox="0 0 855 362"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMinYMin meet"
       style={{
+        maxHeight: maxHeight || "100%",
         background: `url(${Atreus})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%",

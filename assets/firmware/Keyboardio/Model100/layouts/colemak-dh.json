@@ -411,7 +411,6 @@
       },
       {
         "code": 18614,
-        "legacyCode": 22710,
         "label": {"base": {"full": "Previous track", "1u": "⏮"}},
         "categories": ["consumer"]
       },
@@ -462,13 +461,11 @@
       {"code": 40, "label": {"base": "Enter"}},
       {
         "code": 18637,
-        "legacyCode": 22733,
         "label": {"base": {"full": "Play / pause", "1u": "⏯"}},
         "categories": ["consumer"]
       },
       {
         "code": 18613,
-        "legacyCode": 22709,
         "label": {"base": {"full": "Next track", "1u": "⏭"}},
         "categories": ["consumer"]
       },
@@ -598,13 +595,11 @@
       },
       {
         "code": 18658,
-        "legacyCode": 19682,
         "label": {"base": "Mute"},
         "categories": ["consumer"]
       },
       {
         "code": 18666,
-        "legacyCode": 23786,
         "label": {
           "hint": {"full": "Volume", "1u": "Vol."},
           "base": {"full": "Down", "1u": "🔉"}
@@ -613,7 +608,6 @@
       },
       {
         "code": 18665,
-        "legacyCode": 23785,
         "label": {
           "hint": {"full": "Volume", "1u": "Vol."},
           "base": {"full": "Up", "1u": "🔊"}

@@ -72,6 +72,7 @@ const ModeCardBase = (props) => {
   const { t } = useTranslation();
   const { raised, onClick, name, image, ...rest } = props;
 
+  console.log("ModeCardBase", props);
   return (
     <Card raised={raised} {...rest}>
       <CardActionArea onClick={onClick}>

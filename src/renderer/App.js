@@ -158,14 +158,10 @@ const App = (props) => {
   };
 
   const onKeyboardConnect = async (focus) => {
-    console.log("in onKeyboardConnect");
     if (focus === null) {
-      console.log("focus is null");
       return false;
     }
-    console.log(focus);
     if (focus?.focusDeviceDescriptor) {
-      console.log("connected");
       setConnected(true);
       setFocusDeviceDescriptor(focus.focusDeviceDescriptor);
       i18n.refreshHardware(focus.focusDeviceDescriptor);
@@ -186,9 +182,7 @@ const App = (props) => {
       return true;
     }
 
-    console.info("Probing for focus support...");
     focus.setLayerSize(focus.focusDeviceDescriptor);
-    console.info("Set the layer size", focus.focusDeviceDescriptor);
 
     i18n.refreshHardware(focus.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);

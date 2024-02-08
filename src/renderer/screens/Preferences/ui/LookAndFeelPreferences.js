@@ -117,6 +117,7 @@ function LookAndFeelPreferences(props) {
 
   const changeTheme = (name) => (event) => {
     settings.set("ui.theme", name);
+    setTheme(null);
     setTheme(name);
   };
 

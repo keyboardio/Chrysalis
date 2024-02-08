@@ -150,8 +150,9 @@ const App = (props) => {
   });
 
   useEffect(() => {
+    setTheme(theme);
     setBgColor(uiTheme.palette.body);
-  }, [theme, uiTheme]);
+  }, [theme, uiTheme, setTheme]);
 
   const toggleFlashing = async () => {
     flashing = !flashing;

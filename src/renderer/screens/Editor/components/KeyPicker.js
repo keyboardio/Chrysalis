@@ -109,8 +109,7 @@ export const KeyPicker = (props) => {
   return (
     <Stack direction="row">
       <TabContext value={tabValue}>
-        <Box boxShadow={3} sx={{ bgcolor: "background.paper", width: "100%", px: 1 }}>
-          {" "}
+        <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleTabChange} aria-label="" variant="scrollable" scrollButtons="auto">
               <Tab value="keyboard" label="Keyboard" />

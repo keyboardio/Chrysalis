@@ -156,7 +156,7 @@ const Overview = (props) => {
         }}
         sx={{ cursor: "pointer", alignItems: "baseline" }}
       >
-        <TableCell size="small" padding="none" align="left">
+        <TableCell size="small" sx={{ pl: "1rem" }} align="left">
           <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
         </TableCell>
         <TableCell size="small" padding="none">
@@ -165,7 +165,7 @@ const Overview = (props) => {
           </Typography>
         </TableCell>
         {showColors && colorWidget}
-        <TableCell size="small" padding="none">
+        <TableCell size="small" sx={{ pr: "0.5rem", py: 0 }}>
           {HamburgerMenu(index)}
         </TableCell>
       </TableRow>
@@ -179,36 +179,34 @@ const Overview = (props) => {
       handle=".overview-header"
       defaultPosition={defaultPosition}
     >
-      <Card sx={{ overflow: "visible" }}>
-        <CardContent>
-          <Box
-            sx={{
-              width: "100%",
-              height: 4,
-              backgroundColor: "darkgray",
-              borderRadius: "2px",
-              // Additional styling for the drag indicator
-            }}
-          ></Box>
-          <TableContainer component={Paper} sx={{}}>
-            <Table size="small">
-              <Tooltip title={t("editor.overview.help")}>
-                <TableHead className="overview-header">
-                  <TableRow>
-                    <TableCell size="small" width="3">
-                      {t("components.layerRaw")}
-                    </TableCell>
-                    <TableCell size="small">{t("editor.overview.key", { index: selectedKey })} </TableCell>
-                    {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
-                    <TableCell size="small" />
-                  </TableRow>
-                </TableHead>
-              </Tooltip>
-              <TableBody>{config}</TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
+      <Box sx={{ overflow: "visible" }}>
+        <Box
+          className="overview-header"
+          sx={{
+            width: "100%",
+            height: 4,
+            backgroundColor: "darkgray",
+            borderRadius: "2px",
+          }}
+        ></Box>
+        <TableContainer component={Paper} sx={{ m: 0 }}>
+          <Table size="small">
+            <Tooltip title={t("editor.overview.help")}>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ pl: "1rem", py: 0 }} size="small" width="3">
+                    {t("components.layerRaw")}
+                  </TableCell>
+                  <TableCell size="small">{t("editor.overview.key", { index: selectedKey })} </TableCell>
+                  {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
+                  <TableCell size="small" sx={{ pr: "1rem", py: 0 }} />
+                </TableRow>
+              </TableHead>
+            </Tooltip>
+            <TableBody>{config}</TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Draggable>
   );
 };

@@ -104,12 +104,15 @@ function LayoutEditorPreferences(props) {
         <Keyboard104 onKeySelect={() => null} layout={layout} />
       </Paper>
       <Divider sx={{ my: 2, mx: -2 }} />
-      <PreferenceSwitch
-        loaded={loaded}
-        option="ui.hideUnavailableFeatures"
-        checked={hideUnavailableFeatures}
-        onChange={toggleHideUnavailableFeatures}
-      />
+      {0 &
+      (
+        <PreferenceSwitch
+          loaded={loaded}
+          option="ui.hideUnavailableFeatures"
+          checked={hideUnavailableFeatures}
+          onChange={toggleHideUnavailableFeatures}
+        />
+      )}
     </PreferenceSection>
   );
 }

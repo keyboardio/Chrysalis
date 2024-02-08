@@ -75,16 +75,7 @@ const KeySelector = (props) => {
     return (
       <Tooltip title={tooltipText} placement="top">
         <g onClick={onClick} className="key" data-key-code={key.code}>
-          <rect
-            x={x}
-            y={y}
-            rx={2}
-            width={width}
-            height={height}
-            stroke={stroke}
-            strokeWidth={1.55}
-            fill={buttonColor}
-          />
+          <rect x={x} y={y} rx={2} width={width} height={height} stroke={stroke} strokeWidth={2} fill={buttonColor} />
 
           <text
             x={x + width / 2}
@@ -103,7 +94,7 @@ const KeySelector = (props) => {
 
   return (
     <svg
-      viewBox={"0 0 " + Math.round(23 * keycapunit).toString() + " " + Math.round(6.5 * keycapunit).toString()}
+      viewBox={"0 0 " + Math.round(23 * keycapunit + 1).toString() + " " + Math.round(6.5 * keycapunit + 1).toString()}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMin meet"
       className={props.className}

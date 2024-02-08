@@ -135,7 +135,7 @@ const Overview = (props) => {
       const color = colormap.palette[colorIndex];
 
       colorWidget = (
-        <TableCell size="small" padding="none">
+        <TableCell size="small" padding="none" sx={{ width: (theme) => theme.spacing(3) }}>
           <Avatar
             sx={{ width: (theme) => theme.spacing(3), height: (theme) => theme.spacing(3) }}
             variant="square"
@@ -165,7 +165,7 @@ const Overview = (props) => {
           </Typography>
         </TableCell>
         {showColors && colorWidget}
-        <TableCell size="small" sx={{ pr: "0.5rem", py: 0 }}>
+        <TableCell size="small" sx={{ pl: 0, pr: "0.5rem", py: 0 }}>
           {HamburgerMenu(index)}
         </TableCell>
       </TableRow>
@@ -194,12 +194,20 @@ const Overview = (props) => {
             <Tooltip title={t("editor.overview.help")}>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ pl: "1rem", py: 0 }} size="small" width="3">
-                    {t("components.layerRaw")}
+                  <TableCell sx={{ pl: "1rem", py: 0 }} size="small" width="3" align="left">
+                    <Typography sx={{ fontSize: "0.8rem" }}>{t("components.layerRaw")}</Typography>
                   </TableCell>
-                  <TableCell size="small">{t("editor.overview.key", { index: selectedKey })} </TableCell>
-                  {showColors && <TableCell>{t("editor.overview.color")}</TableCell>}
-                  <TableCell size="small" sx={{ pr: "1rem", py: 0 }} />
+                  <TableCell size="small" align="left">
+                    <Typography sx={{ fontSize: "0.8rem" }}>
+                      {t("editor.overview.key", { index: selectedKey })}
+                    </Typography>
+                  </TableCell>
+                  {showColors && (
+                    <TableCell size="small" padding="none" sx={{ width: (theme) => theme.spacing(3) }}>
+                      <Typography sx={{ fontSize: "0.8rem" }}>{t("editor.overview.color")}</Typography>
+                    </TableCell>
+                  )}
+                  <TableCell size="small" sx={{ pl: 0, pr: "1rem", py: 0 }} />
                 </TableRow>
               </TableHead>
             </Tooltip>

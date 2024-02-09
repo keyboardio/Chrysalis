@@ -29,7 +29,7 @@ import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { t } from "i18next";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { ExportToFile } from "./LayoutSharing/ExportToFile";
 import { FileImport } from "./LayoutSharing/FileImport";
@@ -41,6 +41,24 @@ const LayoutSharing = (props) => {
   const [layoutName, setLayoutName] = React.useState(null);
 
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
+  const [maxKeyboardHeight, setMaxKeyboardHeight] = useState("auto");
+
+  useEffect(() => {
+    function updateMaxKeyboardHeight() {
+      const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const maxHeightValue = window.innerHeight - 3 * remInPixels;
+      setMaxKeyboardHeight(`${maxHeightValue}px`);
+    }
+
+    // Set the initial maxHeight
+    updateMaxKeyboardHeight();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", updateMaxKeyboardHeight);
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", updateMaxKeyboardHeight);
+  }, []);
 
   const setLayout = (layoutName, layout) => {
     _setLayout(layout);
@@ -73,18 +91,7 @@ const LayoutSharing = (props) => {
 
   return (
     <>
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        sx={{ width: sidebarWidth, flexShrink: 0 }}
-        PaperProps={{
-          sx: {
-            width: sidebarWidth,
-            marginTop: "65px",
-            paddingBottom: "65px",
-          },
-        }}
-      >
+      <Drawer variant="permanent" anchor="bottom" sx={{ flexShrink: 0 }}>
         <Box sx={{ overflow: "auto", padding: 3 }}>
           <LibraryImport setLayout={setLayout} layoutName={layoutName} {...others} />
           <FileImport onRestore={onRestore} {...others} />
@@ -117,16 +124,18 @@ const LayoutSharing = (props) => {
         sx={{
           flexGrow: 1,
           padding: 3,
-          marginLeft: `${sidebarWidth}px`,
-          width: `calc(100% - ${sidebarWidth}px)`,
+          marginRight: "14rem",
         }}
       >
         <Keymap
-          keymap={layout.keymaps ? layout.keymaps[0] : keymap.custom[0]}
-          palette={layout.palette || colormap.palette}
-          colormap={layout.colormaps ? layout.colormaps[0] : colormap.colorMap[0]}
-          theme={theme}
-        />{" "}
+          className="layer"
+          maxHeight={props.maxKeyboardHeight}
+          layerNames={props.layerNames}
+          index={props.layer}
+          keymap={keymap?.custom[props.layer]}
+          palette={colormap.palette}
+          colormap={colormap.colorMap[props.layer]}
+        />
       </Box>
     </>
   );

@@ -169,10 +169,6 @@ const Editor = (props) => {
     return colormap.colorMap.length > 0;
   };
 
-  const hasCopiedLayer = () => {
-    return copiedLayer.keymap.length > 0;
-  };
-
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -224,24 +220,16 @@ const Editor = (props) => {
   return (
     <React.Fragment>
       <PageTitle title={title} />
-
-      <h1>Coming soon!</h1>
-      <h2>
-        Import/Export functionality is not yet availabe in the browser-based version of Chrysalis. Nothing on this page
-        will work.
-      </h2>
-      <Box component="main" sx={{ marginLeft: 20, marginRight: 50 }}>
-        <LayoutSharing
-          open={true}
-          keymap={keymap}
-          colormap={colormap}
-          layer={currentLayer}
-          onKeymapChange={onKeymapChange}
-          onPaletteChange={onPaletteChange}
-          onColormapChange={onColormapChange}
-          onColormapAndPaletteChange={onColormapAndPaletteChange}
-        />{" "}
-      </Box>
+      <LayoutSharing
+        open={true}
+        keymap={keymap}
+        colormap={colormap}
+        layer={currentLayer}
+        onKeymapChange={onKeymapChange}
+        onPaletteChange={onPaletteChange}
+        onColormapChange={onColormapChange}
+        onColormapAndPaletteChange={onColormapAndPaletteChange}
+      />{" "}
       <Box
         sx={{
           position: "fixed",

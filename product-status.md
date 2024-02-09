@@ -6,7 +6,6 @@ This is a _test release_ of the next version of Chrysalis, the graphical configu
 
 - Device disconnect detection
 - Loading "pre-configured" layouts
-- Backup and restore (outside of flashing)
 
 ## What should work
 
@@ -15,6 +14,7 @@ This is a _test release_ of the next version of Chrysalis, the graphical configu
 - Changing device settings
 - Loading stock firmware
 - Custom firmware updates
+- Backup and restore
 - Factory reset
 
 ## Device support
@@ -31,4 +31,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Last Updated
 
-Feb 5, 2024
+Feb 9, 2024

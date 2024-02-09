@@ -32,10 +32,8 @@ import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyPicker } from "./Editor/components/KeyPicker";
-import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
 import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
-import MacroEditor from "./Editor/Macros/MacroEditor";
 import Overview from "./Editor/Sidebar/Overview";
 
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
@@ -60,33 +58,12 @@ const Editor = (props) => {
   const [modified, setModified] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
-  const [openMacroEditor, setOpenMacroEditor] = useState(false);
-  const [currentMacroId, setCurrentMacroId] = useState(0);
-  const [currentMacroStep, setCurrentMacroStep] = useState(null);
   const [selectorKey, setSelectorKey] = useState(null);
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const saveChangesDisabled = !modified;
   const { t } = useTranslation();
-
-  const maybeOpenMacroEditor = (state) => {
-    if (macros.storageSize == 0) return;
-    setOpenMacroEditor(state);
-  };
-
-  const onMacroChange = async (id, macro) => {
-    const newMacros = {
-      storageSize: macros.storageSize,
-      macros: macros.macros.map((m, index) => {
-        if (index == id) return macro;
-        return m;
-      }),
-    };
-    setMacros(newMacros);
-
-    setModified(true);
-    showContextBar();
-  };
 
   const setLayerName = async (index, name) => {
     const newNames = [].concat(layerNames.names);
@@ -122,81 +99,6 @@ const Editor = (props) => {
 
     const key = keymap.custom[currentLayer][keyIndex];
     setSelectorKey(key);
-    if (db.isInCategory(key, "dynmacros")) {
-      const macroId = key.code - key.rangeStart;
-
-      setCurrentMacroId(macroId);
-    }
-  };
-
-  const onMacroEditorClose = async () => {
-    const key = keymap.custom[currentLayer][currentKeyIndex];
-
-    setSelectorKey(key);
-    setOpenMacroEditor(false);
-  };
-
-  const onKeyChangeForKeymap = (keyCode) => {
-    const newKeymap = { ...keymap };
-    //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
-    const newKey = db.lookup(keyCode);
-    newKeymap.custom[currentLayer][currentKeyIndex] = newKey;
-
-    setSelectorKey(newKey);
-    setKeymap(newKeymap);
-
-    if (db.isInCategory(newKey, "dynmacros")) {
-      const macroId = newKey.code - newKey.rangeStart;
-
-      setCurrentMacroId(macroId);
-      maybeOpenMacroEditor(true);
-    }
-  };
-
-  const onKeyChangeForMacros = async (keyCode) => {
-    const currStepType = macros.macros[currentMacroId][currentMacroStep].type;
-    if (![MacroStep.TAP, MacroStep.KEYDOWN, MacroStep.KEYUP].includes(currStepType)) {
-      return;
-    }
-
-    const newKey = db.lookup(keyCode);
-    const macro = macros.macros[currentMacroId].map((step, index) => {
-      if (index == currentMacroStep) {
-        const newStep = Object.assign({}, step);
-        newStep.value = newKey;
-        return newStep;
-      }
-      return Object.assign({}, step);
-    });
-    const newMacros = {
-      storageSize: macros.storageSize,
-      macros: macros.macros.map((m, index) => {
-        if (index == currentMacroId) return macro;
-        return m;
-      }),
-    };
-    setMacros(newMacros);
-    setSelectorKey(newKey);
-  };
-
-  const onKeyChange = async (keyCode) => {
-    if (openMacroEditor) {
-      await onKeyChangeForMacros(keyCode);
-    } else {
-      onKeyChangeForKeymap(keyCode);
-    }
-
-    setModified(true);
-    showContextBar();
-  };
-
-  const onLedChange = (index) => {
-    const newColormap = { ...colormap };
-    newColormap.colorMap[currentLayer][currentLedIndex] = index;
-    setModified(true);
-    setColormap(newColormap);
-
-    showContextBar();
   };
 
   const onPaletteChange = (newPalette) => {
@@ -233,43 +135,13 @@ const Editor = (props) => {
     showContextBar();
   };
 
-  const updateEmptyKeymap = async (deviceKeymap) => {
-    let empty = true;
-    for (const layer of deviceKeymap.custom) {
-      for (const i of layer) {
-        if (i.code != db.constants.codes.EMPTY) {
-          empty = false;
-          break;
-        }
-      }
-    }
-
-    if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-      console.info("Custom keymap is empty, copying defaults");
-      for (let i = 0; i < deviceKeymap.default.length; i++) {
-        deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
-      }
-      deviceKeymap.onlyCustom = true;
-      await activeDevice.keymap(deviceKeymap);
-    }
-    return deviceKeymap;
-  };
-
   const scanKeyboard = async () => {
     try {
-      let deviceKeymap = await activeDevice.keymap();
-      deviceKeymap = await updateEmptyKeymap(deviceKeymap);
+      const deviceKeymap = await activeDevice.keymap();
       const deviceColormap = await activeDevice.colormap();
       const k = new Keymap();
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
-
-      const deviceMacros = await activeDevice.macros();
-      setMacros(deviceMacros);
-
-      const defLayer = await activeDevice.defaultLayer();
-      if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
-
       const deviceLayerNames = await activeDevice.layernames();
       if (deviceLayerNames) {
         // We set up default names for the layers here, so that they're easily
@@ -340,45 +212,13 @@ const Editor = (props) => {
     hideContextBar();
   };
 
-  const copyLayer = (index) => {
-    setCopiedLayer({
-      keymap: keymap.custom[index].slice(0),
-      colorMap: colormap?.colorMap[index]?.slice(0) || [],
-    });
-  };
-
-  const pasteLayer = () => {
-    if (!hasCopiedLayer()) return;
-
-    const newKeymap = { ...keymap };
-    newKeymap.custom[currentLayer] = copiedLayer.keymap;
-
-    const newColormap = { ...colormap };
-    newColormap.colorMap[currentLayer] = copiedLayer.colorMap;
-
-    setKeymap(newKeymap);
-    setColormap(newColormap);
-
-    setCopiedLayer({
-      keymap: [],
-      colorMap: [],
-    });
-
-    setModified(true);
-    showContextBar();
-  };
-
   if (loading) {
     return <LoadingScreen />;
-  } else if (!keymap.onlyCustom) {
-    return <OnlyCustomScreen />;
   }
 
   const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
   const title = t("app.menu.importExport");
-
-  const M = new Macros();
   const L = new LayerNames();
 
   return (
@@ -421,13 +261,10 @@ const Editor = (props) => {
             layer={currentLayer}
             setLayer={onLayerChange}
             layerNames={layerNames}
-            setLayerName={setLayerName}
-            copyLayer={copyLayer}
-            pasteLayer={pasteLayer}
-            hasCopiedLayer={hasCopiedLayer}
           />
         </>
       </Box>
+      <SaveChangesButton onClick={onApply} onError={onApplyError} disabled={saveChangesDisabled} />
     </React.Fragment>
   );
 };

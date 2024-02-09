@@ -47,46 +47,35 @@ const LayoutSharing = (props) => {
     setLayoutName(layoutName);
   };
 
-  const openImportConfirm = () => {
-    setImportConfirmOpen(true);
-  };
-  const closeImportConfirm = () => {
-    setImportConfirmOpen(false);
-  };
-
   const onImport = () => {
-    const { keymap, colormap } = props;
+    const { keymap, colormaps } = props;
 
-    const newKeymap = layout.keymaps.concat(keymap.custom.slice(layout.keymaps.length));
-    const newColormap = layout.colormaps
-      ? layout.colormaps.concat(colormap.colorMap.slice(layout.colormaps.length))
-      : colormap.colorMap;
-    const newPalette = layout.palette || colormap.palette;
-
-    const newCP = {
-      palette: newPalette,
-      colorMap: newColormap,
-    };
-
-    closeImportConfirm();
-    props.onKeymapChange(newKeymap);
-    props.onColormapAndPaletteChange(newCP);
+    setImportConfirmOpen(false);
+    props.onKeymapChange(layout.keymaps.concat(keymap.custom.slice(layout.keymaps.length)));
+    props.onColormapAndPaletteChange({
+      palette: layout.palette || colormap.palette,
+      colorMap: layout.colormaps
+        ? layout.colormaps.concat(colormap.colorMap.slice(layout.colormaps.length))
+        : colormap.colorMap,
+    });
     props.onClose();
+  };
+
+  const onRestore = (layoutData) => {
+    props.onKeymapChange(layoutData.keymaps);
+    props.onColormapAndPaletteChange({ palette: layoutData.palette, colorMap: layoutData.colormaps });
   };
 
   const { open, onClose, theme, keymap, colormap, ...others } = props;
   const sidebarWidth = 300;
 
   const Keymap = activeDevice.focusDeviceDescriptor().components.keymap;
-  const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
-  const palette = layout.palette || colormap.palette;
-  const previewColormap = layout.colormaps ? layout.colormaps[0] : colormap.colorMap[0];
 
   return (
     <>
       <Drawer
         variant="permanent"
-        anchor="right"
+        anchor="left"
         sx={{ width: sidebarWidth, flexShrink: 0 }}
         PaperProps={{
           sx: {
@@ -98,17 +87,26 @@ const LayoutSharing = (props) => {
       >
         <Box sx={{ overflow: "auto", padding: 3 }}>
           <LibraryImport setLayout={setLayout} layoutName={layoutName} {...others} />
-          <FileImport setLayout={setLayout} {...others} />
+          <FileImport onRestore={onRestore} {...others} />
           <ExportToFile keymap={keymap} colormap={colormap} />
 
-          <Button disabled={layoutName == null} variant="outlined" color="primary" onClick={openImportConfirm}>
+          <Button
+            disabled={layoutName == null}
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              setImportConfirmOpen(true);
+            }}
+          >
             {t("editor.sharing.import")}
           </Button>
           <ConfirmationDialog
             title={t("editor.sharing.importConfirm.title")}
             open={importConfirmOpen}
             onConfirm={onImport}
-            onCancel={closeImportConfirm}
+            onCancel={() => {
+              setImportConfirmOpen(false);
+            }}
           >
             {t("editor.sharing.importConfirm.contents")}
           </ConfirmationDialog>
@@ -123,7 +121,12 @@ const LayoutSharing = (props) => {
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
-        <Keymap keymap={previewLayout} palette={palette} colormap={previewColormap} theme={theme} />{" "}
+        <Keymap
+          keymap={layout.keymaps ? layout.keymaps[0] : keymap.custom[0]}
+          palette={layout.palette || colormap.palette}
+          colormap={layout.colormaps ? layout.colormaps[0] : colormap.colorMap[0]}
+          theme={theme}
+        />{" "}
       </Box>
     </>
   );

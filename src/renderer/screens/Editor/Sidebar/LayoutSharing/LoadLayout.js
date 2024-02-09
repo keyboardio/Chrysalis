@@ -5,24 +5,24 @@ import { toast } from "@renderer/components/Toast";
 
 const db = new KeymapDB();
 
-export const loadLayout = async (fileName) => {
-  let fileData;
-
-  try {
-    const response = await fetch(`/public/${fileName}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+export const loadLayout = async (fileName, fileData) => {
+  if (!fileData) {
+    try {
+      const response = await fetch(`/public/${fileName}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      fileData = await response.text();
+    } catch (e) {
+      console.error("Unable to read layout", {
+        filename: fileName,
+        error: e.message,
+      });
+      toast.error(t("editor.sharing.errors.unableToLoad"));
+      return null;
     }
-    fileData = await response.text();
-  } catch (e) {
-    console.error("Unable to read layout", {
-      filename: fileName,
-      error: e.message,
-    });
-    toast.error(t("editor.sharing.errors.unableToLoad"));
-    return null;
   }
-
+  console.log("loaded file data ", fileData);
   let layoutData;
   try {
     layoutData = JSON.parse(fileData);
@@ -34,7 +34,7 @@ export const loadLayout = async (fileName) => {
     toast.error(t("editor.sharing.errors.parseFail"));
     return null;
   }
-
+  console.log("parsed that into ", layoutData);
   const src_keymaps = layoutData.keymaps || layoutData.keymap.custom;
 
   let keymaps;

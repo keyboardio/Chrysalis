@@ -117,10 +117,14 @@ const Overview = (props) => {
           <MenuIcon />
         </IconButton>
         <Menu id="long-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
-          <MenuItem onClick={() => handleMenuItemCopy()}>{t("editor.overview.copyLayer")}</MenuItem>
-          <MenuItem disabled={!props.hasCopiedLayer()} onClick={() => handleMenuItemPaste()}>
-            {t("editor.overview.pasteLayer")}
-          </MenuItem>
+          {props.copyLayer && (
+            <MenuItem onClick={() => handleMenuItemCopy()}>{t("editor.overview.copyLayer")}</MenuItem>
+          )}
+          {props.pasteLayer && (
+            <MenuItem disabled={!props.hasCopiedLayer()} onClick={() => handleMenuItemPaste()}>
+              {t("editor.overview.pasteLayer")}
+            </MenuItem>
+          )}
         </Menu>
       </div>
     );
@@ -157,7 +161,11 @@ const Overview = (props) => {
         sx={{ cursor: "pointer", alignItems: "baseline" }}
       >
         <TableCell size="small" sx={{ pl: "1rem" }} align="left">
-          <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
+          {props.setLayerName ? (
+            <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
+          ) : (
+            <Typography sx={{ fontSize: "0.8rem" }}>{layerNames.names[index]}</Typography>
+          )}
         </TableCell>
         <TableCell size="small" padding="none">
           <Typography sx={{ fontSize: "0.8rem" }}>

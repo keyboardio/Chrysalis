@@ -9,15 +9,16 @@ export const FileImport = (props) => {
 
   const fileInputRef = React.createRef();
 
-  const importFromFile = (event) => {
+  const importFromFile = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = async function (e) {
       const fileData = e.target.result;
-      const layoutData = loadLayout(file.name, fileData);
-      if (layoutData != null) props.setLayout("custom", layoutData);
+      const layoutData = await loadLayout(file.name, fileData);
+      if (layoutData != null) props.onRestore(layoutData);
+      console.log("finally returned ", layoutData);
     };
     reader.readAsText(file);
   };

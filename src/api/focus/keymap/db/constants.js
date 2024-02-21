@@ -37,7 +37,7 @@ const keycode_ranges = {
   },
   steno: {
     start: 0xd12d,
-    end: 0xd16f,
+    end: 0xd157,
   },
   consumer: {
     start: 0x4800,
@@ -51,11 +51,13 @@ const keycode_ranges = {
   },
   macro: { start: 0x6000 },
   leader: { start: 0xd023, end: 0xd02a },
-  dynamic_macro: { start: 0xd174, end: 0xd192 },
+  dynamic_macro: { start: 0xd15c, end: 0xd17b },
   led: { start: 0x4300 },
   layer: { start: 0x4400 },
   tapdance: { start: 0xd013, end: 0xd022 },
-  spacecadet: { start: 0xd170, end: 0xd171 },
+  spacecadet: { start: 0xd158, end: 0xd159 },
+  redial: { start: 0xd15a, end: 0xd15a },
+  turbo: { start: 0xd15b, end: 0xd15b },
 };
 export const constants = {
   codes: {
@@ -110,11 +112,11 @@ export const constants = {
     TRANSPARENT: 0x00,
 
     // Dual use keycodes
-    DUAL_USE_MODIFIER_BASE: 49169,
-    DUAL_USE_LAYER_BASE: 51218,
+    DUAL_USE_MODIFIER_BASE: keycode_ranges.dual_use_modifier.start,
+    DUAL_USE_LAYER_BASE: keycode_ranges.dual_use_layer.start,
     // Aliases
     FIRST_MODIFIER: 224,
-    FIRST_ONESHOT_MODIFIER: 49153,
+    FIRST_ONESHOT_MODIFIER: keycode_ranges.oneshot_modifier.start,
     EMPTY: 65535,
   },
   ranges: keycode_ranges,
@@ -152,19 +154,19 @@ const _PRIVATE_KEYCODE_OFFSET_NEVER_INCLUDE_IN_CODE = {
   TT: 53293, // 0xd02d
   TT_LAST: 53548, // 0xd12c
   STENO: 53549, // 0xd12d
-  STENO_LAST: 53591, // 0xd16f
-  SC: 53592, // 0xd170
-  SC_LAST: 53593, // 0xd171
-  REDIAL: 53594, // 0xd172
-  TURBO: 53595, // 0xd173
-  DYNAMIC_MACRO: 53596, // 0xd174
-  DYNAMIC_MACRO_LAST: 53627, // 0xd192
-  OS_META_STICKY: 53628, // 0xd193
-  OS_ACTIVE_STICKY: 53629, // 0xd194
-  OS_CANCEL: 53630, // 0xd195
-  CS: 53631, // 0xd196
-  CS_LAST: 53695, // 0xd1d3
-  SAFE_START: 53696, // 0xd1d4
+  STENO_LAST: 53591, // 0XD157
+  SC: 53592, // 0XD158
+  SC_LAST: 53593, // 0xd159
+  REDIAL: 53594, // 0XD15A
+  TURBO: 53595, // 0XD15B
+  DYNAMIC_MACRO: 53596, // 0XD15C
+  DYNAMIC_MACRO_LAST: 53627, // 0XD17B
+  OS_META_STICKY: 53628, // 0XD17C
+  OS_ACTIVE_STICKY: 53629, // 0XD17D
+  OS_CANCEL: 53630, // 0XD17E
+  CS: 53631, // 0XD17F
+  CS_LAST: 53695, // 0XD1BF
+  SAFE_START: 53696, // 0XD1C0
 };
 
 */

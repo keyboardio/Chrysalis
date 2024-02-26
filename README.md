@@ -1,3 +1,6 @@
+** This branch of Chrysalis is for the legacy desktop application. Chrysalis now runs on the web at [https://chrysalis.keyboard.io](https://chrysalis.keyboard.io). **
+
+
 Chrysalis
 =========
 

@@ -107,7 +107,8 @@
             },
             "consumer": {
                 "volume": "Volumen",
-                "media": "Controles de medios"
+                "media": "Controles de medios",
+                "brightness": "Brillo"
             },
             "secondary": {
                 "whenHeld": "Al mantener",
@@ -125,6 +126,9 @@
             "colors": {
                 "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
                 "title": "Colores"
+            },
+            "keypicker": {
+                "mods": "Modificadores"
             }
         }
     },

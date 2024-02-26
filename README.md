@@ -3,27 +3,11 @@ Chrysalis
 
 ![Chrysalis screenshot](data/screenshot.png)
 
-## Downloads
-
-[![Latest production builds][badge:production]][build:prod]
-[![Latest development builds][badge:development]][build:dev]
-
- [badge:development]: https://img.shields.io/github/v/release/keyboardio/chrysalis?include_prereleases&label=Development&style=for-the-badge
- [badge:production]: https://img.shields.io/github/v/release/keyboardio/chrysalis?label=Production&style=for-the-badge
- [build:prod]: https://github.com/keyboardio/Chrysalis/releases/latest
- [build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v0.13.3-snapshot
-
 ## About
 
-Chrysalis is a graphical configurator for
-[Kaleidoscope][kaleidoscope]-powered keyboards. 
+Chrysalis is a graphical configuration tool for [Kaleidoscope][kaleidoscope]-powered keyboards. 
 
  [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
-
-The primary purpose of the application is to allow one to configure their
-keyboard without having to compile or flash firmware, by storing the
-configuration on the keyboard itself, in EEPROM. There are no external tools
-required, just Chrysalis itself.
 
 ## Features
 

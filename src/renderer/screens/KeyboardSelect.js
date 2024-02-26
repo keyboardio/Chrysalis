@@ -71,7 +71,7 @@ const KeyboardSelect = (props) => {
         device: activeDevice,
       });
       setOpening(false);
-      toast.error(err.toString());
+      toast.error(t("keyboardSelect.connectionFailed", { error: err.toString() }));
     }
   };
 

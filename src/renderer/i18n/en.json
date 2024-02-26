@@ -541,6 +541,7 @@
     "disconnect": "Disconnect",
     "noUdev": "Chysalis requires udev to be able to scan for devices, but it appears it is not available.",
     "installUdevRules": "Fix it",
+    "connectionFailed": "I couldn't connect to the keyboard. It may already be connected in another application or browser window. The error I got was: {{error}}",
     "permissionError": "Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)",
     "permissionErrorSuggestion": "Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/."
   },

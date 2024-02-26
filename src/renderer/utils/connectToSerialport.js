@@ -30,7 +30,10 @@ export const connectToSerialport = async () => {
         });
       } catch (e) {
         if (!serialPort) {
-          console.error("Failed to open serial port", e);
+          console.error(
+            "I couldn't connect to your keyboard's serial port. That might be because another program or browser window is already connected.",
+            e
+          );
           return;
         }
       }

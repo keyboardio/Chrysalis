@@ -31,6 +31,7 @@ import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
 import PreferenceWithHeading from "../components/PreferenceWithHeading";
+import logger from "@renderer/utils/Logger";
 
 import { Store } from "@renderer/localStore";
 const settings = new Store();
@@ -72,7 +73,7 @@ const ModeCardBase = (props) => {
   const { t } = useTranslation();
   const { raised, onClick, name, image, ...rest } = props;
 
-  console.log("ModeCardBase", props);
+  logger.log("ModeCardBase", props);
   return (
     <Card raised={raised} {...rest}>
       <CardActionArea onClick={onClick}>

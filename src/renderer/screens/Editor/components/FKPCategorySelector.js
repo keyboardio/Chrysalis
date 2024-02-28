@@ -46,11 +46,8 @@ const FKPCategorySelector = (props) => {
     help = t("editor.sidebar." + props.category + ".help");
   }
 
-  console.log(props);
-
   // Generate keys from keyCodes
   const keys = props.keyCodes?.map((code) => db.lookup(code)) || props.keys || db.selectCategory(props.category);
-  console.log("For category", props.category, "keys are", keys);
   return (
     <React.Fragment>
       <Tooltip title={tooltip}>

@@ -1,4 +1,5 @@
 import KeymapDB from "@api/focus/keymap/db";
+import logger from "@renderer/utils/Logger";
 
 import { t } from "i18next";
 import { toast } from "@renderer/components/Toast";
@@ -14,7 +15,7 @@ export const loadLayout = async (fileName, fileData) => {
       }
       fileData = await response.text();
     } catch (e) {
-      console.error("Unable to read layout", {
+      logger.error("Unable to read layout", {
         filename: fileName,
         error: e.message,
       });
@@ -22,19 +23,19 @@ export const loadLayout = async (fileName, fileData) => {
       return null;
     }
   }
-  console.log("loaded file data ", fileData);
+  logger.log("loaded file data ", fileData);
   let layoutData;
   try {
     layoutData = JSON.parse(fileData);
   } catch (e) {
-    console.error("Failed to parse layout JSON", {
+    logger.error("Failed to parse layout JSON", {
       filename: fileName,
       error: e.message,
     });
     toast.error(t("editor.sharing.errors.parseFail"));
     return null;
   }
-  console.log("parsed that into ", layoutData);
+  logger.log("parsed that into ", layoutData);
   const src_keymaps = layoutData.keymaps || layoutData.keymap.custom;
 
   let keymaps;
@@ -45,7 +46,7 @@ export const loadLayout = async (fileName, fileData) => {
       });
     });
   } catch (_) {
-    console.error("Layout file did not contain valid layout data", {
+    logger.error("Layout file did not contain valid layout data", {
       filename: fileName,
     });
     toast.error(t("editor.sharing.errors.invalidLayoutData"));

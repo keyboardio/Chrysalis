@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
+import logger from "@renderer/utils/Logger";
 
 global.chrysalis_focus_instance = null;
 
@@ -49,10 +49,10 @@ class Focus {
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
-    console.log("in checkSerialDevice", focusDeviceDescriptor, usbInfo);
+    logger.log("in checkSerialDevice", focusDeviceDescriptor, usbInfo);
     const portList = await navigator.serial.getPorts();
-    console.log("portList", portList);
-    console.debug("serial port list obtained", {
+    logger.log("portList", portList);
+    logger.debug("serial port list obtained", {
       portList: portList,
       device: usbInfo,
       function: "checkForSerialDevice",
@@ -66,7 +66,7 @@ class Focus {
         const newPort = Object.assign({}, port);
         newPort.focusDeviceDescriptor = focusDeviceDescriptor;
         newPort.focusDeviceDescriptor.bootloader = true;
-        console.info("serial port found", {
+        logger.info("serial port found", {
           port: newPort,
           device: usbInfo,
           function: "checkForSerialDevice",
@@ -74,7 +74,7 @@ class Focus {
         return newPort;
       }
     }
-    console.debug("serial device not found", {
+    logger.debug("serial device not found", {
       function: "checkForSerialDevice",
       device: usbInfo,
     });
@@ -100,7 +100,7 @@ class Focus {
         newPort.focusDeviceDescriptor = focusDeviceDescriptor;
         newPort.focusDeviceDescriptor.bootloader = true;
 
-        console.info("bootloader found", {
+        logger.info("bootloader found", {
           device: bootloader,
           function: "checkNonSerialBootloader",
         });
@@ -108,7 +108,7 @@ class Focus {
       }
     }
 
-    console.debug("bootloader not found", {
+    logger.debug("bootloader not found", {
       function: "checkNonSerialBootloader",
       device: bootloader,
     });
@@ -117,28 +117,28 @@ class Focus {
   }
 
   async checkBootloader(focusDeviceDescriptor) {
-    console.log("in checkBootloader", focusDeviceDescriptor);
+    logger.log("in checkBootloader", focusDeviceDescriptor);
     if (!focusDeviceDescriptor.usb.bootloader) {
-      console.warn("No bootloader defined in the device descriptor", {
+      logger.warn("No bootloader defined in the device descriptor", {
         descriptor: focusDeviceDescriptor,
       });
       return false;
     }
-    console.info("checking bootloader presence", {
+    logger.info("checking bootloader presence", {
       descriptor: focusDeviceDescriptor,
     });
 
     if (focusDeviceDescriptor.usb.bootloader.protocol !== "avr109") {
-      console.log("checking a non-serial bootloader");
+      logger.log("checking a non-serial bootloader");
       return await this.checkNonSerialBootloader(focusDeviceDescriptor);
     } else {
-      console.log("Checking a serial bootloader");
+      logger.log("Checking a serial bootloader");
       return await this.checkSerialBootloader(focusDeviceDescriptor);
     }
   }
 
   async reconnectToKeyboard(focusDeviceDescriptor) {
-    console.info("reconnecting to keyboard", {
+    logger.info("reconnecting to keyboard", {
       descriptor: focusDeviceDescriptor,
     });
     const usbDeviceDescriptor = await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb);
@@ -169,7 +169,7 @@ class Focus {
     try {
       await this._port.close();
     } catch (error) {
-      console.error("Failed to safely close the port:", error);
+      logger.error("Failed to safely close the port:", error);
     }
   }
 
@@ -181,7 +181,7 @@ class Focus {
     };
 
     const baudUpdate = async () => {
-      console.debug("reboot: baud update");
+      logger.debug("reboot: baud update");
       await this.closePort();
 
       await port.open({ baudRate: 1200 });
@@ -189,7 +189,7 @@ class Focus {
     };
 
     const dtrToggle = async (state) => {
-      console.debug(`reboot: dtr ${state ? "on" : "off"}`);
+      logger.debug(`reboot: dtr ${state ? "on" : "off"}`);
 
       await port.setSignals({ dataTerminalReady: state });
       await delay(timeouts.dtrToggle);
@@ -204,7 +204,7 @@ class Focus {
       } catch (e) {
         // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
         if ("Device disconnected" !== e) {
-          console.error("Error while calling `device.reset`", {
+          logger.error("Error while calling `device.reset`", {
             error: e,
           });
           throw e;
@@ -224,19 +224,19 @@ class Focus {
       await dtrToggle(true);
       await dtrToggle(false);
     } catch (e) {
-      console.log("Unable to baud-update and dtr toggle. This is probably because the orginal reboot worked", e);
+      logger.log("Unable to baud-update and dtr toggle. This is probably because the orginal reboot worked", e);
     }
   }
 
   async find(...device_descriptors) {
     // This will only show devices the user has previously authorized.
-    console.log("in focus.find");
+    logger.log("in focus.find");
     const portList = await navigator.serial.getPorts();
 
-    console.log("portList", portList);
+    logger.log("portList", portList);
     const found_devices = [];
 
-    console.debug("serial port list obtained", {
+    logger.debug("serial port list obtained", {
       portList: portList,
       function: "find",
     });
@@ -275,12 +275,12 @@ class Focus {
     });
 
     if (logged_devices.length > 0) {
-      console.debug("supported devices found", {
+      logger.debug("supported devices found", {
         devices: logged_devices,
         function: "find",
       });
     } else {
-      console.warn("no supported devices found", {
+      logger.warn("no supported devices found", {
         function: "find",
       });
     }
@@ -338,7 +338,7 @@ class Focus {
       return true;
     }
     const supported = await port.focusDeviceDescriptor.isDeviceSupported(port);
-    console.debug("isDeviceSupported?", {
+    logger.debug("isDeviceSupported?", {
       port: port,
       supported: supported,
     });
@@ -364,7 +364,7 @@ class Focus {
     if (!this.isInApplicationMode()) return undefined;
 
     if (this._supported_commands?.length > 0 && !this._supported_commands.includes(cmd)) {
-      console.debug("request (noop)", {
+      logger.debug("request (noop)", {
         command: cmd,
         args: args,
       });
@@ -375,7 +375,7 @@ class Focus {
 
     const rid = this._request_id;
     this._request_id += 1;
-    console.debug("request", {
+    logger.debug("request", {
       request: {
         id: rid,
         command: cmd,
@@ -396,7 +396,7 @@ class Focus {
       const response = await this._sendRequest(cmd, args);
       resolve(response);
     } catch (error) {
-      console.log("Error", error);
+      logger.log("Error", error);
     } finally {
       this._processingRequest = false;
       this._processQueue(); // Check if there are more requests to process
@@ -421,7 +421,7 @@ class Focus {
 
     // TODO(anyone): This is a temporary measure until #985 gets fixed.
     await delay(250);
-    console.debug("Making a request", request);
+    logger.debug("Making a request", request);
 
     // Send a line of text
     const encoder = new TextEncoder();
@@ -449,7 +449,7 @@ class Focus {
         }
       }
     } finally {
-      console.debug("Returning response", response);
+      logger.debug("Returning response", response);
       reader.releaseLock();
     }
 

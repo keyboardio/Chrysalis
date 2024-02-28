@@ -20,6 +20,7 @@ import React, { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";
+import logger from "@renderer/utils/Logger";
 
 const toast_channel = new BroadcastChannel("notifications");
 
@@ -41,7 +42,7 @@ export const toast = {
   },
   toast: async (msg) => {
     if (!msg.progress) {
-      console.debug("Toast message received", {
+      logger.debug("Toast message received", {
         msg: {
           variant: msg.variant,
           message: msg.message.toString(),

@@ -37,6 +37,7 @@ import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
 import Overview from "./Editor/Sidebar/Overview";
 
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
+import logger from "@renderer/utils/Logger";
 
 const db = new KeymapDB();
 
@@ -190,7 +191,7 @@ const Editor = (props) => {
   });
 
   const onApplyError = async (error) => {
-    console.error("Error applying layout editor changes", { error: error });
+    logger.error("Error applying layout editor changes", { error: error });
     toast.error(error);
 
     hideContextBar();
@@ -204,7 +205,7 @@ const Editor = (props) => {
     await activeDevice.layernames(layerNames);
 
     setModified(false);
-    console.info("Changes saved.");
+    logger.info("Changes saved.");
     hideContextBar();
   };
 

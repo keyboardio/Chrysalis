@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import logger from "@renderer/utils/Logger";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -55,18 +56,18 @@ const KeyboardSelect = (props) => {
 
     try {
       setLoading(true);
-      console.log("in connectToKeyboard");
+      logger.log("in connectToKeyboard");
       const focus = await connectToSerialport();
       if (focus) {
-        console.log("Calling props.onConnect with the focus object");
+        logger.log("Calling props.onConnect with the focus object");
         props.onConnect(focus);
-        console.log("Got a device - here's its focus object: ", focus);
+        logger.log("Got a device");
       } else {
-        console.log("looks like the user aborted");
+        logger.log("looks like the user aborted");
         setOpening(false);
       }
     } catch (err) {
-      console.error("error while trying to connect", {
+      logger.error("error while trying to connect", {
         error: err,
         device: activeDevice,
       });

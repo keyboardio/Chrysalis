@@ -14,9 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { DFU, DFUUSBDevice, DFUDeviceState } from "./dfu";
+import logger from "@renderer/utils/Logger";
 
 const rebootToApplicationMode = async (port, device) => {
-  console.debug("rebooting to application mode");
+  logger.debug("rebooting to application mode");
   /* TODO
 
   try {
@@ -58,28 +59,28 @@ const flash = async (selectedDevice, filecontents) => {
   let transferSize = 1024;
   let manifestationTolerant = true;
 
-  console.log(" Selected device: ", selectedDevice);
+  logger.log(" Selected device: ", selectedDevice);
   const interfaces = DFU.findDeviceDfuInterfaces(selectedDevice);
-  console.log(selectedDevice.productId);
+  logger.log(selectedDevice.productId);
 
   // XXX TODO -
 
   if (selectedDevice.productId === 0x0006) {
-    console.log(selectedDevice);
-    console.log("Your Model 100 is in keyboard mode");
+    logger.log(selectedDevice);
+    logger.log("Your Model 100 is in keyboard mode");
   } else if (interfaces.length === 0) {
-    console.log(selectedDevice);
-    console.error("The selected device does not have any USB DFU interfaces.");
+    logger.log(selectedDevice);
+    logger.error("The selected device does not have any USB DFU interfaces.");
   } else {
     device = new DFUUSBDevice(selectedDevice, interfaces[0]);
     await device.fixInterfaceNames(interfaces);
 
-    console.log(device);
+    logger.log(device);
     if (interfaces.length === 1) {
       try {
         await device.open();
       } catch (error) {
-        console.log(error);
+        logger.log(error);
         // onDisconnect(error);
         throw error;
       }
@@ -89,7 +90,7 @@ const flash = async (selectedDevice, filecontents) => {
       try {
         desc = await device.getDFUDescriptorProperties();
       } catch (error) {
-        console.log(error);
+        logger.log(error);
 
         // onDisconnect(error);
         throw error;
@@ -104,7 +105,7 @@ const flash = async (selectedDevice, filecontents) => {
         }
       }
     } else {
-      console.error("Multiple interfaces found, please write code that lets the user select one.");
+      logger.error("Multiple interfaces found, please write code that lets the user select one.");
       /* populateInterfaceList(interfaceForm, selectedDevice, interfaces);
         interfaceForm.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -127,10 +128,10 @@ const flash = async (selectedDevice, filecontents) => {
       }
 
       try {
-        console.log("Downloading firmware");
-        console.log("Transfer size:", transferSize);
-        console.log("Manifestation tolerant:", manifestationTolerant);
-        console.log("Firmware file:", firmwareFile);
+        logger.log("Downloading firmware");
+        logger.log("Transfer size:", transferSize);
+        logger.log("Manifestation tolerant:", manifestationTolerant);
+        logger.log("Firmware file:", firmwareFile);
         await device.do_download(transferSize, firmwareFile, manifestationTolerant);
         if (!manifestationTolerant) {
           try {
@@ -138,19 +139,19 @@ const flash = async (selectedDevice, filecontents) => {
             // XXX TOOD onDisconnect();
             device = null;
           } catch (error) {
-            console.log("Device unexpectedly tolerated manifestation.");
+            logger.log("Device unexpectedly tolerated manifestation.");
           }
         } else {
           device.detach();
         }
       } catch (error) {
-        console.error(error);
+        logger.error(error);
       }
     } catch (error) {
-      console.error("Failed to clear status");
+      logger.error("Failed to clear status");
     }
   } else {
-    console.log("No device or firmware file", device, firmwareFile);
+    logger.log("No device or firmware file", device, firmwareFile);
   }
 };
 

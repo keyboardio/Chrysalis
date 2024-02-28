@@ -25,6 +25,7 @@ import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
 import { GlobalContext } from "@renderer/components/GlobalContext";
+import logger from "@renderer/utils/Logger";
 
 export const BackupImport = (props) => {
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ export const BackupImport = (props) => {
 
     if (error) {
       // TODO(anyone): show toast
-      console.error("error loading a layout file", {
+      logger.error("error loading a layout file", {
         device: deviceDescriptor.info,
         fileName: item,
         error: error,

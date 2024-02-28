@@ -44,13 +44,14 @@ import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
+import logger from "@renderer/utils/Logger";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
+  const { state } = useContext(GlobalContext);
+  const [activeDevice, setActiveDevice] = state.state.activeDevice;
 
   const [usbDevice, setUsbDevice] = useState(null);
   const [firmwareFilename, setFirmwareFilename] = useState("");
@@ -96,10 +97,10 @@ const FirmwareUpdate = (props) => {
       const firmwareBlob = await response.blob();
       defaultFirmwareContent = await firmwareBlob.arrayBuffer();
     } catch (err) {
-      console.error(`Failed to fetch firmware file from ${firmwareURL}:`, err);
+      logger.error(`Failed to fetch firmware file from ${firmwareURL}:`, err);
       throw err;
     }
-    console.log("Firmware content", defaultFirmwareContent);
+    logger.log("Firmware content", defaultFirmwareContent);
 
     setFirmwareContent(defaultFirmwareContent);
     return defaultFirmwareContent;
@@ -107,7 +108,7 @@ const FirmwareUpdate = (props) => {
 
   const doFactoryReset = async () => {
     const tasksInBootloaderMode = async (port) => {
-      console.log("TasksinBootloaderMode for doFactoryReset, port is ", port);
+      logger.log("TasksinBootloaderMode for doFactoryReset, port is ", port);
       await flashDeviceFirmwareFromBootloader(port);
 
       await onStepChange("reconnect");
@@ -125,7 +126,7 @@ const FirmwareUpdate = (props) => {
       await rebootToBootloader();
       await connectToBootloader(tasksInBootloaderMode);
     } else {
-      console.log("We're already in bootloader mode");
+      logger.log("We're already in bootloader mode");
       await tasksInBootloaderMode();
     }
 
@@ -136,14 +137,14 @@ const FirmwareUpdate = (props) => {
     const flasher = activeDevice.getFlasher();
     await onStepChange("flash");
     let firmwareToSend = firmwareContent;
-    console.log(focus);
+    logger.log(focus);
     if (selectedFirmwareType == "default") {
       firmwareToSend = await loadDefaultFirmwareContent();
     }
-    console.log("about to flash");
-    console.log(" the usb device is ", port);
+    logger.log("about to flash");
+    logger.log(" the usb device is ", port);
 
-    console.log(" firmware content is ", firmwareToSend);
+    logger.log(" firmware content is ", firmwareToSend);
     if (bootloaderProtocol == "avr109") {
       await flasher.flash(focus._port, firmwareToSend);
     } else if (bootloaderProtocol == "dfu") {
@@ -159,41 +160,40 @@ const FirmwareUpdate = (props) => {
       await flashDeviceFirmwareFromBootloader(focus._port);
       return;
     } else {
-      console.log("about to save eeprom");
+      logger.log("about to save eeprom");
       await onStepChange("saveEEPROM");
       const saveKey = await activeDevice.saveEEPROM();
-      console.log("Done saving eeprom");
+      logger.log("Done saving eeprom");
       await onStepChange("bootloader");
-      console.log("done saving eeprom");
+      logger.log("done saving eeprom");
 
       const tasksInBootloaderMode = async (port) => {
-        console.log("TasksinBootloaderMode for updateDeviceFirmware, port is ", port);
+        logger.log("TasksinBootloaderMode for updateDeviceFirmware, port is ", port);
 
-        console.trace();
-        console.log("Runing tasks in bootloader mode");
+        logger.log("Runing tasks in bootloader mode");
         await flashDeviceFirmwareFromBootloader(port);
-        console.log("flashed device firmware");
+        logger.log("flashed device firmware");
         await onStepChange("reconnect");
 
-        console.log("reconnected after flashing");
+        logger.log("reconnected after flashing");
         const tasksInFocusMode = async () => {
           await activeDevice.clearEEPROM();
-          console.log("cleared eeprom");
+          logger.log("cleared eeprom");
           const tasksAfterEepromCleared = async () => {
-            console.log("reconnected after clearing eeprom");
+            logger.log("reconnected after clearing eeprom");
             await onStepChange("restoreEEPROM");
-            console.log("about to restore eeprom");
+            logger.log("about to restore eeprom");
             await activeDevice.restoreEEPROM(saveKey);
-            console.log("restored eeprom");
+            logger.log("restored eeprom");
             await reportSuccessfulFlashing();
           };
           await connectToFocus(tasksAfterEepromCleared);
         };
         await connectToFocus(tasksInFocusMode);
       };
-      console.log("About to reboot to bootloader");
+      logger.log("About to reboot to bootloader");
       await rebootToBootloader();
-      console.log("about to connect to bootloader");
+      logger.log("about to connect to bootloader");
       await connectToBootloader(tasksInBootloaderMode);
     }
   };
@@ -213,7 +213,7 @@ const FirmwareUpdate = (props) => {
     let device_detected = false;
     let attempts = 0;
     while (!device_detected) {
-      console.log(activeDevice);
+      logger.log(activeDevice);
       const focus = undefined; //; TODO  = connectToSerialport();
       activeDevice.focus = focus;
       device_detected = await activeDevice.reconnect();
@@ -221,7 +221,7 @@ const FirmwareUpdate = (props) => {
       attempts += 1;
 
       const port = focus._port;
-      console.log(port);
+      logger.log(port);
       // Wait a few seconds to not overwhelm the system with rapid reboot
       // attempts.
       await delay(2000);
@@ -239,7 +239,7 @@ const FirmwareUpdate = (props) => {
       await activeDevice.focus.reboot();
     } catch (e) {
       // Log the error, but otherwise ignore it.
-      console.error("Error during reboot", { error: e });
+      logger.error("Error during reboot", { error: e });
     }
     // Wait a few seconds to let the device properly reboot into bootloadermode, and enumerate.
 
@@ -269,21 +269,21 @@ const FirmwareUpdate = (props) => {
   };
 
   const connectToFocus = async (callback) => {
-    console.log("In connectToFocus");
+    logger.log("In connectToFocus");
     setAfterFocusConnectCallback(() => callback);
     setPromptForFocusConnection(true);
   };
 
   const onStepChange = async (desiredState) => {
-    console.info("executing step", {
+    logger.info("executing step", {
       step: desiredState,
       flashSteps: flashSteps,
     });
     setActiveStep(Math.min(activeStep + 1, flashSteps.length));
     flashSteps.forEach((step, index) => {
-      console.log("Considering ", { step, index });
+      logger.log("Considering ", { step, index });
       if (step == desiredState) {
-        console.log("Found the step we're looking for:" + step);
+        logger.log("Found the step we're looking for:" + step);
         setActiveStep(index);
         // exit the foreach
         return;
@@ -323,7 +323,7 @@ const FirmwareUpdate = (props) => {
       }
       //  setActiveStep(flashSteps.length); // set our state to the last step
     } catch (e) {
-      console.error("Error while uploading firmware", { error: e });
+      logger.error("Error while uploading firmware", { error: e });
       setProgress("error");
       setActiveStep(-1);
       toast.error(t("firmwareUpdate.flashing.error"));
@@ -335,7 +335,7 @@ const FirmwareUpdate = (props) => {
 
   const reportSuccessfulFlashing = () => {
     setProgress("success");
-    console.info("Successfully flashed");
+    logger.info("Successfully flashed");
     return new Promise((resolve) => {
       setTimeout(() => {
         toast.success(t("firmwareUpdate.flashing.success"), {
@@ -418,10 +418,10 @@ const FirmwareUpdate = (props) => {
           connectToBootloaderPort().then((success) => {
             if (success) {
               setPromptForBootloaderConnection(false);
-              console.log(afterBootloaderConnectCallback);
+              logger.log(afterBootloaderConnectCallback);
               afterBootloaderConnectCallback(success);
             } else {
-              console.log("We need to try that connect again");
+              logger.log("We need to try that connect again");
             }
           });
         }}
@@ -436,13 +436,13 @@ const FirmwareUpdate = (props) => {
         onConfirm={() => {
           connectToSerialport().then((focus) => {
             if (focus) {
-              console.debug("connected to serial port");
+              logger.debug("connected to serial port");
               setPromptForFocusConnection(false);
-              console.log("Runnign in onconfirm");
-              console.log(afterFocusConnectCallback);
+              logger.log("Runnign in onconfirm");
+              logger.log(afterFocusConnectCallback);
               afterFocusConnectCallback();
             } else {
-              console.log("We need to try that connect again");
+              logger.log("We need to try that connect again");
             }
           });
         }}

@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
+import logger from "@renderer/utils/Logger";
 
 export const FileImport = (props) => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ export const FileImport = (props) => {
       const fileData = e.target.result;
       const layoutData = await loadLayout(file.name, fileData);
       if (layoutData != null) props.onRestore(layoutData);
-      console.log("finally returned ", layoutData);
+      logger.log("finally returned ", layoutData);
     };
     reader.readAsText(file);
   };

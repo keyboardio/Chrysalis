@@ -15,7 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import { Logger } from "@renderer/utils/Logger"; // Assuming Logger class is exported from Logger.js
 
 export const GlobalContext = createContext();
 
@@ -27,7 +28,6 @@ export const GlobalContextProvider = (props) => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [firmwareUpdateWarning, setFirmwareUpdateWarning] = useState(false);
   const [hideHeaderInPrint, setHideHeaderInPrint] = useState(false);
-
   const getDarkMode = () => {
     return theme == "dark";
   };

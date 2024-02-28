@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import logger from "@renderer/utils/Logger";
 
 import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
@@ -266,7 +267,7 @@ const Editor = (props) => {
     }
 
     if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-      console.info("Custom keymap is empty, copying defaults");
+      logger.info("Custom keymap is empty, copying defaults");
       for (let i = 0; i < deviceKeymap.default.length; i++) {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
@@ -343,7 +344,7 @@ const Editor = (props) => {
   });
 
   const onApplyError = async (error) => {
-    console.error("Error applying layout editor changes", { error: error });
+    logger.error("Error applying layout editor changes", { error: error });
     toast.error(error);
 
     hideContextBar();
@@ -357,7 +358,7 @@ const Editor = (props) => {
     await activeDevice.layernames(layerNames);
 
     setModified(false);
-    console.info("Changes saved.");
+    logger.info("Changes saved.");
     hideContextBar();
   };
 

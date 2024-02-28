@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import logger from "@renderer/utils/Logger";
 
 const deviceReset = async () => {
   const focus = new Focus();
@@ -29,7 +30,7 @@ const deviceReset = async () => {
 
   const baudUpdate = () => {
     return new Promise((resolve) => {
-      console.debug("baud update");
+      logger.debug("baud update");
       port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();
@@ -39,7 +40,7 @@ const deviceReset = async () => {
 
   const dtrToggle = (state) => {
     return new Promise((resolve) => {
-      console.debug(`dtr ${state ? "on" : "off"}`);
+      logger.debug(`dtr ${state ? "on" : "off"}`);
       port.set({ dtr: state }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();

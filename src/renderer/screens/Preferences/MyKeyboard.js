@@ -28,6 +28,7 @@ import AdvancedKeyboardPreferences from "./keyboard/AdvancedKeyboardPreferences"
 import KeyboardLayerPreferences from "./keyboard/KeyboardLayerPreferences";
 import KeyboardLEDPreferences from "./keyboard/KeyboardLEDPreferences";
 import PluginPreferences from "./keyboard/PluginPreferences";
+import logger from "@renderer/utils/Logger";
 
 const MyKeyboardPreferences = (props) => {
   const [modified, setModified] = useState(false);
@@ -48,7 +49,7 @@ const MyKeyboardPreferences = (props) => {
   };
 
   const onError = async (error) => {
-    console.error("Error applying keyboard preferences", {
+    logger.error("Error applying keyboard preferences", {
       error: error,
     });
     toast.error(error);
@@ -65,7 +66,7 @@ const MyKeyboardPreferences = (props) => {
       if (content instanceof Function) {
         await content();
       } else {
-        console.error(
+        logger.error(
           "Unable to save changes because an onSaveChanges no longer takes strings that are focus commands",
           { cmd, content }
         );

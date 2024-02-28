@@ -44,6 +44,7 @@ import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
 import ImportExport from "./screens/ImportExport";
 
+import logger from "@renderer/utils/Logger";
 import { Store } from "@renderer/localStore";
 const settings = new Store();
 
@@ -56,13 +57,13 @@ const App = (props) => {
   const settingsLanguage = settings.get("ui.language");
   if (settingsLanguage && i18n.language !== settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
-  const globalContext = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
 
-  const [connected, setConnected] = globalContext.state.connected;
-  const [focusDeviceDescriptor, setFocusDeviceDescriptor] = globalContext.state.focusDeviceDescriptor;
-  const [theme, setTheme] = globalContext.state.theme;
-  const darkMode = globalContext.state.darkMode;
-  const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
+  const [connected, setConnected] = state.connected;
+  const [focusDeviceDescriptor, setFocusDeviceDescriptor] = state.focusDeviceDescriptor;
+  const [theme, setTheme] = state.theme;
+  const darkMode = state.darkMode;
+  const [activeDevice, setActiveDevice] = state.activeDevice;
   const [bgColor, setBgColor] = useState(null);
 
   // TODO  useFirmwareAutoUpdate();
@@ -167,11 +168,11 @@ const App = (props) => {
       setFocusDeviceDescriptor(focus.focusDeviceDescriptor);
       i18n.refreshHardware(focus.focusDeviceDescriptor);
 
-      console.log("about to nav to focus not detected   ");
+      logger.log("about to nav to focus not detected   ");
       //  await navigate("/focus-not-detected");
       //return false;
     } else {
-      console.log("not connected");
+      logger.log("not connected");
     }
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
@@ -196,9 +197,9 @@ const App = (props) => {
   };
 
   const onKeyboardDisconnect = async () => {
-    console.log("onKeyboardDisconnect called");
+    logger.log("onKeyboardDisconnect called");
     if (activeDevice) {
-      console.info("Disconnecting from keyboard", {
+      logger.info("Disconnecting from keyboard", {
         activeDevice: activeDevice,
       });
     }

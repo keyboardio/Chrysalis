@@ -29,6 +29,8 @@ import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Store } from "@renderer/localStore";
+import logger from "@renderer/utils/Logger";
+
 const settings = new Store();
 
 const db = new KeymapDB();
@@ -78,7 +80,7 @@ const LayoutCard = (props) => {
         setColormap(deviceColormap);
       }
     } catch (e) {
-      console.error("error while fetching keymap & colormap", {
+      logger.error("error while fetching keymap & colormap", {
         error: e,
       });
       toast.error(e);

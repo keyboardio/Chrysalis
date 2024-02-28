@@ -35,6 +35,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
 import pkg from "@root/package.json";
+import logger from "@renderer/utils/Logger";
 // TODO: ipcRenderer is an Electron-specific module. There is no direct browser equivalent.
 // Consider alternative solutions for IPC in a browser environment.
 // import { ipcRenderer } from "electron";
@@ -49,8 +50,10 @@ function SystemInfo(props) {
   const [activeDevice, _] = globalContext.state.activeDevice;
 
   const [info, setInfo] = useState({});
+  const [sysInfo, setSysInfo] = useState({});
   const [viewing, setViewing] = useState(false);
-
+  const [collecting, setCollecting] = useState(false);
+  const [collected, setCollected] = useState(false);
   const { t } = useTranslation();
   const closeViewBundle = () => {
     setViewing(false);
@@ -83,7 +86,7 @@ function SystemInfo(props) {
         version: await activeDevice.version(),
       };
     }
-
+    sysInfo.logs = logger.getLogs();
     setCollecting(false);
     setCollected(true);
     setViewing(true);
@@ -94,14 +97,13 @@ function SystemInfo(props) {
     const { children, ...other } = props;
     return (
       <MuiDialogTitle
-        disableTypography
         sx={{
           margin: 0,
           padding: 2,
         }}
         {...other}
       >
-        <Typography variant="h6">{children}</Typography>
+        {children}
         <Box
           sx={{
             position: "absolute",
@@ -109,9 +111,11 @@ function SystemInfo(props) {
             top: 1,
           }}
         >
-          <Button color="primary" onClick={saveBundle}>
-            {t("systeminfo.saveBundle")}
-          </Button>
+          {false && (
+            <Button color="primary" onClick={saveBundle}>
+              {t("systeminfo.saveBundle")}
+            </Button>
+          )}
           <IconButton onClick={closeViewBundle} size="large">
             <CloseIcon />
           </IconButton>
@@ -124,7 +128,7 @@ function SystemInfo(props) {
     <Dialog open={viewing} scroll="paper" onClose={closeViewBundle} fullScreen>
       <DialogTitle>{t("systeminfo.title")}</DialogTitle>
       <DialogContent dividers>
-        <TextField disabled multiline fullWidth value={stringify(info, { maxLength: 1024 })} />
+        <TextField disabled multiline fullWidth value={stringify(sysInfo, { maxLength: 1024 })} />
       </DialogContent>
     </Dialog>
   );

@@ -15,6 +15,7 @@
  */
 
 import Focus from "@api/focus";
+import logger from "@renderer/utils/Logger";
 
 import { parseIntelHex } from "./IntelHexParser";
 
@@ -41,8 +42,8 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");
-  console.log("filecontents");
-  console.log(filecontents);
+  logger.log("filecontents");
+  logger.log(filecontents);
   const focus = new Focus();
 
   var hexAsText = enc.decode(filecontents);
@@ -61,21 +62,21 @@ const flash = async (port, filecontents) => {
             await port.open({ baudRate: 57600 });
           }
         } catch (e) {
-          console.error("Error opening port", { error: e });
+          logger.error("Error opening port", { error: e });
         }
         //open writing facilities
         const writer = await port.writable.getWriter();
         //open reading stream
         const reader = await port.readable.getReader();
         await flashDevice(writer, reader, flashData);
-        console.log("Flash done");
+        logger.log("Flash done");
         resolve();
       } catch (e) {
-        console.error("Error during flash", { error: e });
+        logger.error("Error during flash", { error: e });
         try {
           await port.close();
         } catch (err) {
-          console.error("Failed to close the port:", err);
+          logger.error("Failed to close the port:", err);
         }
 
         reject(e);
@@ -112,7 +113,7 @@ export const flashDevice = async (writer, reader, flashData) => {
     switch (state) {
       case AVR109States.UNINITIALIZED:
         if (responseString !== "CATERIN") {
-          console.log('error: unexpected RX value in state 0, waited for "CATERIN"');
+          logger.log('error: unexpected RX value in state 0, waited for "CATERIN"');
           break;
         }
 
@@ -122,7 +123,7 @@ export const flashDevice = async (writer, reader, flashData) => {
 
       case AVR109States.PROGRAMMING_MODE:
         if (!deviceRespondedOk(responseString)) {
-          console.log("error: unexpected RX value in state 1, waited for \r");
+          logger.log("error: unexpected RX value in state 1, waited for \r");
           break;
         }
 
@@ -132,7 +133,7 @@ export const flashDevice = async (writer, reader, flashData) => {
 
       case AVR109States.FLASHING_PAGE:
         if (!deviceRespondedOk(responseString)) {
-          console.log("error flashing page");
+          logger.log("error flashing page");
           break;
         }
 
@@ -150,7 +151,7 @@ export const flashDevice = async (writer, reader, flashData) => {
         break;
       case AVR109States.FLASHING_COMPLETE:
         if (!deviceRespondedOk(responseString)) {
-          console.log("NACK");
+          logger.log("NACK");
           break;
         }
 
@@ -159,7 +160,7 @@ export const flashDevice = async (writer, reader, flashData) => {
         break;
       case AVR109States.LEFT_PROGRAMMING_MODE:
         if (!deviceRespondedOk(responseString)) {
-          console.log("NACK");
+          logger.log("NACK");
           break;
         }
         state = AVR109States.COMPLETE;
@@ -167,7 +168,7 @@ export const flashDevice = async (writer, reader, flashData) => {
 
         break;
       default:
-        console.log("error: unknown state");
+        logger.log("error: unknown state");
         break;
     }
   }
@@ -204,10 +205,10 @@ const writeToDevice = async (writer, data) => {
 };
 
 export const rebootToApplicationMode = async (writer, reader) => {
-  console.log("Exiting bootloader");
+  logger.log("Exiting bootloader");
   //finish flashing and exit bootloader
   await sendCommand(writer, AVR109_CMD_EXIT_BOOTLOADER);
-  console.log("finished!");
+  logger.log("finished!");
   reader.cancel();
 };
 

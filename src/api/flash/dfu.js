@@ -17,6 +17,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+import logger from "@renderer/utils/Logger";
 
 const DFUDeviceState = {
   appIDLE: 0, // Device is running its normal application.
@@ -219,9 +220,9 @@ class DFUUSBDevice {
 
   logProgress(done, total) {
     if (typeof total === "undefined") {
-      console.log(done);
+      logger.log(done);
     } else {
-      console.log(`${done}/${total}`);
+      logger.log(`${done}/${total}`);
     }
   }
 
@@ -244,7 +245,7 @@ class DFUUSBDevice {
         await this.device_.selectAlternateInterface(intfNumber, altSetting);
       } catch (error) {
         if (intf.alternate.alternateSetting == altSetting && error.endsWith("Unable to set device interface.")) {
-          console.warn(`Redundant SET_INTERFACE request to select altSetting ${altSetting} failed`);
+          logger.warn(`Redundant SET_INTERFACE request to select altSetting ${altSetting} failed`);
         } else {
           throw error;
         }
@@ -256,7 +257,7 @@ class DFUUSBDevice {
     try {
       await this.device_.close();
     } catch (error) {
-      console.log(error);
+      logger.log(error);
     }
   }
 
@@ -291,7 +292,7 @@ class DFUUSBDevice {
       }
     } catch (error) {
       // Handle or log the error as needed
-      console.error("Error reading DFU descriptor: ", error);
+      logger.error("Error reading DFU descriptor: ", error);
       return {};
     }
   }
@@ -383,7 +384,7 @@ class DFUUSBDevice {
       try {
         strings[index] = await this.readStringDescriptor(index, 0x0409);
       } catch (error) {
-        console.log(error);
+        logger.log(error);
         strings[index] = null;
       }
     }
@@ -405,9 +406,9 @@ class DFUUSBDevice {
     if (interfaces.some((intf) => intf.name == null)) {
       // Manually retrieve the interface name string descriptors
       const tempDevice = new DFUUSBDevice(this.device_, interfaces[0]);
-      console.log(this);
-      console.log(interfaces);
-      console.log(tempDevice);
+      logger.log(this);
+      logger.log(interfaces);
+      logger.log(tempDevice);
       await tempDevice.device_.open();
       await tempDevice.device_.selectConfiguration(1);
       const mapping = await tempDevice.readInterfaceNames();
@@ -604,7 +605,7 @@ class DFUUSBDevice {
     const blocks = [];
     let bytes_read = 0;
 
-    console.log("Copying data from DFU device to browser");
+    logger.log("Copying data from DFU device to browser");
     // Initialize progress to 0
     this.logProgress(0);
 
@@ -613,7 +614,7 @@ class DFUUSBDevice {
     do {
       bytes_to_read = Math.min(xfer_size, max_size - bytes_read);
       result = await this._uploadBytes(bytes_to_read, transaction++);
-      console.debug("Read " + result.byteLength + " bytes");
+      logger.debug("Read " + result.byteLength + " bytes");
       if (result.byteLength > 0) {
         blocks.push(result);
         bytes_read += result.byteLength;
@@ -629,7 +630,7 @@ class DFUUSBDevice {
       await this._abortToIdle();
     }
 
-    console.log(`Read ${bytes_read} bytes`);
+    logger.log(`Read ${bytes_read} bytes`);
 
     return new Blob(blocks, { type: "application/octet-stream" });
   }
@@ -640,7 +641,7 @@ class DFUUSBDevice {
     const device = this;
     function async_sleep(duration_ms) {
       return new Promise(function (resolve, reject) {
-        console.debug("Sleeping for " + duration_ms + "ms");
+        logger.debug("Sleeping for " + duration_ms + "ms");
         setTimeout(resolve, duration_ms);
       });
     }
@@ -662,9 +663,9 @@ class DFUUSBDevice {
     const expected_size = data.byteLength;
     let transaction = 0;
 
-    console.log("Copying data from browser to DFU device");
-    console.log("Expected size", expected_size);
-    console.log(data);
+    logger.log("Copying data from browser to DFU device");
+    logger.log("Expected size", expected_size);
+    logger.log(data);
 
     // Initialize progress to 0
     this.logProgress(bytes_sent, expected_size);
@@ -677,7 +678,7 @@ class DFUUSBDevice {
       let dfu_status;
       try {
         bytes_written = await this._downloadBytes(data.slice(bytes_sent, bytes_sent + chunk_size), transaction++);
-        console.debug("Sent " + bytes_written + " bytes");
+        logger.debug("Sent " + bytes_written + " bytes");
         dfu_status = await this._poll_until_idle(DFUDeviceState.dfuDNLOAD_IDLE);
       } catch (error) {
         throw "Error during DFU download: " + error;
@@ -687,23 +688,23 @@ class DFUUSBDevice {
         throw `DFU DOWNLOAD failed state=${dfu_status.state}, status=${dfu_status.status}`;
       }
 
-      console.debug("Wrote " + bytes_written + " bytes");
+      logger.debug("Wrote " + bytes_written + " bytes");
       bytes_sent += bytes_written;
 
       this.logProgress(bytes_sent, expected_size);
     }
 
-    console.debug("Sending empty block");
+    logger.debug("Sending empty block");
     try {
       await this._downloadBytes(new ArrayBuffer([]), transaction++);
     } catch (error) {
       throw "Error during final DFU download: " + error;
     }
 
-    console.log("Wrote " + bytes_sent + " bytes. Manifesting new firmware.");
+    logger.log("Wrote " + bytes_sent + " bytes. Manifesting new firmware.");
 
     if (manifestationTolerant) {
-      console.log("Manifestation tolerant");
+      logger.log("Manifestation tolerant");
       // Transition to MANIFEST_SYNC state
       let dfu_status;
       try {
@@ -713,7 +714,7 @@ class DFUUSBDevice {
           (state) => state == DFUDeviceState.dfuIDLE || state == DFUDeviceState.dfuMANIFEST_WAIT_RESET
         );
         if (dfu_status.state == DFUDeviceState.dfuMANIFEST_WAIT_RESET) {
-          console.debug("Device transitioned to MANIFEST_WAIT_RESET even though it is manifestation tolerant");
+          logger.debug("Device transitioned to MANIFEST_WAIT_RESET even though it is manifestation tolerant");
         }
         if (dfu_status.status != DFUDeviceStatus.OK) {
           throw `DFU MANIFEST failed state=${dfu_status.state}, status=${dfu_status.status}`;
@@ -723,19 +724,19 @@ class DFUUSBDevice {
           error.endsWith("ControlTransferIn failed: NotFoundError: Device unavailable.") ||
           error.endsWith("ControlTransferIn failed: NotFoundError: The device was disconnected.")
         ) {
-          console.warn("Unable to poll final manifestation status");
+          logger.warn("Unable to poll final manifestation status");
         } else {
           throw "Error during DFU manifest: " + error;
         }
       }
     } else {
-      console.log("manifestation not tolerant");
+      logger.log("manifestation not tolerant");
       // Try polling once to initiate manifestation
       try {
         const final_status = await this.getStatus();
-        console.debug(`Final DFU status: state=${final_status.state}, status=${final_status.status}`);
+        logger.debug(`Final DFU status: state=${final_status.state}, status=${final_status.status}`);
       } catch (error) {
-        console.debug("Manifest GET_STATUS poll error: " + error);
+        logger.debug("Manifest GET_STATUS poll error: " + error);
       }
     }
 
@@ -746,16 +747,16 @@ class DFUUSBDevice {
 
   async resetToApplicationMode() {
     try {
-      console.log("Attempting a device reset");
+      logger.log("Attempting a device reset");
       await this.device_.reset();
-      console.log("Done waiting;");
+      logger.log("Done waiting;");
     } catch (error) {
       if (
         error == "NetworkError: Unable to reset the device." ||
         error == "NotFoundError: Device unavailable." ||
         error == "NotFoundError: The device was disconnected."
       ) {
-        console.debug("Ignored reset error ", error);
+        logger.debug("Ignored reset error ", error);
       } else {
         throw "Error during reset for manifestation: " + error;
       }

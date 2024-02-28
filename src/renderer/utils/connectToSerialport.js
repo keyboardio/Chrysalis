@@ -16,6 +16,7 @@
 
 import Focus from "@api/focus";
 import { Hardware, supportedDeviceVIDPIDs } from "@api/hardware";
+import logger from "@renderer/utils/Logger";
 
 // returns a promise that resolves to a Focus object
 export const connectToSerialport = async () => {
@@ -30,7 +31,7 @@ export const connectToSerialport = async () => {
         });
       } catch (e) {
         if (!serialPort) {
-          console.error(
+          logger.error(
             "I couldn't connect to your keyboard's serial port. That might be because another program or browser window is already connected.",
             e
           );
@@ -49,7 +50,7 @@ export const connectToSerialport = async () => {
   await openPort();
 
   if (!serialPort) {
-    console.log("The user didn't select a serialport");
+    logger.log("The user didn't select a serialport");
     return;
   }
   const info = serialPort.getInfo();
@@ -62,12 +63,12 @@ export const connectToSerialport = async () => {
     let bootloader = false;
     if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
       found = true;
-      console.log("Found a keyboard", hw);
+      logger.log("Found a keyboard", hw);
       focus.open(serialPort, hw);
     } else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
       found = true;
       bootloader = true;
-      console.log("Found a keyboard bootloader", hw);
+      logger.log("Found a keyboard bootloader", hw);
 
       focus.open(serialPort, hw);
     }

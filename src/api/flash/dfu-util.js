@@ -17,6 +17,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+import logger from "@renderer/utils/Logger";
 
 import { DFUDeviceState, DFUUSBDevice, DFUDescriptorType, DFU } from "./dfu";
 var device = null;
@@ -74,7 +75,7 @@ var device = null;
         }
         fromLandingPage = true;
       } catch (error) {
-        console.log("Bad VID " + vidString + ":" + error);
+        logger.log("Bad VID " + vidString + ":" + error);
       }
     }
 
@@ -99,16 +100,16 @@ var device = null;
     async function fetchSelectedFirmware() {
       const firmwareVersion = firmwareVersionSelect.options[firmwareVersionSelect.selectedIndex].value;
 
-      console.log("Firmware filename is ", firmwareVersion);
+      logger.log("Firmware filename is ", firmwareVersion);
       const response = await fetch("firmware/" + firmwareVersion + "/Keyboardio/Model100/default.bin");
       const firmware = await response.arrayBuffer();
-      console.log(firmware);
+      logger.log(firmware);
       return firmware;
     }
     //let device;
 
     function onDisconnect(reason) {
-      console.log("Disconnected: " + reason);
+      logger.log("Disconnected: " + reason);
     }
 
     function onUnexpectedDisconnect(event) {
@@ -131,7 +132,7 @@ var device = null;
             await device.waitDisconnected(5000);
             detached = true;
           } catch (err) {
-            console.log("Detach failed: " + err);
+            logger.log("Detach failed: " + err);
           }
 
           onDisconnect();
@@ -160,15 +161,15 @@ var device = null;
         });
 
         if (matching_devices.length === 0) {
-          console.log("No device found.");
+          logger.log("No device found.");
         } else {
           if (matching_devices.length === 1) {
-            console.log("Connecting");
+            logger.log("Connecting");
             device = matching_devices[0];
-            console.log(device);
+            logger.log(device);
             device = await connect(device);
           } else {
-            console.log("Multiple DFU interfaces found.");
+            logger.log("Multiple DFU interfaces found.");
           }
 
           vid = matching_devices[0].device_.vendorId;
@@ -196,15 +197,15 @@ var device = null;
 
           const selectedDevice = await navigator.usb.requestDevice({ filters });
           const interfaces = DFU.findDeviceDfuInterfaces(selectedDevice);
-          console.log(selectedDevice.productId);
+          logger.log(selectedDevice.productId);
 
           if (selectedDevice.productId === 0x0006) {
-            console.log(selectedDevice);
+            logger.log(selectedDevice);
             document.getElementById("found-device-need-bootloader").set;
             statusDisplay.textContent = "Your Model 100 is in keyboard mode";
           } else if (interfaces.length === 0) {
-            console.log(selectedDevice);
-            console.log("The selected device does not have any USB DFU interfaces.");
+            logger.log(selectedDevice);
+            logger.log("The selected device does not have any USB DFU interfaces.");
           } else {
             await fixInterfaceNames(selectedDevice, interfaces);
 
@@ -248,19 +249,19 @@ var device = null;
                 onDisconnect();
                 device = null;
               } catch (error) {
-                console.log("Device unexpectedly tolerated manifestation.");
+                logger.log("Device unexpectedly tolerated manifestation.");
               }
             } else {
               detach();
             }
           } catch (error) {
-            console.error(error);
+            logger.error(error);
           }
         } catch (error) {
-          console.error("Failed to clear status");
+          logger.error("Failed to clear status");
         }
       } else {
-        console.log("No device or firmware file", device, firmwareFile);
+        logger.log("No device or firmware file", device, firmwareFile);
       }
     };
 

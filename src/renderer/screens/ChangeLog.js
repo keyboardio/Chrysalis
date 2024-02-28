@@ -9,6 +9,7 @@ import pkg from "@root/package.json";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
+import logger from "@renderer/utils/Logger";
 
 const version = pkg.version;
 
@@ -28,7 +29,7 @@ const ChangeLog = (props) => {
         setData(text);
       })
       .catch((error) => {
-        console.error("An error occurred while fetching the changelog:", error);
+        logger.error("An error occurred while fetching the changelog:", error);
       });
   }, []);
 

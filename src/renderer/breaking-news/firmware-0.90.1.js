@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { BreakingNews } from "@renderer/components/BreakingNews";
+import logger from "@renderer/utils/Logger";
 
 export const Firmware0_90_1 = (props) => {
   const globalContext = React.useContext(GlobalContext);
@@ -31,8 +32,8 @@ export const Firmware0_90_1 = (props) => {
 
   const { t } = useTranslation();
   const trn = (key) => t(`breakingNews.firmware0_90_1.${key}`);
-  console.log(props);
-  console.log(activeDevice);
+  logger.log(props);
+  logger.log(activeDevice);
 
   const hasModel100 =
     activeDevice?.focusDeviceDescriptor?.info?.vendor == "Keyboardio" &&

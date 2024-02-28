@@ -20,6 +20,7 @@ import { Base } from "./db/base";
 import { USQwerty } from "./db/base";
 import { constants } from "./db/constants";
 import { withModifiers } from "./db/modifiers";
+import logger from "@renderer/utils/Logger";
 
 import enLangMap from "./cldr_languages/en";
 import nlLangMap from "./cldr_languages/nl";
@@ -173,10 +174,10 @@ class KeymapDB {
   }
   selectCategory(category) {
     const cdb = [];
-    console.log("in sleectCategory");
-    console.log("category", category);
+    logger.log("in sleectCategory");
+    logger.log("category", category);
 
-    console.log("this._codetable", this._codetable);
+    logger.log("this._codetable", this._codetable);
 
     for (const k of this._codetable) {
       if (k?.categories?.includes(category)) {

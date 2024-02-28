@@ -19,6 +19,7 @@ import { ipcRenderer } from "electron";
 import Store from "@renderer/localStore";
 import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
+import logger from "@renderer/utils/Logger";
 
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { toast } from "@renderer/components/Toast";
@@ -34,7 +35,7 @@ export const useFirmwareAutoUpdate = () => {
     const settings = new Store();
 
     const onUpdateAvailable = (event, info) => {
-      console.info("Update available", {
+      logger.info("Update available", {
         updateInfo: info,
         label: "firmware-update",
       });
@@ -46,7 +47,7 @@ export const useFirmwareAutoUpdate = () => {
       toast.progress(progress.percent);
     };
     const onUpdateDownloaded = (event, info) => {
-      console.debug("Update downloaded", {
+      logger.debug("Update downloaded", {
         updateInfo: info,
         label: "firmware-update",
       });
@@ -54,7 +55,7 @@ export const useFirmwareAutoUpdate = () => {
       setFirmwareUpdateWarning(false);
     };
     const onUpdateError = (event, error) => {
-      console.error("Update error", {
+      logger.error("Update error", {
         error: error,
         label: "firmware-update",
       });
@@ -62,7 +63,7 @@ export const useFirmwareAutoUpdate = () => {
       setFirmwareUpdateWarning(true);
     };
     const onUpdateWarning = (event, error) => {
-      console.warn("Update warning", {
+      logger.warn("Update warning", {
         warning: error,
         label: "firmware-update",
       });

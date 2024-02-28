@@ -32,8 +32,9 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Recent updates
 
+- "Report an issue" now provides system logs for reports
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 
 ## Last Updated
 
-Feb 25, 2024
+Feb 28, 2024

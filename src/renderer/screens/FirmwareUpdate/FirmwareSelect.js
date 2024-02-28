@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
+import logger from "@renderer/utils/Logger";
 
 import yaml from "js-yaml";
 
@@ -20,7 +21,7 @@ async function loadYamlFile(url) {
     const data = yaml.load(text);
     return data;
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     return null;
   }
 }
@@ -48,7 +49,7 @@ const FirmwareSelect = (props) => {
         const yamlData = yaml.load(text);
         return yamlData ? yamlData.version : null;
       } catch (e) {
-        console.error(e);
+        logger.error(e);
         return null;
       }
     };
@@ -65,7 +66,7 @@ const FirmwareSelect = (props) => {
         const text = await response.text();
         return text;
       } catch (e) {
-        console.error(e);
+        logger.error(e);
         return null;
       }
     };
@@ -85,13 +86,13 @@ const FirmwareSelect = (props) => {
       const blob = await response.blob();
       setFirmwareFilename(blob);
     } catch (error) {
-      console.error("An error occurred while downloading the firmware:", error);
+      logger.error("An error occurred while downloading the firmware:", error);
     }
   };
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    console.log("Handling file upload: ", file);
+    logger.log("Handling file upload: ", file);
     setFirmwareFilename(file.name);
 
     const reader = new FileReader();

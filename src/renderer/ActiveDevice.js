@@ -23,6 +23,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AVR109Flasher } from "@api/flash/AVR109Flasher";
 import { WebDFUFlasher } from "@api/flash/WebDFUFlasher";
 import { t } from "i18next";
+import logger from "@renderer/utils/Logger";
 
 export function ActiveDevice() {
   this.port = undefined;
@@ -130,7 +131,7 @@ export function ActiveDevice() {
     if (newValue !== undefined) {
       if (isEqual(newValue, this._cache[command])) {
         // If the values are the same, don't bother sending it to the device.
-        console.debug("Not sending a value that matches what's on the device");
+        logger.debug("Not sending a value that matches what's on the device");
         return cloneDeep(this._cache[command]);
       }
 
@@ -139,9 +140,9 @@ export function ActiveDevice() {
     }
     if (!(command in this._cache)) {
       this._cache[command] = await this.focus.command(command);
-      console.log("Got a previosuly uncached value", [this._cache[command]]);
+      logger.log("Got a previosuly uncached value", [this._cache[command]]);
     }
-    console.log("Returning a cached value for " + command + ":", this._cache[command]);
+    logger.log("Returning a cached value for " + command);
     return cloneDeep(this._cache[command]);
   };
 
@@ -229,7 +230,7 @@ export function ActiveDevice() {
       this.focusDeviceDescriptor().info.product +
       Date.now() +
       uuidv4();
-    console.debug("Writing structured EEPROM data to session storage", {
+    logger.debug("Writing structured EEPROM data to session storage", {
       key: key,
       eeprom: structured_dump,
     });
@@ -240,7 +241,7 @@ export function ActiveDevice() {
   this.restoreEEPROM = async (saveKey) => {
     const structured_dump = JSON.parse(sessionStorage.getItem(saveKey));
 
-    console.debug("Restoring structured EEPROM data from session storage", {
+    logger.debug("Restoring structured EEPROM data from session storage", {
       key: saveKey,
       eeprom: structured_dump,
     });

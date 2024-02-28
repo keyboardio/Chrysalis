@@ -26,6 +26,5 @@ export const hideContextBar = () => {
 };
 
 export const contextBarChangesDiscarded = () => {
-  console.debug("posting a changes-discarded message");
   context_bar_channel.postMessage("changes-discarded");
 };

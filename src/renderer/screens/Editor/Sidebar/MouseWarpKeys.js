@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
-import KeyButton from "../components/KeyButton";
 import KeymapDB from "@api/focus/keymap/db";
-import Grid from "@mui/material/Grid";
-import FKPCategorySelector from "../components/FKPCategorySelector";
 import { constants } from "@api/focus/keymap/db/constants";
+import Grid from "@mui/material/Grid";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState } from "react";
+import FKPCategorySelector from "../components/FKPCategorySelector";
+import KeyButton from "../components/KeyButton";
+
 export const MouseWarpKeys = (props) => {
   const [gridSize, setGridSize] = useState(undefined);
   const db = new KeymapDB();

@@ -20,19 +20,18 @@ import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
-import { ipcRenderer } from "electron";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import logger from "@renderer/utils/Logger";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import logger from "@renderer/utils/Logger";
 
 export const BackupImport = (props) => {
   const { t } = useTranslation();
 
   const [activeDevice] = useContext(GlobalContext).state.activeDevice;
   const deviceDescriptor = activeDevice.focusDeviceDescriptor();
-
+  /*
   const library = ipcRenderer.sendSync("backups.list-library", deviceDescriptor.info);
   const selectBackupItem = (item) => () => {
     const [layoutFileData, error] = ipcRenderer.sendSync("backups.load-file", deviceDescriptor.info, item);
@@ -50,7 +49,7 @@ export const BackupImport = (props) => {
     const layoutData = loadLayout("$userData/" + item, layoutFileData);
     if (layoutData != null) props.setLayout(item, layoutData);
   };
-
+*/
   const formatName = (name) => {
     const ts = new Date(parseInt(name));
 

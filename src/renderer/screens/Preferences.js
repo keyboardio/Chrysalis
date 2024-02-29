@@ -22,9 +22,9 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
+import { UserInterfacePreferences } from "./Preferences/UserInterface";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

@@ -16,18 +16,17 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import { GuiLabel } from "@api/focus/keymap/db/gui";
 import { addDualUseLayer, addDualUseModifier } from "@api/focus/keymap/db/base";
+import { GuiLabel } from "@api/focus/keymap/db/gui";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Tooltip from "@mui/material/Tooltip";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-import { Typography } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
 const db = new KeymapDB();
 
 const SecondaryFunction = (props) => {

@@ -14,9 +14,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { withModifiers } from "./modifiers";
-import { GuiLabel } from "./gui";
 import { constants } from "./constants";
+import { GuiLabel } from "./gui";
+import { withModifiers } from "./modifiers";
 
 const assignKeysToCategory = (categories, keys) => {
   const newKeys = [];
@@ -617,4 +617,4 @@ const Base = {
   layout: key_layout_104key,
 };
 
-export { Base, USQwerty, addDualUseModifier, addDualUseLayer };
+export { Base, USQwerty, addDualUseLayer, addDualUseModifier };

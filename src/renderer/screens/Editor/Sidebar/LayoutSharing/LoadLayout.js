@@ -1,8 +1,7 @@
 import KeymapDB from "@api/focus/keymap/db";
-import logger from "@renderer/utils/Logger";
-
-import { t } from "i18next";
 import { toast } from "@renderer/components/Toast";
+import logger from "@renderer/utils/Logger";
+import { t } from "i18next";
 
 const db = new KeymapDB();
 

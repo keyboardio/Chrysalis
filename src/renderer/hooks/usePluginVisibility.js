@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { useEffect, useContext, useState } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-
 import { Store } from "@renderer/localStore";
+import { useContext, useEffect, useState } from "react";
+
 const settings = new Store();
 
 export default function usePluginVisibility(plugin) {

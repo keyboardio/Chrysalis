@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import English from "@renderer/i18n/en";
 import Dutch from "@renderer/i18n/nl";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 const resources = {
   en: {

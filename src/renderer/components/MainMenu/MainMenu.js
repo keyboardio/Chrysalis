@@ -17,7 +17,6 @@
 
 import ChatIcon from "@mui/icons-material/Chat";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import ListIcon from "@mui/icons-material/List";

@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import logger from "@renderer/utils/Logger";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
-import logger from "@renderer/utils/Logger";
 
 export const FileImport = (props) => {
   const { t } = useTranslation();

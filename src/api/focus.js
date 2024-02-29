@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import logger from "@renderer/utils/Logger";
 import Colormap from "./focus/colormap";
-import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
-import logger from "@renderer/utils/Logger";
+import Macros from "./focus/macros";
 
 global.chrysalis_focus_instance = null;
 

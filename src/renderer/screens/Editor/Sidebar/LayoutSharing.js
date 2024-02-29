@@ -15,22 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-
 import { t } from "i18next";
-import React, { useContext, useState, useEffect } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
 import { ExportToFile } from "./LayoutSharing/ExportToFile";
 import { FileImport } from "./LayoutSharing/FileImport";
 import { LibraryImport } from "./LayoutSharing/LibraryImport";

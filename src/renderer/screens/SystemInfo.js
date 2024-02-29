@@ -32,10 +32,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
-import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
-import pkg from "@root/package.json";
 import logger from "@renderer/utils/Logger";
+import pkg from "@root/package.json";
 // TODO: ipcRenderer is an Electron-specific module. There is no direct browser equivalent.
 // Consider alternative solutions for IPC in a browser environment.
 // import { ipcRenderer } from "electron";

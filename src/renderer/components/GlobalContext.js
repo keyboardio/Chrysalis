@@ -16,7 +16,6 @@
  */
 
 import React, { createContext, useState, useEffect } from "react";
-import { Logger } from "@renderer/utils/Logger"; // Assuming Logger class is exported from Logger.js
 
 export const GlobalContext = createContext();
 

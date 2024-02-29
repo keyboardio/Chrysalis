@@ -17,7 +17,6 @@
 
 import { RebootMessage } from "@api/flash";
 import Focus from "@api/focus";
-
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Alert from "@mui/material/Alert";
@@ -33,10 +32,12 @@ import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
+import logger from "@renderer/utils/Logger";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connectToSerialport } from "../utils/connectToSerialport";
 import { connectToDfuUsbPort } from "../utils/connectToDfuUsbPort";
+import { connectToSerialport } from "../utils/connectToSerialport";
+import exportKeyboardConfigToFile from "../utils/exportKeyboardConfigToFile";
 import BootloaderWarning from "./FirmwareUpdate/BootloaderWarning";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FirmwareUpdateWarning from "./FirmwareUpdate/FirmwareUpdateWarning";
@@ -44,8 +45,6 @@ import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
-import logger from "@renderer/utils/Logger";
-import exportKeyboardConfigToFile from "../utils/exportKeyboardConfigToFile";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 

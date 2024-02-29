@@ -17,8 +17,12 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
+import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -28,19 +32,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
+import Draggable from "react-draggable";
 import { useTranslation } from "react-i18next";
 import { LayerNameInput } from "./LayerNameInput";
-import Card from "@mui/material/Card";
-import Draggable from "react-draggable";
-import CardContent from "@mui/material/CardContent";
-import React, { useState, useEffect } from "react";
-import { Icon, IconButton } from "@mui/material";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Resizable } from "re-resizable";
+
 const Overview = (props) => {
   const { t } = useTranslation();
 

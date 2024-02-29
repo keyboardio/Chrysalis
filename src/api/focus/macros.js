@@ -399,4 +399,4 @@ const Macros = function () {
   return this;
 };
 
-export { Macros as default, Step };
+export { Step, Macros as default };

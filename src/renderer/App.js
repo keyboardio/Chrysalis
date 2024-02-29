@@ -21,7 +21,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material/styles";
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -38,14 +38,14 @@ import ChangeLog from "./screens/ChangeLog";
 import Editor from "./screens/Editor";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import FocusNotDetected from "./screens/FocusNotDetected";
+import ImportExport from "./screens/ImportExport";
 import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
-import ImportExport from "./screens/ImportExport";
 
-import logger from "@renderer/utils/Logger";
 import { Store } from "@renderer/localStore";
+import logger from "@renderer/utils/Logger";
 const settings = new Store();
 
 const App = (props) => {

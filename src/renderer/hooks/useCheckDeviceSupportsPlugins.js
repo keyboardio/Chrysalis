@@ -15,8 +15,7 @@
  */
 
 import { GlobalContext } from "@renderer/components/GlobalContext";
-
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const useCheckDeviceSupportsPlugins = (desiredPlugins) => {
   const globalContext = useContext(GlobalContext);

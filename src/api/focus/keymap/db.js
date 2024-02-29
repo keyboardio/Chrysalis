@@ -14,13 +14,12 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import logger from "@renderer/utils/Logger";
 import i18n from "i18next";
 import cldr_data from "./cldr_data";
-import { Base } from "./db/base";
-import { USQwerty } from "./db/base";
+import { Base, USQwerty } from "./db/base";
 import { constants } from "./db/constants";
 import { withModifiers } from "./db/modifiers";
-import logger from "@renderer/utils/Logger";
 
 import enLangMap from "./cldr_languages/en";
 import nlLangMap from "./cldr_languages/nl";

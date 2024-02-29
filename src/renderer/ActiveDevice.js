@@ -22,7 +22,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AVR109Flasher } from "@api/flash/AVR109Flasher";
 import { WebDFUFlasher } from "@api/flash/WebDFUFlasher";
-import { t } from "i18next";
 import logger from "@renderer/utils/Logger";
 
 export function ActiveDevice() {

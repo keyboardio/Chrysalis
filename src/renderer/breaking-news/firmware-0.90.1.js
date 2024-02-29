@@ -18,10 +18,10 @@
 import AlertTitle from "@mui/material/AlertTitle";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import openURL from "@renderer/utils/openURL";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { BreakingNews } from "@renderer/components/BreakingNews";
 import logger from "@renderer/utils/Logger";

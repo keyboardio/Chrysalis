@@ -1,6 +1,6 @@
 import InputBase from "@mui/material/InputBase";
-import React from "react";
 import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
+import React from "react";
 
 export const LayerNameInput = (props) => {
   const [loaded, plugins] = useCheckDeviceSupportsPlugins(["LayerNames"]);

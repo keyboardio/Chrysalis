@@ -139,4 +139,4 @@ class OnlyCustom {
   }
 }
 
-export { Keymap as default, OnlyCustom };
+export { OnlyCustom, Keymap as default };

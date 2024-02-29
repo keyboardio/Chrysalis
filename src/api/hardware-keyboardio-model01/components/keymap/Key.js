@@ -16,8 +16,8 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import React from "react";
 import useTheme from "@mui/material/styles/useTheme";
+import React from "react";
 
 const db = new KeymapDB();
 

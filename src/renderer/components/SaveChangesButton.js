@@ -20,10 +20,10 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
-import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import i18n from "@renderer/i18n";
 import React from "react";
-import Typography from "@mui/material/Typography";
+
 const SaveChangesButton = (props) => {
   const [inProgress, setInProgress] = React.useState(false);
   const [success, setSuccess] = React.useState(false);

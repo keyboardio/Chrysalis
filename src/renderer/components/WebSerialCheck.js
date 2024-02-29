@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Modal from "@mui/material/Modal";
 import Alert from "@mui/material/Alert";
+import Modal from "@mui/material/Modal";
+import React, { useState } from "react";
 const webSerialSupported = !!navigator.serial;
 
 export const WebSerialCheck = () => {

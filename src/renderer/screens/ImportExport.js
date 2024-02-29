@@ -17,10 +17,7 @@
 
 import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
-import Macros, { Step as MacroStep } from "@api/focus/macros";
 import LayerNames from "@api/focus/layernames";
-import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
 import { hideContextBar, showContextBar } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -29,15 +26,11 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
+import logger from "@renderer/utils/Logger";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { KeyPicker } from "./Editor/components/KeyPicker";
-import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
-import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
-import Overview from "./Editor/Sidebar/Overview";
-
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
-import logger from "@renderer/utils/Logger";
+import Overview from "./Editor/Sidebar/Overview";
 
 const db = new KeymapDB();
 

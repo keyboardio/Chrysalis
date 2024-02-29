@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import exportKeyboardConfigToFile from "@renderer/utils/exportKeyboardConfigToFile";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import exportKeyboardConfigToFile from "@renderer/utils/exportKeyboardConfigToFile";
-import { GlobalContext } from "@renderer/components/GlobalContext";
 
 export const ExportToFile = (props) => {
   const { t } = useTranslation();

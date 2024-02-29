@@ -16,26 +16,25 @@
  */
 
 import Focus from "@api/focus";
-import logger from "@renderer/utils/Logger";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
+import { Firmware0_90_1 } from "@renderer/breaking-news";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
+import { WebSerialCheck } from "@renderer/components/WebSerialCheck";
 import logo from "@renderer/logo-small.png";
+import logger from "@renderer/utils/Logger";
 import { connectToSerialport } from "@renderer/utils/connectToSerialport";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { ProductStatus } from "./KeyboardSelect/ProductStatus";
-import { Firmware0_90_1 } from "@renderer/breaking-news";
-import { WebSerialCheck } from "@renderer/components/WebSerialCheck";
 
 const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);

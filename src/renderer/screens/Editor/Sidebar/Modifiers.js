@@ -25,6 +25,7 @@ import Switch from "@mui/material/Switch";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
+
 const db = new KeymapDB();
 
 const Modifiers = (props) => {

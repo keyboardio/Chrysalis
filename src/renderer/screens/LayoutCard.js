@@ -16,20 +16,20 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import PrintIcon from "@mui/icons-material/Print";
+import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
-import React, { useState, useEffect, useContext } from "react";
-import { useTranslation } from "react-i18next";
 import { Store } from "@renderer/localStore";
 import logger from "@renderer/utils/Logger";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const settings = new Store();
 

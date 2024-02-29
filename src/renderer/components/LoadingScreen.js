@@ -18,9 +18,10 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
+import logo from "images/logo.png";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import logo from "images/logo.png";
+
 function LoadingScreen(props) {
   const spin = keyframes`
   from {

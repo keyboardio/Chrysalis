@@ -1,3 +1,4 @@
+import KeymapDB from "@api/focus/keymap/db";
 import { addModifier, removeModifier } from "@api/focus/keymap/db/modifiers";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -8,7 +9,6 @@ import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-import KeymapDB from "@api/focus/keymap/db";
 
 const db = new KeymapDB();
 

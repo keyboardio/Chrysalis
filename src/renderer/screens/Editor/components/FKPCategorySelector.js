@@ -16,13 +16,14 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import { SectionTitle } from "@renderer/components/SectionTitle";
-import React from "react";
-import KeyButtonList from "../components/KeyButtonList";
 import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
-import { useTranslation } from "react-i18next";
+import { SectionTitle } from "@renderer/components/SectionTitle";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import KeyButtonList from "../components/KeyButtonList";
+
 const db = new KeymapDB();
 
 const FKPCategorySelector = (props) => {

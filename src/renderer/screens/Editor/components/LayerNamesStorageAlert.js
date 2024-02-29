@@ -15,14 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
+import LayerNames from "@api/focus/layernames";
 import DiscFullIcon from "@mui/icons-material/DiscFull";
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useTranslation } from "react-i18next";
-
-import LayerNames from "@api/focus/layernames";
 
 export const LayerNamesStorageAlert = (props) => {
   const { t } = useTranslation();

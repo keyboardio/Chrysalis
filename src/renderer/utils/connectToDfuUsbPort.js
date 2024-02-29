@@ -1,4 +1,4 @@
-import { Hardware, getDfuDevices } from "@api/hardware";
+import { getDfuDevices } from "@api/hardware";
 import logger from "@renderer/utils/Logger";
 
 const connectToDfuUsbPort = async () => {

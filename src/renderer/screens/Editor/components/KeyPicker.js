@@ -15,31 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import KeymapDB from "@api/focus/keymap/db";
+import { constants } from "@api/focus/keymap/db/constants";
 import TabContext from "@mui/lab/TabContext";
-import Stack from "@mui/material/Stack";
-import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
-import { useWindowSize } from "@renderer/hooks/useWindowSize";
-import React, { useState, useEffect } from "react";
-import Keyboard104 from "../Keyboard104";
-import { MouseWarpKeys } from "../Sidebar/MouseWarpKeys";
-import DynamicMacroKeys from "../Sidebar/DynamicMacroKeys";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
-import KeymapDB from "@api/focus/keymap/db";
-import KeyButton from "../components/KeyButton";
-import VerticalSectionDivider from "./VerticalSectionDivider";
+import { useWindowSize } from "@renderer/hooks/useWindowSize";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import Keyboard104 from "../Keyboard104";
 import Colormap from "../Sidebar/Colormap";
+import DynamicMacroKeys from "../Sidebar/DynamicMacroKeys";
 import LayerKeys from "../Sidebar/LayerKeys";
-import SecondaryFunction from "../Sidebar/SecondaryFunction";
 import Modifiers from "../Sidebar/Modifiers";
+import { MouseWarpKeys } from "../Sidebar/MouseWarpKeys";
+import SecondaryFunction from "../Sidebar/SecondaryFunction";
 import SpecialModifiers from "../Sidebar/SpecialModifiers";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-import { useTranslation } from "react-i18next";
-import { constants } from "@api/focus/keymap/db/constants";
+import KeyButton from "../components/KeyButton";
+import VerticalSectionDivider from "./VerticalSectionDivider";
+
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const KeyPicker = (props) => {

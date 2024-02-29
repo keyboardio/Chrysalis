@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Stack from "@mui/material/Stack";
 import React from "react";
 import { ChromePicker } from "react-color";
 import { useTranslation } from "react-i18next";
-import PalettePicker from "./Colormap/PalettePicker";
 import FKPCategorySelector from "../components/FKPCategorySelector";
-import Stack from "@mui/material/Stack";
+import PalettePicker from "./Colormap/PalettePicker";
 
 const Colormap = (props) => {
   const { t } = useTranslation();

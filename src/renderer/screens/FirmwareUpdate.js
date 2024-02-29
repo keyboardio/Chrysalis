@@ -45,13 +45,14 @@ import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
 import logger from "@renderer/utils/Logger";
+import exportKeyboardConfigToFile from "../utils/exportKeyboardConfigToFile";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
   const { state } = useContext(GlobalContext);
-  const [activeDevice, setActiveDevice] = state.state.activeDevice;
+  const [activeDevice, setActiveDevice] = state.activeDevice;
 
   const [usbDevice, setUsbDevice] = useState(null);
   const [firmwareFilename, setFirmwareFilename] = useState("");
@@ -162,6 +163,7 @@ const FirmwareUpdate = (props) => {
     } else {
       logger.log("about to save eeprom");
       await onStepChange("saveEEPROM");
+      await exportKeyboardConfigToFile(activeDevice);
       const saveKey = await activeDevice.saveEEPROM();
       logger.log("Done saving eeprom");
       await onStepChange("bootloader");

@@ -32,6 +32,7 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Recent updates
 
+- Chrysalis will now back up your configuration as a download every time you update your firmware
 - "Report an issue" now provides system logs for reports
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 

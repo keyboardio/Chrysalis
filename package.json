@@ -105,8 +105,7 @@
     "remark-gfm": "^3.0.1",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
-    "uuid": "^8.3.1",
-    "whatwg-fetch": "^3.6.17"
+    "uuid": "^8.3.1"
   },
   "resolutions": {
     "cacache/y18n": "^4.0.1",

@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   // Where webpack looks to start building the bundle and include polyfill
-  entry: ["whatwg-fetch", paths.src + "/renderer/index.js"],
+  entry: [paths.src + "/renderer/index.js"],
 
   // Where webpack outputs the assets and bundles
   output: {

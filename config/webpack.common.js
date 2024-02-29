@@ -18,19 +18,6 @@ module.exports = {
   resolve: {
     //extensions: [".js", ".jsx", "json"],
     fallback: {
-      path: false,
-      fs: false,
-      os: false,
-      util: false,
-      assert: false,
-      crypto: false,
-      stream: require.resolve("stream-browserify"),
-      constants: false,
-      buffer: false,
-      https: require.resolve("https-browserify"),
-      http: require.resolve("stream-http"),
-      zlib: require.resolve("browserify-zlib"),
-      url: require.resolve("url/"),
     },
     alias: {
       "@api": path.resolve(__dirname, "../src/api"),

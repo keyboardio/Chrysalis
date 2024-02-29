@@ -46,9 +46,9 @@ class Logger {
   getCallSite() {
     const err = new Error();
     Error.captureStackTrace(err, this.getCallSite);
-    const stack = err.stack.split("\n")[3]; // Adjust this value as needed
+    const stack = err?.stack.split("\n")[3];
     // Extract and format call site from stack trace
-    return stack.trim().replace(/^at\s+/g, "");
+    return stack?.trim()?.replace(/^at\s+/g, "");
   }
 }
 

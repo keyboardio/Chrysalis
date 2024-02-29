@@ -66,8 +66,6 @@ const App = (props) => {
   const [activeDevice, setActiveDevice] = state.activeDevice;
   const [bgColor, setBgColor] = useState(null);
 
-  // TODO  useFirmwareAutoUpdate();
-
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;
     if (flashing) return;

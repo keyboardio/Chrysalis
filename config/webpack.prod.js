@@ -36,7 +36,7 @@ const config = merge(common, {
   module: {
     rules: [
       {
-        test: /\.(scss|css)$/,
+        test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -46,8 +46,6 @@ const config = merge(common, {
               sourceMap: false,
             },
           },
-          "postcss-loader",
-          "sass-loader",
         ],
       },
     ],

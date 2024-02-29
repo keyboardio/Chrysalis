@@ -82,17 +82,7 @@ const KeyboardSelect = (props) => {
       <Box sx={{ paddingBottom: 3 }}>
         <PageTitle title={t("app.menu.connectAKeyboard")} />
         <WebSerialCheck />
-        {loading && (
-          <LinearProgress
-            variant="query"
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-            }}
-          />
-        )}
+        {loading && <LinearProgress variant="query" sx={{ position: "fixed", top: 0, left: 0, right: 0 }} />}
         <Firmware0_90_1 />
         <Card
           sx={{
@@ -106,12 +96,7 @@ const KeyboardSelect = (props) => {
             padding: "2 3 3",
           }}
         >
-          <CardContent
-            sx={{
-              width: "100%",
-              px: 4,
-            }}
-          >
+          <CardContent sx={{ width: "100%", px: 4 }}>
             {focus.focusDeviceDescriptor ? (
               <DeviceImage focusDeviceDescriptor={focus.focusDeviceDescriptor} />
             ) : (

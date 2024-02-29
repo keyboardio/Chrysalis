@@ -89,7 +89,6 @@
     "@mui/material": "^5.14.3",
     "@mui/system": "^5.14.3",
     "@mui/utils": "^5.14.3",
-    "archiver": "^5.0.2",
     "assert": "^2.0.0",
     "github-markdown-css": "^5.2.0",
     "html-webpack-plugin": "^5.5.3",

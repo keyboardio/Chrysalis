@@ -1,6 +1,35 @@
+Chrysalis-Firmware-Bundle 0.92.2
+================================
+Released on 2024-02-29
+
+If on-device storage was corruported, DynamicMacros could loop 
+forever while calculating macro metadata, making the keyboard 
+unusable.
+
+Switch to a hybrid keyboard report format, which @tlyu has built
+out and several end users have tested as performing better on a
+variety of temperamental operating systems that don't support NKRO.
+
+Adjust USBQuirks to switch between always Boot Protocol and the
+hybrid report.
+
+Bugfixes for the 'Prefix Layer' functionality from iliana etaoin.
+
+A bugfix to the Stalker LED effect that keeps the LED bright 
+while a key is held from Bart Nagel.
+
+Small memory optimizations in the Macros system
+
+Internal changes which shouldn't be visible to users flashing
+updated firmware from Chrysalis.
+
+Bugfixes for ZLP flow control in serial communcations on AVR based 
+keyboards like the Model 01 and Atreusfrom Taylor Yu
+<code@argon.blue>
+
 Chrysalis-Firmware-Bundle 0.92.1
 ================================
-Unreleased
+Released 2023-12-18
 
 
 Kaleidoscope has a new "ActiveLayerKeys" plugin from Evy Bongers

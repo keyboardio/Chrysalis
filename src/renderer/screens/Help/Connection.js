@@ -22,7 +22,9 @@ const HelpConnection = () => {
   const rules = supportedDeviceVIDPIDs().map((device) => {
     return `SUBSYSTEM=="usb", ATTR{idVendor}=="${device.usbVendorId
       .toString(16)
-      .padStart(4, "0")}", ATTR{idProduct}=="${device.usbProductId.toString(16).padStart(4, "0")}", TAG+="uaccess"\n`;
+      .padStart(4, "0")}", ATTR{idProduct}=="${device.usbProductId.toString(16).padStart(4, "0")}", SYMLINK+="${
+      device.productName
+    }",  ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"\n`;
   });
   const linuxInstructions = (
     <>
@@ -34,9 +36,9 @@ const HelpConnection = () => {
         <code>udev rules</code> file.
       </p>
       <p>
-        As root, create a file called <code>50-kaleidoscope.rules</code> in the directory{" "}
-        <code>/etc/udev/rules.d/</code> with the following contents:
-        <pre>
+        As root, create a file called <code style={{ userSelect: "text" }}>50-kaleidoscope.rules</code> in the directory{" "}
+        <code style={{ userSelect: "text" }}>/etc/udev/rules.d/</code> with the following contents:
+        <pre style={{ overflow: "scroll", fontSize: "0.8em" }}>
           <code style={{ userSelect: "text" }}>{rules}</code>
         </pre>
       </p>
@@ -55,7 +57,7 @@ const HelpConnection = () => {
         <Card>
           <CardContent>
             <div dangerouslySetInnerHTML={{ __html: t("help.connection.overview") }} />
-            {isLinux && linuxInstructions}
+            {linuxInstructions}
             <h2>Getting help</h2>
             <p>
               If that doesn't work, please drop us a line at help@keyboard.io and we can help figure out what's wrong.

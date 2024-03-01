@@ -86,6 +86,7 @@ export const supportedDeviceVIDPIDs = () => {
       result.push({
         usbVendorId: device.usb.vendorId,
         usbProductId: device.usb.productId,
+        productName: device.info.product,
       });
 
       // For bootloader vid/pid pair
@@ -93,6 +94,7 @@ export const supportedDeviceVIDPIDs = () => {
         result.push({
           usbVendorId: device.usb.bootloader.vendorId,
           usbProductId: device.usb.bootloader.productId,
+          productName: device.info.product,
         });
       }
     }

@@ -28,6 +28,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import { WebSerialCheck } from "@renderer/components/WebSerialCheck";
 import logo from "@renderer/logo-small.png";
+import { navigate } from "@renderer/routerHistory";
 import logger from "@renderer/utils/Logger";
 import { connectToSerialport } from "@renderer/utils/connectToSerialport";
 import React, { useState } from "react";
@@ -71,6 +72,7 @@ const KeyboardSelect = (props) => {
         device: activeDevice,
       });
       setOpening(false);
+      await navigate("/help/connection-failed");
       toast.error(t("keyboardSelect.connectionFailed", { error: err.toString() }));
     }
   };

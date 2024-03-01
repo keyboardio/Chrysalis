@@ -43,7 +43,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
-
+import HelpConnection from "./screens/Help/Connection";
 import { Store } from "@renderer/localStore";
 import logger from "@renderer/utils/Logger";
 const settings = new Store();
@@ -264,6 +264,7 @@ const App = (props) => {
                       <Preferences path="/preferences" onDisconnect={onKeyboardDisconnect} />
                       <SystemInfo path="/system-info" />
                       <ChangeLog path="/changelog" />
+                      <HelpConnection path="/help/connection-failed" />
                     </Router>
                   </Box>
                 </LocationProvider>

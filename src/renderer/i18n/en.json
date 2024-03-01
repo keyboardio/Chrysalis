@@ -652,5 +652,11 @@
         "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Continue button. Once the keys start flashing green across the first column of the board, please release the key, as holding it too long may prevent flashing from succeeding."
       }
     }
+  },
+  "help": {
+    "connection": {
+      "title": "Chrysalis couldn't connect to your keyboard",
+      "overview": "<h1>Chrysalis couldn't connect to your keyboard.</h1><h2>Likely causes</h2><p>If your keyboard is connected to another application (like the old desktop version of Chrysalis) or you have Chrysalis open in another browser window, try disconnecting from that and reload this web page.</p>"
+    }
   }
 }

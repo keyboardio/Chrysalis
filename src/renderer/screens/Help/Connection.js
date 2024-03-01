@@ -56,6 +56,10 @@ const HelpConnection = () => {
           <CardContent>
             <div dangerouslySetInnerHTML={{ __html: t("help.connection.overview") }} />
             {isLinux && linuxInstructions}
+            <h2>Getting help</h2>
+            <p>
+              If that doesn't work, please drop us a line at help@keyboard.io and we can help figure out what's wrong.
+            </p>
           </CardContent>
         </Card>
       </Container>

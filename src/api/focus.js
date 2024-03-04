@@ -182,6 +182,7 @@ class Focus {
 
   async open(port, deviceDescriptor) {
     this._port = port;
+
     if (!deviceDescriptor) throw new Error("Device descriptor argument is mandatory");
 
     const info = this._port.getInfo();
@@ -196,6 +197,7 @@ class Focus {
     ) {
       this.in_bootloader = true;
     }
+
     this.focusDeviceDescriptor = deviceDescriptor;
 
     this.resetDeviceState();
@@ -207,6 +209,7 @@ class Focus {
     this._port = null;
     this._parser = null;
     this.focusDeviceDescriptor = null;
+    this.in_bootloader = false;
     this.resetDeviceState();
   }
 

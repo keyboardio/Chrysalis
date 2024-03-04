@@ -32,11 +32,12 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Recent updates
 
-- Fixes for an incorrect error that we couldn't talk to your keyboard after a firmware update
+- Chrysalis no longer incorrectly states that it could not connect to your keyboard after a firmware update, requiring
+  another firmware update.
 - Chrysalis will now back up your configuration as a download every time you update your firmware
 - "Report an issue" now provides system logs for reports
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 
 ## Last Updated
 
-March 2, 2024
+March 4, 2024

@@ -294,7 +294,7 @@ const FirmwareUpdate = (props) => {
 
   useEffect(() => {
     let steps;
-    if (focus.in_bootloader) {
+    if (focusDeviceDescriptor?.bootloader) {
       if (factoryReset) {
         steps = ["flash", "reconnect", "factoryRestore"];
       } else {

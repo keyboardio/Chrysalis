@@ -33,6 +33,8 @@ class Focus {
       this.timeout = 30000;
       this._request_id = 0;
       this.chunked_writes = true;
+      this.in_bootloader = false;
+
       this.resetDeviceState();
     }
 
@@ -45,7 +47,6 @@ class Focus {
     this._plugins = [];
     this._requestQueue = [];
     this._processingRequest = false;
-    this.in_bootloader = false;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
@@ -196,6 +197,8 @@ class Focus {
       dVid == deviceDescriptor.usb.bootloader.vendorId
     ) {
       this.in_bootloader = true;
+    } else {
+      this.in_bootloader = false;
     }
 
     this.focusDeviceDescriptor = deviceDescriptor;

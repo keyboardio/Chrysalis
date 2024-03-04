@@ -92,6 +92,10 @@ export function ActiveDevice() {
   };
 
   this.focusDetected = () => {
+    if (this.bootloaderDetected()) {
+      return false;
+    }
+
     if (!this.focus.isInApplicationMode()) {
       return false;
     }

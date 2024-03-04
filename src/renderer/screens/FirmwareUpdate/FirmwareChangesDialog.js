@@ -25,7 +25,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
-import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
 
 const FirmwareChangesDialog = (props) => {
@@ -42,7 +41,7 @@ const FirmwareChangesDialog = (props) => {
         </Button>
       </DialogTitle>
       <DialogContent dividers>
-        <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>{props.changelog}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.changelog}</ReactMarkdown>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>{t("dialog.close")}</Button>

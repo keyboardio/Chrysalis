@@ -98,8 +98,7 @@
     "react-draggable": "^4.4.6",
     "react-i18next": "^11.8.5",
     "react-markdown": "^9.0.1",
-    "remark-emoji": "3.0.1",
-    "remark-gfm": "^3.0.1",
+    "remark-gfm": "^4.0.0",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "uuid": "^8.3.1"

@@ -3,9 +3,7 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "entry",
-        "corejs": "3.22",
-        "modules": false
+        "targets": "> 0.25%, last 2 years, not dead"
       }
     ],
     [
@@ -18,10 +16,5 @@
       }
     ]
   ],
-  "plugins": [
-    "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-transform-modules-commonjs"
-  ]
+  "plugins": ["@babel/plugin-transform-modules-commonjs"]
 }

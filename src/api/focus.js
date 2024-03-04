@@ -172,67 +172,6 @@ class Focus {
     }
   }
 
-  async find(...device_descriptors) {
-    // This will only show devices the user has previously authorized.
-    logger.log("in focus.find");
-    const portList = await navigator.serial.getPorts();
-
-    logger.log("portList", portList);
-    const found_devices = [];
-
-    logger.debug("serial port list obtained", {
-      portList: portList,
-      function: "find",
-    });
-
-    for (const port of portList) {
-      for (const device_descriptor of device_descriptors) {
-        const pid = port.productId;
-        const vid = port.vendorId;
-
-        if (pid == device_descriptor.usb.productId && vid == device_descriptor.usb.vendorId) {
-          const newPort = Object.assign({}, port);
-          newPort.focusDeviceDescriptor = device_descriptor;
-          this.in_bootloader = false;
-          found_devices.push(newPort);
-        }
-        if (
-          device_descriptor.usb.bootloader &&
-          pid == device_descriptor.usb.bootloader.productId &&
-          vid == device_descriptor.usb.bootloader.vendorId
-        ) {
-          const newPort = Object.assign({}, port);
-          newPort.focusDeviceDescriptor = device_descriptor;
-          this.in_bootloader = true;
-
-          found_devices.push(newPort);
-        }
-      }
-    }
-
-    // We do not wish to have the device SVG data appear in logs, that's not
-    // useful information, and just clutters the log. So we filter them out.
-    const logged_devices = found_devices.map((d) => {
-      const device = Object.assign({}, d);
-      device.focusDeviceDescriptor = Object.assign({}, d.focusDeviceDescriptor);
-      delete device.focusDeviceDescriptor["components"];
-      return device;
-    });
-
-    if (logged_devices.length > 0) {
-      logger.debug("supported devices found", {
-        devices: logged_devices,
-        function: "find",
-      });
-    } else {
-      logger.warn("no supported devices found", {
-        function: "find",
-      });
-    }
-
-    return found_devices;
-  }
-
   isInApplicationMode() {
     if (!this.focusDeviceDescriptor || this.in_bootloader == true) {
       return false;

@@ -57,7 +57,7 @@ export const connectToSerialport = async () => {
 
   const dVid = info.usbVendorId;
   const dPid = info.usbProductId;
-
+  logger.log("The connected device:", info);
   for (const hw of Hardware.devices) {
     let found = false;
     let bootloader = false;

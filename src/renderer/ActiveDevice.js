@@ -103,7 +103,7 @@ export function ActiveDevice() {
   };
 
   this.bootloaderDetected = () => {
-    if (this.focusDeviceDescriptor().bootloader) {
+    if (this.focus.in_bootloader) {
       return true;
     } else {
       return false;

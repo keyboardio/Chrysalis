@@ -175,7 +175,7 @@ const App = (props) => {
     const newActiveDevice = new ActiveDevice();
     setActiveDevice(newActiveDevice);
 
-    if (focus.focusDeviceDescriptor?.bootloader) {
+    if (focus.in_bootloader) {
       setConnected(true);
 
       await navigate("/focus-not-detected");

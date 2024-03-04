@@ -31,21 +31,21 @@ class Focus {
         help: this._help,
       };
       this.timeout = 30000;
-      this.resetDeviceState();
       this._request_id = 0;
       this.chunked_writes = true;
-      this._requestQueue = [];
-      this._processingRequest = false;
+      this.resetDeviceState();
     }
 
     return global.chrysalis_focus_instance;
   }
 
   resetDeviceState() {
+    logger.debug("Resetting device state");
     this._supported_commands = [];
     this._plugins = [];
     this._requestQueue = [];
     this._processingRequest = false;
+    this.in_bootloader = false;
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
@@ -65,7 +65,6 @@ class Focus {
       if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
         const newPort = Object.assign({}, port);
         newPort.focusDeviceDescriptor = focusDeviceDescriptor;
-        newPort.focusDeviceDescriptor.bootloader = true;
         logger.info("serial port found", {
           port: newPort,
           device: usbInfo,
@@ -83,7 +82,11 @@ class Focus {
   }
 
   async checkSerialBootloader(focusDeviceDescriptor) {
-    return await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb.bootloader);
+    const newPort = await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb.bootloader);
+    if (newPort !== null) {
+      this.in_bootloader = true;
+    }
+    return newPort;
   }
 
   async checkNonSerialBootloader(focusDeviceDescriptor) {
@@ -98,7 +101,8 @@ class Focus {
       if (pid == bootloader.productId && vid == bootloader.vendorId) {
         const newPort = Object.assign({}, device);
         newPort.focusDeviceDescriptor = focusDeviceDescriptor;
-        newPort.focusDeviceDescriptor.bootloader = true;
+
+        this.in_bootloader = true;
 
         logger.info("bootloader found", {
           device: bootloader,
@@ -249,7 +253,7 @@ class Focus {
         if (pid == device_descriptor.usb.productId && vid == device_descriptor.usb.vendorId) {
           const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = device_descriptor;
-          newPort.focusDeviceDescriptor.bootloader = false;
+          this.in_bootloader = false;
           found_devices.push(newPort);
         }
         if (
@@ -259,7 +263,8 @@ class Focus {
         ) {
           const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = device_descriptor;
-          newPort.focusDeviceDescriptor.bootloader = true;
+          this.in_bootloader = true;
+
           found_devices.push(newPort);
         }
       }
@@ -289,7 +294,7 @@ class Focus {
   }
 
   isInApplicationMode() {
-    if (!this.focusDeviceDescriptor || this.focusDeviceDescriptor.bootloader == true) {
+    if (!this.focusDeviceDescriptor || this.in_bootloader == true) {
       return false;
     } else {
       return true;
@@ -310,7 +315,7 @@ class Focus {
       dPid == deviceDescriptor.usb.bootloader.productId &&
       dVid == deviceDescriptor.usb.bootloader.vendorId
     ) {
-      deviceDescriptor.bootloader = true;
+      this.in_bootloader = true;
     }
     this.focusDeviceDescriptor = deviceDescriptor;
 

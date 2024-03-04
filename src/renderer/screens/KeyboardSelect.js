@@ -60,6 +60,7 @@ const KeyboardSelect = (props) => {
       const focus = await connectToSerialport();
       if (focus) {
         logger.log("Calling props.onConnect with the focus object");
+        logger.log("focus", focus);
         props.onConnect(focus);
         logger.log("Got a device");
       } else {

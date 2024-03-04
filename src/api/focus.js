@@ -81,66 +81,6 @@ class Focus {
     return null;
   }
 
-  async checkSerialBootloader(focusDeviceDescriptor) {
-    const newPort = await this.checkSerialDevice(focusDeviceDescriptor, focusDeviceDescriptor.usb.bootloader);
-    if (newPort !== null) {
-      this.in_bootloader = true;
-    }
-    return newPort;
-  }
-
-  async checkNonSerialBootloader(focusDeviceDescriptor) {
-    const bootloader = focusDeviceDescriptor.usb.bootloader;
-
-    const deviceList = navigator.usb.getDevices();
-
-    for (const device of deviceList) {
-      const pid = device.deviceDescriptor.idProduct,
-        vid = device.deviceDescriptor.idVendor;
-
-      if (pid == bootloader.productId && vid == bootloader.vendorId) {
-        const newPort = Object.assign({}, device);
-        newPort.focusDeviceDescriptor = focusDeviceDescriptor;
-
-        this.in_bootloader = true;
-
-        logger.info("bootloader found", {
-          device: bootloader,
-          function: "checkNonSerialBootloader",
-        });
-        return newPort;
-      }
-    }
-
-    logger.debug("bootloader not found", {
-      function: "checkNonSerialBootloader",
-      device: bootloader,
-    });
-
-    return null;
-  }
-
-  async checkBootloader(focusDeviceDescriptor) {
-    logger.log("in checkBootloader", focusDeviceDescriptor);
-    if (!focusDeviceDescriptor.usb.bootloader) {
-      logger.warn("No bootloader defined in the device descriptor", {
-        descriptor: focusDeviceDescriptor,
-      });
-      return false;
-    }
-    logger.info("checking bootloader presence", {
-      descriptor: focusDeviceDescriptor,
-    });
-
-    if (focusDeviceDescriptor.usb.bootloader.protocol !== "avr109") {
-      logger.log("checking a non-serial bootloader");
-      return await this.checkNonSerialBootloader(focusDeviceDescriptor);
-    } else {
-      logger.log("Checking a serial bootloader");
-      return await this.checkSerialBootloader(focusDeviceDescriptor);
-    }
-  }
-
   async reconnectToKeyboard(focusDeviceDescriptor) {
     logger.info("reconnecting to keyboard", {
       descriptor: focusDeviceDescriptor,

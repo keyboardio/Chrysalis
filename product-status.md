@@ -38,4 +38,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Last Updated
 
-Feb 28, 2024
+March 2, 2024

@@ -42,7 +42,36 @@ export const connectToSerialport = async () => {
 
     // Wait for the serial port to open.
     if (serialPort.readable && serialPort.writable) {
-      await serialPort.close();
+      try {
+        if (serialPort.readable) {
+          const reader = serialPort.readable.getReader();
+          try {
+            // Attempt to cancel ongoing read operation
+            await reader.cancel();
+          } catch (error) {
+            console.error("Error canceling the read operation:", error);
+          } finally {
+            // Always release the lock
+            reader.releaseLock();
+          }
+        }
+
+        if (serialPort.writable) {
+          const writer = serialPort.writable.getWriter();
+          try {
+            // Attempt to cancel ongoing write operation
+            await writer.abort();
+          } catch (error) {
+            console.error("Error aborting the write operation:", error);
+          } finally {
+            // Always release the lock
+            writer.releaseLock();
+          }
+        }
+        await serialPort.close();
+      } catch (e) {
+        logger.error("Error closing the port", e);
+      }
     }
     await serialPort.open({ baudRate: 9600 });
   };

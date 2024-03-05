@@ -22,7 +22,7 @@ Update the firmware files we ship with
 
 Artifacts downloaded from keyboardio/Chrysalis-Firmware-Bundle@${TAG}.
 
-$(head -n 17 static/release-notes.md | tail -n +3)
+$(head -n 17 public/firmware/release-notes.md | tail -n +3)
 EOF
 git commit -s -F "${TMP}"
 rm -f "${TMP}" public/firmware/release-notes.md

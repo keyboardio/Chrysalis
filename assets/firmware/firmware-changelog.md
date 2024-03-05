@@ -1,3 +1,14 @@
+Chrysalis-Firmware-Bundle 0.92.3
+================================
+Released on 2024-03-04
+
+Numerous fixes for error-checking issues that could cause a keyboard
+to lock up if invalid configuration data ended up in on-device storage.
+
+Updates to our USB device descriptor configuration from Taylor Yu
+<code@argon.blue>
+
+
 Chrysalis-Firmware-Bundle 0.92.2
 ================================
 Released on 2024-02-29
@@ -24,7 +35,7 @@ Internal changes which shouldn't be visible to users flashing
 updated firmware from Chrysalis.
 
 Bugfixes for ZLP flow control in serial communcations on AVR based 
-keyboards like the Model 01 and Atreusfrom Taylor Yu
+keyboards like the Model 01 and Atreus from Taylor Yu
 <code@argon.blue>
 
 Chrysalis-Firmware-Bundle 0.92.1

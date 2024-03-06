@@ -254,7 +254,7 @@ class Focus {
     if (!this.isInApplicationMode()) return undefined;
 
     if (this._supported_commands?.length > 0 && !this._supported_commands.includes(cmd)) {
-      logger.debug("request (noop)", {
+      logger.debug(`request for ${cmd} (unsupported command)`, {
         command: cmd,
         args: args,
       });
@@ -265,7 +265,7 @@ class Focus {
 
     const rid = this._request_id;
     this._request_id += 1;
-    logger.debug("request", {
+    logger.debug(`request: ${cmd} ${args}`, {
       request: {
         id: rid,
         command: cmd,
@@ -311,7 +311,6 @@ class Focus {
 
     // TODO(anyone): This is a temporary measure until #985 gets fixed.
     await delay(250);
-    logger.debug("Making a request", request);
 
     // Send a line of text
     const encoder = new TextEncoder();
@@ -339,7 +338,7 @@ class Focus {
         }
       }
     } finally {
-      logger.debug("Returning response", response);
+      logger.debug("response:", response);
       reader.releaseLock();
     }
 

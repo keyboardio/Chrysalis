@@ -41,5 +41,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 
 ## Last Updated
-
-March 5, 2024
+2024.0306.2112

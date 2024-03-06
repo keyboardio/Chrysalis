@@ -28,8 +28,9 @@
     "lint:css": "stylelint src/**/*.css",
     "clean:code": "npm-run-all prettier lint:all",
     "cname": "node tools/write-cname.js",
-    "set-version": "yarn version --new-version $(date -u +%Y%m%d.%H%M)",
-    "predeploy": "yarn run set-version; yarn run precompile; yarn run build; yarn run cname",
+    "set-version": "yarn version --new-version `date -u +%Y.%m%d.%H%M`",
+    "update-deploy-date": "echo \"$(sed '$d' product-status.md)\"$'\n'\"$(jq -r '.version' package.json)\" > product-status.md",
+    "predeploy": "yarn run set-version; yarn run update-deploy-date; yarn run precompile; yarn run build; yarn run cname",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],

@@ -108,8 +108,8 @@ export const constants = {
     ONESHOT_META_STICKY: 53628,
     ONESHOT_ACTIVE_STICKY: 53629,
     ONESHOT_CANCEL: 53630,
-    BLOCKED: 65535,
-    TRANSPARENT: 0x00,
+    BLOCKED: 0x00,
+    TRANSPARENT: 65535,
 
     // Dual use keycodes
     DUAL_USE_MODIFIER_BASE: keycode_ranges.dual_use_modifier.start,

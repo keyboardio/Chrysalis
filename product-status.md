@@ -32,6 +32,7 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Recent updates
 
+- An earlier update had accidentally reversed the display of transparent and blocked keys
 - Updated firmware builds to better handle cases of corrupted EEPROM.
 - Chrysalis no longer incorrectly states that it could not connect to your keyboard after a firmware update, requiring
   another firmware update.
@@ -41,4 +42,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 
 ## Last Updated
 
-March 4, 2024
+March 5, 2024

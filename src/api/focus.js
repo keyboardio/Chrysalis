@@ -432,13 +432,18 @@ class Focus {
     const backup = {};
     for (const cmd of this.eepromBackupCommands) {
       const dump = await this.command(cmd);
-      backup[cmd] = dump;
+      if (dump !== undefined && dump !== "") {
+        backup[cmd] = dump;
+      }
     }
+    console.log(backup);
     return backup;
   }
   async writeKeyboardConfiguration(backup) {
     for (const cmd of this.eepromRestoreCommands) {
-      await this.command(cmd, backup[cmd]);
+      if (backup[cmd] !== undefined) {
+        await this.command(cmd, backup[cmd]);
+      }
     }
   }
 }

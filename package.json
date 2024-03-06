@@ -1,6 +1,6 @@
 {
   "name": "Chrysalis",
-  "version": "0.23.0821-dev",
+  "version": "2024.0306.2112",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Keyboardio",
@@ -28,7 +28,8 @@
     "lint:css": "stylelint src/**/*.css",
     "clean:code": "npm-run-all prettier lint:all",
     "cname": "node tools/write-cname.js",
-    "predeploy": "yarn run precompile; yarn run build; yarn run cname",
+    "set-version": "yarn version --new-version $(date -u +%Y%m%d.%H%M)",
+    "predeploy": "yarn run set-version; yarn run precompile; yarn run build; yarn run cname",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],

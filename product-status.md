@@ -31,7 +31,9 @@ _Note:_ On macOS, the Atreus and Model 01 may experience unreliable connectivity
 Chrysalis requires a browser with WebSerial support. Right now, this means Chrome, Edge, Arc, Brave, and other browsers based on Chromium. We're hopeful that Firefox and Apple will implement WebSerial and WebUSB, but neither browser maker has yet announced their intention to do so.
 
 ## Recent updates
-
+- 2024-03-06: Firmware 0.92.3 may have accidentally overwritten some of your settings, like LED brightness or the
+  "SpaceCadet Shift" configuration. You should install the latest 0.92.4 firmware and may also need to update those
+  settings in Preferences -> My Device.
 - An earlier update had accidentally reversed the display of transparent and blocked keys
 - Updated firmware builds to better handle cases of corrupted EEPROM.
 - Chrysalis no longer incorrectly states that it could not connect to your keyboard after a firmware update, requiring

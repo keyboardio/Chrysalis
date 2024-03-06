@@ -1,6 +1,6 @@
 ---
-version: 0.92.3+107
-build: 107
+version: 0.92.4+110
+build: 110
 
 dependencies:
   cores:
@@ -8,11 +8,30 @@ dependencies:
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     common:
-      - keyboardio/Kaleidoscope@66562177eb0ab97888799579357e2679009d6467
-      - keyboardio/Chrysalis-Firmware-Bundle@514d2e4e9927964e86bffa25182d9ef62344dd47
+      - keyboardio/Kaleidoscope@5cc4f5b9e0de6ace6d5ab140c2f100e83a8ba544
+      - keyboardio/Chrysalis-Firmware-Bundle@ad9f3b27aca47be22fc95e5695dd23294c838e41
 
 firmware:
   Keyboardio:
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - LayerNames
+        - Macros
+        - MouseKeys
+        - OneShot
+        - OneShotConfig
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
     Model100:
       plugins:
         - AlphaSquareEffect
@@ -53,25 +72,6 @@ firmware:
         - SpaceCadetConfig
         - StalkerEffect
         - USBQuirks
-    Atreus:
-      plugins:
-        - DynamicMacros
-        - EEPROMKeymap
-        - EEPROMSettings
-        - EscapeOneShot
-        - EscapeOneShotConfig
-        - FirmwareVersion
-        - Focus
-        - FocusEEPROMCommand
-        - FocusSettingsCommand
-        - LayerNames
-        - Macros
-        - MouseKeys
-        - OneShot
-        - OneShotConfig
-        - Qukeys
-        - SpaceCadet
-        - SpaceCadetConfig
     Model01:
       plugins:
         - BootGreetingEffect

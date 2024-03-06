@@ -1,3 +1,17 @@
+Chrysalis-Firmware-Bundle 0.92.4
+================================
+Released on 2024-03-06
+
+
+0.92.3 introduced regressions that may have set your LED brightness to
+0 upon upgrade and may have unintentionally enabled the "SpaceCadet"
+shift mode (where your shift keys will generate ( and ) when tapped.
+
+0.92.4 better protects against these issues, but you may need to 
+use Chrysalis' "My Keyboard" settings to change those preferences to you
+preferred settings if you updated to 0.92.3.
+
+
 Chrysalis-Firmware-Bundle 0.92.3
 ================================
 Released on 2024-03-04

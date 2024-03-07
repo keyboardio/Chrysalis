@@ -390,7 +390,7 @@ class Focus {
     "hostos.type",
     "idleleds.time_limit",
     "keymap.custom",
-    "keymap.layerNames",
+    "layernames",
     "keymap.onlyCustom",
     "led.brightness",
     "led_mode.default",

@@ -2,10 +2,6 @@
 
 This is Chrysalis, the graphical configuration tool for Keyboardio's Kaleidoscope-powered keyboards.
 
-## Latest news
-
-- We've discovered a regression related to stored settings in the latest 0.92.4 firmware builds and recommend that you hold off on firmware updates until 0.92.5 is released, which is expected by sometime on Friday, March 8.
-
 ## What should work
 
 - Changing your layout
@@ -34,6 +30,8 @@ _Note:_ On macOS, the Atreus and Model 01 may experience unreliable connectivity
 Chrysalis requires a browser with WebSerial support. Right now, this means Chrome, Edge, Arc, Brave, and other browsers based on Chromium. We're hopeful that Firefox and Apple will implement WebSerial and WebUSB, but neither browser maker has yet announced their intention to do so.
 
 ## Recent updates
+- 2024-03-07: The bugfixes in 0.92.4 turned out to be incomplete. 0.92.5, hopefully, resolves the issue. Please let us
+  know at help@keyboard.io if you're still having trouble.
 - 2024-03-06: Firmware 0.92.3 may have accidentally overwritten some of your settings, like LED brightness or the
   "SpaceCadet Shift" configuration. You should install the latest 0.92.4 firmware and may also need to update those
   settings in Preferences -> My Device.
@@ -46,4 +44,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 
 ## Last Updated
-2024.0306.2121
+2024.0307.1924

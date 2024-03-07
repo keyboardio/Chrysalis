@@ -1,3 +1,15 @@
+Chrysalis-Firmware-Bundle 0.92.5
+================================
+Released on 2024-03-07
+
+This release is, somewhat embarassingly, a bugfix to the bugfix. 
+0.92.3 and 0.92.4 had trouble loading your on-keyboard settings
+after a reboot or after you disconnected and reconnected your keyboard.
+
+This could manifest as things like the "Space Cadet Shift" function
+mysteriously turning back on or other plugin changes not persisting.
+
+
 Chrysalis-Firmware-Bundle 0.92.4
 ================================
 Released on 2024-03-06

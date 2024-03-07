@@ -1,6 +1,6 @@
 ---
-version: 0.92.4+110
-build: 110
+version: 0.92.5+113
+build: 113
 
 dependencies:
   cores:
@@ -8,8 +8,8 @@ dependencies:
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     common:
-      - keyboardio/Kaleidoscope@5cc4f5b9e0de6ace6d5ab140c2f100e83a8ba544
-      - keyboardio/Chrysalis-Firmware-Bundle@ad9f3b27aca47be22fc95e5695dd23294c838e41
+      - keyboardio/Kaleidoscope@68b30de64137eca15cd7842c264ae588b7620d9e
+      - keyboardio/Chrysalis-Firmware-Bundle@22172166ff9972215a343427ba694f504510d64d
 
 firmware:
   Keyboardio:

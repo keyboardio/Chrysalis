@@ -2,6 +2,9 @@
 
 This is Chrysalis, the graphical configuration tool for Keyboardio's Kaleidoscope-powered keyboards.
 
+## Latest news
+
+- We've discovered a regression related to stored settings in the latest 0.92.4 firmware builds and recommend that you hold off on firmware updates until 0.92.5 is released, which is expected by sometime on Friday, March 8.
 
 ## What should work
 
@@ -43,4 +46,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 - Corrections for some incorrect key identifiers, particularly for dynamic macros
 
 ## Last Updated
-2024.0306.2112
+2024.0306.2121

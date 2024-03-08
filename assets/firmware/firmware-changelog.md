@@ -1,3 +1,16 @@
+Chrysalis-Firmware-Bundle 0.92.6
+================================
+Released on 2024-03-08
+
+Thanks to Nabi Yang, we caught another case that the previous bugfixes
+didn't address. 0.92.5 and earlier could, after a "factory reset"
+result in some settings (including mouse keys and sticky keys) to default
+to incorrect values. After this update, you may need to either change your
+'sticky keys' and 'mouse keys' settings in Chrysalis' preferences or 
+(if you'd prefer) do a 'factory reset' on your keyboard to return those
+settings to their default values.  If you need a hand, please don't hesitate
+to reach out to us at help@keyboard.io.
+
 Chrysalis-Firmware-Bundle 0.92.5
 ================================
 Released on 2024-03-07

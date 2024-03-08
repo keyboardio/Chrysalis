@@ -32,14 +32,30 @@ const setModifiersLabel = (key, mods) => {
   const isMeh = mods.includes("ctrl") && mods.includes("shift") && mods.includes("alt");
   const isTopsy = mods.includes("topsyturvy");
 
-  let label = { full: "", "1u": "" };
+  let hint = { full: "", "1u": "" };
 
   if (isMeh || isHyper) {
     const restatedMods = mods.filter((mod) => !["ctrl", "shift", "alt", "gui"].includes(mod));
     restatedMods.push(isHyper ? "hyper" : "meh");
     mods = restatedMods;
   }
-  label = mods.reduce(
+
+  let baseLabel;
+  if (mods.includes("shift") && key.label.shifted !== undefined) {
+    baseLabel = key.label.shifted;
+    // remove the shift modifier from the list of modifiers
+    mods = mods.filter((mod) => mod !== "shift");
+  } else if (mods.includes("altgr") && key.label.altgr !== undefined) {
+    baseLabel = key.label.altgr;
+    // remove the altgr modifier from the list of modifiers
+    mods = mods.filter((mod) => mod !== "altgr");
+  } else if (isTopsy && key.label.shifted !== undefined) {
+    baseLabel = key.label.shifted;
+  } else {
+    baseLabel = key.label.base;
+  }
+
+  hint = mods.reduce(
     (acc, mod) => ({
       full: acc.full + modifiers[mod].label.full,
       "1u": acc["1u"] + modifiers[mod].label["1u"],
@@ -47,8 +63,7 @@ const setModifiersLabel = (key, mods) => {
     { full: "", "1u": "" }
   );
 
-  const baseLabel = isTopsy ? key.label.shifted || key.label.base : key.label.base;
-  return { hint: label, base: baseLabel };
+  return { hint: hint, base: baseLabel };
 };
 
 const generateModifierCombinations = () => {

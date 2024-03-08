@@ -61,13 +61,13 @@ const FirmwareUpdate = (props) => {
   const [flashNotificationMsg, setFlashNotificationMsg] = useState(RebootMessage.clear);
 
   const focusDeviceDescriptor = props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
-  const isBootloader = focus.in_bootloader;
   const [bootloaderProtocol, setbootloaderProtocol] = useState(focus.focusDeviceDescriptor.usb.bootloader.protocol);
 
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
+  const [isBootloader, setIsBootloader] = useState(focus.in_bootloader);
   const [factoryReset, setFactoryReset] = useState(!!isBootloader);
   const [promptForBootloaderConnection, setPromptForBootloaderConnection] = useState(false);
 

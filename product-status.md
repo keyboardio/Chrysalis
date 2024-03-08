@@ -34,6 +34,8 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
   restore or EEPROM erase.
 - 2024-03-08: Chrysalis now shows shifted keys as the shifted value on the keymap instead of "Shift" and the unshifted
   value.
+- 2024-03-08: Chrysalis no longer shows the "you're in the bootloader and can't backup the settings" warning during
+  firmware update unless you were in the bootloader when you first navigated to the screen.
 - 2024-03-07: Chrysalis now restores your custom layer names when doing a firmware upgrade
 - 2024-03-07: The bugfixes in 0.92.4 turned out to be incomplete. 0.92.5, hopefully, resolves the issue. Please let us
   know at help@keyboard.io if you're still having trouble.

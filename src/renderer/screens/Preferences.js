@@ -96,7 +96,7 @@ function Preferences(props) {
         }}
       >
         <Tab label={t("preferences.interface")} disabled={inContext} {...a11yProps(0)} />
-        <Tab label={t("preferences.keyboard.title")} {...a11yProps(1)} disabled={!connected} />
+        <Tab label={t("preferences.keyboard.title")} disabled={!connected} {...a11yProps(1)} />
         <Tab label={t("preferences.devtools.main.label")} disabled={inContext} {...a11yProps(2)} />
       </Tabs>
       <Box

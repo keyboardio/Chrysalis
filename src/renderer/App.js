@@ -115,8 +115,8 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
-    setTheme(settings.get("ui.theme", "system"));
-    if (!connected) {
+    // Only navigate to /keyboard-select if the LocationProvider says we're not already on another page
+    if (!connected && history?.location?.pathname === "/sanity-check") {
       navigate("/keyboard-select");
     }
     // Specify how to clean up after this effect:
@@ -153,9 +153,8 @@ const App = (props) => {
   });
 
   useEffect(() => {
-    setTheme(theme);
-    setBgColor(uiTheme.palette.body);
-  }, [theme, uiTheme, setTheme, inDarkMode]);
+    setInDarkMode(darkMode());
+  }, [theme, uiTheme, setTheme, inDarkMode, darkMode]);
 
   const toggleFlashing = async () => {
     flashing = !flashing;

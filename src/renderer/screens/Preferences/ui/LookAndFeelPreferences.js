@@ -116,9 +116,8 @@ function LookAndFeelPreferences(props) {
   const [theme, setTheme] = globalContext.state.theme;
   const [language, setLanguage] = useState(i18n.language);
 
-  const changeTheme = (name) => (event) => {
-    settings.set("ui.theme", name);
-    setTheme(null);
+  const changeTheme = (name) => async (event) => {
+    await settings.set("ui.theme", name);
     setTheme(name);
   };
 

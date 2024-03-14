@@ -16,11 +16,13 @@
  */
 
 import React, { createContext, useState, useEffect } from "react";
+import { Store } from "@renderer/localStore";
 
+const settings = new Store();
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = (props) => {
-  const [theme, setTheme] = useState("system");
+  const [theme, setTheme] = useState(settings.get("ui.theme", "system"));
   const [connected, setConnected] = useState(false);
   const [focusDeviceDescriptor, setFocusDeviceDescriptor] = useState(null);
   const [activeDevice, setActiveDevice] = useState(null);

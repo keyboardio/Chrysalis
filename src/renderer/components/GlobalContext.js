@@ -28,7 +28,17 @@ export const GlobalContextProvider = (props) => {
   const [firmwareUpdateWarning, setFirmwareUpdateWarning] = useState(false);
   const [hideHeaderInPrint, setHideHeaderInPrint] = useState(false);
   const getDarkMode = () => {
-    return theme == "dark";
+    if (theme === "dark") {
+      return true;
+    }
+    if (theme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false; // light
   };
 
   const state = {

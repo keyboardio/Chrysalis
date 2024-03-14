@@ -65,7 +65,7 @@ const App = (props) => {
   const darkMode = state.darkMode;
   const [activeDevice, setActiveDevice] = state.activeDevice;
   const [bgColor, setBgColor] = useState(null);
-
+  const [inDarkMode, setInDarkMode] = useState(darkMode());
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;
     if (flashing) return;
@@ -93,11 +93,15 @@ const App = (props) => {
 
   const handleNativeThemeUpdate = (event, v) => {
     if (theme != "system") return;
-
-    // This enforces a re-render, without having to use another state.
-    setTheme(null);
-    setTheme("system");
+    if (darkMode() === inDarkMode) return;
+    // This forces a re-render, without having to use another state.
+    setInDarkMode(darkMode());
   };
+
+  // Listening for changes to the native theme
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+    handleNativeThemeUpdate(event);
+  });
 
   useEffect(() => {
     async function setupLayout() {
@@ -121,15 +125,15 @@ const App = (props) => {
 
   const uiTheme = createTheme({
     palette: {
-      mode: darkMode() ? "dark" : "light",
+      mode: inDarkMode ? "dark" : "light",
       primary: {
         main: "#EF5022",
       },
       secondary: {
-        main: darkMode() ? "#ed91f3" : "#ab0edd",
+        main: inDarkMode ? "#ed91f3" : "#ab0edd",
       },
       background: {
-        default: darkMode() ? "#353535" : "#f5f5f5",
+        default: inDarkMode ? "#353535" : "#f5f5f5",
       },
     },
     components: {
@@ -151,7 +155,7 @@ const App = (props) => {
   useEffect(() => {
     setTheme(theme);
     setBgColor(uiTheme.palette.body);
-  }, [theme, uiTheme, setTheme]);
+  }, [theme, uiTheme, setTheme, inDarkMode]);
 
   const toggleFlashing = async () => {
     flashing = !flashing;

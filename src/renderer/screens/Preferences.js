@@ -58,7 +58,7 @@ function a11yProps(index) {
 }
 
 function Preferences(props) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
   const globalContext = useContext(GlobalContext);
 
   const [inContext, setInContext] = React.useState(false);

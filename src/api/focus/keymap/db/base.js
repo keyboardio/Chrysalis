@@ -445,18 +445,31 @@ const lang_intl = assignKeysToCategory(
     { code: 143, label: { base: { full: "Intl9" } } },
   ]
 );
+
 const modifiers = withModifiers(
   assignKeysToCategory(
     ["modifier"],
     [
-      { code: 224, label: { base: { full: "Control", "1u": "Ctrl" } }, location: "left" },
-      { code: 225, label: { base: "Shift" }, location: "left" },
-      { code: 226, label: { base: "Alt" }, location: "left" },
-      { code: 227, label: { base: GuiLabel }, location: "left" },
-      { code: 228, label: { base: { full: "Control", "1u": "Ctrl" } }, location: "right" },
-      { code: 229, label: { base: "Shift" }, location: "right" },
-      { code: 230, label: { base: { full: "AltGr", "1u": "AGr" } }, location: "right" },
-      { code: 231, label: { base: GuiLabel }, location: "right" },
+      {
+        code: constants.ranges.modifiers.start + 0,
+        label: { base: { full: "Control", "1u": "Ctrl" } },
+        location: "left",
+      },
+      { code: constants.ranges.modifiers.start + 1, label: { base: "Shift" }, location: "left" },
+      { code: constants.ranges.modifiers.start + 2, label: { base: "Alt" }, location: "left" },
+      { code: constants.ranges.modifiers.start + 3, label: { base: GuiLabel }, location: "left" },
+      {
+        code: constants.ranges.modifiers.start + 4,
+        label: { base: { full: "Control", "1u": "Ctrl" } },
+        location: "right",
+      },
+      { code: constants.ranges.modifiers.start + 5, label: { base: "Shift" }, location: "right" },
+      {
+        code: constants.ranges.modifiers.start + 6,
+        label: { base: { full: "AltGr", "1u": "AGr" } },
+        location: "right",
+      },
+      { code: constants.ranges.modifiers.start + 7, label: { base: GuiLabel }, location: "right" },
     ]
   )
 ).concat([
@@ -466,6 +479,7 @@ const modifiers = withModifiers(
 ]);
 const oneshot_modifier = (index, mod) => ({
   code: constants.ranges.oneshot_modifier.start + index,
+  baseCode: constants.ranges.modifiers.start + index,
   label: { hint: { full: "OneShot", "1u": "OSM" }, base: mod },
   rangeStart: constants.ranges.oneshot_modifier.start,
   categories: ["oneshot", "modifier"],

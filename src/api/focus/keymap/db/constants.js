@@ -19,6 +19,11 @@ const keycode_ranges = {
     start: 4,
     end: 255,
   },
+  modifiers: {
+    start: 224,
+    end: 231,
+  },
+
   dual_use_layer: {
     start: 0xc812,
     end: 0xd012,

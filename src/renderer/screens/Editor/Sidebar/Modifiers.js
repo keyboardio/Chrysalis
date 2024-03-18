@@ -55,6 +55,7 @@ const Modifiers = (props) => {
     const modifier = modifiers[mod];
     return (
       <FormControlLabel
+        key={modifier.code}
         control={
           <Switch
             size="small"

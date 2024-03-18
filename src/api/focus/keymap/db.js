@@ -159,6 +159,9 @@ class KeymapDB {
 
   isInCategory(keyCode, category) {
     if (keyCode < 0) return false;
+    if (typeof keyCode !== "number") {
+      console.error("Error: keyCode must be a number");
+    }
     return this.lookup(keyCode)?.categories?.includes(category) || false;
   }
 

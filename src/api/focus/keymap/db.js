@@ -176,11 +176,6 @@ class KeymapDB {
   }
   selectCategory(category) {
     const cdb = [];
-    logger.log("in sleectCategory");
-    logger.log("category", category);
-
-    logger.log("this._codetable", this._codetable);
-
     for (const k of this._codetable) {
       if (k?.categories?.includes(category)) {
         cdb.push(k);

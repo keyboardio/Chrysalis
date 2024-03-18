@@ -34,9 +34,9 @@ export const SpecialModifiers = (props) => {
     const { currentKey: key } = props;
     let isChecked = false;
     if (mod === "oneshot") {
-      isChecked = db.isInCategory(key, mod);
+      isChecked = db.isInCategory(key.code, mod);
     } else {
-      isChecked = db.isInCategory(key, mod) && !db.isInCategory(key.code, "dualuse");
+      isChecked = db.isInCategory(key.code, mod) && !db.isInCategory(key.code, "dualuse");
     }
     return <Switch size="small" checked={isChecked} color="primary" onChange={toggleModifier(mod)} />;
   };
@@ -47,7 +47,7 @@ export const SpecialModifiers = (props) => {
   const isShifted = db.isInCategory(key.code, "shift");
   const isTopsyTurvy = db.isInCategory(key.code, "topsyturvy");
   const isMod = (key, mod) => key.baseCode == mod || key.code == mod;
-
+  const isModifier = db.isInCategory(key.baseCode || key.code, "modifier");
   const c = db.constants.codes;
   const topsyTurvyAvailable = usePluginAvailable("TopsyTurvy");
 
@@ -74,11 +74,7 @@ export const SpecialModifiers = (props) => {
             <FormControlLabel
               control={makeSwitch("oneshot")}
               label={t("editor.sidebar.keypicker.oneshot.label")}
-              disabled={
-                !oneShotAvailable ||
-                !db.isInCategory(key.baseCode || key.code, "modifier") ||
-                db.isInCategory(key.code, "dualuse")
-              }
+              disabled={!oneShotAvailable || !isModifier || isDualUse}
             />
           </Tooltip>
         </FormControl>

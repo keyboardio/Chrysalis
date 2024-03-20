@@ -19,6 +19,7 @@ import { useContext, useEffect, useState } from "react";
 
 const useDataLoadedFromActiveDevice = (initialize) => {
   const globalContext = useContext(GlobalContext);
+  const [connected, setConnected] = globalContext.state.connected;
   const [activeDevice] = globalContext.state.activeDevice;
   const [initialized, setInitialized] = useState(false);
 
@@ -36,12 +37,15 @@ const useDataLoadedFromActiveDevice = (initialize) => {
       setInitialized(true);
     };
 
-    if (!initialized) init();
-
+    if (!connected) {
+      setInitialized(false);
+    } else {
+      if (!initialized) init();
+    }
     return () => {
       channel.close();
     };
-  }, [activeDevice, initialize, initialized]);
+  }, [activeDevice, connected, initialize, initialized]);
 
   return initialized;
 };

@@ -20,6 +20,7 @@ import { useContext, useEffect, useState } from "react";
 const useCheckDeviceSupportsPlugins = (desiredPlugins) => {
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
+  const [connected, setConnected] = globalContext.state.connected;
   const [foundPlugins, setFoundPlugins] = useState({});
   const [initialized, setInitialized] = useState(false);
 
@@ -36,9 +37,12 @@ const useCheckDeviceSupportsPlugins = (desiredPlugins) => {
       setFoundPlugins(found);
       setInitialized(true);
     };
-
-    if (!initialized) init();
-  }, [activeDevice, desiredPlugins, initialized]);
+    if (!connected) {
+      setInitialized(false);
+    } else {
+      if (!initialized) init();
+    }
+  }, [activeDevice, connected, desiredPlugins, initialized]);
 
   return [initialized, foundPlugins];
 };

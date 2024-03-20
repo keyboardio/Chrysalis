@@ -26,12 +26,13 @@ const useDataLoadedFromActiveDevice = (initialize) => {
     const channel = new BroadcastChannel("context_bar");
     channel.onmessage = async (event) => {
       if (event.data === "changes-discarded") {
-        await initialize(activeDevice.focus, activeDevice);
+        await initialize();
       }
     };
 
     const init = async () => {
-      await initialize(activeDevice.focus, activeDevice);
+      // Run the initialization function provided by our caller
+      await initialize();
       setInitialized(true);
     };
 

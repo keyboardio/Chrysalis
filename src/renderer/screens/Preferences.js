@@ -64,6 +64,9 @@ function Preferences(props) {
   const [inContext, setInContext] = React.useState(false);
   const [connected, setConnected] = globalContext.state.connected;
 
+  if (!connected && value == 1) {
+    setValue(0);
+  }
   const { t } = useTranslation();
 
   const handleChange = (event, newValue) => {

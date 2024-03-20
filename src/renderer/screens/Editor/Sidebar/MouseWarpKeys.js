@@ -1,8 +1,9 @@
 import KeymapDB from "@api/focus/keymap/db";
 import { constants } from "@api/focus/keymap/db/constants";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import Grid from "@mui/material/Grid";
 import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import FKPCategorySelector from "../components/FKPCategorySelector";
 import KeyButton from "../components/KeyButton";
 
@@ -10,7 +11,9 @@ export const MouseWarpKeys = (props) => {
   const [gridSize, setGridSize] = useState(undefined);
   const db = new KeymapDB();
 
-  const initialize = async (_, activeDevice) => {
+  const [activeDevice] = useContext(GlobalContext).state.activeDevice;
+
+  const initialize = async () => {
     const _gridSize = (await activeDevice.mousekeys_warp_grid_size()) || "2";
 
     setGridSize(parseInt(_gridSize));

@@ -19,7 +19,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
 
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -42,7 +42,7 @@ const SpaceCadetPreferences = (props) => {
     setScMode(parseInt(mode));
   };
 
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const onModeChange = async (event) => {
     const mode = event.target.checked ? 0 : 1;

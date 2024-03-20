@@ -23,7 +23,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import { PluginSliderWithInput } from "../../components/PluginSliderWithInput";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
@@ -93,7 +93,7 @@ const OneShotPreferences = (props) => {
     setOSStickableKeys(parseInt(_osStickableKeys));
   };
 
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const onEscOneShotChange = async (event) => {
     const v = event.target.checked;

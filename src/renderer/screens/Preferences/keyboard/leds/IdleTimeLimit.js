@@ -22,7 +22,7 @@ import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -42,7 +42,7 @@ const IdleTimeLimit = (props) => {
 
     setLedIdleTimeLimit(limit);
   };
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const onChange = async (event) => {
     const limit = event.target.value;

@@ -17,7 +17,7 @@
 
 import Divider from "@mui/material/Divider";
 
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import { PluginSliderWithInput } from "../../components/PluginSliderWithInput";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 import { GlobalContext } from "@renderer/components/GlobalContext";
@@ -43,7 +43,7 @@ const AutoShiftPreferences = (props) => {
     setAutoShiftCategories(parseInt(_categories));
   };
 
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const categories = ["letters", "numbers", "symbols", "arrows", "functions", undefined, undefined, "all"];
 

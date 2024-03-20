@@ -17,7 +17,7 @@
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { useContext, useEffect, useState } from "react";
 
-const usePluginEffect = (initialize) => {
+const useDataLoadedFromActiveDevice = (initialize) => {
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
   const [initialized, setInitialized] = useState(false);
@@ -45,4 +45,4 @@ const usePluginEffect = (initialize) => {
   return initialized;
 };
 
-export { usePluginEffect as default };
+export { useDataLoadedFromActiveDevice as default };

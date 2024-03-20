@@ -20,7 +20,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
@@ -50,7 +50,7 @@ const KeyboardLayerPreferences = (props) => {
     layer = layer ? parseInt(layer) : 126;
     setDefaultLayer(layer <= 126 ? layer : layer);
   };
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const selectDefaultLayer = async (event) => {
     const layer = event.target.value;

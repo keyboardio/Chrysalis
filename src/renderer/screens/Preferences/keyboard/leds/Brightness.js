@@ -20,7 +20,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
-import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import useDataLoadedFromActiveDevice from "@renderer/hooks/useDataLoadedFromActiveDevice";
 import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -39,7 +39,7 @@ const Brightness = (props) => {
 
     setLedBrightness(brightness);
   };
-  const loaded = usePluginEffect(initialize);
+  const loaded = useDataLoadedFromActiveDevice(initialize);
 
   const formatValue = (value) => {
     return ((value / 255) * 100).toFixed(0) + "%";

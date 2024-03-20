@@ -26,8 +26,8 @@ const useCheckDeviceSupportsPlugins = (desiredPlugins) => {
 
   useEffect(() => {
     const init = async () => {
-      const plugins = await activeDevice.focus.plugins();
-      const commands = await activeDevice.focus.supported_commands();
+      const plugins = await activeDevice.plugins();
+      const commands = await activeDevice.supported_commands();
       const found = {};
 
       for (const p of desiredPlugins) {

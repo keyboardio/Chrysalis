@@ -42,8 +42,6 @@ const Editor = (props) => {
 
   const [keymap, setKeymap] = useState({ custom: [], default: [], onlyCustom: false });
 
-  const [copiedLayer, setCopiedLayer] = useState({ keymap: [], colorMap: [] });
-
   const [layerNames, setLayerNames] = useState({ storageSize: 0, names: [] });
 
   const [macros, setMacros] = useState(null);
@@ -54,22 +52,8 @@ const Editor = (props) => {
   const [currentLayer, setCurrentLayer] = useState(0);
   const [selectorKey, setSelectorKey] = useState(null);
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   const saveChangesDisabled = !modified;
   const { t } = useTranslation();
-
-  const setLayerName = async (index, name) => {
-    const newNames = [].concat(layerNames.names);
-    newNames[index] = name;
-
-    setLayerNames({
-      storageSize: layerNames.storageSize,
-      names: newNames,
-    });
-    setModified(true);
-    showContextBar();
-  };
 
   const initialize = async () => {
     await scanKeyboard();
@@ -81,17 +65,6 @@ const Editor = (props) => {
     setCurrentLayer(layer);
 
     const key = keymap.custom[layer][currentKeyIndex];
-    setSelectorKey(key);
-  };
-
-  const onKeySelect = async (event) => {
-    const target = event.currentTarget;
-    const keyIndex = parseInt(target.getAttribute("data-key-index"));
-    const ledIndex = parseInt(target.getAttribute("data-led-index"));
-    setCurrentKeyIndex(keyIndex);
-    setCurrentLedIndex(ledIndex);
-
-    const key = keymap.custom[currentLayer][keyIndex];
     setSelectorKey(key);
   };
 
@@ -155,14 +128,6 @@ const Editor = (props) => {
     }
   };
 
-  const hasKeymap = () => {
-    return keymap.custom.length > 0;
-  };
-
-  const hasColormap = () => {
-    return colormap.colorMap.length > 0;
-  };
-
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -205,8 +170,6 @@ const Editor = (props) => {
   if (loading) {
     return <LoadingScreen />;
   }
-
-  const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 
   const title = t("app.menu.importExport");
   const L = new LayerNames();

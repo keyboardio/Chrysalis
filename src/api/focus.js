@@ -245,7 +245,10 @@ class Focus {
 
   async plugins() {
     if (this._plugins.length == 0) {
-      this._plugins = await this.request("plugins");
+      const supported_commands = await this.supported_commands();
+      if (supported_commands.includes("plugins")) {
+        this._plugins = await this.request("plugins");
+      }
     }
     return this._plugins;
   }

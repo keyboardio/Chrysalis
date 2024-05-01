@@ -16,6 +16,7 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
+import { addDualUseLayer } from "@api/focus/keymap/db/base";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -43,21 +44,28 @@ const LayerKeys = (props) => {
   };
 
   const onTargetLayerChange = (event, max) => {
-    const target = Math.min(parseInt(event.target.value) || 0, max);
+    let target = Math.min(parseInt(event.target.value) || 0, max);
+    if (db.isInCategory(key.code, "layer") && key.categories[1] == "dualuse") {
+      const code = key.baseCode || key.code;
 
-    props.onKeyChange(props.currentKey.rangeStart + target);
+      if (target < 0) target = getMaxLayer();
+      if (target > getMaxLayer()) target = 0;
+
+      props.onKeyChange(addDualUseLayer(db.lookup(code), target).code);
+    } else {
+      props.onKeyChange(props.currentKey.rangeStart + target);
+    }
   };
 
   const onTypeChange = (event) => {
     const typeStarts = {
-      locktolayer: 17408,
-      shifttolayer: 17450,
-      movetolayer: 17492,
-      oneshot: 49161,
+      locktolayer: db.constants.ranges.layer_lock.start,
+      shifttolayer: db.constants.ranges.layer_shift.start,
+      movetolayer: db.constants.ranges.layer_move.start,
+      oneshot: db.constants.ranges.oneshot_layer.start,
     };
     const { currentKey } = props;
     const targetLayer = currentKey.target || 0;
-
     props.onKeyChange(typeStarts[event.target.value] + targetLayer);
   };
 

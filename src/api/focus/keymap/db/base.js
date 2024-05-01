@@ -392,13 +392,13 @@ const layer = (base, hint, type, index) => ({
 });
 const shiftToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(constants.ranges.layer.start + 42, "ShiftTo", "shifttolayer", index));
+  .map((_, index) => layer(constants.ranges.layer_shift.start, "ShiftTo", "shifttolayer", index));
 const lockToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(constants.ranges.layer.start, "LockTo", "locktolayer", index));
+  .map((_, index) => layer(constants.ranges.layer_lock.start, "LockTo", "locktolayer", index));
 const moveToLayer = Array(32)
   .fill()
-  .map((_, index) => layer(constants.ranges.layer.start + 84, "MoveTo", "movetolayer", index));
+  .map((_, index) => layer(constants.ranges.layer_move.start, "MoveTo", "movetolayer", index));
 const layers = shiftToLayer.concat(lockToLayer).concat(moveToLayer);
 
 const platform_apple = assignKeysToCategory(

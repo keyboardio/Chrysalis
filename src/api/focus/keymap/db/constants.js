@@ -59,6 +59,10 @@ const keycode_ranges = {
   dynamic_macro: { start: 0xd15c, end: 0xd17b },
   led: { start: 0x4300 },
   layer: { start: 0x4400 },
+  layer_lock: { start: 0x4400, end: 0x4400 + 41 },
+  layer_shift: { start: 0x4400 + 42, end: 0x4400 + 83 },
+  layer_move: { start: 0x4400 + 84, end: 0x4400 + 125 },
+
   tapdance: { start: 0xd013, end: 0xd022 },
   spacecadet: { start: 0xd158, end: 0xd159 },
   redial: { start: 0xd15a, end: 0xd15a },

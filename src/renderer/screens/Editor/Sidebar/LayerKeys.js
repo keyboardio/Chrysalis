@@ -36,7 +36,7 @@ const LayerKeys = (props) => {
     const { keymap, currentKey: key } = props;
     const max = keymap.custom.length;
 
-    if (db.isInCategory(key.code, "layer") && key.categories[1] == "oneshot") {
+    if (db.isInCategory(key.code, "layer") && key.categories.includes("oneshot")) {
       // for oneshots Kaleidoscope supports max 8 layers
       return Math.min(max, 8);
     }
@@ -45,7 +45,7 @@ const LayerKeys = (props) => {
 
   const onTargetLayerChange = (event, max) => {
     let target = Math.min(parseInt(event.target.value) || 0, max);
-    if (db.isInCategory(key.code, "layer") && key.categories[1] == "dualuse") {
+    if (db.isInCategory(key.code, "layer") && key.categories.includes("dualuse")) {
       const code = key.baseCode || key.code;
 
       if (target < 0) target = getMaxLayer();

@@ -54,4 +54,4 @@ Chrysalis requires a browser with WebSerial support. Right now, this means Chrom
 - "Report an issue" now provides system logs for reports
 
 ## Last Updated
-2024.0318.1913
+2024.0501.1931

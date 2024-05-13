@@ -20,9 +20,9 @@ const HelpConnection = () => {
 
   // First build up a list of all known devices:
   const rules = supportedDeviceVIDPIDs().map((device) => {
-    return `SUBSYSTEM=="usb", ATTR{idVendor}=="${device.usbVendorId
+    return `SUBSYSTEM=="usb", ATTRS{idVendor}=="${device.usbVendorId
       .toString(16)
-      .padStart(4, "0")}", ATTR{idProduct}=="${device.usbProductId.toString(16).padStart(4, "0")}", SYMLINK+="${
+      .padStart(4, "0")}", ATTRS{idProduct}=="${device.usbProductId.toString(16).padStart(4, "0")}", SYMLINK+="${
       device.productName
     }",  ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"\n`;
   });

@@ -30,6 +30,7 @@ _Note:_ On macOS, the Atreus and Model 01 may experience unreliable connectivity
 Chrysalis requires a browser with WebSerial support. Right now, this means Chrome, Edge, Arc, Brave, and other browsers based on Chromium. We're hopeful that Firefox and Apple will implement WebSerial and WebUSB, but neither browser maker has yet announced their intention to do so.
 
 ## Recent updates
+- 2024-05-14: Fixup our firefox support to at least explain that we don't support firefox.
 - 2024-05-13: Update udev rules to match what we do in Kaleidoscope.
 - 2024-05-01: Properly handle changing dual-use layers from the layers tab.
 - 2024-03-18: Fixed an issue with the ability to edit sticky modifier keys 

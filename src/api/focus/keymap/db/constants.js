@@ -69,6 +69,12 @@ const keycode_ranges = {
   turbo: { start: 0xd15b, end: 0xd15b },
 };
 export const constants = {
+  limits: {
+    // Using a secondary action for layer shifts is limited to 8 layers due to
+    // technical reasons in Kaleidoscope. We overflow the key range assigned to
+    // secondary actions if we got beyond layer 7. (Layer 0 is the first layer.)
+    secondaryActionLayerLimit: 7,
+  },
   codes: {
     // Keycodes
     ESCAPE: 41,

@@ -48,8 +48,8 @@ const LayerKeys = (props) => {
     if (db.isInCategory(key.code, "layer") && key.categories.includes("dualuse")) {
       const code = key.baseCode || key.code;
 
-      if (target < 0) target = getMaxLayer();
-      if (target > getMaxLayer()) target = 0;
+      if (target < 0) target = db.constants.limits.secondaryActionLayerLimit;
+      if (target > db.constants.limits.secondaryActionLayerLimit) target = 0;
 
       props.onKeyChange(addDualUseLayer(db.lookup(code), target).code);
     } else {
@@ -120,7 +120,7 @@ const LayerKeys = (props) => {
           >
             <MenuItem value="-1" disabled></MenuItem>
             {[...Array(getMaxLayer())].map((x, i) => (
-              <MenuItem key={i} name={i} value={i}>
+              <MenuItem key={i} name={i} value={i} disabled={i > db.constants.limits.secondaryActionLayerLimit}>
                 {props.layerNames?.names[i]}
               </MenuItem>
             ))}

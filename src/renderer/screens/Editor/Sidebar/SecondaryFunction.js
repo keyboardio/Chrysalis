@@ -78,10 +78,6 @@ const SecondaryFunction = (props) => {
 
   const { currentKey: key, keymap } = props;
   const maxLayer = keymap.custom.length;
-  // Using a secondary action for layer shifts is limited to 8 layers due to
-  // technical reasons in Kaleidoscope. We overflow the key range assigned to
-  // secondary actions if we got beyond layer 7. (Layer 0 is the first layer.)
-  const secondaryActionLayerLimit = 7;
 
   let type = "none",
     targetLayer = -1,
@@ -131,9 +127,9 @@ const SecondaryFunction = (props) => {
       targetLayer = key.target;
 
       let layerLimitText = "";
-      if (maxLayer > secondaryActionLayerLimit) {
+      if (maxLayer > db.constants.limits.secondaryActionLayerLimit) {
         layerLimitText = t("editor.sidebar.secondary.help-layerLimit", {
-          layer7: props.layerNames?.names[secondaryActionLayerLimit],
+          layer7: props.layerNames?.names[db.constants.limits.secondaryActionLayerLimit],
         });
       }
 
@@ -142,7 +138,7 @@ const SecondaryFunction = (props) => {
           <InputLabel id="editor.sidebar.secondary.targetLayer">
             {t("editor.sidebar.secondary.targetLayer")}{" "}
           </InputLabel>
-          <Tooltip title={maxLayer > secondaryActionLayerLimit && layerLimitText}>
+          <Tooltip title={maxLayer > db.constants.limits.secondaryActionLayerLimit && layerLimitText}>
             <Select
               labelId="editor.sidebar.secondary.targetLayer"
               value={targetLayer}
@@ -152,7 +148,12 @@ const SecondaryFunction = (props) => {
             >
               <MenuItem value="-1" disabled></MenuItem>
               {[...Array(maxLayer)].map((x, i) => (
-                <MenuItem name={i} key={`dualuse-dropdown-${i}`} value={i} disabled={i > secondaryActionLayerLimit}>
+                <MenuItem
+                  name={i}
+                  key={`dualuse-dropdown-${i}`}
+                  value={i}
+                  disabled={i > db.constants.limits.secondaryActionLayerLimit}
+                >
                   {props.layerNames?.names[i]}
                 </MenuItem>
               ))}

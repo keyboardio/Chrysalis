@@ -117,4 +117,6 @@ button {
     /* stylelint-disable-line selector-class-pattern */
     display: none;
   }
+
+  MuiToolbar-root {display: none;}
 }

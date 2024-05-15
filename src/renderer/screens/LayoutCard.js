@@ -19,7 +19,7 @@ import KeymapDB from "@api/focus/keymap/db";
 import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@renderer/components/Tooltip";
 import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import LoadingScreen from "@renderer/components/LoadingScreen";

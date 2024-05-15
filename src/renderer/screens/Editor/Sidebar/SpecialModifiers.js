@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@renderer/components/Tooltip";
 import usePluginAvailable from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";

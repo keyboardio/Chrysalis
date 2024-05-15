@@ -17,7 +17,7 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@renderer/components/Tooltip";
 import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 

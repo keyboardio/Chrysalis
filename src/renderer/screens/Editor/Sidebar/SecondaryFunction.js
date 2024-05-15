@@ -23,7 +23,7 @@ import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@renderer/components/Tooltip";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FKPCategorySelector from "../components/FKPCategorySelector";
@@ -138,27 +138,33 @@ const SecondaryFunction = (props) => {
           <InputLabel id="editor.sidebar.secondary.targetLayer">
             {t("editor.sidebar.secondary.targetLayer")}{" "}
           </InputLabel>
-          <Tooltip title={maxLayer > db.constants.limits.secondaryActionLayerLimit && layerLimitText}>
-            <Select
-              labelId="editor.sidebar.secondary.targetLayer"
-              value={targetLayer}
-              onChange={(event) => onTargetLayerChange(event, maxLayer)}
-              label={t("editor.sidebar.secondary.targetLayer")}
-              disabled={targetLayer < 0}
-            >
-              <MenuItem value="-1" disabled></MenuItem>
-              {[...Array(maxLayer)].map((x, i) => (
-                <MenuItem
-                  name={i}
-                  key={`dualuse-dropdown-${i}`}
-                  value={i}
-                  disabled={i > db.constants.limits.secondaryActionLayerLimit}
-                >
+          <Select
+            labelId="editor.sidebar.secondary.targetLayer"
+            value={targetLayer}
+            onChange={(event) => onTargetLayerChange(event, maxLayer)}
+            label={t("editor.sidebar.secondary.targetLayer")}
+            disabled={targetLayer < 0}
+          >
+            <MenuItem value="-1" disabled></MenuItem>
+            {[...Array(maxLayer)].map((x, i) => {
+              const isDisabled = i > db.constants.limits.secondaryActionLayerLimit;
+              const menuItem = (
+                <MenuItem name={i.toString()} key={`dualuse-dropdown-${i}`} value={i} disabled={isDisabled}>
                   {props.layerNames?.names[i]}
                 </MenuItem>
-              ))}
-            </Select>
-          </Tooltip>
+              );
+
+              return isDisabled ? (
+                <Tooltip key={`tooltip-${i}`} title={layerLimitText}>
+                <span>
+                  {menuItem}
+                  </span>
+                </Tooltip>
+              ) : (
+                menuItem
+              );
+            })}
+          </Select>
         </FormControl>
       );
     }

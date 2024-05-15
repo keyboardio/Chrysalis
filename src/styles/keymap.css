@@ -118,5 +118,5 @@ button {
     display: none;
   }
 
-  MuiToolbar-root {display: none;}
+  header {display: none;}
 }

@@ -20,15 +20,18 @@ const HelpConnection = () => {
 
   // First build up a list of all known devices:
   const rules = supportedDeviceVIDPIDs().map((device) => {
-    return `SUBSYSTEM=="usb", ATTRS{idVendor}=="${device.usbVendorId
+    return `SUBSYSTEMS=="usb", ATTRS{idVendor}=="${device.usbVendorId
       .toString(16)
       .padStart(4, "0")}", ATTRS{idProduct}=="${device.usbProductId.toString(16).padStart(4, "0")}", SYMLINK+="${
       device.productName
-    }",  ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"\n`;
+    }",  ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"\n`;
   });
   const linuxInstructions = (
     <>
       <h2>Linux</h2>
+      <p><b>These rules were last updated on May 17, 2024. If you installed the rules before this date, please replace
+    them with these new rules.</b>
+    </p>
       <p>
         If you are using Linux and aren't able to connect to your keyboard, it's likely that the <code>udev</code>,
         system which controls pluggable devices like keyboards, isn't set up to let you access your keyboard. To grant

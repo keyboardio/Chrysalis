@@ -16,6 +16,7 @@
 
 import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
 import { Model01, Model100 } from "@api/hardware-keyboardio-model01";
+import { Preonic } from "@api/hardware-keyboardio-preonic";
 
 // We have two arrays here: the `serial` array contains hardware descriptors
 // where a serial device is to be used in either application or bootloader mode.
@@ -30,9 +31,9 @@ import { Model01, Model100 } from "@api/hardware-keyboardio-model01";
 // but the application mode is, so it's in both.
 //
 export const Hardware = {
-  devices: [Model01, Model100, Atreus2],
+  devices: [Model01, Model100, Atreus2, Preonic],
   serial: [Model01, Model100, Atreus2],
-  nonSerial: [Model100],
+  nonSerial: [Model100, Preonic],
 };
 
 function getDeviceProtocol(vid, pid) {

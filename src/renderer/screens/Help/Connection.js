@@ -46,7 +46,7 @@ const HelpConnection = () => {
         </pre>
       </p>
       <p>
-        Then, run <code style={{ userSelect: "text" }}>sudo udevadm control --reload-rules</code> to apply the new rules
+        Then, run <code style={{ userSelect: "text" }}>sudo udevadm control --reload-rules; sudo udevadm trigger</code> to apply the new rules
         without requiring a reboot.
       </p>
     </>

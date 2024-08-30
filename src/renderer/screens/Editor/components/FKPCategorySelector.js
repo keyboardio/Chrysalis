@@ -52,6 +52,7 @@ const FKPCategorySelector = (props) => {
   return (
     <React.Fragment>
       <Tooltip title={tooltip}>
+        <>
         {title && <SectionTitle>{title}</SectionTitle>}
         {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
         {props.children || (
@@ -63,6 +64,7 @@ const FKPCategorySelector = (props) => {
             minButtonWidth={props.minButtonWidth}
           />
         )}
+        </>
       </Tooltip>
     </React.Fragment>
   );

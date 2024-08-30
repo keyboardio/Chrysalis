@@ -87,6 +87,7 @@ export const flashDevice = async (writer, reader, flashData) => {
   let state = AVR109States.UNINITIALIZED;
   let pageStart = 0;
   let address = 0;
+  let softwareIdReceived = "";
 
   //trigger update by sending programmer ID command
   sendCommand(writer, AVR109_CMD_RETURN_SOFTWARE_ID);
@@ -109,12 +110,17 @@ export const flashDevice = async (writer, reader, flashData) => {
     /****************/
     switch (state) {
       case AVR109States.UNINITIALIZED:
+        // the softwareid is sometimes received in multiple parts, so we need to concatenate them
+        // windows hosts in particular sometimes send 'C' and 'ATERIN' in separate chunks
+        softwareIdReceived += responseString;
         logger.debug("Verifying that device entered bootloader mode");
-        if (responseString !== "CATERIN") {
+        if (softwareIdReceived !== "CATERIN") {
           logger.log('error: unexpected RX value in state 0, waited for "CATERIN"');
           logger.log("responseString", responseString);
+          logger.log("softwareIdReceived", softwareIdReceived);
           break;
         }
+        softwareIdReceived = "";
         logger.debug("Device entered bootloader mode");
         await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
         state = AVR109States.PROGRAMMING_MODE;

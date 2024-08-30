@@ -69,7 +69,7 @@ const Editor = (props) => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const drawerHeightInRem = 20;
+  const drawerHeightInRem = 16;
   const [maxKeyboardHeight, setMaxKeyboardHeight] = useState("auto");
 
   useEffect(() => {
@@ -509,7 +509,7 @@ const Editor = (props) => {
         onClick={onApply}
         onError={onApplyError}
         disabled={saveChangesDisabled}
-        bottom={`${drawerHeightInRem + 1}rem`}
+        bottom={`${drawerHeightInRem + 0.1}rem`}
       />
 
       <Drawer

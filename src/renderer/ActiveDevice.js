@@ -134,7 +134,7 @@ export function ActiveDevice() {
     if (newValue !== undefined) {
       if (isEqual(newValue, this._cache[command])) {
         // If the values are the same, don't bother sending it to the device.
-        logger.debug("Not sending a value that matches what's on the device");
+        logger.debug(`${command}: Not sending a value that matches what's on the device`, [newValue]);
         return cloneDeep(this._cache[command]);
       }
 
@@ -143,9 +143,8 @@ export function ActiveDevice() {
     }
     if (!(command in this._cache)) {
       this._cache[command] = await this.focus.command(command);
-      logger.log("Got a previosuly uncached value", [this._cache[command]]);
+      logger.debug(`${command} Caching new value`, [this._cache[command]]);
     }
-    logger.log("Returning a cached value for " + command);
     return cloneDeep(this._cache[command]);
   };
 

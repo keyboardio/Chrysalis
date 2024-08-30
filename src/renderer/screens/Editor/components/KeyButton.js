@@ -59,9 +59,10 @@ const KeyButton = (props) => {
         color: textColor,
         borderColor: theme.palette.divider,
         borderRadius: 0,
-        fontSize: 10,
+        fontSize: 8,
         backgroundColor: buttonColor,
         minWidth: { minWidth },
+        height: 24
       }}
       onClick={() => {
         onKeyChange(keyObj.code);

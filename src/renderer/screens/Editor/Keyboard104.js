@@ -21,7 +21,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 const db = new KeymapDB();
 
-const keycapunit = 56;
+const keycapunit = 50;
 
 const KeySelector = (props) => {
   const keymap = db.getStandardLayout();

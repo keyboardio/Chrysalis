@@ -42,8 +42,6 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const flash = async (port, filecontents) => {
   var enc = new TextDecoder("utf-8");
-  logger.log("filecontents");
-  logger.log(filecontents);
   const focus = new Focus();
 
   var hexAsText = enc.decode(filecontents);
@@ -53,7 +51,6 @@ const flash = async (port, filecontents) => {
         //parse intel hex
         const flashData = parseIntelHex(hexAsText);
         //open & close
-        // Wait for the serial port to open.
         // Wait for the serial port to open.
 
         await focus.closePort();
@@ -112,11 +109,13 @@ export const flashDevice = async (writer, reader, flashData) => {
     /****************/
     switch (state) {
       case AVR109States.UNINITIALIZED:
+        logger.debug("Verifying that device entered bootloader mode");
         if (responseString !== "CATERIN") {
           logger.log('error: unexpected RX value in state 0, waited for "CATERIN"');
+          logger.log("responseString", responseString);
           break;
         }
-
+        logger.debug("Device entered bootloader mode");
         await sendCommand(writer, AVR109_CMD_ENTER_PROG_MODE);
         state = AVR109States.PROGRAMMING_MODE;
         break;
@@ -189,6 +188,7 @@ const flashPageToDevice = async (writer, flashData, pageStart) => {
   await writeToDevice(writer, txx);
 };
 export const setPageAddress = async (writer, address) => {
+  logger.debug("Setting page address to " + address);
   const data = new Uint8Array([65, (address >> 8) & 255, address & 255]); // 'A' high low
   await writeToDevice(writer, data);
 };
@@ -200,6 +200,7 @@ export async function sendCommand(writer, command) {
   await writeToDevice(writer, commandAsArrayBuffer);
 }
 const writeToDevice = async (writer, data) => {
+  logger.debug("Writing data to device");
   await writer.write(data);
   await delay(5);
 };

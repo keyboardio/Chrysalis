@@ -81,7 +81,7 @@ const Modifiers = (props) => {
   return (
     <FKPCategorySelector help={t("editor.sidebar.keypicker.modsHelp")} disabled={!isStandardKey(props)}>
       <FormControl component="fieldset" sx={{ mt: 1 }} disabled={!isStandardKey(props)}>
-        <FormGroup column>{Object.keys(modifiers).map(modifierControl)}</FormGroup>
+        <FormGroup>{Object.keys(modifiers).map(modifierControl)}</FormGroup>
       </FormControl>
     </FKPCategorySelector>
   );

@@ -52,7 +52,7 @@ export const SpecialModifiers = (props) => {
   const topsyTurvyAvailable = usePluginAvailable("TopsyTurvy");
 
   return (
-    <FormGroup column>
+    <FormGroup>
       <FKPCategorySelector
         help={t("editor.sidebar.keypicker.specialModsHelp")}
         plugin="TopsyTurvy"

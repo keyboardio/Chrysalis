@@ -47,6 +47,7 @@ const Overview = (props) => {
   const { keymap, selectedKey, selectedLed, layer, colormap, layerNames } = props;
   const db = new KeymapDB();
 
+  const fontSize = "0.6rem";
   const componentWidth = 200; // Assume a fixed width for the component
   const [defaultPosition, setDefaultPosition] = useState({ x: 0, y: 0 });
 
@@ -103,6 +104,7 @@ const Overview = (props) => {
           aria-haspopup="true"
           onClick={handleClick}
           sx={{
+            height: fontSize,
             opacity: open ? 1 : 0.1, // Full opacity when open, faded otherwise
             transition: "opacity 0.3s ease", // Smooth transition for the opacity
             "&:hover": {
@@ -158,13 +160,13 @@ const Overview = (props) => {
       >
         <TableCell size="small" sx={{ pl: "1rem" }} align="left">
           {props.setLayerName ? (
-            <LayerNameInput value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
+            <LayerNameInput fontSize={fontSize} value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
           ) : (
-            <Typography sx={{ fontSize: "0.8rem" }}>{layerNames.names[index]}</Typography>
+            <Typography sx={{ fontSize: fontSize }}>{layerNames.names[index]}</Typography>
           )}
         </TableCell>
         <TableCell size="small" padding="none">
-          <Typography sx={{ fontSize: "0.8rem" }}>
+          <Typography sx={{ fontSize: fontSize }}>
             {label.hint} {label.main}
           </Typography>
         </TableCell>
@@ -199,16 +201,16 @@ const Overview = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ pl: "1rem", py: 0 }} size="small" width="3" align="left">
-                    <Typography sx={{ fontSize: "0.8rem" }}>{t("components.layerRaw")}</Typography>
+                    <Typography sx={{ fontSize: fontSize }}>{t("components.layerRaw")}</Typography>
                   </TableCell>
                   <TableCell size="small" align="left">
-                    <Typography sx={{ fontSize: "0.8rem" }}>
+                    <Typography sx={{ fontSize: fontSize }}>
                       {t("editor.overview.key", { index: selectedKey })}
                     </Typography>
                   </TableCell>
                   {showColors && (
                     <TableCell size="small" padding="none" sx={{ width: (theme) => theme.spacing(3) }}>
-                      <Typography sx={{ fontSize: "0.8rem" }}>{t("editor.overview.color")}</Typography>
+                      <Typography sx={{ fontSize: fontSize }}>{t("editor.overview.color")}</Typography>
                     </TableCell>
                   )}
                   <TableCell size="small" sx={{ pl: 0, pr: "1rem", py: 0 }} />

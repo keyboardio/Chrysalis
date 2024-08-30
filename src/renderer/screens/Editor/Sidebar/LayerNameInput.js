@@ -17,7 +17,7 @@ export const LayerNameInput = (props) => {
     <InputBase
       sx={{
         flex: 1,
-        fontSize: "0.8rem",
+        fontSize: props.fontSize || "0.8rem",
         "& input": {
           padding: "0", // Minimizes padding to adjust for baseline alignment
           margin: "0",

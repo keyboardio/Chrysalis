@@ -268,7 +268,7 @@ class Focus {
 
     const rid = this._request_id;
     this._request_id += 1;
-    logger.debug(`request: ${cmd} ${args}`, {
+    logger.debug(`enqueueing request: ${cmd}`, {
       request: {
         id: rid,
         command: cmd,
@@ -306,6 +306,7 @@ class Focus {
   async _sendRequest(cmd, args) {
     if (!this._port) throw "Device not connected!";
 
+    logger.info("Sending request", { cmd, args });
     let request = cmd;
     if (args && args.length > 0) {
       request = request + " " + args.join(" ");
@@ -439,7 +440,6 @@ class Focus {
         backup[cmd] = dump;
       }
     }
-    console.log(backup);
     return backup;
   }
   async writeKeyboardConfiguration(backup) {

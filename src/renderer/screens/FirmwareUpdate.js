@@ -282,7 +282,6 @@ const FirmwareUpdate = (props) => {
     });
     setActiveStep(Math.min(activeStep + 1, flashSteps.length));
     flashSteps.forEach((step, index) => {
-      logger.log("Considering ", { step, index });
       if (step == desiredState) {
         logger.log("Found the step we're looking for:" + step);
         setActiveStep(index);
@@ -439,8 +438,6 @@ const FirmwareUpdate = (props) => {
             if (focus) {
               logger.debug("connected to serial port");
               setPromptForFocusConnection(false);
-              logger.log("Runnign in onconfirm");
-              logger.log(afterFocusConnectCallback);
               afterFocusConnectCallback();
             } else {
               logger.log("We need to try that connect again");

@@ -128,7 +128,22 @@
                 "title": "Colores"
             },
             "keypicker": {
-                "mods": "Modificadores"
+                "mods": "Modificadores",
+                "modsHelp": "Elige las teclas modificadoras que se pulsan automáticamente al pulsar esta tecla.",
+                "topsyturvy": {
+                    "tooltip": "Invierte el comportamiento de la tecla Shift. (Por ejemplo, envía 'A' cuando está sin mayúsculas y 'a' cuando está con mayúsculas)",
+                    "label": "Invertir Shift"
+                },
+                "oneshot": {
+                    "tooltip": "Toque para activarlo al pulsar la siguiente tecla, manténgalo pulsado para que actúe como un modificador normal, toque dos veces para activar el modificador."
+                }
+            },
+            "layer": {
+                "title": "Capas y mapas de teclas",
+                "help": "Teclas que permiten cambiar capas."
+            },
+            "leader": {
+                "help": "Asignar teclas Leader. Para configurar esta función, puede utilizar el IDE de Arduino para personalizar el archivo 'Sketch' de Kaleidoscope para su teclado."
             }
         }
     },

@@ -1,1 +1,188 @@
-{}
+{
+    "app": {
+        "menu": {
+            "miscSection": "Diverse",
+            "changelog": "Endringslogg",
+            "chat": "Discord-chat",
+            "exit": "Avslutt",
+            "restart": "Ta i bruk oppdatering og start på nytt",
+            "chrysalisSection": "Chrysalis",
+            "keyboardSection": "Tastatur",
+            "focus-not-detected": "Velkommen",
+            "systemInfo": "Rapporter feil",
+            "editor": "Oppsett- og fargekartredigerer",
+            "layoutEditor": "Oppsettredigerer",
+            "colormapEditor": "Fargekartredigerer",
+            "macroEditor": "Makroredigerer",
+            "firmwareUpdate": "Maskinvareoppdatering",
+            "preferences": "Innstillinger",
+            "selectAKeyboard": "Velg et tastatur",
+            "layoutCard": "Oppsettkort",
+            "selectAnotherKeyboard": "Velg et annet tastatur"
+        },
+        "deviceMenu": {
+            "Homepage": "Hjemmeside",
+            "Chat": "Chat",
+            "Forum": "Forum"
+        },
+        "cancelPending": {
+            "title": "Forkast ventende endringer?",
+            "content": "Du har ulagrede endringer. Om du fortsetter, skal de mistes."
+        },
+        "actionRequired": "Handling kreves"
+    },
+    "editor": {
+        "sharing": {
+            "dialog": {
+                "layoutFiles": "Oppsettfiler",
+                "allFiles": "Alle filer"
+            },
+            "importConfirm": {
+                "contents": "Dette overskriver ditt gjeldende oppsett, og alle ulagrede endringer skal forkastes. Er du sikker på at du vil fortsette?",
+                "title": "Importer det valgte oppsettet?"
+            },
+            "errors": {
+                "unableToLoad": "Kunne ikke laste inn oppsett fra den valgte filen.",
+                "parseFail": "Kunne ikke tolke oppsettdata.",
+                "invalidLayoutData": "Fil inneholdt ikke gyldig oppsettdata."
+            },
+            "title": "Sikkerhetskopiering og gjenoppretting",
+            "loadFromLibrary": "Last inn fra biblioteket",
+            "loadFromBackup": "Last inn fra sikkerhetskopieringer",
+            "loadFromFile": "Last inn fra fil…",
+            "exportToFile": "Eksporter til fil…",
+            "import": "Importer",
+            "selectLoadFile": "Velg fil som et oppsett skal lastes inn fra",
+            "selectExportFile": "Velg fil som oppsettet skal eksporteres til"
+        },
+        "sidebar": {
+            "blanks": {
+                "title": "Blanker",
+                "help": "Blokkerte og gjennomsiktige taster."
+            },
+            "overview": {
+                "showEmptyLayers": "Vis tomme lag…",
+                "key": "Tast #{{index}}",
+                "hideEmptyLayers": "Skjul tomme lag…",
+                "color": "Farge",
+                "sharing": "Sikkerhetskopiering og gjenoppretting",
+                "pasteLayer": "Lim inn lag",
+                "copyLayer": "Kopier lag",
+                "help": "Et oversikt av tildelingene for den valgte tasten. For å bytte det viste laget, klikk på raden dets."
+            },
+            "platform_apple": {
+                "help": "Tastkoder kun på Apple-enheter.",
+                "title": "Mac / iPad-taster"
+            },
+            "secondary": {
+                "title": "Sekundær handling",
+                "help": "Lar deg tildele sekundære handlinger til en tast. Når sånne utvidede taster trykkes, skal den primære handlingen utføres. Når sånne taster holdes ned, skal den sekundære handlingen utføres.",
+                "type": {
+                    "layer": "Lagskift",
+                    "modifier": "Modifisering",
+                    "none": "Ingen sekundær handling"
+                },
+                "whenHeld": "Når holdt",
+                "targetLayer": "Lag",
+                "modifier": "Modifisering",
+                "help-layerLimit": "På grunn av begrensninger av maskinvaren er å skifte til lag ovenpå lag {{ layer8 }} ikke støttet med sekundære handlinger."
+            },
+            "consumer": {
+                "brightness": "Lysstyrke",
+                "volume": "Volym",
+                "media": "Mediumkontroll"
+            },
+            "colors": {
+                "title": "Farger",
+                "help": "Tildel en farge til den valgte tasten ved å trykke på en av palettfirkantene under. Bruk fargevelgeren for å endre fargen på en palettfirkant."
+            },
+            "keypicker": {
+                "mods": "Modifiserere",
+                "modsHelp": "Velg modifiserertaster som blir automatisk påtrykket i det du trykker på denne tasten.",
+                "topsyturvy": {
+                    "tooltip": "Invertere adferden av Skift-tasten. (Send f.eks. «A» når uskiftet og «a» når skiftet)",
+                    "label": "Invertere Skift"
+                },
+                "oneshot": {
+                    "label": "Klissete",
+                    "tooltip": "Trykk for å aktivere for neste tasttrykk, hold for å oppføre som en normal modifiserer, dobbeltrykk for å slå på/av modifisereren."
+                }
+            },
+            "layer": {
+                "title": "Lag og tastkarter"
+            },
+            "language_intl": {
+                "title": "Språk / Internasjonal",
+                "help": "Språkspesifikke ekstrataster."
+            },
+            "custom": {
+                "title": "Tilpasset tastkode",
+                "help": "Lar deg tildele en tilpasset tastkode til en tast, eller en tast ukjent for øyeblikket av Chrysalis.",
+                "label": "Tilpasset tastkode"
+            }
+        },
+        "legacy": {
+            "migrate": "Migrere",
+            "warning": "Vi fant foreldede taster på tastkarten som er ikke lenger gyldige. Vennligst trykk på Migrer-knappen for å migrere til de nye kodene."
+        }
+    },
+    "breakingNews": {
+        "firmware0_90_1": {
+            "button": "Oppgraderingsinstrukser",
+            "title": "Advarsel til eiere av Keyboardio Model 100!",
+            "description": "Maskinvare før versjon 0.90.1 inneholder en feil som fører til tap av data og ødelagt data lagret på tastaturet. Hvis du allerede kjører nyere maskinvare kan du avvis denne advarselen med Avvis-knappen."
+        }
+    },
+    "language": "norsk bokmål",
+    "errors": {
+        "deviceDisconnected": "Tastatur frakoblet",
+        "saveFile": "Feil ved lagring av fil: {{ error }}"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "print": {
+        "feedback": {
+            "success": "Skrev utvellykket!",
+            "error": "Det oppsto en feil ved utskrivning."
+        }
+    },
+    "components": {
+        "layer": "Lag {{index}}",
+        "layerRaw": "Lag",
+        "none": "Ingen",
+        "save": {
+            "saveChanges": "Lagre endringer"
+        },
+        "loading": "Leser data fra enhet…",
+        "logo": {
+            "altText": "Chrysalis-varemerke"
+        }
+    },
+    "autoUpdate": {
+        "downloaded": "Utgivelse {{ version }} nedlastet, start Chrysalis på nytt for å fullføre installasjonen",
+        "error": "Feil ved oppdatering: {{ error }}",
+        "available": "Ny utgivelse tilgjengelig: {{ version }}"
+    },
+    "firmwareAutoUpdate": {
+        "available": "Ny maskinvareutgivelse tilgjengelig: {{ version }}",
+        "downloaded": "Maskinvareutgivelse {{ version }} nedlastet og tilgjengelig for skriving",
+        "error": "Feil ved nedlasting av den nye maskinvareutgivelsen.",
+        "warning": "Chrysalis kunne ikke se etter en ny maskinvareutgivelse. En ny utgivelsen kan være tilgjengelig på internett."
+    },
+    "dialog": {
+        "ok": "OK",
+        "cancel": "Avbryt",
+        "close": "Steng",
+        "continue": "Fortsett"
+    },
+    "changelog": {
+        "title": "Endringslogg"
+    },
+    "sanity-check": {
+        "title": "Kjører miljøverifisering",
+        "header": "Miljøverifisering mislyktes",
+        "message": "Chrysalis har oppdaget at den kjører i et ustøttet miljø, som f.eks. med en versjon av Electron som er ikke den som støttes oppstrøm. Dersom du bruker Chrysalis gjennom en distros pakkelager, vennligst bruk de offisielle byggene i stedet.",
+        "download-latest": "Last ned den offisielle utgivelsen"
+    }
+}

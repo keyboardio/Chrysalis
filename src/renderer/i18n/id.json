@@ -14,7 +14,10 @@
             "keyboardSection": "Papan tik",
             "chrysalisSection": "Chrysalis",
             "miscSection": "Lain-lain",
-            "changelog": "Log perubahan"
+            "changelog": "Log perubahan",
+            "editor": "Editor Tata Letak & Peta Warna",
+            "colormapEditor": "Editor Peta Warna",
+            "macroEditor": "Editor Makro"
         },
         "deviceMenu": {
             "Homepage": "Beranda",
@@ -291,7 +294,8 @@
     "sanity-check": {
         "download-latest": "Unduh rilis resmi",
         "header": "Verifikasi lingkungan gagal",
-        "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi."
+        "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi.",
+        "title": "Menjalankan verifikasi lingkungan"
     },
     "errors": {
         "deviceDisconnected": "Papan tik terputus",
@@ -305,7 +309,9 @@
             "altText": "Logo Chrysalis"
         },
         "none": "Tidak ada",
-        "loading": "Membaca data dari perangkat..."
+        "loading": "Membaca data dari perangkat...",
+        "layer": "Lapisan {{index}}",
+        "layerRaw": "Lapisan"
     },
     "autoUpdate": {
         "available": "Versi baru tersedia: {{ version }}",
@@ -327,7 +333,7 @@
     "print": {
         "feedback": {
             "success": "Berhasil dicetak!",
-            "error": "Galat terjadi ketika mencetak."
+            "error": "Terjadi error ketika mencetak."
         }
     },
     "keyboardSelect": {
@@ -390,6 +396,7 @@
     "firmwareAutoUpdate": {
         "available": "Versi baru perangkat tegar tersedia: {{ version }}",
         "error": "Galat ketika mengunduh versi baru perangkat tegar.",
-        "warning": "Chrysalis tidak dapat memeriksa versi baru dari perangkat tegar. Versi lebih baru mungkin tersedia secara daring."
+        "warning": "Chrysalis tidak dapat memeriksa versi baru dari perangkat tegar. Versi lebih baru mungkin tersedia secara daring.",
+        "downloaded": "Versi firmware {{ version }} yang diunduh, dan tersedia untuk di-flash"
     }
 }

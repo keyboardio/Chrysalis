@@ -22,4 +22,4 @@ Firefox and Safari don't yet implement WebSerial and WebUSB.
 - Loading "pre-configured" layouts
 
 ## Last Updated
-2024.0830.2138
+2024.1015.1720

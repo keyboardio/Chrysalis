@@ -426,7 +426,7 @@ const lang_intl = assignKeysToCategory(
   ["lang_intl"],
   [
     { code: 144, label: { base: { full: "Lang1/Kana/Hangul" } } },
-    { code: 145, label: { base: { full: "Lang2/Muhenkan/Hanja" } } },
+    { code: 145, label: { base: { full: "Lang2/Eisuu/Hanja" } } },
     { code: 146, label: { base: { full: "Lang3" } } },
     { code: 147, label: { base: { full: "Lang4" } } },
     { code: 148, label: { base: { full: "Lang5" } } },

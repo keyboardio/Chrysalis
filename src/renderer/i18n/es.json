@@ -148,10 +148,25 @@
                 "title": "Líder"
             },
             "oneshot": {
-                "help": "Haga clic en el botón a continuación para elegir una tecla específica para cancelar las teclas de un solo uso."
+                "help": "Haga clic en el botón a continuación para elegir una tecla específica para cancelar las teclas de un solo uso.",
+                "title": "One-shot"
             },
             "oneshotMetaKeys": {
-                "help": "Estas opciones crean teclas OneShot especiales que pueden hacer que cualquier tecla sea \"fija\", no solo los modificadores o las teclas de cambio de capa."
+                "help": "Estas opciones crean teclas OneShot especiales que pueden hacer que cualquier tecla sea \"fija\", no solo los modificadores o las teclas de cambio de capa.",
+                "metaStickyKey": {
+                    "tooltip": "Hace que la siguiente tecla pulsada se quede fija hasta que se vuelva a pulsar."
+                },
+                "activeStickyKey": {
+                    "tooltip": "Hace que las teclas pulsadas en ese momento queden fijas hasta que se vuelvan a pulsar."
+                }
+            },
+            "macros": {
+                "help": "Asigna macros a las teclas. Para crear o modificar macros, puede utilizar el IDE de Arduino para personalizar el archivo 'Sketch' de Kaleidoscope para su teclado.",
+                "title": "Macros"
+            },
+            "ledcontrol": {
+                "help": "Controle los temas y efectos LED de su teclado.",
+                "title": "Control del LED"
             }
         }
     },

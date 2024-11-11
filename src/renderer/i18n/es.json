@@ -128,7 +128,45 @@
                 "title": "Colores"
             },
             "keypicker": {
-                "mods": "Modificadores"
+                "mods": "Modificadores",
+                "modsHelp": "Elige las teclas modificadoras que se pulsan automáticamente al pulsar esta tecla.",
+                "topsyturvy": {
+                    "tooltip": "Invierte el comportamiento de la tecla Shift. (Por ejemplo, envía 'A' cuando está sin mayúsculas y 'a' cuando está con mayúsculas)",
+                    "label": "Invertir Shift"
+                },
+                "oneshot": {
+                    "tooltip": "Toque para activarlo al pulsar la siguiente tecla, manténgalo pulsado para que actúe como un modificador normal, toque dos veces para activar el modificador.",
+                    "label": "Adhesivo"
+                }
+            },
+            "layer": {
+                "title": "Capas y mapas de teclas",
+                "help": "Teclas que permiten cambiar capas."
+            },
+            "leader": {
+                "help": "Asignar teclas Leader. Para configurar esta función, puede utilizar el IDE de Arduino para personalizar el archivo 'Sketch' de Kaleidoscope para su teclado.",
+                "title": "Líder"
+            },
+            "oneshot": {
+                "help": "Haga clic en el botón a continuación para elegir una tecla específica para cancelar las teclas de un solo uso.",
+                "title": "One-shot"
+            },
+            "oneshotMetaKeys": {
+                "help": "Estas opciones crean teclas OneShot especiales que pueden hacer que cualquier tecla sea \"fija\", no solo los modificadores o las teclas de cambio de capa.",
+                "metaStickyKey": {
+                    "tooltip": "Hace que la siguiente tecla pulsada se quede fija hasta que se vuelva a pulsar."
+                },
+                "activeStickyKey": {
+                    "tooltip": "Hace que las teclas pulsadas en ese momento queden fijas hasta que se vuelvan a pulsar."
+                }
+            },
+            "macros": {
+                "help": "Asigna macros a las teclas. Para crear o modificar macros, puede utilizar el IDE de Arduino para personalizar el archivo 'Sketch' de Kaleidoscope para su teclado.",
+                "title": "Macros"
+            },
+            "ledcontrol": {
+                "help": "Controle los temas y efectos LED de su teclado.",
+                "title": "Control del LED"
             }
         }
     },

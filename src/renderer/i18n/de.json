@@ -57,7 +57,9 @@
             "preferences": "Einstellungen",
             "restart": "Aktualisierung anwenden & neu starten",
             "chrysalisSection": "Chrysalis",
-            "layoutCard": "Belegungskarte"
+            "layoutCard": "Belegungskarte",
+            "connectAKeyboard": "Eine Tastatur anschließen",
+            "connectAnotherKeyboard": "Eine andere Tastatur anschließen"
         },
         "deviceMenu": {
             "Forum": "Forum",
@@ -73,8 +75,8 @@
     "editor": {
         "sharing": {
             "loadFromLibrary": "Aus Bibliothek laden",
-            "loadFromFile": "Aus Datei laden...",
-            "exportToFile": "In Datei exportieren...",
+            "loadFromFile": "Aus Datei wiederherstellen...",
+            "exportToFile": "In Datei sichern...",
             "import": "Importieren",
             "selectLoadFile": "Datei zum Laden einer Belegung auswählen",
             "dialog": {
@@ -97,7 +99,7 @@
         "sidebar": {
             "custom": {
                 "help": "Ermöglicht es Ihnen, einer Taste einen benutzerdefinierten Tastencode zuzuweisen, oder einen Code, der Chrysalis derzeit nicht bekannt ist.",
-                "title": "Benutzerdefinierter Tastencode",
+                "title": "Tastencode",
                 "label": "Benutzerdefinierter Tastencode"
             },
             "platform_apple": {
@@ -113,7 +115,7 @@
                 "type": {
                     "layer": "Ebenenumschaltung",
                     "modifier": "Modifikator",
-                    "none": "Keine sekundäre Aktion"
+                    "none": "Normal"
                 },
                 "modifier": "Modifikator",
                 "targetLayer": "Ebene",
@@ -137,7 +139,20 @@
                 }
             },
             "mousekeys": {
-                "title": "Maussteuerung"
+                "title": "Maussteuerung",
+                "help": "Bewegen Sie die Maus mit Ihrer Tastatur",
+                "movement": {
+                    "title": "Bewegung",
+                    "help": "Bewegen Sie die Maus mit Ihrer Tastatur"
+                },
+                "wheel": {
+                    "title": "Rad",
+                    "help": " Scrollen mit dem Mausrad"
+                },
+                "buttons": {
+                    "title": "Tasten",
+                    "help": "Drücken Sie die Maustasten mit Ihrer Tastatur"
+                }
             },
             "macros": {
                 "title": "Makros",
@@ -170,7 +185,29 @@
                 "title": "Führer"
             },
             "oneshot": {
-                "title": "Einmalig"
+                "title": ""
+            },
+            "lang_intl": {
+                "title": "Sprache / International",
+                "help": "Sprachspezifische Zusatztasten."
+            },
+            "volume": {
+                "title": "Lautstärke",
+                "help": "Tasten zur Lautstärkeregelung."
+            },
+            "media": {
+                "title": "Mediensteuerung",
+                "help": "Tasten zur Mediensteuerung."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Helligkeit",
+                    "help": "Bildschirmhelligkeit einstellen."
+                }
+            },
+            "ledkeys": {
+                "title": "LED-Steuerung",
+                "help": "Steuern Sie die LED-Themen und -Effekte Ihrer Tastatur."
             }
         },
         "macros": {
@@ -208,6 +245,14 @@
             "fixItButton": "Auf ausschließlich selbst definierte Ebenen umstellen",
             "openFR": "Funktionsanfrage stellen",
             "warning": "Chrysalis’ Unterstützung von Konfigurationen, die sowohl fest kodierte als auch EEPROM-Ebenen enthalten, wurde eingestellt. Falls Sie diese Funktionalität benötigen, kontaktieren Sie uns bitte. In den meisten Fällen ist es jedoch ratsam, auf die ausschließliche Nutzung selbst definierter Ebenen umzustellen, was mit Chrysalis erreicht werden kann. Bei der Umstellung werden fest kodierte Ebenen nicht berücksichtigt. Falls eine Standard-Ebene gesetzt wird, ist dies Ebene 0."
+        },
+        "overview": {
+            "hideEmptyLayers": "Leere Ebenen ausblenden...",
+            "showEmptyLayers": "Leere Ebenen anzeigen...",
+            "pasteLayer": "Ebene einfügen",
+            "color": "Farbe",
+            "key": "Schlüssel #{{index}}",
+            "copyLayer": "Ebene kopieren"
         }
     },
     "preferences": {
@@ -272,7 +317,7 @@
                 "help": "Wählen Sie die Sprache aus, die Chrysalis verwenden soll"
             },
             "coloredLayoutCards": {
-                "label": "Farben auf den Belegungskarten aktivieren",
+                "label": "Farben auf Belegungskarten anzeigen",
                 "help": "Wenn aktiviert, werden auf den Belegungskarten nicht nur die Tastenbeschriftungen, sondern, falls vorhanden, auch die Farben angezeigt."
             },
             "host": {
@@ -490,7 +535,13 @@
         "customFirmwareLinkText": "Erfahren Sie mehr über die Erstellung von Firmware",
         "firmwareVersion": "{{version}}",
         "description": "Durch das Aktualisieren der Firmware Ihrer Tastatur bringen wir ihr neue Tricks bei. Sie können Chrysalis verwenden, um die neueste Firmware für Ihre Tastatur zu installieren oder um eine selbst erstellte Firmware zu installieren.",
-        "customChooseFile": "Wählen Sie eine Datei aus..."
+        "customChooseFile": "Wählen Sie eine Datei aus...",
+        "bootloaderConnectDialog": {
+            "title": "Verbindung zu Ihrer Tastatur wird hergestellt..."
+        },
+        "reconnectDialog": {
+            "title": "Erneut mit Ihrer Tastatur verbinden"
+        }
     },
     "firmwareAutoUpdate": {
         "warning": "Chrysalis konnte nicht auf eine neue Firmware-Version prüfen. Möglicherweise ist eine neuere Version online verfügbar.",
@@ -525,5 +576,10 @@
     },
     "layoutCards": {
         "printTooltip": "Drucken"
+    },
+    "saveChangesButton": {
+        "saveChanges": "Änderungen speichern",
+        "savingChanges": "Änderungen werden gespeichert",
+        "savedChanges": "Gespeicherte Änderungen"
     }
 }

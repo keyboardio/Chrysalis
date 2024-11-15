@@ -69,7 +69,7 @@ const Editor = (props) => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const drawerHeightInRem = 16;
+  const drawerHeightInRem = 17;
   const [maxKeyboardHeight, setMaxKeyboardHeight] = useState("auto");
 
   useEffect(() => {

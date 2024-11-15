@@ -45,6 +45,9 @@ import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import { FlashNotification } from "./FirmwareUpdate/FlashNotification";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
+import BootloaderConnectDialog from "./FirmwareUpdate/BootloaderConnectDialog";
+import FocusConnectDialog from "./FirmwareUpdate/FocusConnectDialog";
+import FlashConfirmDialog from "./FirmwareUpdate/FlashConfirmDialog";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -61,7 +64,7 @@ const FirmwareUpdate = (props) => {
   const [flashNotificationMsg, setFlashNotificationMsg] = useState(RebootMessage.clear);
 
   const focusDeviceDescriptor = props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
-  const [bootloaderProtocol, setbootloaderProtocol] = useState(focus.focusDeviceDescriptor.usb.bootloader.protocol);
+  const [bootloaderProtocol, setbootloaderProtocol] = useState(focus.focusDeviceDescriptor?.usb?.bootloader?.protocol);
 
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
@@ -411,65 +414,35 @@ const FirmwareUpdate = (props) => {
       </Container>
       <FlashSteps steps={flashSteps} activeStep={activeStep} />
 
-      <ConfirmationDialog
+      <BootloaderConnectDialog
         open={promptForBootloaderConnection}
-        title={t("firmwareUpdate.bootloaderConnectDialog.title")}
-        onConfirm={() => {
-          connectToBootloaderPort().then((success) => {
-            if (success) {
-              setPromptForBootloaderConnection(false);
-              logger.log(afterBootloaderConnectCallback);
-              afterBootloaderConnectCallback(success);
-            } else {
-              logger.log("We need to try that connect again");
-            }
-          });
+        onConnect={(port) => {
+          setPromptForBootloaderConnection(false);
+          afterBootloaderConnectCallback(port);
         }}
-      >
-        <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareUpdate.bootloaderConnectDialog.contents")}
-        </Typography>
-      </ConfirmationDialog>
-      <ConfirmationDialog
-        open={promptForFocusConnection}
-        title={t("firmwareUpdate.reconnectDialog.title")}
-        onConfirm={() => {
-          connectToSerialport().then((focus) => {
-            if (focus) {
-              logger.debug("connected to serial port");
-              setPromptForFocusConnection(false);
-              afterFocusConnectCallback();
-            } else {
-              logger.log("We need to try that connect again");
-            }
-          });
-        }}
-      >
-        <Typography component="p" sx={{ mb: 2 }}>
-          {t("firmwareUpdate.reconnectDialog.contents")}
-        </Typography>
-      </ConfirmationDialog>
-      <ConfirmationDialog
-        title={factoryReset ? t("firmwareUpdate.factoryConfirmDialog.title") : t("firmwareUpdate.confirmDialog.title")}
-        open={confirmationOpen}
-        onConfirm={() => upload()}
-        onCancel={() => setConfirmationOpen(false)}
-        confirmLabel={t("dialog.continue")}
-      >
-        <Typography component="p" sx={{ mb: 2 }}>
-          {factoryReset
-            ? t("firmwareUpdate.factoryConfirmDialog.contents")
-            : t("firmwareUpdate.confirmDialog.description")}
-        </Typography>
-        <Alert severity="info">
-          <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
-          <Typography component="p" gutterBottom>
-            {t("hardware.updateInstructions")}
-          </Typography>
-        </Alert>
-      </ConfirmationDialog>
+        bootloaderProtocol={bootloaderProtocol}
+        connectToBootloaderPort={connectToBootloaderPort}
+      />
 
-      <FlashNotification open={flashNotificationMsg !== RebootMessage.clear} message={flashNotificationMsg} />
+      <FocusConnectDialog
+        open={promptForFocusConnection}
+        onConnect={() => {
+          setPromptForFocusConnection(false);
+          afterFocusConnectCallback();
+        }}
+      />
+
+      <FlashConfirmDialog
+        open={confirmationOpen}
+        onConfirm={upload}
+        onCancel={() => setConfirmationOpen(false)}
+        isFactoryReset={factoryReset}
+      />
+
+      <FlashNotification 
+        open={flashNotificationMsg !== RebootMessage.clear} 
+        message={flashNotificationMsg} 
+      />
     </>
   );
 };

@@ -31,11 +31,15 @@ import logo from "@renderer/logo-small.png";
 import { navigate } from "@renderer/routerHistory";
 import logger from "@renderer/utils/Logger";
 import { connectToSerialport } from "@renderer/utils/connectToSerialport";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 import { ProductStatus } from "./KeyboardSelect/ProductStatus";
+import { connectToDfuUsbPort } from "../utils/connectToDfuUsbPort";
+import { getDeviceProtocol } from "@api/hardware";
+import urlParameters from "@renderer/utils/URLParameters";
+import Button from "@mui/material/Button";
 
 const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
@@ -56,25 +60,44 @@ const KeyboardSelect = (props) => {
 
     try {
       setLoading(true);
-      logger.log("in connectToKeyboard");
+
+      // Check if we have URL parameters to determine the connection method
+      if (urlParameters.hasDeviceIdentifiers()) {
+        const protocol = getDeviceProtocol(urlParameters.vid, urlParameters.pid);
+        logger.log("Detected protocol for device:", protocol, { vid: urlParameters.vid, pid: urlParameters.pid });
+
+        if (protocol === "dfu") {
+          const bootloaderFocus = await connectToDfuUsbPort(urlParameters.vid, urlParameters.pid);
+          if (bootloaderFocus) {
+            props.onConnect(bootloaderFocus);
+            urlParameters.clear();
+            await navigate("/firmware-update");
+            return;
+          }
+        }
+      }
+
+      // Fall back to regular connection attempt
       const focus = await connectToSerialport();
       if (focus) {
-        logger.log("Calling props.onConnect with the focus object");
-        logger.log("focus", focus);
         props.onConnect(focus);
-        logger.log("Got a device");
       } else {
-        logger.log("looks like the user aborted");
-        setOpening(false);
+        const bootloaderFocus = await connectToDfuUsbPort();
+        if (bootloaderFocus) {
+          props.onConnect(bootloaderFocus);
+          await navigate("/firmware-update");
+        }
       }
     } catch (err) {
       logger.error("error while trying to connect", {
         error: err,
         device: activeDevice,
       });
-      setOpening(false);
       await navigate("/help/connection-failed");
       toast.error(t("keyboardSelect.connectionFailed", { error: err.toString() }));
+    } finally {
+      setOpening(false);
+      setLoading(false);
     }
   };
 

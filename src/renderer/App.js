@@ -46,6 +46,7 @@ import SystemInfo from "./screens/SystemInfo";
 import HelpConnection from "./screens/Help/Connection";
 import { Store } from "@renderer/localStore";
 import logger from "@renderer/utils/Logger";
+import urlParameters from "@renderer/utils/URLParameters";
 const settings = new Store();
 
 const App = (props) => {
@@ -112,6 +113,23 @@ const App = (props) => {
       await db.setLayout(layoutSetting);
     }
     setupLayout();
+  }, []);
+
+  useEffect(() => {
+    // Parse URL parameters if they exist
+    const searchParams = window.location.search;
+    if (searchParams) {
+      urlParameters.parseFromURL(searchParams);
+
+      // Remove parameters from URL without triggering a reload
+      const newUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, "", newUrl);
+
+      // If we have device identifiers, navigate to keyboard select
+      if (urlParameters.hasDeviceIdentifiers()) {
+        navigate("/keyboard-select");
+      }
+    }
   }, []);
 
   useEffect(() => {

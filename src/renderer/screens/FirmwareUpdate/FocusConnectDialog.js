@@ -19,11 +19,7 @@ const FocusConnectDialog = ({ open, onConnect }) => {
   };
 
   return (
-    <ConfirmationDialog
-      open={open}
-      title={t("firmwareUpdate.reconnectDialog.title")}
-      onConfirm={handleConfirm}
-    >
+    <ConfirmationDialog open={open} title={t("firmwareUpdate.reconnectDialog.title")} onConfirm={handleConfirm}>
       <Typography component="p" sx={{ mb: 2 }}>
         {t("firmwareUpdate.reconnectDialog.contents")}
       </Typography>
@@ -31,4 +27,4 @@ const FocusConnectDialog = ({ open, onConnect }) => {
   );
 };
 
-export default FocusConnectDialog; 
+export default FocusConnectDialog;

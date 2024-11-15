@@ -84,6 +84,15 @@ const FirmwareUpdate = (props) => {
 
   const NOTIFICATION_THRESHOLD = 5;
 
+  useEffect(() => {
+    if (activeDevice?.focus?.in_bootloader) {
+      logger.log("Using existing bootloader Focus instance");
+      setIsBootloader(true);
+      setFactoryReset(true);
+      setbootloaderProtocol(activeDevice.focus.focusDeviceDescriptor?.usb?.bootloader?.protocol);
+    }
+  }, [activeDevice]);
+
   const loadDefaultFirmwareContent = async () => {
     const { vendor, product } = focusDeviceDescriptor.info;
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
@@ -140,19 +149,17 @@ const FirmwareUpdate = (props) => {
     const flasher = activeDevice.getFlasher();
     await onStepChange("flash");
     let firmwareToSend = firmwareContent;
-    logger.log(focus);
     if (selectedFirmwareType == "default") {
       firmwareToSend = await loadDefaultFirmwareContent();
     }
-    logger.log("about to flash");
-    logger.log(" the usb device is ", port);
 
-    logger.log(" firmware content is ", firmwareToSend);
-    if (bootloaderProtocol == "avr109") {
-      await flasher.flash(focus._port, firmwareToSend);
-    } else if (bootloaderProtocol == "dfu") {
-      await flasher.flash(port, firmwareToSend);
-    }
+    logger.log("Flashing with protocol:", bootloaderProtocol);
+    logger.log("Active device:", activeDevice);
+    logger.log("Port:", port);
+
+    const portToUse = activeDevice.focus?.in_bootloader ? activeDevice.focus._port : port._port;
+
+    await flasher.flash(portToUse, firmwareToSend);
   };
 
   const updateDeviceFirmware = async () => {
@@ -255,9 +262,14 @@ const FirmwareUpdate = (props) => {
       const focus = await connectToSerialport();
       return focus;
     } else if (bootloaderProtocol == "dfu") {
-      const usb = await connectToDfuUsbPort();
-      return usb;
+      const focus = await connectToDfuUsbPort();
+      if (focus) {
+        // Store the USB device reference for flashing
+        setUsbDevice(focus._port);
+        return focus;
+      }
     }
+    return null;
   };
 
   const connectToBootloader = async (callback) => {
@@ -437,12 +449,10 @@ const FirmwareUpdate = (props) => {
         onConfirm={upload}
         onCancel={() => setConfirmationOpen(false)}
         isFactoryReset={factoryReset}
+        activeDevice={activeDevice}
       />
 
-      <FlashNotification 
-        open={flashNotificationMsg !== RebootMessage.clear} 
-        message={flashNotificationMsg} 
-      />
+      <FlashNotification open={flashNotificationMsg !== RebootMessage.clear} message={flashNotificationMsg} />
     </>
   );
 };

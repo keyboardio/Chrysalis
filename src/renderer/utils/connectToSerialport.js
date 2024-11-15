@@ -19,7 +19,7 @@ import { Hardware, supportedDeviceVIDPIDs } from "@api/hardware";
 import logger from "@renderer/utils/Logger";
 
 // returns a promise that resolves to a Focus object
-export const connectToSerialport = async () => {
+export const connectToSerialport = async (targetVid, targetPid) => {
   const focus = new Focus();
   let serialPort;
 
@@ -76,33 +76,44 @@ export const connectToSerialport = async () => {
     await serialPort.open({ baudRate: 9600 });
   };
 
-  await openPort();
+  try {
+    await openPort();
 
-  if (!serialPort) {
-    logger.log("The user didn't select a serialport");
-    return;
-  }
-  const info = serialPort.getInfo();
-
-  const dVid = info.usbVendorId;
-  const dPid = info.usbProductId;
-  logger.log("The connected device:", info);
-  for (const hw of Hardware.devices) {
-    let found = false;
-    let bootloader = false;
-    if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
-      found = true;
-      logger.log("Found a keyboard", hw);
-      focus.open(serialPort, hw);
-    } else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
-      found = true;
-      bootloader = true;
-      logger.log("Found a keyboard bootloader", hw);
-
-      focus.open(serialPort, hw);
+    if (!serialPort) {
+      logger.log("No serialport selected");
+      return null;
     }
-    if (!found) continue;
-  }
 
-  return focus;
+    const info = serialPort.getInfo();
+    const dVid = info.usbVendorId;
+    const dPid = info.usbProductId;
+
+    // If we have target VID/PID, check if this device matches
+    if (targetVid && targetPid && (dVid !== targetVid || dPid !== targetPid)) {
+      return null;
+    }
+
+    logger.log("The connected device:", info);
+    for (const hw of Hardware.devices) {
+      let found = false;
+      let bootloader = false;
+      if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
+        found = true;
+        logger.log("Found a keyboard", hw);
+        focus.open(serialPort, hw);
+      } else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
+        found = true;
+        bootloader = true;
+        logger.log("Found a keyboard bootloader", hw);
+
+        focus.open(serialPort, hw);
+      }
+      if (!found) continue;
+    }
+
+    return focus;
+  } catch (e) {
+    logger.error("Failed to open serial port", e);
+    return null;
+  }
 };

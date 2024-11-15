@@ -35,7 +35,7 @@ export const Hardware = {
   nonSerial: [Model100],
 };
 
-function getDeviceProtocol(vid, pid) {
+export function getDeviceProtocol(vid, pid) {
   for (const device of Object.values(Hardware.devices)) {
     if (device.usb) {
       // Check main USB vid/pid

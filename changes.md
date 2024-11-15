@@ -1,5 +1,5 @@
 ## Recent updates
-
+- 2024-11-15: Better handling of Model 100 keyboards in bootloader mode; small cleanups to flashing flow
 - 2024-08-14: Update udev instructions to not require a device replug
 - 2024-05-17: Update udev rules to fix a typo.
 - 2024-05-15: Clean up our tooltip presentation; improve print styling of layout cards

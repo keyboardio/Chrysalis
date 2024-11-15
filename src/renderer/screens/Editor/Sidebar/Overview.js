@@ -160,7 +160,12 @@ const Overview = (props) => {
       >
         <TableCell size="small" sx={{ pl: "1rem" }} align="left">
           {props.setLayerName ? (
-            <LayerNameInput fontSize={fontSize} value={layerNames.names[index]} index={index} setLayerName={props.setLayerName} />
+            <LayerNameInput
+              fontSize={fontSize}
+              value={layerNames.names[index]}
+              index={index}
+              setLayerName={props.setLayerName}
+            />
           ) : (
             <Typography sx={{ fontSize: fontSize }}>{layerNames.names[index]}</Typography>
           )}

@@ -53,17 +53,17 @@ const FKPCategorySelector = (props) => {
     <React.Fragment>
       <Tooltip title={tooltip}>
         <>
-        {title && <SectionTitle>{title}</SectionTitle>}
-        {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
-        {props.children || (
-          <KeyButtonList
-            keys={keys}
-            onKeyChange={props.onKeyChange}
-            disabled={disabled}
-            showHints={false}
-            minButtonWidth={props.minButtonWidth}
-          />
-        )}
+          {title && <SectionTitle>{title}</SectionTitle>}
+          {help && <FormHelperText sx={{ mb: 2 }}> {help} </FormHelperText>}
+          {props.children || (
+            <KeyButtonList
+              keys={keys}
+              onKeyChange={props.onKeyChange}
+              disabled={disabled}
+              showHints={false}
+              minButtonWidth={props.minButtonWidth}
+            />
+          )}
         </>
       </Tooltip>
     </React.Fragment>

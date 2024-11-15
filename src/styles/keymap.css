@@ -118,5 +118,7 @@ button {
     display: none;
   }
 
-  header {display: none;}
+  header {
+    display: none;
+  }
 }

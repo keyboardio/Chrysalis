@@ -29,9 +29,12 @@ const HelpConnection = () => {
   const linuxInstructions = (
     <>
       <h2>Linux</h2>
-      <p><b>These rules were last updated on May 17, 2024. If you installed the rules before this date, please replace
-    them with these new rules.</b>
-    </p>
+      <p>
+        <b>
+          These rules were last updated on May 17, 2024. If you installed the rules before this date, please replace
+          them with these new rules.
+        </b>
+      </p>
       <p>
         If you are using Linux and aren't able to connect to your keyboard, it's likely that the <code>udev</code>,
         system which controls pluggable devices like keyboards, isn't set up to let you access your keyboard. To grant
@@ -46,8 +49,8 @@ const HelpConnection = () => {
         </pre>
       </p>
       <p>
-        Then, run <code style={{ userSelect: "text" }}>sudo udevadm control --reload-rules; sudo udevadm trigger</code> to apply the new rules
-        without requiring a reboot.
+        Then, run <code style={{ userSelect: "text" }}>sudo udevadm control --reload-rules; sudo udevadm trigger</code>{" "}
+        to apply the new rules without requiring a reboot.
       </p>
     </>
   );

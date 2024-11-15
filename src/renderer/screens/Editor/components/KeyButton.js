@@ -62,7 +62,7 @@ const KeyButton = (props) => {
         fontSize: 8,
         backgroundColor: buttonColor,
         minWidth: { minWidth },
-        height: 24
+        height: 24,
       }}
       onClick={() => {
         onKeyChange(keyObj.code);

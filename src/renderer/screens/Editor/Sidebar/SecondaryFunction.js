@@ -156,9 +156,7 @@ const SecondaryFunction = (props) => {
 
               return isDisabled ? (
                 <Tooltip key={`tooltip-${i}`} title={layerLimitText}>
-                <span>
-                  {menuItem}
-                  </span>
+                  <span>{menuItem}</span>
                 </Tooltip>
               ) : (
                 menuItem

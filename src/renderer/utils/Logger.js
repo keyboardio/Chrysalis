@@ -46,13 +46,12 @@ class Logger {
   getCallSite() {
     // Chromeish browsers
     const err = new Error();
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(err, this.getCallSite);
-  } else { 
-    // Firefox
-    // just pull from err.stack
-  } 
-
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(err, this.getCallSite);
+    } else {
+      // Firefox
+      // just pull from err.stack
+    }
 
     const stack = err?.stack.split("\n")[3];
     // Extract and format call site from stack trace

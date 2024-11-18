@@ -1,5 +1,6 @@
 {
   "language": "Dutch",
+  "this_translation_language": "Nederlands",
   "errors": {
     "deviceDisconnected": "Verbinding met toetsenbord verbroken",
     "saveFile": "Fout tijdens opslaan van bestand: {{ error }}"

@@ -1,4 +1,5 @@
 {
+  "this_translation_language": "Español",
   "sanity-check": {
     "title": "Ejecutando la verificación del entorno",
     "header": "La verificación del entorno ha fallado",

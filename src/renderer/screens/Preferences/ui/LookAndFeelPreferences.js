@@ -136,7 +136,7 @@ function LookAndFeelPreferences(props) {
     const t = i18n.getFixedT(code);
     return (
       <MenuItem value={code} key={code}>
-        {t("language")}
+        {t("this_translation_language")}
       </MenuItem>
     );
   });

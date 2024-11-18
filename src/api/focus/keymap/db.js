@@ -21,8 +21,7 @@ import { Base, USQwerty } from "./db/base";
 import { constants } from "./db/constants";
 import { withModifiers } from "./db/modifiers";
 
-import enLangMap from "./cldr_languages/en";
-import nlLangMap from "./cldr_languages/nl";
+import { languageMaps } from "./language_maps";
 
 global.chrysalis_keymapdb_instance = null;
 
@@ -39,10 +38,7 @@ class KeymapDB {
       this.loadLayouts();
       this.constants = constants;
       this.supported_layouts = {};
-      this.layout_langs = {
-        en: enLangMap,
-        nl: nlLangMap,
-      };
+      this.layout_langs = languageMaps;
     }
 
     return global.chrysalis_keymapdb_instance;

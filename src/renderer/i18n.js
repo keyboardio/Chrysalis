@@ -1,35 +1,43 @@
-// -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018-2022  Keyboardio, Inc.
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-import English from "@renderer/i18n/en";
-import Dutch from "@renderer/i18n/nl";
+// This file is auto-generated. Do not edit manually.
+import de from "@renderer/i18n/de";
+import en from "@renderer/i18n/en";
+import es from "@renderer/i18n/es";
+import fr from "@renderer/i18n/fr";
+import id from "@renderer/i18n/id";
+import nb_NO from "@renderer/i18n/nb-NO";
+import nl from "@renderer/i18n/nl";
+import zh_Hans from "@renderer/i18n/zh-Hans";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
-  en: {
-    messages: English,
+  "de": {
+    messages: de,
   },
-  nl: {
-    messages: Dutch,
+  "en": {
+    messages: en,
+  },
+  "es": {
+    messages: es,
+  },
+  "fr": {
+    messages: fr,
+  },
+  "id": {
+    messages: id,
+  },
+  "nb-NO": {
+    messages: nb_NO,
+  },
+  "nl": {
+    messages: nl,
+  },
+  "zh-Hans": {
+    messages: zh_Hans,
   },
 };
 
-i18n // eslint-disable-line import/no-named-as-default-member
+i18n
   .use(initReactI18next)
   .init({
     react: {
@@ -51,7 +59,7 @@ i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {
     const key = "devices." + device?.info.vendor + "." + device?.info.product + ".updateInstructions";
     const instructions = {
-      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined, // eslint-disable-line import/no-named-as-default-member
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined,
     };
     i18n.addResource(code, "messages", "hardware", instructions);
   });

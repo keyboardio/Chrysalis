@@ -19,6 +19,7 @@ const  fs = require("fs");
 const { loadAllKeymaps} = require("./precompile/cldr_data.js");
 const { extractLanguageNames } = require("./precompile/cldr_languages.js");
 const { generateI18nIndex } = require("./precompile/i18n.js");
+const { generateHardwareIndex } = require("./precompile/hardware.js");
 
 const generateCLDRData = async () => {
   if (fs.existsSync("./src/api/focus/keymap/.cldr_data_generated")) {
@@ -43,3 +44,4 @@ const generateCLDRData = async () => {
 
 generateCLDRData();
 generateI18nIndex();
+generateHardwareIndex();

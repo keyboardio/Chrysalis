@@ -546,7 +546,7 @@
     "permissionError": "Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)",
     "permissionErrorSuggestion": "Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.",
     "dfuConnect": "Factory Reset (USB DFU Mode)",
-    "focusConnectionFailed": "Chrysalis couldn't connect to your keyboard. If your keyboard didn't show up in the connection dialog, there may be a permissions problem, or it might be a Model 100 keyboard in bootloader mode."
+    "focusConnectionFailed": "Chrysalis couldn't connect to your keyboard. If your keyboard didn't show up in the connection dialog, there may be a permissions problem, or it might be a Model 100 keyboard in bootloader mode. To factory reset your Model 100, click the \"Factory Reset\" button below."
   },
   "firmwareUpdate": {
     "bootloaderWarning": "Your keyboard is in bootloader mode, so Chrysalis can't back up the keyboard's settings. If the new firmware is incompatible with your existing settings, key layouts and other settings might be corrupted after the update. For this reason, Chrysalis will default to a factory reset, which will let you start from a clean slate. You can cancel and exit bootloader mode, so Chrysalis can back up your keyboard. Alternatively, you may turn off the factory reset, if you know that the new firmware is compatible.",

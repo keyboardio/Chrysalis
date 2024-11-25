@@ -37,27 +37,29 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  react: {
-    useSuspense: true,
-  },
-  resources: resources,
-  lng: "en",
-  keySeparator: ".",
-  ns: ["messages"],
-  returnEmptyString: true,
-  defaultNS: "messages",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
-});
+i18n // eslint-disable-line import/no-named-as-default-member
+  .use(initReactI18next)
+  .init({
+    react: {
+      useSuspense: true,
+    },
+    resources: resources,
+    lng: "en",
+    keySeparator: ".",
+    ns: ["messages"],
+    returnEmptyString: true,
+    defaultNS: "messages",
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {
     const key = "devices." + device?.info.vendor + "." + device?.info.product + ".updateInstructions";
     const instructions = {
-      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined,
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined, // eslint-disable-line import/no-named-as-default-member
     };
     i18n.addResource(code, "messages", "hardware", instructions);
   });

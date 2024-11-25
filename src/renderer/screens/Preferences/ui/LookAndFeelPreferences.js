@@ -132,22 +132,24 @@ function LookAndFeelPreferences(props) {
     }
   };
 
-  const languages = Object.keys(i18n.options.resources).map((code) => {
-    // Check if this specific language has the translation
-    const translation = i18n.t("this_translation_language", {
-      lng: code,
-      fallbackLng: [], // Empty array means no fallback for just this translation
-    });
-    
-    // If we got back the translation key, it means translation is missing
-    if (translation === "this_translation_language") return null;
-    
-    return (
-      <MenuItem value={code} key={code}>
-        {translation}
-      </MenuItem>
-    );
-  }).filter(Boolean);
+  const languages = Object.keys(i18n.options.resources)
+    .map((code) => {
+      // Check if this specific language has the translation
+      const translation = i18n.t("this_translation_language", {
+        lng: code,
+        fallbackLng: [], // Empty array means no fallback for just this translation
+      });
+
+      // If we got back the translation key, it means translation is missing
+      if (translation === "this_translation_language") return null;
+
+      return (
+        <MenuItem value={code} key={code}>
+          {translation}
+        </MenuItem>
+      );
+    })
+    .filter(Boolean);
 
   const systemSvg = (
     <svg width="120" height="73" viewBox="0 0 120 73" fill="none" xmlns="https://www.w3.org/2000/svg">

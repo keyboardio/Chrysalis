@@ -18,7 +18,6 @@ import { flash, flashers } from "@api/flash";
 
 import Keymap from "./components/Keymap";
 
-
 const Preonic = {
   info: {
     vendor: "Keyboardio",
@@ -42,10 +41,10 @@ const Preonic = {
   },
   usb: {
     vendorId: 0x3496,
-    productId: 0x00A0,
+    productId: 0x00a0,
     bootloader: {
       vendorId: 0x3496,
-      productId: 0x00A1,
+      productId: 0x00a1,
       protocol: "nrfdfu",
     },
   },

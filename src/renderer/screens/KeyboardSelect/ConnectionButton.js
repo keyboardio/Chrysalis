@@ -21,13 +21,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 export const ConnectionButton = (props) => {
-  const disabled = props.disabled;
-  const opening = props.opening;
-  const connected = props.connected;
-  const connectKeyboard = props.connectKeyboard;
-  const disconnectKeyboard = props.disconnectKeyboard;
-
+  const { disabled, opening, connected, connectKeyboard, disconnectKeyboard, isDfuMode } = props;
   const { t } = useTranslation();
+
   if (connected) {
     return (
       <Button
@@ -40,17 +36,23 @@ export const ConnectionButton = (props) => {
         {t("keyboardSelect.disconnect")}
       </Button>
     );
-  } else {
-    return (
-      <Button
-        disabled={disabled}
-        variant="contained"
-        color="primary"
-        onClick={connectKeyboard}
-        sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
-      >
-        {opening ? <CircularProgress color="secondary" size={16} /> : t("keyboardSelect.connect")}
-      </Button>
-    );
   }
+
+  return (
+    <Button
+      disabled={disabled}
+      variant="contained"
+      color="primary"
+      onClick={connectKeyboard}
+      sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
+    >
+      {opening ? (
+        <CircularProgress color="secondary" size={16} />
+      ) : isDfuMode ? (
+        t("keyboardSelect.dfuConnect")
+      ) : (
+        t("keyboardSelect.connect")
+      )}
+    </Button>
+  );
 };

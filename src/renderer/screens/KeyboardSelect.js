@@ -40,10 +40,14 @@ import { connectToDfuUsbPort } from "../utils/connectToDfuUsbPort";
 import { getDeviceProtocol } from "@api/hardware";
 import urlParameters from "@renderer/utils/URLParameters";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
 const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showDfuButton, setShowDfuButton] = useState(false);
+  const [isDfuMode, setIsDfuMode] = useState(false);
+  const [connectionMessage, setConnectionMessage] = useState(null);
 
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
@@ -51,41 +55,43 @@ const KeyboardSelect = (props) => {
   const { t } = useTranslation();
   const focus = new Focus();
 
+  useEffect(() => {
+    if (urlParameters.hasDeviceIdentifiers()) {
+      const protocol = getDeviceProtocol(urlParameters.vid, urlParameters.pid);
+      if (protocol === "dfu") {
+        setIsDfuMode(true);
+      }
+    }
+  }, []);
+
   const onDisconnect = () => {
     props.onDisconnect();
   };
 
-  const connectKeyboard = async () => {
+  const connectKeyboard = async (dfuMode = false) => {
     setOpening(true);
+    setConnectionMessage(null);
 
     try {
       setLoading(true);
 
-      // Check if we have URL parameters to determine the connection method
-      if (urlParameters.hasDeviceIdentifiers()) {
-        const protocol = getDeviceProtocol(urlParameters.vid, urlParameters.pid);
-        logger.log("Detected protocol for device:", protocol, { vid: urlParameters.vid, pid: urlParameters.pid });
-
-        if (protocol === "dfu") {
-          const bootloaderFocus = await connectToDfuUsbPort(urlParameters.vid, urlParameters.pid);
-          if (bootloaderFocus) {
-            props.onConnect(bootloaderFocus);
-            urlParameters.clear();
-            await navigate("/firmware-update");
-            return;
-          }
-        }
-      }
-
-      // Fall back to regular connection attempt
-      const focus = await connectToSerialport();
-      if (focus) {
-        props.onConnect(focus);
-      } else {
+      if (dfuMode) {
         const bootloaderFocus = await connectToDfuUsbPort();
         if (bootloaderFocus) {
           props.onConnect(bootloaderFocus);
+          urlParameters.clear();
           await navigate("/firmware-update");
+        }
+        return;
+      } else {
+        // Regular connection attempt
+        const focus = await connectToSerialport();
+        if (focus) {
+          props.onConnect(focus);
+          return;
+        } else {
+          setShowDfuButton(true);
+          setConnectionMessage(t("keyboardSelect.focusConnectionFailed"));
         }
       }
     } catch (err) {
@@ -131,16 +137,33 @@ const KeyboardSelect = (props) => {
             )}
             <ProductStatus />
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", pt: 2, pb: 3 }}>
-            <ConnectionButton
-              disabled={opening}
-              connected={
-                focus.focusDeviceDescriptor && activeDevice?.focusDeviceDescriptor == focus.focusDeviceDescriptor
-              }
-              opening={opening}
-              connectKeyboard={connectKeyboard}
-              disconnectKeyboard={props.onDisconnect}
-            />
+          <CardActions sx={{ justifyContent: "center", pt: 2, pb: 3, flexDirection: "column", gap: 2 }}>
+            {!isDfuMode && (
+              <ConnectionButton
+                disabled={opening}
+                connected={
+                  focus.focusDeviceDescriptor && activeDevice?.focusDeviceDescriptor == focus.focusDeviceDescriptor
+                }
+                opening={opening}
+                connectKeyboard={() => connectKeyboard(false)}
+                disconnectKeyboard={props.onDisconnect}
+              />
+            )}
+            {connectionMessage && (
+              <Alert severity="warning" sx={{ width: "100%" }}>
+                {connectionMessage}
+              </Alert>
+            )}
+            {(showDfuButton || isDfuMode) && (
+              <ConnectionButton
+                disabled={opening}
+                connected={false}
+                opening={opening}
+                connectKeyboard={() => connectKeyboard(true)}
+                disconnectKeyboard={props.onDisconnect}
+                isDfuMode={true}
+              />
+            )}
           </CardActions>
         </Card>
       </Box>

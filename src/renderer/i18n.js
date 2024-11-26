@@ -11,25 +11,25 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
-  de: {
+  "de": {
     messages: de,
   },
-  en: {
+  "en": {
     messages: en,
   },
-  es: {
+  "es": {
     messages: es,
   },
-  fr: {
+  "fr": {
     messages: fr,
   },
-  id: {
+  "id": {
     messages: id,
   },
   "nb-NO": {
     messages: nb_NO,
   },
-  nl: {
+  "nl": {
     messages: nl,
   },
   "zh-Hans": {
@@ -37,7 +37,7 @@ const resources = {
   },
 };
 
-i18n // eslint-disable-line import/no-named-as-default-member
+i18n
   .use(initReactI18next)
   .init({
     react: {
@@ -59,7 +59,7 @@ i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {
     const key = "devices." + device?.info.vendor + "." + device?.info.product + ".updateInstructions";
     const instructions = {
-      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined, // eslint-disable-line import/no-named-as-default-member
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined,
     };
     i18n.addResource(code, "messages", "hardware", instructions);
   });

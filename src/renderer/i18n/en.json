@@ -559,7 +559,7 @@
     "factoryResetTitle": "Factory reset",
     "bootloaderConnectDialog": {
       "title": "Connecting to your keyboard...",
-      "contents": "Next up, we need to connect to your keyboard's bootloader. After you click the button below, select your keyboard from the list of devices shown by your browser."
+      "contents": "Chrysalis needs to connect to your keyboard's bootloader. Click the button below, then pick your keyboard from the list shown by your browser. If your keyboard does not show up, unplug it from your computer and reconnect it while holding in the 'bootloader' key. On the Atreus, that's `Esc`. On the Model 01 and Model 100, it's `Prog` and on the Preonic, it's `Hyper`."
     },
     "factoryResetDescription": "Erase everything on your keyboard, restoring it to factory defaults.",
     "factoryResetWarning": "Selecting this option will not backup your current layout or settings.",

@@ -40,6 +40,7 @@ import { KeyPicker } from "./Editor/components/KeyPicker";
 import { LayerNamesStorageAlert } from "./Editor/components/LayerNamesStorageAlert";
 import { MacroStorageAlert } from "./Editor/components/MacroStorageAlert";
 import OnlyCustomScreen from "./Editor/components/OnlyCustomScreen";
+import { navigate } from "@renderer/routerHistory";
 
 const db = new KeymapDB();
 
@@ -392,9 +393,12 @@ const Editor = (props) => {
 
   if (loading) {
     return <LoadingScreen />;
-  } else if (!keymap.onlyCustom) {
-    return <OnlyCustomScreen />;
+  } else if (keymap.unsupportedFirmware) {
+    navigate("/focus-not-detected");
+    return null;
   }
+  console.log("keymap");
+  console.log(keymap);
 
   const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 

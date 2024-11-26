@@ -258,11 +258,16 @@ const FirmwareUpdate = (props) => {
   };
 
   const connectToBootloaderPort = async () => {
+    const bootloaderVid = focusDeviceDescriptor?.usb?.bootloader?.vendorId;
+    const bootloaderPid = focusDeviceDescriptor?.usb?.bootloader?.productId;
+    logger.log("bootloaderVid", bootloaderVid);
+    logger.log("bootloaderPid", bootloaderPid);
+
     if (bootloaderProtocol == "avr109") {
-      const focus = await connectToSerialport();
+      const focus = await connectToSerialport(bootloaderVid, bootloaderPid);
       return focus;
     } else if (bootloaderProtocol == "dfu") {
-      const focus = await connectToDfuUsbPort();
+      const focus = await connectToDfuUsbPort(bootloaderVid, bootloaderPid);
       if (focus) {
         // Store the USB device reference for flashing
         setUsbDevice(focus._port);

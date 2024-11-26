@@ -23,7 +23,7 @@ class Keymap {
   constructor(opts) {
     if (!global.chrysalis_keymap_instance) {
       global.chrysalis_keymap_instance = this;
-      this.legacyInterface = false;
+      this.unsupportedFirmware = false;
     }
     global.chrysalis_keymap_instance.setLayerSize(opts);
 
@@ -78,12 +78,6 @@ class Keymap {
         return [].concat(...arr);
       };
 
-      if (this.legacyInterface) {
-        const args = flatten(keymap.default.concat(keymap.custom)).map((k) => db.serialize(k));
-
-        return await s.request("keymap.map", ...args);
-      }
-
       const args = flatten(keymap.custom).map((k) => db.serialize(k));
 
       await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0");
@@ -91,21 +85,17 @@ class Keymap {
     } else {
       let defaults, custom, onlyCustom;
 
-      if (!this.legacyInterface) {
+      if (!this.unsupportedFirmware) {
         defaults = await s.request("keymap.default");
         custom = await s.request("keymap.custom");
         onlyCustom = Boolean(parseInt(await s.request("keymap.onlyCustom")));
       }
 
       if (!defaults && !custom) {
-        const keymap = (await s.request("keymap.map"))?.split(" ").filter((v) => v.length > 0);
-        const roLayers = parseInt((await s.request("keymap.roLayers")) || "0");
-
-        defaults = keymap?.slice(0, this._layerSize * roLayers).join(" ");
-        custom = keymap?.slice(this._layerSize * roLayers, keymap.length).join(" ");
-
         onlyCustom = false;
-        this.legacyInterface = true;
+        this.unsupportedFirmware = true;
+      } else if (!custom) {
+        custom = defaults;
       }
       const defaultKeymap = defaults
         ?.split(" ")
@@ -122,6 +112,7 @@ class Keymap {
 
       return {
         onlyCustom: onlyCustom,
+        unsupportedFirmware: this.unsupportedFirmware,
         custom: this._chunk(customKeymap, this._layerSize),
         default: this._chunk(defaultKeymap, this._layerSize),
       };

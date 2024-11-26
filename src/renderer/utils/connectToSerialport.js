@@ -27,13 +27,15 @@ export const connectToSerialport = async (targetVid, targetPid) => {
     while (!serialPort) {
       try {
         let filters = supportedDeviceVIDPIDs();
-        
+
         // If we have target VID/PID, only look for that specific device
         if (targetVid && targetPid) {
-          filters = [{
-            usbVendorId: targetVid,
-            usbProductId: targetPid
-          }];
+          filters = [
+            {
+              usbVendorId: targetVid,
+              usbProductId: targetPid,
+            },
+          ];
         }
 
         serialPort = await navigator.serial.requestPort({

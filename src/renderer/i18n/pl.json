@@ -1,0 +1,96 @@
+{
+    "errors": {
+        "deviceDisconnected": "Klawiatura odłączona",
+        "saveFile": "Błąd podczas zapisywania pliku: {{ error }}"
+    },
+    "components": {
+        "layer": "Warstwa {{index}}",
+        "loading": "Odczytywanie danych z urządzenia...",
+        "layerRaw": "Warstwa",
+        "logo": {
+            "altText": "Logo Chrysalis"
+        },
+        "none": "Żaden"
+    },
+    "saveChangesButton": {
+        "savingChanges": "Zapisywanie zmian",
+        "saveChanges": "Zapisz zmiany",
+        "savedChanges": "Zapisano zmiany"
+    },
+    "autoUpdate": {
+        "downloaded": "Pobrano wersję {{ version }}, uruchom ponownie Chrysalis, aby zakończyć instalację",
+        "error": "Błąd podczas aktualizacji: {{ error }}",
+        "available": "Nowa wersja dostępna:{{ version }}"
+    },
+    "firmwareAutoUpdate": {
+        "warning": "Chrysalis nie był w stanie sprawdzić dostępności nowej wersji oprogramowania układowego. Nowsza wersja może być dostępna online.",
+        "downloaded": "Pobrano wersję oprogramowania układowego {{ version }} i jest ona dostępna do flashowania",
+        "available": "Dostępna jest nowa wersja oprogramowania: {{ version }}",
+        "error": "Błąd podczas pobierania nowej wersji oprogramowania układowego."
+    },
+    "app": {
+        "menu": {
+            "focus-not-detected": "Witaj",
+            "layoutEditor": "Edytor układu",
+            "colormapEditor": "Edytor map kolorów",
+            "layoutCard": "Karta układu",
+            "connectAnotherKeyboard": "Podłącz kolejną klawiature",
+            "changelog": "Lista zmian",
+            "exit": "Wyjście",
+            "restart": "Zastosuj aktualizację i uruchom ponownie",
+            "systemInfo": "Zgłoś problem",
+            "editor": "Edytor układu i mapy kolorów",
+            "macroEditor": "Edytor makro",
+            "firmwareUpdate": "Aktualizacja oprogramowania układowego",
+            "preferences": "Preferencje",
+            "connectAKeyboard": "Podłącz klawiature",
+            "importExport": "Układy kopii zapasowej i przywracania",
+            "chat": "Czat Discord",
+            "keyboardSection": "Klawiatura",
+            "chrysalisSection": "Chrysalis",
+            "miscSection": "Rozmaity"
+        },
+        "deviceMenu": {
+            "Chat": "Czat",
+            "Homepage": "Strona główna",
+            "Forum": "Forum"
+        }
+    },
+    "dialog": {
+        "cancel": "Anuluj",
+        "ok": "Ok",
+        "close": "Zamknij",
+        "continue": "Kontynuować"
+    },
+    "editor": {
+        "plugin_unavailable_for_macros": "Ta funkcja nie jest dostępna w makros",
+        "sharing": {
+            "title": "Kopia zapasowa i przywracanie",
+            "loadFromLibrary": "Wczytywanie z biblioteki"
+        }
+    },
+    "sanity-check": {
+        "header": "Weryfikacja środowiska nie powiodła się",
+        "download-latest": "Pobierz oficjalną wersję",
+        "message": "Firma Chrysalis wykryła, że działa w nieobsługiwanym środowisku, na przykład z wersją Electron inną niż obsługiwana nadrzędna. Jeśli używasz Chrysalis za pośrednictwem repozytorium pakietów dystrybucji, rozważ użycie oficjalnych kompilacji.",
+        "title": "Weryfikacja środowiska uruchomieniowego"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "this_translation_language": "Angielski",
+    "breakingNews": {
+        "firmware0_90_1": {
+            "title": "Uwaga posiadacze Keyboardio Model 100!",
+            "button": "Aktualizacja instrukcji",
+            "description": "Firmware przed wersją 0.90.1 zawiera błąd, który prowadzi do utraty danych i uszkodzenia danych zapisanych w klawiaturze.Jeśli korzystasz już z nowszego oprogramowania układowego, możesz odrzucić to ostrzeżenie za pomocą przycisku zamykania."
+        }
+    },
+    "print": {
+        "feedback": {
+            "success": "Udano wydrukowanie!",
+            "error": "Wystąpił błąd podczas drukowania."
+        }
+    },
+    "language": "Angielski"
+}

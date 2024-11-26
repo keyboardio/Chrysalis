@@ -126,6 +126,6 @@ export const connectToSerialport = async (targetVid, targetPid) => {
     return focus;
   } catch (e) {
     logger.error("Failed to open serial port", e);
-    return null;
+    throw e;
   }
 };

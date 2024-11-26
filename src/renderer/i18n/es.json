@@ -1,170 +1,170 @@
 {
-    "this_translation_language": "Español",
-    "sanity-check": {
-        "title": "Ejecutando la verificación del entorno",
-        "header": "La verificación del entorno ha fallado",
-        "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
-        "download-latest": "Descargar la versión oficial"
-    },
-    "units": {
-        "in_ms": "ms"
-    },
-    "breakingNews": {
-        "firmware0_90_1": {
-            "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
-            "button": "Instrucciones de actualización",
-            "title": "¡Atención dueños de Keyboardio Modelo 100!"
-        }
-    },
-    "language": "Español",
-    "firmwareAutoUpdate": {
-        "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
-        "available": "Versión nuevo de firmware disponible: {{ version }}",
-        "error": "Error mientras descargando la versión nueva de firmware.",
-        "warning": "Chrysalis no pude comprobar si hay una versión nueva de firmware. Puede que hay una versión más nueva disponible en línea."
-    },
-    "components": {
-        "layer": "Capa {{index}}",
-        "none": "Nada",
-        "layerRaw": "Capa",
-        "loading": "Leyendo datos del dispositivo...",
-        "logo": {
-            "altText": "Logo de Chrysalis"
-        }
-    },
-    "errors": {
-        "saveFile": "Error al guardar un archivo: {{ error }}",
-        "deviceDisconnected": "Teclado desconectado"
-    },
-    "print": {
-        "feedback": {
-            "success": "¡Ha impreso con éxito!",
-            "error": "Error encontrado al imprimir."
-        }
-    },
-    "autoUpdate": {
-        "available": "Versión nueva disponible: {{ version }}",
-        "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
-        "error": "Error durante actualización: {{ error }}"
-    },
-    "editor": {
-        "sharing": {
-            "title": "Respaldar y restaurar",
-            "loadFromLibrary": "Cargar de biblioteca",
-            "loadFromBackup": "Cargar de las copias de seguridad",
-            "loadFromFile": "Restaurar desde archivo...",
-            "import": "Importar",
-            "selectExportFile": "Elige el archivo al que exportar el diseño",
-            "dialog": {
-                "layoutFiles": "Archivos de distribución",
-                "allFiles": "Todos los archivos"
-            },
-            "exportToFile": "Copia de seguridad al archivo...",
-            "selectLoadFile": "Elige el archivo desde el que cargar un diseño",
-            "errors": {
-                "unableToLoad": "No se puede descargar el diseño del archivo seleccionado.",
-                "parseFail": "Se ha fallado analizar los datos de diseño.",
-                "invalidLayoutData": "El archivo no contiene los datos de diseños válidos."
-            },
-            "importConfirm": {
-                "title": "¿Importar el diseño seleccionado?",
-                "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
-            }
-        },
-        "sidebar": {
-            "custom": {
-                "help": "Le permite asignar un código personalizado de llave a una tecla, o un código no conocido por Chrysalis.",
-                "title": "Código personalizado de llave",
-                "label": "Código personalizado de llave"
-            },
-            "platform_apple": {
-                "title": "Teclas de Mac / iPad",
-                "help": "Códigos de llaves específicos para dispositivos Apple."
-            },
-            "blanks": {
-                "title": "Espacios en blanco",
-                "help": "Teclas bloqueadas y transparentes."
-            },
-            "secondary": {
-                "whenHeld": "Al mantener",
-                "targetLayer": "Capa",
-                "title": "Acción secundario",
-                "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
-                "help": "Le permite asignar funcionalidad secundaria a una tecla. Al pulsar esas teclas aumentadas, la función primaria realizará. Al mantenerlas, la acción secundaria realizará.",
-                "modifier": "Modificadora",
-                "type": {
-                    "none": "Ninguna acción secundaria",
-                    "layer": "Capa desplazamiento",
-                    "modifier": "Modificadora"
-                }
-            },
-            "colors": {
-                "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
-                "title": "Colores"
-            },
-            "lang_intl": {
-                "help": "Teclas adicionales específicas del idioma.",
-                "title": "Idioma / Internacional"
-            }
-        },
-        "overview": {
-            "key": "Tecla #{{index}}",
-            "color": "Color",
-            "pasteLayer": "Pegar capa",
-            "sharing": "Copia de seguridad y restauración",
-            "showEmptyLayers": "Mostrar capas vacías...",
-            "copyLayer": "Copiar capa",
-            "hideEmptyLayers": "Ocultar capas vacías...",
-            "help": "Descripción general de las asignaciones para la tecla seleccionada actualmente. Para cambiar la capa mostrada, haga clic en su fila."
-        },
-        "plugin_unavailable_for_macros": "Esta función no está disponible en macros",
-        "plugin_unavailable": "El firmware de su teclado no incluye soporte para esta función."
-    },
-    "app": {
-        "menu": {
-            "preferences": "Preferencias",
-            "chrysalisSection": "Chrysalis",
-            "firmwareUpdate": "Actualización de firmware",
-            "layoutEditor": "Editor de distribución",
-            "editor": "Editor de distribución y de colormap",
-            "focus-not-detected": "Bienvenido",
-            "systemInfo": "Reportar un problema",
-            "colormapEditor": "Editor de colormap",
-            "macroEditor": "Editor de macro",
-            "exit": "Salir",
-            "restart": "Aplicar actualización y reiniciar",
-            "keyboardSection": "Teclado",
-            "chat": "Chat de Discord",
-            "layoutCard": "Carta de distribución",
-            "miscSection": "Varios",
-            "changelog": "Registro de cambios",
-            "connectAKeyboard": "Conectar un teclado",
-            "importExport": "Diseños de copia de seguridad y restauración",
-            "connectAnotherKeyboard": "Conectar otro teclado"
-        },
-        "cancelPending": {
-            "title": "Descartar los cambios pendientes?",
-            "content": "Tiene cambios no guardados. Si procede, se perderán."
-        },
-        "actionRequired": "Acción requerida",
-        "deviceMenu": {
-            "Homepage": "Página de inicio",
-            "Forum": "Foro",
-            "Chat": "Chat"
-        }
-    },
-    "dialog": {
-        "cancel": "Cancelar",
-        "ok": "Ok",
-        "close": "Cerrar",
-        "continue": "Continuar"
-    },
-    "changelog": {
-        "title": "Registro de cambios"
-    },
-    "saveChangesButton": {
-        "savedChanges": "Cambios guardados",
-        "saveChanges": "Guardar los cambios",
-        "savingChanges": "Guardando los cambios"
+  "this_translation_language": "Español",
+  "sanity-check": {
+    "title": "Ejecutando la verificación del entorno",
+    "header": "La verificación del entorno ha fallado",
+    "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
+    "download-latest": "Descargar la versión oficial"
+  },
+  "units": {
+    "in_ms": "ms"
+  },
+  "breakingNews": {
+    "firmware0_90_1": {
+      "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
+      "button": "Instrucciones de actualización",
+      "title": "¡Atención dueños de Keyboardio Modelo 100!"
     }
+  },
+  "language": "Español",
+  "firmwareAutoUpdate": {
+    "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
+    "available": "Versión nuevo de firmware disponible: {{ version }}",
+    "error": "Error mientras descargando la versión nueva de firmware.",
+    "warning": "Chrysalis no pude comprobar si hay una versión nueva de firmware. Puede que hay una versión más nueva disponible en línea."
+  },
+  "components": {
+    "layer": "Capa {{index}}",
+    "none": "Nada",
+    "layerRaw": "Capa",
+    "loading": "Leyendo datos del dispositivo...",
+    "logo": {
+      "altText": "Logo de Chrysalis"
+    }
+  },
+  "errors": {
+    "saveFile": "Error al guardar un archivo: {{ error }}",
+    "deviceDisconnected": "Teclado desconectado"
+  },
+  "print": {
+    "feedback": {
+      "success": "¡Ha impreso con éxito!",
+      "error": "Error encontrado al imprimir."
+    }
+  },
+  "autoUpdate": {
+    "available": "Versión nueva disponible: {{ version }}",
+    "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
+    "error": "Error durante actualización: {{ error }}"
+  },
+  "editor": {
+    "sharing": {
+      "title": "Respaldar y restaurar",
+      "loadFromLibrary": "Cargar de biblioteca",
+      "loadFromBackup": "Cargar de las copias de seguridad",
+      "loadFromFile": "Restaurar desde archivo...",
+      "import": "Importar",
+      "selectExportFile": "Elige el archivo al que exportar el diseño",
+      "dialog": {
+        "layoutFiles": "Archivos de distribución",
+        "allFiles": "Todos los archivos"
+      },
+      "exportToFile": "Copia de seguridad al archivo...",
+      "selectLoadFile": "Elige el archivo desde el que cargar un diseño",
+      "errors": {
+        "unableToLoad": "No se puede descargar el diseño del archivo seleccionado.",
+        "parseFail": "Se ha fallado analizar los datos de diseño.",
+        "invalidLayoutData": "El archivo no contiene los datos de diseños válidos."
+      },
+      "importConfirm": {
+        "title": "¿Importar el diseño seleccionado?",
+        "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
+      }
+    },
+    "sidebar": {
+      "custom": {
+        "help": "Le permite asignar un código personalizado de llave a una tecla, o un código no conocido por Chrysalis.",
+        "title": "Código personalizado de llave",
+        "label": "Código personalizado de llave"
+      },
+      "platform_apple": {
+        "title": "Teclas de Mac / iPad",
+        "help": "Códigos de llaves específicos para dispositivos Apple."
+      },
+      "blanks": {
+        "title": "Espacios en blanco",
+        "help": "Teclas bloqueadas y transparentes."
+      },
+      "secondary": {
+        "whenHeld": "Al mantener",
+        "targetLayer": "Capa",
+        "title": "Acción secundario",
+        "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
+        "help": "Le permite asignar funcionalidad secundaria a una tecla. Al pulsar esas teclas aumentadas, la función primaria realizará. Al mantenerlas, la acción secundaria realizará.",
+        "modifier": "Modificadora",
+        "type": {
+          "none": "Ninguna acción secundaria",
+          "layer": "Capa desplazamiento",
+          "modifier": "Modificadora"
+        }
+      },
+      "colors": {
+        "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
+        "title": "Colores"
+      },
+      "lang_intl": {
+        "help": "Teclas adicionales específicas del idioma.",
+        "title": "Idioma / Internacional"
+      }
+    },
+    "overview": {
+      "key": "Tecla #{{index}}",
+      "color": "Color",
+      "pasteLayer": "Pegar capa",
+      "sharing": "Copia de seguridad y restauración",
+      "showEmptyLayers": "Mostrar capas vacías...",
+      "copyLayer": "Copiar capa",
+      "hideEmptyLayers": "Ocultar capas vacías...",
+      "help": "Descripción general de las asignaciones para la tecla seleccionada actualmente. Para cambiar la capa mostrada, haga clic en su fila."
+    },
+    "plugin_unavailable_for_macros": "Esta función no está disponible en macros",
+    "plugin_unavailable": "El firmware de su teclado no incluye soporte para esta función."
+  },
+  "app": {
+    "menu": {
+      "preferences": "Preferencias",
+      "chrysalisSection": "Chrysalis",
+      "firmwareUpdate": "Actualización de firmware",
+      "layoutEditor": "Editor de distribución",
+      "editor": "Editor de distribución y de colormap",
+      "focus-not-detected": "Bienvenido",
+      "systemInfo": "Reportar un problema",
+      "colormapEditor": "Editor de colormap",
+      "macroEditor": "Editor de macro",
+      "exit": "Salir",
+      "restart": "Aplicar actualización y reiniciar",
+      "keyboardSection": "Teclado",
+      "chat": "Chat de Discord",
+      "layoutCard": "Carta de distribución",
+      "miscSection": "Varios",
+      "changelog": "Registro de cambios",
+      "connectAKeyboard": "Conectar un teclado",
+      "importExport": "Diseños de copia de seguridad y restauración",
+      "connectAnotherKeyboard": "Conectar otro teclado"
+    },
+    "cancelPending": {
+      "title": "Descartar los cambios pendientes?",
+      "content": "Tiene cambios no guardados. Si procede, se perderán."
+    },
+    "actionRequired": "Acción requerida",
+    "deviceMenu": {
+      "Homepage": "Página de inicio",
+      "Forum": "Foro",
+      "Chat": "Chat"
+    }
+  },
+  "dialog": {
+    "cancel": "Cancelar",
+    "ok": "Ok",
+    "close": "Cerrar",
+    "continue": "Continuar"
+  },
+  "changelog": {
+    "title": "Registro de cambios"
+  },
+  "saveChangesButton": {
+    "savedChanges": "Cambios guardados",
+    "saveChanges": "Guardar los cambios",
+    "savingChanges": "Guardando los cambios"
+  }
 }

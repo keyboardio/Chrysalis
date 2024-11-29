@@ -54,6 +54,9 @@
             "Chat": "Czat",
             "Homepage": "Strona główna",
             "Forum": "Forum"
+        },
+        "cancelPending": {
+            "title": "Odrzucić oczekujące zmiany?"
         }
     },
     "dialog": {
@@ -67,7 +70,132 @@
         "sharing": {
             "title": "Kopia zapasowa i przywracanie",
             "loadFromLibrary": "Wczytywanie z biblioteki",
-            "import": "import"
+            "import": "import",
+            "selectExportFile": "Wybierz plik do którego chcesz wyeksportować układ",
+            "dialog": {
+                "layoutFiles": "Układ plików",
+                "allFiles": "Wszystkie pliki"
+            },
+            "errors": {
+                "unableToLoad": "Nie można załadować układu z wybranego pliku.",
+                "parseFail": "Nie można przeanalizować danych układu.",
+                "invalidLayoutData": "Plik nie zawierał prawidłowych danych układu."
+            },
+            "importConfirm": {
+                "title": "Zaimportować wybrany układ?",
+                "contents": "Spowoduje to zastąpienie bieżącego układu, a wszelkie niezapisane zmiany zostaną utracone. Czy na pewno chcesz kontynuować?"
+            }
+        },
+        "sidebar": {
+            "secondary": {
+                "help": "Po stuknięciu otrzymasz podstawową funkcję. Po przytrzymaniu otrzymujesz akcję drugorzędną.",
+                "title": "Działanie wtórne"
+            },
+            "oneshotMetaKeys": {
+                "metaStickyKey": {
+                    "tooltip": "Sprawia, że następny naciśnięty jest lepki do momentu ponownego stuknięcia."
+                },
+                "title": "editor.sidebar.oneshotMetaKeys.title",
+                "help": "editor.sidebar.oneshotMetaKeys.title",
+                "activeStickyKey": {
+                    "tooltip": "Sprawia, że następny naciśnięty jest lepki do momentu ponownego stuknięcia."
+                }
+            },
+            "dynmacros": {
+                "help": "Przypisywanie i edytowanie makr dynamicznych do klawiszy.",
+                "usage_overview": {
+                    "usage": "{{ used }}/{{ size }}",
+                    "label": "Wykorzystana przestrzeń makro:",
+                    "bytes": "Bajtów"
+                },
+                "title": "Makra dynamiczne"
+            },
+            "mousekeys": {
+                "buttons": {
+                    "title": "Przyciski",
+                    "help": "Naciskaj przyciski myszy za pomocą klawiatury"
+                },
+                "title": "Sterowanie myszą",
+                "help": "Poruszanie myszą za pomocą klawiatury",
+                "movement": {
+                    "title": "Ruch",
+                    "help": "Poruszanie myszą za pomocą klawiatury"
+                },
+                "wheel": {
+                    "title": "Koło",
+                    "help": " Przewijanie kółkiem myszy"
+                },
+                "warp": {
+                    "title": "Osnowa",
+                    "help": "Przesuń mysz po ekranie za pomocą kilku naciśnięć"
+                }
+            },
+            "lang_intl": {
+                "title": "Język / Międzynarodowy",
+                "help": "Speczyficzne-Językowe extra klucze."
+            },
+            "custom": {
+                "title": "Kluczowy kod",
+                "help": "Przypisz niestandardowy kod Kalejdoskopu.",
+                "label": "Niestandardowy kod klucza"
+            },
+            "platform_apple": {
+                "title": "Mac / iPad klucze",
+                "help": "Kody specyficzne dla urządzeń Apple."
+            },
+            "blanks": {
+                "title": "Puste",
+                "help": "Zablokowane i przezroczyste klucze."
+            },
+            "oneshot": {
+                "cancelStickyKey": {
+                    "tooltip": "Dedykowany do anulowania lepkich."
+                },
+                "help": "editor.sidebar.oneshot.helpJęzyk angielski"
+            },
+            "ledkeys": {
+                "title": "Sterowanie LED",
+                "help": "Kontroluj motywy i efekty LED klawiatury."
+            },
+            "macros": {
+                "title": "Makra",
+                "help": "Przypisz zakodowane na stałe makra wbudowane w oprogramowanie układowe."
+            },
+            "spacecadet": {
+                "title": "Kosmiczny kadet",
+                "help": "Spraw, aby lewy i prawy Shift działał jako \"(\" and ')\" po stuknięciu"
+            },
+            "steno": {
+                "title": "Steno",
+                "help": "Włącz wejście stenograficzne GeminiPR zamiast wejścia QWERTY Plover"
+            },
+            "tapdance": {
+                "title": "Taniec Stepowania",
+                "help": "Te wywołują różne działania w zależności od liczby stuknięć"
+            }
+        },
+        "onlyCustom": {
+            "warning": "Chrysalis nie obsługuje już konfiguracji zawierających kombinację warstw zakodowanych na stałe i EEPROM. Jeśli jest to funkcja, której potrzebujesz, chcielibyśmy dowiedzieć się więcej o Twoim przypadku użycia. Jednak w większości przypadków radzimy przełączyć się tylko na warstwy niestandardowe, co Chrysalis może zrobić za Ciebie. Podczas przełączania warstwy zakodowane na stałe nie będą używane, a domyślnym zestawem warstw - jeśli istnieje - będzie warstwa zero.",
+            "fixItButton": "Przełączanie tylko na warstwy niestandardowe"
+        },
+        "overview": {
+            "key": "Klucz #{{index}}",
+            "color": "Kolor",
+            "hideEmptyLayers": "Ukryj puste warstwy...",
+            "showEmptyLayers": "Pokaż puste warstwy...",
+            "copyLayer": "Kopiuj warstwę",
+            "pasteLayer": "Wklej warstwę",
+            "sharing": "Kopia zapasowa & przywracanie",
+            "help": "Przegląd mapowań dla aktualnie wybranego klucza. Aby zmienić wyświetlaną warstwę, kliknij jej wiersz."
+        },
+        "layerswitch": {
+            "type": "pisać",
+            "shiftTo": "Przesuń do warstwy",
+            "lockTo": "Zablokuj do warstwy",
+            "moveTo": "Przenieś do warstwy",
+            "oneshot": "Przesunięcie warstwy dla następnej czynności",
+            "target": "Warstwa",
+            "dualuse": "Przesunięcie warstwy po przytrzymaniu"
         }
     },
     "sanity-check": {

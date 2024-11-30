@@ -57,7 +57,8 @@
         },
         "cancelPending": {
             "title": "Odrzucić oczekujące zmiany?"
-        }
+        },
+        "actionRequired": "Wymagane działania"
     },
     "dialog": {
         "cancel": "Anuluj",
@@ -84,12 +85,25 @@
             "importConfirm": {
                 "title": "Zaimportować wybrany układ?",
                 "contents": "Spowoduje to zastąpienie bieżącego układu, a wszelkie niezapisane zmiany zostaną utracone. Czy na pewno chcesz kontynuować?"
-            }
+            },
+            "loadFromBackup": "Wczytaj z kopii zapasowych",
+            "loadFromFile": "Przywróć z pliku...",
+            "exportToFile": "Kopia zapasowa do pliku...",
+            "selectLoadFile": "Wybierz plik, z którego chcesz wczytać układ"
         },
         "sidebar": {
             "secondary": {
                 "help": "Po stuknięciu otrzymasz podstawową funkcję. Po przytrzymaniu otrzymujesz akcję drugorzędną.",
-                "title": "Działanie wtórne"
+                "title": "Działanie wtórne",
+                "help-layerLimit": "Ze względu na ograniczenia oprogramowania układowego przejście do warstw powyżej \"{{ layer7 }}\" nie jest obsługiwane przez działania drugorzędne.",
+                "whenHeld": "Po przytrzymaniu",
+                "type": {
+                    "none": "Normalny",
+                    "layer": "Przesunięcie warstwy",
+                    "modifier": "Modyfikator"
+                },
+                "targetLayer": "Warstwa",
+                "modifier": "Modyfikator"
             },
             "oneshotMetaKeys": {
                 "metaStickyKey": {
@@ -151,7 +165,8 @@
                 "cancelStickyKey": {
                     "tooltip": "Dedykowany do anulowania lepkich."
                 },
-                "help": "editor.sidebar.oneshot.helpJęzyk angielski"
+                "help": "editor.sidebar.oneshot.helpJęzyk angielski",
+                "title": "Lepki"
             },
             "ledkeys": {
                 "title": "Sterowanie LED",
@@ -172,11 +187,51 @@
             "tapdance": {
                 "title": "Taniec Stepowania",
                 "help": "Te wywołują różne działania w zależności od liczby stuknięć"
+            },
+            "volume": {
+                "help": "regulacja głośności.",
+                "title": "Głośność"
+            },
+            "keypicker": {
+                "topsyturvy": {
+                    "tooltip": "Odwróć zachowanie Shift. (Na przykład wyślij \"A\", gdy nie jest przesunięty i \"a\" gdy jest przesunięty)",
+                    "label": "Odwrócenie przesunięcia"
+                },
+                "mods": "Modyfikatorów",
+                "modsHelp": "Modyfikatory, które należy dodawać po naciśnięciu klucza.",
+                "specialModsHelp": "Zmień sposób, w jaki modyfikatory wpływają na ten klucz.",
+                "oneshot": {
+                    "label": "Lepki",
+                    "tooltip": "Stuknij, aby aktywować przy następnym naciśnięciu, przytrzymaj, aby działać jak zwykły modyfikator, dotknij dwukrotnie, aby przełączyć modyfikator."
+                }
+            },
+            "colors": {
+                "title": "Kolory",
+                "help": "Ustaw kolor klucza, klikając paletę poniżej. Użyj próbnika kolorów, aby dostosować paletę."
+            },
+            "media": {
+                "title": "Sterowanie nośnikami",
+                "help": "sterowania multimediami."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Jasność",
+                    "help": "Dostosuj jasność ekranu."
+                }
+            },
+            "layer": {
+                "title": "Warstwy i mapy",
+                "help": "Klucze które umożliwiają zmianę warstw."
+            },
+            "leader": {
+                "title": "Przywódca",
+                "help": "Przypisz klucze linii odniesienia.Aby skonfigurować tę funkcję, dostosuj plik szkicu Kalejdoskop do używanej klawiatury."
             }
         },
         "onlyCustom": {
             "warning": "Chrysalis nie obsługuje już konfiguracji zawierających kombinację warstw zakodowanych na stałe i EEPROM. Jeśli jest to funkcja, której potrzebujesz, chcielibyśmy dowiedzieć się więcej o Twoim przypadku użycia. Jednak w większości przypadków radzimy przełączyć się tylko na warstwy niestandardowe, co Chrysalis może zrobić za Ciebie. Podczas przełączania warstwy zakodowane na stałe nie będą używane, a domyślnym zestawem warstw - jeśli istnieje - będzie warstwa zero.",
-            "fixItButton": "Przełączanie tylko na warstwy niestandardowe"
+            "fixItButton": "Przełączanie tylko na warstwy niestandardowe",
+            "openFR": "Otwieranie prośby o funkcję"
         },
         "overview": {
             "key": "Klucz #{{index}}",
@@ -196,6 +251,30 @@
             "oneshot": "Przesunięcie warstwy dla następnej czynności",
             "target": "Warstwa",
             "dualuse": "Przesunięcie warstwy po przytrzymaniu"
+        },
+        "plugin_unavailable": "Oprogramowanie układowe klawiatury nie obsługuje tej funkcji.",
+        "layernames": {
+            "out_of_space": "Nazwy warstw są {{ overflow }} bajtów za długie, aby można je było zapisać na klawiaturze."
+        },
+        "macros": {
+            "edit": "Edytowanie makra",
+            "title": "Makro #{{ index }}",
+            "out_of_space": "Makra dynamiczne zajmują zbyt dużo miejsca, zwolnij {{ overflow }} bajtów.",
+            "steps": {
+                "add": "Dodawanie kroku",
+                "time_ms": "{{ value }}ms",
+                "in_ms": "ms",
+                "unknown": "<unknown>",
+                "INTERVAL": "Opóźnienie między krokami",
+                "WAIT": "Czekaj",
+                "KEYDOWN": "Trzymaj klucz",
+                "KEYUP": "Zwolnić klucz",
+                "TAP": "stuknąć",
+                "EXPLICIT_REPORT": "Nie wysyłaj raportu między krokami",
+                "IMPLICIT_REPORT": "Wyślij raport między krokami",
+                "SEND_REPORT": "Wyślij raport teraz",
+                "unsupported": "Nieobsługiwane"
+            }
         }
     },
     "sanity-check": {
@@ -221,5 +300,53 @@
             "error": "Wystąpił błąd podczas drukowania."
         }
     },
-    "language": "Angielski"
+    "language": "Angielski",
+    "preferences": {
+        "focus": {
+            "chunked_writes": {
+                "help": "Jako możliwe lekarstwo na różne problemy z komunikacją, Chrysalis może wysyłać dane do klawiatury w mniejszych porcjach. Ze względów historycznych ta opcja jest domyślnie włączona. Wyłącz go tylko wtedy, gdy wiesz, co robisz lub zostałeś o to poproszony przez programistów Chrysalis.",
+                "label": "Wysyłanie danych w małych porcjach"
+            }
+        },
+        "devtools": {
+            "main": {
+                "description": "Te preferencje pomagają przede wszystkim programistom. Może pojawić się prośba o ich włączenie, aby zebrać więcej informacji o problemie.",
+                "label": "Narzędzia programistyczne"
+            },
+            "verboseLogging": {
+                "help": "Włącza sporą ilość dodatkowego rejestrowania, przydatne tylko do debugowania.",
+                "label": "Włączanie verbose rejestrowania"
+            },
+            "console": {
+                "label": "Otwórz konsolę programisty",
+                "help": "Konsola programisty pozwala zajrzeć do wnętrza Chrysalis. Używaj ostrożnie."
+            }
+        },
+        "autoUpdate": {
+            "mode": {
+                "label": "Automatyczne pobieranie nowych wersji Chrysalis",
+                "help": "Po włączeniu Chrysalis będzie sprawdzał dostępność aktualizacji podczas uruchamiania i automatycznie pobierał nowe wersje."
+            },
+            "firmwareMode": {
+                "label": "Automatyczne pobieranie nowych wersji oprogramowania układowego",
+                "help": "Po włączeniu Chrysalis sprawdzi dostępność zaktualizowanych plików oprogramowania układowego podczas uruchamiania i automatycznie pobierze nowe wersje."
+            },
+            "label": "Automatyczne aktualizacje"
+        },
+        "interface": "Interfejs użytkownika",
+        "ui": {
+            "layoutEditor": {
+                "label": "Edytor układu"
+            },
+            "layoutCards": {
+                "label": "Karty układu"
+            }
+        }
+    },
+    "changelog": {
+        "title": "Lista zmian"
+    },
+    "layoutCards": {
+        "printTooltip": "Drukować"
+    }
 }

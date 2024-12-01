@@ -428,6 +428,15 @@
                         "help": "Liczba milisekund czekania przed uznaniem przytrzymanego klawisza shift kosmiczny kadet za samodzielną zmianę."
                     }
                 }
+            },
+            "factoryReset": {
+                "dialog": {
+                    "contents": "Spowoduje to zresetowanie pamięci EEPROM do ustawień fabrycznych. Utracisz wszystkie wprowadzone dostosowania.",
+                    "title": "Przywróć EEPROM do ustawien fabrycznych?"
+                }
+            },
+            "led": {
+                "label": "LEDs"
             }
         }
     },

@@ -1,96 +1,476 @@
 {
-  "errors": {
-    "deviceDisconnected": "Klawiatura odłączona",
-    "saveFile": "Błąd podczas zapisywania pliku: {{ error }}"
-  },
-  "components": {
-    "layer": "Warstwa {{index}}",
-    "loading": "Odczytywanie danych z urządzenia...",
-    "layerRaw": "Warstwa",
-    "logo": {
-      "altText": "Logo Chrysalis"
+    "errors": {
+        "deviceDisconnected": "Klawiatura odłączona",
+        "saveFile": "Błąd podczas zapisywania pliku: {{ error }}"
     },
-    "none": "Żaden"
-  },
-  "saveChangesButton": {
-    "savingChanges": "Zapisywanie zmian",
-    "saveChanges": "Zapisz zmiany",
-    "savedChanges": "Zapisano zmiany"
-  },
-  "autoUpdate": {
-    "downloaded": "Pobrano wersję {{ version }}, uruchom ponownie Chrysalis, aby zakończyć instalację",
-    "error": "Błąd podczas aktualizacji: {{ error }}",
-    "available": "Nowa wersja dostępna:{{ version }}"
-  },
-  "firmwareAutoUpdate": {
-    "warning": "Chrysalis nie był w stanie sprawdzić dostępności nowej wersji oprogramowania układowego. Nowsza wersja może być dostępna online.",
-    "downloaded": "Pobrano wersję oprogramowania układowego {{ version }} i jest ona dostępna do flashowania",
-    "available": "Dostępna jest nowa wersja oprogramowania: {{ version }}",
-    "error": "Błąd podczas pobierania nowej wersji oprogramowania układowego."
-  },
-  "app": {
-    "menu": {
-      "focus-not-detected": "Witaj",
-      "layoutEditor": "Edytor układu",
-      "colormapEditor": "Edytor map kolorów",
-      "layoutCard": "Karta układu",
-      "connectAnotherKeyboard": "Podłącz kolejną klawiature",
-      "changelog": "Lista zmian",
-      "exit": "Wyjście",
-      "restart": "Zastosuj aktualizację i uruchom ponownie",
-      "systemInfo": "Zgłoś problem",
-      "editor": "Edytor układu i mapy kolorów",
-      "macroEditor": "Edytor makro",
-      "firmwareUpdate": "Aktualizacja oprogramowania układowego",
-      "preferences": "Preferencje",
-      "connectAKeyboard": "Podłącz klawiature",
-      "importExport": "Układy kopii zapasowej i przywracania",
-      "chat": "Czat Discord",
-      "keyboardSection": "Klawiatura",
-      "chrysalisSection": "Chrysalis",
-      "miscSection": "Rozmaity"
+    "components": {
+        "layer": "Warstwa {{index}}",
+        "loading": "Odczytywanie danych z urządzenia...",
+        "layerRaw": "Warstwa",
+        "logo": {
+            "altText": "Logo Chrysalis"
+        },
+        "none": "Żaden"
     },
-    "deviceMenu": {
-      "Chat": "Czat",
-      "Homepage": "Strona główna",
-      "Forum": "Forum"
+    "saveChangesButton": {
+        "savingChanges": "Zapisywanie zmian",
+        "saveChanges": "Zapisz zmiany",
+        "savedChanges": "Zapisano zmiany"
+    },
+    "autoUpdate": {
+        "downloaded": "Pobrano wersję {{ version }}, uruchom ponownie Chrysalis, aby zakończyć instalację",
+        "error": "Błąd podczas aktualizacji: {{ error }}",
+        "available": "Nowa wersja dostępna:{{ version }}"
+    },
+    "firmwareAutoUpdate": {
+        "warning": "Chrysalis nie był w stanie sprawdzić dostępności nowej wersji oprogramowania układowego. Nowsza wersja może być dostępna online.",
+        "downloaded": "Pobrano wersję oprogramowania układowego {{ version }} i jest ona dostępna do flashowania",
+        "available": "Dostępna jest nowa wersja oprogramowania: {{ version }}",
+        "error": "Błąd podczas pobierania nowej wersji oprogramowania układowego."
+    },
+    "app": {
+        "menu": {
+            "focus-not-detected": "Witaj",
+            "layoutEditor": "Edytor układu",
+            "colormapEditor": "Edytor map kolorów",
+            "layoutCard": "Karta układu",
+            "connectAnotherKeyboard": "Podłącz kolejną klawiature",
+            "changelog": "Lista zmian",
+            "exit": "Wyjście",
+            "restart": "Zastosuj aktualizację i uruchom ponownie",
+            "systemInfo": "Zgłoś problem",
+            "editor": "Edytor układu i mapy kolorów",
+            "macroEditor": "Edytor makro",
+            "firmwareUpdate": "Aktualizacja oprogramowania układowego",
+            "preferences": "Preferencje",
+            "connectAKeyboard": "Podłącz klawiature",
+            "importExport": "Układy kopii zapasowej i przywracania",
+            "chat": "Czat Discord",
+            "keyboardSection": "Klawiatura",
+            "chrysalisSection": "Chrysalis",
+            "miscSection": "Rozmaity"
+        },
+        "deviceMenu": {
+            "Chat": "Czat",
+            "Homepage": "Strona główna",
+            "Forum": "Forum"
+        },
+        "cancelPending": {
+            "title": "Odrzucić oczekujące zmiany?",
+            "content": "Masz niezapisane zmiany. Jeśli będziesz kontynuować, zostaną utracone."
+        },
+        "actionRequired": "Wymagane działania"
+    },
+    "dialog": {
+        "cancel": "Anuluj",
+        "ok": "Ok",
+        "close": "Zamknij",
+        "continue": "Kontynuować"
+    },
+    "editor": {
+        "plugin_unavailable_for_macros": "Ta funkcja nie jest dostępna w makros",
+        "sharing": {
+            "title": "Kopia zapasowa i przywracanie",
+            "loadFromLibrary": "Wczytywanie z biblioteki",
+            "import": "import",
+            "selectExportFile": "Wybierz plik do którego chcesz wyeksportować układ",
+            "dialog": {
+                "layoutFiles": "Układ plików",
+                "allFiles": "Wszystkie pliki"
+            },
+            "errors": {
+                "unableToLoad": "Nie można załadować układu z wybranego pliku.",
+                "parseFail": "Nie można przeanalizować danych układu.",
+                "invalidLayoutData": "Plik nie zawierał prawidłowych danych układu."
+            },
+            "importConfirm": {
+                "title": "Zaimportować wybrany układ?",
+                "contents": "Spowoduje to zastąpienie bieżącego układu, a wszelkie niezapisane zmiany zostaną utracone. Czy na pewno chcesz kontynuować?"
+            },
+            "loadFromBackup": "Wczytaj z kopii zapasowych",
+            "loadFromFile": "Przywróć z pliku...",
+            "exportToFile": "Kopia zapasowa do pliku...",
+            "selectLoadFile": "Wybierz plik, z którego chcesz wczytać układ"
+        },
+        "sidebar": {
+            "secondary": {
+                "help": "Po stuknięciu otrzymasz podstawową funkcję. Po przytrzymaniu otrzymujesz akcję drugorzędną.",
+                "title": "Działanie wtórne",
+                "help-layerLimit": "Ze względu na ograniczenia oprogramowania układowego przejście do warstw powyżej \"{{ layer7 }}\" nie jest obsługiwane przez działania drugorzędne.",
+                "whenHeld": "Po przytrzymaniu",
+                "type": {
+                    "none": "Normalny",
+                    "layer": "Przesunięcie warstwy",
+                    "modifier": "Modyfikator"
+                },
+                "targetLayer": "Warstwa",
+                "modifier": "Modyfikator"
+            },
+            "oneshotMetaKeys": {
+                "metaStickyKey": {
+                    "tooltip": "Sprawia, że następny naciśnięty jest lepki do momentu ponownego stuknięcia."
+                },
+                "title": "editor.sidebar.oneshotMetaKeys.title",
+                "help": "editor.sidebar.oneshotMetaKeys.title",
+                "activeStickyKey": {
+                    "tooltip": "Sprawia, że następny naciśnięty jest lepki do momentu ponownego stuknięcia."
+                }
+            },
+            "dynmacros": {
+                "help": "Przypisywanie i edytowanie makr dynamicznych do klawiszy.",
+                "usage_overview": {
+                    "usage": "{{ used }}/{{ size }}",
+                    "label": "Wykorzystana przestrzeń makro:",
+                    "bytes": "Bajtów"
+                },
+                "title": "Makra dynamiczne"
+            },
+            "mousekeys": {
+                "buttons": {
+                    "title": "Przyciski",
+                    "help": "Naciskaj przyciski myszy za pomocą klawiatury"
+                },
+                "title": "Sterowanie myszą",
+                "help": "Poruszanie myszą za pomocą klawiatury",
+                "movement": {
+                    "title": "Ruch",
+                    "help": "Poruszanie myszą za pomocą klawiatury"
+                },
+                "wheel": {
+                    "title": "Koło",
+                    "help": " Przewijanie kółkiem myszy"
+                },
+                "warp": {
+                    "title": "Osnowa",
+                    "help": "Przesuń mysz po ekranie za pomocą kilku naciśnięć"
+                }
+            },
+            "lang_intl": {
+                "title": "Język / Międzynarodowy",
+                "help": "Speczyficzne-Językowe extra klucze."
+            },
+            "custom": {
+                "title": "Kluczowy kod",
+                "help": "Przypisz niestandardowy kod Kalejdoskopu.",
+                "label": "Niestandardowy kod klucza"
+            },
+            "platform_apple": {
+                "title": "Mac / iPad klucze",
+                "help": "Kody specyficzne dla urządzeń Apple."
+            },
+            "blanks": {
+                "title": "Puste",
+                "help": "Zablokowane i przezroczyste klucze."
+            },
+            "oneshot": {
+                "cancelStickyKey": {
+                    "tooltip": "Dedykowany do anulowania lepkich."
+                },
+                "help": "editor.sidebar.oneshot.helpJęzyk angielski",
+                "title": "Lepki"
+            },
+            "ledkeys": {
+                "title": "Sterowanie LED",
+                "help": "Kontroluj motywy i efekty LED klawiatury."
+            },
+            "macros": {
+                "title": "Makra",
+                "help": "Przypisz zakodowane na stałe makra wbudowane w oprogramowanie układowe."
+            },
+            "spacecadet": {
+                "title": "Kosmiczny kadet",
+                "help": "Spraw, aby lewy i prawy Shift działał jako \"(\" and ')\" po stuknięciu"
+            },
+            "steno": {
+                "title": "Steno",
+                "help": "Włącz wejście stenograficzne GeminiPR zamiast wejścia QWERTY Plover"
+            },
+            "tapdance": {
+                "title": "Taniec Stepowania",
+                "help": "Te wywołują różne działania w zależności od liczby stuknięć"
+            },
+            "volume": {
+                "help": "regulacja głośności.",
+                "title": "Głośność"
+            },
+            "keypicker": {
+                "topsyturvy": {
+                    "tooltip": "Odwróć zachowanie Shift. (Na przykład wyślij \"A\", gdy nie jest przesunięty i \"a\" gdy jest przesunięty)",
+                    "label": "Odwrócenie przesunięcia"
+                },
+                "mods": "Modyfikatorów",
+                "modsHelp": "Modyfikatory, które należy dodawać po naciśnięciu klucza.",
+                "specialModsHelp": "Zmień sposób, w jaki modyfikatory wpływają na ten klucz.",
+                "oneshot": {
+                    "label": "Lepki",
+                    "tooltip": "Stuknij, aby aktywować przy następnym naciśnięciu, przytrzymaj, aby działać jak zwykły modyfikator, dotknij dwukrotnie, aby przełączyć modyfikator."
+                }
+            },
+            "colors": {
+                "title": "Kolory",
+                "help": "Ustaw kolor klucza, klikając paletę poniżej. Użyj próbnika kolorów, aby dostosować paletę."
+            },
+            "media": {
+                "title": "Sterowanie nośnikami",
+                "help": "sterowania multimediami."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Jasność",
+                    "help": "Dostosuj jasność ekranu."
+                }
+            },
+            "layer": {
+                "title": "Warstwy i mapy",
+                "help": "Klucze które umożliwiają zmianę warstw."
+            },
+            "leader": {
+                "title": "Przywódca",
+                "help": "Przypisz klucze linii odniesienia.Aby skonfigurować tę funkcję, dostosuj plik szkicu Kalejdoskop do używanej klawiatury."
+            }
+        },
+        "onlyCustom": {
+            "warning": "Chrysalis nie obsługuje już konfiguracji zawierających kombinację warstw zakodowanych na stałe i EEPROM. Jeśli jest to funkcja, której potrzebujesz, chcielibyśmy dowiedzieć się więcej o Twoim przypadku użycia. Jednak w większości przypadków radzimy przełączyć się tylko na warstwy niestandardowe, co Chrysalis może zrobić za Ciebie. Podczas przełączania warstwy zakodowane na stałe nie będą używane, a domyślnym zestawem warstw - jeśli istnieje - będzie warstwa zero.",
+            "fixItButton": "Przełączanie tylko na warstwy niestandardowe",
+            "openFR": "Otwieranie prośby o funkcję"
+        },
+        "overview": {
+            "key": "Klucz #{{index}}",
+            "color": "Kolor",
+            "hideEmptyLayers": "Ukryj puste warstwy...",
+            "showEmptyLayers": "Pokaż puste warstwy...",
+            "copyLayer": "Kopiuj warstwę",
+            "pasteLayer": "Wklej warstwę",
+            "sharing": "Kopia zapasowa & przywracanie",
+            "help": "Przegląd mapowań dla aktualnie wybranego klucza. Aby zmienić wyświetlaną warstwę, kliknij jej wiersz."
+        },
+        "layerswitch": {
+            "type": "pisać",
+            "shiftTo": "Przesuń do warstwy",
+            "lockTo": "Zablokuj do warstwy",
+            "moveTo": "Przenieś do warstwy",
+            "oneshot": "Przesunięcie warstwy dla następnej czynności",
+            "target": "Warstwa",
+            "dualuse": "Przesunięcie warstwy po przytrzymaniu"
+        },
+        "plugin_unavailable": "Oprogramowanie układowe klawiatury nie obsługuje tej funkcji.",
+        "layernames": {
+            "out_of_space": "Nazwy warstw są {{ overflow }} bajtów za długie, aby można je było zapisać na klawiaturze."
+        },
+        "macros": {
+            "edit": "Edytowanie makra",
+            "title": "Makro #{{ index }}",
+            "out_of_space": "Makra dynamiczne zajmują zbyt dużo miejsca, zwolnij {{ overflow }} bajtów.",
+            "steps": {
+                "add": "Dodawanie kroku",
+                "time_ms": "{{ value }}ms",
+                "in_ms": "ms",
+                "unknown": "<unknown>",
+                "INTERVAL": "Opóźnienie między krokami",
+                "WAIT": "Czekaj",
+                "KEYDOWN": "Trzymaj klucz",
+                "KEYUP": "Zwolnić klucz",
+                "TAP": "stuknąć",
+                "EXPLICIT_REPORT": "Nie wysyłaj raportu między krokami",
+                "IMPLICIT_REPORT": "Wyślij raport między krokami",
+                "SEND_REPORT": "Wyślij raport teraz",
+                "unsupported": "Nieobsługiwane"
+            }
+        }
+    },
+    "sanity-check": {
+        "header": "Weryfikacja środowiska nie powiodła się",
+        "download-latest": "Pobierz oficjalną wersję",
+        "message": "Firma Chrysalis wykryła, że działa w nieobsługiwanym środowisku, na przykład z wersją Electron inną niż obsługiwana nadrzędna. Jeśli używasz Chrysalis za pośrednictwem repozytorium pakietów dystrybucji, rozważ użycie oficjalnych kompilacji.",
+        "title": "Weryfikacja środowiska uruchomieniowego"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "this_translation_language": "Angielski",
+    "breakingNews": {
+        "firmware0_90_1": {
+            "title": "Uwaga posiadacze Keyboardio Model 100!",
+            "button": "Aktualizacja instrukcji",
+            "description": "Firmware przed wersją 0.90.1 zawiera błąd, który prowadzi do utraty danych i uszkodzenia danych zapisanych w klawiaturze.Jeśli korzystasz już z nowszego oprogramowania układowego, możesz odrzucić to ostrzeżenie za pomocą przycisku zamykania."
+        }
+    },
+    "print": {
+        "feedback": {
+            "success": "Udano wydrukowanie!",
+            "error": "Wystąpił błąd podczas drukowania."
+        }
+    },
+    "language": "Angielski",
+    "preferences": {
+        "focus": {
+            "chunked_writes": {
+                "help": "Jako możliwe lekarstwo na różne problemy z komunikacją, Chrysalis może wysyłać dane do klawiatury w mniejszych porcjach. Ze względów historycznych ta opcja jest domyślnie włączona. Wyłącz go tylko wtedy, gdy wiesz, co robisz lub zostałeś o to poproszony przez programistów Chrysalis.",
+                "label": "Wysyłanie danych w małych porcjach"
+            }
+        },
+        "devtools": {
+            "main": {
+                "description": "Te preferencje pomagają przede wszystkim programistom. Może pojawić się prośba o ich włączenie, aby zebrać więcej informacji o problemie.",
+                "label": "Narzędzia programistyczne"
+            },
+            "verboseLogging": {
+                "help": "Włącza sporą ilość dodatkowego rejestrowania, przydatne tylko do debugowania.",
+                "label": "Włączanie verbose rejestrowania"
+            },
+            "console": {
+                "label": "Otwórz konsolę programisty",
+                "help": "Konsola programisty pozwala zajrzeć do wnętrza Chrysalis. Używaj ostrożnie."
+            }
+        },
+        "autoUpdate": {
+            "mode": {
+                "label": "Automatyczne pobieranie nowych wersji Chrysalis",
+                "help": "Po włączeniu Chrysalis będzie sprawdzał dostępność aktualizacji podczas uruchamiania i automatycznie pobierał nowe wersje."
+            },
+            "firmwareMode": {
+                "label": "Automatyczne pobieranie nowych wersji oprogramowania układowego",
+                "help": "Po włączeniu Chrysalis sprawdzi dostępność zaktualizowanych plików oprogramowania układowego podczas uruchamiania i automatycznie pobierze nowe wersje."
+            },
+            "label": "Automatyczne aktualizacje"
+        },
+        "interface": "Interfejs użytkownika",
+        "ui": {
+            "layoutEditor": {
+                "label": "Edytor układu"
+            },
+            "layoutCards": {
+                "label": "Karty układu"
+            },
+            "hideUnavailableFeatures": {
+                "label": "Ukrywanie funkcji, które nie są obsługiwane przez bieżące oprogramowanie układowe klawiatury",
+                "help": "Po włączeniu Chrysalis ukryje opcje konfiguracji funkcji, których oprogramowanie układowe klawiatury nie obsługuje."
+            },
+            "oneLayerPerPage": {
+                "label": "Drukuj jedną warstwę na stronę",
+                "help": "Po włączeniu Chrysalis ułoży karty układu tak, aby drukowały jedną warstwę na stronę, a nie tyle, ile zmieści."
+            },
+            "lookNFeel": {
+                "label": "Wygląd"
+            },
+            "theme": {
+                "label": "Kompozycja",
+                "system": "Domyślne ustawienie systemowe",
+                "dark": "Ciemny",
+                "light": "Jasny"
+            },
+            "language": {
+                "label": "Język",
+                "help": "W jakim języku powinna mówić Chrysalis"
+            }
+        },
+        "keyboard": {
+            "plugins": {
+                "mousekeys": {
+                    "warp_grid_size": {
+                        "3x3": "3x3"
+                    },
+                    "init_speed": {
+                        "help": "Im wyższa wartość, tym większa początkowa prędkość ruchu kursora myszy.",
+                        "label": "Początkowa szybkość kursora myszy"
+                    },
+                    "base_speed": {
+                        "label": "Najwyższa szybkość kursora myszy",
+                        "help": "Maksymalna prędkość, jaką może osiągnąć kursor myszy."
+                    },
+                    "accel_duration": {
+                        "label": "Czas potrzebny do osiągnięcia maksymalnej szybkości kursora",
+                        "help": "Czas trwania, w którym kursor przechodzi od prędkości początkowej do maksymalnej."
+                    },
+                    "scroll_interval": {
+                        "label": "Szybkość przewijania",
+                        "help": "Czas między zdarzeniami przewijania. Im większe opóźnienie, tym wolniejsze przewijanie."
+                    }
+                },
+                "oneshot": {
+                    "timeout": {
+                        "help": "Czas, aż lepki klawisz pozostanie aktywny po naciśnięciu.",
+                        "label": "Limit czasu"
+                    },
+                    "auto_layers": {
+                        "help": "Zamień każde przesunięcie warstwy w keymap w lepkie warstwy klawiszy.",
+                        "label": "Automatycznie stwórz przesunięcie warstwy lepkie"
+                    },
+                    "stickyness": {
+                        "help": "Wybierz, co zrobić, gdy lepki klawisz zostanie dwukrotnie stuknięty w krótkim odstępie czasu.",
+                        "label": "Zachowanie dwukrotnego stuknięcia",
+                        "enable": "Zablokuj dla wszystkich lepkich klawiszy",
+                        "disable": "Nic",
+                        "layers_only": "Zablokój tylko dla warstw klawiszy",
+                        "modifiers_only": "Zablokók tylko dla modifikatoru klawiszy"
+                    },
+                    "label": "Lepkie klucze",
+                    "hold_timeout": {
+                        "label": "wsztrymanie limitu czasu",
+                        "help": "Lepkie przytrzymane dłużej nie wejdą w stan lepkości, ale będą działać jak normalne."
+                    },
+                    "auto_mods": {
+                        "label": "Automatycznie stwórz modyfikatory lepkie",
+                        "help": "Zamień wszystkie modyfikatory w keymap w lepkie modyfikatory."
+                    }
+                },
+                "spacecadet": {
+                    "mode": {
+                        "enabled_without_delay": "Włączone (bez opóźnień)",
+                        "label": "Włącz zmiany Kosmicznego kadeta",
+                        "help": "Po włączeniu shift w lewo i w prawo na klawiaturze zmienią się w parens po stuknięciu, ale pozostaną zmianami po przytrzymaniu.",
+                        "enabled": "Włączone",
+                        "disabled": "Niepełnosprawne"
+                    },
+                    "label": "Kosmiczny kadet",
+                    "timeout": {
+                        "label": "Limit czasu",
+                        "help": "Liczba milisekund czekania przed uznaniem przytrzymanego klawisza shift kosmiczny kadet za samodzielną zmianę."
+                    }
+                }
+            },
+            "factoryReset": {
+                "dialog": {
+                    "contents": "Spowoduje to zresetowanie pamięci EEPROM do ustawień fabrycznych. Utracisz wszystkie wprowadzone dostosowania.",
+                    "title": "Przywróć EEPROM do ustawien fabrycznych?"
+                }
+            },
+            "led": {
+                "label": "LEDs"
+            }
+        }
+    },
+    "changelog": {
+        "title": "Lista zmian"
+    },
+    "layoutCards": {
+        "printTooltip": "Drukować"
+    },
+    "keyboardSelect": {
+        "dfuConnect": "Reset do ustawień fabrycznych (tryb USB DFU)",
+        "focusConnectionFailed": "Chrysalis nie może połączyć się z klawiaturą. Jeśli klawiatura nie pojawiła się w oknie dialogowym połączenia, może to oznaczać problem z uprawnieniami lub może to być klawiatura Model 100 w trybie bootloadera. Aby przywrócić ustawienia fabryczne Modelu 100, kliknij przycisk \"Przywróć ustawienia fabryczne\" poniżej.",
+        "noDevices": "Nie znaleziono klawiatur.",
+        "disconnect": "Odłącz",
+        "noUdev": "Chysalis wymaga udev, aby móc skanować w poszukiwaniu urządzeń, ale wygląda na to, że nie jest dostępny.",
+        "installUdevRules": "Napraw to",
+        "connectionFailed": "Nie mogłem połączyć się z klawiaturą. Być może jest już podłączony w innej aplikacji lub oknie przeglądarki. Błąd, który otrzymałem, to: {{error}}",
+        "permissionErrorSuggestion": "Chrysalis może to naprawić, instalując plik reguł udev w /etc/udev/rules.d/.",
+        "unknown": "Nieznany",
+        "connect": "Połącz",
+        "permissionError": "Twój komputer nie pozwala Chrysalis rozmawiać z twoją klawiaturą. (Nie masz uprawnień do odczytu/zapisu do {{path}}.)"
+    },
+    "firmwareUpdate": {
+        "firmwareChangelog": {
+            "view": "Co nowego w {{version}}?",
+            "title": "Dziennik zmian oprogramowania układowego"
+        },
+        "firmwareSources": "Kod źródłowy",
+        "calloutTitle": "Ważne!",
+        "factoryResetTitle": "Reset fabryczny",
+        "bootloaderConnectDialog": {
+            "title": "Podłączanie do klawiatury...",
+            "contents": "Chrysalis musi połączyć się z bootloaderem klawiatury. Kliknij poniższy przycisk, a następnie wybierz klawiaturę z listy wyświetlanej przez przeglądarkę. Jeśli klawiatura się nie pojawi, odłącz ją od komputera i podłącz ponownie, przytrzymując \"bootloader\". Na Atreusie jest to 'Esc'. W modelach Model 01 i Model 100 jest to \"Prog\", a w Preonicu jest to \"Hyper\"."
+        },
+        "bootloaderWarning": "Twoja klawiatura jest w trybie bootloadera, więc Chrysalis nie może wykonać kopii zapasowej ustawień klawiatury. Jeśli nowe oprogramowanie układowe jest niezgodne z istniejącymi ustawieniami, układy i inne ustawienia mogą być uszkodzone po aktualizacji. Z tego powodu Chrysalis domyślnie przywróci ustawienia fabryczne, co pozwoli Ci zacząć od czystej karty. Możesz anulować i wyjść z trybu bootloadera, aby Chrysalis mógł wykonać kopię zapasową klawiatury. Alternatywnie możesz wyłączyć przywracanie ustawień fabrycznych, jeśli wiesz, że nowe oprogramowanie układowe jest kompatybilne."
     }
-  },
-  "dialog": {
-    "cancel": "Anuluj",
-    "ok": "Ok",
-    "close": "Zamknij",
-    "continue": "Kontynuować"
-  },
-  "editor": {
-    "plugin_unavailable_for_macros": "Ta funkcja nie jest dostępna w makros",
-    "sharing": {
-      "title": "Kopia zapasowa i przywracanie",
-      "loadFromLibrary": "Wczytywanie z biblioteki"
-    }
-  },
-  "sanity-check": {
-    "header": "Weryfikacja środowiska nie powiodła się",
-    "download-latest": "Pobierz oficjalną wersję",
-    "message": "Firma Chrysalis wykryła, że działa w nieobsługiwanym środowisku, na przykład z wersją Electron inną niż obsługiwana nadrzędna. Jeśli używasz Chrysalis za pośrednictwem repozytorium pakietów dystrybucji, rozważ użycie oficjalnych kompilacji.",
-    "title": "Weryfikacja środowiska uruchomieniowego"
-  },
-  "units": {
-    "in_ms": "ms"
-  },
-  "this_translation_language": "Angielski",
-  "breakingNews": {
-    "firmware0_90_1": {
-      "title": "Uwaga posiadacze Keyboardio Model 100!",
-      "button": "Aktualizacja instrukcji",
-      "description": "Firmware przed wersją 0.90.1 zawiera błąd, który prowadzi do utraty danych i uszkodzenia danych zapisanych w klawiaturze.Jeśli korzystasz już z nowszego oprogramowania układowego, możesz odrzucić to ostrzeżenie za pomocą przycisku zamykania."
-    }
-  },
-  "print": {
-    "feedback": {
-      "success": "Udano wydrukowanie!",
-      "error": "Wystąpił błąd podczas drukowania."
-    }
-  },
-  "language": "Angielski"
 }

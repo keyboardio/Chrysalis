@@ -3,7 +3,7 @@
     "this_translation_language": "Deutsch",
     "breakingNews": {
         "firmware0_90_1": {
-            "title": "Achtung, Keyboardio-Model-100-Nutzer!",
+            "title": "Achtung, Keyboardio-Modell-100-Nutzer!",
             "description": "Firmware-Versionen vor Version 0.90.1 enthalten einen Fehler, der bei auf der Tastatur gespeicherten Daten zu Datenverlust und beschädigten Daten führt. Wenn Sie bereits eine neuere Firmware verwenden, können Sie diese Warnung mit der Schaltfläche „Schließen“ verwerfen.",
             "button": "Aktualisierungsanweisungen"
         }
@@ -92,9 +92,9 @@
             },
             "importConfirm": {
                 "title": "Ausgewählte Belegung importieren?",
-                "contents": "Dadurch wird Ihre aktuelle Belegung überschrieben, und alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher, dass Sie fortfahren möchten?"
+                "contents": "Dadurch wird Ihre aktuelle Belegung überschrieben und alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher, dass Sie fortfahren möchten?"
             },
-            "selectExportFile": "Wählen Sie die Datei aus, in die die Belegung exportiert werden soll",
+            "selectExportFile": "Datei auswählen, in die die Belegung exportiert werden soll",
             "loadFromBackup": "Aus Sicherungen laden",
             "title": "Sichern & Wiederherstellen"
         },
@@ -127,10 +127,10 @@
             },
             "colors": {
                 "title": "Farben",
-                "help": "Weisen Sie der ausgewählten Taste eine Farbe zu, indem Sie auf eines der Palettenquadrate unten klicken. Verwenden Sie den Farbwähler, um die Farbe eines Paletteneintrags zu ändern."
+                "help": "Einer Taste eine Farbe zuweisen, durch Klicken auf eine Farbe der Palette unten. Farbwähler verwenden, um die Farbe eines Paletteneintrags zu ändern."
             },
             "keypicker": {
-                "modsHelp": "Wählen Sie Modifikatortasten aus, die automatisch gedrückt werden, wenn Sie diese Taste drücken.",
+                "modsHelp": "Modifikatoren, die beim Drücken der Taste aktiviert werden.",
                 "mods": "Modifikatoren",
                 "topsyturvy": {
                     "label": "Umschalttaste umkehren",
@@ -144,18 +144,18 @@
             },
             "mousekeys": {
                 "title": "Maussteuerung",
-                "help": "Bewegen Sie die Maus mit Ihrer Tastatur",
+                "help": "Den Mauszeiger mit der Tastatur steuern",
                 "movement": {
                     "title": "Bewegung",
-                    "help": "Bewegen Sie die Maus mit Ihrer Tastatur"
+                    "help": "Den Mauszeiger mit der Tastatur steuern"
                 },
                 "wheel": {
                     "title": "Rad",
-                    "help": " Scrollen mit dem Mausrad"
+                    "help": " Rollen mit dem Mausrad"
                 },
                 "buttons": {
                     "title": "Tasten",
-                    "help": "Drücken Sie die Maustasten mit Ihrer Tastatur"
+                    "help": "Maustasten auf die Tastatur legen"
                 },
                 "warp": {
                     "help": "Lässt den Mauszeiger mit wenigen Tastendrücken über den Bildschirm schnellen",
@@ -180,16 +180,16 @@
                 "help": "Diese Tasten lösen unterschiedliche Aktionen aus, je nachdem wie oft sie angetippt werden"
             },
             "spacecadet": {
-                "title": "WeltraumKadett",
+                "title": "Weltraum-Kadett",
                 "help": "Linke und rechte Umschalttaste verhalten sich beim Tippen wie „(“ bzw. „)“"
             },
             "steno": {
-                "title": "Steno",
+                "title": "Stenografie",
                 "help": "GeminiPR statt Plover-QWERTY-Methode für die stenografische Eingabe verwenden"
             },
             "layer": {
                 "title": "Ebenen und Tastenzuordnungen",
-                "help": "Tasten, mit denen Sie die Ebenen wechseln können."
+                "help": "Tasten, mit denen zwischen Ebenen gewechselt werden kann."
             },
             "leader": {
                 "title": "Führer",
@@ -222,7 +222,7 @@
             },
             "ledkeys": {
                 "title": "LED-Steuerung",
-                "help": "Steuern Sie die LED-Themen und -Effekte Ihrer Tastatur."
+                "help": "Beleuchtungs-Themen und -Effekte steuern."
             },
             "oneshotMetaKeys": {
                 "title": " ",
@@ -259,7 +259,7 @@
             "type": "Typ",
             "moveTo": "Auf Ebene verschieben",
             "shiftTo": "Umschalten auf Ebene",
-            "lockTo": "Sperren auf Ebene",
+            "lockTo": "Feststellen auf Ebene",
             "oneshot": "Ebenenumschaltung für nächste Aktion",
             "target": "Ebene",
             "dualuse": "Ebenenumschaltung beim Halten"
@@ -352,7 +352,7 @@
             },
             "host": {
                 "label": "Tastaturbelegung",
-                "help": "Wählen Sie die Tastenbelegung aus, die Sie auf Ihrem Computer verwenden"
+                "help": "Tastenbelegung, die auf dem Rechner eingestellt ist"
             }
         },
         "keyboard": {
@@ -372,18 +372,18 @@
                     "disabled": "Deaktiviert",
                     "oneMinute": "1 Minute"
                 },
-                "label": "LEDs",
+                "label": "Beleuchtung",
                 "default": {
                     "label": "Standard-LED-Modus",
                     "autoSave": {
                         "label": "Automatisches Speichern des Standard-LED-Modus aktivieren",
                         "help": "Wenn aktiviert, wird der LED-Modus bei jeder Änderung standardmäßig gespeichert."
                     },
-                    "help": "Wählen Sie den LED-Modus aus, mit dem die Tastatur starten soll."
+                    "help": "Beleuchtungsmodus, mit dem die Tastatur starten soll."
                 },
                 "brightness": {
                     "label": "LED-Helligkeit",
-                    "help": "Stellen Sie die Helligkeit der LEDs auf der Tastatur ein."
+                    "help": "Helligkeit der Tastaturbeleuchtung anpassen."
                 }
             },
             "plugins": {
@@ -426,7 +426,7 @@
                 },
                 "mousekeys": {
                     "warp_grid_size": {
-                        "help": "Konfigurieren Sie die Größe des Rasters, das für den Maussprung verwendet wird.",
+                        "help": "Größe des Rasters, das für den Maussprung verwendet wird.",
                         "label": "Sprungrastergröße",
                         "2x2": "2x2",
                         "3x3": "3x3"
@@ -485,7 +485,7 @@
                         "label": "Zeitbeschränkung",
                         "help": "Dauer in Millisekunden bis eine gehaltene Weltraum-Kadett-Taste als Umschalttaste fungiert."
                     },
-                    "label": "WeltraumKadett"
+                    "label": "Weltraum-Kadett"
                 },
                 "label": "Zusatzmodule",
                 "escOneShot": {
@@ -524,13 +524,13 @@
         "installUdevRules": "Beheben",
         "permissionErrorSuggestion": "Chrysalis kann dies beheben, indem eine udev-Regeldatei in /etc/udev/rules.d/ installiert wird.",
         "disconnect": "Trennen",
-        "dfuConnect": "Auf Fabrikeinstellungen zurücksetzen (USB-DFU-Modus)",
-        "focusConnectionFailed": "Chrysalis kann keine Verbindung zur Tastatur herstellen. Falls die Tastatur nicht im Verbindungsdialog angezeigt wird, kann dies an unzureichenden Berechtigungen liegen oder daran, dass es sich bei der Tastatur um ein Modell 100 im Startprogramm-Modus handelt. Um ein Modell 100 auf Fabrikeinstellungen zurückzusetzen, klicken Sie auf die entsprechende Schaltfläche.",
+        "dfuConnect": "Auf Werkseinstellungen zurücksetzen (USB-DFU-Modus)",
+        "focusConnectionFailed": "Chrysalis kann keine Verbindung zur Tastatur herstellen. Falls die Tastatur nicht im Verbindungsdialog angezeigt wird, kann dies an unzureichenden Berechtigungen liegen oder daran, dass es sich bei der Tastatur um ein Modell 100 im Startprogramm-Modus handelt. Um ein Modell 100 auf Werkseinstellungen zurückzusetzen, klicken Sie auf die entsprechende Schaltfläche.",
         "connectionFailed": "Verbindung zur Tastatur konnte nicht hergestellt werden. Möglicherweise ist sie bereits mit einer anderen Anwendung oder einem anderen Browser-Fenster verbunden. Fehlermeldung: {{error}}"
     },
     "firmwareUpdate": {
         "dialog": {
-            "selectFirmware": "Wählen Sie eine Firmware aus",
+            "selectFirmware": "Firmware auswählen",
             "firmwareFiles": "Firmware-Dateien",
             "allFiles": "Alle Dateien"
         },
@@ -552,7 +552,7 @@
             "notifications": {
                 "title": "Problem beim Flashen aufgetreten",
                 "enter": {
-                    "stillApplication": "Die Tastatur ist noch nicht im programmierbaren Modus. Bitte befolgen Sie unbedingt die nachstehenden Anweisungen.",
+                    "stillApplication": "Die Tastatur befindet sich noch nicht im programmierbaren Modus. Bitte befolgen Sie unbedingt die nachstehenden Anweisungen.",
                     "notFound": "Die Tastatur kann nicht gefunden werden. Bitte melden Sie das Problem."
                 },
                 "reconnect": {
@@ -565,13 +565,13 @@
         "custom": "Benutzerdefinierte Firmware",
         "factoryConfirmDialog": {
             "title": "Firmware ersetzen und auf Werkseinstellungen zurücksetzen?",
-            "contents": "Dies ersetzt die Firmware auf dem Gerät und setzt alle Einstellungen auf die Werkseinstellungen zurück. Sie werden alle vorgenommenen Anpassungen verlieren. Sobald die neue Firmware installiert ist, führt Chrysalis Sie zurück zum Bildschirm für die Tastaturauswahl."
+            "contents": "Dies ersetzt die Firmware auf dem Gerät und setzt alle Einstellungen auf die Werkseinstellungen zurück. Alle vorgenommenen Anpassungen gehen dabei verloren. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
         },
         "confirmDialog": {
             "title": "Sind Sie sicher, dass Sie die Firmware aktualisieren möchten?",
-            "description": "Durch die Installation der neuen Firmware wird die bestehende Firmware auf dem Gerät ersetzt. Sobald die neue Firmware installiert ist, führt Chrysalis Sie zurück zum Bildschirm für die Tastaturauswahl."
+            "description": "Durch die Installation der neuen Firmware wird die bestehende Firmware auf dem Gerät ersetzt. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
         },
-        "bootloaderWarning": "Ihre Tastatur befindet sich im Bootloader-Modus, sodass Chrysalis die Einstellungen der Tastatur nicht sichern kann. Wenn die neue Firmware nicht mit Ihren bestehenden Einstellungen kompatibel ist, können die Tastenbelegungen und andere Einstellungen nach der Aktualisierung beschädigt sein. Aus diesem Grund führt Chrysalis standardmäßig ein Zurücksetzen auf die Werkseinstellungen durch, sodass Sie mit einem sauberen Neuanfang beginnen können. Sie können den Bootloader-Modus abbrechen und verlassen, damit Chrysalis Ihre Tastatur sichern kann. Alternativ können Sie das Zurücksetzen auf die Werkseinstellungen auch ausschalten, wenn Sie wissen, dass die neue Firmware kompatibel ist.",
+        "bootloaderWarning": "Die Tastatur befindet sich im Startprogramm-Modus. Daher kann Chrysalis die Einstellungen der Tastatur nicht sichern. Wenn die neue Firmware nicht mit Ihren bestehenden Einstellungen kompatibel ist, können die Tastenbelegungen und andere Einstellungen nach der Aktualisierung beschädigt sein. Aus diesem Grund führt Chrysalis standardmäßig ein Zurücksetzen auf die Werkseinstellungen durch, sodass Sie mit einen sauberen Neuanfang machen können. Sie können den Startprogramm-Modus verlassen, damit Chrysalis Ihre Tastatur sichern kann. Alternativ können Sie das Zurücksetzen auf die Werkseinstellungen auch ausschalten, wenn Sie wissen, dass die neue Firmware kompatibel ist.",
         "firmwareChangelog": {
             "title": "Firmware-Änderungsprotokoll",
             "view": "Was ist neu in {{version}}?"
@@ -579,18 +579,18 @@
         "firmwareSources": "Quellcode",
         "calloutTitle": "Wichtig!",
         "factoryResetTitle": "Zurücksetzen auf Werkseinstellungen",
-        "factoryResetDescription": "Alles auf Ihrer Tastatur löschen und auf die Werkseinstellungen zurücksetzen.",
-        "factoryResetWarning": "Die Auswahl dieser Option bewirkt keine Sicherung Ihrer aktuellen Belegung oder Einstellungen.",
-        "yourFirmware": "Aktualisieren Sie die Firmware Ihrer Tastatur",
+        "factoryResetDescription": "Alles auf der Tastatur löschen und auf Werkseinstellungen zurücksetzen.",
+        "factoryResetWarning": "Die Auswahl dieser Option bewirkt keine Sicherung der aktuellen Belegung oder Einstellungen.",
+        "yourFirmware": "Firmware der Tastatur aktualisieren",
         "chooseFirmware": "Firmware aktualisieren",
         "defaultFirmwareDescription": "Neueste Version für Ihre Tastatur",
-        "customFirmwareExplanation": "Sie können eine heruntergeladene oder lokal erstellte Firmware installieren.",
+        "customFirmwareExplanation": "Heruntergeladene oder lokal erstellte Firmware installieren.",
         "currentFirmwareVersion": "Aktuelle Firmware-Version",
         "currentFirmwareVersionUnavailable": "Firmware-Version nicht verfügbar",
-        "customFirmwareLinkText": "Erfahren Sie mehr über die Erstellung von Firmware",
+        "customFirmwareLinkText": "Mehr über die Erstellung von Firmware erfahren",
         "firmwareVersion": "{{version}}",
-        "description": "Durch das Aktualisieren der Firmware Ihrer Tastatur bringen wir ihr neue Tricks bei. Sie können Chrysalis verwenden, um die neueste Firmware für Ihre Tastatur zu installieren oder um eine selbst erstellte Firmware zu installieren.",
-        "customChooseFile": "Wählen Sie eine Datei aus...",
+        "description": "Durch das Aktualisieren der Firmware einer Tastatur bringen wir ihr neue Kunststücke bei. Chrysalis kann verwendet werden, um die neueste Firmware für Ihre Tastatur zu installieren oder um eine selbst erstellte Firmware aufzuspielen.",
+        "customChooseFile": "Datei auswählen...",
         "bootloaderConnectDialog": {
             "title": "Verbindung zu Ihrer Tastatur wird hergestellt...",
             "contents": "Chrysalis muss sich mit dem Startprogramm der Tastatur verbinden. Klicken Sie hierfür auf die entsprechende Schaltfläche unten und wählen Sie die Tastatur aus der Liste aus. Falls die Tastatur nicht angezeigt wird, ziehen Sie das Verbindungskabel zum Rechner und stecken Sie es wieder ein, während Sie die Startprogramm-Taste gedrückt halten. Bei der Atreus ist das die Abbruchtaste (Esc), beim Modell 01 und Modell 100 die Prog-Taste und bei der Preonic die Hyper-Taste."
@@ -622,7 +622,7 @@
         "privacyNote": "Wir bemühen uns, keine privaten Informationen in dieses Paket aufzunehmen, empfehlen Ihnen aber, es durchzulesen, bevor Sie es weitergeben.",
         "saveBundle": "Paket speichern",
         "dialog": {
-            "title": "Chrysalis-Debug-Paket speichern"
+            "title": "Chrysalis-Fehlersuche-Informationen speichern"
         },
         "createBundle": "Paket erstellen",
         "intro": "Wenn Sie technische Probleme mit Chrysalis melden, werden die Entwickler Sie möglicherweise bitten, gewisse Informationen mit ihnen zu teilen, die für die Fehlerbehebung hilfreich sein können. Chrysalis kann Ihnen dabei helfen, diese Informationen zusammenzustellen. Die zusammengestellten Informationen beinhalten Fehlerprotokolle, Informationen über das Betriebssystem Ihres Rechners, angeschlossene Geräte, Chrysalis selbst, sowie die verwendete Firmware, Tastenbelegung und LED-Konfiguration der Tastatur."
@@ -655,7 +655,7 @@
         },
         "SOFT/HRUF": {
             "Splitography": {
-                "updateInstructions": "Nachdem Sie auf Weiter/Fortfahren geklickt haben, drücken Sie innerhalb von\nzehn Sekunden den kleinen Rücksetzknopf neben der USB-Buchse, um die\nTastatur zurückzusetzen und in den programmierbaren Modus zu versetzen."
+                "updateInstructions": "Nachdem Sie auf Weiter/Fortfahren geklickt haben, drücken Sie innerhalb von\nzehn Sekunden den kleinen Rücksetzknopf neben der USB-Buchse, um die\nTastatur zurückzusetzen und in den programmierbaren Modus zu schalten."
             }
         }
     },

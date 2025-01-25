@@ -453,7 +453,10 @@
                     "stickyness": {
                         "disable": "Nichts",
                         "label": "Doppeltipp-Verhalten",
-                        "help": "Verhalten bei zweimaligem Tippen einer einrastenden Taste in schneller Abfolge."
+                        "help": "Verhalten bei zweimaligem Tippen einer einrastenden Taste in schneller Abfolge.",
+                        "modifiers_only": "Feststellen nur für Modifikatortasten",
+                        "enable": "Feststellen für alle einrastenden Tasten",
+                        "layers_only": "Feststellen nur für Ebenentasten"
                     },
                     "timeout": {
                         "label": "Zeitbeschränkung",

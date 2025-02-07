@@ -6,52 +6,58 @@ import fr from "@renderer/i18n/fr";
 import id from "@renderer/i18n/id";
 import nb_NO from "@renderer/i18n/nb-NO";
 import nl from "@renderer/i18n/nl";
+import pl from "@renderer/i18n/pl";
 import zh_Hans from "@renderer/i18n/zh-Hans";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
-  de: {
+  "de": {
     messages: de,
   },
-  en: {
+  "en": {
     messages: en,
   },
-  es: {
+  "es": {
     messages: es,
   },
-  fr: {
+  "fr": {
     messages: fr,
   },
-  id: {
+  "id": {
     messages: id,
   },
   "nb-NO": {
     messages: nb_NO,
   },
-  nl: {
+  "nl": {
     messages: nl,
+  },
+  "pl": {
+    messages: pl,
   },
   "zh-Hans": {
     messages: zh_Hans,
   },
 };
 
-i18n.use(initReactI18next).init({
-  react: {
-    useSuspense: true,
-  },
-  resources: resources,
-  lng: "en",
-  keySeparator: ".",
-  ns: ["messages"],
-  returnEmptyString: true,
-  defaultNS: "messages",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
-});
+i18n
+  .use(initReactI18next)
+  .init({
+    react: {
+      useSuspense: true,
+    },
+    resources: resources,
+    lng: "en",
+    keySeparator: ".",
+    ns: ["messages"],
+    returnEmptyString: true,
+    defaultNS: "messages",
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {

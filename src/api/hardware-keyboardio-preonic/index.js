@@ -49,7 +49,7 @@ const Preonic = {
     },
   },
   keyboard: {
-    rows: 5,
+    rows: 6,
     columns: 12,
   },
   components: {

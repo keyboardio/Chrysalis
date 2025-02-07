@@ -1,4 +1,4 @@
-// -*- mode: js-jsx -*-
+ // -*- mode: js-jsx -*-
 /* chrysalis-hardware-keyboardio-preonic -- Chrysalis Preonic support
  * Copyright (C) 2019-2022  Keyboardio, Inc.
  *
@@ -26,19 +26,44 @@ const Keymap = (props) => {
     Array(63)
       .fill()
       .map(() => 0);
-  const KeySpacingY = 64;
-  const keySpacingX = 64;
+  // Reduce spacing between keys to 2-3px
+  const KeySpacingY = 58;  // Reduced from 64
+  const keySpacingX = 58;  // Reduced from 64
+
+  // Key dimensions
+  const keyWidth = 54;     // Slightly smaller than spacing to create gap
+  const keyHeight = 54;    // Same as width for square keys
 
   const layer = props.index;
   const onKeySelect = props.onKeySelect;
 
   const getKey = (row, col) => {
     if (!props.keymap) return null;
-    return keymap[row === 0 ? col : row * 12 + col];
+    // Calculate the index in the keymap array
+    let index;
+    if (row === 0) {
+      // Top row with 3 keys
+      index = col;
+    } else if (row === 5) {
+      // Bottom row
+      index = 60 + col;  // Start after the main grid
+    } else {
+      // Main grid (rows 1-4)
+      index = 12 + ((row - 1) * 12) + col;
+    }
+    return keymap[index];
   };
 
   const isActive = (row, col) => {
-    return props.selectedKey == (row === 0 ? col : row * 12 + col);
+    let index;
+    if (row === 0) {
+      index = col;
+    } else if (row === 5) {
+      index = 60 + col;
+    } else {
+      index = 12 + ((row - 1) * 12) + col;
+    }
+    return props.selectedKey === index;
   };
 
   const Key = (props) => {
@@ -46,11 +71,11 @@ const Keymap = (props) => {
     const active = isActive(row, col);
     const key = getKey(row, col);
     const onClick = onKeySelect;
-    const keyIndex = row === 0 ? col : row * 12 + col;
-    const strokeColor = "#b3b3b3";
+    const keyIndex = row === 0 ? col : row === 5 ? 60 + col : 12 + ((row - 1) * 12) + col;
+    const strokeColor = "#d4d4d4";  // Lighter grey for border
     const stroke = active ? "#f3b3b3" : strokeColor;
-    const height = props.height || 44;
-    const width = props.width || 44;
+    const height = props.height || keyHeight;
+    const width = props.width || keyWidth;
     const bottom = y + height - 5;
 
     let textColor = "#ffffff";
@@ -61,15 +86,32 @@ const Keymap = (props) => {
     if (key && (legend.main || "").length <= 1 && !legend.hint) legendClass = "short-legend";
     if (key && (legend.main || "").length <= 1) mainLegendClass = "short-legend";
     if (key && key.code == 0) textColor = "#888888";
+
     return (
       <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
-        <rect x={x} y={y} rx={2} width={width} height={height} stroke={stroke} strokeWidth={1.55} fill={buttonColor} />
-        <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-          {legend?.hint}
-        </text>
-        <text x={x + 5} y={bottom} fill={textColor} className={mainLegendClass}>
-          {legend?.main}
-        </text>
+        <rect
+          x={x}
+          y={y}
+          rx="4"
+          ry="4"
+          width={width}
+          height={height}
+          stroke={stroke}
+          strokeWidth="1"
+          fill={buttonColor}
+        />
+        {legend && (
+          <>
+            {legend.hint && (
+              <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
+                {legend.hint}
+              </text>
+            )}
+            <text x={x + 5} y={bottom} fill={textColor} className={mainLegendClass}>
+              {legend.main}
+            </text>
+          </>
+        )}
       </g>
     );
   };
@@ -77,7 +119,7 @@ const Keymap = (props) => {
   const { classes, maxHeight } = props;
   return (
     <svg
-      viewBox="0 0 855 362"
+      viewBox="0 0 855 400"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMinYMin meet"
       style={{
@@ -88,14 +130,14 @@ const Keymap = (props) => {
       className={props.className || "layer"}
     >
       <g transform="translate(80,0)">
-        {/* Row 0: Top 3-key row (indices 0-2) */}
+        {/* Row 0: Top 3-key row */}
         <g>
           {[9, 10, 11].map((col) => (
             <Key key={`0,${col}`} layerNames={props.layerNames} row={0} col={col} x={col * keySpacingX} y={0} />
           ))}
         </g>
 
-        {/* Rows 1-5: Main 5x12 grid (indices 3-62) */}
+        {/* Rows 1-5: Main 5x12 grid */}
         <g>
           {[1, 2, 3, 4, 5].map((row) => (
             <g key={row}>

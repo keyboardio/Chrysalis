@@ -236,6 +236,10 @@ class KeymapDB {
   }
 
   format(key, options) {
+    if (!key || !key.label) {
+      return "Unknown";
+    }
+
     const keycapSize = options?.keycapSize || "1u";
     const autoCase = options?.autoCase || false; // we default to not automatically upcasing single characters, since that breaks the display of shifted characters in keyboard layouts.
 

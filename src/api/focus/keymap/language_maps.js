@@ -8,5 +8,6 @@ export const languageMaps = {
   "nb-NO": require("./cldr_languages/nb_no.json"),
   "nl": require("./cldr_languages/nl.json"),
   "pl": require("./cldr_languages/pl.json"),
+  "ta": require("./cldr_languages/ta.json"),
   "zh-Hans": require("./cldr_languages/zh_hans.json")
 };

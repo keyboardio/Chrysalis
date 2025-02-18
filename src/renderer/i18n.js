@@ -7,6 +7,7 @@ import id from "@renderer/i18n/id";
 import nb_NO from "@renderer/i18n/nb-NO";
 import nl from "@renderer/i18n/nl";
 import pl from "@renderer/i18n/pl";
+import ta from "@renderer/i18n/ta";
 import zh_Hans from "@renderer/i18n/zh-Hans";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -35,6 +36,9 @@ const resources = {
   },
   "pl": {
     messages: pl,
+  },
+  "ta": {
+    messages: ta,
   },
   "zh-Hans": {
     messages: zh_Hans,

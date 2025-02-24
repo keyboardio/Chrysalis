@@ -12,7 +12,7 @@ const BootloaderConnectDialog = ({ open, onConnect, bootloaderProtocol, connectT
     if (success) {
       onConnect(success);
     } else {
-      logger.log("We need to try that connect again");
+      logger.log("We need to try that connect to the bootloader port again");
     }
   };
 

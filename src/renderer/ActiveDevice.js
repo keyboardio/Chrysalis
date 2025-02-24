@@ -36,7 +36,7 @@ export function ActiveDevice() {
   this._flashers = {
     avr109: AVR109Flasher,
     dfu: WebDFUFlasher,
-   // nrfdfu: nRFDFUFlasher,
+    // nrfdfu: nRFDFUFlasher,
   };
 
   this.plugins = async () => {

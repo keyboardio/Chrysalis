@@ -5,9 +5,6 @@ import exportKeyboardConfigToFile from "@renderer/utils/exportKeyboardConfigToFi
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-
-
-
 export const ExportToFile = (props) => {
   const { t } = useTranslation();
   const globalContext = React.useContext(GlobalContext);
@@ -21,8 +18,6 @@ export const ExportToFile = (props) => {
     setWorking(false);
   };
 
-
-
   return (
     <Box sx={{ mb: 2 }}>
       <Button variant="outlined" onClick={() => doExport(activeDevice)} disabled={working}>
@@ -30,7 +25,4 @@ export const ExportToFile = (props) => {
       </Button>
     </Box>
   );
-
-
-
 };

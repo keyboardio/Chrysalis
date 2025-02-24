@@ -1,4 +1,4 @@
- // -*- mode: js-jsx -*-
+// -*- mode: js-jsx -*-
 /* chrysalis-hardware-keyboardio-preonic -- Chrysalis Preonic support
  * Copyright (C) 2019-2022  Keyboardio, Inc.
  *
@@ -22,27 +22,26 @@ const db = new KeymapDB();
 
 const Keymap = (props) => {
   const [expandedRotary, setExpandedRotary] = React.useState(false);
-  
+
   const keymap =
     props.keymap ||
     Array(72)
       .fill()
       .map(() => 0);
   // Reduce spacing between keys to 2-3px
-  const KeySpacingY = 58;  // Reduced from 64
-  const keySpacingX = 58;  // Reduced from 64
+  const KeySpacingY = 58; // Reduced from 64
+  const keySpacingX = 58; // Reduced from 64
 
   // Key dimensions
-  const keyWidth = 54;     // Slightly smaller than spacing to create gap
-  const keyHeight = 54;    // Same as width for square keys
+  const keyWidth = 54; // Slightly smaller than spacing to create gap
+  const keyHeight = 54; // Same as width for square keys
 
   const layer = props.index;
   const onKeySelect = props.onKeySelect;
 
   // Calculate keymap index for a given row and column
   const getKeymapIndex = (row, col) => {
-    return  ((row ) * 12) + col;
-
+    return row * 12 + col;
   };
 
   const getKey = (row, col) => {
@@ -72,8 +71,8 @@ const Keymap = (props) => {
               if (attr === "data-key-index") return keyIndex;
               if (attr === "data-layer") return layer;
               return null;
-            }
-          }
+            },
+          },
         };
         onKeySelect(pushEvent);
         return; // Don't trigger key selection when expanding
@@ -85,7 +84,7 @@ const Keymap = (props) => {
       onKeySelect(e);
     };
     const keyIndex = getKeymapIndex(row, col);
-    const strokeColor = "#d4d4d4";  // Lighter grey for border
+    const strokeColor = "#d4d4d4"; // Lighter grey for border
     const stroke = active ? "#f3b3b3" : strokeColor;
     const height = props.height || keyHeight;
     const width = props.width || keyWidth;
@@ -103,8 +102,8 @@ const Keymap = (props) => {
     // Special handling for rotary encoder
     const isRotaryKey = row === 0 && col === 11;
     if (isRotaryKey) {
-const ccwIndex = [0,4];
-const cwIndex = [0,5];
+      const ccwIndex = [0, 4];
+      const cwIndex = [0, 5];
       console.log("Expanded Rotary: ", expandedRotary);
       const ccwKey = getKey(ccwIndex[0], ccwIndex[1]);
       const cwKey = getKey(cwIndex[0], cwIndex[1]);
@@ -127,7 +126,7 @@ const cwIndex = [0,5];
           const timer = setTimeout(() => {
             document.addEventListener("click", handleClickOutside);
           }, 100);
-          
+
           return () => {
             clearTimeout(timer);
             document.removeEventListener("click", handleClickOutside);
@@ -136,7 +135,7 @@ const cwIndex = [0,5];
 
         // Expanded view with three separate clickable areas
         return (
-          <g className="rotary-expanded" onClick={e => e.stopPropagation()}>
+          <g className="rotary-expanded" onClick={(e) => e.stopPropagation()}>
             {/* Background panel */}
             <rect
               x={x - width}
@@ -149,9 +148,14 @@ const cwIndex = [0,5];
               rx="6"
               ry="6"
             />
-            
+
             {/* CCW function */}
-            <g onClick={onClick} className="key" data-key-index={getKeymapIndex(ccwIndex[0], ccwIndex[1])} data-layer={layer}>
+            <g
+              onClick={onClick}
+              className="key"
+              data-key-index={getKeymapIndex(ccwIndex[0], ccwIndex[1])}
+              data-layer={layer}
+            >
               <rect
                 x={x - width + 10}
                 y={y + 10}
@@ -163,12 +167,17 @@ const cwIndex = [0,5];
                 rx="4"
                 ry="4"
               />
-              <text x={x - width/2 + 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+              <text x={x - width / 2 + 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
                 ↺ CCW
               </text>
               {ccwLegend && (
-                <text x={x - width/2 + 5} y={y + height - 15} fill={textColor} 
-                  className={mainLegendClass} textAnchor="middle">
+                <text
+                  x={x - width / 2 + 5}
+                  y={y + height - 15}
+                  fill={textColor}
+                  className={mainLegendClass}
+                  textAnchor="middle"
+                >
                   {ccwLegend.main}
                 </text>
               )}
@@ -187,19 +196,29 @@ const cwIndex = [0,5];
                 rx="4"
                 ry="4"
               />
-              <text x={x + width/2} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+              <text x={x + width / 2} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
                 Push
               </text>
               {legend && (
-                <text x={x + width/2} y={y + height - 15} fill={textColor} 
-                  className={mainLegendClass} textAnchor="middle">
+                <text
+                  x={x + width / 2}
+                  y={y + height - 15}
+                  fill={textColor}
+                  className={mainLegendClass}
+                  textAnchor="middle"
+                >
                   {legend.main}
                 </text>
               )}
             </g>
 
             {/* CW function */}
-            <g onClick={onClick} className="key" data-key-index={getKeymapIndex(cwIndex[0], cwIndex[1])} data-layer={layer}>
+            <g
+              onClick={onClick}
+              className="key"
+              data-key-index={getKeymapIndex(cwIndex[0], cwIndex[1])}
+              data-layer={layer}
+            >
               <rect
                 x={x + width}
                 y={y + 10}
@@ -211,12 +230,17 @@ const cwIndex = [0,5];
                 rx="4"
                 ry="4"
               />
-              <text x={x + width*1.5 - 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+              <text x={x + width * 1.5 - 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
                 CW ↻
               </text>
               {cwLegend && (
-                <text x={x + width*1.5 - 5} y={y + height - 15} fill={textColor} 
-                  className={mainLegendClass} textAnchor="middle">
+                <text
+                  x={x + width * 1.5 - 5}
+                  y={y + height - 15}
+                  fill={textColor}
+                  className={mainLegendClass}
+                  textAnchor="middle"
+                >
                   {cwLegend.main}
                 </text>
               )}
@@ -229,9 +253,9 @@ const cwIndex = [0,5];
       return (
         <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
           <circle
-            cx={x + width/2}
-            cy={y + height/2}
-            r={width/2}
+            cx={x + width / 2}
+            cy={y + height / 2}
+            r={width / 2}
             stroke={stroke}
             strokeWidth="1"
             fill={buttonColor}
@@ -239,19 +263,27 @@ const cwIndex = [0,5];
           {legend && (
             <>
               {/* Push function */}
-              <text x={x + width/2} y={y + height/2} fill={textColor} 
-                className={mainLegendClass} textAnchor="middle" dominantBaseline="middle">
+              <text
+                x={x + width / 2}
+                y={y + height / 2}
+                fill={textColor}
+                className={mainLegendClass}
+                textAnchor="middle"
+                dominantBaseline="middle"
+              >
                 {legend.main}
               </text>
               {/* Clockwise function - curved along top right */}
               {cwLegend && (
-                <text x={x + width - 10} y={y + 14} fill={textColor} fontSize="1em"
-                textAnchor="end">{cwLegend.main}</text>
+                <text x={x + width - 10} y={y + 14} fill={textColor} fontSize="1em" textAnchor="end">
+                  {cwLegend.main}
+                </text>
               )}
               {/* Counter-clockwise function - curved along top left */}
               {ccwLegend && (
-                <text x={x + 10} y={y + 14} fill={textColor} fontSize="1em"
-             textAnchor="start">{ccwLegend.main}</text>
+                <text x={x + 10} y={y + 14} fill={textColor} fontSize="1em" textAnchor="start">
+                  {ccwLegend.main}
+                </text>
               )}
             </>
           )}

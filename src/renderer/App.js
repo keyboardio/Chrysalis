@@ -155,10 +155,7 @@ const App = (props) => {
       },
     },
     typography: {
-      fontFamily: [
-        'Roboto',
-        'sans-serif',
-      ].join(','),
+      fontFamily: ["Roboto", "sans-serif"].join(","),
     },
     components: {
       MuiCssBaseline: {

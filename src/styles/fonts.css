@@ -1,39 +1,39 @@
 @font-face {
-  font-family: 'Noto Emoji';
-  src: url('../../public/fonts/NotoEmoji-Regular.ttf') format('truetype');
+  font-family: "Noto Emoji";
+  src: url("../../public/fonts/NotoEmoji-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
 }
 
 @font-face {
-  font-family: 'Noto Emoji';
-  src: url('../../public/fonts/NotoEmoji-Bold.ttf') format('truetype');
+  font-family: "Noto Emoji";
+  src: url("../../public/fonts/NotoEmoji-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
 }
 
 @font-face {
-  font-family: 'Noto Emoji';
-  src: url('../../public/fonts/NotoEmoji-Light.ttf') format('truetype');
+  font-family: "Noto Emoji";
+  src: url("../../public/fonts/NotoEmoji-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
 }
 
 @font-face {
-  font-family: 'Noto Emoji';
-  src: url('../../public/fonts/NotoEmoji-Medium.ttf') format('truetype');
+  font-family: "Noto Emoji";
+  src: url("../../public/fonts/NotoEmoji-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
 }
 
 @font-face {
-  font-family: 'Noto Emoji';
-  src: url('../../public/fonts/NotoEmoji-SemiBold.ttf') format('truetype');
+  font-family: "Noto Emoji";
+  src: url("../../public/fonts/NotoEmoji-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
-} 
+}

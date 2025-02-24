@@ -21,6 +21,8 @@ import React from "react";
 const db = new KeymapDB();
 
 const Keymap = (props) => {
+  const [expandedRotary, setExpandedRotary] = React.useState(false);
+  
   const keymap =
     props.keymap ||
     Array(72)
@@ -58,7 +60,30 @@ const Keymap = (props) => {
     const { row, col, x, y } = props;
     const active = isActive(row, col);
     const key = getKey(row, col);
-    const onClick = onKeySelect;
+    const onClick = (e) => {
+      // For rotary encoder, toggle expanded view only in compact mode
+      if (row === 0 && col === 11 && !expandedRotary) {
+        e.stopPropagation(); // Prevent immediate key selection
+        setExpandedRotary(true);
+        // Select the push function when expanding
+        const pushEvent = {
+          currentTarget: {
+            getAttribute: (attr) => {
+              if (attr === "data-key-index") return keyIndex;
+              if (attr === "data-layer") return layer;
+              return null;
+            }
+          }
+        };
+        onKeySelect(pushEvent);
+        return; // Don't trigger key selection when expanding
+      }
+      // Collapse expanded view when clicking any other key
+      if (row !== 0 || (col !== 11 && col !== 4 && col !== 5)) {
+        setExpandedRotary(false);
+      }
+      onKeySelect(e);
+    };
     const keyIndex = getKeymapIndex(row, col);
     const strokeColor = "#d4d4d4";  // Lighter grey for border
     const stroke = active ? "#f3b3b3" : strokeColor;
@@ -75,6 +100,198 @@ const Keymap = (props) => {
     if (key && (legend.main || "").length <= 1) mainLegendClass = "short-legend";
     if (key && key.code == 0) textColor = "#888888";
 
+    // Special handling for rotary encoder
+    const isRotaryKey = row === 0 && col === 11;
+    if (isRotaryKey) {
+const ccwIndex = [0,4];
+const cwIndex = [0,5];
+      console.log("Expanded Rotary: ", expandedRotary);
+      const ccwKey = getKey(ccwIndex[0], ccwIndex[1]);
+      const cwKey = getKey(cwIndex[0], cwIndex[1]);
+      const cwLegend = cwKey && db.format(cwKey, { layerNames: props.layerNames });
+      const ccwLegend = ccwKey && db.format(ccwKey, { layerNames: props.layerNames });
+
+      console.log("CW Legend: ", cwLegend);
+      console.log("CCW Legend: ", ccwLegend);
+      if (expandedRotary) {
+        // Add click handler to close expanded view when clicking outside
+        const handleClickOutside = (e) => {
+          const expandedArea = document.querySelector(".rotary-expanded");
+          if (expandedArea && !expandedArea.contains(e.target)) {
+            setExpandedRotary(false);
+          }
+        };
+
+        React.useEffect(() => {
+          // Add the handler after a short delay to avoid the current click
+          const timer = setTimeout(() => {
+            document.addEventListener("click", handleClickOutside);
+          }, 100);
+          
+          return () => {
+            clearTimeout(timer);
+            document.removeEventListener("click", handleClickOutside);
+          };
+        }, []);
+
+        // Expanded view with three separate clickable areas
+        return (
+          <g className="rotary-expanded" onClick={e => e.stopPropagation()}>
+            {/* Background panel */}
+            <rect
+              x={x - width}
+              y={y + 5}
+              width={width * 3}
+              height={height + 30}
+              fill="#1a1a1a"
+              stroke={strokeColor}
+              strokeWidth="1"
+              rx="6"
+              ry="6"
+            />
+            
+            {/* CCW function */}
+            <g onClick={onClick} className="key" data-key-index={getKeymapIndex(ccwIndex[0], ccwIndex[1])} data-layer={layer}>
+              <rect
+                x={x - width + 10}
+                y={y + 10}
+                width={width - 10}
+                height={height - 10}
+                fill={buttonColor}
+                stroke={isActive(0, 5) ? "#f3b3b3" : strokeColor}
+                strokeWidth="1"
+                rx="4"
+                ry="4"
+              />
+              <text x={x - width/2 + 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+                ↺ CCW
+              </text>
+              {ccwLegend && (
+                <text x={x - width/2 + 5} y={y + height - 15} fill={textColor} 
+                  className={mainLegendClass} textAnchor="middle">
+                  {ccwLegend.main}
+                </text>
+              )}
+            </g>
+
+            {/* Push function */}
+            <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
+              <rect
+                x={x + 10}
+                y={y + 10}
+                width={width - 20}
+                height={height - 10}
+                fill={buttonColor}
+                stroke={stroke}
+                strokeWidth="1"
+                rx="4"
+                ry="4"
+              />
+              <text x={x + width/2} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+                Push
+              </text>
+              {legend && (
+                <text x={x + width/2} y={y + height - 15} fill={textColor} 
+                  className={mainLegendClass} textAnchor="middle">
+                  {legend.main}
+                </text>
+              )}
+            </g>
+
+            {/* CW function */}
+            <g onClick={onClick} className="key" data-key-index={getKeymapIndex(cwIndex[0], cwIndex[1])} data-layer={layer}>
+              <rect
+                x={x + width}
+                y={y + 10}
+                width={width - 10}
+                height={height - 10}
+                fill={buttonColor}
+                stroke={isActive(0, 4) ? "#f3b3b3" : strokeColor}
+                strokeWidth="1"
+                rx="4"
+                ry="4"
+              />
+              <text x={x + width*1.5 - 5} y={y + 25} fill={textColor} fontSize="smaller" textAnchor="middle">
+                CW ↻
+              </text>
+              {cwLegend && (
+                <text x={x + width*1.5 - 5} y={y + height - 15} fill={textColor} 
+                  className={mainLegendClass} textAnchor="middle">
+                  {cwLegend.main}
+                </text>
+              )}
+            </g>
+          </g>
+        );
+      }
+
+      // Compact view (original rotary encoder display)
+      return (
+        <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
+          <circle
+            cx={x + width/2}
+            cy={y + height/2}
+            r={width/2}
+            stroke={stroke}
+            strokeWidth="1"
+            fill={buttonColor}
+          />
+          {legend && (
+            <>
+              {/* Push function */}
+              <text x={x + width/2} y={y + height/2} fill={textColor} 
+                className={mainLegendClass} textAnchor="middle" dominantBaseline="middle">
+                {legend.main}
+              </text>
+              {/* Clockwise function - curved along top right */}
+              {cwLegend && (
+                <g transform={`translate(${x + width/2}, ${y + height/2})`}>
+                  <path
+                    id={`cwPath-${row}-${col}`}
+                    d={`M 5,-10 A 22 22 0 0 1 22,-10`}
+                    fill="none"
+                    stroke="none"
+                  />
+                  <text fill={textColor} fontSize="0.5em" className={legendClass}>
+                    <textPath href={`#cwPath-${row}-${col}`} startOffset="50%">
+                      CW ↻
+                    </textPath>
+                  </text>
+                  <text fill={textColor} fontSize="0.5em" className={legendClass} y="8">
+                    <textPath href={`#cwPath-${row}-${col}`} startOffset="50%">
+                      {cwLegend.main}
+                    </textPath>
+                  </text>
+                </g>
+              )}
+              {/* Counter-clockwise function - curved along top left */}
+              {ccwLegend && (
+                <g transform={`translate(${x + width/2}, ${y + height/2})`}>
+                  <path
+                    id={`ccwPath-${row}-${col}`}
+                    d={`M -22,-10 A 22 22 0 0 1 -5,-10`}
+                    fill="none"
+                    stroke="none"
+                  />
+                  <text fill={textColor} fontSize="0.5em" className={legendClass}>
+                    <textPath href={`#ccwPath-${row}-${col}`} startOffset="50%">
+                      ↺ CCW
+                    </textPath>
+                  </text>
+                  <text fill={textColor} fontSize="0.5em" className={legendClass} y="8">
+                    <textPath href={`#ccwPath-${row}-${col}`} startOffset="50%">
+                      {ccwLegend.main}
+                    </textPath>
+                  </text>
+                </g>
+              )}
+            </>
+          )}
+        </g>
+      );
+    }
+
+    // Regular key rendering
     return (
       <g onClick={onClick} className="key" data-key-index={keyIndex} data-layer={layer}>
         <rect

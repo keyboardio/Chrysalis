@@ -23,7 +23,7 @@ const db = new KeymapDB();
 const Keymap = (props) => {
   const keymap =
     props.keymap ||
-    Array(63)
+    Array(72)
       .fill()
       .map(() => 0);
   // Reduce spacing between keys to 2-3px
@@ -37,33 +37,21 @@ const Keymap = (props) => {
   const layer = props.index;
   const onKeySelect = props.onKeySelect;
 
+  // Calculate keymap index for a given row and column
+  const getKeymapIndex = (row, col) => {
+    return  ((row ) * 12) + col;
+
+  };
+
   const getKey = (row, col) => {
     if (!props.keymap) return null;
-    // Calculate the index in the keymap array
-    let index;
-    if (row === 0) {
-      // Top row with 3 keys
-      index = col;
-    } else if (row === 5) {
-      // Bottom row
-      index = 60 + col;  // Start after the main grid
-    } else {
-      // Main grid (rows 1-4)
-      index = 12 + ((row - 1) * 12) + col;
-    }
-    return keymap[index];
+    const index = getKeymapIndex(row, col);
+    return index !== undefined ? keymap[index] : null;
   };
 
   const isActive = (row, col) => {
-    let index;
-    if (row === 0) {
-      index = col;
-    } else if (row === 5) {
-      index = 60 + col;
-    } else {
-      index = 12 + ((row - 1) * 12) + col;
-    }
-    return props.selectedKey === index;
+    const index = getKeymapIndex(row, col);
+    return index !== undefined && props.selectedKey === index;
   };
 
   const Key = (props) => {
@@ -71,7 +59,7 @@ const Keymap = (props) => {
     const active = isActive(row, col);
     const key = getKey(row, col);
     const onClick = onKeySelect;
-    const keyIndex = row === 0 ? col : row === 5 ? 60 + col : 12 + ((row - 1) * 12) + col;
+    const keyIndex = getKeymapIndex(row, col);
     const strokeColor = "#d4d4d4";  // Lighter grey for border
     const stroke = active ? "#f3b3b3" : strokeColor;
     const height = props.height || keyHeight;

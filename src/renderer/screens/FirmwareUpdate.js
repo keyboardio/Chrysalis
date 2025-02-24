@@ -172,8 +172,10 @@ const FirmwareUpdate = (props) => {
     } else {
       logger.log("about to save eeprom");
       await onStepChange("saveEEPROM");
-      await exportKeyboardConfigToFile(activeDevice);
-      const saveKey = await activeDevice.saveEEPROM();
+      const backupData = await activeDevice.focus.readKeyboardConfiguration();
+
+      await exportKeyboardConfigToFile(activeDevice, backupData);
+      const saveKey = await activeDevice.saveEEPROM(backupData);
       logger.log("Done saving eeprom");
       await onStepChange("bootloader");
       logger.log("done saving eeprom");

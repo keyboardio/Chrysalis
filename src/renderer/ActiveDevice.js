@@ -221,8 +221,7 @@ export function ActiveDevice() {
     }
   };
 
-  this.saveEEPROM = async () => {
-    const structured_dump = await this.focus.readKeyboardConfiguration();
+  this.saveEEPROM = async (structured_dump) => {
     const json_dump = JSON.stringify(structured_dump);
 
     const key =

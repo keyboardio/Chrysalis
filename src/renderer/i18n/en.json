@@ -103,6 +103,7 @@
       "loadFromBackup": "Load from backups",
       "loadFromFile": "Restore from file...",
       "exportToFile": "Backup to file...",
+      "exporting": "Exporting...",
       "import": "Import",
       "selectLoadFile": "Select file to load a layout from",
       "selectExportFile": "Select file to export the layout to",

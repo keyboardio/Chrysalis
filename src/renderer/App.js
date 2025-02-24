@@ -154,7 +154,24 @@ const App = (props) => {
         default: inDarkMode ? "#353535" : "#f5f5f5",
       },
     },
+    typography: {
+      fontFamily: [
+        'Roboto',
+        'sans-serif',
+      ].join(','),
+    },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          @font-face {
+            font-family: 'Noto Emoji';
+            src: url('../../public/fonts/NotoEmoji-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+1F000-1F9FF, U+1FA00-1FA6F;
+          }
+        `,
+      },
       MuiMenuItem: {
         defaultProps: {
           dense: true,
@@ -163,7 +180,14 @@ const App = (props) => {
       MuiFormControlLabel: {
         styleOverrides: {
           label: {
-            fontSize: "0.9rem", // Set the font size you want
+            fontSize: "0.9rem",
+          },
+        },
+      },
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            fontFamily: "'Noto Emoji', 'Roboto', sans-serif",
           },
         },
       },

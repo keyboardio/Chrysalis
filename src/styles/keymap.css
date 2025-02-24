@@ -20,17 +20,19 @@ button {
 }
 
 .layer {
-  font-family: "Source Code Pro", monospace;
+  font-family: "Noto Emoji", "Source Code Pro", monospace;
   font-size: 8px;
   font-weight: 700;
   user-select: none;
 }
 
 .short-legend {
+  font-family: "Noto Emoji", "Source Code Pro", monospace;
   font-size: 16px;
 }
 
 .extra-key {
+  font-family: "Noto Emoji", "Source Code Pro", monospace;
   font-size: 8px;
 }
 

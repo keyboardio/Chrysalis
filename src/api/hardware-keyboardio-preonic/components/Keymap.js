@@ -245,45 +245,13 @@ const cwIndex = [0,5];
               </text>
               {/* Clockwise function - curved along top right */}
               {cwLegend && (
-                <g transform={`translate(${x + width/2}, ${y + height/2})`}>
-                  <path
-                    id={`cwPath-${row}-${col}`}
-                    d={`M 5,-10 A 22 22 0 0 1 22,-10`}
-                    fill="none"
-                    stroke="none"
-                  />
-                  <text fill={textColor} fontSize="0.5em" className={legendClass}>
-                    <textPath href={`#cwPath-${row}-${col}`} startOffset="50%">
-                      CW ↻
-                    </textPath>
-                  </text>
-                  <text fill={textColor} fontSize="0.5em" className={legendClass} y="8">
-                    <textPath href={`#cwPath-${row}-${col}`} startOffset="50%">
-                      {cwLegend.main}
-                    </textPath>
-                  </text>
-                </g>
+                <text x={x + width - 10} y={y + 14} fill={textColor} fontSize="1em"
+                textAnchor="end">{cwLegend.main}</text>
               )}
               {/* Counter-clockwise function - curved along top left */}
               {ccwLegend && (
-                <g transform={`translate(${x + width/2}, ${y + height/2})`}>
-                  <path
-                    id={`ccwPath-${row}-${col}`}
-                    d={`M -22,-10 A 22 22 0 0 1 -5,-10`}
-                    fill="none"
-                    stroke="none"
-                  />
-                  <text fill={textColor} fontSize="0.5em" className={legendClass}>
-                    <textPath href={`#ccwPath-${row}-${col}`} startOffset="50%">
-                      ↺ CCW
-                    </textPath>
-                  </text>
-                  <text fill={textColor} fontSize="0.5em" className={legendClass} y="8">
-                    <textPath href={`#ccwPath-${row}-${col}`} startOffset="50%">
-                      {ccwLegend.main}
-                    </textPath>
-                  </text>
-                </g>
+                <text x={x + 10} y={y + 14} fill={textColor} fontSize="1em"
+             textAnchor="start">{ccwLegend.main}</text>
               )}
             </>
           )}

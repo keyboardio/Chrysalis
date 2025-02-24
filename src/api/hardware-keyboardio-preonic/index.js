@@ -44,7 +44,7 @@ const Preonic = {
     productId: 0x00a0,
     bootloader: {
       vendorId: 0x3496,
-      productId: 0x00a1,
+      productId: 0x00a3,
       protocol: "nrfdfu",
     },
   },

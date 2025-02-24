@@ -265,7 +265,7 @@ const FirmwareUpdate = (props) => {
     logger.log("bootloaderVid", bootloaderVid);
     logger.log("bootloaderPid", bootloaderPid);
 
-    if (bootloaderProtocol == "avr109") {
+    if (bootloaderProtocol == "avr109" || bootloaderProtocol == "nrfdfu") {
       const focus = await connectToSerialport(bootloaderVid, bootloaderPid);
       return focus;
     } else if (bootloaderProtocol == "dfu") {
@@ -275,6 +275,8 @@ const FirmwareUpdate = (props) => {
         setUsbDevice(focus._port);
         return focus;
       }
+    } else {
+      logger.warn("Unsupported bootloader protocol:", bootloaderProtocol);
     }
     return null;
   };

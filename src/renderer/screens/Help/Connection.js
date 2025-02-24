@@ -44,10 +44,11 @@ const HelpConnection = () => {
       <p>
         As root, create a file called <code style={{ userSelect: "text" }}>50-kaleidoscope.rules</code> in the directory{" "}
         <code style={{ userSelect: "text" }}>/etc/udev/rules.d/</code> with the following contents:
-        <pre style={{ overflow: "scroll", fontSize: "0.8em" }}>
+      </p>
+          <pre style={{ overflow: "scroll", fontSize: "0.8em" }}>
           <code style={{ userSelect: "text" }}>{rules}</code>
         </pre>
-      </p>
+      
       <p>
         Then, run <code style={{ userSelect: "text" }}>sudo udevadm control --reload-rules; sudo udevadm trigger</code>{" "}
         to apply the new rules without requiring a reboot.

@@ -119,7 +119,7 @@ const Keymap = (props) => {
   const { classes, maxHeight } = props;
   return (
     <svg
-      viewBox="0 0 855 400"
+      viewBox="0 0 755 428"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMinYMin meet"
       style={{
@@ -129,7 +129,7 @@ const Keymap = (props) => {
       }}
       className={props.className || "layer"}
     >
-      <g transform="translate(80,0)">
+      <g transform="translate(20,28)">
         {/* Row 0: Top 3-key row */}
         <g>
           {[9, 10, 11].map((col) => (

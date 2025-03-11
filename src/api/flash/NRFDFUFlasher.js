@@ -39,7 +39,7 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
  */
 const rebootToApplicationMode = async (port, device) => {
   logger.debug("Rebooting to application mode");
-  
+
   // In Nordic DFU, the device will automatically reset to application mode
   // after a successful firmware update, but we can force it here if needed
   try {
@@ -67,7 +67,7 @@ const rebootToApplicationMode = async (port, device) => {
  */
 const flash = async (port, fileContents) => {
   logger.info("Starting NRF DFU flash process");
-  
+
   return new Promise((resolve, reject) => {
     (async () => {
       try {
@@ -122,7 +122,7 @@ const flash = async (port, fileContents) => {
           resolve();
         } catch (error) {
           logger.error("Error during firmware update", { error });
-          
+
           // Try to close the port even if the update failed
           try {
             await transport.close();

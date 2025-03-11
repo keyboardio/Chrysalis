@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -136,27 +136,25 @@ export default class DfuAbstractTransport {
             // effect.
             return this.executeObject(type, chunkSize);
           }
-          if ((offset % chunkSize) === 0 && !resumeAtChunkBoundary) {
+          if (offset % chunkSize === 0 && !resumeAtChunkBoundary) {
             // Edge case: when an exact multiple of the chunk size has
             // been transferred, the host side cannot be sure if the last
             // chunk has been marked as ready ("executed") or not.
             // Fortunately, if an "execute" command is sent right after
             // another "execute" command, the second one will do nothing
             // and yet receive an "OK" response code.
-            logger.debug("Edge case: payload transferred up to page boundary; previous execute command might have been lost, re-sending.");
+            logger.debug(
+              "Edge case: payload transferred up to page boundary; previous execute command might have been lost, re-sending."
+            );
 
-            return this.executeObject(type, chunkSize)
-              .then(() => this.sendPayload(type, bytes, true));
+            return this.executeObject(type, chunkSize).then(() => this.sendPayload(type, bytes, true));
           }
           logger.debug(`Payload partially transferred successfully, continuing from offset ${offset}.`);
 
           // Send the remainder of a half-finished chunk
-          const end = Math.min(bytes.length, (offset + chunkSize) - (offset % chunkSize));
+          const end = Math.min(bytes.length, offset + chunkSize - (offset % chunkSize));
 
-          return this.sendAndExecutePayloadChunk(
-            type, bytes, offset,
-            end, chunkSize, crc
-          );
+          return this.sendAndExecutePayloadChunk(type, bytes, offset, end, chunkSize, crc);
         }
 
         // Note that these are CRC mismatches at a chunk level, not at a
@@ -170,8 +168,7 @@ export default class DfuAbstractTransport {
       }
       const end = Math.min(bytes.length, chunkSize);
 
-      return this.createObject(type, end)
-        .then(() => this.sendAndExecutePayloadChunk(type, bytes, 0, end, chunkSize));
+      return this.createObject(type, end).then(() => this.sendAndExecutePayloadChunk(type, bytes, 0, end, chunkSize));
     });
   }
 
@@ -197,11 +194,9 @@ export default class DfuAbstractTransport {
         logger.debug(`Sent ${end} bytes, not finished yet (until ${bytes.length})`);
         const nextEnd = Math.min(bytes.length, end + chunkSize);
 
-        return this.createObject(type, nextEnd - end)
-          .then(() => this.sendAndExecutePayloadChunk(
-            type, bytes, end, nextEnd, chunkSize,
-            crc32(bytes.subarray(0, end))
-          ));
+        return this.createObject(type, nextEnd - end).then(() =>
+          this.sendAndExecutePayloadChunk(type, bytes, end, nextEnd, chunkSize, crc32(bytes.subarray(0, end)))
+        );
       });
   }
 
@@ -227,30 +222,36 @@ export default class DfuAbstractTransport {
       })
       .then(([offset, crc]) => {
         if (offset !== end) {
-          throw new DfuError(ErrorCode.ERROR_UNEXPECTED_BYTES, `Expected ${end} bytes to have been sent, actual is ${offset} bytes.`);
+          throw new DfuError(
+            ErrorCode.ERROR_UNEXPECTED_BYTES,
+            `Expected ${end} bytes to have been sent, actual is ${offset} bytes.`
+          );
         }
 
         if (crcAtChunkEnd !== crc) {
-          throw new DfuError(ErrorCode.ERROR_CRC_MISMATCH, `CRC mismatch after ${end} bytes have been sent: expected ${crcAtChunkEnd}, got ${crc}.`);
+          throw new DfuError(
+            ErrorCode.ERROR_CRC_MISMATCH,
+            `CRC mismatch after ${end} bytes have been sent: expected ${crcAtChunkEnd}, got ${crc}.`
+          );
         } else {
           logger.debug(`Explicit checksum OK at ${end} bytes`);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (retries >= 5) {
           return Promise.reject(new DfuError(ErrorCode.ERROR_TOO_MANY_WRITE_FAILURES, `Last failure: ${err}`));
         }
-        logger.debug(`Chunk write failed (${err}) Re-sending the whole chunk starting at ${start}. Times retried: ${retries}`);
+        logger.debug(
+          `Chunk write failed (${err}) Re-sending the whole chunk starting at ${start}. Times retried: ${retries}`
+        );
 
         const newStart = start - (start % chunkSize);
         // Rewind to the start of the block
         const rewoundCrc = newStart === 0 ? undefined : crc32(bytes.subarray(0, newStart));
 
-        return this.createObject(type, end - start)
-          .then(() => this.sendPayloadChunk(
-            type, bytes, newStart, end,
-            chunkSize, rewoundCrc, retries + 1
-          ));
+        return this.createObject(type, end - start).then(() =>
+          this.sendPayloadChunk(type, bytes, newStart, end, chunkSize, rewoundCrc, retries + 1)
+        );
       });
   }
 

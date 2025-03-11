@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -57,7 +57,7 @@
  */
 
 // Use the main jszip package from npm rather than a specific path
-import JSZip from 'jszip';
+import JSZip from "jszip";
 import logger from "@renderer/utils/Logger";
 
 /**
@@ -81,46 +81,85 @@ export default class DfuUpdates {
   /**
    * Instantiates a set of DfuUpdates given the *contents* of a .zip file,
    * as an ArrayBuffer, a Uint8Array, or other data type accepted by JSZip.
-   * 
+   *
    * @param {ArrayBuffer|Uint8Array} zipBytes - The .zip file contents
    * @returns {Promise<DfuUpdates>} A Promise to an instance of DfuUpdates
    */
   static async fromZipFile(zipBytes) {
     try {
-      logger.debug('Loading ZIP file');
-      
+      logger.debug("Loading ZIP file");
+
       const zip = new JSZip();
       const zippedFiles = await zip.loadAsync(zipBytes);
-      
+
       // Get the manifest
-      const manifestString = await zippedFiles.file('manifest.json').async('text');
-      logger.debug('Unzipped manifest: ', manifestString);
-      
+      const manifestString = await zippedFiles.file("manifest.json").async("text");
+      logger.debug("Unzipped manifest: ", manifestString);
+
       const manifest = JSON.parse(manifestString).manifest;
-      logger.debug('Parsed manifest:', manifest);
-      
+      logger.debug("Parsed manifest:", manifest);
+
       // Process each update in the manifest
-      const updatePromises = Object.entries(manifest).map(async ([, updateJson]) => {
-        const initPacketPromise = zippedFiles.file(updateJson.dat_file).async('uint8array');
-        const firmwareImagePromise = zippedFiles.file(updateJson.bin_file).async('uint8array');
-        
-        const [initPacketBytes, firmwareImageBytes] = await Promise.all([
-          initPacketPromise, 
-          firmwareImagePromise
-        ]);
-        
-        return {
+      // We need to handle specific structure with application, bootloader, etc.
+      const updates = [];
+
+      // Process application update if present
+      if (manifest.application) {
+        const initPacketPromise = zippedFiles.file(manifest.application.dat_file).async("uint8array");
+        const firmwareImagePromise = zippedFiles.file(manifest.application.bin_file).async("uint8array");
+
+        const [initPacketBytes, firmwareImageBytes] = await Promise.all([initPacketPromise, firmwareImagePromise]);
+
+        updates.push({
           initPacket: initPacketBytes,
           firmwareImage: firmwareImageBytes,
-        };
-      });
-      
-      const resolvedUpdates = await Promise.all(updatePromises);
-      logger.debug(`Loaded ${resolvedUpdates.length} update(s)`);
-      
-      return new DfuUpdates(resolvedUpdates);
+        });
+      }
+
+      // Process bootloader update if present
+      if (manifest.bootloader) {
+        const initPacketPromise = zippedFiles.file(manifest.bootloader.dat_file).async("uint8array");
+        const firmwareImagePromise = zippedFiles.file(manifest.bootloader.bin_file).async("uint8array");
+
+        const [initPacketBytes, firmwareImageBytes] = await Promise.all([initPacketPromise, firmwareImagePromise]);
+
+        updates.push({
+          initPacket: initPacketBytes,
+          firmwareImage: firmwareImageBytes,
+        });
+      }
+
+      // Process softdevice update if present
+      if (manifest.softdevice) {
+        const initPacketPromise = zippedFiles.file(manifest.softdevice.dat_file).async("uint8array");
+        const firmwareImagePromise = zippedFiles.file(manifest.softdevice.bin_file).async("uint8array");
+
+        const [initPacketBytes, firmwareImageBytes] = await Promise.all([initPacketPromise, firmwareImagePromise]);
+
+        updates.push({
+          initPacket: initPacketBytes,
+          firmwareImage: firmwareImageBytes,
+        });
+      }
+
+      // Process softdevice_bootloader update if present
+      if (manifest.softdevice_bootloader) {
+        const initPacketPromise = zippedFiles.file(manifest.softdevice_bootloader.dat_file).async("uint8array");
+        const firmwareImagePromise = zippedFiles.file(manifest.softdevice_bootloader.bin_file).async("uint8array");
+
+        const [initPacketBytes, firmwareImageBytes] = await Promise.all([initPacketPromise, firmwareImagePromise]);
+
+        updates.push({
+          initPacket: initPacketBytes,
+          firmwareImage: firmwareImageBytes,
+        });
+      }
+
+      logger.debug(`Loaded ${updates.length} update(s)`);
+
+      return new DfuUpdates(updates);
     } catch (error) {
-      logger.error('Error parsing DFU ZIP package:', error);
+      logger.error("Error parsing DFU ZIP package:", error);
       throw error;
     }
   }

@@ -1,9 +1,9 @@
 /**
  * SLIP encoder/decoder module. Based on slip.js by Colin Clark.
  * Copyright 2017, Colin Clark. Licensed under MIT.
- * 
+ *
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -42,7 +42,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -60,8 +60,8 @@
  */
 
 // SLIP protocol constants
-const END = 192;     // 0xC0 - Marks the end of a packet
-const ESC = 219;     // 0xDB - Escape character
+const END = 192; // 0xC0 - Marks the end of a packet
+const ESC = 219; // 0xDB - Escape character
 const ESC_END = 220; // 0xDC - ESC ESC_END means END data byte
 const ESC_ESC = 221; // 0xDD - ESC ESC_ESC means ESC data byte
 
@@ -150,9 +150,12 @@ export class Decoder {
    * @param {Function|Object} onMessage - Callback function or options object
    */
   constructor(onMessage) {
-    const o = typeof onMessage !== 'function' ? onMessage || {} : {
-      onMessage,
-    };
+    const o =
+      typeof onMessage !== "function"
+        ? onMessage || {}
+        : {
+            onMessage,
+          };
 
     this.maxMessageSize = o.maxMessageSize || 10485760; // Defaults to 10 MB.
     this.bufferSize = o.bufferSize || 1024; // Message buffer defaults to 1 KB.

@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -80,7 +80,8 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
       throw new DfuError(ErrorCode.ERROR_CAN_NOT_INIT_PRN_TRANSPORT);
     }
 
-    if (packetReceiveNotification > 0xFFFF) { // Ensure it fits in 16 bits
+    if (packetReceiveNotification > 0xffff) {
+      // Ensure it fits in 16 bits
       throw new DfuError(ErrorCode.ERROR_CAN_NOT_USE_HIGHER_PRN);
     }
 
@@ -96,6 +97,12 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
     // writeData() call. Its value **must** be filled in by the concrete subclasses
     // before any data is sent.
     this.mtu = undefined;
+
+    // Progress callback function called during operations with progress information
+    this.onProgressChange = null;
+
+    // Store total object size for progress reporting
+    this._totalObjectSize = undefined;
   }
 
   // Abstract methods to be implemented by subclasses
@@ -147,10 +154,10 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
     return new Promise((res, rej) => {
       let timeout;
 
-      const readCallback = (data => {
+      const readCallback = (data) => {
         clearTimeout(timeout);
         res(data);
-      });
+      };
 
       timeout = setTimeout(() => {
         if (this.waitingForPacket && this.waitingForPacket === readCallback) {
@@ -194,7 +201,8 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
     }
     const opcode = bytes[1];
     const resultCode = bytes[2];
-    if (resultCode === 1) { // SUCCESS
+    if (resultCode === 1) {
+      // SUCCESS
       logger.debug("Parsed DFU response packet: opcode ", opcode, ", payload: ", bytes.subarray(3));
       return Promise.resolve([opcode, bytes.subarray(3)]);
     }
@@ -231,7 +239,7 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
    * @returns {Function} - Function that asserts the packet format
    */
   assertPacket(expectedOpcode, expectedLength) {
-    return response => {
+    return (response) => {
       if (!response) {
         logger.debug("Tried to assert an empty parsed response!");
         throw new DfuError(ErrorCode.ERROR_ASSERT_EMPTY_RESPONSE);
@@ -239,11 +247,17 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
       const [opcode, bytes] = response;
 
       if (opcode !== expectedOpcode) {
-        throw new DfuError(ErrorCode.ERROR_UNEXPECTED_RESPONSE_OPCODE, `Expected opcode ${expectedOpcode}, got ${opcode} instead.`);
+        throw new DfuError(
+          ErrorCode.ERROR_UNEXPECTED_RESPONSE_OPCODE,
+          `Expected opcode ${expectedOpcode}, got ${opcode} instead.`
+        );
       }
 
       if (bytes.length !== expectedLength) {
-        throw new DfuError(ErrorCode.ERROR_UNEXPECTED_RESPONSE_BYTES, `Expected ${expectedLength} bytes in response to opcode ${expectedOpcode}, got ${bytes.length} bytes instead.`);
+        throw new DfuError(
+          ErrorCode.ERROR_UNEXPECTED_RESPONSE_BYTES,
+          `Expected ${expectedLength} bytes in response to opcode ${expectedOpcode}, got ${bytes.length} bytes instead.`
+        );
       }
 
       return bytes;
@@ -259,18 +273,20 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
   createObject(type, size) {
     logger.debug(`CreateObject type ${type}, size ${size}`);
 
-    return this.ready().then(() => (
-      this.writeCommand(new Uint8Array([
-        0x01, // "Create object" opcode
-        type,
-        size & 0xFF,
-        (size >> 8) & 0xFF,
-        (size >> 16) & 0xFF,
-        (size >> 24) & 0xFF,
-      ]))
+    return this.ready().then(() =>
+      this.writeCommand(
+        new Uint8Array([
+          0x01, // "Create object" opcode
+          type,
+          size & 0xff,
+          (size >> 8) & 0xff,
+          (size >> 16) & 0xff,
+          (size >> 24) & 0xff,
+        ])
+      )
         .then(this.read.bind(this))
         .then(this.assertPacket(0x01, 0))
-    ));
+    );
   }
 
   /**
@@ -282,9 +298,7 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
    */
   writeObject(bytes, crcSoFar, offsetSoFar) {
     logger.debug("WriteObject");
-    return this.ready().then(() => (
-      this.writeObjectPiece(bytes, crcSoFar, offsetSoFar, 0)
-    ));
+    return this.ready().then(() => this.writeObjectPiece(bytes, crcSoFar, offsetSoFar, 0));
   }
 
   /**
@@ -305,6 +319,16 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
       const newCrcSoFar = crc32(bytesToSend, crcSoFar);
       let newPrnCount = prnCount + 1;
 
+      // Report progress if the progress callback is defined
+      if (this.onProgressChange && typeof this.onProgressChange === "function") {
+        // Get total size from previous selectObject call if available
+        const total = this._totalObjectSize || bytes.length;
+        this.onProgressChange({
+          offset: newOffsetSoFar,
+          total: total,
+        });
+      }
+
       return this.writeData(bytesToSend)
         .then(() => {
           if (this.prn > 0 && newPrnCount >= this.prn) {
@@ -316,7 +340,14 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
                 logger.debug(`PRN checksum OK at offset ${offset} (0x${offset.toString(16)}) (0x${crc.toString(16)})`);
                 return undefined;
               }
-              return Promise.reject(new DfuError(ErrorCode.ERROR_CRC_MISMATCH, `CRC mismatch during PRN at byte ${offset}/${newOffsetSoFar}, expected 0x${newCrcSoFar.toString(16)} but got 0x${crc.toString(16)} instead`));
+              return Promise.reject(
+                new DfuError(
+                  ErrorCode.ERROR_CRC_MISMATCH,
+                  `CRC mismatch during PRN at byte ${offset}/${newOffsetSoFar}, expected 0x${newCrcSoFar.toString(
+                    16
+                  )} but got 0x${crc.toString(16)} instead`
+                )
+              );
             });
           }
           return undefined;
@@ -324,10 +355,7 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
         .then(() => {
           if (sendLength < bytes.length) {
             // Send more stuff
-            return this.writeObjectPiece(
-              bytes.subarray(sendLength),
-              newCrcSoFar, newOffsetSoFar, newPrnCount
-            );
+            return this.writeObjectPiece(bytes.subarray(sendLength), newCrcSoFar, newOffsetSoFar, newPrnCount);
           }
           return [newOffsetSoFar, newCrcSoFar];
         });
@@ -339,10 +367,10 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
    * @returns {Promise<Array>} - Promise to [offset, crc]
    */
   readCrc() {
-    return this.ready().then(() => (
+    return this.ready().then(() =>
       this.read()
         .then(this.assertPacket(0x03, 8))
-        .then(bytes => {
+        .then((bytes) => {
           // Decode little-endian fields
           const bytesView = new DataView(bytes.buffer, bytes.byteOffset);
           const offset = bytesView.getUint32(0, true);
@@ -350,7 +378,7 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
 
           return [offset, crc];
         })
-    ));
+    );
   }
 
   /**
@@ -360,12 +388,13 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
   crcObject() {
     logger.debug("Request CRC explicitly");
 
-    return this.ready().then(() => (
-      this.writeCommand(new Uint8Array([
-        0x03, // "CRC" opcode
-      ]))
-        .then(this.readCrc.bind(this))
-    ));
+    return this.ready().then(() =>
+      this.writeCommand(
+        new Uint8Array([
+          0x03, // "CRC" opcode
+        ])
+      ).then(this.readCrc.bind(this))
+    );
   }
 
   /**
@@ -374,13 +403,15 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
    */
   executeObject() {
     logger.debug("Execute (mark payload chunk as ready)");
-    return this.ready().then(() => (
-      this.writeCommand(new Uint8Array([
-        0x04, // "Execute" opcode
-      ]))
+    return this.ready().then(() =>
+      this.writeCommand(
+        new Uint8Array([
+          0x04, // "Execute" opcode
+        ])
+      )
         .then(this.read.bind(this))
         .then(this.assertPacket(0x04, 0))
-    ));
+    );
   }
 
   /**
@@ -391,23 +422,32 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
   selectObject(type) {
     logger.debug("Select (report max size and current offset/crc)");
 
-    return this.ready().then(() => (
-      this.writeCommand(new Uint8Array([
-        0x06, // "Select object" opcode
-        type,
-      ]))
+    return this.ready().then(() =>
+      this.writeCommand(
+        new Uint8Array([
+          0x06, // "Select object" opcode
+          type,
+        ])
+      )
         .then(this.read.bind(this))
         .then(this.assertPacket(0x06, 12))
-        .then(bytes => {
+        .then((bytes) => {
           // Decode little-endian fields
           const bytesView = new DataView(bytes.buffer);
           const chunkSize = bytesView.getUint32(bytes.byteOffset + 0, true);
           const offset = bytesView.getUint32(bytes.byteOffset + 4, true);
           const crc = bytesView.getUint32(bytes.byteOffset + 8, true);
           logger.debug(`selected ${type}: offset ${offset}, crc ${crc}, max size ${chunkSize}`);
+
+          // Store total object size for progress reporting
+          if (type === 2) {
+            // Data object
+            this._totalObjectSize = chunkSize;
+          }
+
           return [offset, crc, chunkSize];
         })
-    ));
+    );
   }
 
   /**
@@ -416,10 +456,12 @@ export default class DfuTransportPrn extends DfuAbstractTransport {
    */
   abortObject() {
     logger.debug("Abort (exit bootloader)");
-    return this.ready().then(() => (
-      this.writeCommand(new Uint8Array([
-        0x0C, // "Abort" opcode
-      ]))
-    ));
+    return this.ready().then(() =>
+      this.writeCommand(
+        new Uint8Array([
+          0x0c, // "Abort" opcode
+        ])
+      )
+    );
   }
 }

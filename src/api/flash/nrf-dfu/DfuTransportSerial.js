@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -92,7 +92,7 @@ export default class DfuTransportSerial extends DfuTransportPrn {
     encoded = new Uint8Array(encoded);
 
     logger.debug("Sending command:", Array.from(bytes));
-    
+
     return this.open().then(() => {
       // This is an abstract method that should be implemented by subclasses
       throw new Error("writeCommand must be implemented by subclass");
@@ -133,28 +133,34 @@ export default class DfuTransportSerial extends DfuTransportPrn {
       return this.readyPromise;
     }
 
-    this.readyPromise = this.writeCommand(new Uint8Array([
-      0x02, // "Set PRN" opcode
-      this.prn & 0xFF, // PRN LSB
-      (this.prn >> 8) & 0xFF, // PRN MSB
-    ]))
+    this.readyPromise = this.writeCommand(
+      new Uint8Array([
+        0x02, // "Set PRN" opcode
+        this.prn & 0xff, // PRN LSB
+        (this.prn >> 8) & 0xff, // PRN MSB
+      ])
+    )
       .then(this.read.bind(this))
       .then(this.assertPacket(0x02, 0))
       // Request MTU
-      .then(() => this.writeCommand(new Uint8Array([
-        0x07, // "Request serial MTU" opcode
-      ])))
+      .then(() =>
+        this.writeCommand(
+          new Uint8Array([
+            0x07, // "Request serial MTU" opcode
+          ])
+        )
+      )
       .then(this.read.bind(this))
       .then(this.assertPacket(0x07, 2))
-      .then(bytes => {
-        const mtu = (bytes[1] * 256) + bytes[0];
+      .then((bytes) => {
+        const mtu = bytes[1] * 256 + bytes[0];
 
         // Convert wire MTU into max size of data before SLIP encoding:
         // This takes into account:
         // - SLIP encoding ( /2 )
         // - SLIP end separator ( -1 )
         // - Serial DFU write command ( -1 )
-        this.mtu = Math.floor((mtu / 2) - 2);
+        this.mtu = Math.floor(mtu / 2 - 2);
 
         // Round down to multiples of 4.
         // This is done to avoid errors while writing to flash memory:
@@ -176,13 +182,15 @@ export default class DfuTransportSerial extends DfuTransportPrn {
   getProtocolVersion() {
     logger.debug("GetProtocolVersion");
 
-    return this.writeCommand(new Uint8Array([
-      0x00, // "Version Command" opcode
-    ]))
+    return this.writeCommand(
+      new Uint8Array([
+        0x00, // "Version Command" opcode
+      ])
+    )
       .then(this.read.bind(this))
       .then(this.assertPacket(0x00, 1))
-      .then(bytes => bytes[0])
-      .then(protocolVersion => {
+      .then((bytes) => bytes[0])
+      .then((protocolVersion) => {
         logger.debug("ProtocolVersion: ", protocolVersion);
         return protocolVersion;
       });
@@ -196,12 +204,14 @@ export default class DfuTransportSerial extends DfuTransportPrn {
   getHardwareVersion() {
     logger.debug("GetHardwareVersion");
 
-    return this.writeCommand(new Uint8Array([
-      0x0A, // "Hardware Version Command" opcode
-    ]))
+    return this.writeCommand(
+      new Uint8Array([
+        0x0a, // "Hardware Version Command" opcode
+      ])
+    )
       .then(this.read.bind(this))
-      .then(this.assertPacket(0x0A, 20))
-      .then(bytes => {
+      .then(this.assertPacket(0x0a, 20))
+      .then((bytes) => {
         // Decode little-endian fields, by using a DataView with the
         // same buffer *and* offset than the Uint8Array for the packet payload
         const dataView = new DataView(bytes.buffer, bytes.byteOffset);
@@ -215,7 +225,7 @@ export default class DfuTransportSerial extends DfuTransportPrn {
           },
         };
       })
-      .then(hwVersion => {
+      .then((hwVersion) => {
         logger.debug("HardwareVersion part: ", hwVersion.part.toString(16));
         logger.debug("HardwareVersion variant: ", hwVersion.variant.toString(16));
         logger.debug("HardwareVersion ROM: ", hwVersion.memory.romSize);
@@ -235,19 +245,21 @@ export default class DfuTransportSerial extends DfuTransportPrn {
   getFirmwareVersion(imageCount = 0) {
     logger.debug("GetFirmwareVersion");
 
-    return this.writeCommand(new Uint8Array([
-      0x0B, // "Firmware Version Command" opcode
-      imageCount
-    ]))
+    return this.writeCommand(
+      new Uint8Array([
+        0x0b, // "Firmware Version Command" opcode
+        imageCount,
+      ])
+    )
       .then(this.read.bind(this))
-      .then(this.assertPacket(0x0B, 13))
-      .then(bytes => {
+      .then(this.assertPacket(0x0b, 13))
+      .then((bytes) => {
         // Decode little-endian fields
         const dataView = new DataView(bytes.buffer, bytes.byteOffset);
         let imgType = dataView.getUint8(0, true);
 
         switch (imgType) {
-          case 0xFF:
+          case 0xff:
             // Meaning "no image at this index"
             return false;
           case 0:
@@ -270,9 +282,13 @@ export default class DfuTransportSerial extends DfuTransportPrn {
           imageType: imgType,
         };
       })
-      .then(fwVersion => {
+      .then((fwVersion) => {
         if (fwVersion) {
-          logger.debug(`FirmwareVersion: image ${imageCount} is ${fwVersion.imageType} @0x${fwVersion.addr.toString(16)}+0x${fwVersion.length}`);
+          logger.debug(
+            `FirmwareVersion: image ${imageCount} is ${fwVersion.imageType} @0x${fwVersion.addr.toString(16)}+0x${
+              fwVersion.length
+            }`
+          );
         } else {
           logger.debug("FirmwareVersion: no more images.");
         }
@@ -289,13 +305,12 @@ export default class DfuTransportSerial extends DfuTransportPrn {
    * @returns {Promise<Array>}
    */
   getAllFirmwareVersions(index = 0, accum = []) {
-    return this.getFirmwareVersion(index)
-      .then(imageInfo => {
-        if (imageInfo) {
-          accum.push(imageInfo);
-          return this.getAllFirmwareVersions(index + 1, accum);
-        }
-        return accum;
-      });
+    return this.getFirmwareVersion(index).then((imageInfo) => {
+      if (imageInfo) {
+        accum.push(imageInfo);
+        return this.getAllFirmwareVersions(index + 1, accum);
+      }
+      return accum;
+    });
   }
 }

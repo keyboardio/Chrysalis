@@ -25,6 +25,13 @@ import logger from "@renderer/utils/Logger";
  */
 export default class DfuTransportWebSerial extends DfuTransportSerial {
   /**
+   * Progress callback function
+   * Called during operations with progress information
+   * @param {Object} info - Object with progress information: { offset, total }
+   */
+  onProgressChange = null;
+
+  /**
    * Creates a new WebSerial DFU transport
    * @param {SerialPort} serialPort - The WebSerial port object
    * @param {number} packetReceiveNotification - PRN value (default: 16)
@@ -45,25 +52,25 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
    */
   async open() {
     logger.debug("Opening WebSerial transport");
-    
+
     if (this.reader || this.writer) {
       logger.debug("Port already open");
       return Promise.resolve();
     }
-    
+
     try {
       // Ensure port is open
       if (!this.port.readable || !this.port.writable) {
         await this.port.open({ baudRate: 115200 });
       }
-      
+
       // Get the reader and writer
       this.reader = this.port.readable.getReader();
       this.writer = this.port.writable.getWriter();
-      
+
       // Start the reading loop
       this.startReading();
-      
+
       logger.debug("WebSerial transport opened successfully");
       return Promise.resolve();
     } catch (error) {
@@ -81,11 +88,11 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
     try {
       while (this.reader) {
         const { value, done } = await this.reader.read();
-        
+
         if (done || this.isClosing) {
           break;
         }
-        
+
         // Feed data to the SLIP decoder
         this.onRawData(value);
       }
@@ -114,7 +121,7 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
     if (!this.writer) {
       await this.open();
     }
-    
+
     try {
       await this.writer.write(data);
       return Promise.resolve();
@@ -131,12 +138,12 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
    */
   async writeCommand(bytes) {
     let encoded = slip.encode(bytes);
-    
+
     // Strip the heading 0xC0 character, as to avoid a bug in the nRF SDK implementation
     encoded = encoded.subarray(1);
-    
+
     logger.debug("Sending command:", Array.from(bytes));
-    
+
     return this.open().then(() => this.writeToSerial(encoded));
   }
 
@@ -147,7 +154,7 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
   async close() {
     logger.debug("Closing WebSerial transport");
     this.isClosing = true;
-    
+
     // Close everything in reverse order
     if (this.reader) {
       try {
@@ -158,7 +165,7 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
         logger.error("Error closing reader:", error);
       }
     }
-    
+
     if (this.writer) {
       try {
         this.writer.releaseLock();
@@ -167,7 +174,7 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
         logger.error("Error closing writer:", error);
       }
     }
-    
+
     if (this.port && this.port.readable) {
       try {
         await this.port.close();
@@ -175,7 +182,7 @@ export default class DfuTransportWebSerial extends DfuTransportSerial {
         logger.error("Error closing port:", error);
       }
     }
-    
+
     this.isClosing = false;
     logger.debug("WebSerial transport closed");
     return Promise.resolve();

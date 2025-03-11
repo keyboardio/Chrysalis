@@ -14,15 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import DfuOperation from './DfuOperation';
-import DfuUpdates from './DfuUpdates';
-import DfuTransportWebSerial from './DfuTransportWebSerial';
-import { DfuError, ErrorCode } from './DfuError';
+import DfuOperation from "./DfuOperation";
+import DfuUpdates from "./DfuUpdates";
+import DfuTransportWebSerial from "./DfuTransportWebSerial";
+import { DfuError, ErrorCode } from "./DfuError";
 
-export {
-  DfuOperation,
-  DfuUpdates,
-  DfuTransportWebSerial,
-  DfuError,
-  ErrorCode,
-};
+export { DfuOperation, DfuUpdates, DfuTransportWebSerial, DfuError, ErrorCode };

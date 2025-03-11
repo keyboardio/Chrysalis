@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -61,7 +61,7 @@ import logger from "@renderer/utils/Logger";
 /**
  * Represents a DFU Operation - the act of updating the firmware on a
  * nRF device.
- * 
+ *
  * A firmware update is composed of one or more updates - e.g. bootloader then application,
  * or softdevice then application, or bootloader+softdevice then application, or only
  * one of these pieces.
@@ -76,7 +76,7 @@ export default class DfuOperation {
   constructor(dfuUpdates, dfuTransport, autoStart = false) {
     this.updates = dfuUpdates.updates;
     this.transport = dfuTransport;
-    
+
     if (autoStart) {
       this.start();
     }
@@ -84,11 +84,11 @@ export default class DfuOperation {
 
   /**
    * Starts the DFU operation.
-   * 
+   *
    * If called with a truthy value for the 'forceful' parameter, then
    * the DFU procedure will skip the steps that detect whether a previous
    * DFU procedure has been interrupted and can be continued.
-   * 
+   *
    * @param {boolean} forceful - Whether to force restart the DFU procedure (default: false)
    * @returns {Promise<void>}
    */
@@ -96,7 +96,7 @@ export default class DfuOperation {
     if (this.finishPromise) {
       return this.finishPromise;
     }
-    
+
     this.finishPromise = this.performNextUpdate(0, forceful);
     return this.finishPromise;
   }
@@ -122,7 +122,7 @@ export default class DfuOperation {
     }
 
     logger.debug(`Starting update ${updateNumber + 1} of ${this.updates.length}`);
-    
+
     return start
       .then(() => {
         logger.debug("Sending init packet");

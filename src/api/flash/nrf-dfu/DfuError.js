@@ -1,6 +1,6 @@
 /**
  * Adapted from Nordic Semiconductor's nRF DFU JavaScript implementation:
- * 
+ *
  * copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  *
  * all rights reserved.
@@ -39,7 +39,7 @@
  * of the use of this software, even if advised of the possibility of such damage.
  *
  * Adapted for WebSerial and Chrysalis:
- * 
+ *
  * chrysalis-flash -- Keyboard flash helpers for Chrysalis
  * Copyright (C) 2022-2025  Keyboardio, Inc.
  *
@@ -95,7 +95,7 @@ export const ErrorCode = {
   // Error code for WebSerial specific errors
   ERROR_WEBSERIAL_NOT_SUPPORTED: 0x0073,
   ERROR_WEBSERIAL_PORT_ACCESS_DENIED: 0x0074,
-  
+
   // Error code for response error messages
   ERROR_RSP_INVALID: 0x0100,
   ERROR_RSP_SUCCESS: 0x0101,
@@ -105,8 +105,8 @@ export const ErrorCode = {
   ERROR_RSP_INVALID_OBJECT: 0x0105,
   ERROR_RSP_UNSUPPORTED_TYPE: 0x0107,
   ERROR_RSP_OPERATION_NOT_PERMITTED: 0x0108,
-  ERROR_RSP_OPERATION_FAILED: 0x010A,
-  ERROR_RSP_EXT_ERROR: 0x010B,
+  ERROR_RSP_OPERATION_FAILED: 0x010a,
+  ERROR_RSP_EXT_ERROR: 0x010b,
 
   // Error code for extended error messages
   ERROR_EXT_NO_ERROR: 0x0200,
@@ -119,15 +119,15 @@ export const ErrorCode = {
   ERROR_EXT_SD_VERSION_FAILURE: 0x0207,
   ERROR_EXT_SIGNATURE_MISSING: 0x0208,
   ERROR_EXT_WRONG_HASH_TYPE: 0x0209,
-  ERROR_EXT_HASH_FAILED: 0x020A,
-  ERROR_EXT_WRONG_SIGNATURE_TYPE: 0x020B,
-  ERROR_EXT_VERIFICATION_FAILED: 0x020C,
-  ERROR_EXT_INSUFFICIENT_SPACE: 0x020D,
-  ERROR_EXT_FW_ALREADY_PRESENT: 0x020E,
-  
+  ERROR_EXT_HASH_FAILED: 0x020a,
+  ERROR_EXT_WRONG_SIGNATURE_TYPE: 0x020b,
+  ERROR_EXT_VERIFICATION_FAILED: 0x020c,
+  ERROR_EXT_INSUFFICIENT_SPACE: 0x020d,
+  ERROR_EXT_FW_ALREADY_PRESENT: 0x020e,
+
   // Unknown error codes
-  ERROR_EXT_ERROR_CODE_UNKNOWN: 0x02FF,
-  ERROR_RSP_OPCODE_UNKNOWN: 0x01FF,
+  ERROR_EXT_ERROR_CODE_UNKNOWN: 0x02ff,
+  ERROR_RSP_OPCODE_UNKNOWN: 0x01ff,
 };
 
 // Error types for errorMessages, responseErrorMessages and extendedErrorMessages
@@ -139,15 +139,18 @@ export const ErrorTypes = {
 
 // Error messages for pc-nrf-dfu-js
 export const ErrorMessages = {
-  [ErrorCode.ERROR_CAN_NOT_INIT_ABSTRACT_TRANSPORT]: "Cannot instantiate DfuAbstractTransport, use a concrete subclass instead.",
-  [ErrorCode.ERROR_PRE_DFU_INTERRUPTED]: "A previous DFU process was interrupted, and it was left in such a state that cannot be continued. Please perform a DFU procedure disabling continuation.",
+  [ErrorCode.ERROR_CAN_NOT_INIT_ABSTRACT_TRANSPORT]:
+    "Cannot instantiate DfuAbstractTransport, use a concrete subclass instead.",
+  [ErrorCode.ERROR_PRE_DFU_INTERRUPTED]:
+    "A previous DFU process was interrupted, and it was left in such a state that cannot be continued. Please perform a DFU procedure disabling continuation.",
   [ErrorCode.ERROR_UNEXPECTED_BYTES]: "Unexpected bytes to be sent.",
   [ErrorCode.ERROR_CRC_MISMATCH]: "CRC mismatches.",
   [ErrorCode.ERROR_TOO_MANY_WRITE_FAILURES]: "Too many write failures.",
   [ErrorCode.ERROR_CAN_NOT_INIT_PRN_TRANSPORT]: "Cannot instantiate DfuTransportPrn, use a concrete subclass instead.",
   [ErrorCode.ERROR_CAN_NOT_USE_HIGHER_PRN]: "DFU procotol cannot use a PRN higher than 0xFFFF.",
   [ErrorCode.ERROR_READ_CONFLICT]: "DFU transport tried to read() while another read() was still waiting",
-  [ErrorCode.ERROR_TIMEOUT_READING_SERIAL]: "Timeout while reading from serial transport. Check if the device is properly connected and in bootloader mode.",
+  [ErrorCode.ERROR_TIMEOUT_READING_SERIAL]:
+    "Timeout while reading from serial transport. Check if the device is properly connected and in bootloader mode.",
   [ErrorCode.ERROR_RECEIVE_TWO_MESSAGES]: "DFU transport received two messages at once",
   [ErrorCode.ERROR_RESPONSE_NOT_START_WITH_0x60]: "Response from DFU target did not start with 0x60",
   [ErrorCode.ERROR_ASSERT_EMPTY_RESPONSE]: "Tried to assert an empty parsed response",
@@ -163,7 +166,6 @@ export const ErrorMessages = {
   [ErrorCode.ERROR_WEBSERIAL_PORT_ACCESS_DENIED]: "Access to the Web Serial port was denied.",
 };
 
-
 // Error messages for the known response codes.
 export const ResponseErrorMessages = {
   [ErrorCode.ERROR_RSP_INVALID]: "Missing or malformed opcode.",
@@ -173,15 +175,15 @@ export const ResponseErrorMessages = {
   [ErrorCode.ERROR_RSP_INSUFFICIENT_RESOURCES]: "Not enough memory for the data object.",
   // 0x05 should not happen. Bootloaders starting from late 2017 and later will
   // use extended error codes instead.
-  [ErrorCode.ERROR_RSP_INVALID_OBJECT]: "The data object didn't match firmware/hardware, or missing crypto signature, or malformed protocol buffer, or command parse failed.",
+  [ErrorCode.ERROR_RSP_INVALID_OBJECT]:
+    "The data object didn't match firmware/hardware, or missing crypto signature, or malformed protocol buffer, or command parse failed.",
   //  0x06: missing from the spec
   [ErrorCode.ERROR_RSP_UNSUPPORTED_TYPE]: "Unsupported object type for create/read operation.",
   [ErrorCode.ERROR_RSP_OPERATION_NOT_PERMITTED]: "Cannot allow this operation in the current DFU state.",
   //  0x09: missing from the spec
   [ErrorCode.ERROR_RSP_OPERATION_FAILED]: "Operation failed.",
-//  0x0B: extended error, will read next byte from the response and use it as extended error code
+  //  0x0B: extended error, will read next byte from the response and use it as extended error code
 };
-
 
 // Error messages for the known extended error codes.
 export const ExtendedErrorMessages = {
@@ -191,15 +193,23 @@ export const ExtendedErrorMessages = {
   // should cover all possible incorrect inputs
   [ErrorCode.ERROR_EXT_WRONG_COMMAND_FORMAT]: "The format of the command was incorrect.",
   [ErrorCode.ERROR_EXT_UNKNOWN_COMMAND]: "Command successfully parsed, but it is not supported or unknown.",
-  [ErrorCode.ERROR_EXT_INIT_COMMAND_INVALID]: "The init command is invalid. The init packet either has an invalid update type or it is missing required fields for the update type (for example, the init packet for a SoftDevice update is missing the SoftDevice size field).",
-  [ErrorCode.ERROR_EXT_FW_VERSION_FAILURE]: "The firmware version is too low. For an application, the version must be greater than the current application. For a bootloader, it must be greater than or equal to the current version. This requirement prevents downgrade attacks.",
-  [ErrorCode.ERROR_EXT_HW_VERSION_FAILURE]: "The hardware version of the device does not match the required hardware version for the update.",
-  [ErrorCode.ERROR_EXT_SD_VERSION_FAILURE]: "The array of supported SoftDevices for the update does not contain the FWID of the current SoftDevice.",
-  [ErrorCode.ERROR_EXT_SIGNATURE_MISSING]: "The init packet does not contain a signature. This bootloader requires DFU updates to be signed.",
-  [ErrorCode.ERROR_EXT_WRONG_HASH_TYPE]: "The hash type that is specified by the init packet is not supported by the DFU bootloader.",
+  [ErrorCode.ERROR_EXT_INIT_COMMAND_INVALID]:
+    "The init command is invalid. The init packet either has an invalid update type or it is missing required fields for the update type (for example, the init packet for a SoftDevice update is missing the SoftDevice size field).",
+  [ErrorCode.ERROR_EXT_FW_VERSION_FAILURE]:
+    "The firmware version is too low. For an application, the version must be greater than the current application. For a bootloader, it must be greater than or equal to the current version. This requirement prevents downgrade attacks.",
+  [ErrorCode.ERROR_EXT_HW_VERSION_FAILURE]:
+    "The hardware version of the device does not match the required hardware version for the update.",
+  [ErrorCode.ERROR_EXT_SD_VERSION_FAILURE]:
+    "The array of supported SoftDevices for the update does not contain the FWID of the current SoftDevice.",
+  [ErrorCode.ERROR_EXT_SIGNATURE_MISSING]:
+    "The init packet does not contain a signature. This bootloader requires DFU updates to be signed.",
+  [ErrorCode.ERROR_EXT_WRONG_HASH_TYPE]:
+    "The hash type that is specified by the init packet is not supported by the DFU bootloader.",
   [ErrorCode.ERROR_EXT_HASH_FAILED]: "The hash of the firmware image cannot be calculated.",
-  [ErrorCode.ERROR_EXT_WRONG_SIGNATURE_TYPE]: "The type of the signature is unknown or not supported by the DFU bootloader.",
-  [ErrorCode.ERROR_EXT_VERIFICATION_FAILED]: "The hash of the received firmware image does not match the hash in the init packet.",
+  [ErrorCode.ERROR_EXT_WRONG_SIGNATURE_TYPE]:
+    "The type of the signature is unknown or not supported by the DFU bootloader.",
+  [ErrorCode.ERROR_EXT_VERIFICATION_FAILED]:
+    "The hash of the received firmware image does not match the hash in the init packet.",
   [ErrorCode.ERROR_EXT_INSUFFICIENT_SPACE]: "The available space on the device is insufficient to hold the firmware.",
   [ErrorCode.ERROR_EXT_FW_ALREADY_PRESENT]: "The requested firmware to update was already present on the system.",
 };
@@ -228,16 +238,16 @@ export class DfuError extends Error {
       return `Unknown error type: ${code}`;
     }
 
-    errorMsg += ': ';
+    errorMsg += ": ";
     switch (errorType) {
       case 0x00:
-        logger.debug('This is an error message.');
+        logger.debug("This is an error message.");
         return errorMsg + (ErrorMessages[code] || `Unknown error code: ${code}`);
       case 0x01:
-        logger.debug('This is a response error message.');
+        logger.debug("This is a response error message.");
         return errorMsg + (ResponseErrorMessages[code] || `Unknown response error code: ${code}`);
       case 0x02:
-        logger.debug('This is an extended error message.');
+        logger.debug("This is an extended error message.");
         return errorMsg + (ExtendedErrorMessages[code] || `Unknown extended error code: ${code}`);
       default:
         return `Unknown error type: ${errorType}, code: ${code}`;

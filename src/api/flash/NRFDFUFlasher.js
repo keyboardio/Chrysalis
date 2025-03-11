@@ -63,10 +63,16 @@ const rebootToApplicationMode = async (port, device) => {
  * Flash firmware to a Nordic device using DFU protocol
  * @param {SerialPort} port - WebSerial port object
  * @param {ArrayBuffer} fileContents - Firmware file contents as ArrayBuffer
+ * @param {Function} onProgress - Optional callback for progress updates (0-100)
  * @returns {Promise<void>}
  */
-const flash = async (port, fileContents) => {
+const flash = async (port, fileContents, onProgress) => {
   logger.info("Starting NRF DFU flash process");
+
+  // Report initial progress
+  if (onProgress) {
+    onProgress(0);
+  }
 
   return new Promise((resolve, reject) => {
     (async () => {
@@ -81,6 +87,11 @@ const flash = async (port, fileContents) => {
           }
         }
 
+        // Report progress - connection established
+        if (onProgress) {
+          onProgress(5);
+        }
+
         // Open port with Nordic settings
         try {
           await port.open({ baudRate: NORDIC_BAUD_RATE });
@@ -89,6 +100,11 @@ const flash = async (port, fileContents) => {
           logger.error("Error opening port", { error: e });
           reject(e);
           return;
+        }
+
+        // Report progress - port opened
+        if (onProgress) {
+          onProgress(10);
         }
 
         // Parse firmware file (expecting a Nordic DFU .zip file)
@@ -103,8 +119,34 @@ const flash = async (port, fileContents) => {
           return;
         }
 
+        // Report progress - firmware file parsed
+        if (onProgress) {
+          onProgress(20);
+        }
+
         // Create transport and DFU operation
         const transport = new DfuTransportWebSerial(port, DEFAULT_PRN);
+
+        // Set up progress reporting
+        let lastProgress = 20;
+        transport.onProgressChange = (progressInfo) => {
+          if (onProgress) {
+            // Calculate overall progress from 20-90%
+            // progressInfo contains { offset, total } for the current operation
+            if (progressInfo.total > 0) {
+              const currentPartProgress = (progressInfo.offset / progressInfo.total) * 100;
+              // Map the 0-100 range to 20-90 range for our overall progress
+              const overallProgress = Math.floor(20 + currentPartProgress * 0.7);
+
+              // Only report if progress has changed significantly (avoid excessive updates)
+              if (overallProgress > lastProgress) {
+                lastProgress = overallProgress;
+                onProgress(Math.min(90, overallProgress));
+              }
+            }
+          }
+        };
+
         const operation = new DfuOperation(dfuUpdates, transport);
 
         // Start the update
@@ -115,10 +157,20 @@ const flash = async (port, fileContents) => {
           
           // Wait for device to reboot
           await delay(2000);
-          
+
           // Close the port
           await transport.close();
-          
+
+          // Report progress - firmware update complete
+          if (onProgress) {
+            onProgress(95);
+          }
+
+          // Report progress - process complete
+          if (onProgress) {
+            onProgress(100);
+          }
+
           resolve();
         } catch (error) {
           logger.error("Error during firmware update", { error });

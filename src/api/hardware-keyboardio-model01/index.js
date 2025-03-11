@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { flash, flashers } from "@api/flash";
 
 import Keymap from "./components/Keymap";
 
@@ -55,16 +54,6 @@ const Model01 = {
     keymap: Keymap,
   },
 
-  flash: async (port, filename, options) => {
-    const board = {
-      name: "Keyboardio Model 01",
-      baud: 9600,
-      productId: ["0x2300", "0x2301"],
-      protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]), // "CATERIN"
-    };
-    return flash(flashers.avr109, board, port, filename, options);
-  },
 };
 
 const Model100 = {
@@ -105,9 +94,6 @@ const Model100 = {
     keymap: Keymap,
   },
 
-  flash: async (port, filename, options) => {
-    return flash(flashers.dfuUtil, null, port, filename, options);
-  },
 };
 
 export { Model01, Model100 };

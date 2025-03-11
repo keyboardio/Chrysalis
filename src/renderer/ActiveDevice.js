@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AVR109Flasher } from "@api/flash/AVR109Flasher";
 import { WebDFUFlasher } from "@api/flash/WebDFUFlasher";
+import { NRFDFUFlasher } from "@api/flash/NRFDFUFlasher";
 import logger from "@renderer/utils/Logger";
 
 export function ActiveDevice() {
@@ -36,7 +37,7 @@ export function ActiveDevice() {
   this._flashers = {
     avr109: AVR109Flasher,
     dfu: WebDFUFlasher,
-    // nrfdfu: nRFDFUFlasher,
+    nrfdfu: NRFDFUFlasher,
   };
 
   this.plugins = async () => {

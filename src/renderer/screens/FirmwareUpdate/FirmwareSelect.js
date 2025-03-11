@@ -168,7 +168,7 @@ const FirmwareSelect = (props) => {
             {selectedValue === "custom" && (
               <Grid container justifyContent="flex-start">
                 <Box sx={{ width: "1rem" }} />
-                <input type="file" onChange={handleFileUpload} accept=".hex, .bin" id="fileUpload" />
+                <input type="file" onChange={handleFileUpload} accept=".hex, .bin, .zip" id="fileUpload" />
               </Grid>
             )}
           </RadioGroup>

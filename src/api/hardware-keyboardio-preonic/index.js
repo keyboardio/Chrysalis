@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { flash, flashers } from "@api/flash";
-
+import { NRFDFUFlasher } from "@api/flash/NRFDFUFlasher";
 import Keymap from "./components/Keymap";
 
 const Preonic = {
@@ -54,10 +53,6 @@ const Preonic = {
   },
   components: {
     keymap: Keymap,
-  },
-
-  flash: async (port, filename, options) => {
-    return flash(flashers.dfuUtil, null, port, filename, options);
   },
 };
 

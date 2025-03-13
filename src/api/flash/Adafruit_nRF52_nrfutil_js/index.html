@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nRF52 DFU Tool</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- External libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>nRF52 DFU Tool</h1>
+        
+        <div class="card">
+            <h2>Connect to Device</h2>
+            <button id="connect-button" class="primary-button">Connect</button>
+            <div id="device-info"></div>
+        </div>
+        
+        <div class="card">
+            <h2>Firmware Update</h2>
+            <div class="file-input">
+                <label for="firmware-file">Select firmware package (.zip):</label>
+                <input type="file" id="firmware-file" accept=".zip">
+            </div>
+            
+            <div class="progress-container" id="progress-container" style="display: none;">
+                <div class="progress-label">Progress: <span id="progress-percentage">0%</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div id="status-message"></div>
+            </div>
+            
+            <button id="update-button" class="primary-button" disabled>Update Firmware</button>
+        </div>
+        
+        <div class="card">
+            <h2>Console</h2>
+            <div class="console" id="console"></div>
+        </div>
+        
+        <footer>
+            <p>Based on Adafruit nRF52 nrfutil</p>
+        </footer>
+    </div>
+
+    <!-- Load core utilities first -->
+    <script src="lib/utils/binary.js"></script>
+    <script src="lib/utils/crc16.js"></script>
+    <script src="lib/utils/slip.js"></script>
+    <script src="lib/utils/zip.js"></script>
+    
+    <!-- Load main modules -->
+    <script src="lib/models.js"></script>
+    <script src="lib/init-packet.js"></script>
+    <script src="lib/transport/serial.js"></script>
+    <script src="lib/package.js"></script>
+    <script src="lib/dfu.js"></script>
+    
+    <!-- Load UI controller -->
+    <script src="lib/main.js"></script>
+</body>
+</html>

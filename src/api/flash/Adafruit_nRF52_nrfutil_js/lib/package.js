@@ -33,6 +33,11 @@
  * Ported from the Python implementation
  */
 
+import { ZipUtils } from './utils/zip.js';
+import { BinaryUtils } from './utils/binary.js';
+import { CRC16 } from './utils/crc16.js';
+import { HexType, PackageDefaults, FirmwareKeys, PacketField, PacketExtension } from './models.js';
+
 /**
  * Nordic DFU Package class
  * Handles packaging and unpackaging of Nordic DFU packages
@@ -513,3 +518,6 @@ class Manifest {
     }
   }
 }
+
+// Export for ES6 modules
+export { Package, Manifest };

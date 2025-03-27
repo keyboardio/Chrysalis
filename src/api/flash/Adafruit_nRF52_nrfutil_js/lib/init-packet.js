@@ -33,6 +33,8 @@
  * Ported from the Python implementation
  */
 
+import { PacketField, PacketExtension } from './models.js';
+
 /**
  * Class for generating init packets for DFU
  */
@@ -402,3 +404,6 @@ function parseInitPacket(data) {
   
   return result;
 }
+
+// Export for ES6 modules
+export { InitPacket, parseInitPacket };

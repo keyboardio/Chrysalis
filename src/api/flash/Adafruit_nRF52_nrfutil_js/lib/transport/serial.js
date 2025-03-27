@@ -33,6 +33,10 @@
  * Ported from the Python implementation
  */
 
+import { SLIP } from '../utils/slip.js';
+import { BinaryUtils } from '../utils/binary.js';
+import { DfuProtocol, DfuEvent } from '../models.js';
+import { CRC16} from '../utils/crc16.js'
 /**
  * HCI Packet implementation
  */
@@ -156,6 +160,7 @@ class DfuTransportSerial {
     this.flowControl = options.flowControl || DfuTransportSerial.DEFAULT_FLOW_CONTROL;
     this.singleBank = options.singleBank || false;
     this.timeout = options.timeout || DfuTransportSerial.DEFAULT_SERIAL_PORT_TIMEOUT;
+    this.skipDtrReset = options.skipDtrReset || false; // New option to skip DTR reset
     
     this.totalSize = 167936; // default is max application size
     this.sdSize = 0;
@@ -296,8 +301,8 @@ class DfuTransportSerial {
         console.log('[SERIAL] Waiting for port to stabilize...');
         await new Promise(resolve => setTimeout(resolve, 100));
         
-        // Toggle DTR to reset the board and enter DFU mode (only if touch is not used)
-        if (!this.touch) {
+        // Toggle DTR to reset the board and enter DFU mode (only if not already in bootloader mode)
+        if (!this.touch && !this.skipDtrReset) {
           console.log('[SERIAL] Toggling DTR to reset device and enter DFU mode');
           
           try {
@@ -320,11 +325,13 @@ class DfuTransportSerial {
             this.logger.error(`[SERIAL] Error toggling DTR: ${error.message}`);
             // Continue anyway, as some devices may not support DTR
           }
+        } else if (this.skipDtrReset) {
+          console.log('[SERIAL] Skipping DTR reset (device already in bootloader mode)');
         }
         
         // Start reading from the port
         console.log('[SERIAL] Starting continuous reading...');
-        await this._startReading();
+  //      await this._startReading();
         console.log('[SERIAL] Continuous reading started');
         
       } catch (e) {
@@ -355,18 +362,22 @@ class DfuTransportSerial {
    * @private
    */
   async _startReading() {
+	console.log("one");
     if (!this.port || this.readingContinuously) return;
-    
+   	console.log("two"); 
     this.readingContinuously = true;
     this.receivedData = [];
     
     try {
       this.reader = this.port.readable.getReader();
-      
+     	console.log("three"); 
       while (this.readingContinuously) {
+console.log(this);
         try {
+	console.log("three point five");	
+
           const { value, done } = await this.reader.read();
-          
+         	console.log("four"); 
           if (done) {
             // Reader has been canceled
             break;
@@ -381,6 +392,7 @@ class DfuTransportSerial {
             }
           }
         } catch (e) {
+console.log("Error " + e);
           // Handle read errors (e.g., if the device disconnects)
           if (this.readingContinuously) {
             this.logger.error(`[SERIAL] Error reading: ${e.message}`);
@@ -1094,3 +1106,6 @@ class DfuTransportSerial {
     });
   }
 }
+
+// Export transport for ES6 modules
+export { HciPacket, DfuTransportSerial };

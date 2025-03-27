@@ -33,6 +33,9 @@
  * Ported from the Python implementation
  */
 
+import { Package } from './package.js';
+import { HexType, DfuEvent } from './models.js';
+
 /**
  * Class to handle the DFU upgrade process
  */
@@ -81,9 +84,6 @@ class Dfu {
     if (this.dfuTransport && this.dfuTransport.isOpen()) {
       this.dfuTransport.close();
     }
-    
-    // Update UI
-    this.updateStatusMessage(`Error: ${message}`, 'error');
   }
   
   /**
@@ -98,9 +98,6 @@ class Dfu {
     if (this.dfuTransport && this.dfuTransport.isOpen()) {
       this.dfuTransport.close();
     }
-    
-    // Update UI
-    this.updateStatusMessage(`Timeout: ${message}`, 'error');
   }
   
   /**
@@ -109,41 +106,11 @@ class Dfu {
    */
   progressEventHandler(data = {}) {
     if (data.progress !== undefined) {
-      // Update progress bar
-      this.updateProgress(data.progress);
-    }
-    
-    if (data.message) {
-      // Update status message
-      this.updateStatusMessage(data.message);
-    }
-  }
-  
-  /**
-   * Update progress in the UI
-   * @param {number} progress - Progress percentage (0-100)
-   */
-  updateProgress(progress) {
-    const progressFill = document.getElementById('progress-fill');
-    const progressPercentage = document.getElementById('progress-percentage');
-    
-    if (progressFill && progressPercentage) {
-      progressFill.style.width = `${progress}%`;
-      progressPercentage.textContent = `${progress}%`;
-    }
-  }
-  
-  /**
-   * Update status message in the UI
-   * @param {string} message - Status message
-   * @param {string} type - Message type (info, success, error, warning)
-   */
-  updateStatusMessage(message, type = 'info') {
-    const statusMessage = document.getElementById('status-message');
-    
-    if (statusMessage) {
-      statusMessage.textContent = message;
-      statusMessage.className = `status-${type}`;
+      // Forward progress to any listeners
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, {
+        progress: data.progress,
+        done: data.done || false
+      });
     }
   }
   
@@ -154,10 +121,6 @@ class Dfu {
   async executeDfu() {
     try {
       console.log('[DFU] Starting executeDfu - beginning DFU process');
-      
-      // Update UI to show progress container
-      document.getElementById('progress-container').style.display = 'block';
-      this.updateStatusMessage('Starting DFU process...');
       
       // Open the transport if not already open
       if (!this.dfuTransport.isOpen()) {
@@ -171,7 +134,6 @@ class Dfu {
       
       // First try to ping the device to ensure it's responsive
       console.log('[DFU] Sending ping to test device responsiveness');
-      this.updateStatusMessage('Testing device connection...');
       const pingResult = await this.dfuTransport.sendPing().catch(err => {
         console.log('[DFU] Ping failed:', err);
         return false;
@@ -179,12 +141,10 @@ class Dfu {
       
       if (!pingResult) {
         console.error('[DFU] Ping failed, device may not be in DFU mode');
-        this.updateStatusMessage('Device not responding. Ensure it is in DFU mode.', 'error');
         throw new Error('Device not responding to ping. Ensure it is in DFU mode.');
       }
       
       console.log('[DFU] Ping successful, device is responsive');
-      this.updateStatusMessage('Device connection confirmed');
       
       // Check if we have any firmware in the manifest
       if (!this.manifest) {
@@ -214,9 +174,12 @@ class Dfu {
       
       console.log('[DFU] All firmware images sent successfully');
       
-      // Update UI
-      this.updateStatusMessage('DFU process completed successfully', 'success');
-      this.updateProgress(100);
+      // Report full completion via event
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, {
+        progress: 100,
+        done: true,
+        message: "DFU process completed successfully"
+      });
       
       // Close the transport
       console.log('[DFU] Closing transport...');
@@ -228,7 +191,6 @@ class Dfu {
       
     } catch (error) {
       console.error('[DFU] DFU process failed:', error);
-      this.updateStatusMessage(`DFU failed: ${error.message}`, 'error');
       
       // Ensure transport is closed
       if (this.dfuTransport && this.dfuTransport.isOpen()) {
@@ -243,94 +205,6 @@ class Dfu {
   }
   
   /**
-   * Add CSS for the reconnection dialog
-   * @private
-   */
-  _addReconnectionDialogStyles() {
-    // Check if styles are already added
-    if (document.getElementById('reconnection-dialog-styles')) {
-      return;
-    }
-    
-    // Create style element
-    const style = document.createElement('style');
-    style.id = 'reconnection-dialog-styles';
-    style.textContent = `
-    /* Reconnection Dialog Styles */
-    .reconnect-dialog {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    
-    .reconnect-dialog-content {
-      background-color: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      max-width: 500px;
-      width: 90%;
-    }
-    
-    .reconnect-dialog-content h2 {
-      margin-top: 0;
-      color: #0066cc;
-      font-size: 22px;
-    }
-    
-    .reconnect-dialog-content p {
-      margin-bottom: 20px;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-    
-    .reconnect-dialog-content ol {
-      margin-bottom: 25px;
-      padding-left: 25px;
-    }
-    
-    .reconnect-dialog-content li {
-      margin-bottom: 10px;
-      font-size: 15px;
-    }
-    
-    .primary-button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    
-    .primary-button:hover {
-      background-color: #3e8e41;
-    }
-    
-    .error-message {
-      color: #f44336;
-      font-size: 14px;
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #ffebee;
-      border-radius: 4px;
-    }
-    `;
-    
-    // Add to document head
-    document.head.appendChild(style);
-  }
-  
-  /**
    * Send all firmware images with reconnection handling
    * This is a special version of dfuSendImages that handles
    * device reset and reconnection during the DFU process
@@ -339,16 +213,13 @@ class Dfu {
   async dfuSendImagesWithReconnection() {
     console.log('[DFU] Beginning dfuSendImagesWithReconnection process');
     
-    // Add CSS styles for reconnection dialog
-    this._addReconnectionDialogStyles();
-    
     let sentAnyImages = false;
     let requiresReconnection = false;
     
     try {
       // Phase 1: Start DFU Process - This may cause device reset
       console.log('[DFU] Phase 1: Sending DFU start command');
-      this.updateStatusMessage('Initializing DFU process...');
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { progress: 10, message: "Initializing DFU process" });
       
       // Find a firmware image to send
       let firmwareManifest = null;
@@ -387,7 +258,7 @@ class Dfu {
       
       try {
         // Try to send DFU start command
-        this.updateStatusMessage('Sending DFU start command...');
+        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { progress: 15, message: "Sending DFU start command" });
         await this.dfuTransport.sendStartDfu(
           firmwareType, 
           firmwareType === HexType.SOFTDEVICE ? firmware.byteLength : 0,
@@ -417,54 +288,30 @@ class Dfu {
           // Non-fatal, continue
         }
         
-        // Show reconnection UI
-        this.updateStatusMessage('Device has reset. Please reconnect...', 'info');
-        
-        // Create a dialog to guide the user through reconnection
-        const reconnectDialog = document.createElement('div');
-        reconnectDialog.className = 'reconnect-dialog';
-        reconnectDialog.innerHTML = `
-          <div class="reconnect-dialog-content">
-            <h2>Device Reconnection Required</h2>
-            <p>The device has reset as part of the DFU process. Please reconnect:</p>
-            <ol>
-              <li>Wait a few seconds for the device to reboot</li>
-              <li>Click the "Reconnect" button when ready</li>
-            </ol>
-            <button id="reconnect-button" class="primary-button">Reconnect</button>
-          </div>
-        `;
-        document.body.appendChild(reconnectDialog);
-        
-        // Wait for user to reconnect
-        await new Promise((resolve) => {
-          document.getElementById('reconnect-button').addEventListener('click', async () => {
-            // Button clicked, try to reconnect
-            this.updateStatusMessage('Reconnecting to device...', 'info');
-            
-            try {
-              // Open the transport again
-              await this.dfuTransport.open();
-              await this.dfuTransport.waitForOpen();
-              
-              // Remove the dialog
-              document.body.removeChild(reconnectDialog);
-              
-              // Resolve the promise
-              resolve();
-            } catch (error) {
-              // Show error message, but keep dialog open for retry
-              const errorMessage = document.createElement('p');
-              errorMessage.className = 'error-message';
-              errorMessage.textContent = `Failed to reconnect: ${error.message}. Please try again.`;
-              document.querySelector('.reconnect-dialog-content').appendChild(errorMessage);
-            }
-          });
+        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+          progress: 20, 
+          message: "Device has reset. Waiting for reconnection..." 
         });
+        
+        // Wait 3 seconds for device to reboot
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        
+        // Try to reopen the connection
+        try {
+          // Open the transport again
+          await this.dfuTransport.open();
+          await this.dfuTransport.waitForOpen();
+        } catch (error) {
+          console.error('[DFU] Failed to reconnect:', error);
+          throw new Error(`Failed to reconnect to device: ${error.message}`);
+        }
         
         // Connection reestablished
         console.log('[DFU] Device successfully reconnected');
-        this.updateStatusMessage('Device reconnected successfully');
+        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+          progress: 25, 
+          message: "Device reconnected successfully" 
+        });
         
         // Ping to verify connection
         try {
@@ -478,12 +325,18 @@ class Dfu {
       
       // Phase 3: Send init packet
       console.log('[DFU] Phase 3: Sending init packet');
-      this.updateStatusMessage('Sending initialization packet...');
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 30, 
+        message: "Sending initialization packet" 
+      });
       await this.dfuTransport.sendInitPacket(initPacket);
       
       // Phase 4: Send firmware data
       console.log('[DFU] Phase 4: Sending firmware data');
-      this.updateStatusMessage('Sending firmware...');
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 40, 
+        message: "Sending firmware data" 
+      });
       await this.dfuTransport.sendFirmware(new Uint8Array(firmware));
       
       // Phase 5: Validate and activate (if device is still connected)
@@ -494,26 +347,46 @@ class Dfu {
       
       if (deviceStillConnected) {
         // Device is still connected, try to validate and activate
-        this.updateStatusMessage('Validating firmware...');
+        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+          progress: 90, 
+          message: "Validating firmware" 
+        });
+        
         try {
           await this.dfuTransport.sendValidateFirmware();
           
-          this.updateStatusMessage('Activating new firmware...');
+          this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+            progress: 95, 
+            message: "Activating new firmware" 
+          });
+          
           await this.dfuTransport.sendActivateFirmware();
         } catch (error) {
           // If validation or activation fails because device disconnected, that's fine
           console.log('[DFU] Device disconnected during validation/activation, which is expected:', error.message);
-          this.updateStatusMessage('Device is resetting with new firmware...');
+          this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+            progress: 95, 
+            message: "Device is resetting with new firmware" 
+          });
         }
       } else {
         // Device already disconnected after STOP_DATA_PACKET, which is fine!
         console.log('[DFU] Device already disconnected after firmware transfer (expected behavior)');
-        this.updateStatusMessage('Device is resetting with new firmware...');
+        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+          progress: 95, 
+          message: "Device is resetting with new firmware" 
+        });
       }
       
       // Success! If we made it this far, the transfer was successful
       sentAnyImages = true;
       console.log('[DFU] Firmware sent successfully');
+      
+      // Final progress update
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 98, 
+        message: "Firmware update completed" 
+      });
       
     } catch (error) {
       console.error('[DFU] Error during DFU process:', error);
@@ -674,7 +547,12 @@ class Dfu {
     // Start DFU process for this image
     const startTime = Date.now();
     console.log(`[DFU] Starting DFU upgrade of type ${programMode}, SoftDevice size: ${softdeviceSize}, bootloader size: ${bootloaderSize}, application size: ${applicationSize}`);
-    this.updateStatusMessage(`Starting firmware transfer (${(firmware.byteLength / 1024).toFixed(1)} KB)...`);
+    
+    // Send progress update
+    this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+      progress: 10, 
+      message: `Starting firmware transfer (${(firmware.byteLength / 1024).toFixed(1)} KB)` 
+    });
     
     // Send DFU start packet
     try {
@@ -684,32 +562,47 @@ class Dfu {
       
       // Send init packet
       console.log("[DFU] Sending DFU init packet...");
-      this.updateStatusMessage("Sending initialization packet...");
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 20, 
+        message: "Sending initialization packet" 
+      });
       await this.dfuTransport.sendInitPacket(initPacket);
       console.log('[DFU] Init packet sent successfully');
       
       // Send firmware
       console.log("[DFU] Sending firmware file...");
-      this.updateStatusMessage("Sending firmware data...");
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 30, 
+        message: "Sending firmware data" 
+      });
       await this.dfuTransport.sendFirmware(new Uint8Array(firmware));
       console.log('[DFU] Firmware sent successfully');
       
       // Validate firmware
       console.log("[DFU] Validating firmware...");
-      this.updateStatusMessage("Validating firmware...");
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 90, 
+        message: "Validating firmware" 
+      });
       await this.dfuTransport.sendValidateFirmware();
       console.log('[DFU] Firmware validated successfully');
       
       // Activate firmware
       console.log("[DFU] Activating new firmware...");
-      this.updateStatusMessage("Activating new firmware...");
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 95, 
+        message: "Activating new firmware" 
+      });
       await this.dfuTransport.sendActivateFirmware();
       console.log('[DFU] Firmware activation command sent');
       
       // Wait after activating
       const activateWaitTime = this.dfuTransport.getActivateWaitTime();
       console.log(`[DFU] Waiting ${(activateWaitTime/1000).toFixed(1)} seconds after activating`);
-      this.updateStatusMessage(`Waiting for device to activate firmware (${(activateWaitTime/1000).toFixed(1)}s)...`);
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 97, 
+        message: `Waiting for device to activate firmware (${(activateWaitTime/1000).toFixed(1)}s)` 
+      });
       await new Promise(resolve => setTimeout(resolve, activateWaitTime));
       console.log('[DFU] Finished waiting for activation');
       
@@ -717,13 +610,18 @@ class Dfu {
       const endTime = Date.now();
       const totalTime = (endTime - startTime) / 1000;
       console.log(`[DFU] DFU upgrade completed in ${totalTime.toFixed(1)}s`);
-      this.updateStatusMessage(`Firmware update completed in ${totalTime.toFixed(1)} seconds`, 'success');
+      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
+        progress: 100, 
+        message: `Firmware update completed in ${totalTime.toFixed(1)} seconds` 
+      });
       
     } catch (error) {
       console.error("[DFU] Error during DFU process:", error);
       console.error("[DFU] Error stack:", error.stack);
-      this.updateStatusMessage(`Error during firmware update: ${error.message}`, 'error');
       throw error;
     }
   }
 }
+
+// Export for ES6 modules
+export { Dfu };

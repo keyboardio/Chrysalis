@@ -240,3 +240,6 @@ const SLIP = {
     };
   }
 };
+
+// Export for ES6 modules
+export { SLIP };

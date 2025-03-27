@@ -30,26 +30,10 @@
  * Mechanically translated from Python to JavaScript by Keyboardio in March, 2025.
  *
  * ZIP file handling utilities for the nRF52 DFU tool
- * Uses JSZip library loaded from CDN
+ * Uses JSZip library
  */
 
-// Dynamically load JSZip library if needed
-function loadJSZip() {
-  return new Promise((resolve, reject) => {
-    if (window.JSZip) {
-      resolve(window.JSZip);
-      return;
-    }
-    
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-    script.integrity = 'sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==';
-    script.crossOrigin = 'anonymous';
-    script.onload = () => resolve(window.JSZip);
-    script.onerror = () => reject(new Error('Failed to load JSZip library'));
-    document.head.appendChild(script);
-  });
-}
+import JSZip from "jszip";
 
 const ZipUtils = {
   /**
@@ -59,11 +43,7 @@ const ZipUtils = {
    */
   extractZip: async function(zipData) {
     try {
-      console.log('[ZIP] Loading JSZip library...');
-      const JSZip = await loadJSZip();
-      console.log('[ZIP] JSZip library loaded successfully');
-      
-      console.log(`[ZIP] Loading ZIP data (${zipData.byteLength} bytes)...`);
+      console.log('[ZIP] Loading ZIP data...');
       const zip = await JSZip.loadAsync(zipData);
       console.log('[ZIP] ZIP data loaded successfully');
       
@@ -156,7 +136,6 @@ const ZipUtils = {
    * @returns {Promise<Blob>} ZIP file as a Blob
    */
   createZip: async function(files) {
-    const JSZip = await loadJSZip();
     const zip = new JSZip();
     
     // Add files to zip
@@ -172,3 +151,6 @@ const ZipUtils = {
     });
   }
 };
+
+// Export for ES6 modules
+export { ZipUtils };

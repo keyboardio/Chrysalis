@@ -63,7 +63,7 @@ const MacroEditor = (props) => {
       });
       setSteps(foo);
     },
-    [macro, macroId, onMacroChange]
+    [macro, macroId, onMacroChange],
   );
 
   const onStepSelect = (index) => {
@@ -103,7 +103,7 @@ const MacroEditor = (props) => {
         onClose();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {

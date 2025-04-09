@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import Keymap from "./components/Keymap";
 
 const Model01 = {
@@ -53,7 +52,6 @@ const Model01 = {
   components: {
     keymap: Keymap,
   },
-
 };
 
 const Model100 = {
@@ -93,7 +91,6 @@ const Model100 = {
   components: {
     keymap: Keymap,
   },
-
 };
 
 export { Model01, Model100 };

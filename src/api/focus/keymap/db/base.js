@@ -93,7 +93,7 @@ const blanks = assignKeysToCategory(
   [
     { code: constants.codes.BLOCKED, label: { base: { full: "Blocked", "1u": "Blkd" } } },
     { code: constants.codes.TRANSPARENT, label: { base: { full: "Transparent", "1u": " " } } },
-  ]
+  ],
 );
 
 const numpad = withModifiers([
@@ -195,7 +195,7 @@ const consumer = assignKeysToCategory(
       code: 0x70 + constants.ranges.consumer.start,
       label: { hint: { full: "Brightness", "1u": "Brght." }, base: { full: "Down", "1u": "🔅" } },
     },
-  ]
+  ],
 );
 
 const mousekeys = assignKeysToCategory(
@@ -264,7 +264,7 @@ const mousekeys = assignKeysToCategory(
       code: constants.ranges.mouse.start + 42,
       label: { hint: { full: "Mouse Warp", "1u": "Warp" }, base: { full: "South-East", "1u": "SE" } },
     },
-  ]
+  ],
 );
 
 const macro = (index) => ({
@@ -352,7 +352,7 @@ const stenokeys = assignKeysToCategory(
     { code: constants.ranges.steno.start + 39, label: { hint: "Steno", base: "NB" } },
     { code: constants.ranges.steno.start + 40, label: { hint: "Steno", base: "NC" } },
     { code: constants.ranges.steno.start + 41, label: { hint: "Steno", base: "ZR" } },
-  ]
+  ],
 );
 
 const ledkeys = assignKeysToCategory(
@@ -367,7 +367,7 @@ const ledkeys = assignKeysToCategory(
       code: constants.ranges.led.start + 2,
       label: { hint: { full: "LEDEffect", "1u": "LED" }, base: { full: "Toggle", "1u": "Togg." } },
     },
-  ]
+  ],
 );
 const spacecadet = assignKeysToCategory(
   ["spacecadet"],
@@ -380,7 +380,7 @@ const spacecadet = assignKeysToCategory(
       code: constants.ranges.spacecadet.start + 1,
       label: { hint: { full: "SpaceCadet", "1u": "SC" }, base: { full: "Disable", "1u": "Off" } },
     },
-  ]
+  ],
 );
 
 const layer = (base, hint, type, index) => ({
@@ -420,7 +420,7 @@ const platform_apple = assignKeysToCategory(
       code: constants.ranges.consumer.start + 0x29f,
       label: { base: { full: "Exposé" } },
     },
-  ]
+  ],
 );
 const lang_intl = assignKeysToCategory(
   ["lang_intl"],
@@ -443,7 +443,7 @@ const lang_intl = assignKeysToCategory(
     { code: 141, label: { base: { full: "Intl7" } } },
     { code: 142, label: { base: { full: "Intl8" } } },
     { code: 143, label: { base: { full: "Intl9" } } },
-  ]
+  ],
 );
 
 const modifiers = withModifiers(
@@ -470,8 +470,8 @@ const modifiers = withModifiers(
         location: "right",
       },
       { code: constants.ranges.modifiers.start + 7, label: { base: GuiLabel }, location: "right" },
-    ]
-  )
+    ],
+  ),
 ).concat([
   // Custom modifier combos
   { code: 2530, baseCode: 226, categories: ["ctrl", "shift"], label: { base: "Meh" } },

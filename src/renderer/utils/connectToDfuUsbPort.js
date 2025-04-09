@@ -31,16 +31,12 @@ export const connectToDfuUsbPort = async (targetVid, targetPid) => {
         // Check bootloaders array first
         if (device.usb.bootloaders) {
           return device.usb.bootloaders.some(
-            (bootloader) =>
-              bootloader.vendorId === usb.vendorId && bootloader.productId === usb.productId
+            (bootloader) => bootloader.vendorId === usb.vendorId && bootloader.productId === usb.productId,
           );
         }
 
         // Fallback to legacy bootloader configuration
-        return (
-          device.usb.bootloader?.vendorId === usb.vendorId &&
-          device.usb.bootloader?.productId === usb.productId
-        );
+        return device.usb.bootloader?.vendorId === usb.vendorId && device.usb.bootloader?.productId === usb.productId;
       });
 
       if (matchingDevice) {

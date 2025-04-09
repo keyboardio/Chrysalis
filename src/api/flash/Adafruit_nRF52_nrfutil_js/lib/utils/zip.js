@@ -26,7 +26,7 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  * Mechanically translated from Python to JavaScript by Keyboardio in March, 2025.
  *
  * ZIP file handling utilities for the nRF52 DFU tool
@@ -41,115 +41,118 @@ const ZipUtils = {
    * @param {ArrayBuffer} zipData - ZIP file data as ArrayBuffer
    * @returns {Promise<Object>} Object containing the extracted files as { filename: Uint8Array }
    */
-  extractZip: async function(zipData) {
+  extractZip: async function (zipData) {
     try {
-      console.log('[ZIP] Loading ZIP data...');
+      console.log("[ZIP] Loading ZIP data...");
       const zip = await JSZip.loadAsync(zipData);
-      console.log('[ZIP] ZIP data loaded successfully');
-      
+      console.log("[ZIP] ZIP data loaded successfully");
+
       // Get file list
       const fileList = [];
       zip.forEach((path, file) => {
         fileList.push({
           path: path,
           isDirectory: file.dir,
-          size: file.dir ? 0 : file._data.uncompressedSize
+          size: file.dir ? 0 : file._data.uncompressedSize,
         });
       });
-      
-      console.log('[ZIP] Files in ZIP archive:');
-      fileList.forEach(file => {
-        console.log(`[ZIP] - ${file.path} ${file.isDirectory ? '(directory)' : `(${file.size} bytes)`}`);
+
+      console.log("[ZIP] Files in ZIP archive:");
+      fileList.forEach((file) => {
+        console.log(`[ZIP] - ${file.path} ${file.isDirectory ? "(directory)" : `(${file.size} bytes)`}`);
       });
-      
+
       const files = {};
-      
+
       // Process each file in the zip
       const extractPromises = [];
-      
-      console.log('[ZIP] Extracting files...');
+
+      console.log("[ZIP] Extracting files...");
       zip.forEach((path, file) => {
         if (!file.dir) {
           console.log(`[ZIP] Extracting ${path} (${file._data.uncompressedSize} bytes)...`);
-          const promise = file.async('uint8array').then(content => {
-            console.log(`[ZIP] Extracted ${path} (${content.byteLength} bytes)`);
-            files[path] = content;
-          }).catch(err => {
-            console.error(`[ZIP] Error extracting ${path}: ${err.message}`);
-            throw err;
-          });
+          const promise = file
+            .async("uint8array")
+            .then((content) => {
+              console.log(`[ZIP] Extracted ${path} (${content.byteLength} bytes)`);
+              files[path] = content;
+            })
+            .catch((err) => {
+              console.error(`[ZIP] Error extracting ${path}: ${err.message}`);
+              throw err;
+            });
           extractPromises.push(promise);
         }
       });
-      
+
       // Wait for all files to be extracted
       await Promise.all(extractPromises);
-      console.log('[ZIP] All files extracted successfully');
-      
+      console.log("[ZIP] All files extracted successfully");
+
       return files;
     } catch (error) {
-      console.error('[ZIP] Error extracting ZIP data:', error);
+      console.error("[ZIP] Error extracting ZIP data:", error);
       throw new Error(`Failed to extract ZIP data: ${error.message}`);
     }
   },
-  
+
   /**
    * Parse the manifest.json file from extracted ZIP files
    * @param {Object} files - Object containing extracted files
    * @returns {Object} Parsed manifest object
    */
-  parseManifest: function(files) {
-    console.log('[ZIP] Parsing manifest.json...');
-    
-    if (!files['manifest.json']) {
-      console.error('[ZIP] Error: manifest.json not found in files');
-      console.log('[ZIP] Available files:', Object.keys(files).join(', '));
-      throw new Error('Manifest file not found in firmware package');
+  parseManifest: function (files) {
+    console.log("[ZIP] Parsing manifest.json...");
+
+    if (!files["manifest.json"]) {
+      console.error("[ZIP] Error: manifest.json not found in files");
+      console.log("[ZIP] Available files:", Object.keys(files).join(", "));
+      throw new Error("Manifest file not found in firmware package");
     }
-    
-    const manifestBytes = files['manifest.json'];
+
+    const manifestBytes = files["manifest.json"];
     console.log(`[ZIP] Manifest file size: ${manifestBytes.byteLength} bytes`);
-    
+
     const manifestText = new TextDecoder().decode(manifestBytes);
-    
+
     try {
       const manifest = JSON.parse(manifestText);
-      console.log('[ZIP] Manifest parsed successfully');
-      
+      console.log("[ZIP] Manifest parsed successfully");
+
       // Additional validation
       if (!manifest.manifest) {
         console.error('[ZIP] Error: Invalid manifest structure, missing "manifest" key');
         throw new Error('Invalid manifest structure, missing "manifest" key');
       }
-      
+
       return manifest.manifest;
     } catch (error) {
-      console.error('[ZIP] Error parsing manifest:', error);
-      console.error('[ZIP] Manifest content:', manifestText);
+      console.error("[ZIP] Error parsing manifest:", error);
+      console.error("[ZIP] Manifest content:", manifestText);
       throw new Error(`Failed to parse manifest: ${error.message}`);
     }
   },
-  
+
   /**
    * Create a new ZIP file with the given files
    * @param {Object} files - Object containing files to add { filename: Uint8Array }
    * @returns {Promise<Blob>} ZIP file as a Blob
    */
-  createZip: async function(files) {
+  createZip: async function (files) {
     const zip = new JSZip();
-    
+
     // Add files to zip
     for (const [filename, content] of Object.entries(files)) {
       zip.file(filename, content);
     }
-    
+
     // Generate zip file
     return await zip.generateAsync({
-      type: 'blob',
-      compression: 'DEFLATE',
-      compressionOptions: { level: 6 }
+      type: "blob",
+      compression: "DEFLATE",
+      compressionOptions: { level: 6 },
     });
-  }
+  },
 };
 
 // Export for ES6 modules

@@ -45,7 +45,7 @@ export const connectToSerialport = async (targetVid, targetPid) => {
         if (!serialPort) {
           logger.error(
             "I couldn't connect to your keyboard's serial port. That might be because another program or browser window is already connected.",
-            e
+            e,
           );
           return;
         }
@@ -119,9 +119,9 @@ export const connectToSerialport = async (targetVid, targetPid) => {
         found = true;
         deviceFound = true;
         logger.log("Found a keyboard in userland mode", hw);
-        console.log("Found a keyboard in userland mode", hw); 
+        console.log("Found a keyboard in userland mode", hw);
         focus.open(serialPort, hw);
-      } 
+      }
       // Then check if it matches any known bootloader entries
       else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
         found = true;
@@ -132,7 +132,7 @@ export const connectToSerialport = async (targetVid, targetPid) => {
         focus.open(serialPort, hw);
       }
       // Finally, check if it matches any bootloaders that could be in either mode
-      else if (hw.usb.bootloaders?.some(b => b.vendorId === dVid && b.productId === dPid)) {
+      else if (hw.usb.bootloaders?.some((b) => b.vendorId === dVid && b.productId === dPid)) {
         found = true;
         deviceFound = true;
         logger.log("Found a device that could be in DFU or application mode", hw);
@@ -144,9 +144,7 @@ export const connectToSerialport = async (targetVid, targetPid) => {
           // Try to send a help command to determine if it's in application mode
           const response = await Promise.race([
             focus._sendRequest("help"), // this is a disgusting hack, walking around the api so we can probe to see whether a preonic connecting with an 0x00a0 product id is in app mode or bootloader mode
-            new Promise((_, reject) => 
-              setTimeout(() => reject(new Error("Read timeout")), 5000)
-            )
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Read timeout")), 5000)),
           ]);
           if (response?.trim() !== "") {
             console.log("Device is in application mode");

@@ -262,12 +262,12 @@ const FirmwareUpdate = (props) => {
   const connectToBootloaderPort = async () => {
     // Get all possible bootloader configurations
     const bootloaderConfigs = [];
-    
+
     // Add bootloaders from the array if it exists
     if (focusDeviceDescriptor?.usb?.bootloaders) {
       bootloaderConfigs.push(...focusDeviceDescriptor.usb.bootloaders);
     }
-    
+
     // Add legacy bootloader configuration if it exists
     if (focusDeviceDescriptor?.usb?.bootloader) {
       bootloaderConfigs.push(focusDeviceDescriptor.usb.bootloader);

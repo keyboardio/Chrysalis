@@ -202,17 +202,14 @@ class Focus {
     // Check bootloaders array first
     if (deviceDescriptor.usb?.bootloaders) {
       in_bootloader = deviceDescriptor.usb.bootloaders.some(
-        (bootloader) =>
-          dPid === bootloader.productId && dVid === bootloader.vendorId
+        (bootloader) => dPid === bootloader.productId && dVid === bootloader.vendorId
       );
     }
 
     // If not found in bootloaders array, check legacy bootloader configuration
     if (!in_bootloader && deviceDescriptor.usb?.bootloader) {
-      in_bootloader = (
-        dPid === deviceDescriptor.usb.bootloader.productId &&
-        dVid === deviceDescriptor.usb.bootloader.vendorId
-      );
+      in_bootloader =
+        dPid === deviceDescriptor.usb.bootloader.productId && dVid === deviceDescriptor.usb.bootloader.vendorId;
     }
 
     this.in_bootloader = in_bootloader;

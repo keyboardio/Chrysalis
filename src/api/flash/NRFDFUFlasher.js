@@ -40,14 +40,14 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
  */
 const createDfuTransport = (port, skipDtrReset = false) => {
   const transport = new DfuTransportSerial({
-    port: port,         // Pass the WebSerial port
+    port: port, // Pass the WebSerial port
     baudRate: NORDIC_BAUD_RATE,
     flowControl: false,
     singleBank: false,
     packetReceiptNotification: DEFAULT_PRN,
-    skipDtrReset: skipDtrReset // Skip DTR reset if requested (when already in bootloader mode)
+    skipDtrReset: skipDtrReset, // Skip DTR reset if requested (when already in bootloader mode)
   });
-  
+
   return transport;
 };
 
@@ -114,16 +114,16 @@ const flash = async (port, fileContents, onProgress) => {
 
         // Create DFU transport - device is already in bootloader mode, so skip DTR reset
         const transport = createDfuTransport(port, true);
-        
+
         // Set up progress reporting
         let lastProgress = 20;
-        
+
         // Register for DFU progress events
         transport.registerEventsCallback(DfuEvent.PROGRESS_EVENT, (data) => {
           if (onProgress && data.progress !== undefined) {
             // Map the 0-100 progress to our 20-90 range
             const overallProgress = Math.floor(20 + data.progress * 0.7);
-            
+
             // Only report if progress has increased
             if (overallProgress > lastProgress) {
               lastProgress = overallProgress;
@@ -131,12 +131,12 @@ const flash = async (port, fileContents, onProgress) => {
             }
           }
         });
-        
+
         // Register error events
         transport.registerEventsCallback(DfuEvent.ERROR_EVENT, (data) => {
           logger.error("DFU error event:", data.message || "Unknown error");
         });
-        
+
         // Register timeout events
         transport.registerEventsCallback(DfuEvent.TIMEOUT_EVENT, (data) => {
           logger.error("DFU timeout event:", data.message || "Operation timed out");
@@ -146,7 +146,7 @@ const flash = async (port, fileContents, onProgress) => {
         try {
           await transport.open();
           logger.debug("Port opened successfully");
-          
+
           // Short delay after opening to ensure port is stable
           await delay(1000);
         } catch (e) {
@@ -179,7 +179,7 @@ const flash = async (port, fileContents, onProgress) => {
 
         // Create DFU instance
         const dfuInstance = new Dfu(fileContents, transport);
-        
+
         // Initialize DFU with unpacked data (this just unpacks the package again internally)
         await dfuInstance.initialize();
 
@@ -188,7 +188,7 @@ const flash = async (port, fileContents, onProgress) => {
           logger.info("Starting firmware update...");
           await dfuInstance.executeDfu();
           logger.info("Firmware update successful!");
-          
+
           // Wait for device to reboot
           await delay(2000);
 
@@ -219,7 +219,7 @@ const flash = async (port, fileContents, onProgress) => {
           } catch (e) {
             logger.error("Error closing port after failed update", { error: e });
           }
-          
+
           reject(error);
         }
       } catch (e) {

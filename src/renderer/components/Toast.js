@@ -78,7 +78,7 @@ export default function Toast() {
             autoHideDuration: null,
             message: null,
           },
-          event.data
+          event.data,
         );
         setVariant(msg.variant);
         setAutoHideDuration(msg.autoHideDuration);

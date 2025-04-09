@@ -21,7 +21,7 @@ const Preonic = {
   info: {
     vendor: "Keyboardio",
     product: "Preonic",
-    firmwareType: "bin",
+    firmwareType: "zip",
     displayName: "Keyboardio Preonic",
     urls: [
       {

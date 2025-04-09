@@ -99,28 +99,76 @@ export const connectToSerialport = async (targetVid, targetPid) => {
     const info = serialPort.getInfo();
     const dVid = info.usbVendorId;
     const dPid = info.usbProductId;
+    console.log("dVid", dVid);
+    console.log("dPid", dPid);
 
     // If we have target VID/PID, check if this device matches
     if (targetVid && targetPid && (dVid !== targetVid || dPid !== targetPid)) {
+      console.log("No matching device found for VID/PID:", dVid, dPid);
       return null;
     }
 
-    logger.log("The connected device:", info);
+    console.log("The connected device:", info);
+    let deviceFound = false;
     for (const hw of Hardware.devices) {
       let found = false;
       let bootloader = false;
+
+      // First check if it matches any userland entries
       if (dVid == hw.usb.vendorId && dPid == hw.usb.productId) {
         found = true;
-        logger.log("Found a keyboard", hw);
+        deviceFound = true;
+        logger.log("Found a keyboard in userland mode", hw);
+        console.log("Found a keyboard in userland mode", hw); 
         focus.open(serialPort, hw);
-      } else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
+      } 
+      // Then check if it matches any known bootloader entries
+      else if (dVid == hw.usb.bootloader?.vendorId && dPid == hw.usb.bootloader?.productId) {
         found = true;
+        deviceFound = true;
         bootloader = true;
         logger.log("Found a keyboard bootloader", hw);
-
+        console.log("Found a keyboard bootloader", hw);
         focus.open(serialPort, hw);
       }
+      // Finally, check if it matches any bootloaders that could be in either mode
+      else if (hw.usb.bootloaders?.some(b => b.vendorId === dVid && b.productId === dPid)) {
+        found = true;
+        deviceFound = true;
+        logger.log("Found a device that could be in DFU or application mode", hw);
+        console.log("Found a device that could be in DFU or application mode", hw);
+        focus.open(serialPort, hw);
+
+        try {
+          console.log("trying to send help command");
+          // Try to send a help command to determine if it's in application mode
+          const response = await Promise.race([
+            focus._sendRequest("help"), // this is a disgusting hack, walking around the api so we can probe to see whether a preonic connecting with an 0x00a0 product id is in app mode or bootloader mode
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error("Read timeout")), 5000)
+            )
+          ]);
+          if (response?.trim() !== "") {
+            console.log("Device is in application mode");
+            bootloader = false;
+            focus.in_bootloader = false; // force it to be false, even though we have a pid that matches the bootloader
+          } else {
+            console.log("Device is in DFU mode");
+            bootloader = true;
+          }
+        } catch (e) {
+          logger.log("Device is in DFU mode (failed to get help)");
+          console.log("Error sending help command", e);
+          bootloader = true;
+        }
+      }
       if (!found) continue;
+    }
+
+    if (!deviceFound) {
+      logger.log("No matching device found for VID/PID:", dVid, dPid);
+      await serialPort.close();
+      return null;
     }
 
     return focus;

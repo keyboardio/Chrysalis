@@ -260,24 +260,40 @@ const FirmwareUpdate = (props) => {
   };
 
   const connectToBootloaderPort = async () => {
-    const bootloaderVid = focusDeviceDescriptor?.usb?.bootloader?.vendorId;
-    const bootloaderPid = focusDeviceDescriptor?.usb?.bootloader?.productId;
-    logger.log("bootloaderVid", bootloaderVid);
-    logger.log("bootloaderPid", bootloaderPid);
-
-    if (bootloaderProtocol == "avr109" || bootloaderProtocol == "nrfdfu") {
-      const focus = await connectToSerialport(bootloaderVid, bootloaderPid);
-      return focus;
-    } else if (bootloaderProtocol == "dfu") {
-      const focus = await connectToDfuUsbPort(bootloaderVid, bootloaderPid);
-      if (focus) {
-        // Store the USB device reference for flashing
-        setUsbDevice(focus._port);
-        return focus;
-      }
-    } else {
-      logger.warn("Unsupported bootloader protocol:", bootloaderProtocol);
+    // Get all possible bootloader configurations
+    const bootloaderConfigs = [];
+    
+    // Add bootloaders from the array if it exists
+    if (focusDeviceDescriptor?.usb?.bootloaders) {
+      bootloaderConfigs.push(...focusDeviceDescriptor.usb.bootloaders);
     }
+    
+    // Add legacy bootloader configuration if it exists
+    if (focusDeviceDescriptor?.usb?.bootloader) {
+      bootloaderConfigs.push(focusDeviceDescriptor.usb.bootloader);
+    }
+
+    // Try each bootloader configuration
+    for (const bootloader of bootloaderConfigs) {
+      const bootloaderVid = bootloader.vendorId;
+      const bootloaderPid = bootloader.productId;
+      logger.log("Trying bootloader config:", { vid: bootloaderVid, pid: bootloaderPid });
+
+      if (bootloader.protocol === "avr109" || bootloader.protocol === "nrfdfu") {
+        const focus = await connectToSerialport(bootloaderVid, bootloaderPid);
+        if (focus) return focus;
+      } else if (bootloader.protocol === "dfu") {
+        const focus = await connectToDfuUsbPort(bootloaderVid, bootloaderPid);
+        if (focus) {
+          // Store the USB device reference for flashing
+          setUsbDevice(focus._port);
+          return focus;
+        }
+      } else {
+        logger.warn("Unsupported bootloader protocol:", bootloader.protocol);
+      }
+    }
+
     return null;
   };
 

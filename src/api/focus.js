@@ -97,6 +97,11 @@ class Focus {
   }
 
   async closePort() {
+    // If port is not defined, nothing to close
+    if (!this._port) {
+      return;
+    }
+
     // Attempt to cancel and release any existing reader locks
     if (this._port.readable && this._port.readable.locked) {
       const reader = this._port.readable.getReader();
@@ -191,16 +196,26 @@ class Focus {
     const dVid = info.usbVendorId;
     const dPid = info.usbProductId;
 
-    if (
-      deviceDescriptor.usb.bootloader &&
-      dPid == deviceDescriptor.usb.bootloader.productId &&
-      dVid == deviceDescriptor.usb.bootloader.vendorId
-    ) {
-      this.in_bootloader = true;
-    } else {
-      this.in_bootloader = false;
+    // Check if device is in bootloader mode
+    let in_bootloader = false;
+
+    // Check bootloaders array first
+    if (deviceDescriptor.usb?.bootloaders) {
+      in_bootloader = deviceDescriptor.usb.bootloaders.some(
+        (bootloader) =>
+          dPid === bootloader.productId && dVid === bootloader.vendorId
+      );
     }
 
+    // If not found in bootloaders array, check legacy bootloader configuration
+    if (!in_bootloader && deviceDescriptor.usb?.bootloader) {
+      in_bootloader = (
+        dPid === deviceDescriptor.usb.bootloader.productId &&
+        dVid === deviceDescriptor.usb.bootloader.vendorId
+      );
+    }
+
+    this.in_bootloader = in_bootloader;
     this.focusDeviceDescriptor = deviceDescriptor;
 
     this.resetDeviceState();
@@ -208,6 +223,13 @@ class Focus {
   }
 
   async close() {
+    if (!this._port) {
+      this.focusDeviceDescriptor = null;
+      this.in_bootloader = false;
+      this.resetDeviceState();
+      return;
+    }
+
     await this.closePort();
     this._port = null;
     this._parser = null;

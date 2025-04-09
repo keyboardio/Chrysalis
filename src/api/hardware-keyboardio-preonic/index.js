@@ -40,7 +40,19 @@ const Preonic = {
   },
   usb: {
     vendorId: 0x3496,
-    productId: 0x00a0,
+    productId: 0x00a1,
+    bootloaders: [
+      {
+        vendorId: 0x3496,
+        productId: 0x00a3,
+        protocol: "nrfdfu",
+      },
+      {
+        vendorId: 0x3496,
+        productId: 0x00a0,
+        protocol: "nrfdfu",
+      }
+    ],
     bootloader: {
       vendorId: 0x3496,
       productId: 0x00a3,

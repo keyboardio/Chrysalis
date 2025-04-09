@@ -146,9 +146,12 @@ const flash = async (port, fileContents, onProgress) => {
         try {
           await transport.open();
           logger.debug("Port opened successfully");
+          
+          // Short delay after opening to ensure port is stable
+          await delay(1000);
         } catch (e) {
           logger.error("Error opening port", { error: e });
-          reject(e);
+          reject(new Error(`Failed to open port: ${e.message}`));
           return;
         }
 

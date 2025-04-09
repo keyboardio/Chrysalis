@@ -55,8 +55,7 @@ class Dfu {
     this.dfuTransport.registerEventsCallback(DfuEvent.TIMEOUT_EVENT, this.timeoutEventHandler.bind(this));
     this.dfuTransport.registerEventsCallback(DfuEvent.ERROR_EVENT, this.errorEventHandler.bind(this));
     
-    // Bind progress event to show in UI
-    this.dfuTransport.registerEventsCallback(DfuEvent.PROGRESS_EVENT, this.progressEventHandler.bind(this));
+    // We don't register a progress handler to avoid infinite recursion
   }
   
   /**
@@ -101,17 +100,21 @@ class Dfu {
   }
   
   /**
-   * Progress event handler
-   * @param {Object} data - Event data
+   * Send a progress update safely (without recursion)
+   * @param {number} progress - Progress percentage (0-100)
+   * @param {string} message - Optional status message
+   * @param {boolean} done - Whether the process is complete
    */
-  progressEventHandler(data = {}) {
-    if (data.progress !== undefined) {
-      // Forward progress to any listeners
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, {
-        progress: data.progress,
-        done: data.done || false
-      });
-    }
+  sendProgressUpdate(progress, message = null, done = false) {
+    // Log progress to console
+    console.log(`[DFU] Progress: ${progress}%${message ? ` - ${message}` : ''}`);
+    
+    // Send progress event
+    this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, {
+      progress,
+      message,
+      done
+    });
   }
   
   /**
@@ -134,17 +137,27 @@ class Dfu {
       
       // First try to ping the device to ensure it's responsive
       console.log('[DFU] Sending ping to test device responsiveness');
-      const pingResult = await this.dfuTransport.sendPing().catch(err => {
-        console.log('[DFU] Ping failed:', err);
-        return false;
-      });
       
-      if (!pingResult) {
+      try {
+        await this.dfuTransport.sendPing();
+        console.log('[DFU] Ping successful, device is responsive');
+      } catch (err) {
+        console.error('[DFU] Ping failed:', err);
+        
+        // Provide more detailed error message
+        let errorMsg = 'Device not responding to ping. ';
+        
+        if (err.message.includes('Port is not open') || err.message.includes('not writable')) {
+          errorMsg += 'Port connection lost. Please reconnect the device.';
+        } else if (err.message.includes('Timeout')) {
+          errorMsg += 'Make sure the device is in DFU mode and try again.';
+        } else {
+          errorMsg += `Error: ${err.message}`;
+        }
+        
         console.error('[DFU] Ping failed, device may not be in DFU mode');
-        throw new Error('Device not responding to ping. Ensure it is in DFU mode.');
+        throw new Error(errorMsg);
       }
-      
-      console.log('[DFU] Ping successful, device is responsive');
       
       // Check if we have any firmware in the manifest
       if (!this.manifest) {
@@ -175,11 +188,7 @@ class Dfu {
       console.log('[DFU] All firmware images sent successfully');
       
       // Report full completion via event
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, {
-        progress: 100,
-        done: true,
-        message: "DFU process completed successfully"
-      });
+      this.sendProgressUpdate(100, "DFU process completed successfully", true);
       
       // Close the transport
       console.log('[DFU] Closing transport...');
@@ -219,7 +228,7 @@ class Dfu {
     try {
       // Phase 1: Start DFU Process - This may cause device reset
       console.log('[DFU] Phase 1: Sending DFU start command');
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { progress: 10, message: "Initializing DFU process" });
+      this.sendProgressUpdate(10, "Initializing DFU process");
       
       // Find a firmware image to send
       let firmwareManifest = null;
@@ -258,7 +267,7 @@ class Dfu {
       
       try {
         // Try to send DFU start command
-        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { progress: 15, message: "Sending DFU start command" });
+        this.sendProgressUpdate(15, "Sending DFU start command");
         await this.dfuTransport.sendStartDfu(
           firmwareType, 
           firmwareType === HexType.SOFTDEVICE ? firmware.byteLength : 0,
@@ -288,10 +297,7 @@ class Dfu {
           // Non-fatal, continue
         }
         
-        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-          progress: 20, 
-          message: "Device has reset. Waiting for reconnection..." 
-        });
+        this.sendProgressUpdate(20, "Device has reset. Waiting for reconnection...");
         
         // Wait 3 seconds for device to reboot
         await new Promise(resolve => setTimeout(resolve, 3000));
@@ -308,10 +314,7 @@ class Dfu {
         
         // Connection reestablished
         console.log('[DFU] Device successfully reconnected');
-        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-          progress: 25, 
-          message: "Device reconnected successfully" 
-        });
+        this.sendProgressUpdate(25, "Device reconnected successfully");
         
         // Ping to verify connection
         try {
@@ -325,18 +328,12 @@ class Dfu {
       
       // Phase 3: Send init packet
       console.log('[DFU] Phase 3: Sending init packet');
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 30, 
-        message: "Sending initialization packet" 
-      });
+      this.sendProgressUpdate(30, "Sending initialization packet");
       await this.dfuTransport.sendInitPacket(initPacket);
       
       // Phase 4: Send firmware data
       console.log('[DFU] Phase 4: Sending firmware data');
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 40, 
-        message: "Sending firmware data" 
-      });
+      this.sendProgressUpdate(40, "Sending firmware data");
       await this.dfuTransport.sendFirmware(new Uint8Array(firmware));
       
       // Phase 5: Validate and activate (if device is still connected)
@@ -347,35 +344,23 @@ class Dfu {
       
       if (deviceStillConnected) {
         // Device is still connected, try to validate and activate
-        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-          progress: 90, 
-          message: "Validating firmware" 
-        });
+        this.sendProgressUpdate(90, "Validating firmware");
         
         try {
           await this.dfuTransport.sendValidateFirmware();
           
-          this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-            progress: 95, 
-            message: "Activating new firmware" 
-          });
+          this.sendProgressUpdate(95, "Activating new firmware");
           
           await this.dfuTransport.sendActivateFirmware();
         } catch (error) {
           // If validation or activation fails because device disconnected, that's fine
           console.log('[DFU] Device disconnected during validation/activation, which is expected:', error.message);
-          this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-            progress: 95, 
-            message: "Device is resetting with new firmware" 
-          });
+          this.sendProgressUpdate(95, "Device is resetting with new firmware");
         }
       } else {
         // Device already disconnected after STOP_DATA_PACKET, which is fine!
         console.log('[DFU] Device already disconnected after firmware transfer (expected behavior)');
-        this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-          progress: 95, 
-          message: "Device is resetting with new firmware" 
-        });
+        this.sendProgressUpdate(95, "Device is resetting with new firmware");
       }
       
       // Success! If we made it this far, the transfer was successful
@@ -383,10 +368,7 @@ class Dfu {
       console.log('[DFU] Firmware sent successfully');
       
       // Final progress update
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 98, 
-        message: "Firmware update completed" 
-      });
+      this.sendProgressUpdate(98, "Firmware update completed");
       
     } catch (error) {
       console.error('[DFU] Error during DFU process:', error);
@@ -549,10 +531,7 @@ class Dfu {
     console.log(`[DFU] Starting DFU upgrade of type ${programMode}, SoftDevice size: ${softdeviceSize}, bootloader size: ${bootloaderSize}, application size: ${applicationSize}`);
     
     // Send progress update
-    this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-      progress: 10, 
-      message: `Starting firmware transfer (${(firmware.byteLength / 1024).toFixed(1)} KB)` 
-    });
+    this.sendProgressUpdate(10, `Starting firmware transfer (${(firmware.byteLength / 1024).toFixed(1)} KB)`);
     
     // Send DFU start packet
     try {
@@ -562,47 +541,32 @@ class Dfu {
       
       // Send init packet
       console.log("[DFU] Sending DFU init packet...");
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 20, 
-        message: "Sending initialization packet" 
-      });
+      this.sendProgressUpdate(20, "Sending initialization packet");
       await this.dfuTransport.sendInitPacket(initPacket);
       console.log('[DFU] Init packet sent successfully');
       
       // Send firmware
       console.log("[DFU] Sending firmware file...");
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 30, 
-        message: "Sending firmware data" 
-      });
+      this.sendProgressUpdate(30, "Sending firmware data");
       await this.dfuTransport.sendFirmware(new Uint8Array(firmware));
       console.log('[DFU] Firmware sent successfully');
       
       // Validate firmware
       console.log("[DFU] Validating firmware...");
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 90, 
-        message: "Validating firmware" 
-      });
+      this.sendProgressUpdate(90, "Validating firmware");
       await this.dfuTransport.sendValidateFirmware();
       console.log('[DFU] Firmware validated successfully');
       
       // Activate firmware
       console.log("[DFU] Activating new firmware...");
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 95, 
-        message: "Activating new firmware" 
-      });
+      this.sendProgressUpdate(95, "Activating new firmware");
       await this.dfuTransport.sendActivateFirmware();
       console.log('[DFU] Firmware activation command sent');
       
       // Wait after activating
       const activateWaitTime = this.dfuTransport.getActivateWaitTime();
       console.log(`[DFU] Waiting ${(activateWaitTime/1000).toFixed(1)} seconds after activating`);
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 97, 
-        message: `Waiting for device to activate firmware (${(activateWaitTime/1000).toFixed(1)}s)` 
-      });
+      this.sendProgressUpdate(97, `Waiting for device to activate firmware (${(activateWaitTime/1000).toFixed(1)}s)`);
       await new Promise(resolve => setTimeout(resolve, activateWaitTime));
       console.log('[DFU] Finished waiting for activation');
       
@@ -610,10 +574,7 @@ class Dfu {
       const endTime = Date.now();
       const totalTime = (endTime - startTime) / 1000;
       console.log(`[DFU] DFU upgrade completed in ${totalTime.toFixed(1)}s`);
-      this.dfuTransport._sendEvent(DfuEvent.PROGRESS_EVENT, { 
-        progress: 100, 
-        message: `Firmware update completed in ${totalTime.toFixed(1)} seconds` 
-      });
+      this.sendProgressUpdate(100, `Firmware update completed in ${totalTime.toFixed(1)} seconds`, true);
       
     } catch (error) {
       console.error("[DFU] Error during DFU process:", error);

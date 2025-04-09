@@ -127,7 +127,7 @@ class DfuTransportSerial {
   static DEFAULT_BAUD_RATE = 115200;
   static DEFAULT_FLOW_CONTROL = false;
   static DEFAULT_SERIAL_PORT_TIMEOUT = 1.0;  // Timeout on serial port read
-  static ACK_PACKET_TIMEOUT = 5000;          // ms
+  static ACK_PACKET_TIMEOUT = 10000;         // ms - increased for better reliability
   static SERIAL_PORT_OPEN_WAIT_TIME = 0.1;   // seconds
   static DTR_RESET_WAIT_TIME = 0.1;          // seconds
   
@@ -329,10 +329,8 @@ class DfuTransportSerial {
           console.log('[SERIAL] Skipping DTR reset (device already in bootloader mode)');
         }
         
-        // Start reading from the port
-        console.log('[SERIAL] Starting continuous reading...');
-  //      await this._startReading();
-        console.log('[SERIAL] Continuous reading started');
+        // We don't need continuous reading - we read when needed in getAckNr()
+        console.log('[SERIAL] Using on-demand reading strategy');
         
       } catch (e) {
         console.error('[SERIAL] Error opening serial port:', e);
@@ -460,33 +458,56 @@ console.log("Error " + e);
   async close() {
     // Don't try to close if already closing
     if (this.isClosing) {
+      this.logger.info("[SERIAL] Already closing, skipping duplicate close");
       return;
     }
     
     // Nothing to close if no port
     if (!this.port) {
+      this.logger.info("[SERIAL] No port to close");
       return;
     }
     
     this.isClosing = true;
     this.logger.info("[SERIAL] Closing serial transport...");
     
-    // Stop continuous reading - must be done before closing the port
-    await this._stopReading();
-    
-    // Close the port
-    if (this.port) {
-      try {
-        await this.port.close();
-        this.logger.info("[SERIAL] Serial port closed");
-      } catch (e) {
-        this.logger.error(`[SERIAL] Error closing port: ${e.message}`);
+    try {
+      // Make sure writer is closed
+      if (this.writer) {
+        try {
+          this.writer.releaseLock();
+        } catch (e) {
+          // Ignore release lock errors
+        }
+        this.writer = null;
       }
-      this.port = null;
+      
+      // Make sure reader is closed
+      if (this.reader) {
+        try {
+          this.reader.releaseLock();
+        } catch (e) {
+          // Ignore release lock errors
+        }
+        this.reader = null;
+      }
+      
+      // Close the port
+      if (this.port) {
+        try {
+          await this.port.close();
+          this.logger.info("[SERIAL] Serial port closed");
+        } catch (e) {
+          this.logger.error(`[SERIAL] Error closing port: ${e.message}`);
+        }
+        this.port = null;
+      }
+    } catch (e) {
+      this.logger.error(`[SERIAL] Error during close: ${e.message}`);
+    } finally {
+      this.receivedData = [];
+      this.isClosing = false;
     }
-    
-    this.receivedData = [];
-    this.isClosing = false;
   }
   
   /**
@@ -637,30 +658,71 @@ console.log("Error " + e);
     
     this.logger.info(`[RECV] Waiting for ACK with timeout of ${timeoutMs/1000} seconds`);
     
-    // Wait for data with two SLIP_END markers
-    while (this.receivedData.filter(b => b === SLIP.SLIP_END).length < 2) {
-      if (isTimeout(startTime, timeoutMs)) {
-        const elapsed = (Date.now() - startTime) / 1000;
-        this.logger.error(`[RECV] TIMEOUT after ${elapsed.toFixed(3)} seconds`);
-        
-        if (this.receivedData.length > 0) {
-          this.logger.error(`[RECV] Buffer contents (${this.receivedData.length} bytes): ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`);
-        } else {
-          this.logger.error("[RECV] Buffer is empty");
+    // Read data directly from port using a temporary reader
+    try {
+      this.receivedData = [];
+      const reader = this.port.readable.getReader();
+      
+      // Wait for data with two SLIP_END markers
+      while (this.receivedData.filter(b => b === SLIP.SLIP_END).length < 2) {
+        if (isTimeout(startTime, timeoutMs)) {
+          // Release the reader before timeout
+          try {
+            reader.releaseLock();
+          } catch (e) {
+            // Ignore release lock errors
+          }
+          
+          const elapsed = (Date.now() - startTime) / 1000;
+          this.logger.error(`[RECV] TIMEOUT after ${elapsed.toFixed(3)} seconds`);
+          
+          if (this.receivedData.length > 0) {
+            this.logger.error(`[RECV] Buffer contents (${this.receivedData.length} bytes): ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`);
+          } else {
+            this.logger.error("[RECV] Buffer is empty");
+          }
+          
+          // Reset HciPacket numbering back to 0
+          HciPacket.sequenceNumber = 0;
+          
+          this._sendEvent(DfuEvent.TIMEOUT_EVENT, {
+            message: "Timed out waiting for acknowledgement from device."
+          });
+          
+          throw new Error("Timeout waiting for ACK");
         }
         
-        // Reset HciPacket numbering back to 0
-        HciPacket.sequenceNumber = 0;
+        // Try to read some data
+        const { value, done } = await reader.read();
         
-        this._sendEvent(DfuEvent.TIMEOUT_EVENT, {
-          message: "Timed out waiting for acknowledgement from device."
-        });
+        if (done) {
+          this.logger.error("[RECV] Reader was closed unexpectedly");
+          reader.releaseLock();
+          throw new Error("Reader was closed unexpectedly");
+        }
         
-        throw new Error("Timeout waiting for ACK");
+        if (value && value.length > 0) {
+          // Add to received data buffer
+          this.receivedData.push(...Array.from(value));
+          
+          if (DfuTransportSerial.DETAILED_DEBUG) {
+            this.logger.info(`[RECV] Received ${value.length} bytes: ${BinaryUtils.formatBytes(value)}`);
+          }
+        } else {
+          // Short wait to avoid CPU spinning if no data arrived
+          await new Promise(resolve => setTimeout(resolve, 5));
+        }
       }
       
-      // Short wait to allow more data to arrive
-      await new Promise(resolve => setTimeout(resolve, 10));
+      // Release the reader after we're done
+      reader.releaseLock();
+      
+    } catch (e) {
+      if (!isTimeout(startTime, timeoutMs)) {
+        this.logger.error(`[RECV] Error reading from serial port: ${e.message}`);
+        throw e;
+      }
+      // If it's a timeout error, we'll handle it in the main code
     }
     
     const elapsed = (Date.now() - startTime) / 1000;
@@ -770,6 +832,12 @@ console.log("Error " + e);
     this.logger.info("[DFU] Sending ping packet to test device");
     
     try {
+      if (!this.port || !this.port.writable) {
+        console.error('[SERIAL] Cannot send ping: port is not open or not writable');
+        this.logger.error("[SERIAL] Cannot send ping: port is not open or not writable");
+        throw new Error("Port is not open or not writable");
+      }
+      
       // Simple ping packet with no data
       const frameData = BinaryUtils.int32ToBytes(2); // Packet type 2 for PING
       const packet = new HciPacket(frameData, "PING");
@@ -785,7 +853,10 @@ console.log("Error " + e);
       return true;
     } catch (error) {
       console.error('[SERIAL] Error sending ping:', error);
-      return false;
+      this.logger.error(`[SERIAL] Error sending ping: ${error.message}`);
+      
+      // Throw the error so it can be handled by the caller
+      throw new Error(`Device not responding to ping. Ensure it is in DFU mode. Error: ${error.message}`);
     }
   }
   

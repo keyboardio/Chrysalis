@@ -80,7 +80,7 @@ export const supportedDeviceVIDPIDs = () => {
       }
     }
   }
-
+ console.log(result);
   return result;
 };
 

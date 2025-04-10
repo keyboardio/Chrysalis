@@ -23,7 +23,7 @@ export const SpecialModifiers = (props) => {
       props.onKeyChange(
         event.target.checked
           ? key.code - c.FIRST_MODIFIER + c.FIRST_ONESHOT_MODIFIER
-          : key.code - key.rangeStart + c.FIRST_MODIFIER
+          : key.code - key.rangeStart + c.FIRST_MODIFIER,
       );
     } else {
       props.onKeyChange(event.target.checked ? addModifier(key.code, mod) : removeModifier(key.code, mod));

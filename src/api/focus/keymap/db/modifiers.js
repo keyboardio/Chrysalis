@@ -60,7 +60,7 @@ const setModifiersLabel = (key, mods) => {
       full: acc.full + modifiers[mod].label.full,
       "1u": acc["1u"] + modifiers[mod].label["1u"],
     }),
-    { full: "", "1u": "" }
+    { full: "", "1u": "" },
   );
 
   return { hint: hint, base: baseLabel };
@@ -88,7 +88,7 @@ const generateModifierCombinations = () => {
 
             for (let n = m + 1; n < modKeys.length; n++) {
               combinations.push(
-                createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l], modKeys[m], modKeys[n]])
+                createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l], modKeys[m], modKeys[n]]),
               );
             }
           }

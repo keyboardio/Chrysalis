@@ -104,14 +104,11 @@ const Keymap = (props) => {
     if (isRotaryKey) {
       const ccwIndex = [0, 4];
       const cwIndex = [0, 5];
-      console.log("Expanded Rotary: ", expandedRotary);
       const ccwKey = getKey(ccwIndex[0], ccwIndex[1]);
       const cwKey = getKey(cwIndex[0], cwIndex[1]);
       const cwLegend = cwKey && db.format(cwKey, { layerNames: props.layerNames });
       const ccwLegend = ccwKey && db.format(ccwKey, { layerNames: props.layerNames });
 
-      console.log("CW Legend: ", cwLegend);
-      console.log("CCW Legend: ", ccwLegend);
       if (expandedRotary) {
         // Add click handler to close expanded view when clicking outside
         const handleClickOutside = (e) => {

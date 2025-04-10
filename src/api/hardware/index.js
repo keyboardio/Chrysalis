@@ -25,8 +25,17 @@ export function getDeviceProtocol(vid, pid) {
       }
 
       // Check bootloader vid/pid
-      if (device.usb.bootloader.vendorId === vid && device.usb.bootloader.productId === pid) {
-        return device.usb.bootloader.protocol; // Returns 'avr109' or 'dfu' or any other bootloader protocol
+      if (device.usb.bootloaders) {
+        // Check all bootloader configurations
+        for (const bootloader of device.usb.bootloaders) {
+          if (bootloader.vendorId === vid && bootloader.productId === pid) {
+            return bootloader.protocol;
+          }
+        }
+      }
+      // Fallback to legacy bootloader configuration
+      if (device.usb.bootloader && device.usb.bootloader.vendorId === vid && device.usb.bootloader.productId === pid) {
+        return device.usb.bootloader.protocol;
       }
     }
   }
@@ -70,7 +79,17 @@ export const supportedDeviceVIDPIDs = () => {
         productName: device.info.product,
       });
 
-      // For bootloader vid/pid pair
+      // For bootloader vid/pid pairs
+      if (device.usb.bootloaders) {
+        for (const bootloader of device.usb.bootloaders) {
+          result.push({
+            usbVendorId: bootloader.vendorId,
+            usbProductId: bootloader.productId,
+            productName: device.info.product,
+          });
+        }
+      }
+      // Fallback to legacy bootloader configuration
       if (device.usb.bootloader) {
         result.push({
           usbVendorId: device.usb.bootloader.vendorId,
@@ -80,7 +99,7 @@ export const supportedDeviceVIDPIDs = () => {
       }
     }
   }
-
+  console.log(result);
   return result;
 };
 

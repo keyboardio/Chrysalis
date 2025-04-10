@@ -25,10 +25,19 @@ export const connectToDfuUsbPort = async (targetVid, targetPid) => {
       focus._port = usb;
 
       // Find the matching device from Hardware.devices
-      const matchingDevice = Hardware.devices.find(
-        (device) =>
-          device.usb?.bootloader?.vendorId === usb.vendorId && device.usb?.bootloader?.productId === usb.productId
-      );
+      const matchingDevice = Hardware.devices.find((device) => {
+        if (!device.usb) return false;
+
+        // Check bootloaders array first
+        if (device.usb.bootloaders) {
+          return device.usb.bootloaders.some(
+            (bootloader) => bootloader.vendorId === usb.vendorId && bootloader.productId === usb.productId,
+          );
+        }
+
+        // Fallback to legacy bootloader configuration
+        return device.usb.bootloader?.vendorId === usb.vendorId && device.usb.bootloader?.productId === usb.productId;
+      });
 
       if (matchingDevice) {
         // Set the full device descriptor

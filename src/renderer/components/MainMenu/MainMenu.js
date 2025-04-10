@@ -108,7 +108,7 @@ function MainMenu({ open, closeMenu, classes }) {
               <KeyboardIcon />,
               activeDevice?.hasCustomizableLEDMaps() ? t("app.menu.editor") : t("app.menu.layoutEditor"),
 
-              "/editor"
+              "/editor",
             )}
           {activeDevice && listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
           {activeDevice && listItem(<InfoIcon />, t("app.menu.importExport"), "/import-export")}
@@ -121,7 +121,7 @@ function MainMenu({ open, closeMenu, classes }) {
         {listItem(
           <KeyboardIcon />,
           connected ? t("app.menu.connectAnotherKeyboard") : t("app.menu.connectAKeyboard"),
-          "/keyboard-select"
+          "/keyboard-select",
         )}
         {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}
       </List>

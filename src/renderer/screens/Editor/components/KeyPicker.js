@@ -353,6 +353,11 @@ export const KeyPicker = (props) => {
             <Grid container spacing={2}>
               <Grid item xs>
                 <FKPCategorySelector category="ledkeys" disabled={ledKeysDisabled} {...sharedProps} />
+                <FKPCategorySelector plugin="LEDBrightnessControl"
+                  keyCodes={[
+                    constants.codes.LED_BRIGHTNESS_UP,
+                    constants.codes.LED_BRIGHTNESS_DOWN,
+                  ]} {...sharedProps} />
               </Grid>
               <VerticalSectionDivider />
 

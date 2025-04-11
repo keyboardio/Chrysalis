@@ -444,7 +444,6 @@ class Focus {
     "help",
     "version",
     "plugins",
-    "eeprom.contents",
     "eeprom.free",
     "settings.valid?",
     "settings.version",

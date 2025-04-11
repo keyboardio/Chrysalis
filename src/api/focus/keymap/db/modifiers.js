@@ -5,7 +5,7 @@ const ALT_FLAG = 1 << 9;
 const ALTGR_FLAG = 1 << 10;
 const SHIFT_FLAG = 1 << 11;
 const GUI_FLAG = 1 << 12;
-const TOPSYTURVY_FLAG = (1 << 15) | (1 << 0) | (1 << 1);
+const TOPSYTURVY_FLAG = 53293;
 
 const modifiers = {
   ctrl: { keycode_flags: CTRL_FLAG, label: { full: "Ctrl+", "1u": "C+" } },

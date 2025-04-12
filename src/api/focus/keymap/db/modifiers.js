@@ -67,7 +67,7 @@ const setModifiersLabel = (key, mods) => {
 };
 
 const generateModifierCombinations = () => {
-  const modKeys = ["ctrl", "alt", "altgr", "shift", "gui", "topsyturvy"];
+  const modKeys = ["ctrl", "alt", "altgr", "shift", "gui"];
   const combinations = [];
 
   // Nested loops to generate all combinations
@@ -84,18 +84,18 @@ const generateModifierCombinations = () => {
           combinations.push(createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l]]));
 
           for (let m = l + 1; m < modKeys.length; m++) {
-            combinations.push(createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l], modKeys[m]]));
-
-            for (let n = m + 1; n < modKeys.length; n++) {
-              combinations.push(
-                createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l], modKeys[m], modKeys[n]]),
-              );
-            }
+            combinations.push(
+              createModCombination([modKeys[i], modKeys[j], modKeys[k], modKeys[l], modKeys[m]]),
+            );
           }
         }
       }
     }
   }
+
+  // TT can't be combined with other mods because its
+  // keycode range would collide with DynamicMacros or other keys.
+  combinations.push(createModCombination(["topsyturvy"]));
 
   return combinations;
 };

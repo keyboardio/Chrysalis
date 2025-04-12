@@ -192,7 +192,7 @@
         },
         "topsyturvy": {
           "label": "Invert Shift",
-          "tooltip": "Invert the behavior of the Shift key. (For example, send 'A' when unshifted and 'a' when shifted)"
+          "tooltip": "Invert the behavior of the Shift key. (For example, send 'A' when unshifted and 'a' when shifted). This cannot be combined with other modifiers."
         }
       },
       "layer": {

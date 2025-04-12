@@ -12,4 +12,4 @@ This is Chrysalis, the graphical configuration tool for Keyboardio's Model 100, 
 - Factory reset
 
 ## Last Updated
-2025.0410.0121
+2025.0412.0040

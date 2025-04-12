@@ -144,7 +144,6 @@ class DfuTransportSerial {
    * @param {Object} options - Configuration options
    */
   constructor(options = {}) {
-    this.port = null;
     this.reader = null;
     this.writer = null;
     this.readingContinuously = false;
@@ -158,6 +157,7 @@ class DfuTransportSerial {
     this.timeout = options.timeout || DfuTransportSerial.DEFAULT_SERIAL_PORT_TIMEOUT;
     this.skipDtrReset = options.skipDtrReset || false; // New option to skip DTR reset
 
+    this.port = options.port || null; 
     this.totalSize = 167936; // default is max application size
     this.sdSize = 0;
 
@@ -168,40 +168,13 @@ class DfuTransportSerial {
     };
 
     this.logger = {
-      log: (message) => {
-        console.log(message);
-        this._logToUI("info", message);
-      },
-      error: (message) => {
-        console.error(message);
-        this._logToUI("error", message);
-      },
-      warn: (message) => {
-        console.warn(message);
-        this._logToUI("warning", message);
-      },
-      info: (message) => {
-        console.info(message);
-        this._logToUI("info", message);
-      },
+      log: (message) => console.log(message),
+      error: (message) => console.error(message),
+      warn: (message) => console.warn(message),
+      info: (message) => console.info(message),
+      debug: (message) => console.debug(message),
     };
-  }
-
-  /**
-   * Log message to UI console if available
-   * @param {string} level - Log level
-   * @param {string} message - Log message
-   * @private
-   */
-  _logToUI(level, message) {
-    const consoleElement = document.getElementById("console");
-    if (consoleElement) {
-      const logElement = document.createElement("div");
-      logElement.className = `log log-${level}`;
-      logElement.textContent = message;
-      consoleElement.appendChild(logElement);
-      consoleElement.scrollTop = consoleElement.scrollHeight;
-    }
+    console.log("DfuTransportSerial constructor", { options });
   }
 
   /**
@@ -235,79 +208,79 @@ class DfuTransportSerial {
    * @returns {Promise<void>}
    */
   async open() {
-    console.log("[SERIAL] open() called");
-
-    // Don't try to open if already open or in the process of opening
+    console.log("DfuTransportSerial open");
     if (this.isOpen()) {
-      console.log("[SERIAL] Port is already open, returning early");
-      this.logger.warn("[SERIAL] Port is already open");
+      this.logger.warn("Port is already open");
       return;
     }
 
     if (this.isOpening) {
-      console.log("[SERIAL] Port is already in the process of opening, returning early");
-      this.logger.warn("[SERIAL] Port is already in the process of opening");
+      this.logger.warn("Port is already in the process of opening");
       return;
     }
 
     this.isOpening = true;
-    console.log("[SERIAL] Setting isOpening = true");
-    this.logger.info("[SERIAL] Opening serial transport...");
+    this.logger.info("Opening serial transport...");
 
     try {
-      // Log connection parameters
-      console.log("[SERIAL] Logging configuration parameters");
-      this.logger.info("[SERIAL] Configuration:");
-      this.logger.info(`[SERIAL] - Baud rate: ${this.baudRate}`);
-      this.logger.info(`[SERIAL] - Flow control: ${this.flowControl ? "Enabled" : "Disabled"}`);
-      this.logger.info(`[SERIAL] - Single bank mode: ${this.singleBank ? "Enabled" : "Disabled"}`);
+      this.logger.info(`Opening DFU port with baud rate ${this.baudRate}`);
 
       if (!navigator.serial) {
-        console.error("[SERIAL] WebSerial API not available in this browser");
-        throw new Error("WebSerial API not available. Use Chrome or Edge browser.");
+        throw new Error("WebSerial API not available. Use a browser that supports WebSerial.");
       }
 
       try {
-        console.log(`[SERIAL] Requesting serial port from user...`);
-        this.logger.info(`[SERIAL] Opening DFU port with baud rate ${this.baudRate}`);
         const startTime = Date.now();
+        console.log("DfuTransportSerial open try");
 
-        // Request port from user or use the one from touch if available
-        this.port = await navigator.serial.requestPort();
-        console.log("[SERIAL] User selected a port");
+        // If we already have a port, try to reopen it
+        if (this.port) {
+          try {
+            // Check if the port is already open
+            if (this.port.readable && this.port.writable) {
+              this.logger.info("Port is already open, skipping reopen");
+              return;
+            }
 
-        // Open port with DFU baud rate
-        console.log("[SERIAL] Opening port with settings:");
-        console.log(`[SERIAL] - Baud rate: ${this.baudRate}`);
-        console.log(`[SERIAL] - Flow control: ${this.flowControl ? "hardware" : "none"}`);
+            // Try to reopen the port
+            await this.port.open({
+              baudRate: this.baudRate,
+              flowControl: this.flowControl ? "hardware" : "none",
+              dataBits: 8,
+              stopBits: 1,
+              parity: "none",
+            });
 
-        await this.port.open({
-          baudRate: this.baudRate,
-          flowControl: this.flowControl ? "hardware" : "none",
-          dataBits: 8,
-          stopBits: 1,
-          parity: "none",
-        });
+            const openTime = (Date.now() - startTime) / 1000;
+            this.logger.info(`DFU port reopened successfully in ${openTime.toFixed(3)} seconds`);
+          } catch (error) {
+            this.logger.error(`Error reopening port: ${error.message}`);
+            throw error;
+          }
+        } else {
+          // Request a new port
+          this.port = await navigator.serial.requestPort();
 
-        console.log("[SERIAL] Port opened successfully");
-        const openTime = (Date.now() - startTime) / 1000;
-        this.logger.info(`[SERIAL] DFU port opened successfully in ${openTime.toFixed(3)} seconds`);
+          await this.port.open({
+            baudRate: this.baudRate,
+            flowControl: this.flowControl ? "hardware" : "none",
+            dataBits: 8,
+            stopBits: 1,
+            parity: "none",
+          });
 
-        // Short delay to ensure port is stable
-        console.log("[SERIAL] Waiting for port to stabilize...");
+          const openTime = (Date.now() - startTime) / 1000;
+          this.logger.info(`DFU port opened successfully in ${openTime.toFixed(3)} seconds`);
+        }
+
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         // Toggle DTR to reset the board and enter DFU mode (only if not already in bootloader mode)
         if (!this.touch && !this.skipDtrReset) {
-          console.log("[SERIAL] Toggling DTR to reset device and enter DFU mode");
-
           try {
             // Set DTR to false (device reset)
             await this.port.setSignals({ dataTerminalReady: false });
-            console.log("[SERIAL] Set DTR to false");
-            await new Promise((resolve) => setTimeout(resolve, 50)); // 50ms delay
-
-            // Set DTR back to true
+            await new Promise((resolve) => setTimeout(resolve, 50));
             await this.port.setSignals({ dataTerminalReady: true });
             console.log("[SERIAL] Set DTR to true");
 
@@ -324,19 +297,14 @@ class DfuTransportSerial {
         } else if (this.skipDtrReset) {
           console.log("[SERIAL] Skipping DTR reset (device already in bootloader mode)");
         }
-
-        // We don't need continuous reading - we read when needed in getAckNr()
-        console.log("[SERIAL] Using on-demand reading strategy");
       } catch (e) {
-        console.error("[SERIAL] Error opening serial port:", e);
         const errorMsg = `Serial port could not be opened. Reason: ${e.message}`;
-        this.logger.error(`[SERIAL] ${errorMsg}`);
+        this.logger.error(errorMsg);
         this.logger.error(e.stack);
         this.isOpening = false;
         throw new Error(errorMsg);
       }
     } catch (e) {
-      console.error("[SERIAL] Outer error handler:", e);
       this._sendEvent(DfuEvent.ERROR_EVENT, {
         message: `Failed to open serial port: ${e.message}`,
       });
@@ -344,9 +312,7 @@ class DfuTransportSerial {
       throw e;
     }
 
-    console.log("[SERIAL] Setting isOpening = false at end of open()");
     this.isOpening = false;
-    console.log("[SERIAL] open() completed successfully");
   }
 
   /**
@@ -354,22 +320,17 @@ class DfuTransportSerial {
    * @private
    */
   async _startReading() {
-    console.log("one");
     if (!this.port || this.readingContinuously) return;
-    console.log("two");
+    
     this.readingContinuously = true;
     this.receivedData = [];
 
     try {
+      this.logger.debug("[SERIAL] Acquiring readable stream lock for continuous reading");
       this.reader = this.port.readable.getReader();
-      console.log("three");
       while (this.readingContinuously) {
-        console.log(this);
         try {
-          console.log("three point five");
-
           const { value, done } = await this.reader.read();
-          console.log("four");
           if (done) {
             // Reader has been canceled
             break;
@@ -378,9 +339,8 @@ class DfuTransportSerial {
           if (value) {
             // Store received data
             this.receivedData.push(...Array.from(value));
-
             if (DfuTransportSerial.DETAILED_DEBUG) {
-              this.logger.info(`[RECV] Received ${value.length} bytes: ${BinaryUtils.formatBytes(value)}`);
+              this.logger.info(`Received ${value.length} bytes: ${BinaryUtils.formatBytes(value)}`);
             }
           }
         } catch (e) {
@@ -399,12 +359,13 @@ class DfuTransportSerial {
         }
       }
     } catch (e) {
-      this.logger.error(`[SERIAL] Error setting up reader: ${e.message}`);
+      this.logger.error(`Error setting up reader: ${e.message}`);
     } finally {
       this.readingContinuously = false;
       try {
         if (this.reader) {
           try {
+            this.logger.debug("[SERIAL] Releasing readable stream lock after continuous reading");
             this.reader.releaseLock();
           } catch (e) {
             // Ignore release lock errors
@@ -429,6 +390,7 @@ class DfuTransportSerial {
     this.readingContinuously = false;
 
     try {
+      this.logger.debug("[SERIAL] Canceling reader and releasing lock");
       await this.reader.cancel();
       // Short delay to ensure cancel completes
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -456,46 +418,47 @@ class DfuTransportSerial {
       return;
     }
 
-    // Nothing to close if no port
+    // Nothing to do if no port
     if (!this.port) {
       this.logger.info("[SERIAL] No port to close");
       return;
     }
 
     this.isClosing = true;
-    this.logger.info("[SERIAL] Closing serial transport...");
+    this.logger.info("[SERIAL] Releasing serial transport locks...");
+
+    // Helper function to safely release stream locks
+    const releaseStreamLock = async (stream, type) => {
+      if (!stream || !stream.locked) return;
+      
+      try {
+        const reader = stream.getReader();
+        try {
+          await reader.cancel();
+        } catch (error) {
+          this.logger.debug(`[SERIAL] Error canceling ${type} stream:`, error);
+        } finally {
+          reader.releaseLock();
+        }
+      } catch (error) {
+        this.logger.debug(`[SERIAL] Error releasing ${type} stream lock:`, error);
+      }
+    };
 
     try {
-      // Make sure writer is closed
-      if (this.writer) {
-        try {
-          this.writer.releaseLock();
-        } catch (e) {
-          // Ignore release lock errors
-        }
-        this.writer = null;
+      // Release readable stream lock
+      if (this.port.readable) {
+        await releaseStreamLock(this.port.readable, 'readable');
       }
 
-      // Make sure reader is closed
-      if (this.reader) {
-        try {
-          this.reader.releaseLock();
-        } catch (e) {
-          // Ignore release lock errors
-        }
-        this.reader = null;
+      // Release writable stream lock
+      if (this.port.writable) {
+        await releaseStreamLock(this.port.writable, 'writable');
       }
 
-      // Close the port
-      if (this.port) {
-        try {
-          await this.port.close();
-          this.logger.info("[SERIAL] Serial port closed");
-        } catch (e) {
-          this.logger.error(`[SERIAL] Error closing port: ${e.message}`);
-        }
-        this.port = null;
-      }
+      // Clear our references to the streams
+      this.reader = null;
+      this.writer = null;
     } catch (e) {
       this.logger.error(`[SERIAL] Error during close: ${e.message}`);
     } finally {
@@ -544,35 +507,24 @@ class DfuTransportSerial {
     let lastAck = null;
     let packetSent = false;
 
-    this.logger.info(`[SEND] Packet type: ${packet.packetType}`);
-    if (DfuTransportSerial.DETAILED_DEBUG) {
-      this.logger.info(`[SEND] Raw packet data: ${BinaryUtils.formatBytes(packet.data)}`);
-    }
-    this.logger.info(`[SEND] Packet length: ${packet.data.length} bytes`);
-
     const startTime = Date.now();
 
     try {
       while (!packetSent) {
         attempts++;
         const timestamp = new Date().toTimeString().split(" ")[0];
-        this.logger.info(`[${timestamp}][ATTEMPT ${attempts}] PC -> target: [${packet.data.length} bytes]`);
-
-        // Log CRC calculation details if available
-        if (packet.crcValue && DfuTransportSerial.DETAILED_DEBUG) {
-          this.logger.info(`[SEND] Packet CRC: 0x${packet.crcValue.toString(16).padStart(4, "0").toUpperCase()}`);
-        }
 
         // Write packet to serial port
         try {
           // Get writer and wait a moment
+          this.logger.debug("[SERIAL] Acquiring writable stream lock for sending packet");
           this.writer = this.port.writable.getWriter();
 
           // Write data
           await this.writer.write(packet.data);
-          this.logger.info(`[SEND] Wrote ${packet.data.length} bytes to serial port`);
 
           // Release writer
+          this.logger.debug("[SERIAL] Releasing writable stream lock after sending packet");
           this.writer.releaseLock();
           this.writer = null;
 
@@ -581,10 +533,8 @@ class DfuTransportSerial {
 
           // Get acknowledgement
           const ack = await this.getAckNr();
-          this.logger.info(`[RECV] Got ACK: ${ack}`);
 
           if (lastAck === null) {
-            this.logger.info("[SEND] First packet sent, no previous ACK to compare");
             lastAck = ack;
             packetSent = true;
             break;
@@ -593,7 +543,6 @@ class DfuTransportSerial {
           if (ack === (lastAck + 1) % 8) {
             lastAck = ack;
             packetSent = true;
-            this.logger.info(`[SEND] Packet sent successfully after ${attempts} attempts`);
           } else {
             this.logger.warn(`[SEND] Expected ACK ${(lastAck + 1) % 8} but got ${ack}`);
           }
@@ -603,6 +552,7 @@ class DfuTransportSerial {
           // Make sure writer lock is released if we have an error
           if (this.writer) {
             try {
+              this.logger.debug("[SERIAL] Releasing writable stream lock after error");
               this.writer.releaseLock();
             } catch (releaseLockError) {
               // Ignore release lock errors
@@ -629,9 +579,6 @@ class DfuTransportSerial {
       throw e;
     }
 
-    const elapsed = (Date.now() - startTime) / 1000;
-    this.logger.info(`[SEND] Packet transmission completed in ${elapsed.toFixed(3)} seconds`);
-
     // Clear the received data buffer
     this.receivedData = [];
 
@@ -650,11 +597,10 @@ class DfuTransportSerial {
     const startTime = Date.now();
     const timeoutMs = DfuTransportSerial.ACK_PACKET_TIMEOUT;
 
-    this.logger.info(`[RECV] Waiting for ACK with timeout of ${timeoutMs / 1000} seconds`);
-
     // Read data directly from port using a temporary reader
     try {
       this.receivedData = [];
+      this.logger.debug("[SERIAL] Acquiring readable stream lock for ACK");
       const reader = this.port.readable.getReader();
 
       // Wait for data with two SLIP_END markers
@@ -662,6 +608,7 @@ class DfuTransportSerial {
         if (isTimeout(startTime, timeoutMs)) {
           // Release the reader before timeout
           try {
+            this.logger.debug("[SERIAL] Releasing readable stream lock after timeout");
             reader.releaseLock();
           } catch (e) {
             // Ignore release lock errors
@@ -711,6 +658,7 @@ class DfuTransportSerial {
       }
 
       // Release the reader after we're done
+      this.logger.debug("[SERIAL] Releasing readable stream lock after ACK");
       reader.releaseLock();
     } catch (e) {
       if (!isTimeout(startTime, timeoutMs)) {
@@ -729,11 +677,7 @@ class DfuTransportSerial {
     }
 
     if (DfuTransportSerial.DETAILED_DEBUG) {
-      this.logger.info(
-        `[RECV] Received complete response after ${elapsed.toFixed(3)} seconds: ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`,
-      );
-    } else {
-      this.logger.info(`[RECV] Received complete response after ${elapsed.toFixed(3)} seconds`);
+      this.logger.info(  `[RECV] Received complete response after ${elapsed.toFixed(3)} seconds: ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`, );
     }
 
     try {
@@ -774,42 +718,6 @@ class DfuTransportSerial {
       // Extract and log packet fields
       if (trimmedData.length >= 1) {
         const ackNumber = (trimmedData[0] >> 3) & 0x07;
-        this.logger.info(`[RECV] ACK number: ${ackNumber}`);
-
-        // Extract other header fields if they exist
-        if (trimmedData.length >= 4 && DfuTransportSerial.DETAILED_DEBUG) {
-          const headerByte0 = trimmedData[0];
-          const headerByte1 = trimmedData[1];
-          const headerByte2 = trimmedData[2];
-          const headerByte3 = trimmedData[3];
-
-          const seqNum = headerByte0 & 0x07;
-          const ackNum = (headerByte0 >> 3) & 0x07;
-          const dataIntegrity = (headerByte0 >> 6) & 0x01;
-          const reliability = (headerByte0 >> 7) & 0x01;
-
-          const pktType = headerByte1 & 0x0f;
-          const pktLenLow = (headerByte1 >> 4) & 0x0f;
-          const pktLenHigh = headerByte2 & 0xff;
-          const pktLen = (pktLenHigh << 4) | pktLenLow;
-
-          const checksum = headerByte3;
-
-          this.logger.info("[RECV] Header breakdown:");
-          this.logger.info(`[RECV]   Sequence number: ${seqNum}`);
-          this.logger.info(`[RECV]   ACK number: ${ackNum}`);
-          this.logger.info(`[RECV]   Data integrity check: ${dataIntegrity}`);
-          this.logger.info(`[RECV]   Reliability bit: ${reliability}`);
-          this.logger.info(`[RECV]   Packet type: ${pktType}`);
-          this.logger.info(`[RECV]   Packet length: ${pktLen}`);
-          this.logger.info(`[RECV]   Header checksum: 0x${checksum.toString(16).padStart(2, "0").toUpperCase()}`);
-
-          // Validate checksum
-          const calculatedChecksum = (~(headerByte0 + headerByte1 + headerByte2) + 1) & 0xff;
-          this.logger.info(
-            `[RECV]   Calculated checksum: 0x${calculatedChecksum.toString(16).padStart(2, "0").toUpperCase()} ${calculatedChecksum === checksum ? "(MATCH)" : "(MISMATCH!)"}`,
-          );
-        }
 
         // Return ACK number
         return ackNumber;
@@ -828,34 +736,24 @@ class DfuTransportSerial {
    * @returns {Promise<boolean>} True if successful
    */
   async sendPing() {
-    console.log("[SERIAL] Sending PING command to test device responsiveness");
-    this.logger.info("[DFU] Sending ping packet to test device");
+    this.logger.info("Sending ping packet to test device");
 
     try {
       if (!this.port || !this.port.writable) {
-        console.error("[SERIAL] Cannot send ping: port is not open or not writable");
-        this.logger.error("[SERIAL] Cannot send ping: port is not open or not writable");
+        this.logger.error("Cannot send ping: port is not open or not writable");
         throw new Error("Port is not open or not writable");
       }
 
       // Simple ping packet with no data
       const frameData = BinaryUtils.int32ToBytes(2); // Packet type 2 for PING
       const packet = new HciPacket(frameData, "PING");
-
-      console.log("[SERIAL] Created ping packet");
-
-      // Send the ping packet
-      const result = await this.sendPacket(packet);
-
-      console.log("[SERIAL] Ping packet sent successfully, received ACK");
-      this.logger.info("[DFU] Device responded to ping");
-
+   // Send the ping packet
+    await this.sendPacket(packet);
+      this.logger.info("Device responded to ping");
       return true;
     } catch (error) {
-      console.error("[SERIAL] Error sending ping:", error);
-      this.logger.error(`[SERIAL] Error sending ping: ${error.message}`);
-
-      // Throw the error so it can be handled by the caller
+     // Throw the error so it can be handled by the caller
+      this.logger.error(`Error sending ping: ${error.message}`);
       throw new Error(`Device not responding to ping. Ensure it is in DFU mode. Error: ${error.message}`);
     }
   }
@@ -865,52 +763,42 @@ class DfuTransportSerial {
    * @returns {Promise<boolean>} True if successful
    */
   async sendValidateFirmware() {
-    this.logger.info("[DFU] Validating firmware...");
-    console.log("[SERIAL] Sending VALIDATE_FIRMWARE command to device");
+    this.logger.info("Validating firmware...");
 
     try {
       // Check if we're still connected
       if (!this.isOpen()) {
-        console.log("[SERIAL] Device already disconnected, validation skipped");
-        return true; // Return success since this is expected behavior
+        this.logger.info("Device already disconnected, validation skipped");
+        return true;
       }
 
       // Validate firmware requires sending a calculate checksum request
       const frameData = BinaryUtils.int32ToBytes(DfuProtocol.VALIDATE_FIRMWARE);
       const packet = new HciPacket(frameData, "VALIDATE_FIRMWARE");
-
-      console.log("[SERIAL] Created validation packet");
-
       // Send the validation packet with a shorter timeout (device might reset quickly)
       const originalTimeout = DfuTransportSerial.ACK_PACKET_TIMEOUT;
-      DfuTransportSerial.ACK_PACKET_TIMEOUT = 2000; // 2 seconds is enough for validation
+      DfuTransportSerial.ACK_PACKET_TIMEOUT = 2000;
 
       try {
         await this.sendPacket(packet);
-        console.log("[SERIAL] Validation packet sent successfully, received ACK");
-        this.logger.info("[DFU] Firmware validation successful");
+        this.logger.info("Firmware validation successful");
       } catch (error) {
-        // If the error is due to device disconnection, this is expected
         if (error.message.includes("device has been lost") || error.message.includes("Timeout waiting for ACK")) {
-          console.log("[SERIAL] Device disconnected during validation (expected behavior)");
-          return true; // Device has likely reset with new firmware, count as success
+          this.logger.info("Device disconnected during validation (expected)");
+          return true;
         }
-        throw error; // Re-throw other errors
+        throw error;
       } finally {
-        // Restore original timeout
         DfuTransportSerial.ACK_PACKET_TIMEOUT = originalTimeout;
       }
 
       return true;
     } catch (error) {
-      console.error("[SERIAL] Error validating firmware:", error);
-
-      // If this is a disconnection, it might be okay
+            // If this is a disconnection, it might be okay
       if (error.message.includes("device has been lost") || error.message.includes("Transport is not open")) {
-        console.log("[SERIAL] Device disconnected during validation process (expected behavior)");
-        return true; // Assume success
+        this.logger.info("Device disconnected during validation (expected)");
+        return true;
       }
-
       return false;
     }
   }
@@ -1008,35 +896,28 @@ class DfuTransportSerial {
    * @returns {Promise<void>}
    */
   async sendActivateFirmware() {
-    this.logger.info("[DFU] Activating new firmware...");
-    console.log("[SERIAL] Sending ACTIVATE_AND_RESET command to device");
+    this.logger.info("Activating new firmware...");
 
     // Check if we're still connected
     if (!this.isOpen()) {
-      console.log("[SERIAL] Device already disconnected, activation skipped");
-      this.logger.info("[DFU] Device already reset with new firmware");
-      return true; // Return success since this is expected behavior
+      this.logger.info("Device already disconnected, activation skipped");
+      return true;
     }
 
     try {
       // Send an ACTIVATE_AND_RESET command to the device
       const frameData = BinaryUtils.int32ToBytes(DfuProtocol.ACTIVATE_AND_RESET);
       const packet = new HciPacket(frameData, "ACTIVATE_AND_RESET");
-
-      console.log("[SERIAL] Created activation packet");
-
       // Use a shorter timeout for activation, as device will reset quickly
       const originalTimeout = DfuTransportSerial.ACK_PACKET_TIMEOUT;
-      DfuTransportSerial.ACK_PACKET_TIMEOUT = 1000; // 1 second is enough
+      DfuTransportSerial.ACK_PACKET_TIMEOUT = 1000;
 
       try {
-        // Send the activation packet
         await this.sendPacket(packet);
-        console.log("[SERIAL] Activation packet sent successfully");
       } catch (error) {
         // Expected behaviors: device disconnects or times out
         if (error.message.includes("device has been lost") || error.message.includes("Timeout waiting for ACK")) {
-          console.log("[SERIAL] Device reset after activation (expected)");
+          this.logger.info("Device reset after activation (expected)");
           return true;
         }
         throw error;
@@ -1044,23 +925,21 @@ class DfuTransportSerial {
         // Restore original timeout
         DfuTransportSerial.ACK_PACKET_TIMEOUT = originalTimeout;
       }
-
       // No ACK is expected for activation since the device resets
-      this.logger.info("[DFU] Device reset command sent successfully");
-
       // The device will now reset and run the new firmware
+      this.logger.info("Device reset command sent successfully");
       return true;
     } catch (error) {
       console.error("[SERIAL] Error sending activation command:", error);
 
       // This might fail because the device already reset, which is actually a good sign
       if (error.message.includes("Transport is not open") || error.message.includes("device has been lost")) {
-        this.logger.warn("[DFU] Activation may have already occurred - device might have reset");
+        this.logger.warn("Activation may have already occurred - device might have reset");
         return true;
       }
-
       // Not returning an error for most activation issues, as they're usually due to device reset
-      this.logger.warn(`[DFU] Activation command failed: ${error.message}`);
+
+      this.logger.warn(`Activation command failed: ${error.message} - Not returning an error for most activation issues, as they're usually due to device reset`);
       return true;
     }
   }
@@ -1071,13 +950,10 @@ class DfuTransportSerial {
    * @returns {Promise<void>}
    */
   async sendFirmware(firmware) {
-    this.logger.info(`[DFU] Sending firmware (${firmware.length} bytes)...`);
-    console.log(`[SERIAL] Starting firmware transfer of ${firmware.length} bytes`);
+    this.logger.info(`Sending firmware (${firmware.length} bytes)...`);
 
-    // Helper function for progress percentage
     const progressPercentage = (part, whole) => Math.floor((100 * part) / whole);
 
-    // Send initial progress event
     this._sendEvent(DfuEvent.PROGRESS_EVENT, {
       progress: 0,
       done: false,
@@ -1086,48 +962,31 @@ class DfuTransportSerial {
 
     // Split firmware into chunks of DFU_PACKET_MAX_SIZE
     const chunkSize = DfuTransportSerial.DFU_PACKET_MAX_SIZE;
-    console.log(`[SERIAL] Using chunk size of ${chunkSize} bytes`);
-
     const chunks = [];
     for (let i = 0; i < firmware.length; i += chunkSize) {
       const end = Math.min(i + chunkSize, firmware.length);
       chunks.push(firmware.slice(i, end));
     }
 
-    console.log(`[SERIAL] Split firmware into ${chunks.length} chunks`);
-
-    // Create data packets
-    console.log(`[SERIAL] Creating HCI packets from chunks...`);
+    // Create packets for each chunk
     const packets = [];
     for (const chunk of chunks) {
       const frameData = BinaryUtils.mergeArrays(BinaryUtils.int32ToBytes(DfuProtocol.DATA_PACKET), chunk);
       packets.push(new HciPacket(frameData, "DATA_PACKET"));
     }
 
-    console.log(`[SERIAL] Created ${packets.length} HCI packets`);
-    console.log(`[SERIAL] Beginning packet transmission...`);
-
-    // Send firmware packets
+       // Send firmware packets
     let sentBytes = 0;
     const startTime = Date.now();
 
     for (let i = 0; i < packets.length; i++) {
       try {
-        console.log(`[SERIAL] Sending packet ${i + 1}/${packets.length} (${packets[i].data.length} bytes)...`);
-
-        // Send the packet
+        // Send packet to device
         await this.sendPacket(packets[i]);
-
         sentBytes += chunks[i].length;
         const elapsedSec = (Date.now() - startTime) / 1000;
         const bytesPerSec = sentBytes / elapsedSec;
 
-        console.log(`[SERIAL] Packet ${i + 1} sent successfully`);
-        console.log(
-          `[SERIAL] Progress: ${sentBytes}/${firmware.length} bytes (${(bytesPerSec / 1024).toFixed(2)} KB/s)`,
-        );
-
-        // Report progress
         const progress = progressPercentage(i + 1, packets.length);
         this._sendEvent(DfuEvent.PROGRESS_EVENT, {
           progress: progress,
@@ -1138,34 +997,27 @@ class DfuTransportSerial {
         // After 8 frames (4096 Bytes), nrf5x will erase and write to flash
         // While erasing/writing to flash, nrf5x's CPU is blocked
         if (i % 8 === 0 && i > 0) {
-          console.log(`[SERIAL] Waiting for flash write (${DfuTransportSerial.FLASH_PAGE_WRITE_TIME}ms)...`);
           await new Promise((resolve) => setTimeout(resolve, DfuTransportSerial.FLASH_PAGE_WRITE_TIME));
         }
       } catch (error) {
-        console.error(`[SERIAL] Error sending packet ${i + 1}:`, error);
+        this.logger.error(`Error sending packet ${i + 1}: ${error.message}`);
         throw error;
       }
     }
-
-    console.log(`[SERIAL] All data packets sent successfully`);
-    console.log(`[SERIAL] Waiting for last page to write (${DfuTransportSerial.FLASH_PAGE_WRITE_TIME}ms)...`);
+    this.logger.info(`[SERIAL] All data packets sent successfully`);
 
     // Wait for last page to write
     await new Promise((resolve) => setTimeout(resolve, DfuTransportSerial.FLASH_PAGE_WRITE_TIME));
-
     // Send data stop packet
-    console.log(`[SERIAL] Sending STOP_DATA_PACKET...`);
+
     const stopFrameData = BinaryUtils.int32ToBytes(DfuProtocol.STOP_DATA_PACKET);
     const stopPacket = new HciPacket(stopFrameData, "STOP_DATA_PACKET");
     await this.sendPacket(stopPacket);
-    console.log(`[SERIAL] STOP_DATA_PACKET sent successfully`);
 
     // Calculate stats
     const totalTime = (Date.now() - startTime) / 1000;
     const transferSpeed = (firmware.length / totalTime / 1024).toFixed(2);
-    console.log(
-      `[SERIAL] Firmware transfer complete: ${firmware.length} bytes in ${totalTime.toFixed(2)}s (${transferSpeed} KB/s)`,
-    );
+    this.logger.info(`Firmware transfer complete: ${firmware.length} bytes in ${totalTime.toFixed(2)}s (${transferSpeed} KB/s)`);
 
     // Send final progress event
     this._sendEvent(DfuEvent.PROGRESS_EVENT, {
@@ -1176,5 +1028,4 @@ class DfuTransportSerial {
   }
 }
 
-// Export transport for ES6 modules
 export { HciPacket, DfuTransportSerial };

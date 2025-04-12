@@ -153,11 +153,15 @@ export const connectToSerialport = async (targetVid, targetPid) => {
           } else {
             console.log("Device is in DFU mode");
             bootloader = true;
+            // Release stream locks before proceeding with DFU
+            await focus.releaseLocks();
           }
         } catch (e) {
           logger.log("Device is in DFU mode (failed to get help)");
           console.log("Error sending help command", e);
           bootloader = true;
+          // Release stream locks before proceeding with DFU
+          await focus.releaseLocks();
         }
       }
       if (!found) continue;

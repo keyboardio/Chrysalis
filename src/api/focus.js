@@ -377,7 +377,6 @@ class Focus {
     this._writer = this._port.writable.getWriter();
     const data = encoder.encode(request);
     await this._writer.write(data);
-    logger.debug("Releasing writable stream lock after sending request");
     this._writer.releaseLock();
     this._writer = null;
     let response = "";
@@ -399,7 +398,6 @@ class Focus {
         }
       }
     } finally {
-      logger.debug("Releasing readable stream lock after reading response");
       this._reader.releaseLock();
       this._reader = null;
     }

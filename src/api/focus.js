@@ -34,6 +34,8 @@ class Focus {
       this._request_id = 0;
       this.chunked_writes = true;
       this.in_bootloader = false;
+      this._reader = null;  // Track the current reader
+      this._writer = null;  // Track the current writer
 
       this.resetDeviceState();
     }
@@ -96,30 +98,65 @@ class Focus {
     return true;
   }
 
+  async releaseLocks() {
+    // If port is not defined, nothing to do
+    if (!this._port) {
+      logger.debug("No port to release locks from");
+      return;
+    }
+
+    // Helper function to safely release stream locks
+    const releaseStreamLock = async (stream, type, currentReader) => {
+      if (!stream) {
+        logger.debug(`No ${type} stream to release lock from`);
+        return;
+      }
+
+      if (!stream.locked) {
+        logger.debug(`${type} stream is not locked, nothing to release`);
+        return;
+      }
+
+      try {
+        if (currentReader) {
+          await currentReader.cancel();
+          currentReader.releaseLock();
+        }
+      } catch (error) {
+        logger.debug(`Error releasing ${type} stream lock:`, error);
+      }
+    };
+
+    // Release readable stream lock
+    if (this._port.readable) {
+      await releaseStreamLock(this._port.readable, 'readable', this._reader);
+      this._reader = null;
+    }
+
+    // Release writable stream lock
+    if (this._port.writable) {
+      await releaseStreamLock(this._port.writable, 'writable', this._writer);
+      this._writer = null;
+    }
+  }
+
   async closePort() {
     // If port is not defined, nothing to close
     if (!this._port) {
       return;
     }
 
-    // Attempt to cancel and release any existing reader locks
-    if (this._port.readable && this._port.readable.locked) {
-      const reader = this._port.readable.getReader();
-      await reader.cancel();
-      reader.releaseLock();
-    }
-
-    // Attempt to close and release any existing writer locks
-    if (this._port.writable && this._port.writable.locked) {
-      const writer = this._port.writable.getWriter();
-      await writer.close();
-      writer.releaseLock();
-    }
+    // First release any locks
+    await this.releaseLocks();
 
     try {
+      // Then close the port
       await this._port.close();
+      this._port = null;
     } catch (error) {
       logger.error("Failed to safely close the port:", error);
+      // Still clear the port reference even if close fails
+      this._port = null;
     }
   }
 
@@ -337,18 +374,22 @@ class Focus {
 
     // Send a line of text
     const encoder = new TextEncoder();
-    const writer = this._port.writable.getWriter();
+    logger.debug("Acquiring writable stream lock for sending request");
+    this._writer = this._port.writable.getWriter();
     const data = encoder.encode(request);
-    await writer.write(data);
-    writer.releaseLock();
+    await this._writer.write(data);
+    logger.debug("Releasing writable stream lock after sending request");
+    this._writer.releaseLock();
+    this._writer = null;
     let response = "";
 
     // Read the response up to a single line containing only a .
     const decoder = new TextDecoder();
-    const reader = this._port.readable.getReader();
+    logger.debug("Acquiring readable stream lock for reading response");
+    this._reader = this._port.readable.getReader();
     try {
       while (true) {
-        const { value, done } = await reader.read();
+        const { value, done } = await this._reader.read();
         if (value) {
           response += decoder.decode(value);
         }
@@ -360,8 +401,9 @@ class Focus {
         }
       }
     } finally {
-      logger.debug("response:", response);
-      reader.releaseLock();
+      logger.debug("Releasing readable stream lock after reading response");
+      this._reader.releaseLock();
+      this._reader = null;
     }
 
     response = response.trim();

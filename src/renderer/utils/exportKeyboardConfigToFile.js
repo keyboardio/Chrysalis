@@ -1,10 +1,11 @@
 import jsonStringify from "json-stringify-pretty-compact";
 
-const exportKeyboardConfigToFile = async (activeDevice) => {
+const exportKeyboardConfigToFile = async (activeDevice, backupData) => {
   const keymap = await activeDevice.keymap();
   const colormap = await activeDevice.colormap();
-
-  const backupData = await activeDevice.focus.readKeyboardConfiguration();
+  if (!backupData) {
+    backupData = await activeDevice.focus.readKeyboardConfiguration();
+  }
   // delete the eeprom contents
   delete backupData["eeprom.contents"];
   const data = {

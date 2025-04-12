@@ -397,8 +397,6 @@ const Editor = (props) => {
     navigate("/focus-not-detected");
     return null;
   }
-  console.log("keymap");
-  console.log(keymap);
 
   const KeymapSVG = activeDevice.focusDeviceDescriptor().components.keymap;
 

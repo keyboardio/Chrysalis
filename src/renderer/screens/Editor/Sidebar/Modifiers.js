@@ -72,7 +72,7 @@ const Modifiers = (props) => {
           key.baseCode == modifier.code ||
           key.code == modifier.code ||
           db.isInCategory(key.code, "dualuse") ||
-          (db.isInCategory(key.code, "topsyturvy") && mod == "shift")
+          db.isInCategory(key.code, "topsyturvy")
         }
       />
     );

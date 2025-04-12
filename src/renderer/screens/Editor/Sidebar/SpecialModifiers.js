@@ -44,11 +44,9 @@ export const SpecialModifiers = (props) => {
   const { currentKey: key } = props;
 
   const isDualUse = db.isInCategory(key.code, "dualuse");
-  const isShifted = db.isInCategory(key.code, "shift");
-  const isTopsyTurvy = db.isInCategory(key.code, "topsyturvy");
-  const isMod = (key, mod) => key.baseCode == mod || key.code == mod;
+  const regularMods = ["ctrl", "alt", "altgr", "shift", "gui"];
+  const isModified = regularMods.some((mod) => db.isInCategory(key.code, mod));
   const isModifier = db.isInCategory(key.baseCode || key.code, "modifier");
-  const c = db.constants.codes;
   const topsyTurvyAvailable = usePluginAvailable("TopsyTurvy");
 
   return (
@@ -63,7 +61,7 @@ export const SpecialModifiers = (props) => {
             <FormControlLabel
               control={makeSwitch("topsyturvy")}
               label={t("editor.sidebar.keypicker.topsyturvy.label")}
-              disabled={!topsyTurvyAvailable || isMod(key, c.LEFT_SHIFT) || isShifted || isDualUse}
+              disabled={!topsyTurvyAvailable || isModifier || isModified || isDualUse}
             />
           </Tooltip>
         </FormControl>

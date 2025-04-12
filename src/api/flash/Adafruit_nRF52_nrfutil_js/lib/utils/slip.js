@@ -200,15 +200,17 @@ const SLIP = {
     header[3] = (~(header[0] + header[1] + header[2]) + 1) & 0xff;
 
     // Debug log the header format
-    console.log(
-      `SLIP header created: ${Array.from(header)
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join(" ")}`,
-    );
-    console.log(`First byte: seq=${sequence_number}, di=${data_integrity}, rel=${reliable}`);
-    console.log(`Second byte: type=${packet_type}, len_low=${payload_length & 0x0f}`);
-    console.log(`Third byte: len_high=${(payload_length >> 4) & 0xff}`);
-    console.log(`Fourth byte: checksum=${header[3].toString(16).padStart(2, "0")}`);
+    if (SLIP.DETAILED_DEBUG) {
+      console.log(
+        `SLIP header created: ${Array.from(header)
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join(" ")}`,
+      );
+      console.log(`First byte: seq=${sequence_number}, di=${data_integrity}, rel=${reliable}`);
+      console.log(`Second byte: type=${packet_type}, len_low=${payload_length & 0x0f}`);
+      console.log(`Third byte: len_high=${(payload_length >> 4) & 0xff}`);
+      console.log(`Fourth byte: checksum=${header[3].toString(16).padStart(2, "0")}`);
+    }
 
     return header;
   },

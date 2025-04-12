@@ -374,7 +374,6 @@ class Focus {
 
     // Send a line of text
     const encoder = new TextEncoder();
-    logger.debug("Acquiring writable stream lock for sending request");
     this._writer = this._port.writable.getWriter();
     const data = encoder.encode(request);
     await this._writer.write(data);
@@ -385,7 +384,6 @@ class Focus {
 
     // Read the response up to a single line containing only a .
     const decoder = new TextDecoder();
-    logger.debug("Acquiring readable stream lock for reading response");
     this._reader = this._port.readable.getReader();
     try {
       while (true) {

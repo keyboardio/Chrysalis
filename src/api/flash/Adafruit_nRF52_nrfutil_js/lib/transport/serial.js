@@ -326,7 +326,6 @@ class DfuTransportSerial {
     this.receivedData = [];
 
     try {
-      this.logger.debug("[SERIAL] Acquiring readable stream lock for continuous reading");
       this.reader = this.port.readable.getReader();
       while (this.readingContinuously) {
         try {
@@ -517,7 +516,6 @@ class DfuTransportSerial {
         // Write packet to serial port
         try {
           // Get writer and wait a moment
-          this.logger.debug("[SERIAL] Acquiring writable stream lock for sending packet");
           this.writer = this.port.writable.getWriter();
 
           // Write data
@@ -600,7 +598,6 @@ class DfuTransportSerial {
     // Read data directly from port using a temporary reader
     try {
       this.receivedData = [];
-      this.logger.debug("[SERIAL] Acquiring readable stream lock for ACK");
       const reader = this.port.readable.getReader();
 
       // Wait for data with two SLIP_END markers

@@ -647,8 +647,8 @@
     },
     "Keyboardio": {
       "Preonic": {
-        "updateInstructions": "Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the Hyper key). Continue holding it down while you click the Continue button."
-      },
+        "updateInstructions": "Cick 'Continue' and then hold down the key in the bottom left corner of the keyboard until prompted. (in the default layout, this key is the Hyper key)."
+        },
       "Atreus": {
         "updateInstructions": "Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Continue button."
       },

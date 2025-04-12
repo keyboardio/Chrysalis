@@ -19,8 +19,6 @@ import { RebootMessage } from "@api/flash";
 import Focus from "@api/focus";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -28,7 +26,6 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
@@ -81,8 +78,6 @@ const FirmwareUpdate = (props) => {
   const [afterFocusConnectCallback, setAfterFocusConnectCallback] = useState(null);
 
   const { t } = useTranslation();
-
-  const NOTIFICATION_THRESHOLD = 5;
 
   useEffect(() => {
     if (activeDevice?.focus?.in_bootloader) {
@@ -152,10 +147,6 @@ const FirmwareUpdate = (props) => {
     if (selectedFirmwareType == "default") {
       firmwareToSend = await loadDefaultFirmwareContent();
     }
-
-    logger.log("Flashing with protocol:", bootloaderProtocol);
-    logger.log("Active device:", activeDevice);
-    logger.log("Port:", port);
 
     const portToUse = activeDevice.focus?.in_bootloader ? activeDevice.focus._port : port._port;
 

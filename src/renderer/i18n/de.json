@@ -1,671 +1,671 @@
 {
-  "language": "Deutsch",
-  "this_translation_language": "Deutsch",
-  "breakingNews": {
-    "firmware0_90_1": {
-      "title": "Achtung, Keyboardio-Modell-100-Nutzer!",
-      "description": "Firmware-Versionen vor Version 0.90.1 enthalten einen Fehler, der bei auf der Tastatur gespeicherten Daten zu Datenverlust und beschädigten Daten führt. Wenn Sie bereits eine neuere Firmware verwenden, können Sie diese Warnung mit der Schaltfläche „Schließen“ verwerfen.",
-      "button": "Aktualisierungsanweisungen"
-    }
-  },
-  "sanity-check": {
-    "title": "Umgebungsverifizierung läuft",
-    "download-latest": "Offizielle Version herunterladen",
-    "header": "Umgebungsverifizierung fehlgeschlagen",
-    "message": "Chrysalis wird in einer nicht unterstützten Umgebung ausgeführt, beispielsweise mit einer Electron-Version, die stromaufwärts nicht unterstützt wird. Falls Sie Chrysalis über die Paketverwaltung Ihrer Distribution installiert haben, versuchen Sie es stattdessen mit einer offiziellen Version."
-  },
-  "errors": {
-    "deviceDisconnected": "Tastatur getrennt",
-    "saveFile": "Fehler beim Speichern einer Datei: {{ error }}"
-  },
-  "units": {
-    "in_ms": "ms"
-  },
-  "components": {
-    "layer": "Ebene {{index}}",
-    "loading": "Daten werden vom Gerät gelesen...",
-    "logo": {
-      "altText": "Chrysalis-Logo"
-    },
-    "layerRaw": "Ebene",
-    "none": "Keine"
-  },
-  "autoUpdate": {
-    "error": "Fehler bei der Aktualisierung: {{ error }}",
-    "downloaded": "Version {{ version }} heruntergeladen, starten Sie Chrysalis neu, um die Installation abzuschließen",
-    "available": "Neue Version verfügbar: {{ version }}"
-  },
-  "dialog": {
-    "cancel": "Abbrechen",
-    "ok": "OK",
-    "close": "Schließen",
-    "continue": "Fortsetzen"
-  },
-  "app": {
-    "menu": {
-      "exit": "Beenden",
-      "miscSection": "Verschiedenes",
-      "focus-not-detected": "Willkommen",
-      "colormapEditor": "Farbkarten-Editor",
-      "layoutEditor": "Belegungseditor",
-      "systemInfo": "Ein Problem melden",
-      "editor": "Belegungs- & Farbkarten-Editor",
-      "macroEditor": "Makro-Editor",
-      "keyboardSection": "Tastatur",
-      "changelog": "Änderungsprotokoll",
-      "firmwareUpdate": "Firmware-Aktualisierung",
-      "chat": "Discord-Chat",
-      "preferences": "Einstellungen",
-      "restart": "Aktualisierung anwenden & neu starten",
-      "chrysalisSection": "Chrysalis",
-      "layoutCard": "Belegungskarte",
-      "connectAKeyboard": "Eine Tastatur anschließen",
-      "connectAnotherKeyboard": "Eine andere Tastatur anschließen",
-      "importExport": "Tastenbelegungen sichern und wiederherstellen"
-    },
-    "deviceMenu": {
-      "Forum": "Forum",
-      "Chat": "Chat",
-      "Homepage": "Internetseite"
-    },
-    "cancelPending": {
-      "content": "Sie haben nicht gespeicherte Änderungen. Wenn Sie fortfahren, gehen sie verloren.",
-      "title": "Ausstehende Änderungen verwerfen?"
-    },
-    "actionRequired": "Aktion erforderlich"
-  },
-  "editor": {
-    "sharing": {
-      "loadFromLibrary": "Aus Bibliothek laden",
-      "loadFromFile": "Aus Datei wiederherstellen...",
-      "exportToFile": "In Datei sichern...",
-      "import": "Importieren",
-      "selectLoadFile": "Datei zum Laden einer Belegung auswählen",
-      "dialog": {
-        "allFiles": "Alle Dateien",
-        "layoutFiles": "Belegungsdateien"
-      },
-      "errors": {
-        "unableToLoad": "Die Belegung konnte nicht aus der ausgewählten Datei geladen werden.",
-        "invalidLayoutData": "Die Datei enthielt keine gültigen Belegungsdaten.",
-        "parseFail": "Beim Einlesen der Belegungsdaten trat ein Fehler auf."
-      },
-      "importConfirm": {
-        "title": "Ausgewählte Belegung importieren?",
-        "contents": "Dadurch wird Ihre aktuelle Belegung überschrieben und alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher, dass Sie fortfahren möchten?"
-      },
-      "selectExportFile": "Datei auswählen, in die die Belegung exportiert werden soll",
-      "loadFromBackup": "Aus Sicherungen laden",
-      "title": "Sichern & Wiederherstellen"
-    },
-    "sidebar": {
-      "custom": {
-        "help": "Ermöglicht es Ihnen, einer Taste einen benutzerdefinierten Tastencode zuzuweisen, oder einen Code, der Chrysalis derzeit nicht bekannt ist.",
-        "title": "Tastencode",
-        "label": "Benutzerdefinierter Tastencode"
-      },
-      "platform_apple": {
-        "title": "Mac-/iPad-Tasten",
-        "help": "Für Apple-Geräte spezifische Tastencodes."
-      },
-      "blanks": {
-        "help": "Blockierte & transparente Tasten.",
-        "title": "Keine Funktion"
-      },
-      "secondary": {
-        "title": "Sekundäre Aktion",
-        "type": {
-          "layer": "Ebenenumschaltung",
-          "modifier": "Modifikator",
-          "none": "Normal"
-        },
-        "modifier": "Modifikator",
-        "targetLayer": "Ebene",
-        "whenHeld": "Wenn gehalten",
-        "help-layerLimit": "Auf Grund von Beschränkungen der Firmware ist es nicht möglich mittels sekundärer Aktionen auf Ebenen über „{{ layer7 }}“ umzuschalten.",
-        "help": "Ermöglicht es, einer Taste eine sekundäre Funktion zuzuweisen. Beim Tippen der Taste erfüllt sie ihre primäre Funktion, beim Halten wird die sekundäre Funktion ausgeführt."
-      },
-      "colors": {
-        "title": "Farben",
-        "help": "Einer Taste eine Farbe zuweisen, durch Klicken auf eine Farbe der Palette unten. Farbwähler verwenden, um die Farbe eines Paletteneintrags zu ändern."
-      },
-      "keypicker": {
-        "modsHelp": "Modifikatoren, die beim Drücken der Taste aktiviert werden.",
-        "mods": "Modifikatoren",
-        "topsyturvy": {
-          "label": "Umschalttaste umkehren",
-          "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist)"
-        },
-        "oneshot": {
-          "tooltip": "Tippen, um für nächsten Tastendruck zu aktivieren; halten, um als regulären Modifikator zu verwenden; doppelt tippen, um Modifikator festzustellen.",
-          "label": "Einrasten"
-        },
-        "specialModsHelp": "Festlegen, wie Modifikatoren das Verhalten dieser Taste beeinflussen."
-      },
-      "mousekeys": {
-        "title": "Maussteuerung",
-        "help": "Den Mauszeiger mit der Tastatur steuern",
-        "movement": {
-          "title": "Bewegung",
-          "help": "Den Mauszeiger mit der Tastatur steuern"
-        },
-        "wheel": {
-          "title": "Rad",
-          "help": " Rollen mit dem Mausrad"
-        },
-        "buttons": {
-          "title": "Tasten",
-          "help": "Maustasten auf die Tastatur legen"
-        },
-        "warp": {
-          "help": "Lässt den Mauszeiger mit wenigen Tastendrücken über den Bildschirm schnellen",
-          "title": "Sprung"
+    "language": "Deutsch",
+    "this_translation_language": "Deutsch",
+    "breakingNews": {
+        "firmware0_90_1": {
+            "title": "Achtung, Keyboardio-Modell-100-Nutzer!",
+            "description": "Firmware-Versionen vor Version 0.90.1 enthalten einen Fehler, der bei auf der Tastatur gespeicherten Daten zu Datenverlust und beschädigten Daten führt. Wenn Sie bereits eine neuere Firmware verwenden, können Sie diese Warnung mit der Schaltfläche „Schließen“ verwerfen.",
+            "button": "Aktualisierungsanweisungen"
         }
-      },
-      "macros": {
-        "title": "Makros",
-        "help": "Tasten in der Firmware fest einprogrammierte Makros zuweisen."
-      },
-      "dynmacros": {
-        "usage_overview": {
-          "bytes": "Bytes",
-          "usage": "{{ used }}/{{ size }}",
-          "label": "Makro-Speicher belegt:"
+    },
+    "sanity-check": {
+        "title": "Umgebungsverifizierung läuft",
+        "download-latest": "Offizielle Version herunterladen",
+        "header": "Umgebungsverifizierung fehlgeschlagen",
+        "message": "Chrysalis wird in einer nicht unterstützten Umgebung ausgeführt, beispielsweise mit einer Electron-Version, die stromaufwärts nicht unterstützt wird. Falls Sie Chrysalis über die Paketverwaltung Ihrer Distribution installiert haben, versuchen Sie es stattdessen mit einer offiziellen Version."
+    },
+    "errors": {
+        "deviceDisconnected": "Tastatur getrennt",
+        "saveFile": "Fehler beim Speichern einer Datei: {{ error }}"
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "components": {
+        "layer": "Ebene {{index}}",
+        "loading": "Daten werden vom Gerät gelesen...",
+        "logo": {
+            "altText": "Chrysalis-Logo"
         },
-        "title": "Dynamische Makros",
-        "help": "Dynamische Makros zu Tasten zuweisen und bearbeiten."
-      },
-      "tapdance": {
-        "title": "Stepptanz",
-        "help": "Diese Tasten lösen unterschiedliche Aktionen aus, je nachdem wie oft sie angetippt werden"
-      },
-      "spacecadet": {
-        "title": "Weltraum-Kadett",
-        "help": "Linke und rechte Umschalttaste verhalten sich beim Tippen wie „(“ bzw. „)“"
-      },
-      "steno": {
-        "title": "Stenografie",
-        "help": "GeminiPR statt Plover-QWERTY-Methode für die stenografische Eingabe verwenden"
-      },
-      "layer": {
-        "title": "Ebenen und Tastenzuordnungen",
-        "help": "Tasten, mit denen zwischen Ebenen gewechselt werden kann."
-      },
-      "leader": {
-        "title": "Führer",
-        "help": "Leittasten festlegen. Um diese Funktionalität zu konfigurieren, muss die Kaleidoscope-Skizze-Datei der Tastatur angepasst werden."
-      },
-      "oneshot": {
-        "title": "Einrasten",
-        "help": " ",
-        "cancelStickyKey": {
-          "tooltip": "Eine eigene Taste, um eingerastete Tasten aufzuheben."
-        }
-      },
-      "lang_intl": {
-        "title": "Sprache / International",
-        "help": "Sprachspezifische Zusatztasten."
-      },
-      "volume": {
-        "title": "Lautstärke",
-        "help": "Tasten zur Lautstärkeregelung."
-      },
-      "media": {
-        "title": "Mediensteuerung",
-        "help": "Tasten zur Mediensteuerung."
-      },
-      "consumer": {
-        "brightness": {
-          "title": "Helligkeit",
-          "help": "Bildschirmhelligkeit einstellen."
-        }
-      },
-      "ledkeys": {
-        "title": "LED-Steuerung",
-        "help": "Beleuchtungs-Themen und -Effekte steuern."
-      },
-      "oneshotMetaKeys": {
-        "title": " ",
-        "activeStickyKey": {
-          "tooltip": "Lässt alle gerade gedrückten Tasten bis zum erneuten Tippen einrasten."
-        },
-        "help": " ",
-        "metaStickyKey": {
-          "tooltip": "Lässt den nächsten Tastendruck bis zum erneuten Tippen einrasten."
-        }
-      }
-    },
-    "macros": {
-      "out_of_space": "Dynamische Makros verbrauchen zu viel Platz, bitte geben Sie {{ overflow }} Bytes frei.",
-      "edit": "Makro bearbeiten",
-      "steps": {
-        "time_ms": "{{ value }} ms",
-        "unsupported": "Nicht unterstützt",
-        "in_ms": "ms",
-        "unknown": "<unbekannt>",
-        "INTERVAL": "Verzögerung zwischen den Schritten",
-        "WAIT": "Warten",
-        "KEYDOWN": "Taste halten",
-        "KEYUP": "Taste loslassen",
-        "TAP": "Tippen",
-        "EXPLICIT_REPORT": "Keinen Bericht zwischen den Schritten senden",
-        "IMPLICIT_REPORT": "Einen Bericht zwischen den Schritten senden",
-        "SEND_REPORT": "Jetzt einen Bericht senden",
-        "add": "Schritt hinzufügen"
-      },
-      "title": "Makro #{{ index }}"
-    },
-    "layerswitch": {
-      "type": "Typ",
-      "moveTo": "Auf Ebene verschieben",
-      "shiftTo": "Umschalten auf Ebene",
-      "lockTo": "Feststellen auf Ebene",
-      "oneshot": "Ebenenumschaltung für nächste Aktion",
-      "target": "Ebene",
-      "dualuse": "Ebenenumschaltung beim Halten"
-    },
-    "layernames": {
-      "out_of_space": "Ihre Ebenennamen sind {{ overflow }} Bytes zu lang, um sie auf Ihrer Tastatur zu speichern."
-    },
-    "onlyCustom": {
-      "fixItButton": "Auf ausschließlich selbst definierte Ebenen umstellen",
-      "openFR": "Funktionsanfrage stellen",
-      "warning": "Chrysalis’ Unterstützung von Konfigurationen, die sowohl fest kodierte als auch EEPROM-Ebenen enthalten, wurde eingestellt. Falls Sie diese Funktionalität benötigen, kontaktieren Sie uns bitte. In den meisten Fällen ist es jedoch ratsam, auf die ausschließliche Nutzung selbst definierter Ebenen umzustellen, was mit Chrysalis erreicht werden kann. Bei der Umstellung werden fest kodierte Ebenen nicht berücksichtigt. Falls eine Standard-Ebene gesetzt wird, ist dies Ebene 0."
-    },
-    "overview": {
-      "hideEmptyLayers": "Leere Ebenen ausblenden...",
-      "showEmptyLayers": "Leere Ebenen anzeigen...",
-      "pasteLayer": "Ebene einfügen",
-      "color": "Farbe",
-      "key": "Schlüssel #{{index}}",
-      "copyLayer": "Ebene kopieren",
-      "sharing": "Sichern & wiederherstellen",
-      "help": "Übersicht der Belegungen der ausgewählten Taste. Zum Wechseln der angezeigten Ebene auf die entsprechende Zeile klicken."
-    },
-    "plugin_unavailable": "Die Firmware der Tastatur unterstützt diese Funktionalität nicht.",
-    "plugin_unavailable_for_macros": "Diese Funktion ist bei Makros nicht verfügbar"
-  },
-  "preferences": {
-    "focus": {
-      "chunked_writes": {
-        "label": "Daten in kleinen Datenblöcken senden",
-        "help": "Als mögliche Lösung für verschiedene Kommunikationsprobleme kann Chrysalis Daten in kleineren Datenblöcken an die Tastatur senden. Aus historischen Gründen ist dies standardmäßig aktiviert. Schalten Sie dies nur aus, wenn Sie wissen, was Sie tun, oder von den Chrysalis-Entwicklern dazu aufgefordert wurden."
-      }
-    },
-    "interface": "Benutzeroberfläche",
-    "devtools": {
-      "verboseLogging": {
-        "label": "Ausführliche Protokollierung aktivieren",
-        "help": "Schaltet eine Menge zusätzlicher Protokollierung ein, die nur zur Fehlersuche nützlich ist."
-      },
-      "main": {
-        "description": "Diese Einstellungen helfen in erster Linie den Entwicklern. Möglicherweise werden Sie gebeten, sie zu aktivieren, um mehr Informationen über ein Problem zu sammeln.",
-        "label": "Entwicklerwerkzeuge"
-      },
-      "console": {
-        "label": "Entwicklerkonsole öffnen",
-        "help": "Mit der Entwicklerkonsole können Sie einen Blick in Chrysalis werfen. Seien Sie vorsichtig."
-      }
+        "layerRaw": "Ebene",
+        "none": "Keine"
     },
     "autoUpdate": {
-      "firmwareMode": {
-        "help": "Wenn aktiviert, prüft Chrysalis beim Start auf aktualisierte Firmware-Dateien und lädt automatisch neue Versionen herunter.",
-        "label": "Neue Firmware-Versionen automatisch herunterladen"
-      },
-      "label": "Automatische Aktualisierungen",
-      "mode": {
-        "label": "Neue Versionen von Chrysalis automatisch herunterladen",
-        "help": "Wenn aktiviert, prüft Chrysalis beim Start auf Aktualisierungen und lädt automatisch neue Versionen herunter."
-      }
+        "error": "Fehler bei der Aktualisierung: {{ error }}",
+        "downloaded": "Version {{ version }} heruntergeladen, starten Sie Chrysalis neu, um die Installation abzuschließen",
+        "available": "Neue Version verfügbar: {{ version }}"
     },
-    "ui": {
-      "theme": {
-        "dark": "Dunkel",
-        "system": "Systemvorgabe",
-        "label": "Thema",
-        "light": "Hell"
-      },
-      "layoutEditor": {
-        "label": "Belegungseditor"
-      },
-      "layoutCards": {
-        "label": "Belegungskarten"
-      },
-      "oneLayerPerPage": {
-        "help": "Wenn aktiviert, ordnet Chrysalis die Belegungskarten so an, dass eine Ebene pro Seite gedruckt wird und nicht so viele, wie hineinpassen.",
-        "label": "Eine Ebene pro Seite drucken"
-      },
-      "lookNFeel": {
-        "label": "Erscheinungsbild"
-      },
-      "hideUnavailableFeatures": {
-        "label": "Funktionen ausblenden, die von der aktuellen Firmware Ihrer Tastatur nicht unterstützt werden",
-        "help": "Wenn aktiviert, blendet Chrysalis Konfigurationsoptionen für Funktionen aus, die von der Firmware Ihrer Tastatur nicht unterstützt werden."
-      },
-      "language": {
-        "label": "Sprache",
-        "help": "Sprache der Benutzeroberfläche von Chrysalis"
-      },
-      "coloredLayoutCards": {
-        "label": "Farben auf Belegungskarten anzeigen",
-        "help": "Wenn aktiviert, werden auf den Belegungskarten nicht nur die Tastenbeschriftungen, sondern auch die zugewiesenen Farben angezeigt, falls vorhanden."
-      },
-      "host": {
-        "label": "Tastaturbelegung",
-        "help": "Tastenbelegung, die auf dem Rechner eingestellt ist"
-      }
+    "dialog": {
+        "cancel": "Abbrechen",
+        "ok": "OK",
+        "close": "Schließen",
+        "continue": "Fortsetzen"
     },
-    "keyboard": {
-      "led": {
-        "idle": {
-          "fifteenMinutes": "15 Minuten",
-          "fiveMinutes": "5 Minuten",
-          "tenMinutes": "10 Minuten",
-          "label": "Leerlaufzeit vor dem Ausschalten der LEDs",
-          "help": "Sofern nicht deaktiviert, schalten sich die LEDs nach einer konfigurierten Zeitspanne aus.",
-          "twoMinutes": "2 Minuten",
-          "threeMinutes": "3 Minuten",
-          "fourMinutes": "4 Minuten",
-          "twentyMinutes": "20 Minuten",
-          "thirtyMinutes": "30 Minuten",
-          "sixtyMinutes": "60 Minuten",
-          "disabled": "Deaktiviert",
-          "oneMinute": "1 Minute"
+    "app": {
+        "menu": {
+            "exit": "Beenden",
+            "miscSection": "Verschiedenes",
+            "focus-not-detected": "Willkommen",
+            "colormapEditor": "Farbkarten-Editor",
+            "layoutEditor": "Belegungseditor",
+            "systemInfo": "Ein Problem melden",
+            "editor": "Belegungs- & Farbkarten-Editor",
+            "macroEditor": "Makro-Editor",
+            "keyboardSection": "Tastatur",
+            "changelog": "Änderungsprotokoll",
+            "firmwareUpdate": "Firmware-Aktualisierung",
+            "chat": "Discord-Chat",
+            "preferences": "Einstellungen",
+            "restart": "Aktualisierung anwenden & neu starten",
+            "chrysalisSection": "Chrysalis",
+            "layoutCard": "Belegungskarte",
+            "connectAKeyboard": "Eine Tastatur anschließen",
+            "connectAnotherKeyboard": "Eine andere Tastatur anschließen",
+            "importExport": "Tastenbelegungen sichern und wiederherstellen"
         },
-        "label": "Beleuchtung",
-        "default": {
-          "label": "Standard-LED-Modus",
-          "autoSave": {
-            "label": "Automatisches Speichern des Standard-LED-Modus aktivieren",
-            "help": "Wenn aktiviert, wird der LED-Modus bei jeder Änderung standardmäßig gespeichert."
-          },
-          "help": "Beleuchtungsmodus, mit dem die Tastatur starten soll."
+        "deviceMenu": {
+            "Forum": "Forum",
+            "Chat": "Chat",
+            "Homepage": "Internetseite"
         },
-        "brightness": {
-          "label": "LED-Helligkeit",
-          "help": "Helligkeit der Tastaturbeleuchtung anpassen."
-        }
-      },
-      "plugins": {
-        "autoshift": {
-          "label": "Automatisches Umschalten",
-          "enabled": {
-            "label": "Automatisches Umschalten aktivieren",
-            "help": "Wenn automatische Umschaltung aktiviert, produzieren gehaltene Tasten automatisch ihre Umschalt-Belegung."
-          },
-          "timeout": {
-            "help": "Legt fest, wie lange eine Taste gehalten werden muss, bevor sie in den umgeschalteten Zustand versetzt wird.",
-            "label": "Zeitbeschränkung für automatische Umschaltung"
-          },
-          "category": {
-            "letters": {
-              "label": "Buchstabentasten automatisch umschalten",
-              "help": "Automatisches Umschalten für Buchstabentasten aktivieren. Dazu gehören nur die Buchstaben zwischen A und Z auf einer amerikanischen QWERTY-Belegung."
+        "cancelPending": {
+            "content": "Sie haben nicht gespeicherte Änderungen. Wenn Sie fortfahren, gehen sie verloren.",
+            "title": "Ausstehende Änderungen verwerfen?"
+        },
+        "actionRequired": "Aktion erforderlich"
+    },
+    "editor": {
+        "sharing": {
+            "loadFromLibrary": "Aus Bibliothek laden",
+            "loadFromFile": "Aus Datei wiederherstellen...",
+            "exportToFile": "In Datei sichern...",
+            "import": "Importieren",
+            "selectLoadFile": "Datei zum Laden einer Belegung auswählen",
+            "dialog": {
+                "allFiles": "Alle Dateien",
+                "layoutFiles": "Belegungsdateien"
             },
-            "numbers": {
-              "label": "Zifferntasten automatisch umschalten",
-              "help": "Automatisches Umschalten für Zifferntasten aktivieren. Gilt nicht für die Zifferntasten auf dem Ziffernblock."
+            "errors": {
+                "unableToLoad": "Die Belegung konnte nicht aus der ausgewählten Datei geladen werden.",
+                "invalidLayoutData": "Die Datei enthielt keine gültigen Belegungsdaten.",
+                "parseFail": "Beim Einlesen der Belegungsdaten trat ein Fehler auf."
             },
-            "symbols": {
-              "label": "Symbole automatisch umschalten",
-              "help": "Automatische Umschaltung für folgende Symbole aktivieren: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. Diese Option wird möglicherweise bei Verwendung einer anderen Sprache oder Tastenbelegung als Englisch (USA) benötigt, wenn Buchstaben automatisch umgeschaltet werden sollen, die nicht standardmäßig von der automatischen Umschaltfunktion erfasst werden."
+            "importConfirm": {
+                "title": "Ausgewählte Belegung importieren?",
+                "contents": "Dadurch wird Ihre aktuelle Belegung überschrieben und alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher, dass Sie fortfahren möchten?"
             },
-            "arrows": {
-              "label": "Pfeile automatisch umschalten",
-              "help": "Automatisches Umschalten für die Pfeiltasten aktivieren."
+            "selectExportFile": "Datei auswählen, in die die Belegung exportiert werden soll",
+            "loadFromBackup": "Aus Sicherungen laden",
+            "title": "Sichern & Wiederherstellen"
+        },
+        "sidebar": {
+            "custom": {
+                "help": "Ermöglicht es Ihnen, einer Taste einen benutzerdefinierten Tastencode zuzuweisen, oder einen Code, der Chrysalis derzeit nicht bekannt ist.",
+                "title": "Tastencode",
+                "label": "Benutzerdefinierter Tastencode"
             },
-            "functions": {
-              "label": "Funktionstasten automatisch umschalten",
-              "help": "Automatisches Umschalten für die Funktionstasten F1 bis F24 aktivieren."
+            "platform_apple": {
+                "title": "Mac-/iPad-Tasten",
+                "help": "Für Apple-Geräte spezifische Tastencodes."
             },
-            "all": {
-              "label": "Alle Tasten automatisch umschalten",
-              "help": "Automatisches Umschalten für alle Tasten aktivieren, auch für die, die nicht zu einer der oben genannten Kategorien gehören."
+            "blanks": {
+                "help": "Blockierte & transparente Tasten.",
+                "title": "Keine Funktion"
+            },
+            "secondary": {
+                "title": "Sekundäre Aktion",
+                "type": {
+                    "layer": "Ebenenumschaltung",
+                    "modifier": "Modifikator",
+                    "none": "Normal"
+                },
+                "modifier": "Modifikator",
+                "targetLayer": "Ebene",
+                "whenHeld": "Wenn gehalten",
+                "help-layerLimit": "Auf Grund von Beschränkungen der Firmware ist es nicht möglich mittels sekundärer Aktionen auf Ebenen über „{{ layer7 }}“ umzuschalten.",
+                "help": "Ermöglicht es, einer Taste eine sekundäre Funktion zuzuweisen. Beim Tippen der Taste erfüllt sie ihre primäre Funktion, beim Halten wird die sekundäre Funktion ausgeführt."
+            },
+            "colors": {
+                "title": "Farben",
+                "help": "Einer Taste eine Farbe zuweisen, durch Klicken auf eine Farbe der Palette unten. Farbwähler verwenden, um die Farbe eines Paletteneintrags zu ändern."
+            },
+            "keypicker": {
+                "modsHelp": "Modifikatoren, die beim Drücken der Taste aktiviert werden.",
+                "mods": "Modifikatoren",
+                "topsyturvy": {
+                    "label": "Umschalttaste umkehren",
+                    "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist)"
+                },
+                "oneshot": {
+                    "tooltip": "Tippen, um für nächsten Tastendruck zu aktivieren; halten, um als regulären Modifikator zu verwenden; doppelt tippen, um Modifikator festzustellen.",
+                    "label": "Einrasten"
+                },
+                "specialModsHelp": "Festlegen, wie Modifikatoren das Verhalten dieser Taste beeinflussen."
+            },
+            "mousekeys": {
+                "title": "Maussteuerung",
+                "help": "Den Mauszeiger mit der Tastatur steuern",
+                "movement": {
+                    "title": "Bewegung",
+                    "help": "Den Mauszeiger mit der Tastatur steuern"
+                },
+                "wheel": {
+                    "title": "Rad",
+                    "help": " Rollen mit dem Mausrad"
+                },
+                "buttons": {
+                    "title": "Tasten",
+                    "help": "Maustasten auf die Tastatur legen"
+                },
+                "warp": {
+                    "help": "Lässt den Mauszeiger mit wenigen Tastendrücken über den Bildschirm schnellen",
+                    "title": "Sprung"
+                }
+            },
+            "macros": {
+                "title": "Makros",
+                "help": "Tasten in der Firmware fest einprogrammierte Makros zuweisen."
+            },
+            "dynmacros": {
+                "usage_overview": {
+                    "bytes": "Bytes",
+                    "usage": "{{ used }}/{{ size }}",
+                    "label": "Makro-Speicher belegt:"
+                },
+                "title": "Dynamische Makros",
+                "help": "Dynamische Makros zu Tasten zuweisen und bearbeiten."
+            },
+            "tapdance": {
+                "title": "Stepptanz",
+                "help": "Diese Tasten lösen unterschiedliche Aktionen aus, je nachdem wie oft sie angetippt werden"
+            },
+            "spacecadet": {
+                "title": "Weltraum-Kadett",
+                "help": "Linke und rechte Umschalttaste verhalten sich beim Tippen wie „(“ bzw. „)“"
+            },
+            "steno": {
+                "title": "Stenografie",
+                "help": "GeminiPR statt Plover-QWERTY-Methode für die stenografische Eingabe verwenden"
+            },
+            "layer": {
+                "title": "Ebenen und Tastenzuordnungen",
+                "help": "Tasten, mit denen zwischen Ebenen gewechselt werden kann."
+            },
+            "leader": {
+                "title": "Führer",
+                "help": "Leittasten festlegen. Um diese Funktionalität zu konfigurieren, muss die Kaleidoscope-Skizze-Datei der Tastatur angepasst werden."
+            },
+            "oneshot": {
+                "title": "Einrasten",
+                "help": " ",
+                "cancelStickyKey": {
+                    "tooltip": "Eine eigene Taste, um eingerastete Tasten aufzuheben."
+                }
+            },
+            "lang_intl": {
+                "title": "Sprache / International",
+                "help": "Sprachspezifische Zusatztasten."
+            },
+            "volume": {
+                "title": "Lautstärke",
+                "help": "Tasten zur Lautstärkeregelung."
+            },
+            "media": {
+                "title": "Mediensteuerung",
+                "help": "Tasten zur Mediensteuerung."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Helligkeit",
+                    "help": "Bildschirmhelligkeit einstellen."
+                }
+            },
+            "ledkeys": {
+                "title": "LED-Steuerung",
+                "help": "Beleuchtungs-Themen und -Effekte steuern."
+            },
+            "oneshotMetaKeys": {
+                "title": " ",
+                "activeStickyKey": {
+                    "tooltip": "Lässt alle gerade gedrückten Tasten bis zum erneuten Tippen einrasten."
+                },
+                "help": " ",
+                "metaStickyKey": {
+                    "tooltip": "Lässt den nächsten Tastendruck bis zum erneuten Tippen einrasten."
+                }
             }
-          }
         },
-        "mousekeys": {
-          "warp_grid_size": {
-            "help": "Größe des Rasters, das für den Maussprung verwendet wird.",
-            "label": "Sprungrastergröße",
-            "2x2": "2x2",
-            "3x3": "3x3"
-          },
-          "label": "Maustasten",
-          "init_speed": {
-            "label": "Anfangsgeschwindigkeit des Mauszeigers",
-            "help": "Je höher der Wert, desto schneller ist die anfängliche Bewegungsgeschwindigkeit des Mauszeigers."
-          },
-          "base_speed": {
-            "label": "Höchstgeschwindigkeit des Mauszeigers",
-            "help": "Die Höchstgeschwindigkeit, die der Mauszeiger erreichen darf."
-          },
-          "accel_duration": {
-            "label": "Dauer bis zum Erreichen der Höchstgeschwindigkeit des Mauszeigers",
-            "help": "Dauer, in der der Mauszeiger von der Ausgangsgeschwindigkeit zur Höchstgeschwindigkeit übergeht."
-          },
-          "scroll_interval": {
-            "label": "Bildlaufgeschwindigkeit",
-            "help": "Zeit zwischen Bildlaufereignissen. Je höher die Verzögerung, desto langsamer ist der Bildlauf."
-          }
+        "macros": {
+            "out_of_space": "Dynamische Makros verbrauchen zu viel Platz, bitte geben Sie {{ overflow }} Bytes frei.",
+            "edit": "Makro bearbeiten",
+            "steps": {
+                "time_ms": "{{ value }} ms",
+                "unsupported": "Nicht unterstützt",
+                "in_ms": "ms",
+                "unknown": "<unbekannt>",
+                "INTERVAL": "Verzögerung zwischen den Schritten",
+                "WAIT": "Warten",
+                "KEYDOWN": "Taste halten",
+                "KEYUP": "Taste loslassen",
+                "TAP": "Tippen",
+                "EXPLICIT_REPORT": "Keinen Bericht zwischen den Schritten senden",
+                "IMPLICIT_REPORT": "Einen Bericht zwischen den Schritten senden",
+                "SEND_REPORT": "Jetzt einen Bericht senden",
+                "add": "Schritt hinzufügen"
+            },
+            "title": "Makro #{{ index }}"
         },
-        "oneshot": {
-          "stickyness": {
-            "disable": "Nichts",
-            "label": "Doppeltipp-Verhalten",
-            "help": "Verhalten bei zweimaligem Tippen einer einrastenden Taste in schneller Abfolge.",
-            "modifiers_only": "Feststellen nur für Modifikatortasten",
-            "enable": "Feststellen für alle einrastenden Tasten",
-            "layers_only": "Feststellen nur für Ebenentasten"
-          },
-          "timeout": {
-            "label": "Zeitbeschränkung",
-            "help": "Dauer für die eine einrastende Taste nach dem Drücken eingerastet bleibt."
-          },
-          "hold_timeout": {
-            "label": "Halte-Zeitbeschränkung",
-            "help": "Einrastende Tasten, die länger als für diese Dauer gehalten werden, rasten nicht ein, sondern verhalten sich wie normale Tasten."
-          },
-          "label": "Einrastende Tasten",
-          "auto_layers": {
-            "label": "Ebenenumschalttasten rasten automatisch ein",
-            "help": "Alle Ebenenumschalttasten zu einrastenden Ebenenumschalttasten machen."
-          },
-          "auto_mods": {
-            "label": "Modifikatoren rasten automatisch ein",
-            "help": "Alle Modifikatortasten zu einrastenden Modifikatortasten machen."
-          }
+        "layerswitch": {
+            "type": "Typ",
+            "moveTo": "Auf Ebene verschieben",
+            "shiftTo": "Umschalten auf Ebene",
+            "lockTo": "Feststellen auf Ebene",
+            "oneshot": "Ebenenumschaltung für nächste Aktion",
+            "target": "Ebene",
+            "dualuse": "Ebenenumschaltung beim Halten"
         },
-        "spacecadet": {
-          "mode": {
-            "enabled_without_delay": "Aktiviert (ohne Verzögerung)",
-            "disabled": "Deaktiviert",
-            "enabled": "Aktiviert",
-            "help": "Wenn aktiviert, produzieren die linke und rechte Umschalttaste beim Tippen runde Klammern, verhalten sich aber weiterhin wie Umschalttasten, wenn sie gedrückt gehalten werden.",
-            "label": "Umschalttasten in Weltraum-Kadett-Modus schalten"
-          },
-          "timeout": {
-            "label": "Zeitbeschränkung",
-            "help": "Dauer in Millisekunden bis eine gehaltene Weltraum-Kadett-Taste als Umschalttaste fungiert."
-          },
-          "label": "Weltraum-Kadett"
+        "layernames": {
+            "out_of_space": "Ihre Ebenennamen sind {{ overflow }} Bytes zu lang, um sie auf Ihrer Tastatur zu speichern."
         },
-        "label": "Zusatzmodule",
-        "escOneShot": {
-          "label": "Abbruchtaste (Esc) hebt eingerastete Tasten auf",
-          "help": "Wenn aktiviert, werden eingerastete Tasten durch Drücken der Abbruchtaste (Esc) aufgehoben. Wenn deaktiviert, kann eine eigene Taste dafür definiert werden."
+        "onlyCustom": {
+            "fixItButton": "Auf ausschließlich selbst definierte Ebenen umstellen",
+            "openFR": "Funktionsanfrage stellen",
+            "warning": "Chrysalis’ Unterstützung von Konfigurationen, die sowohl fest kodierte als auch EEPROM-Ebenen enthalten, wurde eingestellt. Falls Sie diese Funktionalität benötigen, kontaktieren Sie uns bitte. In den meisten Fällen ist es jedoch ratsam, auf die ausschließliche Nutzung selbst definierter Ebenen umzustellen, was mit Chrysalis erreicht werden kann. Bei der Umstellung werden fest kodierte Ebenen nicht berücksichtigt. Falls eine Standard-Ebene gesetzt wird, ist dies Ebene 0."
+        },
+        "overview": {
+            "hideEmptyLayers": "Leere Ebenen ausblenden...",
+            "showEmptyLayers": "Leere Ebenen anzeigen...",
+            "pasteLayer": "Ebene einfügen",
+            "color": "Farbe",
+            "key": "Schlüssel #{{index}}",
+            "copyLayer": "Ebene kopieren",
+            "sharing": "Sichern & wiederherstellen",
+            "help": "Übersicht der Belegungen der ausgewählten Taste. Zum Wechseln der angezeigten Ebene auf die entsprechende Zeile klicken."
+        },
+        "plugin_unavailable": "Die Firmware der Tastatur unterstützt diese Funktionalität nicht.",
+        "plugin_unavailable_for_macros": "Diese Funktion ist bei Makros nicht verfügbar"
+    },
+    "preferences": {
+        "focus": {
+            "chunked_writes": {
+                "label": "Daten in kleinen Datenblöcken senden",
+                "help": "Als mögliche Lösung für verschiedene Kommunikationsprobleme kann Chrysalis Daten in kleineren Datenblöcken an die Tastatur senden. Aus historischen Gründen ist dies standardmäßig aktiviert. Schalten Sie dies nur aus, wenn Sie wissen, was Sie tun, oder von den Chrysalis-Entwicklern dazu aufgefordert wurden."
+            }
+        },
+        "interface": "Benutzeroberfläche",
+        "devtools": {
+            "verboseLogging": {
+                "label": "Ausführliche Protokollierung aktivieren",
+                "help": "Schaltet eine Menge zusätzlicher Protokollierung ein, die nur zur Fehlersuche nützlich ist."
+            },
+            "main": {
+                "description": "Diese Einstellungen helfen in erster Linie den Entwicklern. Möglicherweise werden Sie gebeten, sie zu aktivieren, um mehr Informationen über ein Problem zu sammeln.",
+                "label": "Entwicklerwerkzeuge"
+            },
+            "console": {
+                "label": "Entwicklerkonsole öffnen",
+                "help": "Mit der Entwicklerkonsole können Sie einen Blick in Chrysalis werfen. Seien Sie vorsichtig."
+            }
+        },
+        "autoUpdate": {
+            "firmwareMode": {
+                "help": "Wenn aktiviert, prüft Chrysalis beim Start auf aktualisierte Firmware-Dateien und lädt automatisch neue Versionen herunter.",
+                "label": "Neue Firmware-Versionen automatisch herunterladen"
+            },
+            "label": "Automatische Aktualisierungen",
+            "mode": {
+                "label": "Neue Versionen von Chrysalis automatisch herunterladen",
+                "help": "Wenn aktiviert, prüft Chrysalis beim Start auf Aktualisierungen und lädt automatisch neue Versionen herunter."
+            }
+        },
+        "ui": {
+            "theme": {
+                "dark": "Dunkel",
+                "system": "Systemvorgabe",
+                "label": "Thema",
+                "light": "Hell"
+            },
+            "layoutEditor": {
+                "label": "Belegungseditor"
+            },
+            "layoutCards": {
+                "label": "Belegungskarten"
+            },
+            "oneLayerPerPage": {
+                "help": "Wenn aktiviert, ordnet Chrysalis die Belegungskarten so an, dass eine Ebene pro Seite gedruckt wird und nicht so viele, wie hineinpassen.",
+                "label": "Eine Ebene pro Seite drucken"
+            },
+            "lookNFeel": {
+                "label": "Erscheinungsbild"
+            },
+            "hideUnavailableFeatures": {
+                "label": "Funktionen ausblenden, die von der aktuellen Firmware Ihrer Tastatur nicht unterstützt werden",
+                "help": "Wenn aktiviert, blendet Chrysalis Konfigurationsoptionen für Funktionen aus, die von der Firmware Ihrer Tastatur nicht unterstützt werden."
+            },
+            "language": {
+                "label": "Sprache",
+                "help": "Sprache der Benutzeroberfläche von Chrysalis"
+            },
+            "coloredLayoutCards": {
+                "label": "Farben auf Belegungskarten anzeigen",
+                "help": "Wenn aktiviert, werden auf den Belegungskarten nicht nur die Tastenbeschriftungen, sondern auch die zugewiesenen Farben angezeigt, falls vorhanden."
+            },
+            "host": {
+                "label": "Tastaturbelegung",
+                "help": "Tastenbelegung, die auf dem Rechner eingestellt ist"
+            }
+        },
+        "keyboard": {
+            "led": {
+                "idle": {
+                    "fifteenMinutes": "15 Minuten",
+                    "fiveMinutes": "5 Minuten",
+                    "tenMinutes": "10 Minuten",
+                    "label": "Leerlaufzeit vor dem Ausschalten der LEDs",
+                    "help": "Sofern nicht deaktiviert, schalten sich die LEDs nach einer konfigurierten Zeitspanne aus.",
+                    "twoMinutes": "2 Minuten",
+                    "threeMinutes": "3 Minuten",
+                    "fourMinutes": "4 Minuten",
+                    "twentyMinutes": "20 Minuten",
+                    "thirtyMinutes": "30 Minuten",
+                    "sixtyMinutes": "60 Minuten",
+                    "disabled": "Deaktiviert",
+                    "oneMinute": "1 Minute"
+                },
+                "label": "Beleuchtung",
+                "default": {
+                    "label": "Standard-LED-Modus",
+                    "autoSave": {
+                        "label": "Automatisches Speichern des Standard-LED-Modus aktivieren",
+                        "help": "Wenn aktiviert, wird der LED-Modus bei jeder Änderung standardmäßig gespeichert."
+                    },
+                    "help": "Beleuchtungsmodus, mit dem die Tastatur starten soll."
+                },
+                "brightness": {
+                    "label": "LED-Helligkeit",
+                    "help": "Helligkeit der Tastaturbeleuchtung anpassen."
+                }
+            },
+            "plugins": {
+                "autoshift": {
+                    "label": "Automatisches Umschalten",
+                    "enabled": {
+                        "label": "Automatisches Umschalten aktivieren",
+                        "help": "Wenn automatische Umschaltung aktiviert, produzieren gehaltene Tasten automatisch ihre Umschalt-Belegung."
+                    },
+                    "timeout": {
+                        "help": "Legt fest, wie lange eine Taste gehalten werden muss, bevor sie in den umgeschalteten Zustand versetzt wird.",
+                        "label": "Zeitbeschränkung für automatische Umschaltung"
+                    },
+                    "category": {
+                        "letters": {
+                            "label": "Buchstabentasten automatisch umschalten",
+                            "help": "Automatisches Umschalten für Buchstabentasten aktivieren. Dazu gehören nur die Buchstaben zwischen A und Z auf einer amerikanischen QWERTY-Belegung."
+                        },
+                        "numbers": {
+                            "label": "Zifferntasten automatisch umschalten",
+                            "help": "Automatisches Umschalten für Zifferntasten aktivieren. Gilt nicht für die Zifferntasten auf dem Ziffernblock."
+                        },
+                        "symbols": {
+                            "label": "Symbole automatisch umschalten",
+                            "help": "Automatische Umschaltung für folgende Symbole aktivieren: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. Diese Option wird möglicherweise bei Verwendung einer anderen Sprache oder Tastenbelegung als Englisch (USA) benötigt, wenn Buchstaben automatisch umgeschaltet werden sollen, die nicht standardmäßig von der automatischen Umschaltfunktion erfasst werden."
+                        },
+                        "arrows": {
+                            "label": "Pfeile automatisch umschalten",
+                            "help": "Automatisches Umschalten für die Pfeiltasten aktivieren."
+                        },
+                        "functions": {
+                            "label": "Funktionstasten automatisch umschalten",
+                            "help": "Automatisches Umschalten für die Funktionstasten F1 bis F24 aktivieren."
+                        },
+                        "all": {
+                            "label": "Alle Tasten automatisch umschalten",
+                            "help": "Automatisches Umschalten für alle Tasten aktivieren, auch für die, die nicht zu einer der oben genannten Kategorien gehören."
+                        }
+                    }
+                },
+                "mousekeys": {
+                    "warp_grid_size": {
+                        "help": "Größe des Rasters, das für den Maussprung verwendet wird.",
+                        "label": "Sprungrastergröße",
+                        "2x2": "2x2",
+                        "3x3": "3x3"
+                    },
+                    "label": "Maustasten",
+                    "init_speed": {
+                        "label": "Anfangsgeschwindigkeit des Mauszeigers",
+                        "help": "Je höher der Wert, desto schneller ist die anfängliche Bewegungsgeschwindigkeit des Mauszeigers."
+                    },
+                    "base_speed": {
+                        "label": "Höchstgeschwindigkeit des Mauszeigers",
+                        "help": "Die Höchstgeschwindigkeit, die der Mauszeiger erreichen darf."
+                    },
+                    "accel_duration": {
+                        "label": "Dauer bis zum Erreichen der Höchstgeschwindigkeit des Mauszeigers",
+                        "help": "Dauer, in der der Mauszeiger von der Ausgangsgeschwindigkeit zur Höchstgeschwindigkeit übergeht."
+                    },
+                    "scroll_interval": {
+                        "label": "Bildlaufgeschwindigkeit",
+                        "help": "Zeit zwischen Bildlaufereignissen. Je höher die Verzögerung, desto langsamer ist der Bildlauf."
+                    }
+                },
+                "oneshot": {
+                    "stickyness": {
+                        "disable": "Nichts",
+                        "label": "Doppeltipp-Verhalten",
+                        "help": "Verhalten bei zweimaligem Tippen einer einrastenden Taste in schneller Abfolge.",
+                        "modifiers_only": "Feststellen nur für Modifikatortasten",
+                        "enable": "Feststellen für alle einrastenden Tasten",
+                        "layers_only": "Feststellen nur für Ebenentasten"
+                    },
+                    "timeout": {
+                        "label": "Zeitbeschränkung",
+                        "help": "Dauer für die eine einrastende Taste nach dem Drücken eingerastet bleibt."
+                    },
+                    "hold_timeout": {
+                        "label": "Halte-Zeitbeschränkung",
+                        "help": "Einrastende Tasten, die länger als für diese Dauer gehalten werden, rasten nicht ein, sondern verhalten sich wie normale Tasten."
+                    },
+                    "label": "Einrastende Tasten",
+                    "auto_layers": {
+                        "label": "Ebenenumschalttasten rasten automatisch ein",
+                        "help": "Alle Ebenenumschalttasten zu einrastenden Ebenenumschalttasten machen."
+                    },
+                    "auto_mods": {
+                        "label": "Modifikatoren rasten automatisch ein",
+                        "help": "Alle Modifikatortasten zu einrastenden Modifikatortasten machen."
+                    }
+                },
+                "spacecadet": {
+                    "mode": {
+                        "enabled_without_delay": "Aktiviert (ohne Verzögerung)",
+                        "disabled": "Deaktiviert",
+                        "enabled": "Aktiviert",
+                        "help": "Wenn aktiviert, produzieren die linke und rechte Umschalttaste beim Tippen runde Klammern, verhalten sich aber weiterhin wie Umschalttasten, wenn sie gedrückt gehalten werden.",
+                        "label": "Umschalttasten in Weltraum-Kadett-Modus schalten"
+                    },
+                    "timeout": {
+                        "label": "Zeitbeschränkung",
+                        "help": "Dauer in Millisekunden bis eine gehaltene Weltraum-Kadett-Taste als Umschalttaste fungiert."
+                    },
+                    "label": "Weltraum-Kadett"
+                },
+                "label": "Zusatzmodule",
+                "escOneShot": {
+                    "label": "Abbruchtaste (Esc) hebt eingerastete Tasten auf",
+                    "help": "Wenn aktiviert, werden eingerastete Tasten durch Drücken der Abbruchtaste (Esc) aufgehoben. Wenn deaktiviert, kann eine eigene Taste dafür definiert werden."
+                }
+            },
+            "defaultLayer": {
+                "help": "Die Vorgabeebene, mit der die Tastatur startet.",
+                "noDefault": "Keine Vorgabe",
+                "label": "Vorgabeebene"
+            },
+            "title": "Meine Tastatur",
+            "advanced": {
+                "label": "Erweiterte Werkzeuge",
+                "description": "Dies sind gefährliche Werkzeuge, bitte stellen Sie sicher, dass Sie wissen, was sie tun, bevor Sie sie benutzen."
+            },
+            "layers": {
+                "label": "Ebenen"
+            },
+            "factoryReset": {
+                "button": "EEPROM auf Werkseinstellungen zurücksetzen",
+                "dialog": {
+                    "title": "EEPROM auf Werkseinstellungen zurücksetzen?",
+                    "contents": "Dies wird den EEPROM auf die Werkseinstellungen zurücksetzen. Alle vorgenommenen Anpassungen gehen dabei verloren."
+                }
+            }
         }
-      },
-      "defaultLayer": {
-        "help": "Die Vorgabeebene, mit der die Tastatur startet.",
-        "noDefault": "Keine Vorgabe",
-        "label": "Vorgabeebene"
-      },
-      "title": "Meine Tastatur",
-      "advanced": {
-        "label": "Erweiterte Werkzeuge",
-        "description": "Dies sind gefährliche Werkzeuge, bitte stellen Sie sicher, dass Sie wissen, was sie tun, bevor Sie sie benutzen."
-      },
-      "layers": {
-        "label": "Ebenen"
-      },
-      "factoryReset": {
-        "button": "EEPROM auf Werkseinstellungen zurücksetzen",
+    },
+    "keyboardSelect": {
+        "unknown": "Unbekannt",
+        "noDevices": "Keine Tastaturen gefunden.",
+        "connect": "Verbinden",
+        "noUdev": "Chysalis benötigt udev, um nach Geräten suchen zu können, aber es scheint nicht verfügbar zu sein.",
+        "permissionError": "Ihr Computer lässt nicht zu, dass Chrysalis mit Ihrer Tastatur kommuniziert. (Sie haben keine Lese-/Schreibrechte für {{path}}.)",
+        "installUdevRules": "Beheben",
+        "permissionErrorSuggestion": "Chrysalis kann dies beheben, indem eine udev-Regeldatei in /etc/udev/rules.d/ installiert wird.",
+        "disconnect": "Trennen",
+        "dfuConnect": "Auf Werkseinstellungen zurücksetzen (USB-DFU-Modus)",
+        "focusConnectionFailed": "Chrysalis kann keine Verbindung zur Tastatur herstellen. Falls die Tastatur nicht im Verbindungsdialog angezeigt wird, kann dies an unzureichenden Berechtigungen liegen oder daran, dass es sich bei der Tastatur um ein Modell 100 im Startprogramm-Modus handelt. Um ein Modell 100 auf Werkseinstellungen zurückzusetzen, klicken Sie auf die entsprechende Schaltfläche.",
+        "connectionFailed": "Verbindung zur Tastatur konnte nicht hergestellt werden. Möglicherweise ist sie bereits mit einer anderen Anwendung oder einem anderen Browser-Fenster verbunden. Fehlermeldung: {{error}}"
+    },
+    "firmwareUpdate": {
         "dialog": {
-          "title": "EEPROM auf Werkseinstellungen zurücksetzen?",
-          "contents": "Dies wird den EEPROM auf die Werkseinstellungen zurücksetzen. Alle vorgenommenen Anpassungen gehen dabei verloren."
+            "selectFirmware": "Firmware auswählen",
+            "firmwareFiles": "Firmware-Dateien",
+            "allFiles": "Alle Dateien"
+        },
+        "flashing": {
+            "cancelAndDisconnectButton": "Abbrechen und trennen",
+            "anywayButton": "Trotzdem aktualisieren",
+            "steps": {
+                "flash": "Flashen",
+                "restoreEEPROM": "Wiederherstellen des EEPROM-Inhalts",
+                "factoryRestore": "Wiederherstellen der Werkseinstellungen",
+                "bootloader": "Aufrufen des programmierbaren Modus",
+                "saveEEPROM": "Speichern des EEPROM-Inhalts",
+                "reconnect": "Wiederherstellung der Verbindung",
+                "reboot": "Neustart"
+            },
+            "error": "Fehler beim Flashen der Firmware",
+            "success": "Firmware erfolgreich geflasht!",
+            "button": "Aktualisieren",
+            "notifications": {
+                "title": "Problem beim Flashen aufgetreten",
+                "enter": {
+                    "stillApplication": "Die Tastatur befindet sich noch nicht im programmierbaren Modus. Bitte befolgen Sie unbedingt die nachstehenden Anweisungen.",
+                    "notFound": "Die Tastatur kann nicht gefunden werden. Bitte melden Sie das Problem."
+                },
+                "reconnect": {
+                    "stillBootloader": "Die Tastatur befindet sich noch im programmierbaren Modus. Bitte lassen Sie alle Tasten los, die Sie möglicherweise gedrückt halten.",
+                    "notFound": "Die Tastatur kann nicht gefunden werden. Bitte melden Sie das Problem."
+                },
+                "unknownMessage": "Unbekannte Nachricht während des Flashens erhalten: {{ message }}"
+            }
+        },
+        "custom": "Benutzerdefinierte Firmware",
+        "factoryConfirmDialog": {
+            "title": "Firmware ersetzen und auf Werkseinstellungen zurücksetzen?",
+            "contents": "Dies ersetzt die Firmware auf dem Gerät und setzt alle Einstellungen auf die Werkseinstellungen zurück. Alle vorgenommenen Anpassungen gehen dabei verloren. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
+        },
+        "confirmDialog": {
+            "title": "Sind Sie sicher, dass Sie die Firmware aktualisieren möchten?",
+            "description": "Durch die Installation der neuen Firmware wird die bestehende Firmware auf dem Gerät ersetzt. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
+        },
+        "bootloaderWarning": "Die Tastatur befindet sich im Startprogramm-Modus. Daher kann Chrysalis die Einstellungen der Tastatur nicht sichern. Wenn die neue Firmware nicht mit Ihren bestehenden Einstellungen kompatibel ist, können die Tastenbelegungen und andere Einstellungen nach der Aktualisierung beschädigt sein. Aus diesem Grund führt Chrysalis standardmäßig ein Zurücksetzen auf die Werkseinstellungen durch, sodass Sie mit einen sauberen Neuanfang machen können. Sie können den Startprogramm-Modus verlassen, damit Chrysalis Ihre Tastatur sichern kann. Alternativ können Sie das Zurücksetzen auf die Werkseinstellungen auch ausschalten, wenn Sie wissen, dass die neue Firmware kompatibel ist.",
+        "firmwareChangelog": {
+            "title": "Firmware-Änderungsprotokoll",
+            "view": "Was ist neu in {{version}}?"
+        },
+        "firmwareSources": "Quellcode",
+        "calloutTitle": "Wichtig!",
+        "factoryResetTitle": "Zurücksetzen auf Werkseinstellungen",
+        "factoryResetDescription": "Alles auf der Tastatur löschen und auf Werkseinstellungen zurücksetzen.",
+        "factoryResetWarning": "Die Auswahl dieser Option bewirkt keine Sicherung der aktuellen Belegung oder Einstellungen.",
+        "yourFirmware": "Firmware der Tastatur aktualisieren",
+        "chooseFirmware": "Firmware aktualisieren",
+        "defaultFirmwareDescription": "Neueste Version für Ihre Tastatur",
+        "customFirmwareExplanation": "Heruntergeladene oder lokal erstellte Firmware installieren.",
+        "currentFirmwareVersion": "Aktuelle Firmware-Version",
+        "currentFirmwareVersionUnavailable": "Firmware-Version nicht verfügbar",
+        "customFirmwareLinkText": "Mehr über die Erstellung von Firmware erfahren",
+        "firmwareVersion": "{{version}}",
+        "description": "Durch das Aktualisieren der Firmware einer Tastatur bringen wir ihr neue Kunststücke bei. Chrysalis kann verwendet werden, um die neueste Firmware für Ihre Tastatur zu installieren oder um eine selbst erstellte Firmware aufzuspielen.",
+        "customChooseFile": "Datei auswählen...",
+        "bootloaderConnectDialog": {
+            "title": "Verbindung zu Ihrer Tastatur wird hergestellt...",
+            "contents": "Chrysalis muss sich mit dem Startprogramm der Tastatur verbinden. Klicken Sie hierfür auf die entsprechende Schaltfläche unten und wählen Sie die Tastatur aus der Liste aus. Falls die Tastatur nicht angezeigt wird, ziehen Sie das Verbindungskabel zum Rechner und stecken Sie es wieder ein, während Sie die Startprogramm-Taste gedrückt halten. Bei der Atreus ist das die Abbruchtaste (Esc), beim Modell 01 und Modell 100 die Prog-Taste und bei der Preonic die Hyper-Taste."
+        },
+        "reconnectDialog": {
+            "title": "Erneut mit Ihrer Tastatur verbinden",
+            "contents": "Chrysalis muss die Verbindung zur Tastatur neu aufbauen. Klicken Sie hierfür auf die entsprechende Schaltfläche unten und wählen Sie die Tastatur aus der Liste aus."
         }
-      }
-    }
-  },
-  "keyboardSelect": {
-    "unknown": "Unbekannt",
-    "noDevices": "Keine Tastaturen gefunden.",
-    "connect": "Verbinden",
-    "noUdev": "Chysalis benötigt udev, um nach Geräten suchen zu können, aber es scheint nicht verfügbar zu sein.",
-    "permissionError": "Ihr Computer lässt nicht zu, dass Chrysalis mit Ihrer Tastatur kommuniziert. (Sie haben keine Lese-/Schreibrechte für {{path}}.)",
-    "installUdevRules": "Beheben",
-    "permissionErrorSuggestion": "Chrysalis kann dies beheben, indem eine udev-Regeldatei in /etc/udev/rules.d/ installiert wird.",
-    "disconnect": "Trennen",
-    "dfuConnect": "Auf Werkseinstellungen zurücksetzen (USB-DFU-Modus)",
-    "focusConnectionFailed": "Chrysalis kann keine Verbindung zur Tastatur herstellen. Falls die Tastatur nicht im Verbindungsdialog angezeigt wird, kann dies an unzureichenden Berechtigungen liegen oder daran, dass es sich bei der Tastatur um ein Modell 100 im Startprogramm-Modus handelt. Um ein Modell 100 auf Werkseinstellungen zurückzusetzen, klicken Sie auf die entsprechende Schaltfläche.",
-    "connectionFailed": "Verbindung zur Tastatur konnte nicht hergestellt werden. Möglicherweise ist sie bereits mit einer anderen Anwendung oder einem anderen Browser-Fenster verbunden. Fehlermeldung: {{error}}"
-  },
-  "firmwareUpdate": {
-    "dialog": {
-      "selectFirmware": "Firmware auswählen",
-      "firmwareFiles": "Firmware-Dateien",
-      "allFiles": "Alle Dateien"
     },
-    "flashing": {
-      "cancelAndDisconnectButton": "Abbrechen und trennen",
-      "anywayButton": "Trotzdem aktualisieren",
-      "steps": {
-        "flash": "Flashen",
-        "restoreEEPROM": "Wiederherstellen des EEPROM-Inhalts",
-        "factoryRestore": "Wiederherstellen der Werkseinstellungen",
-        "bootloader": "Aufrufen des programmierbaren Modus",
-        "saveEEPROM": "Speichern des EEPROM-Inhalts",
-        "reconnect": "Wiederherstellung der Verbindung",
-        "reboot": "Neustart"
-      },
-      "error": "Fehler beim Flashen der Firmware",
-      "success": "Firmware erfolgreich geflasht!",
-      "button": "Aktualisieren",
-      "notifications": {
-        "title": "Problem beim Flashen aufgetreten",
-        "enter": {
-          "stillApplication": "Die Tastatur befindet sich noch nicht im programmierbaren Modus. Bitte befolgen Sie unbedingt die nachstehenden Anweisungen.",
-          "notFound": "Die Tastatur kann nicht gefunden werden. Bitte melden Sie das Problem."
+    "firmwareAutoUpdate": {
+        "warning": "Chrysalis konnte nicht auf eine neue Firmware-Version prüfen. Möglicherweise ist eine neuere Version online verfügbar.",
+        "available": "Neue Firmware-Version verfügbar: {{ version }}",
+        "error": "Fehler beim Herunterladen der neuen Firmware-Version.",
+        "downloaded": "Firmware-Version {{ version }}heruntergeladen und zum Flashen verfügbar"
+    },
+    "changelog": {
+        "title": "Änderungsprotokoll"
+    },
+    "focus-not-detected": {
+        "title": "Willkommen bei Chrysalis",
+        "contents": "Chrysalis erkennt Ihre Tastatur, muss aber die Firmware aktualisieren, bevor Sie fortfahren können.",
+        "gotoUpdate": "Firmware aktualisieren",
+        "reconnect": "Erneut verbinden",
+        "reconnectDescription": "Möglicherweise wurde der Funktionsumfang der Tastatur falsch erkannt oder die Tastatur war während des Verbindungsaufbaus noch nicht vollständig gestartet. In diesem Fall kann die Verbindung durch Klicken auf die Schaltfläche „{{buttonName}}“ neu aufgebaut werden."
+    },
+    "systeminfo": {
+        "title": "Ein Problem melden",
+        "bugTracker": "Auf GitHub finden Sie eine Liste der bekannten Probleme (oder können einen Fehler melden)",
+        "privacyNote": "Wir bemühen uns, keine privaten Informationen in dieses Paket aufzunehmen, empfehlen Ihnen aber, es durchzulesen, bevor Sie es weitergeben.",
+        "saveBundle": "Paket speichern",
+        "dialog": {
+            "title": "Chrysalis-Fehlersuche-Informationen speichern"
         },
-        "reconnect": {
-          "stillBootloader": "Die Tastatur befindet sich noch im programmierbaren Modus. Bitte lassen Sie alle Tasten los, die Sie möglicherweise gedrückt halten.",
-          "notFound": "Die Tastatur kann nicht gefunden werden. Bitte melden Sie das Problem."
+        "createBundle": "Paket erstellen",
+        "intro": "Wenn Sie technische Probleme mit Chrysalis melden, werden die Entwickler Sie möglicherweise bitten, gewisse Informationen mit ihnen zu teilen, die für die Fehlerbehebung hilfreich sein können. Chrysalis kann Ihnen dabei helfen, diese Informationen zusammenzustellen. Die zusammengestellten Informationen beinhalten Fehlerprotokolle, Informationen über das Betriebssystem Ihres Rechners, angeschlossene Geräte, Chrysalis selbst, sowie die verwendete Firmware, Tastenbelegung und LED-Konfiguration der Tastatur."
+    },
+    "print": {
+        "feedback": {
+            "success": "Druckvorgang erfolgreich!",
+            "error": "Fehler während des Druckvorgangs."
+        }
+    },
+    "layoutCards": {
+        "printTooltip": "Drucken"
+    },
+    "saveChangesButton": {
+        "saveChanges": "Änderungen speichern",
+        "savingChanges": "Änderungen werden gespeichert",
+        "savedChanges": "Gespeicherte Änderungen"
+    },
+    "devices": {
+        "Keyboardio": {
+            "Model01": {
+                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen sie die Taste erst los, wenn die übrigen Tasten rot zu blinken beginnen."
+            },
+            "Atreus": {
+                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Abbruchtaste (Esc)) gedrückt, während Sie auf Weiter/Fortfahren klicken."
+            },
+            "Model100": {
+                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen Sie die Taste erst los, wenn die Tasten der ersten Spalte grün zu leuchten beginnen. Warten Sie mit dem Loslassen der Taste nicht zu lange, da die Aktualisierung der Firmware sonst fehlschlagen kann."
+            }
         },
-        "unknownMessage": "Unbekannte Nachricht während des Flashens erhalten: {{ message }}"
-      }
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "Nachdem Sie auf Weiter/Fortfahren geklickt haben, drücken Sie innerhalb von\nzehn Sekunden den kleinen Rücksetzknopf neben der USB-Buchse, um die\nTastatur zurückzusetzen und in den programmierbaren Modus zu schalten."
+            }
+        }
     },
-    "custom": "Benutzerdefinierte Firmware",
-    "factoryConfirmDialog": {
-      "title": "Firmware ersetzen und auf Werkseinstellungen zurücksetzen?",
-      "contents": "Dies ersetzt die Firmware auf dem Gerät und setzt alle Einstellungen auf die Werkseinstellungen zurück. Alle vorgenommenen Anpassungen gehen dabei verloren. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
-    },
-    "confirmDialog": {
-      "title": "Sind Sie sicher, dass Sie die Firmware aktualisieren möchten?",
-      "description": "Durch die Installation der neuen Firmware wird die bestehende Firmware auf dem Gerät ersetzt. Sobald die neue Firmware installiert ist, kehrt Chrysalis zum Tastaturauswahl-Bildschirm zurück."
-    },
-    "bootloaderWarning": "Die Tastatur befindet sich im Startprogramm-Modus. Daher kann Chrysalis die Einstellungen der Tastatur nicht sichern. Wenn die neue Firmware nicht mit Ihren bestehenden Einstellungen kompatibel ist, können die Tastenbelegungen und andere Einstellungen nach der Aktualisierung beschädigt sein. Aus diesem Grund führt Chrysalis standardmäßig ein Zurücksetzen auf die Werkseinstellungen durch, sodass Sie mit einen sauberen Neuanfang machen können. Sie können den Startprogramm-Modus verlassen, damit Chrysalis Ihre Tastatur sichern kann. Alternativ können Sie das Zurücksetzen auf die Werkseinstellungen auch ausschalten, wenn Sie wissen, dass die neue Firmware kompatibel ist.",
-    "firmwareChangelog": {
-      "title": "Firmware-Änderungsprotokoll",
-      "view": "Was ist neu in {{version}}?"
-    },
-    "firmwareSources": "Quellcode",
-    "calloutTitle": "Wichtig!",
-    "factoryResetTitle": "Zurücksetzen auf Werkseinstellungen",
-    "factoryResetDescription": "Alles auf der Tastatur löschen und auf Werkseinstellungen zurücksetzen.",
-    "factoryResetWarning": "Die Auswahl dieser Option bewirkt keine Sicherung der aktuellen Belegung oder Einstellungen.",
-    "yourFirmware": "Firmware der Tastatur aktualisieren",
-    "chooseFirmware": "Firmware aktualisieren",
-    "defaultFirmwareDescription": "Neueste Version für Ihre Tastatur",
-    "customFirmwareExplanation": "Heruntergeladene oder lokal erstellte Firmware installieren.",
-    "currentFirmwareVersion": "Aktuelle Firmware-Version",
-    "currentFirmwareVersionUnavailable": "Firmware-Version nicht verfügbar",
-    "customFirmwareLinkText": "Mehr über die Erstellung von Firmware erfahren",
-    "firmwareVersion": "{{version}}",
-    "description": "Durch das Aktualisieren der Firmware einer Tastatur bringen wir ihr neue Kunststücke bei. Chrysalis kann verwendet werden, um die neueste Firmware für Ihre Tastatur zu installieren oder um eine selbst erstellte Firmware aufzuspielen.",
-    "customChooseFile": "Datei auswählen...",
-    "bootloaderConnectDialog": {
-      "title": "Verbindung zu Ihrer Tastatur wird hergestellt...",
-      "contents": "Chrysalis muss sich mit dem Startprogramm der Tastatur verbinden. Klicken Sie hierfür auf die entsprechende Schaltfläche unten und wählen Sie die Tastatur aus der Liste aus. Falls die Tastatur nicht angezeigt wird, ziehen Sie das Verbindungskabel zum Rechner und stecken Sie es wieder ein, während Sie die Startprogramm-Taste gedrückt halten. Bei der Atreus ist das die Abbruchtaste (Esc), beim Modell 01 und Modell 100 die Prog-Taste und bei der Preonic die Hyper-Taste."
-    },
-    "reconnectDialog": {
-      "title": "Erneut mit Ihrer Tastatur verbinden",
-      "contents": "Chrysalis muss die Verbindung zur Tastatur neu aufbauen. Klicken Sie hierfür auf die entsprechende Schaltfläche unten und wählen Sie die Tastatur aus der Liste aus."
+    "help": {
+        "connection": {
+            "title": "Verbindung zur Tastatur kann nicht aufgebaut werden",
+            "overview": "<h1>Verbindung zur Tastatur kann nicht aufgebaut werden.</h1><h2>Wahrscheinliche Ursachen</h2><p>Wenn die Tastatur mit einer anderen Anwendung (wie der alten Desktop-Version von Chrysalis) verbunden ist oder Chrysalis in einem anderen Browser-Fenster geöffnet ist, könnte das Probleme verursachen. Trennen Sie solche Verbindungen und laden Sie diese Internetseite neu.</p>"
+        }
     }
-  },
-  "firmwareAutoUpdate": {
-    "warning": "Chrysalis konnte nicht auf eine neue Firmware-Version prüfen. Möglicherweise ist eine neuere Version online verfügbar.",
-    "available": "Neue Firmware-Version verfügbar: {{ version }}",
-    "error": "Fehler beim Herunterladen der neuen Firmware-Version.",
-    "downloaded": "Firmware-Version {{ version }}heruntergeladen und zum Flashen verfügbar"
-  },
-  "changelog": {
-    "title": "Änderungsprotokoll"
-  },
-  "focus-not-detected": {
-    "title": "Willkommen bei Chrysalis",
-    "contents": "Chrysalis erkennt Ihre Tastatur, muss aber die Firmware aktualisieren, bevor Sie fortfahren können.",
-    "gotoUpdate": "Firmware aktualisieren",
-    "reconnect": "Erneut verbinden",
-    "reconnectDescription": "Möglicherweise wurde der Funktionsumfang der Tastatur falsch erkannt oder die Tastatur war während des Verbindungsaufbaus noch nicht vollständig gestartet. In diesem Fall kann die Verbindung durch Klicken auf die Schaltfläche „{{buttonName}}“ neu aufgebaut werden."
-  },
-  "systeminfo": {
-    "title": "Ein Problem melden",
-    "bugTracker": "Auf GitHub finden Sie eine Liste der bekannten Probleme (oder können einen Fehler melden)",
-    "privacyNote": "Wir bemühen uns, keine privaten Informationen in dieses Paket aufzunehmen, empfehlen Ihnen aber, es durchzulesen, bevor Sie es weitergeben.",
-    "saveBundle": "Paket speichern",
-    "dialog": {
-      "title": "Chrysalis-Fehlersuche-Informationen speichern"
-    },
-    "createBundle": "Paket erstellen",
-    "intro": "Wenn Sie technische Probleme mit Chrysalis melden, werden die Entwickler Sie möglicherweise bitten, gewisse Informationen mit ihnen zu teilen, die für die Fehlerbehebung hilfreich sein können. Chrysalis kann Ihnen dabei helfen, diese Informationen zusammenzustellen. Die zusammengestellten Informationen beinhalten Fehlerprotokolle, Informationen über das Betriebssystem Ihres Rechners, angeschlossene Geräte, Chrysalis selbst, sowie die verwendete Firmware, Tastenbelegung und LED-Konfiguration der Tastatur."
-  },
-  "print": {
-    "feedback": {
-      "success": "Druckvorgang erfolgreich!",
-      "error": "Fehler während des Druckvorgangs."
-    }
-  },
-  "layoutCards": {
-    "printTooltip": "Drucken"
-  },
-  "saveChangesButton": {
-    "saveChanges": "Änderungen speichern",
-    "savingChanges": "Änderungen werden gespeichert",
-    "savedChanges": "Gespeicherte Änderungen"
-  },
-  "devices": {
-    "Keyboardio": {
-      "Model01": {
-        "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen sie die Taste erst los, wenn die übrigen Tasten rot zu blinken beginnen."
-      },
-      "Atreus": {
-        "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Abbruchtaste (Esc)) gedrückt, während Sie auf Weiter/Fortfahren klicken."
-      },
-      "Model100": {
-        "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen Sie die Taste erst los, wenn die Tasten der ersten Spalte grün zu leuchten beginnen. Warten Sie mit dem Loslassen der Taste nicht zu lange, da die Aktualisierung der Firmware sonst fehlschlagen kann."
-      }
-    },
-    "SOFT/HRUF": {
-      "Splitography": {
-        "updateInstructions": "Nachdem Sie auf Weiter/Fortfahren geklickt haben, drücken Sie innerhalb von\nzehn Sekunden den kleinen Rücksetzknopf neben der USB-Buchse, um die\nTastatur zurückzusetzen und in den programmierbaren Modus zu schalten."
-      }
-    }
-  },
-  "help": {
-    "connection": {
-      "title": "Verbindung zur Tastatur kann nicht aufgebaut werden",
-      "overview": "<h1>Verbindung zur Tastatur kann nicht aufgebaut werden.</h1><h2>Wahrscheinliche Ursachen</h2><p>Wenn die Tastatur mit einer anderen Anwendung (wie der alten Desktop-Version von Chrysalis) verbunden ist oder Chrysalis in einem anderen Browser-Fenster geöffnet ist, könnte das Probleme verursachen. Trennen Sie solche Verbindungen und laden Sie diese Internetseite neu.</p>"
-    }
-  }
 }

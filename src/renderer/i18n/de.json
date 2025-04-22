@@ -96,7 +96,8 @@
             },
             "selectExportFile": "Datei auswählen, in die die Belegung exportiert werden soll",
             "loadFromBackup": "Aus Sicherungen laden",
-            "title": "Sichern & Wiederherstellen"
+            "title": "Sichern & Wiederherstellen",
+            "exporting": "Exportieren..."
         },
         "sidebar": {
             "custom": {
@@ -134,7 +135,7 @@
                 "mods": "Modifikatoren",
                 "topsyturvy": {
                     "label": "Umschalttaste umkehren",
-                    "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist)"
+                    "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist). Dies kann nicht mit anderen Modifikatoren kombiniert weden."
                 },
                 "oneshot": {
                     "tooltip": "Tippen, um für nächsten Tastendruck zu aktivieren; halten, um als regulären Modifikator zu verwenden; doppelt tippen, um Modifikator festzustellen.",
@@ -647,13 +648,16 @@
     "devices": {
         "Keyboardio": {
             "Model01": {
-                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen sie die Taste erst los, wenn die übrigen Tasten rot zu blinken beginnen."
+                "updateInstructions": "Halten Sie die Taste in der oberen linken Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen sie die Taste erst los, wenn die übrigen Tasten rot zu blinken beginnen."
             },
             "Atreus": {
-                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Abbruchtaste (Esc)) gedrückt, während Sie auf Weiter/Fortfahren klicken."
+                "updateInstructions": "Halten Sie die Taste in der unteren linken Ecke der Tastatur (in der Standard-Tastenbelegung: Abbruchtaste (Esc)) gedrückt, während Sie auf Weiter/Fortfahren klicken."
             },
             "Model100": {
-                "updateInstructions": "Halten Sie die Taste in der linken oberen Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen Sie die Taste erst los, wenn die Tasten der ersten Spalte grün zu leuchten beginnen. Warten Sie mit dem Loslassen der Taste nicht zu lange, da die Aktualisierung der Firmware sonst fehlschlagen kann."
+                "updateInstructions": "Halten Sie die Taste in der oberen linken Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen Sie die Taste erst los, wenn die Tasten der ersten Spalte grün zu leuchten beginnen. Warten Sie mit dem Loslassen der Taste nicht zu lange, da die Aktualisierung der Firmware sonst fehlschlagen kann."
+            },
+            "Preonic": {
+                "updateInstructions": "Drücken Sie ‚Weiter/Fortfahren‘ und wenn Sie aufgefordert werden, autorizieren Sie Chrysalis die Verbindung zu Ihrer Tastatur wiederherzustellen."
             }
         },
         "SOFT/HRUF": {

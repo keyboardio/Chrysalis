@@ -369,6 +369,19 @@ const ledkeys = assignKeysToCategory(
     },
   ],
 );
+const ledbrightnesskeys = assignKeysToCategory(
+  ["ledbrightnesskeys"],
+  [
+    {
+      code: constants.codes.LED_BRIGHTNESS_UP,
+      label: { hint: { full: "LED Brightness", "1u": "LED" }, base: { full: "Brighter", "1u": "Bright" } }
+    },
+    {
+      code: constants.codes.LED_BRIGHTNESS_DOWN,
+      label: { hint: { full: "LED Brightness", "1u": "LED" }, base: { full: "Dimmer", "1u": "Dim" } }
+    },
+  ],
+);
 const spacecadet = assignKeysToCategory(
   ["spacecadet"],
   [
@@ -611,6 +624,7 @@ const keyCodeTable = []
   .concat(tapdances)
   .concat(stenokeys)
   .concat(ledkeys)
+  .concat(ledbrightnesskeys)
   .concat(spacecadet)
   .concat(oneshot)
   .concat(dualuse)

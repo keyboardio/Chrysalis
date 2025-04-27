@@ -91,7 +91,7 @@
             "consumer": {
                 "brightness": {
                     "help": "திரை பிரகாசத்தை சரிசெய்யவும்.",
-                    "title": "ஒளி"
+                    "title": "வெளிச்சம்"
                 }
             },
             "keypicker": {

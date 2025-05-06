@@ -101,22 +101,24 @@ class Focus {
   async releaseLocks() {
     // If port is not defined, nothing to do
     if (!this._port) {
-      logger.debug("No port to release locks from");
+      logger.debug("[Focus.releaseLocks] No port to release locks from");
       return;
     }
 
     // Helper function to safely release stream locks
     const releaseStreamLock = async (stream, type, currentReader) => {
       if (!stream) {
-        logger.debug(`No ${type} stream to release lock from`);
+        logger.debug(`[Focus.releaseLocks] No ${type} stream to release lock from`);
         return;
       }
 
       if (!stream.locked) {
-        logger.debug(`${type} stream is not locked, nothing to release`);
+        logger.debug(`[Focus.releaseLocks] ${type} stream is not locked, nothing to release`);
         return;
       }
 
+
+      logger.debug(`[Focus.releaseLocks] Attempting to release lock for ${type} stream using tracked locker.`);
       try {
         if (currentReader) {
           await currentReader.cancel();
@@ -128,12 +130,14 @@ class Focus {
     };
 
     // Release readable stream lock
+    logger.debug("[Focus.releaseLocks] Releasing readable stream lock...");
     if (this._port.readable) {
       await releaseStreamLock(this._port.readable, 'readable', this._reader);
       this._reader = null;
     }
 
     // Release writable stream lock
+    logger.debug("[Focus.releaseLocks] Releasing writable stream lock...");
     if (this._port.writable) {
       await releaseStreamLock(this._port.writable, 'writable', this._writer);
       this._writer = null;
@@ -362,7 +366,7 @@ class Focus {
   async _sendRequest(cmd, args) {
     if (!this._port) throw "Device not connected!";
 
-    logger.info("Sending request", { cmd, args });
+    logger.info("[Focus._sendRequest] Sending request", { cmd, args });
     let request = cmd;
     if (args && args.length > 0) {
       request = request + " " + args.join(" ");
@@ -403,6 +407,7 @@ class Focus {
     }
 
     response = response.trim();
+    logger.info("[Focus._sendRequest] Request complete, response trimmed.");
     return response; // Return the response string
   }
 

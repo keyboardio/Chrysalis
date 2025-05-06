@@ -145,6 +145,10 @@
         "title": "Mac / iPad keys",
         "help": "Keycodes specific to Apple devices."
       },
+      "blekeys": {
+        "title": "Bluetooth",
+        "help": "Control Bluetooth connections and pairing."
+      },
       "blanks": {
         "title": "Blanks",
         "help": "Blocked & transparent keys."

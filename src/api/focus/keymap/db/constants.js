@@ -14,6 +14,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Key flags from Kaleidoscope key_defs.h
+const KEY_FLAGS = 0x0000;
+const SYNTHETIC = 0x4000;  // Synthetic key flag for special key types (like BLE, LED, etc.)
+
 const keycode_ranges = {
   standard: {
     start: 4,
@@ -62,7 +66,10 @@ const keycode_ranges = {
   layer_lock: { start: 0x4400, end: 0x4400 + 41 },
   layer_shift: { start: 0x4400 + 42, end: 0x4400 + 83 },
   layer_move: { start: 0x4400 + 84, end: 0x4400 + 125 },
-
+  
+  // BLE range with KEY_FLAGS|SYNTHETIC as base + offset for BLE_TOGGLE
+  ble: { start: (KEY_FLAGS|SYNTHETIC) + 0x70 },
+  
   tapdance: { start: 0xd013, end: 0xd022 },
   spacecadet: { start: 0xd158, end: 0xd159 },
   redial: { start: 0xd15a, end: 0xd15a },
@@ -119,6 +126,15 @@ export const constants = {
     CONSUMER_MEDIA_VOLUME_DOWN: keycode_ranges.consumer.start | 0xea,
     CONSUMER_BRIGHTNESS_UP: keycode_ranges.consumer.start | 0x6f,
     CONSUMER_BRIGHTNESS_DOWN: keycode_ranges.consumer.start | 0x70,
+    
+    // BLE keycodes - using range.start + offset
+    BLE_TOGGLE: keycode_ranges.ble.start + 0,
+    BLE_OFF: keycode_ranges.ble.start + 1,
+    BLE_PAIR: keycode_ranges.ble.start + 2,
+    BLE_SELECT_DEVICE_1: keycode_ranges.ble.start + 0x10,
+    BLE_SELECT_DEVICE_2: keycode_ranges.ble.start + 0x11,
+    BLE_SELECT_DEVICE_3: keycode_ranges.ble.start + 0x12,
+    BLE_SELECT_DEVICE_4: keycode_ranges.ble.start + 0x13,
 
     ONESHOT_META_STICKY: 53628,
     ONESHOT_ACTIVE_STICKY: 53629,

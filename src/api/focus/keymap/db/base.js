@@ -422,6 +422,41 @@ const platform_apple = assignKeysToCategory(
     },
   ]
 );
+
+// Bluetooth Low Energy (BLE) keys - based on Kaleidoscope firmware key_defs/ble.h
+const blekeys = assignKeysToCategory(
+  ["blekeys"],
+  [
+    { 
+      code: constants.codes.BLE_TOGGLE,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Toggle", "1u": "Togg" } } 
+    },
+    { 
+      code: constants.codes.BLE_OFF,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Off", "1u": "Off" } } 
+    },
+    { 
+      code: constants.codes.BLE_PAIR,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Pair", "1u": "Pair" } } 
+    },
+    { 
+      code: constants.codes.BLE_SELECT_DEVICE_1,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Device 1", "1u": "BT 1" } } 
+    },
+    { 
+      code: constants.codes.BLE_SELECT_DEVICE_2,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Device 2", "1u": "BT 2" } } 
+    },
+    { 
+      code: constants.codes.BLE_SELECT_DEVICE_3,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Device 3", "1u": "BT 3" } } 
+    },
+    { 
+      code: constants.codes.BLE_SELECT_DEVICE_4,
+      label: { hint: { full: "Bluetooth", "1u": "BLE" }, base: { full: "Device 4", "1u": "BT 4" } } 
+    },
+  ]
+);
 const lang_intl = assignKeysToCategory(
   ["lang_intl"],
   [
@@ -615,6 +650,7 @@ const keyCodeTable = []
   .concat(oneshot)
   .concat(dualuse)
   .concat(layers)
+  .concat(blekeys)
   .concat(platform_apple)
   .concat(lang_intl);
 

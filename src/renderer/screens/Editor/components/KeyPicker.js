@@ -284,6 +284,11 @@ export const KeyPicker = (props) => {
               <VerticalSectionDivider />
 
               <Grid item xs>
+                <FKPCategorySelector category="blekeys" {...sharedProps} />
+              </Grid>
+              <VerticalSectionDivider />
+
+              <Grid item xs>
                 <FKPCategorySelector
                   category="consumer.brightness"
                   keyCodes={[constants.codes.CONSUMER_BRIGHTNESS_UP, constants.codes.CONSUMER_BRIGHTNESS_DOWN]}

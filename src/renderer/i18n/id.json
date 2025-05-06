@@ -1,421 +1,421 @@
 {
-    "this_translation_language": "Bahasa Indonesia",
-    "app": {
-        "menu": {
-            "chat": "Discord",
-            "focus-not-detected": "Selamat datang",
-            "systemInfo": "Lapor masalah",
-            "layoutEditor": "Penyunting Tata Letak",
-            "firmwareUpdate": "Pembaruan Firmware",
-            "preferences": "Preferensi",
-            "exit": "Keluar",
-            "restart": "Terapkan pembaruan dan mulai ulang",
-            "keyboardSection": "Papan tik",
-            "chrysalisSection": "Chrysalis",
-            "miscSection": "Lain-lain",
-            "changelog": "Log perubahan",
-            "macroEditor": "Penyunting Makro",
-            "connectAKeyboard": "Hubungkan sebuah papan tik",
-            "importExport": "Cadangkan dan Pulihkan tata letak",
-            "connectAnotherKeyboard": "Hubungkan papan tik lainnya"
-        },
-        "deviceMenu": {
-            "Homepage": "Beranda",
-            "Forum": "Forum",
-            "Chat": "Obrolan"
-        },
-        "cancelPending": {
-            "title": "Hapus perubahan tertunda?",
-            "content": "Anda memiliki perubahan tidak tersimpan. Jika Anda melanjutkan, itu akan hilang."
-        },
-        "actionRequired": "Tindakan diperlukan"
+  "this_translation_language": "Bahasa Indonesia",
+  "app": {
+    "menu": {
+      "chat": "Discord",
+      "focus-not-detected": "Selamat datang",
+      "systemInfo": "Lapor masalah",
+      "layoutEditor": "Penyunting Tata Letak",
+      "firmwareUpdate": "Pembaruan Firmware",
+      "preferences": "Preferensi",
+      "exit": "Keluar",
+      "restart": "Terapkan pembaruan dan mulai ulang",
+      "keyboardSection": "Papan tik",
+      "chrysalisSection": "Chrysalis",
+      "miscSection": "Lain-lain",
+      "changelog": "Log perubahan",
+      "macroEditor": "Penyunting Makro",
+      "connectAKeyboard": "Hubungkan sebuah papan tik",
+      "importExport": "Cadangkan dan Pulihkan tata letak",
+      "connectAnotherKeyboard": "Hubungkan papan tik lainnya"
     },
-    "editor": {
-        "sharing": {
-            "importConfirm": {
-                "title": "Impor tata letak yang dipilih?",
-                "contents": "Ini akan menimpa tata letak Anda saat ini, dan perubah tak tersimpan akan hilang. Apakah Anda yakin ingin tetap lanjut?"
-            },
-            "title": "Cadangan dan Pemulihan",
-            "loadFromLibrary": "Muat dari pustaka",
-            "loadFromBackup": "Muat dari cadangan",
-            "loadFromFile": "Muat dari berkas...",
-            "exportToFile": "Ekspor ke berkas...",
-            "import": "Impor",
-            "selectLoadFile": "Pilih berkas untuk memuat tata letak",
-            "dialog": {
-                "layoutFiles": "Berkas tata letak",
-                "allFiles": "Semua berkas"
-            },
-            "errors": {
-                "unableToLoad": "Tidak dapat memuat tata letak dari berkas tersebut."
-            },
-            "exporting": "Mengekspor..."
-        },
-        "sidebar": {
-            "blanks": {
-                "title": "Kosong"
-            },
-            "secondary": {
-                "title": "Tindakan sekunder",
-                "type": {
-                    "none": "Tidak ada tindakan sekunder"
-                },
-                "targetLayer": "Lapisan"
-            },
-            "colors": {
-                "title": "Warna"
-            },
-            "mousekeys": {
-                "title": "Kontrol tetikus",
-                "help": "Tiru tetikus melalui tombol papan tik.",
-                "wheel": {
-                    "help": " Pengguliran roda gulir tetikus",
-                    "title": "Roda Gulir"
-                },
-                "buttons": {
-                    "title": "Tombol"
-                }
-            },
-            "platform_apple": {
-                "title": "Tombol Mac/iPad"
-            },
-            "dynmacros": {
-                "usage_overview": {
-                    "usage": "{{ used }}/{{ size }}",
-                    "bytes": "bita",
-                    "label": "Ruang makro yang digunakan:"
-                },
-                "title": "Makro Dinamis",
-                "help": "Atur dan edit makro dinamis ke tombol."
-            },
-            "oneshot": {
-                "help": "Klik tombol di bawah ini untuk memilih tombol khusus untuk membatalkan tombol satu bidikan."
-            },
-            "oneshotMetaKeys": {
-                "title": "Tombol meta one-shot",
-                "metaStickyKey": {
-                    "tooltip": "Membuat tombol berikutnya yang ditekan tetap lengket sampai diketuk lagi."
-                },
-                "help": "Opsi ini menciptakan tombol OneShot khusus yang dapat membuat tombol apa pun menjadi \"lengket\", bukan hanya modifier atau tombol layer-shift.",
-                "activeStickyKey": {
-                    "tooltip": "Buat tombol yang sedang ditekan menjadi lengket sampai tombol tersebut diketuk lagi."
-                }
-            },
-            "macros": {
-                "title": "Macro",
-                "help": "Atur makro ke tombol. Untuk membuat atau memodifikasi makro, Anda dapat menggunakan Arduino IDE untuk menyesuaikan file 'Sketsa' Kaleidoskop untuk keyboard Anda."
-            },
-            "spacecadet": {
-                "title": "SpaceCadet"
-            },
-            "lang_intl": {
-                "title": "Bahasa"
-            },
-            "volume": {
-                "title": "Volume",
-                "help": "Tombol kontrol volume."
-            },
-            "media": {
-                "title": "Kontrol media",
-                "help": "Tombol kontrol media."
-            },
-            "consumer": {
-                "brightness": {
-                    "title": "Kecerahan",
-                    "help": "Atur kecerahan layar."
-                }
-            }
-        },
-        "macros": {
-            "steps": {
-                "in_ms": "md",
-                "unknown": "<tidak diketahui>",
-                "WAIT": "Tunggu",
-                "TAP": "Ketuk",
-                "unsupported": "Tidak didukung",
-                "time_ms": "{{ value }}md",
-                "INTERVAL": "Jeda antar langkah",
-                "EXPLICIT_REPORT": "Jangan kirim laporan antar langkah",
-                "IMPLICIT_REPORT": "Kirim laporan antar langkah",
-                "SEND_REPORT": "Kirim laporan sekarang"
-            }
-        },
-        "layerswitch": {
-            "type": "Jenis"
-        },
-        "onlyCustom": {
-            "openFR": "Buka permintaan fitur"
-        },
-        "overview": {
-            "color": "Warna",
-            "hideEmptyLayers": "Sembunyikan lapisan kosong...",
-            "showEmptyLayers": "Tampilkan lapisan kosong...",
-            "copyLayer": "Salin lapisan",
-            "pasteLayer": "Tempel lapisan",
-            "sharing": "Cadangkan dan Pulihkan"
-        },
-        "plugin_unavailable": "Perangkat tegar papan tik Anda tidak menyediakan dukungan untuk fitur ini."
+    "deviceMenu": {
+      "Homepage": "Beranda",
+      "Forum": "Forum",
+      "Chat": "Obrolan"
     },
-    "layoutCards": {
-        "printTooltip": "Cetak"
+    "cancelPending": {
+      "title": "Hapus perubahan tertunda?",
+      "content": "Anda memiliki perubahan tidak tersimpan. Jika Anda melanjutkan, itu akan hilang."
     },
-    "preferences": {
-        "autoUpdate": {
-            "label": "Pembaruan otomatis",
-            "mode": {
-                "label": "Unduh versi baru Chrysalis secara otomatis",
-                "help": "Ketika dinyalakan, Chrysalis akan memeriksa pembaruan pada pemulaian dan secara otomatis mengunduh versi baru."
-            },
-            "firmwareMode": {
-                "label": "Unduh versi baru perangkat tegar secara otomatis",
-                "help": "Ketika diaktifkan, Chrysalis akan pada pemulaian memeriksa untuk berkas perangkat tegar terbarui dan secara otomatis mengunduh versi baru."
-            }
+    "actionRequired": "Tindakan diperlukan"
+  },
+  "editor": {
+    "sharing": {
+      "importConfirm": {
+        "title": "Impor tata letak yang dipilih?",
+        "contents": "Ini akan menimpa tata letak Anda saat ini, dan perubah tak tersimpan akan hilang. Apakah Anda yakin ingin tetap lanjut?"
+      },
+      "title": "Cadangan dan Pemulihan",
+      "loadFromLibrary": "Muat dari pustaka",
+      "loadFromBackup": "Muat dari cadangan",
+      "loadFromFile": "Muat dari berkas...",
+      "exportToFile": "Ekspor ke berkas...",
+      "import": "Impor",
+      "selectLoadFile": "Pilih berkas untuk memuat tata letak",
+      "dialog": {
+        "layoutFiles": "Berkas tata letak",
+        "allFiles": "Semua berkas"
+      },
+      "errors": {
+        "unableToLoad": "Tidak dapat memuat tata letak dari berkas tersebut."
+      },
+      "exporting": "Mengekspor..."
+    },
+    "sidebar": {
+      "blanks": {
+        "title": "Kosong"
+      },
+      "secondary": {
+        "title": "Tindakan sekunder",
+        "type": {
+          "none": "Tidak ada tindakan sekunder"
         },
-        "interface": "Tampilan Pengguna",
-        "devtools": {
-            "main": {
-                "label": "Alat pengembangan",
-                "description": "Preferensi ini secara umum untuk membantu pengembang. Anda mungkin diminta untuk mengaktifkannya untuk mendapatkan lebih banyak informasi tentang suatu masalah."
-            },
-            "console": {
-                "label": "Buka konsol pengembangan",
-                "help": "Konsol pengembangan memperbolehkan Anda mengintip ke dalam Chrysalis. Gunakan dengan hati-hati."
-            },
-            "verboseLogging": {
-                "label": "Aktifkan log lebih banyak",
-                "help": "Mengaktifkan log lebih banyak, berguna saat pengawakutuan saja."
-            }
+        "targetLayer": "Lapisan"
+      },
+      "colors": {
+        "title": "Warna"
+      },
+      "mousekeys": {
+        "title": "Kontrol tetikus",
+        "help": "Tiru tetikus melalui tombol papan tik.",
+        "wheel": {
+          "help": " Pengguliran roda gulir tetikus",
+          "title": "Roda Gulir"
         },
-        "ui": {
-            "layoutEditor": {
-                "label": "Penyunting Tata Letak"
-            },
-            "layoutCards": {
-                "label": "Kartu Tata Letak"
-            },
-            "lookNFeel": {
-                "label": "Tampilan"
-            },
-            "theme": {
-                "label": "Tema",
-                "system": "Bawaan sistem",
-                "dark": "Gelap",
-                "light": "Terang"
-            },
-            "language": {
-                "label": "Bahasa",
-                "help": "Pilih bahasa yang Chrysalis akan gunakan"
-            },
-            "host": {
-                "label": "Tata letak papan tik",
-                "help": "Pilih tata letak tombol yang Anda gunakan di sistem Anda"
-            },
-            "hideUnavailableFeatures": {
-                "label": "Sembunyikan fitur yang tidak didukung oleh perangkat tegar papan tik Anda"
-            }
-        },
-        "keyboard": {
-            "title": "Papan Tik Saya",
-            "advanced": {
-                "label": "Alat Lanjutan",
-                "description": "Itu adalah alat berbahaya, pastikan Anda tahu apa yang dilakukan mereka sebelum memakainya."
-            },
-            "defaultLayer": {
-                "noDefault": "Tidak ada yang baku"
-            },
-            "led": {
-                "idle": {
-                    "oneMinute": "1 menit",
-                    "twoMinutes": "2 menit",
-                    "threeMinutes": "3 menit",
-                    "fourMinutes": "4 menit",
-                    "fiveMinutes": "5 menit",
-                    "tenMinutes": "10 menit",
-                    "fifteenMinutes": "15 menit",
-                    "twentyMinutes": "20 menit",
-                    "thirtyMinutes": "30 menit",
-                    "sixtyMinutes": "60 menit",
-                    "label": "Waktu diam sebelum LED dimatikan"
-                },
-                "brightness": {
-                    "label": "Kecerahan LED",
-                    "help": "Atur kecerahan LED di papan tik."
-                },
-                "default": {
-                    "label": "Mode led default",
-                    "autoSave": {
-                        "help": "Ketika diaktifkan, kapan pun mode LED diubah, itu akan disimpan sebagai yang baku."
-                    },
-                    "help": "Pilih mode LED pada pemulaian papan tik."
-                },
-                "label": "LED"
-            },
-            "plugins": {
-                "mousekeys": {
-                    "warp_grid_size": {
-                        "2x2": "2x2",
-                        "3x3": "3x3"
-                    },
-                    "scroll_interval": {
-                        "label": "Kecepatan menggulir"
-                    },
-                    "label": "Tombol tetikus"
-                },
-                "spacecadet": {
-                    "label": "Space-Cadet",
-                    "mode": {
-                        "label": "Aktifkan Shift Space-Cadet",
-                        "enabled": "Diaktifkan",
-                        "disabled": "Dimatikan",
-                        "enabled_without_delay": "Diaktifkan (tanpa jeda)"
-                    }
-                },
-                "autoshift": {
-                    "enabled": {
-                        "help": "Dengan shift otomatis diaktifkan, tombol yang dipilih akan secara otomatis memasukkan varian yang digeser ketika ditekan.",
-                        "label": "Aktifkan shift otomatis"
-                    },
-                    "timeout": {
-                        "label": "Batas waktu shift otomatis",
-                        "help": "Atur berapa lama tombol perlu ditahan sebelum mendapatkan shift bergeser."
-                    },
-                    "category": {
-                        "letters": {
-                            "label": "Tombol huruf shift otomatis",
-                            "help": "Aktifkan shift otomatis untuk tombol huruf. Ini hanya mencakup huruf antara A dan Z pada tata letak QWERTY AS."
-                        },
-                        "numbers": {
-                            "label": "Tombol angka shift otomatis"
-                        }
-                    },
-                    "label": "Shift otomatis"
-                },
-                "label": "Plugin"
-            }
+        "buttons": {
+          "title": "Tombol"
         }
-    },
-    "language": "Bahasa Indonesia",
-    "breakingNews": {
-        "firmware0_90_1": {
-            "title": "Perhatian pengguna Keyboardio Model 100!",
-            "button": "Instruksi pembaruan",
-            "description": "Perangkat tegar sebelum versi 0.90.1 mengandung kutu (bug) yang mengakibatkan data hilang dan data tersimpan terkorupsi di papan tik. Jika Anda telah memakai perangkat tegar yang lebih baru, Anda bisa mengabaikan peringatan ini dengan tombol tutup."
-        }
-    },
-    "sanity-check": {
-        "download-latest": "Unduh rilis resmi",
-        "header": "Verifikasi lingkungan gagal",
-        "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi."
-    },
-    "errors": {
-        "deviceDisconnected": "Papan tik terputus",
-        "saveFile": "Galat menyimpan berkas: {{ error }}"
-    },
-    "components": {
-        "logo": {
-            "altText": "Logo Chrysalis"
+      },
+      "platform_apple": {
+        "title": "Tombol Mac/iPad"
+      },
+      "dynmacros": {
+        "usage_overview": {
+          "usage": "{{ used }}/{{ size }}",
+          "bytes": "bita",
+          "label": "Ruang makro yang digunakan:"
         },
-        "none": "Tidak ada",
-        "loading": "Membaca data dari perangkat...",
-        "layerRaw": "Lapisan",
-        "layer": "Lapisan {{index}}"
+        "title": "Makro Dinamis",
+        "help": "Atur dan edit makro dinamis ke tombol."
+      },
+      "oneshot": {
+        "help": "Klik tombol di bawah ini untuk memilih tombol khusus untuk membatalkan tombol satu bidikan."
+      },
+      "oneshotMetaKeys": {
+        "title": "Tombol meta one-shot",
+        "metaStickyKey": {
+          "tooltip": "Membuat tombol berikutnya yang ditekan tetap lengket sampai diketuk lagi."
+        },
+        "help": "Opsi ini menciptakan tombol OneShot khusus yang dapat membuat tombol apa pun menjadi \"lengket\", bukan hanya modifier atau tombol layer-shift.",
+        "activeStickyKey": {
+          "tooltip": "Buat tombol yang sedang ditekan menjadi lengket sampai tombol tersebut diketuk lagi."
+        }
+      },
+      "macros": {
+        "title": "Macro",
+        "help": "Atur makro ke tombol. Untuk membuat atau memodifikasi makro, Anda dapat menggunakan Arduino IDE untuk menyesuaikan file 'Sketsa' Kaleidoskop untuk keyboard Anda."
+      },
+      "spacecadet": {
+        "title": "SpaceCadet"
+      },
+      "lang_intl": {
+        "title": "Bahasa"
+      },
+      "volume": {
+        "title": "Volume",
+        "help": "Tombol kontrol volume."
+      },
+      "media": {
+        "title": "Kontrol media",
+        "help": "Tombol kontrol media."
+      },
+      "consumer": {
+        "brightness": {
+          "title": "Kecerahan",
+          "help": "Atur kecerahan layar."
+        }
+      }
     },
+    "macros": {
+      "steps": {
+        "in_ms": "md",
+        "unknown": "<tidak diketahui>",
+        "WAIT": "Tunggu",
+        "TAP": "Ketuk",
+        "unsupported": "Tidak didukung",
+        "time_ms": "{{ value }}md",
+        "INTERVAL": "Jeda antar langkah",
+        "EXPLICIT_REPORT": "Jangan kirim laporan antar langkah",
+        "IMPLICIT_REPORT": "Kirim laporan antar langkah",
+        "SEND_REPORT": "Kirim laporan sekarang"
+      }
+    },
+    "layerswitch": {
+      "type": "Jenis"
+    },
+    "onlyCustom": {
+      "openFR": "Buka permintaan fitur"
+    },
+    "overview": {
+      "color": "Warna",
+      "hideEmptyLayers": "Sembunyikan lapisan kosong...",
+      "showEmptyLayers": "Tampilkan lapisan kosong...",
+      "copyLayer": "Salin lapisan",
+      "pasteLayer": "Tempel lapisan",
+      "sharing": "Cadangkan dan Pulihkan"
+    },
+    "plugin_unavailable": "Perangkat tegar papan tik Anda tidak menyediakan dukungan untuk fitur ini."
+  },
+  "layoutCards": {
+    "printTooltip": "Cetak"
+  },
+  "preferences": {
     "autoUpdate": {
-        "available": "Versi baru tersedia: {{ version }}",
-        "downloaded": "Versi {{ version }} diunduh, memulai ulang Chrysalis untuk menyelesaikan pemasangan",
-        "error": "Galat ketika memperbarui: {{ error }}"
+      "label": "Pembaruan otomatis",
+      "mode": {
+        "label": "Unduh versi baru Chrysalis secara otomatis",
+        "help": "Ketika dinyalakan, Chrysalis akan memeriksa pembaruan pada pemulaian dan secara otomatis mengunduh versi baru."
+      },
+      "firmwareMode": {
+        "label": "Unduh versi baru perangkat tegar secara otomatis",
+        "help": "Ketika diaktifkan, Chrysalis akan pada pemulaian memeriksa untuk berkas perangkat tegar terbarui dan secara otomatis mengunduh versi baru."
+      }
     },
-    "dialog": {
-        "ok": "Oke",
-        "cancel": "Batal",
-        "close": "Tutup",
-        "continue": "Lanjut"
+    "interface": "Tampilan Pengguna",
+    "devtools": {
+      "main": {
+        "label": "Alat pengembangan",
+        "description": "Preferensi ini secara umum untuk membantu pengembang. Anda mungkin diminta untuk mengaktifkannya untuk mendapatkan lebih banyak informasi tentang suatu masalah."
+      },
+      "console": {
+        "label": "Buka konsol pengembangan",
+        "help": "Konsol pengembangan memperbolehkan Anda mengintip ke dalam Chrysalis. Gunakan dengan hati-hati."
+      },
+      "verboseLogging": {
+        "label": "Aktifkan log lebih banyak",
+        "help": "Mengaktifkan log lebih banyak, berguna saat pengawakutuan saja."
+      }
     },
-    "changelog": {
-        "title": "Log perubahan"
+    "ui": {
+      "layoutEditor": {
+        "label": "Penyunting Tata Letak"
+      },
+      "layoutCards": {
+        "label": "Kartu Tata Letak"
+      },
+      "lookNFeel": {
+        "label": "Tampilan"
+      },
+      "theme": {
+        "label": "Tema",
+        "system": "Bawaan sistem",
+        "dark": "Gelap",
+        "light": "Terang"
+      },
+      "language": {
+        "label": "Bahasa",
+        "help": "Pilih bahasa yang Chrysalis akan gunakan"
+      },
+      "host": {
+        "label": "Tata letak papan tik",
+        "help": "Pilih tata letak tombol yang Anda gunakan di sistem Anda"
+      },
+      "hideUnavailableFeatures": {
+        "label": "Sembunyikan fitur yang tidak didukung oleh perangkat tegar papan tik Anda"
+      }
     },
-    "units": {
-        "in_ms": "md"
-    },
-    "print": {
-        "feedback": {
-            "success": "Berhasil dicetak!",
-            "error": "Galat terjadi ketika mencetak."
-        }
-    },
-    "keyboardSelect": {
-        "unknown": "Tidak diketahui",
-        "disconnect": "Putus Sambungan",
-        "noDevices": "Tidak ada papan tik yang ditemukan.",
-        "connect": "Sambung",
-        "installUdevRules": "Perbaiki",
-        "noUdev": "Chrysalis memerlukan udev untuk bisa memindai perangkat, tetapi sepertinya itu tidak tersedia.",
-        "permissionError": "Sistem Anda tidak memperbolehkan Chrysalis berbicara dengan papan tik Anda. (Anda tidak memiliki izin baca/tulis ke {{path}}.)",
-        "permissionErrorSuggestion": "Chrysalis bisa memperbaiki ini dengan memasang berkas aturan udev ke /etc/udev/rules.d/."
-    },
-    "firmwareUpdate": {
-        "flashing": {
-            "button": "Perbarui",
-            "anywayButton": "Perbarui saja",
-            "cancelAndDisconnectButton": "Batal dan putuskan sambungan",
-            "notifications": {
-                "enter": {
-                    "notFound": "Tidak dapat menemukan papan tik. Silakan laporkan masalah baru."
-                }
+    "keyboard": {
+      "title": "Papan Tik Saya",
+      "advanced": {
+        "label": "Alat Lanjutan",
+        "description": "Itu adalah alat berbahaya, pastikan Anda tahu apa yang dilakukan mereka sebelum memakainya."
+      },
+      "defaultLayer": {
+        "noDefault": "Tidak ada yang baku"
+      },
+      "led": {
+        "idle": {
+          "oneMinute": "1 menit",
+          "twoMinutes": "2 menit",
+          "threeMinutes": "3 menit",
+          "fourMinutes": "4 menit",
+          "fiveMinutes": "5 menit",
+          "tenMinutes": "10 menit",
+          "fifteenMinutes": "15 menit",
+          "twentyMinutes": "20 menit",
+          "thirtyMinutes": "30 menit",
+          "sixtyMinutes": "60 menit",
+          "label": "Waktu diam sebelum LED dimatikan"
+        },
+        "brightness": {
+          "label": "Kecerahan LED",
+          "help": "Atur kecerahan LED di papan tik."
+        },
+        "default": {
+          "label": "Mode led default",
+          "autoSave": {
+            "help": "Ketika diaktifkan, kapan pun mode LED diubah, itu akan disimpan sebagai yang baku."
+          },
+          "help": "Pilih mode LED pada pemulaian papan tik."
+        },
+        "label": "LED"
+      },
+      "plugins": {
+        "mousekeys": {
+          "warp_grid_size": {
+            "2x2": "2x2",
+            "3x3": "3x3"
+          },
+          "scroll_interval": {
+            "label": "Kecepatan menggulir"
+          },
+          "label": "Tombol tetikus"
+        },
+        "spacecadet": {
+          "label": "Space-Cadet",
+          "mode": {
+            "label": "Aktifkan Shift Space-Cadet",
+            "enabled": "Diaktifkan",
+            "disabled": "Dimatikan",
+            "enabled_without_delay": "Diaktifkan (tanpa jeda)"
+          }
+        },
+        "autoshift": {
+          "enabled": {
+            "help": "Dengan shift otomatis diaktifkan, tombol yang dipilih akan secara otomatis memasukkan varian yang digeser ketika ditekan.",
+            "label": "Aktifkan shift otomatis"
+          },
+          "timeout": {
+            "label": "Batas waktu shift otomatis",
+            "help": "Atur berapa lama tombol perlu ditahan sebelum mendapatkan shift bergeser."
+          },
+          "category": {
+            "letters": {
+              "label": "Tombol huruf shift otomatis",
+              "help": "Aktifkan shift otomatis untuk tombol huruf. Ini hanya mencakup huruf antara A dan Z pada tata letak QWERTY AS."
             },
-            "steps": {
-                "reconnect": "Menyambungkan ulang"
+            "numbers": {
+              "label": "Tombol angka shift otomatis"
             }
+          },
+          "label": "Shift otomatis"
         },
-        "firmwareChangelog": {
-            "title": "Log Perubahan Perangkat Tegar",
-            "view": "Apa yang baru di {{version}}?"
-        },
-        "firmwareSources": "Kode sumber",
-        "dialog": {
-            "firmwareFiles": "Berkas perangkat tegar",
-            "allFiles": "Semua berkas",
-            "selectFirmware": "Pilih perangkat tegar"
-        },
-        "customChooseFile": "Pilih berkas...",
-        "firmwareVersion": "{{version}}",
-        "calloutTitle": "Penting!",
-        "factoryResetTitle": "Reset pabrik",
-        "factoryResetDescription": "Hapus semua di papan tik Anda, mengembalikannya ke bawaan pabrik.",
-        "factoryResetWarning": "Memilih opsi ini tidak akan mencadangkan tata letak atau pengaturan Anda."
-    },
-    "focus-not-detected": {
-        "title": "Selamat datang di Chrysalis",
-        "gotoUpdate": "Perbarui Perangkat Tegar",
-        "reconnect": "Sambungkan ulang"
-    },
-    "systeminfo": {
-        "title": "Laporkan masalah",
-        "intro": "Jika Anda memiliki masalah dengan Chrysalis, pengembang mungkin akan meminta Anda untuk mengirimkan ke mereka beberapa informasi pengawakutuan. Chrysalis membantu Anda mengumpulkan dan menatanya untuk Anda bagikan. Ini termasuk log galat, dan juga beberapa informasi tentang sistem operasi komputer ini, perangkat terhubung, dan Chrysalis itu sendiri. Informasi papan tik juga mengandung tentang perangkat tegar papan tik, dan juga tata letak tombol dan konfigurasi LED.",
-        "bugTracker": "Anda bisa mencari daftar masalah yang diketahui (atau melaporkan kutu (bug)) di GitHub",
-        "privacyNote": "Kami mencoba sedemikian rupa untuk tidak memasukkan informasi pribadi ke sini, tapi kami merekomendasikan Anda untuk membacanya sebelum membagikannya.",
-        "createBundle": "Buat Bundel",
-        "saveBundle": "Simpan Bundel",
-        "dialog": {
-            "title": "Simpan Bundel Pengawakutuan Chrysalis"
-        }
-    },
-    "firmwareAutoUpdate": {
-        "available": "Versi baru perangkat tegar tersedia: {{ version }}",
-        "error": "Galat ketika mengunduh versi baru perangkat tegar.",
-        "warning": "Chrysalis tidak dapat memeriksa versi baru dari perangkat tegar. Versi lebih baru mungkin tersedia secara daring.",
-        "downloaded": "Versi {{ version }} dari perangkat tegar diunduh dan tersedia untuk di-flash"
-    },
-    "help": {
-        "connection": {
-            "overview": "<h1>Chrysalis tidak dapat terhubung ke papan tik Anda.</h1><h2>Kemungkinan disebabkan</h2><p>Jika papan tik Anda terhubung ke aplikasi lain (seperti aplikasi destop Chrysalis) atau ada Chrysalis yang terbuka di jendela peramban lainnya, coba tutup itu dan muat ulang halaman ini.</p>",
-            "title": "Chrysalis tidak dapat terhubung ke papan tik Anda"
-        }
-    },
-    "saveChangesButton": {
-        "saveChanges": "Simpan Perubahan",
-        "savingChanges": "Menyimpan Perubahan",
-        "savedChanges": "Perubahan yang Tersimpan"
+        "label": "Plugin"
+      }
     }
+  },
+  "language": "Bahasa Indonesia",
+  "breakingNews": {
+    "firmware0_90_1": {
+      "title": "Perhatian pengguna Keyboardio Model 100!",
+      "button": "Instruksi pembaruan",
+      "description": "Perangkat tegar sebelum versi 0.90.1 mengandung kutu (bug) yang mengakibatkan data hilang dan data tersimpan terkorupsi di papan tik. Jika Anda telah memakai perangkat tegar yang lebih baru, Anda bisa mengabaikan peringatan ini dengan tombol tutup."
+    }
+  },
+  "sanity-check": {
+    "download-latest": "Unduh rilis resmi",
+    "header": "Verifikasi lingkungan gagal",
+    "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi."
+  },
+  "errors": {
+    "deviceDisconnected": "Papan tik terputus",
+    "saveFile": "Galat menyimpan berkas: {{ error }}"
+  },
+  "components": {
+    "logo": {
+      "altText": "Logo Chrysalis"
+    },
+    "none": "Tidak ada",
+    "loading": "Membaca data dari perangkat...",
+    "layerRaw": "Lapisan",
+    "layer": "Lapisan {{index}}"
+  },
+  "autoUpdate": {
+    "available": "Versi baru tersedia: {{ version }}",
+    "downloaded": "Versi {{ version }} diunduh, memulai ulang Chrysalis untuk menyelesaikan pemasangan",
+    "error": "Galat ketika memperbarui: {{ error }}"
+  },
+  "dialog": {
+    "ok": "Oke",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "continue": "Lanjut"
+  },
+  "changelog": {
+    "title": "Log perubahan"
+  },
+  "units": {
+    "in_ms": "md"
+  },
+  "print": {
+    "feedback": {
+      "success": "Berhasil dicetak!",
+      "error": "Galat terjadi ketika mencetak."
+    }
+  },
+  "keyboardSelect": {
+    "unknown": "Tidak diketahui",
+    "disconnect": "Putus Sambungan",
+    "noDevices": "Tidak ada papan tik yang ditemukan.",
+    "connect": "Sambung",
+    "installUdevRules": "Perbaiki",
+    "noUdev": "Chrysalis memerlukan udev untuk bisa memindai perangkat, tetapi sepertinya itu tidak tersedia.",
+    "permissionError": "Sistem Anda tidak memperbolehkan Chrysalis berbicara dengan papan tik Anda. (Anda tidak memiliki izin baca/tulis ke {{path}}.)",
+    "permissionErrorSuggestion": "Chrysalis bisa memperbaiki ini dengan memasang berkas aturan udev ke /etc/udev/rules.d/."
+  },
+  "firmwareUpdate": {
+    "flashing": {
+      "button": "Perbarui",
+      "anywayButton": "Perbarui saja",
+      "cancelAndDisconnectButton": "Batal dan putuskan sambungan",
+      "notifications": {
+        "enter": {
+          "notFound": "Tidak dapat menemukan papan tik. Silakan laporkan masalah baru."
+        }
+      },
+      "steps": {
+        "reconnect": "Menyambungkan ulang"
+      }
+    },
+    "firmwareChangelog": {
+      "title": "Log Perubahan Perangkat Tegar",
+      "view": "Apa yang baru di {{version}}?"
+    },
+    "firmwareSources": "Kode sumber",
+    "dialog": {
+      "firmwareFiles": "Berkas perangkat tegar",
+      "allFiles": "Semua berkas",
+      "selectFirmware": "Pilih perangkat tegar"
+    },
+    "customChooseFile": "Pilih berkas...",
+    "firmwareVersion": "{{version}}",
+    "calloutTitle": "Penting!",
+    "factoryResetTitle": "Reset pabrik",
+    "factoryResetDescription": "Hapus semua di papan tik Anda, mengembalikannya ke bawaan pabrik.",
+    "factoryResetWarning": "Memilih opsi ini tidak akan mencadangkan tata letak atau pengaturan Anda."
+  },
+  "focus-not-detected": {
+    "title": "Selamat datang di Chrysalis",
+    "gotoUpdate": "Perbarui Perangkat Tegar",
+    "reconnect": "Sambungkan ulang"
+  },
+  "systeminfo": {
+    "title": "Laporkan masalah",
+    "intro": "Jika Anda memiliki masalah dengan Chrysalis, pengembang mungkin akan meminta Anda untuk mengirimkan ke mereka beberapa informasi pengawakutuan. Chrysalis membantu Anda mengumpulkan dan menatanya untuk Anda bagikan. Ini termasuk log galat, dan juga beberapa informasi tentang sistem operasi komputer ini, perangkat terhubung, dan Chrysalis itu sendiri. Informasi papan tik juga mengandung tentang perangkat tegar papan tik, dan juga tata letak tombol dan konfigurasi LED.",
+    "bugTracker": "Anda bisa mencari daftar masalah yang diketahui (atau melaporkan kutu (bug)) di GitHub",
+    "privacyNote": "Kami mencoba sedemikian rupa untuk tidak memasukkan informasi pribadi ke sini, tapi kami merekomendasikan Anda untuk membacanya sebelum membagikannya.",
+    "createBundle": "Buat Bundel",
+    "saveBundle": "Simpan Bundel",
+    "dialog": {
+      "title": "Simpan Bundel Pengawakutuan Chrysalis"
+    }
+  },
+  "firmwareAutoUpdate": {
+    "available": "Versi baru perangkat tegar tersedia: {{ version }}",
+    "error": "Galat ketika mengunduh versi baru perangkat tegar.",
+    "warning": "Chrysalis tidak dapat memeriksa versi baru dari perangkat tegar. Versi lebih baru mungkin tersedia secara daring.",
+    "downloaded": "Versi {{ version }} dari perangkat tegar diunduh dan tersedia untuk di-flash"
+  },
+  "help": {
+    "connection": {
+      "overview": "<h1>Chrysalis tidak dapat terhubung ke papan tik Anda.</h1><h2>Kemungkinan disebabkan</h2><p>Jika papan tik Anda terhubung ke aplikasi lain (seperti aplikasi destop Chrysalis) atau ada Chrysalis yang terbuka di jendela peramban lainnya, coba tutup itu dan muat ulang halaman ini.</p>",
+      "title": "Chrysalis tidak dapat terhubung ke papan tik Anda"
+    }
+  },
+  "saveChangesButton": {
+    "saveChanges": "Simpan Perubahan",
+    "savingChanges": "Menyimpan Perubahan",
+    "savedChanges": "Perubahan yang Tersimpan"
+  }
 }

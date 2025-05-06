@@ -69,7 +69,7 @@ const KeyButton = (props) => {
       }}
     >
       {!noHint && label.hint} {label.main}
-    </Button>,
+    </Button>
   );
 };
 

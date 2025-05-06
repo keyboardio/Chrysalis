@@ -308,7 +308,7 @@ class DFUUSBDevice {
         value: wValue,
         index: 0,
       },
-      18,
+      18
     );
 
     if (result.status == USBTransferResult.OK) {
@@ -436,7 +436,7 @@ class DFUUSBDevice {
           value: wValue,
           index: 0,
         },
-        4,
+        4
       );
 
       if (result.status !== USBTransferResult.OK) {
@@ -454,7 +454,7 @@ class DFUUSBDevice {
           value: wValue,
           index: 0,
         },
-        wLength,
+        wLength
       );
 
       if (result.status !== USBTransferResult.OK) {
@@ -477,7 +477,7 @@ class DFUUSBDevice {
           value: wValue,
           index: this.intfNumber,
         },
-        data,
+        data
       );
 
       if (result.status === USBTransferResult.OK) {
@@ -500,7 +500,7 @@ class DFUUSBDevice {
           value: wValue,
           index: this.intfNumber,
         },
-        wLength,
+        wLength
       );
 
       if (result.status === USBTransferResult.OK) {
@@ -580,7 +580,7 @@ class DFUUSBDevice {
   getState() {
     return this._requestIn(DFUCommand.GETSTATE, 1).then(
       (data) => Promise.resolve(data.getUint8(0)),
-      (error) => Promise.reject("DFU GETSTATE failed: " + error),
+      (error) => Promise.reject("DFU GETSTATE failed: " + error)
     );
   }
 
@@ -711,7 +711,7 @@ class DFUUSBDevice {
         // Wait until it returns to idle.
         // If it's not really manifestation tolerant, it might transition to MANIFEST_WAIT_RESET
         dfu_status = await this._poll_until(
-          (state) => state == DFUDeviceState.dfuIDLE || state == DFUDeviceState.dfuMANIFEST_WAIT_RESET,
+          (state) => state == DFUDeviceState.dfuIDLE || state == DFUDeviceState.dfuMANIFEST_WAIT_RESET
         );
         if (dfu_status.state == DFUDeviceState.dfuMANIFEST_WAIT_RESET) {
           logger.debug("Device transitioned to MANIFEST_WAIT_RESET even though it is manifestation tolerant");

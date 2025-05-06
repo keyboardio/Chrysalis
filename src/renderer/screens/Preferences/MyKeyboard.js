@@ -68,7 +68,7 @@ const MyKeyboardPreferences = (props) => {
       } else {
         logger.error(
           "Unable to save changes because an onSaveChanges no longer takes strings that are focus commands",
-          { cmd, content },
+          { cmd, content }
         );
       }
     }

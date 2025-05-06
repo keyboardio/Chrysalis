@@ -271,7 +271,7 @@ class Dfu {
           firmwareType,
           firmwareType === HexType.SOFTDEVICE ? firmware.byteLength : 0,
           firmwareType === HexType.BOOTLOADER ? firmware.byteLength : 0,
-          firmwareType === HexType.APPLICATION ? firmware.byteLength : 0,
+          firmwareType === HexType.APPLICATION ? firmware.byteLength : 0
         );
 
         // If successful, we can continue without reconnection
@@ -501,11 +501,11 @@ class Dfu {
       // Verify sizes
       if (softdeviceSize + bootloaderSize !== firmware.byteLength) {
         console.error(
-          `[DFU] Size mismatch: SD(${softdeviceSize}) + BL(${bootloaderSize}) != FW(${firmware.byteLength})`,
+          `[DFU] Size mismatch: SD(${softdeviceSize}) + BL(${bootloaderSize}) != FW(${firmware.byteLength})`
         );
         throw new Error(
           `Size of bootloader (${bootloaderSize} bytes) and softdevice (${softdeviceSize} bytes) ` +
-            `is not equal to firmware provided (${firmware.byteLength} bytes)`,
+            `is not equal to firmware provided (${firmware.byteLength} bytes)`
         );
       }
     } else if (programMode === HexType.SOFTDEVICE) {
@@ -525,7 +525,7 @@ class Dfu {
     // Start DFU process for this image
     const startTime = Date.now();
     console.log(
-      `[DFU] Starting DFU upgrade of type ${programMode}, SoftDevice size: ${softdeviceSize}, bootloader size: ${bootloaderSize}, application size: ${applicationSize}`,
+      `[DFU] Starting DFU upgrade of type ${programMode}, SoftDevice size: ${softdeviceSize}, bootloader size: ${bootloaderSize}, application size: ${applicationSize}`
     );
 
     // Send progress update

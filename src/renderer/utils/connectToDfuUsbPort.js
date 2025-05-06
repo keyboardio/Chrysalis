@@ -31,7 +31,7 @@ export const connectToDfuUsbPort = async (targetVid, targetPid) => {
         // Check bootloaders array first
         if (device.usb.bootloaders) {
           return device.usb.bootloaders.some(
-            (bootloader) => bootloader.vendorId === usb.vendorId && bootloader.productId === usb.productId,
+            (bootloader) => bootloader.vendorId === usb.vendorId && bootloader.productId === usb.productId
           );
         }
 

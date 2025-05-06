@@ -138,7 +138,7 @@ const LayoutCard = (props) => {
               palette={colormap?.palette}
               layerNames={layerNames}
             />
-          </Box>,
+          </Box>
         );
 
         break;

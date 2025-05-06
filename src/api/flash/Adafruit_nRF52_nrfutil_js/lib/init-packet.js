@@ -394,7 +394,7 @@ function parseInitPacket(data) {
           result[PacketField.NORDIC_PROPRIETARY_OPT_DATA_FIRMWARE_HASH] = new Uint8Array(
             data.buffer,
             data.byteOffset + offset,
-            32,
+            32
           );
           offset += 32;
 
@@ -403,7 +403,7 @@ function parseInitPacket(data) {
             result[PacketField.NORDIC_PROPRIETARY_OPT_DATA_INIT_PACKET_ECDS] = new Uint8Array(
               data.buffer,
               data.byteOffset + offset,
-              data.length - offset,
+              data.length - offset
             );
           }
         }

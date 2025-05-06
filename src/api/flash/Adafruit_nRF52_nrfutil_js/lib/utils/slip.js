@@ -204,7 +204,7 @@ const SLIP = {
       console.log(
         `SLIP header created: ${Array.from(header)
           .map((b) => b.toString(16).padStart(2, "0"))
-          .join(" ")}`,
+          .join(" ")}`
       );
       console.log(`First byte: seq=${sequence_number}, di=${data_integrity}, rel=${reliable}`);
       console.log(`Second byte: type=${packet_type}, len_low=${payload_length & 0x0f}`);

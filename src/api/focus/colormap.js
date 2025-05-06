@@ -60,7 +60,7 @@ export default class Colormap {
         .split(" ")
         .filter((v) => v?.length > 0)
         .map((k) => parseInt(k)),
-      3,
+      3
     ).map((color) => {
       return {
         r: color[0],
@@ -75,7 +75,7 @@ export default class Colormap {
         .split(" ")
         .filter((v) => v?.length > 0)
         .map((k) => parseInt(k)),
-      this._layerSize,
+      this._layerSize
     );
 
     return {

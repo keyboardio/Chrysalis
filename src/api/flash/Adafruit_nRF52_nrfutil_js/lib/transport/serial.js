@@ -86,7 +86,7 @@ class HciPacket {
       DfuProtocol.DATA_INTEGRITY_CHECK_PRESENT,
       DfuProtocol.RELIABLE_PACKET,
       DfuProtocol.HCI_PACKET_TYPE,
-      data.length,
+      data.length
     );
 
     // Combine header and data
@@ -157,7 +157,7 @@ class DfuTransportSerial {
     this.timeout = options.timeout || DfuTransportSerial.DEFAULT_SERIAL_PORT_TIMEOUT;
     this.skipDtrReset = options.skipDtrReset || false; // New option to skip DTR reset
 
-    this.port = options.port || null; 
+    this.port = options.port || null;
     this.totalSize = 167936; // default is max application size
     this.sdSize = 0;
 
@@ -321,7 +321,7 @@ class DfuTransportSerial {
    */
   async _startReading() {
     if (!this.port || this.readingContinuously) return;
-    
+
     this.readingContinuously = true;
     this.receivedData = [];
 
@@ -429,7 +429,7 @@ class DfuTransportSerial {
     // Helper function to safely release stream locks
     const releaseStreamLock = async (stream, type) => {
       if (!stream || !stream.locked) return;
-      
+
       try {
         const reader = stream.getReader();
         try {
@@ -447,12 +447,12 @@ class DfuTransportSerial {
     try {
       // Release readable stream lock
       if (this.port.readable) {
-        await releaseStreamLock(this.port.readable, 'readable');
+        await releaseStreamLock(this.port.readable, "readable");
       }
 
       // Release writable stream lock
       if (this.port.writable) {
-        await releaseStreamLock(this.port.writable, 'writable');
+        await releaseStreamLock(this.port.writable, "writable");
       }
 
       // Clear our references to the streams
@@ -616,7 +616,9 @@ class DfuTransportSerial {
 
           if (this.receivedData.length > 0) {
             this.logger.error(
-              `[RECV] Buffer contents (${this.receivedData.length} bytes): ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`,
+              `[RECV] Buffer contents (${this.receivedData.length} bytes): ${BinaryUtils.formatBytes(
+                new Uint8Array(this.receivedData)
+              )}`
             );
           } else {
             this.logger.error("[RECV] Buffer is empty");
@@ -668,13 +670,17 @@ class DfuTransportSerial {
     const elapsed = (Date.now() - startTime) / 1000;
     if (this.receivedData.length < 2) {
       this.logger.error(
-        `[RECV] No data received on serial port after ${elapsed.toFixed(3)} seconds. Not able to proceed.`,
+        `[RECV] No data received on serial port after ${elapsed.toFixed(3)} seconds. Not able to proceed.`
       );
       throw new Error("No data received on serial port. Not able to proceed.");
     }
 
     if (DfuTransportSerial.DETAILED_DEBUG) {
-      this.logger.info(  `[RECV] Received complete response after ${elapsed.toFixed(3)} seconds: ${BinaryUtils.formatBytes(new Uint8Array(this.receivedData))}`, );
+      this.logger.info(
+        `[RECV] Received complete response after ${elapsed.toFixed(3)} seconds: ${BinaryUtils.formatBytes(
+          new Uint8Array(this.receivedData)
+        )}`
+      );
     }
 
     try {
@@ -744,12 +750,12 @@ class DfuTransportSerial {
       // Simple ping packet with no data
       const frameData = BinaryUtils.int32ToBytes(2); // Packet type 2 for PING
       const packet = new HciPacket(frameData, "PING");
-   // Send the ping packet
-    await this.sendPacket(packet);
+      // Send the ping packet
+      await this.sendPacket(packet);
       this.logger.info("Device responded to ping");
       return true;
     } catch (error) {
-     // Throw the error so it can be handled by the caller
+      // Throw the error so it can be handled by the caller
       this.logger.error(`Error sending ping: ${error.message}`);
       throw new Error(`Device not responding to ping. Ensure it is in DFU mode. Error: ${error.message}`);
     }
@@ -791,7 +797,7 @@ class DfuTransportSerial {
 
       return true;
     } catch (error) {
-            // If this is a disconnection, it might be okay
+      // If this is a disconnection, it might be okay
       if (error.message.includes("device has been lost") || error.message.includes("Transport is not open")) {
         this.logger.info("Device disconnected during validation (expected)");
         return true;
@@ -812,7 +818,7 @@ class DfuTransportSerial {
     const frameData = BinaryUtils.mergeArrays(
       BinaryUtils.int32ToBytes(DfuProtocol.INIT_PACKET),
       initPacket,
-      BinaryUtils.int16ToBytes(0x0000), // Padding required
+      BinaryUtils.int16ToBytes(0x0000) // Padding required
     );
 
     // Create and send packet
@@ -828,7 +834,7 @@ class DfuTransportSerial {
     // Timeout is not less than 500ms
     return Math.max(
       500,
-      (this.totalSize / DfuTransportSerial.FLASH_PAGE_SIZE + 1) * DfuTransportSerial.FLASH_PAGE_ERASE_TIME,
+      (this.totalSize / DfuTransportSerial.FLASH_PAGE_SIZE + 1) * DfuTransportSerial.FLASH_PAGE_ERASE_TIME
     );
   }
 
@@ -872,7 +878,7 @@ class DfuTransportSerial {
     const frameData = BinaryUtils.mergeArrays(
       BinaryUtils.int32ToBytes(DfuProtocol.START_PACKET),
       BinaryUtils.int32ToBytes(mode),
-      imageSizePacket,
+      imageSizePacket
     );
 
     // Create and send packet
@@ -936,7 +942,9 @@ class DfuTransportSerial {
       }
       // Not returning an error for most activation issues, as they're usually due to device reset
 
-      this.logger.warn(`Activation command failed: ${error.message} - Not returning an error for most activation issues, as they're usually due to device reset`);
+      this.logger.warn(
+        `Activation command failed: ${error.message} - Not returning an error for most activation issues, as they're usually due to device reset`
+      );
       return true;
     }
   }
@@ -972,7 +980,7 @@ class DfuTransportSerial {
       packets.push(new HciPacket(frameData, "DATA_PACKET"));
     }
 
-       // Send firmware packets
+    // Send firmware packets
     let sentBytes = 0;
     const startTime = Date.now();
 
@@ -1014,7 +1022,9 @@ class DfuTransportSerial {
     // Calculate stats
     const totalTime = (Date.now() - startTime) / 1000;
     const transferSpeed = (firmware.length / totalTime / 1024).toFixed(2);
-    this.logger.info(`Firmware transfer complete: ${firmware.length} bytes in ${totalTime.toFixed(2)}s (${transferSpeed} KB/s)`);
+    this.logger.info(
+      `Firmware transfer complete: ${firmware.length} bytes in ${totalTime.toFixed(2)}s (${transferSpeed} KB/s)`
+    );
 
     // Send final progress event
     this._sendEvent(DfuEvent.PROGRESS_EVENT, {

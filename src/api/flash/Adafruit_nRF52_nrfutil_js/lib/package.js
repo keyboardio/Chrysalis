@@ -402,7 +402,7 @@ class Package {
 
         if (!files[manifest.softdevice_bootloader.dat_file]) {
           console.error(
-            `Error: SD+BL init packet file '${manifest.softdevice_bootloader.dat_file}' not found in package`,
+            `Error: SD+BL init packet file '${manifest.softdevice_bootloader.dat_file}' not found in package`
           );
           throw new Error(`Combined softdevice+bootloader init packet file not found in firmware package`);
         }

@@ -34,8 +34,8 @@ class Focus {
       this._request_id = 0;
       this.chunked_writes = true;
       this.in_bootloader = false;
-      this._reader = null;  // Track the current reader
-      this._writer = null;  // Track the current writer
+      this._reader = null; // Track the current reader
+      this._writer = null; // Track the current writer
 
       this.resetDeviceState();
     }
@@ -115,24 +115,26 @@ class Focus {
       if (!stream.locked) {
         logger.debug(`[Focus.releaseLocks] ${type} stream is not locked, nothing to release`);
         // If the stream isn't locked, ensure our tracked locker is null
-        if (type === 'readable') this._reader = null;
-        if (type === 'writable') this._writer = null;
+        if (type === "readable") this._reader = null;
+        if (type === "writable") this._writer = null;
         return;
       }
 
       // If stream is locked, we MUST have a tracked locker (reader/writer)
       if (!currentLocker) {
-          logger.error(`[Focus.releaseLocks] ${type} stream is locked, but no ${type} locker was tracked. Cannot release lock.`);
-          // We cannot get a new reader/writer here as it would throw the error we're seeing.
-          // This indicates a logic error elsewhere where a lock was acquired without tracking.
-          return; 
+        logger.error(
+          `[Focus.releaseLocks] ${type} stream is locked, but no ${type} locker was tracked. Cannot release lock.`
+        );
+        // We cannot get a new reader/writer here as it would throw the error we're seeing.
+        // This indicates a logic error elsewhere where a lock was acquired without tracking.
+        return;
       }
 
       logger.debug(`[Focus.releaseLocks] Attempting to release lock for ${type} stream using tracked locker.`);
       try {
         // Use the tracked reader/writer to cancel and release the lock
         logger.debug(`[Focus.releaseLocks] Canceling ${type} stream via tracked locker`);
-        await currentLocker.cancel(); 
+        await currentLocker.cancel();
       } catch (cancelError) {
         // Log cancel errors, but proceed to releaseLock
         logger.warn(`[Focus.releaseLocks] Error canceling ${type} stream:`, cancelError);
@@ -141,20 +143,19 @@ class Focus {
           logger.debug(`[Focus.releaseLocks] Releasing ${type} stream lock via tracked locker`);
           currentLocker.releaseLock();
         } catch (releaseError) {
-            logger.error(`[Focus.releaseLocks] Error releasing ${type} stream lock:`, releaseError);
+          logger.error(`[Focus.releaseLocks] Error releasing ${type} stream lock:`, releaseError);
         }
       }
     };
 
     // Release readable stream lock
     logger.debug("[Focus.releaseLocks] Releasing readable stream lock...");
-    await releaseStreamLock(this._port?.readable, 'readable', this._reader);
+    await releaseStreamLock(this._port?.readable, "readable", this._reader);
     this._reader = null; // Ensure tracked reader is cleared
-    
 
     // Release writable stream lock
     logger.debug("[Focus.releaseLocks] Releasing writable stream lock...");
-    await releaseStreamLock(this._port?.writable, 'writable', this._writer);
+    await releaseStreamLock(this._port?.writable, "writable", this._writer);
     this._writer = null; // Ensure tracked writer is cleared
 
     logger.debug("[Focus.releaseLocks] Finished releasing locks.");
@@ -396,76 +397,80 @@ class Focus {
     const encoder = new TextEncoder();
     let writerAcquired = false;
     try {
-        logger.debug("[Focus._sendRequest] Acquiring writable stream lock...");
-        if (this._port.writable.locked) {
-            logger.warn("[Focus._sendRequest] Writable stream was already locked before acquiring. Releasing existing lock first.");
-            // Attempt to release potentially stale lock
-            await this.releaseLocks(); // This might clear _writer if it was stale
-        }
-        this._writer = this._port.writable.getWriter();
-        writerAcquired = true;
-        logger.debug("[Focus._sendRequest] Writable stream lock acquired.");
-        const data = encoder.encode(request);
-        await this._writer.write(data);
-        logger.debug("[Focus._sendRequest] Data written.");
+      logger.debug("[Focus._sendRequest] Acquiring writable stream lock...");
+      if (this._port.writable.locked) {
+        logger.warn(
+          "[Focus._sendRequest] Writable stream was already locked before acquiring. Releasing existing lock first."
+        );
+        // Attempt to release potentially stale lock
+        await this.releaseLocks(); // This might clear _writer if it was stale
+      }
+      this._writer = this._port.writable.getWriter();
+      writerAcquired = true;
+      logger.debug("[Focus._sendRequest] Writable stream lock acquired.");
+      const data = encoder.encode(request);
+      await this._writer.write(data);
+      logger.debug("[Focus._sendRequest] Data written.");
     } catch (writeError) {
-        logger.error("[Focus._sendRequest] Error during write:", writeError);
-        throw writeError; // Rethrow after logging
+      logger.error("[Focus._sendRequest] Error during write:", writeError);
+      throw writeError; // Rethrow after logging
     } finally {
-        if (this._writer) {
-            try {
-                logger.debug("[Focus._sendRequest] Releasing writable stream lock after write.");
-                this._writer.releaseLock();
-            } catch (releaseError) {
-                logger.error("[Focus._sendRequest] Error releasing writer lock:", releaseError);
-            }
-            this._writer = null; // Clear tracked writer
+      if (this._writer) {
+        try {
+          logger.debug("[Focus._sendRequest] Releasing writable stream lock after write.");
+          this._writer.releaseLock();
+        } catch (releaseError) {
+          logger.error("[Focus._sendRequest] Error releasing writer lock:", releaseError);
         }
+        this._writer = null; // Clear tracked writer
+      }
     }
-    
+
     let response = "";
     const decoder = new TextDecoder();
     let readerAcquired = false;
     try {
-        logger.debug("[Focus._sendRequest] Acquiring readable stream lock...");
-        if (this._port.readable.locked) {
-             logger.warn("[Focus._sendRequest] Readable stream was already locked before acquiring. Releasing existing lock first.");
-             // Attempt to release potentially stale lock
-             await this.releaseLocks(); // This might clear _reader if it was stale
-        }
-        this._reader = this._port.readable.getReader();
-        readerAcquired = true;
-        logger.debug("[Focus._sendRequest] Readable stream lock acquired.");
+      logger.debug("[Focus._sendRequest] Acquiring readable stream lock...");
+      if (this._port.readable.locked) {
+        logger.warn(
+          "[Focus._sendRequest] Readable stream was already locked before acquiring. Releasing existing lock first."
+        );
+        // Attempt to release potentially stale lock
+        await this.releaseLocks(); // This might clear _reader if it was stale
+      }
+      this._reader = this._port.readable.getReader();
+      readerAcquired = true;
+      logger.debug("[Focus._sendRequest] Readable stream lock acquired.");
 
-        while (true) {
-            const { value, done } = await this._reader.read();
-            if (value) {
-                response += decoder.decode(value);
-            }
-            if (done) {
-                logger.debug("[Focus._sendRequest] Reader reported done.");
-                break;
-            }
-            if (response.endsWith("\r\n.\r\n")) {
-                response = response.slice(0, -5); // Remove the trailing \r\n.\r\n
-                logger.debug("[Focus._sendRequest] End marker found.");
-                break;
-            }
+      while (true) {
+        const { value, done } = await this._reader.read();
+        if (value) {
+          response += decoder.decode(value);
         }
+        if (done) {
+          logger.debug("[Focus._sendRequest] Reader reported done.");
+          break;
+        }
+        if (response.endsWith("\r\n.\r\n")) {
+          response = response.slice(0, -5); // Remove the trailing \r\n.\r\n
+          logger.debug("[Focus._sendRequest] End marker found.");
+          break;
+        }
+      }
     } catch (readError) {
-        logger.error("[Focus._sendRequest] Error during read:", readError);
-        throw readError; // Rethrow after logging
+      logger.error("[Focus._sendRequest] Error during read:", readError);
+      throw readError; // Rethrow after logging
     } finally {
-        if (this._reader) {
-            try {
-                logger.debug("[Focus._sendRequest] Releasing readable stream lock after read.");
-                // We don't cancel here as the read should complete naturally or via error
-                this._reader.releaseLock(); 
-            } catch (releaseError) {
-                logger.error("[Focus._sendRequest] Error releasing reader lock:", releaseError);
-            }
-            this._reader = null; // Clear tracked reader
+      if (this._reader) {
+        try {
+          logger.debug("[Focus._sendRequest] Releasing readable stream lock after read.");
+          // We don't cancel here as the read should complete naturally or via error
+          this._reader.releaseLock();
+        } catch (releaseError) {
+          logger.error("[Focus._sendRequest] Error releasing reader lock:", releaseError);
         }
+        this._reader = null; // Clear tracked reader
+      }
     }
 
     response = response.trim();

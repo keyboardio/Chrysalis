@@ -45,7 +45,7 @@ export const connectToSerialport = async (targetVid, targetPid) => {
         if (!serialPort) {
           logger.error(
             "I couldn't connect to your keyboard's serial port. That might be because another program or browser window is already connected.",
-            e,
+            e
           );
           return;
         }

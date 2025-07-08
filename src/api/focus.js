@@ -569,9 +569,16 @@ class Focus {
     }
     return backup;
   }
-  async writeKeyboardConfiguration(backup) {
+  async writeKeyboardConfiguration(backup, cache) {
     for (const cmd of this.eepromRestoreCommands) {
       if (backup[cmd] !== undefined) {
+        if (cache) {
+          const cacheFn = cache[cmd.replace(".", "_")];
+          if (cacheFn) {
+            await cacheFn(backup[cmd]);
+            continue;
+          }
+        }
         await this.command(cmd, backup[cmd]);
       }
     }

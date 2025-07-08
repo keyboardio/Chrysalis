@@ -398,6 +398,11 @@
           "contents": "This will reset the EEPROM to factory defaults. You will lose all customizations made."
         }
       },
+      "EEPROMBackup": {
+        "backup": "Backup EEPROM settings",
+        "restore": "Restore EEPROM settings from backup...",
+        "selectLoadFile": "Select file to load settings from"
+      },
       "led": {
         "label": "LEDs",
         "idle": {

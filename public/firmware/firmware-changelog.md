@@ -1,3 +1,9 @@
+Chrysalis-Firmware-Bundle 0.92.7
+================================
+Released on 2025-07-08
+
+The first Chrysalis firmware bundle with Preonic firmware. (And a variety of general Kaleidoscope bugfixes)
+
 Chrysalis-Firmware-Bundle 0.92.6
 ================================
 Released on 2024-03-08

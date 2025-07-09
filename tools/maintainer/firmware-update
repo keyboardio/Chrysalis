@@ -14,7 +14,7 @@ fi
 URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
 
 curl -s -L "${URL}" | tar -C public/firmware -xzf -
-git add public/firmware/**/default.{hex,bin} public/firmware/firmware-changelog.md public/firmware/build-info.yml
+git add public/firmware/**/default.{hex,bin,zip} public/firmware/firmware-changelog.md public/firmware/build-info.yml
 
 TMP=$(mktemp)
 cat >${TMP} <<EOF

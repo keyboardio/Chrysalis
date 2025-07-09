@@ -1,20 +1,47 @@
 ---
-version: 0.92.6+116
-build: 116
+version: 0.92.7+120
+build: 120
 
 dependencies:
   cores:
-    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@b1a7cbbb42c28aedbaf8bc27fb394ed8222d54e0
+    avr: keyboardio/Kaleidoscope-Bundle-Keyboardio@2633e79ed2cf7f04bfef01d1432b39d8bb85e48d
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     common:
-      - keyboardio/Kaleidoscope@73d651b745e10b30ac3c1d7937d5723a7f73d678
-      - keyboardio/Chrysalis-Firmware-Bundle@359e6254922369272e72b6f2bc0d0d353347b22e
+      - keyboardio/Kaleidoscope@ce946d00a0023ba27aad4441ca98f71c78fe3340
+      - keyboardio/Chrysalis-Firmware-Bundle@18d5f4ab7bdc353c80c4019e4a3359ee2c402c4d
 
 firmware:
   Keyboardio:
-    Atreus:
+    Model01:
       plugins:
+        - BootGreetingEffect
+        - ColormapEffect
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - HostPowerManagement
+        - LEDBreatheEffect
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - NumPad
+        - Qukeys
+        - USBQuirks
+    Preonic:
+      plugins:
+        - DefaultLEDModeConfig
+        - DefaultPreonicColormap
         - DynamicMacros
         - EEPROMKeymap
         - EEPROMSettings
@@ -24,11 +51,21 @@ firmware:
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
+        - Keyclick
+        - LEDBrightnessConfig
+        - LEDControl
+        - LEDIndicators
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
         - LayerNames
         - Macros
+        - MagicCombo
         - MouseKeys
+        - MouseKeysConfig
         - OneShot
         - OneShotConfig
+        - PreonicColormapEffect
         - Qukeys
         - SpaceCadet
         - SpaceCadetConfig
@@ -37,6 +74,7 @@ firmware:
         - AlphaSquareEffect
         - BootGreetingEffect
         - ColormapEffect
+        - ColormapOverlay
         - DefaultLEDModeConfig
         - DynamicMacros
         - EEPROMKeymap
@@ -63,7 +101,6 @@ firmware:
         - MagicCombo
         - MouseKeys
         - MouseKeysConfig
-        - NumPad
         - OneShot
         - OneShotConfig
         - PersistentIdleLEDs
@@ -72,28 +109,22 @@ firmware:
         - SpaceCadetConfig
         - StalkerEffect
         - USBQuirks
-    Model01:
+    Atreus:
       plugins:
-        - BootGreetingEffect
-        - ColormapEffect
         - DynamicMacros
         - EEPROMKeymap
         - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
         - FirmwareVersion
         - Focus
         - FocusEEPROMCommand
         - FocusSettingsCommand
-        - HostPowerManagement
-        - LEDBreatheEffect
-        - LEDChaseEffect
-        - LEDControl
-        - LEDOff
-        - LEDPaletteTheme
-        - LEDRainbowEffect
-        - LEDRainbowWaveEffect
+        - LayerNames
         - Macros
-        - MagicCombo
         - MouseKeys
-        - NumPad
+        - OneShot
+        - OneShotConfig
         - Qukeys
-        - USBQuirks
+        - SpaceCadet
+        - SpaceCadetConfig

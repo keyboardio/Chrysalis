@@ -37,7 +37,10 @@
             "chrysalisSection": "Chrysalis",
             "miscSection": "Diversen",
             "restart": "Update toepassen en herstarten",
-            "changelog": "Changelog"
+            "changelog": "Changelog",
+            "connectAKeyboard": "Verbind een toetsenbord",
+            "importExport": "Exporteer en Importeer layouts",
+            "connectAnotherKeyboard": "Verbind nog een toetsenbord"
         },
         "deviceMenu": {
             "Homepage": "Beginpagina",
@@ -72,7 +75,8 @@
             "importConfirm": {
                 "title": "Importeer de geselecteerde toetsenbordindeling?",
                 "contents": "Dit zal de huidige toetsenbordindeling overschrijven, en alle niet-opgeslagen veranderingen zullen verloren gaan. Ben je zeker dat je wil verdergaan?"
-            }
+            },
+            "exporting": "Exporteren..."
         },
         "sidebar": {
             "custom": {
@@ -153,6 +157,23 @@
             "platform_apple": {
                 "title": "Mac / iPad toetsen",
                 "help": "Toetscodes specifiek voor Apple toestellen."
+            },
+            "blekeys": {
+                "title": "Bluetooth"
+            },
+            "volume": {
+                "title": "Volume",
+                "help": "Volume toetsen."
+            },
+            "media": {
+                "title": "Media toetsen",
+                "help": "Media toetsen."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Helderheid",
+                    "help": "Pas schermhelderheid aan."
+                }
             }
         },
         "layerswitch": {
@@ -190,6 +211,16 @@
         },
         "layernames": {
             "out_of_space": "Je laag namen zijn {{ overflow }} bytes te lang om op te slaan op je toetsenbord."
+        },
+        "plugin_unavailable": "Deze functie wordt niet ondersteund door de firmware van het toetsenbord.",
+        "plugin_unavailable_for_macros": "Deze functie is niet beschikbaar in macros",
+        "overview": {
+            "key": "Toets #{{index}}",
+            "color": "Kleur",
+            "hideEmptyLayers": "Verberg lege lagen...",
+            "showEmptyLayers": "Toon lege lagen...",
+            "copyLayer": "Kopieer laag",
+            "pasteLayer": "Plak laag"
         }
     },
     "preferences": {
@@ -535,6 +566,8 @@
         "message": "Chrysalis heeft gemerkt dat het uitgevoerd wordt in een niet-ondersteunde omgeving, zoals met een Electron versie verschillend van degene die upstream ondersteund wordt. Indien je Chrysalis gebruikt via een package repository van een distributie, overweeg dan om de officiële builds te gebruiken."
     },
     "saveChangesButton": {
-        "saveChanges": "Veranderingen opslaan"
+        "saveChanges": "Aanpassingen Opslaan",
+        "savingChanges": "Aan het Opslaan",
+        "savedChanges": "Opslaan voltooid"
     }
 }

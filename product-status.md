@@ -1,6 +1,6 @@
 # Keyboardio Chrysalis
 
-This is Chrysalis, the graphical configuration tool for Keyboardio's Model 100, Atreus, and Model 01 keyboards.
+This is Chrysalis, the graphical configuration tool for Keyboardio's Preonic, Model 100, Atreus, and Model 01 keyboards.
 
 ## Features
 

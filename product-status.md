@@ -12,4 +12,4 @@ This is Chrysalis, the graphical configuration tool for Keyboardio's Preonic, Mo
 - Factory reset
 
 ## Last Updated
-2025.0709.1901
+2025.0710.1630

@@ -549,8 +549,7 @@ class Focus {
     "typingbreaks.rightMaxKeys",
   ];
 
-  eepromBackupCommands = [
-    ...this.eepromRestoreCommands,
+  eepromBackupOnlyCommands = [
     "help",
     "version",
     "plugins",
@@ -558,6 +557,11 @@ class Focus {
     "settings.valid?",
     "settings.version",
     "settings.crc",
+  ];
+
+  eepromBackupCommands = [
+    ...this.eepromRestoreCommands,
+    ...this.eepromBackupOnlyCommands,
   ];
   async readKeyboardConfiguration() {
     const backup = {};

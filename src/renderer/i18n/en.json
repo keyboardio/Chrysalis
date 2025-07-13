@@ -101,7 +101,10 @@
       "title": "Backup & Restore",
       "loadFromLibrary": "Load from library",
       "loadFromBackup": "Load from backups",
-      "loadFromFile": "Restore from file...",
+      "loadLayoutFromFile": "Restore keyboard layout from file...",
+      "loadLayoutFromFileOption": "Keyboard layout only",
+      "loadFullSettingsFromFile": "Restore settings from file...",
+      "loadFullSettingsFromFileOption": "Full EEPROM settings",
       "exportToFile": "Backup to file...",
       "exporting": "Exporting...",
       "import": "Import",
@@ -397,11 +400,6 @@
           "title": "Reset EEPROM to factory defaults?",
           "contents": "This will reset the EEPROM to factory defaults. You will lose all customizations made."
         }
-      },
-      "EEPROMBackup": {
-        "backup": "Backup EEPROM settings",
-        "restore": "Restore EEPROM settings from backup...",
-        "selectLoadFile": "Select file to load settings from"
       },
       "led": {
         "label": "LEDs",

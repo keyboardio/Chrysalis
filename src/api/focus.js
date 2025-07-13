@@ -549,8 +549,7 @@ class Focus {
     "typingbreaks.rightMaxKeys",
   ];
 
-  eepromBackupCommands = [
-    ...this.eepromRestoreCommands,
+  eepromBackupOnlyCommands = [
     "help",
     "version",
     "plugins",
@@ -558,6 +557,11 @@ class Focus {
     "settings.valid?",
     "settings.version",
     "settings.crc",
+  ];
+
+  eepromBackupCommands = [
+    ...this.eepromRestoreCommands,
+    ...this.eepromBackupOnlyCommands,
   ];
   async readKeyboardConfiguration() {
     const backup = {};
@@ -569,16 +573,9 @@ class Focus {
     }
     return backup;
   }
-  async writeKeyboardConfiguration(backup, cache) {
+  async writeKeyboardConfiguration(backup) {
     for (const cmd of this.eepromRestoreCommands) {
       if (backup[cmd] !== undefined) {
-        if (cache) {
-          const cacheFn = cache[cmd.replace(".", "_")];
-          if (cacheFn) {
-            await cacheFn(backup[cmd]);
-            continue;
-          }
-        }
         await this.command(cmd, backup[cmd]);
       }
     }

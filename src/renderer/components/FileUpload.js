@@ -15,6 +15,7 @@ export const FileUpload = ({children, onLoad = () => {}, onClick = () => {},
     reader.onload = async function (e) {
       const fileData = e.target.result;
       onLoad(fileData, file.name);
+      event.target.value = null; // enable re-uploading the same file again
     };
     reader.onerror = onError;
     reader.readAsText(file);
@@ -40,12 +41,12 @@ export const FileUpload = ({children, onLoad = () => {}, onClick = () => {},
 
 
   return (
-    <Box sx={{ mb: 2 }}>
-      <input type="file" style={{ display: "none" }} ref={fileInputRef} onChange={importFromFile} onCancel={(e) => console.log("cancel!", e)} />
+    <React.Fragment>
+      <input type="file" style={{ display: "none" }} ref={fileInputRef} onChange={importFromFile}/>
       <Button {...props} onClick={openFileDialog}>
         {children}
       </Button>
-    </Box>
+    </React.Fragment>
   );
 };
 

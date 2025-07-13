@@ -73,6 +73,7 @@ const LayoutSharing = (props) => {
   const onRestore = (layoutData) => {
     props.onKeymapChange(layoutData.keymaps);
     props.onColormapAndPaletteChange({ palette: layoutData.palette, colorMap: layoutData.colormaps });
+    props.onEEPROMSettingsChange(layoutData.settings);
   };
 
   const { open, onClose, theme, keymap, colormap, ...others } = props;

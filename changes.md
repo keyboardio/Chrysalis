@@ -1,4 +1,5 @@
 ## Recent updates
+- 2025-08-04: Added EEPROM backup and restore functionality - backup all keyboard settings to a file and restore them later, with detailed diff view showing what will change (thanks @thehenkan)
 - 2025-07-09: Initial post-manufacturing firmware update for the Preonic
 - 2024-11-15: Better handling of Model 100 keyboards in bootloader mode; small cleanups to flashing flow
 - 2024-08-14: Update udev instructions to not require a device replug

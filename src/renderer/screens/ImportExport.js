@@ -30,11 +30,12 @@ import logger from "@renderer/utils/Logger";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import LayoutSharing from "./Editor/Sidebar/LayoutSharing";
+import { SettingsDiff } from "./ImportExport/SettingsDiff";
 import Overview from "./Editor/Sidebar/Overview";
 
 const db = new KeymapDB();
 
-const Editor = (props) => {
+const ImportExport = (props) => {
   const globalContext = React.useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
 
@@ -51,6 +52,7 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [selectorKey, setSelectorKey] = useState(null);
+  const [EEPROMSettings, setEEPROMSettings] = useState(null);
 
   const saveChangesDisabled = !modified;
   const { t } = useTranslation();
@@ -102,6 +104,28 @@ const Editor = (props) => {
     showContextBar();
   };
 
+  const onEEPROMChange = async (newSettings) => {
+    if (!newSettings) return;
+    setLoading(true);
+    for (const ignoredSetting of activeDevice.focus.eepromBackupOnlyCommands) {
+      delete newSettings[ignoredSetting];
+    }
+    const settings = await Promise.all(Object.entries(newSettings)
+      .map(async ([key, newValue]) => {
+        const oldValue = await activeDevice._cachedDeviceData(key);
+        return {
+          key: key,
+          newValue: newValue,
+          oldValue: oldValue
+        };
+      }));
+    setEEPROMSettings(settings);
+    setModified(true);
+
+    setLoading(false);
+    showContextBar();
+  };
+
   const scanKeyboard = async () => {
     try {
       const deviceKeymap = await activeDevice.keymap();
@@ -122,6 +146,7 @@ const Editor = (props) => {
           names: names,
         });
       }
+      setEEPROMSettings([]);
     } catch (e) {
       toast.error(e);
       props.onDisconnect();
@@ -161,6 +186,11 @@ const Editor = (props) => {
     await activeDevice.colormap(colormap);
     await activeDevice.macros(macros);
     await activeDevice.layernames(layerNames);
+    for (const { key, newValue } of EEPROMSettings) {
+      logger.log("Writing setting from backup", { key: key, newValue: newValue });
+      await activeDevice._cachedDeviceData(key, newValue);
+    }
+    setEEPROMSettings([]);
 
     setModified(false);
     logger.info("Changes saved.");
@@ -186,7 +216,9 @@ const Editor = (props) => {
         onPaletteChange={onPaletteChange}
         onColormapChange={onColormapChange}
         onColormapAndPaletteChange={onColormapAndPaletteChange}
+        onEEPROMSettingsChange={onEEPROMChange}
       />{" "}
+      <SettingsDiff settings={EEPROMSettings}/>
       <Box
         sx={{
           position: "fixed",
@@ -214,4 +246,4 @@ const Editor = (props) => {
   );
 };
 
-export default Editor;
+export default ImportExport;

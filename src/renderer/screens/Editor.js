@@ -450,24 +450,6 @@ const Editor = (props) => {
     M.getStoredSize(macros) > macros.storageSize ||
     (layerNames.storageSize > 0 && L.getStoredSize(layerNames) > layerNames.storageSize);
 
-  const layoutSharing = (
-    <>
-      <Button onClick={() => setDialogOpen(true)} color="secondary" variant="outlined">
-        {t("editor.overview.sharing")}
-      </Button>
-      <LayoutSharing
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        keymap={keymap}
-        colormap={colormap}
-        layer={currentLayer}
-        onKeymapChange={onKeymapChange}
-        onPaletteChange={onPaletteChange}
-        onColormapChange={onColormapChange}
-        onColormapAndPaletteChange={onColormapAndPaletteChange}
-      />
-    </>
-  );
   return (
     <React.Fragment>
       <PageTitle title={title} />

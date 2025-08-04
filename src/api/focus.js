@@ -559,10 +559,7 @@ class Focus {
     "settings.crc",
   ];
 
-  eepromBackupCommands = [
-    ...this.eepromRestoreCommands,
-    ...this.eepromBackupOnlyCommands,
-  ];
+  eepromBackupCommands = [...this.eepromRestoreCommands, ...this.eepromBackupOnlyCommands];
   async readKeyboardConfiguration() {
     const backup = {};
     for (const cmd of this.eepromBackupCommands) {

@@ -77,7 +77,6 @@
     "editor": {
         "sharing": {
             "loadFromLibrary": "Aus Bibliothek laden",
-            "loadFromFile": "Aus Datei wiederherstellen...",
             "exportToFile": "In Datei sichern...",
             "import": "Importieren",
             "selectLoadFile": "Datei zum Laden einer Belegung auswählen",

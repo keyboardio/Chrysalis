@@ -58,7 +58,6 @@
             "title": "Backup & Terugzetten",
             "loadFromLibrary": "Laden van Bibliotheek",
             "loadFromBackup": "Laden van backups",
-            "loadFromFile": "Laden van bestand...",
             "exportToFile": "Exporteren naar bestand...",
             "import": "Importeren",
             "selectLoadFile": "Selecteer bestand vanwaar een toetsenbordindeling geladen moet worden",

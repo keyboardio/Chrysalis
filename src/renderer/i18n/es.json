@@ -1,381 +1,380 @@
 {
-  "this_translation_language": "Español",
-  "sanity-check": {
-    "title": "Ejecutando la verificación del entorno",
-    "header": "La verificación del entorno ha fallado",
-    "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
-    "download-latest": "Descargar la versión oficial"
-  },
-  "units": {
-    "in_ms": "ms"
-  },
-  "breakingNews": {
-    "firmware0_90_1": {
-      "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
-      "button": "Instrucciones de actualización",
-      "title": "¡Atención dueños de Keyboardio Modelo 100!"
-    }
-  },
-  "language": "Español",
-  "firmwareAutoUpdate": {
-    "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
-    "available": "Versión nuevo de firmware disponible: {{ version }}",
-    "error": "Error mientras descargando la versión nueva de firmware.",
-    "warning": "Chrysalis no pude comprobar si hay una versión nueva de firmware. Puede que hay una versión más nueva disponible en línea."
-  },
-  "components": {
-    "layer": "Capa {{index}}",
-    "none": "Nada",
-    "layerRaw": "Capa",
-    "loading": "Leyendo datos del dispositivo...",
-    "logo": {
-      "altText": "Logo de Chrysalis"
-    }
-  },
-  "errors": {
-    "saveFile": "Error al guardar un archivo: {{ error }}",
-    "deviceDisconnected": "Teclado desconectado"
-  },
-  "print": {
-    "feedback": {
-      "success": "¡Ha impreso con éxito!",
-      "error": "Error encontrado al imprimir."
-    }
-  },
-  "autoUpdate": {
-    "available": "Versión nueva disponible: {{ version }}",
-    "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
-    "error": "Error durante actualización: {{ error }}"
-  },
-  "editor": {
-    "sharing": {
-      "title": "Respaldar y restaurar",
-      "loadFromLibrary": "Cargar de biblioteca",
-      "loadFromBackup": "Cargar de las copias de seguridad",
-      "loadFromFile": "Restaurar desde archivo...",
-      "import": "Importar",
-      "selectExportFile": "Elige el archivo al que exportar el diseño",
-      "dialog": {
-        "layoutFiles": "Archivos de distribución",
-        "allFiles": "Todos los archivos"
-      },
-      "exportToFile": "Copia de seguridad al archivo...",
-      "selectLoadFile": "Elige el archivo desde el que cargar un diseño",
-      "errors": {
-        "unableToLoad": "No se puede descargar el diseño del archivo seleccionado.",
-        "parseFail": "Se ha fallado analizar los datos de diseño.",
-        "invalidLayoutData": "El archivo no contiene los datos de diseños válidos."
-      },
-      "importConfirm": {
-        "title": "¿Importar el diseño seleccionado?",
-        "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
-      },
-      "exporting": "Exportando…"
+    "this_translation_language": "Español",
+    "sanity-check": {
+        "title": "Ejecutando la verificación del entorno",
+        "header": "La verificación del entorno ha fallado",
+        "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
+        "download-latest": "Descargar la versión oficial"
     },
-    "sidebar": {
-      "custom": {
-        "help": "Asigne un código de tecla personalizado de Kaleidoscope.",
-        "title": "Código de tecla",
-        "label": "Código personalizado de llave"
-      },
-      "platform_apple": {
-        "title": "Teclas de Mac / iPad",
-        "help": "Códigos de llaves específicos para dispositivos Apple."
-      },
-      "blanks": {
-        "title": "Espacios en blanco",
-        "help": "Teclas bloqueadas y transparentes."
-      },
-      "secondary": {
-        "whenHeld": "Al mantener",
-        "targetLayer": "Capa",
-        "title": "Acción secundario",
-        "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
-        "help": "Al pulsarse, se obtiene la función principal. Al mantenerse, se obtiene la acción secundaria.",
-        "modifier": "Modificadora",
-        "type": {
-          "none": "Normal",
-          "layer": "Capa desplazamiento",
-          "modifier": "Modificadora"
+    "units": {
+        "in_ms": "ms"
+    },
+    "breakingNews": {
+        "firmware0_90_1": {
+            "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
+            "button": "Instrucciones de actualización",
+            "title": "¡Atención dueños de Keyboardio Modelo 100!"
         }
-      },
-      "colors": {
-        "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
-        "title": "Colores"
-      },
-      "lang_intl": {
-        "help": "Teclas adicionales específicas del idioma.",
-        "title": "Idioma / Internacional"
-      },
-      "oneshot": {
-        "title": "Persistente",
-        "cancelStickyKey": {
-          "tooltip": "Una tecla dedicada para cancelar las teclas persistentes."
+    },
+    "language": "Español",
+    "firmwareAutoUpdate": {
+        "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
+        "available": "Versión nuevo de firmware disponible: {{ version }}",
+        "error": "Error mientras descargando la versión nueva de firmware.",
+        "warning": "Chrysalis no pude comprobar si hay una versión nueva de firmware. Puede que hay una versión más nueva disponible en línea."
+    },
+    "components": {
+        "layer": "Capa {{index}}",
+        "none": "Nada",
+        "layerRaw": "Capa",
+        "loading": "Leyendo datos del dispositivo...",
+        "logo": {
+            "altText": "Logo de Chrysalis"
         }
-      },
-      "macros": {
-        "title": "Macros"
-      },
-      "dynmacros": {
-        "title": "Macros dinámicas",
-        "usage_overview": {
-          "bytes": "bytes"
+    },
+    "errors": {
+        "saveFile": "Error al guardar un archivo: {{ error }}",
+        "deviceDisconnected": "Teclado desconectado"
+    },
+    "print": {
+        "feedback": {
+            "success": "¡Ha impreso con éxito!",
+            "error": "Error encontrado al imprimir."
         }
-      },
-      "volume": {
-        "help": "Teclas de control de volumen.",
-        "title": "Volumen"
-      },
-      "mousekeys": {
-        "buttons": {
-          "help": "Presione botones del ratón con su teclado",
-          "title": "Botones"
-        },
-        "wheel": {
-          "title": "Rueda",
-          "help": " Desplazamiento de la rueda del ratón"
-        },
-        "title": "Control del ratón",
-        "help": "Mueva el ratón con su teclado",
-        "movement": {
-          "title": "Movimiento",
-          "help": "Mueva el ratón con su teclado"
-        }
-      },
-      "keypicker": {
-        "topsyturvy": {
-          "label": "Invertir Mayús"
-        },
-        "mods": "Modificadoras",
-        "modsHelp": "Modificadoras que se suman al pulsar esta tecla.",
-        "oneshot": {
-          "label": "Persistente"
-        },
-        "specialModsHelp": "Cambie la forma en que las modificadoras afectan esta tecla."
-      },
-      "layer": {
-        "help": "Teclas que permiten cambiar de capa."
-      },
-      "media": {
-        "help": "Teclas de control multimedia.",
-        "title": "Control multimedia"
-      },
-      "consumer": {
-        "brightness": {
-          "title": "Brillo",
-          "help": "Ajuste el brillo de la pantalla."
-        }
-      },
-      "ledkeys": {
-        "help": "Controle los temas y efectos LED de su teclado.",
-        "title": "Control de LED"
-      }
-    },
-    "overview": {
-      "key": "Tecla #{{index}}",
-      "color": "Color",
-      "pasteLayer": "Pegar capa",
-      "sharing": "Copia de seguridad y restauración",
-      "showEmptyLayers": "Mostrar capas vacías...",
-      "copyLayer": "Copiar capa",
-      "hideEmptyLayers": "Ocultar capas vacías...",
-      "help": "Descripción general de las asignaciones para la tecla seleccionada actualmente. Para cambiar la capa mostrada, haga clic en su fila."
-    },
-    "plugin_unavailable_for_macros": "Esta función no está disponible en macros",
-    "plugin_unavailable": "El firmware de su teclado no incluye soporte para esta función.",
-    "layerswitch": {
-      "lockTo": "Bloquear en capa",
-      "shiftTo": "Cambiar a capa",
-      "moveTo": "Mover a capa",
-      "target": "Capa"
-    },
-    "onlyCustom": {
-      "fixItButton": "Cambiar solo a capas personalizadas",
-      "openFR": "Solicitar una funcionalidad"
-    },
-    "macros": {
-      "title": "Macro n.º {{ index }}",
-      "steps": {
-        "add": "Añadir un paso",
-        "INTERVAL": "Demora entre pasos",
-        "WAIT": "Esperar",
-        "KEYDOWN": "Sostener tecla",
-        "KEYUP": "Soltar tecla",
-        "unknown": "<desconocido>"
-      },
-      "edit": "Editar macro"
-    }
-  },
-  "app": {
-    "menu": {
-      "preferences": "Preferencias",
-      "chrysalisSection": "Chrysalis",
-      "firmwareUpdate": "Actualización de firmware",
-      "layoutEditor": "Editor de distribución",
-      "editor": "Editor de distribución y de colormap",
-      "focus-not-detected": "Bienvenido",
-      "systemInfo": "Reportar un problema",
-      "colormapEditor": "Editor de colormap",
-      "macroEditor": "Editor de macro",
-      "exit": "Salir",
-      "restart": "Aplicar actualización y reiniciar",
-      "keyboardSection": "Teclado",
-      "chat": "Chat de Discord",
-      "layoutCard": "Carta de distribución",
-      "miscSection": "Varios",
-      "changelog": "Registro de cambios",
-      "connectAKeyboard": "Conectar un teclado",
-      "importExport": "Diseños de copia de seguridad y restauración",
-      "connectAnotherKeyboard": "Conectar otro teclado"
-    },
-    "cancelPending": {
-      "title": "Descartar los cambios pendientes?",
-      "content": "Tiene cambios no guardados. Si procede, se perderán."
-    },
-    "actionRequired": "Acción requerida",
-    "deviceMenu": {
-      "Homepage": "Página de inicio",
-      "Forum": "Foro",
-      "Chat": "Chat"
-    }
-  },
-  "dialog": {
-    "cancel": "Cancelar",
-    "ok": "Ok",
-    "close": "Cerrar",
-    "continue": "Continuar"
-  },
-  "changelog": {
-    "title": "Registro de cambios"
-  },
-  "saveChangesButton": {
-    "savedChanges": "Cambios guardados",
-    "saveChanges": "Guardar los cambios",
-    "savingChanges": "Guardando los cambios"
-  },
-  "firmwareUpdate": {
-    "dialog": {
-      "allFiles": "Todos los archivos"
-    },
-    "flashing": {
-      "anywayButton": "Actualizar de todos modos",
-      "button": "Actualizar",
-      "cancelAndDisconnectButton": "Cancelar y desconectar"
-    },
-    "factoryResetTitle": "Restablecimiento de fábrica",
-    "firmwareChangelog": {
-      "view": "¿Qué hay de nuevo en {{version}}?"
-    },
-    "bootloaderConnectDialog": {
-      "title": "Conectando con su teclado..."
-    },
-    "customChooseFile": "Elegir un archivo...",
-    "calloutTitle": "¡Importante!",
-    "firmwareSources": "Código fuente"
-  },
-  "help": {
-    "connection": {
-      "title": "Chrysalis no pudo conectarse con el teclado"
-    }
-  },
-  "preferences": {
-    "devtools": {
-      "console": {
-        "label": "Abrir la consola de desarrollo"
-      },
-      "main": {
-        "label": "Herramientas de desarrollo"
-      },
-      "verboseLogging": {
-        "label": "Activar registros detallados"
-      }
-    },
-    "ui": {
-      "lookNFeel": {
-        "label": "Apariencia"
-      },
-      "language": {
-        "label": "Idioma"
-      },
-      "theme": {
-        "system": "Predeterminado del sistema",
-        "label": "Tema",
-        "dark": "Oscuro",
-        "light": "Claro"
-      },
-      "layoutCards": {
-        "label": "Tarjetas de disposición"
-      },
-      "layoutEditor": {
-        "label": "Editor de disposición"
-      },
-      "host": {
-        "label": "Disposición de teclado"
-      }
-    },
-    "keyboard": {
-      "led": {
-        "idle": {
-          "threeMinutes": "3 minutos",
-          "thirtyMinutes": "30 minutos",
-          "twentyMinutes": "20 minutos",
-          "fifteenMinutes": "15 minutos",
-          "tenMinutes": "10 minutos",
-          "sixtyMinutes": "60 minutos",
-          "oneMinute": "1 minuto",
-          "twoMinutes": "2 minutos",
-          "fourMinutes": "4 minutos",
-          "fiveMinutes": "5 minutos"
-        },
-        "brightness": {
-          "help": "Ajuste el brillo de los LED del teclado.",
-          "label": "Brillo de LED"
-        },
-        "label": "LED",
-        "default": {
-          "label": "Modo de LED predeterminado"
-        }
-      },
-      "layers": {
-        "label": "Capas"
-      },
-      "title": "Mi teclado",
-      "advanced": {
-        "label": "Herramientas avanzadas"
-      },
-      "defaultLayer": {
-        "label": "Capa predeterminada"
-      },
-      "plugins": {
-        "label": "Complementos",
-        "oneshot": {
-          "label": "Teclas persistentes"
-        },
-        "mousekeys": {
-          "scroll_interval": {
-            "label": "Velocidad de desplazamiento"
-          }
-        }
-      }
     },
     "autoUpdate": {
-      "label": "Actualizaciones automáticas",
-      "mode": {
-        "label": "Descargar versiones nuevas de Chrysalis automáticamente"
-      }
+        "available": "Versión nueva disponible: {{ version }}",
+        "downloaded": "Versión {{ version }} se ha descargado, reinicie Chrysalis para terminar de instalar",
+        "error": "Error durante actualización: {{ error }}"
     },
-    "interface": "Interfaz de usuario"
-  },
-  "focus-not-detected": {
-    "title": "Le damos la bienvenida a Chrysalis"
-  },
-  "keyboardSelect": {
-    "connect": "Conectar",
-    "disconnect": "Desconectar",
-    "installUdevRules": "Corregirlo",
-    "noDevices": "No se encontró ningún teclado."
-  },
-  "systeminfo": {
-    "title": "Informar de un problema"
-  }
+    "editor": {
+        "sharing": {
+            "title": "Respaldar y restaurar",
+            "loadFromLibrary": "Cargar de biblioteca",
+            "loadFromBackup": "Cargar de las copias de seguridad",
+            "import": "Importar",
+            "selectExportFile": "Elige el archivo al que exportar el diseño",
+            "dialog": {
+                "layoutFiles": "Archivos de distribución",
+                "allFiles": "Todos los archivos"
+            },
+            "exportToFile": "Copia de seguridad al archivo...",
+            "selectLoadFile": "Elige el archivo desde el que cargar un diseño",
+            "errors": {
+                "unableToLoad": "No se puede descargar el diseño del archivo seleccionado.",
+                "parseFail": "Se ha fallado analizar los datos de diseño.",
+                "invalidLayoutData": "El archivo no contiene los datos de diseños válidos."
+            },
+            "importConfirm": {
+                "title": "¿Importar el diseño seleccionado?",
+                "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
+            },
+            "exporting": "Exportando…"
+        },
+        "sidebar": {
+            "custom": {
+                "help": "Asigne un código de tecla personalizado de Kaleidoscope.",
+                "title": "Código de tecla",
+                "label": "Código personalizado de llave"
+            },
+            "platform_apple": {
+                "title": "Teclas de Mac / iPad",
+                "help": "Códigos de llaves específicos para dispositivos Apple."
+            },
+            "blanks": {
+                "title": "Espacios en blanco",
+                "help": "Teclas bloqueadas y transparentes."
+            },
+            "secondary": {
+                "whenHeld": "Al mantener",
+                "targetLayer": "Capa",
+                "title": "Acción secundario",
+                "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
+                "help": "Al pulsarse, se obtiene la función principal. Al mantenerse, se obtiene la acción secundaria.",
+                "modifier": "Modificadora",
+                "type": {
+                    "none": "Normal",
+                    "layer": "Capa desplazamiento",
+                    "modifier": "Modificadora"
+                }
+            },
+            "colors": {
+                "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
+                "title": "Colores"
+            },
+            "lang_intl": {
+                "help": "Teclas adicionales específicas del idioma.",
+                "title": "Idioma / Internacional"
+            },
+            "oneshot": {
+                "title": "Persistente",
+                "cancelStickyKey": {
+                    "tooltip": "Una tecla dedicada para cancelar las teclas persistentes."
+                }
+            },
+            "macros": {
+                "title": "Macros"
+            },
+            "dynmacros": {
+                "title": "Macros dinámicas",
+                "usage_overview": {
+                    "bytes": "bytes"
+                }
+            },
+            "volume": {
+                "help": "Teclas de control de volumen.",
+                "title": "Volumen"
+            },
+            "mousekeys": {
+                "buttons": {
+                    "help": "Presione botones del ratón con su teclado",
+                    "title": "Botones"
+                },
+                "wheel": {
+                    "title": "Rueda",
+                    "help": " Desplazamiento de la rueda del ratón"
+                },
+                "title": "Control del ratón",
+                "help": "Mueva el ratón con su teclado",
+                "movement": {
+                    "title": "Movimiento",
+                    "help": "Mueva el ratón con su teclado"
+                }
+            },
+            "keypicker": {
+                "topsyturvy": {
+                    "label": "Invertir Mayús"
+                },
+                "mods": "Modificadoras",
+                "modsHelp": "Modificadoras que se suman al pulsar esta tecla.",
+                "oneshot": {
+                    "label": "Persistente"
+                },
+                "specialModsHelp": "Cambie la forma en que las modificadoras afectan esta tecla."
+            },
+            "layer": {
+                "help": "Teclas que permiten cambiar de capa."
+            },
+            "media": {
+                "help": "Teclas de control multimedia.",
+                "title": "Control multimedia"
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Brillo",
+                    "help": "Ajuste el brillo de la pantalla."
+                }
+            },
+            "ledkeys": {
+                "help": "Controle los temas y efectos LED de su teclado.",
+                "title": "Control de LED"
+            }
+        },
+        "overview": {
+            "key": "Tecla #{{index}}",
+            "color": "Color",
+            "pasteLayer": "Pegar capa",
+            "sharing": "Copia de seguridad y restauración",
+            "showEmptyLayers": "Mostrar capas vacías...",
+            "copyLayer": "Copiar capa",
+            "hideEmptyLayers": "Ocultar capas vacías...",
+            "help": "Descripción general de las asignaciones para la tecla seleccionada actualmente. Para cambiar la capa mostrada, haga clic en su fila."
+        },
+        "plugin_unavailable_for_macros": "Esta función no está disponible en macros",
+        "plugin_unavailable": "El firmware de su teclado no incluye soporte para esta función.",
+        "layerswitch": {
+            "lockTo": "Bloquear en capa",
+            "shiftTo": "Cambiar a capa",
+            "moveTo": "Mover a capa",
+            "target": "Capa"
+        },
+        "onlyCustom": {
+            "fixItButton": "Cambiar solo a capas personalizadas",
+            "openFR": "Solicitar una funcionalidad"
+        },
+        "macros": {
+            "title": "Macro n.º {{ index }}",
+            "steps": {
+                "add": "Añadir un paso",
+                "INTERVAL": "Demora entre pasos",
+                "WAIT": "Esperar",
+                "KEYDOWN": "Sostener tecla",
+                "KEYUP": "Soltar tecla",
+                "unknown": "<desconocido>"
+            },
+            "edit": "Editar macro"
+        }
+    },
+    "app": {
+        "menu": {
+            "preferences": "Preferencias",
+            "chrysalisSection": "Chrysalis",
+            "firmwareUpdate": "Actualización de firmware",
+            "layoutEditor": "Editor de distribución",
+            "editor": "Editor de distribución y de colormap",
+            "focus-not-detected": "Bienvenido",
+            "systemInfo": "Reportar un problema",
+            "colormapEditor": "Editor de colormap",
+            "macroEditor": "Editor de macro",
+            "exit": "Salir",
+            "restart": "Aplicar actualización y reiniciar",
+            "keyboardSection": "Teclado",
+            "chat": "Chat de Discord",
+            "layoutCard": "Carta de distribución",
+            "miscSection": "Varios",
+            "changelog": "Registro de cambios",
+            "connectAKeyboard": "Conectar un teclado",
+            "importExport": "Diseños de copia de seguridad y restauración",
+            "connectAnotherKeyboard": "Conectar otro teclado"
+        },
+        "cancelPending": {
+            "title": "Descartar los cambios pendientes?",
+            "content": "Tiene cambios no guardados. Si procede, se perderán."
+        },
+        "actionRequired": "Acción requerida",
+        "deviceMenu": {
+            "Homepage": "Página de inicio",
+            "Forum": "Foro",
+            "Chat": "Chat"
+        }
+    },
+    "dialog": {
+        "cancel": "Cancelar",
+        "ok": "Ok",
+        "close": "Cerrar",
+        "continue": "Continuar"
+    },
+    "changelog": {
+        "title": "Registro de cambios"
+    },
+    "saveChangesButton": {
+        "savedChanges": "Cambios guardados",
+        "saveChanges": "Guardar los cambios",
+        "savingChanges": "Guardando los cambios"
+    },
+    "firmwareUpdate": {
+        "dialog": {
+            "allFiles": "Todos los archivos"
+        },
+        "flashing": {
+            "anywayButton": "Actualizar de todos modos",
+            "button": "Actualizar",
+            "cancelAndDisconnectButton": "Cancelar y desconectar"
+        },
+        "factoryResetTitle": "Restablecimiento de fábrica",
+        "firmwareChangelog": {
+            "view": "¿Qué hay de nuevo en {{version}}?"
+        },
+        "bootloaderConnectDialog": {
+            "title": "Conectando con su teclado..."
+        },
+        "customChooseFile": "Elegir un archivo...",
+        "calloutTitle": "¡Importante!",
+        "firmwareSources": "Código fuente"
+    },
+    "help": {
+        "connection": {
+            "title": "Chrysalis no pudo conectarse con el teclado"
+        }
+    },
+    "preferences": {
+        "devtools": {
+            "console": {
+                "label": "Abrir la consola de desarrollo"
+            },
+            "main": {
+                "label": "Herramientas de desarrollo"
+            },
+            "verboseLogging": {
+                "label": "Activar registros detallados"
+            }
+        },
+        "ui": {
+            "lookNFeel": {
+                "label": "Apariencia"
+            },
+            "language": {
+                "label": "Idioma"
+            },
+            "theme": {
+                "system": "Predeterminado del sistema",
+                "label": "Tema",
+                "dark": "Oscuro",
+                "light": "Claro"
+            },
+            "layoutCards": {
+                "label": "Tarjetas de disposición"
+            },
+            "layoutEditor": {
+                "label": "Editor de disposición"
+            },
+            "host": {
+                "label": "Disposición de teclado"
+            }
+        },
+        "keyboard": {
+            "led": {
+                "idle": {
+                    "threeMinutes": "3 minutos",
+                    "thirtyMinutes": "30 minutos",
+                    "twentyMinutes": "20 minutos",
+                    "fifteenMinutes": "15 minutos",
+                    "tenMinutes": "10 minutos",
+                    "sixtyMinutes": "60 minutos",
+                    "oneMinute": "1 minuto",
+                    "twoMinutes": "2 minutos",
+                    "fourMinutes": "4 minutos",
+                    "fiveMinutes": "5 minutos"
+                },
+                "brightness": {
+                    "help": "Ajuste el brillo de los LED del teclado.",
+                    "label": "Brillo de LED"
+                },
+                "label": "LED",
+                "default": {
+                    "label": "Modo de LED predeterminado"
+                }
+            },
+            "layers": {
+                "label": "Capas"
+            },
+            "title": "Mi teclado",
+            "advanced": {
+                "label": "Herramientas avanzadas"
+            },
+            "defaultLayer": {
+                "label": "Capa predeterminada"
+            },
+            "plugins": {
+                "label": "Complementos",
+                "oneshot": {
+                    "label": "Teclas persistentes"
+                },
+                "mousekeys": {
+                    "scroll_interval": {
+                        "label": "Velocidad de desplazamiento"
+                    }
+                }
+            }
+        },
+        "autoUpdate": {
+            "label": "Actualizaciones automáticas",
+            "mode": {
+                "label": "Descargar versiones nuevas de Chrysalis automáticamente"
+            }
+        },
+        "interface": "Interfaz de usuario"
+    },
+    "focus-not-detected": {
+        "title": "Le damos la bienvenida a Chrysalis"
+    },
+    "keyboardSelect": {
+        "connect": "Conectar",
+        "disconnect": "Desconectar",
+        "installUdevRules": "Corregirlo",
+        "noDevices": "No se encontró ningún teclado."
+    },
+    "systeminfo": {
+        "title": "Informar de un problema"
+    }
 }

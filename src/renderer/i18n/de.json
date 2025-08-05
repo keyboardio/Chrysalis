@@ -77,7 +77,6 @@
     "editor": {
         "sharing": {
             "loadFromLibrary": "Aus Bibliothek laden",
-            "loadFromFile": "Aus Datei wiederherstellen...",
             "exportToFile": "In Datei sichern...",
             "import": "Importieren",
             "selectLoadFile": "Datei zum Laden einer Belegung auswählen",
@@ -135,7 +134,7 @@
                 "mods": "Modifikatoren",
                 "topsyturvy": {
                     "label": "Umschalttaste umkehren",
-                    "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist). Dies kann nicht mit anderen Modifikatoren kombiniert weden."
+                    "tooltip": "Verhalten der Umschalttaste umkehren. (Zum Beispiel ‚A‘ senden, wenn die Umschalttaste nicht gedrückt ist, und ‚a‘, wenn sie gedrückt ist). Dies kann nicht mit anderen Modifikatoren kombiniert werden."
                 },
                 "oneshot": {
                     "tooltip": "Tippen, um für nächsten Tastendruck zu aktivieren; halten, um als regulären Modifikator zu verwenden; doppelt tippen, um Modifikator festzustellen.",
@@ -661,7 +660,7 @@
                 "updateInstructions": "Halten Sie die Taste in der oberen linken Ecke der Tastatur (in der Standard-Tastenbelegung: Prog-Taste) gedrückt, während Sie auf Weiter/Fortfahren klicken. Lassen Sie die Taste erst los, wenn die Tasten der ersten Spalte grün zu leuchten beginnen. Warten Sie mit dem Loslassen der Taste nicht zu lange, da die Aktualisierung der Firmware sonst fehlschlagen kann."
             },
             "Preonic": {
-                "updateInstructions": "Drücken Sie ‚Weiter/Fortfahren‘ und wenn Sie aufgefordert werden, autorizieren Sie Chrysalis die Verbindung zu Ihrer Tastatur wiederherzustellen."
+                "updateInstructions": "Drücken Sie ‚Weiter/Fortfahren‘ und wenn Sie aufgefordert werden, autorisieren Sie Chrysalis, die Verbindung zu Ihrer Tastatur wiederherzustellen."
             }
         },
         "SOFT/HRUF": {

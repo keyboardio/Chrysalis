@@ -96,7 +96,11 @@
             "selectExportFile": "Datei auswählen, in die die Belegung exportiert werden soll",
             "loadFromBackup": "Aus Sicherungen laden",
             "title": "Sichern & Wiederherstellen",
-            "exporting": "Exportieren..."
+            "exporting": "Exportieren...",
+            "loadFullSettingsFromFileOption": "Alle EEPROM-Einstellungen",
+            "loadLayoutFromFile": "Tastenbelegung aus Datei laden...",
+            "loadLayoutFromFileOption": "Nur Tastenbelegung",
+            "loadFullSettingsFromFile": "Einstellungen aus Datei laden..."
         },
         "sidebar": {
             "custom": {

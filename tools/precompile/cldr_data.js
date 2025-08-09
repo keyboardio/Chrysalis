@@ -191,7 +191,7 @@ const loadAllKeymaps = async () => {
   // inconsistent, so we go on a case-by-case basis for now.
   const osxFiles = fs
     .readdirSync(path.join(cldrDir, "keyboards/osx"))
-    .filter((fn) => fn.match("^(hr-t-k0|en-t-k0-osx-colemak)"));
+    .filter((fn) => fn.match("^(hr-t-k0|en-t-k0-osx-colemak|nb-t-k0)"));
   const files = windowsFiles.concat(osxFiles);
 
   // Load the default layout for each language
@@ -211,6 +211,12 @@ const loadAllKeymaps = async () => {
       path.join(cldrDir, "keyboards", os, l),
       os
     );
+
+    // For Norwegian, create platform-specific names to avoid collision
+    if (layout.name === "Norwegian" && os === "osx") {
+      layout.name = "Norwegian (macOS)";
+      layout.default = false; // Make Windows the default
+    }
 
     db[layout.name] = layout;
   }
@@ -234,6 +240,11 @@ const loadAllKeymaps = async () => {
       path.join(cldrDir, "keyboards", os, l),
       os
     );
+
+    // For Norwegian, create platform-specific names to avoid collision
+    if (layout.name === "Norwegian" && os === "osx") {
+      layout.name = "Norwegian (macOS)";
+    }
 
     db[layout.name] = layout;
   }

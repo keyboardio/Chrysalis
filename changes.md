@@ -1,4 +1,5 @@
 ## Recent updates
+- 2025-08-09: Added Norwegian (macOS) keyboard layout variant - fixes issue where Mac users saw Windows layout characters (backslash instead of acute accent on equals key)
 - 2025-08-07: New firmware build, focusing on Preonic updates - Bluetooth stability, LED effect at boot time, macOS mouse button support, and rotary encoder improvements
 - 2025-08-04: Added EEPROM backup and restore functionality - backup all keyboard settings to a file and restore them later, with detailed diff view showing what will change (thanks @thehenkan)
 - 2025-07-09: Initial post-manufacturing firmware update for the Preonic

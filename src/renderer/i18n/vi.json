@@ -1,1 +1,88 @@
-{}
+{
+    "language": "Tiếng Anh",
+    "this_translation_language": "Tiếng Anh",
+    "breakingNews": {
+        "firmware0_90_1": {
+            "button": "Hướng dẫn nâng cấp"
+        }
+    },
+    "sanity-check": {
+        "title": "Đang chạy xác minh môi trường",
+        "header": "Xác minh môi trường thất bại",
+        "download-latest": "Tải phiên bản chính thức"
+    },
+    "errors": {
+        "deviceDisconnected": "Đã ngắt kết nối bàn phím"
+    },
+    "print": {
+        "feedback": {
+            "success": "Đã in thành công!",
+            "error": "Lỗi xảy ra trong khi đang in."
+        }
+    },
+    "components": {
+        "layer": "Lớp {{index}}",
+        "layerRaw": "Lớp",
+        "none": "Không",
+        "loading": "Đang đọc dữ liệu từ thiết bị...",
+        "logo": {
+            "altText": "Logo của Chrysalis"
+        }
+    },
+    "saveChangesButton": {
+        "saveChanges": "Lưu thay đổi",
+        "savingChanges": "Đang lưu thay đổi",
+        "savedChanges": "Đã lưu thay đổi"
+    },
+    "autoUpdate": {
+        "available": "Đã có phiên bản mới: {{ version }}",
+        "downloaded": "Đã tải phiên bản {{ version }}, khởi động lại Chrysalis để hoàn tất cài đặt",
+        "error": "Lỗi khi đang cập nhật: {{ error }}"
+    },
+    "firmwareAutoUpdate": {
+        "available": "Đã ra mắt phiên bản firmware mới: {{ version }}"
+    },
+    "app": {
+        "menu": {
+            "connectAKeyboard": "Kết nối với bàn phím",
+            "importExport": "Sao lưu và khôi phục bố cục",
+            "connectAnotherKeyboard": "Kết nối với bàn phím khác",
+            "chat": "Nhắn tin Discord",
+            "exit": "Thoát",
+            "restart": "Lưu cập nhật & khởi động lại",
+            "keyboardSection": "Bàn phím",
+            "chrysalisSection": "Chrysalis",
+            "miscSection": "Linh tinh",
+            "changelog": "Thông tin cập nhật"
+        },
+        "deviceMenu": {
+            "Homepage": "Trang chủ",
+            "Forum": "Diễn đàn",
+            "Chat": "Nhắn tin"
+        },
+        "cancelPending": {
+            "title": "Huỷ bỏ các thay đổi?",
+            "content": "Bạn có những thay đổi chưa lưu. Nếu bạn tiếp tục, chúng sẽ bị mất."
+        },
+        "actionRequired": "Cần bạn thực hiện"
+    },
+    "changelog": {
+        "title": "Thông tin cập nhật"
+    },
+    "editor": {
+        "plugin_unavailable": "Firmware bàn phím của bạn không hỗ trợ tính năng này.",
+        "plugin_unavailable_for_macros": "Chức năng này không có sẵn trong macro",
+        "sharing": {
+            "title": "Sao lưu & khôi phục",
+            "loadFromLibrary": "Tải từ thư viện",
+            "loadFromBackup": "Tải từ bản sao lưu",
+            "loadLayoutFromFile": "Khôi phục bố cục bàn phím từ tệp...",
+            "loadLayoutFromFileOption": "Chỉ bố cục bàn phím",
+            "loadFullSettingsFromFile": "Khôi phục cài đặt từ tệp...",
+            "loadFullSettingsFromFileOption": "Cài đặt EEPROM đầy đủ",
+            "exportToFile": "Sao lưu vào tệp...",
+            "exporting": "Đang xuất...",
+            "import": "Nhập dữ liệu"
+        }
+    }
+}

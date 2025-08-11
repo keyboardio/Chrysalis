@@ -3,16 +3,20 @@
     "this_translation_language": "Tiếng Anh",
     "breakingNews": {
         "firmware0_90_1": {
-            "button": "Hướng dẫn nâng cấp"
+            "button": "Hướng dẫn nâng cấp",
+            "title": "Gửi những người dùng Keyboardio Model 100!",
+            "description": "Firmware trước phiên bản 0.90.1 có chứa một lỗi dẫn đến mất dữ liệu và hỏng dữ liệu được lưu trên bàn phím. Nếu bạn đã chạy firmware mới hơn, bạn có thể bỏ qua cảnh báo này bằng cách nhấn nút đóng."
         }
     },
     "sanity-check": {
         "title": "Đang chạy xác minh môi trường",
         "header": "Xác minh môi trường thất bại",
-        "download-latest": "Tải phiên bản chính thức"
+        "download-latest": "Tải phiên bản chính thức",
+        "message": "Chrysalis đã phát hiện rằng nó đang chạy trong môi trường không được hỗ trợ, ví dụ như với phiên bản Electron khác với phiên bản được hỗ trợ. Nếu bạn đang sử dụng Chrysalis thông qua kho gói của một bản phân phối, vui lòng cân nhắc sử dụng các bản dựng chính thức."
     },
     "errors": {
-        "deviceDisconnected": "Đã ngắt kết nối bàn phím"
+        "deviceDisconnected": "Đã ngắt kết nối bàn phím",
+        "saveFile": "Lỗi khi đang lưu tệp: {{ error }}"
     },
     "print": {
         "feedback": {
@@ -40,7 +44,10 @@
         "error": "Lỗi khi đang cập nhật: {{ error }}"
     },
     "firmwareAutoUpdate": {
-        "available": "Đã ra mắt phiên bản firmware mới: {{ version }}"
+        "available": "Đã ra mắt phiên bản firmware mới: {{ version }}",
+        "downloaded": "Phiên bản firmware {{ version }} đã được tải xuống và sẵn sàng để flash",
+        "error": "Lỗi khi đang tải về phiên bản firmware mới.",
+        "warning": "Chrysalis không thể kiểm tra phiên bản firmware mới. Có thể có phiên bản mới hơn."
     },
     "app": {
         "menu": {
@@ -53,7 +60,16 @@
             "keyboardSection": "Bàn phím",
             "chrysalisSection": "Chrysalis",
             "miscSection": "Linh tinh",
-            "changelog": "Thông tin cập nhật"
+            "changelog": "Thông tin cập nhật",
+            "focus-not-detected": "Chào mừng",
+            "systemInfo": "Báo cáo sự cố",
+            "editor": "Trình chỉnh sửa bố cục & bản đồ màu",
+            "layoutEditor": "Trình chỉnh sửa bố cục",
+            "colormapEditor": "Trình chỉnh sửa bản đồ màu",
+            "macroEditor": "Trình chỉnh sửa Macro",
+            "firmwareUpdate": "Cập nhật firmware",
+            "preferences": "Tùy chọn",
+            "layoutCard": "Thẻ Bố cục"
         },
         "deviceMenu": {
             "Homepage": "Trang chủ",
@@ -61,7 +77,7 @@
             "Chat": "Nhắn tin"
         },
         "cancelPending": {
-            "title": "Huỷ bỏ các thay đổi?",
+            "title": "Huỷ bỏ các thay đổi chưa lưu?",
             "content": "Bạn có những thay đổi chưa lưu. Nếu bạn tiếp tục, chúng sẽ bị mất."
         },
         "actionRequired": "Cần bạn thực hiện"
@@ -82,7 +98,582 @@
             "loadFullSettingsFromFileOption": "Cài đặt EEPROM đầy đủ",
             "exportToFile": "Sao lưu vào tệp...",
             "exporting": "Đang xuất...",
-            "import": "Nhập dữ liệu"
+            "import": "Nhập dữ liệu",
+            "selectLoadFile": "Chọn tệp để tải bố cục",
+            "selectExportFile": "Chọn tập tin để xuất bố cục",
+            "dialog": {
+                "layoutFiles": "Tệp bố cục",
+                "allFiles": "Tất cả tệp"
+            },
+            "errors": {
+                "unableToLoad": "Không thể tải bố cục từ tệp đã chọn.",
+                "parseFail": "Không thể phân tích dữ liệu bố cục.",
+                "invalidLayoutData": "Tệp không chứa dữ liệu bố cục hợp lệ."
+            },
+            "importConfirm": {
+                "title": "Nhập bố cục đã chọn?",
+                "contents": "Thao tác này sẽ ghi đè bố cục hiện tại của bạn và mọi thay đổi chưa được lưu sẽ bị mất. Bạn có chắc chắn muốn tiếp tục không?"
+            }
+        },
+        "overview": {
+            "key": "Phím #{{index}}",
+            "color": "Màu sắc",
+            "hideEmptyLayers": "Ẩn các lớp trống...",
+            "showEmptyLayers": "Hiển thị các lớp trống...",
+            "copyLayer": "Sao chép lớp",
+            "pasteLayer": "Dán lớp",
+            "sharing": "Sao lưu & khôi phục",
+            "help": "Tổng quan về các ánh xạ cho phím đã chọn. Để thay đổi lớp hiển thị, hãy nhấp vào hàng của lớp đó."
+        },
+        "sidebar": {
+            "lang_intl": {
+                "title": "Ngôn ngữ / Quốc tế",
+                "help": "Các phím bổ sung dành riêng cho ngôn ngữ."
+            },
+            "custom": {
+                "title": "Mã phím",
+                "help": "Gán mã phím Kaleidoscope tùy chỉnh.",
+                "label": "Mã phím tùy chỉnh"
+            },
+            "platform_apple": {
+                "title": "Phím Mac / iPad",
+                "help": "Mã phím dành riêng cho thiết bị Apple."
+            },
+            "blekeys": {
+                "title": "Bluetooth",
+                "help": "Kiểm soát kết nối và ghép nối Bluetooth."
+            },
+            "blanks": {
+                "title": "Ô trống",
+                "help": "Các phím bị chặn & trong suốt."
+            },
+            "secondary": {
+                "title": "Hành động phụ",
+                "help": "Khi nhấn, bạn thực hiện chức năng chính. Khi giữ, bạn thực hiện hành động phụ.",
+                "help-layerLimit": "Do giới hạn về firmware, không hỗ trợ chuyển sang các lớp trên \"{{ layer7 }}\" thông qua các thao tác phụ.",
+                "whenHeld": "Khi giữ",
+                "type": {
+                    "none": "Cơ bản",
+                    "layer": "Chuyển lớp",
+                    "modifier": "Bổ trợ"
+                },
+                "targetLayer": "Lớp",
+                "modifier": "Bổ trợ"
+            },
+            "colors": {
+                "title": "Màu sắc",
+                "help": "Đặt màu phím bằng cách nhấp vào bảng màu bên dưới. Sử dụng công cụ chọn màu để điều chỉnh bảng màu."
+            },
+            "volume": {
+                "title": "Âm lượng",
+                "help": "Phím điều khiển âm lượng."
+            },
+            "media": {
+                "title": "Điều khiển media",
+                "help": "Phím điều khiển media."
+            },
+            "consumer": {
+                "brightness": {
+                    "title": "Độ sáng",
+                    "help": "Điều chỉnh độ sáng màn hình."
+                }
+            },
+            "keypicker": {
+                "mods": "Phím bổ trợ",
+                "modsHelp": "Bổ trợ cho phép thêm vào khi bạn nhấn phím này.",
+                "specialModsHelp": "Thay đổi cách các phím bổ trợ tác động đến phím này.",
+                "oneshot": {
+                    "label": "Dính phím",
+                    "tooltip": "Nhấn để kích hoạt cho lần nhấn phím tiếp theo, giữ để hoạt động như một bổ trợ thông thường, nhấn đúp để bật/tắt bổ trợ."
+                },
+                "topsyturvy": {
+                    "label": "Đảo ngược Shift",
+                    "tooltip": "Đảo ngược hành vi của phím Shift. (Ví dụ: gửi 'A' khi không nhấn Shift và 'a' khi nhấn Shift). Điều này không thể kết hợp với các phím bổ trợ khác."
+                }
+            },
+            "layer": {
+                "title": "Lớp và bản đồ phím",
+                "help": "Các phím cho phép bạn thay đổi lớp."
+            },
+            "leader": {
+                "title": "Leader",
+                "help": "Gán phím Leader. Để định cấu hình tính năng này, hãy tùy chỉnh tệp phác thảo Kaleidoscope cho bàn phím của bạn."
+            },
+            "oneshot": {
+                "title": "Phím dính",
+                "cancelStickyKey": {
+                    "tooltip": "Phím chuyên dụng để hủy phím dính."
+                }
+            },
+            "oneshotMetaKeys": {
+                "metaStickyKey": {
+                    "tooltip": "Làm cho phím tiếp theo được nhấn dính cho đến khi được nhấn lại."
+                },
+                "activeStickyKey": {
+                    "tooltip": "Làm cho bất kỳ phím nào đang được nhấn giữ đều dính cho đến khi được nhấn lại."
+                }
+            },
+            "ledkeys": {
+                "title": "Điều khiển đèn LED",
+                "help": "Điều khiển chủ đề và hiệu ứng đèn LED của bàn phím."
+            },
+            "macros": {
+                "title": "Macro",
+                "help": "Gán các macro cứng đã tích hợp sẵn trong chương trình cơ sở của bạn vào các phím."
+            },
+            "dynmacros": {
+                "title": "Macro động",
+                "help": "Gán và chỉnh sửa macro động cho phím.",
+                "usage_overview": {
+                    "label": "Không gian macro đã sử dụng:",
+                    "usage": "{{ used }}/{{ size }}",
+                    "bytes": "byte"
+                }
+            },
+            "mousekeys": {
+                "title": "Điều khiển chuột",
+                "help": "Di chuyển chuột bằng bàn phím của bạn",
+                "movement": {
+                    "title": "Di chuyển",
+                    "help": "Di chuyển chuột bằng bàn phím"
+                },
+                "buttons": {
+                    "title": "Nút",
+                    "help": "Nhấn các nút chuột bằng bàn phím của bạn"
+                },
+                "wheel": {
+                    "title": "Cuộn",
+                    "help": " Con cuộn chuột"
+                },
+                "warp": {
+                    "title": "Warp",
+                    "help": "Di chuyển chuột của bạn trên màn hình chỉ với vài lần nhấn phím"
+                }
+            },
+            "spacecadet": {
+                "title": "SpaceCadet",
+                "help": "Chuyển 'Shift' trái và phải thành '(' và ')' khi chạm"
+            },
+            "steno": {
+                "title": "Steno",
+                "help": "Bật tính năng nhập tốc ký GeminiPR thay vì nhập QWERTY của Plover"
+            },
+            "tapdance": {
+                "title": "TapDance",
+                "help": "Các phím này kích hoạt các hành động khác nhau dựa trên số lần bạn chạm"
+            }
+        },
+        "layerswitch": {
+            "type": "Type",
+            "shiftTo": "Chuyển tạm đến Lớp",
+            "lockTo": "Khóa tại Lớp",
+            "moveTo": "Chuyển đến Lớp",
+            "oneshot": "Chuyển lớp cho hành động tiếp theo",
+            "target": "Lớp",
+            "dualuse": "Dịch chuyển lớp khi giữ"
+        },
+        "onlyCustom": {
+            "warning": "Chrysalis không còn hỗ trợ các cấu hình chứa hỗn hợp các lớp được mã hóa cứng và EEPROM. Nếu đây là tính năng bạn cần, chúng tôi rất muốn tìm hiểu thêm về trường hợp sử dụng của bạn. Tuy nhiên, trong hầu hết các trường hợp, chúng tôi khuyên bạn nên chuyển sang chỉ sử dụng các lớp tùy chỉnh, điều mà Chrysalis có thể làm cho bạn. Khi thực hiện chuyển đổi, các lớp được mã hóa cứng sẽ không được sử dụng và bộ lớp mặc định - nếu có - sẽ là lớp không.",
+            "fixItButton": "Chỉ chuyển sang lớp tùy chỉnh",
+            "openFR": "Mở yêu cầu tính năng"
+        },
+        "layernames": {
+            "out_of_space": "Tên lớp của bạn quá dài {{ overflow }} byte để lưu vào bàn phím của bạn."
+        },
+        "macros": {
+            "title": "Macro #{{ index }}",
+            "edit": "Chỉnh sửa macro",
+            "out_of_space": "Macro động đang sử dụng quá nhiều dung lượng, vui lòng giải phóng {{ overflow }} byte.",
+            "steps": {
+                "add": "Thêm bước",
+                "time_ms": "{{ value }}ms",
+                "in_ms": "ms",
+                "unknown": "<unknown>",
+                "INTERVAL": "Độ trễ giữa các bước",
+                "WAIT": "Đợi",
+                "KEYDOWN": "Giữ phím",
+                "KEYUP": "Nhả phím",
+                "TAP": "Chạm",
+                "EXPLICIT_REPORT": "Đừng gửi báo cáo giữa các bước",
+                "IMPLICIT_REPORT": "Gửi báo cáo giữa các bước",
+                "SEND_REPORT": "Gửi báo cáo ngay",
+                "unsupported": "Không được hỗ trợ"
+            }
+        }
+    },
+    "units": {
+        "in_ms": "ms"
+    },
+    "dialog": {
+        "ok": "Đồng ý",
+        "cancel": "Hủy",
+        "close": "Đóng",
+        "continue": "Tiếp tục"
+    },
+    "layoutCards": {
+        "printTooltip": "In"
+    },
+    "preferences": {
+        "focus": {
+            "chunked_writes": {
+                "label": "Gửi dữ liệu theo các gói nhỏ",
+                "help": "Để khắc phục các sự cố giao tiếp, Chrysalis có thể gửi dữ liệu đến bàn phím theo từng phần nhỏ. Vì lý do lịch sử, tính năng này được bật theo mặc định. Chỉ tắt tính năng này nếu bạn biết mình đang làm gì hoặc được các nhà phát triển Chrysalis yêu cầu."
+            }
+        },
+        "interface": "Giao diện người dùng",
+        "devtools": {
+            "main": {
+                "label": "Công cụ dành cho nhà phát triển",
+                "description": "Các tuỳ chọn này chủ yếu hỗ trợ nhà phát triển. Bạn có thể được yêu cầu bật chúng để thu thập thêm thông tin về một vấn đề."
+            },
+            "verboseLogging": {
+                "label": "Bật ghi log chi tiết",
+                "help": "Bật một lượng lớn log bổ sung, chỉ hữu ích cho việc gỡ lỗi."
+            },
+            "console": {
+                "label": "Mở bảng điều khiển dành cho nhà phát triển",
+                "help": "Bảng điều khiển dành cho nhà phát triển cho phép bạn tìm hiểu sâu hơn về Chrysalis. Hãy sử dụng cẩn thận."
+            }
+        },
+        "autoUpdate": {
+            "label": "Tự động cập nhật",
+            "mode": {
+                "label": "Tự động tải xuống các phiên bản mới của Chrysalis",
+                "help": "Khi được bật, Chrysalis sẽ kiểm tra các bản cập nhật khi khởi động và tự động tải xuống các phiên bản mới."
+            },
+            "firmwareMode": {
+                "label": "Tự động tải xuống các phiên bản firmware mới",
+                "help": "Khi được bật, Chrysalis sẽ kiểm tra các tệp firmware cập nhật khi khởi động và tự động tải xuống các phiên bản mới."
+            }
+        },
+        "ui": {
+            "layoutEditor": {
+                "label": "Trình chỉnh sửa bố cục"
+            },
+            "layoutCards": {
+                "label": "Thẻ bố cục"
+            },
+            "oneLayerPerPage": {
+                "label": "In một lớp trên mỗi trang",
+                "help": "Khi được bật, Chrysalis sẽ sắp xếp các thẻ bố cục để in một lớp trên mỗi trang, thay vì in càng nhiều càng tốt."
+            },
+            "hideUnavailableFeatures": {
+                "label": "Ẩn các tính năng không được hỗ trợ bởi chương trình cơ sở hiện tại của bàn phím",
+                "help": "Khi được bật, Chrysalis sẽ ẩn các tùy chọn cấu hình cho những tính năng mà chương trình cơ sở của bàn phím của bạn không hỗ trợ."
+            },
+            "lookNFeel": {
+                "label": "Giao diện"
+            },
+            "theme": {
+                "label": "Chủ đề",
+                "system": "Mặc định hệ thống",
+                "dark": "Tối",
+                "light": "Sáng"
+            },
+            "language": {
+                "label": "Ngôn ngữ",
+                "help": "Chrysalis nên sử dụng ngôn ngữ nào"
+            },
+            "coloredLayoutCards": {
+                "label": "Hiển thị màu sắc trên thẻ bố cục",
+                "help": "Khi được bật, thẻ bố cục sẽ hiển thị màu sắc bên cạnh nhãn chính, nếu có."
+            },
+            "host": {
+                "label": "Bố cục bàn phím",
+                "help": "Chọn bố cục bàn phím bạn sử dụng trên máy tính"
+            }
+        },
+        "keyboard": {
+            "title": "Bàn phím của tôi",
+            "advanced": {
+                "label": "Công cụ nâng cao",
+                "description": "Đây là những công cụ nguy hiểm, hãy đảm bảo bạn hiểu rõ chức năng của chúng trước khi sử dụng."
+            },
+            "layers": {
+                "label": "Lớp"
+            },
+            "defaultLayer": {
+                "label": "Lớp mặc định",
+                "noDefault": "Không có mặc định",
+                "help": "Lớp mặc định mà bàn phím sẽ khởi động."
+            },
+            "factoryReset": {
+                "button": "Đặt lại EEPROM về mặc định ban đầu",
+                "dialog": {
+                    "title": "Đặt lại EEPROM về mặc định ban đầu?",
+                    "contents": "Thao tác này sẽ đặt lại EEPROM về mặc định ban đầu. Bạn sẽ mất tất cả các tùy chỉnh đã thực hiện."
+                }
+            },
+            "led": {
+                "label": "Đèn LED",
+                "idle": {
+                    "label": "Thời gian chờ trước khi đèn LED tắt",
+                    "help": "Trừ khi bị vô hiệu hóa, đèn LED sẽ tắt sau một khoảng thời gian đã định.",
+                    "disabled": "Vô hiệu hoá",
+                    "oneMinute": "1 phút",
+                    "twoMinutes": "2 phút",
+                    "threeMinutes": "3 phút",
+                    "fourMinutes": "4 phút",
+                    "fiveMinutes": "5 phút",
+                    "tenMinutes": "10 phút",
+                    "fifteenMinutes": "15 phút",
+                    "twentyMinutes": "20 phút",
+                    "thirtyMinutes": "30 phút",
+                    "sixtyMinutes": "60 phút"
+                },
+                "brightness": {
+                    "label": "Độ sáng đèn LED",
+                    "help": "Điều chỉnh độ sáng của đèn LED trên bàn phím."
+                },
+                "default": {
+                    "autoSave": {
+                        "label": "Bật tự động lưu chế độ đèn mặc định",
+                        "help": "Khi được bật, mỗi khi chế độ đèn LED được thay đổi, nó sẽ được lưu làm mặc định."
+                    },
+                    "label": "Chế độ đèn LED mặc định",
+                    "help": "Chọn chế độ đèn LED mà bàn phím sẽ khởi động."
+                }
+            },
+            "plugins": {
+                "label": "Tiện ích mở rộng",
+                "autoshift": {
+                    "label": "Tự động chuyển",
+                    "enabled": {
+                        "label": "Bật chế độ tự động chuyển",
+                        "help": "Khi bật tự động chuyển, các phím đã chọn sẽ tự động nhập biến thể đã chuyển đổi khi giữ."
+                    },
+                    "timeout": {
+                        "label": "Thời gian chờ tự động chuyển",
+                        "help": "Kiểm soát thời gian cần giữ phím trước khi chuyển sang trạng thái phím Shift."
+                    },
+                    "category": {
+                        "letters": {
+                            "label": "Tự động đổi chữ hoa/thường",
+                            "help": "Bật tính năng tự động chuyển đổi cho các phím chữ cái. Chỉ bao gồm các chữ cái từ A đến Z trên bố cục bàn phím QWERTY US."
+                        },
+                        "numbers": {
+                            "label": "Tự động chuyển phím số",
+                            "help": "Bật tính năng tự động chuyển đổi cho các phím số. Không bao gồm các phím số trên bàn phím số."
+                        },
+                        "symbols": {
+                            "label": "Tự động đổi ký hiệu",
+                            "help": "Bật tính năng tự động chuyển đổi cho các ký hiệu: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. Bạn có thể cần bật tính năng này nếu bạn đang sử dụng ngôn ngữ hoặc bố cục khác ngoài tiếng Anh US, hoặc nếu bạn muốn tự động chuyển đổi các chữ cái không được bao phủ bởi tính năng tự động chuyển đổi chữ cái."
+                        },
+                        "arrows": {
+                            "label": "Mũi tên tự động điều chỉnh",
+                            "help": "Bật tự động chuyển đổi cho các phím mũi tên."
+                        },
+                        "functions": {
+                            "label": "Tự động chuyển đổi các phím chức năng",
+                            "help": "Bật tự động chuyển đổi cho các phím chức năng, từ F1 đến F24."
+                        },
+                        "all": {
+                            "label": "Tự động dịch chuyển tất cả các phím",
+                            "help": "Bật tính năng tự động dịch chuyển cho tất cả các phím, ngay cả những phím không thuộc bất kỳ danh mục nào ở trên."
+                        }
+                    }
+                },
+                "escOneShot": {
+                    "label": "Để phím Escape hủy bỏ các phím dính",
+                    "help": "Khi được bật, phím \"Escape\" sẽ hủy phím cố định, nếu không, một phím hủy chuyên dụng có thể thực hiện điều đó."
+                },
+                "mousekeys": {
+                    "label": "Phím chuột",
+                    "warp_grid_size": {
+                        "label": "Kích thước lưới biến dạng",
+                        "help": "Cấu hình kích thước lưới dùng để điều chỉnh chuột.",
+                        "2x2": "2x2",
+                        "3x3": "3x3"
+                    },
+                    "init_speed": {
+                        "label": "Tốc độ chuột ban đầu",
+                        "help": "Tốc độ chuột ban đầu. Giá trị càng cao, tốc độ di chuyển chuột ban đầu càng nhanh."
+                    },
+                    "base_speed": {
+                        "label": "Tốc độ tối đa của con trỏ chuột",
+                        "help": "Tốc độ tối đa con trỏ chuột có thể đạt được."
+                    },
+                    "accel_duration": {
+                        "label": "Thời gian để đạt tốc độ con trỏ tối đa",
+                        "help": "Thời gian con trỏ di chuyển từ tốc độ ban đầu đến tốc độ tối đa."
+                    },
+                    "scroll_interval": {
+                        "label": "Tốc độ cuộn",
+                        "help": "Thời gian giữa các sự kiện cuộn. Độ trễ càng cao thì tốc độ cuộn càng chậm."
+                    }
+                },
+                "oneshot": {
+                    "label": "Phím dính",
+                    "timeout": {
+                        "label": "Thời gian chờ đã hết",
+                        "help": "Thời gian phím cố định vẫn hoạt động sau khi được nhấn."
+                    },
+                    "hold_timeout": {
+                        "label": "Thời gian chờ giữ",
+                        "help": "Các phím được giữ lâu hơn thời gian này sẽ không chuyển sang trạng thái cố định mà sẽ hoạt động như các phím bình thường."
+                    },
+                    "auto_mods": {
+                        "label": "Tự động dính phím bổ trợ",
+                        "help": "Biến mọi phím bổ trợ trên sơ đồ bàn phím của bạn thành các phím bổ trợ Sticky."
+                    },
+                    "auto_layers": {
+                        "label": "Tự động làm cho các phím chuyển đổi lớp trở nên dính",
+                        "help": "Biến mọi phím shift layer trên keymap của bạn thành phím Sticky layer."
+                    },
+                    "stickyness": {
+                        "label": "Hành vi chạm hai lần",
+                        "help": "Chọn hành động khi phím dính được nhấn đúp liên tục.",
+                        "enable": "Khóa cho tất cả các phím cố định",
+                        "disable": "Không có gì",
+                        "layers_only": "Khóa các phím layer thôi",
+                        "modifiers_only": "Chỉ khóa cho các phím bổ trợ"
+                    }
+                },
+                "spacecadet": {
+                    "label": "SpaceCadet",
+                    "mode": {
+                        "label": "Bật SpaceCadet shifts",
+                        "help": "Khi được bật, phím Shift trái và phải trên bàn phím sẽ chuyển thành dấu ngoặc đơn khi nhấn nhanh, nhưng vẫn là phím Shift khi giữ.",
+                        "enabled": "Đã bật",
+                        "disabled": "Đã tắt",
+                        "enabled_without_delay": "Đã bật (không độ trễ)"
+                    },
+                    "timeout": {
+                        "label": "Thời gian chờ đã hết",
+                        "help": "Số mili giây chờ trước khi coi phím SpaceCadet được giữ là phím shift độc lập."
+                    }
+                }
+            }
+        }
+    },
+    "keyboardSelect": {
+        "unknown": "Chưa xác định",
+        "noDevices": "Không tìm thấy bàn phím nào.",
+        "connect": "Kết nối",
+        "disconnect": "Ngắt kết nối",
+        "noUdev": "Chrysalis yêu cầu udev để có thể quét các thiết bị, nhưng có vẻ như nó không có sẵn.",
+        "installUdevRules": "Khắc phục",
+        "connectionFailed": "Không thể kết nối với bàn phím. Bàn phím có thể đã được kết nối trong một ứng dụng hoặc cửa sổ trình duyệt khác. Lỗi tôi gặp là: {{error}}",
+        "permissionError": "Máy tính của bạn không cho phép Chrysalis kết nối với bàn phím của bạn. (Bạn không có quyền đọc/ghi đối với {{path}}.)",
+        "permissionErrorSuggestion": "Chrysalis có thể khắc phục sự cố này bằng cách cài đặt tệp quy tắc udev vào /etc/udev/rules.d/.",
+        "dfuConnect": "Đặt lại cài đặt gốc (USB DFU Mode)",
+        "focusConnectionFailed": "Chrysalis không thể kết nối với bàn phím của bạn. Nếu bàn phím không hiển thị trong hộp thoại kết nối, có thể do lỗi quyền hoặc đó có thể là bàn phím Model 100 đang ở chế độ bộ nạp khởi động. Để khôi phục cài đặt gốc cho Model 100 của bạn, hãy nhấp vào nút \"Khôi phục cài đặt gốc\" bên dưới."
+    },
+    "firmwareUpdate": {
+        "bootloaderWarning": "Bàn phím của bạn đang ở chế độ bộ nạp khởi động, vì vậy Chrysalis không thể sao lưu cài đặt bàn phím. Nếu chương trình cơ sở mới không tương thích với cài đặt hiện có của bạn, bố cục phím và các cài đặt khác có thể bị lỗi sau khi cập nhật. Vì lý do này, Chrysalis sẽ mặc định về cài đặt gốc, cho phép bạn bắt đầu lại từ đầu. Bạn có thể hủy và thoát chế độ bộ nạp khởi động, để Chrysalis có thể sao lưu bàn phím của bạn. Ngoài ra, bạn có thể tắt cài đặt gốc, nếu bạn biết rằng chương trình cơ sở mới tương thích.",
+        "firmwareChangelog": {
+            "title": "Nhật ký thay đổi firmware",
+            "view": "Có gì mới trong {{version}}?"
+        },
+        "firmwareSources": "Mã nguồn",
+        "calloutTitle": "Quan trọng!",
+        "factoryResetTitle": "Đặt lại cài đặt gốc",
+        "bootloaderConnectDialog": {
+            "title": "Đang kết nối với bàn phím của bạn...",
+            "contents": "Chrysalis cần kết nối với bộ nạp khởi động của bàn phím. Nhấp vào nút bên dưới, sau đó chọn bàn phím của bạn từ danh sách hiển thị bởi trình duyệt. Nếu bàn phím không hiển thị, hãy rút cáp khỏi máy tính và kết nối lại trong khi giữ phím 'bootloader'. Trên Atreus, đó là 'Esc'. Trên Model 01 và Model 100, đó là 'Prog' và trên Preonic, đó là 'Hyper'."
+        },
+        "factoryResetDescription": "Xóa tất cả trên bàn phím của bạn, khôi phục về cài đặt gốc.",
+        "factoryResetWarning": "Nếu chọn tùy chọn này, bố cục hoặc cài đặt hiện tại của bạn sẽ không được sao lưu.",
+        "dialog": {
+            "selectFirmware": "Chọn một firmware",
+            "firmwareFiles": "Tệp firmware",
+            "allFiles": "Tất cả tệp"
+        },
+        "flashing": {
+            "error": "Lỗi cập nhật firmware",
+            "success": "Đã cập nhật firmware thành công!",
+            "button": "Cập nhật",
+            "anywayButton": "Dù sao cũng cập nhật",
+            "cancelAndDisconnectButton": "Hủy và ngắt kết nối",
+            "notifications": {
+                "title": "Đã xảy ra lỗi trong quá trình flash",
+                "enter": {
+                    "stillApplication": "Bàn phím chưa vào chế độ lập trình. Vui lòng làm theo hướng dẫn bên dưới.",
+                    "notFound": "Không tìm thấy bàn phím. Vui lòng gửi báo cáo sự cố."
+                },
+                "reconnect": {
+                    "stillBootloader": "Bàn phím vẫn đang ở chế độ lập trình. Vui lòng thả bất kỳ phím nào bạn đang giữ.",
+                    "notFound": "Không tìm thấy bàn phím. Vui lòng gửi báo cáo lỗi."
+                },
+                "unknownMessage": "Đã nhận được thông báo không xác định trong quá trình cập nhật phần mềm: {{ message }}"
+            },
+            "steps": {
+                "factoryRestore": "Khôi phục cài đặt gốc",
+                "bootloader": "Đang vào chế độ lập trình",
+                "saveEEPROM": "Lưu nội dung EEPROM",
+                "restoreEEPROM": "Đang khôi phục nội dung EEPROM",
+                "reconnect": "Đang kết nối lại",
+                "flash": "Đèn báo nhấp nháy",
+                "reboot": "Đang khởi động lại"
+            }
+        },
+        "confirmDialog": {
+            "title": "Bạn có chắc chắn muốn cập nhật firmware không?",
+            "description": "Cài đặt firmware mới sẽ thay thế firmware hiện có trên thiết bị. Sau khi firmware mới được cài đặt, Chrysalis sẽ đưa bạn trở lại màn hình lựa chọn bàn phím."
+        },
+        "factoryConfirmDialog": {
+            "title": "Thay thế firmware và đặt lại về mặc định ban đầu?",
+            "contents": "Thao tác này sẽ thay thế firmware trên thiết bị và đặt lại tất cả cài đặt về mặc định ban đầu. Bạn sẽ mất tất cả các tùy chỉnh đã thực hiện. Sau khi firmware mới được cài đặt, Chrysalis sẽ đưa bạn trở lại màn hình chọn bàn phím."
+        },
+        "reconnectDialog": {
+            "title": "Kết nối lại với bàn phím của bạn",
+            "contents": "Chrysalis cần kết nối lại với bàn phím của bạn. Sau khi nhấp vào nút bên dưới, chọn bàn phím của bạn từ danh sách thiết bị được hiển thị bởi trình duyệt của bạn."
+        },
+        "yourFirmware": "Cập nhật firmware bàn phím của bạn",
+        "chooseFirmware": "Cập nhật phần mềm",
+        "defaultFirmwareDescription": "Phiên bản mới nhất cho bàn phím của bạn",
+        "custom": "Firmware tùy chỉnh",
+        "customChooseFile": "Chọn một tệp...",
+        "customFirmwareExplanation": "Bạn có thể cài đặt bản dựng firmware đã tải xuống hoặc đã tạo cục bộ.",
+        "currentFirmwareVersion": "Phiên bản firmware hiện tại",
+        "currentFirmwareVersionUnavailable": "Phiên bản firmware không khả dụng",
+        "customFirmwareLinkText": "Tìm hiểu về xây dựng firmware",
+        "firmwareVersion": "{{version}}",
+        "description": "Cập nhật firmware cho bàn phím là cách chúng tôi trang bị cho bàn phím những tính năng mới. Bạn có thể dùng Chrysalis để cài đặt firmware mới nhất cho bàn phím của mình hoặc cài đặt firmware do bạn tự tạo."
+    },
+    "focus-not-detected": {
+        "title": "Chào mừng bạn đến với Chrysalis",
+        "contents": "Chrysalis nhận diện bàn phím của bạn, nhưng cần cập nhật phần mềm cơ sở trước khi bạn có thể tiếp tục.",
+        "gotoUpdate": "Cập nhật firmware",
+        "reconnect": "Kết nối lại",
+        "reconnectDescription": "Có thể là chúng tôi đã phát hiện sai khả năng của bàn phím hoặc bàn phím đang khởi động khi chúng tôi kết nối. Trong trường hợp này, bạn có thể thử nhấp vào nút \"{{buttonName}}\" để thử kết nối lại và tìm kiếm các tính năng cần thiết một lần nữa. Việc kết nối lại rất hữu ích nếu bạn chắc chắn có lỗi tạm thời trong các lần thử trước và vấn đề đã được giải quyết."
+    },
+    "systeminfo": {
+        "title": "Báo cáo sự cố",
+        "intro": "Nếu bạn gặp sự cố với Chrysalis, nhóm phát triển có thể yêu cầu bạn gửi một số thông tin gỡ lỗi. Chrysalis có thể giúp bạn thu thập và đóng gói mọi thứ bạn có thể cần chia sẻ. Điều này bao gồm nhật ký lỗi, cũng như một số thông tin về hệ điều hành của máy tính này, các thiết bị được kết nối và chính Chrysalis. Thông tin bàn phím sẽ bao gồm thông tin về chương trình cơ sở hiện tại của bàn phím, cũng như bố cục phím và cấu hình đèn LED.",
+        "bugTracker": "Bạn có thể tìm thấy danh sách các vấn đề đã biết (hoặc báo cáo lỗi) trên GitHub",
+        "privacyNote": "Chúng tôi cố gắng không đưa thông tin cá nhân vào gói này, nhưng khuyến nghị bạn nên đọc kỹ trước khi chia sẻ.",
+        "createBundle": "Tạo gói",
+        "saveBundle": "Lưu gói",
+        "dialog": {
+            "title": "Lưu Gói Gỡ Lỗi Chrysalis"
+        }
+    },
+    "devices": {
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "Sau khi nhấp vào nút Tiếp tục, hãy đặt lại bàn phím của bạn\n(bằng cách nhấn nút đặt lại nhỏ bên cạnh cổng USB)\nđể đưa bàn phím vào chế độ lập trình, trong vòng mười giây."
+            }
+        },
+        "Keyboardio": {
+            "Preonic": {
+                "updateInstructions": "Nhấp vào 'Tiếp tục' và khi được nhắc, hãy cho phép Chrysalis kết nối lại với bàn phím của bạn."
+            },
+            "Atreus": {
+                "updateInstructions": "Nhấn giữ phím ở góc dưới cùng bên trái bàn phím (trong bố cục mặc định, phím này là phím ESC). Tiếp tục giữ phím đó trong khi bạn nhấp vào nút Tiếp tục."
+            },
+            "Model01": {
+                "updateInstructions": "Nhấn giữ phím ở góc trên cùng bên trái của bàn phím (trong bố cục mặc định, phím này là phím PROG). Tiếp tục giữ phím này trong khi bạn nhấp vào nút Tiếp tục. Khi các phím bắt đầu nhấp nháy màu đỏ trên toàn bộ bàn phím, bạn có thể thả phím ra."
+            },
+            "Model100": {
+                "updateInstructions": "Nhấn giữ phím ở góc trên cùng bên trái của bàn phím (ở bố cục mặc định, phím này là phím PROG). Tiếp tục giữ phím trong khi nhấp vào nút Tiếp tục. Khi các phím bắt đầu nhấp nháy màu xanh lá cây ở cột đầu tiên của bảng, vui lòng nhả phím, vì giữ quá lâu có thể ngăn quá trình nhấp nháy thành công."
+            }
+        }
+    },
+    "help": {
+        "connection": {
+            "title": "Chrysalis không thể kết nối với bàn phím của bạn",
+            "overview": "<h1>Chrysalis không thể kết nối với bàn phím của bạn.</h1><h2>Các nguyên nhân có thể xảy ra</h2><p>Nếu bàn phím của bạn đang được kết nối với một ứng dụng khác (như phiên bản desktop cũ của Chrysalis) hoặc bạn đã mở Chrysalis trong một cửa sổ trình duyệt khác, hãy thử ngắt kết nối khỏi đó và tải lại trang web này.</p>"
         }
     }
 }

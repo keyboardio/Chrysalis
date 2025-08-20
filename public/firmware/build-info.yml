@@ -1,6 +1,6 @@
 ---
-version: 0.92.8+124
-build: 124
+version: 0.93.0+128
+build: 128
 
 dependencies:
   cores:
@@ -8,11 +8,55 @@ dependencies:
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     common:
-      - keyboardio/Kaleidoscope@c29ba8659afc7f2c9c16aca47added7f4e6ab7be
-      - keyboardio/Chrysalis-Firmware-Bundle@685aa3d0f519fced433ada69b2824da4408828b8
+      - keyboardio/Kaleidoscope@223c9b470238696377e70ab5d25c8e47883f1711
+      - keyboardio/Chrysalis-Firmware-Bundle@36cb39e0943f5b55cfaff26e944b24971c0be866
 
 firmware:
   Keyboardio:
+    Model01:
+      plugins:
+        - BootGreetingEffect
+        - ColormapEffect
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - HostPowerManagement
+        - LEDBreatheEffect
+        - LEDChaseEffect
+        - LEDControl
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LEDRainbowWaveEffect
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - NumPad
+        - Qukeys
+        - USBQuirks
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - LayerNames
+        - Macros
+        - MouseKeys
+        - OneShot
+        - OneShotConfig
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
     Preonic:
       plugins:
         - DefaultLEDModeConfig
@@ -45,50 +89,7 @@ firmware:
         - Qukeys
         - SpaceCadet
         - SpaceCadetConfig
-    Atreus:
-      plugins:
-        - DynamicMacros
-        - EEPROMKeymap
-        - EEPROMSettings
-        - EscapeOneShot
-        - EscapeOneShotConfig
-        - FirmwareVersion
-        - Focus
-        - FocusEEPROMCommand
-        - FocusSettingsCommand
-        - LayerNames
-        - Macros
-        - MouseKeys
-        - OneShot
-        - OneShotConfig
-        - Qukeys
-        - SpaceCadet
-        - SpaceCadetConfig
-    Model01:
-      plugins:
-        - BootGreetingEffect
-        - ColormapEffect
-        - DynamicMacros
-        - EEPROMKeymap
-        - EEPROMSettings
-        - FirmwareVersion
-        - Focus
-        - FocusEEPROMCommand
-        - FocusSettingsCommand
-        - HostPowerManagement
-        - LEDBreatheEffect
-        - LEDChaseEffect
-        - LEDControl
-        - LEDOff
-        - LEDPaletteTheme
-        - LEDRainbowEffect
-        - LEDRainbowWaveEffect
-        - Macros
-        - MagicCombo
-        - MouseKeys
-        - NumPad
-        - Qukeys
-        - USBQuirks
+        - USBAutoSwitcher
     Model100:
       plugins:
         - AlphaSquareEffect

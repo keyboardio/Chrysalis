@@ -1,6 +1,6 @@
 ---
-version: 0.93.0+128
-build: 128
+version: 0.94.0+132
+build: 132
 
 dependencies:
   cores:
@@ -8,11 +8,30 @@ dependencies:
     gd32: keyboardio/ArduinoCore-GD32-Keyboardio@d73e13cdb2abb7ede03fc56ca2576a983e38b773
   libraries:
     common:
-      - keyboardio/Kaleidoscope@223c9b470238696377e70ab5d25c8e47883f1711
-      - keyboardio/Chrysalis-Firmware-Bundle@36cb39e0943f5b55cfaff26e944b24971c0be866
+      - keyboardio/Kaleidoscope@b436a6089f388c12178ebd6519cbe4d3db365ccc
+      - keyboardio/Chrysalis-Firmware-Bundle@9c27a364a3ccfa745a5424095ea0c8d6ca276d3c
 
 firmware:
   Keyboardio:
+    Atreus:
+      plugins:
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - LayerNames
+        - Macros
+        - MouseKeys
+        - OneShot
+        - OneShotConfig
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
     Model01:
       plugins:
         - BootGreetingEffect
@@ -38,58 +57,6 @@ firmware:
         - NumPad
         - Qukeys
         - USBQuirks
-    Atreus:
-      plugins:
-        - DynamicMacros
-        - EEPROMKeymap
-        - EEPROMSettings
-        - EscapeOneShot
-        - EscapeOneShotConfig
-        - FirmwareVersion
-        - Focus
-        - FocusEEPROMCommand
-        - FocusSettingsCommand
-        - LayerNames
-        - Macros
-        - MouseKeys
-        - OneShot
-        - OneShotConfig
-        - Qukeys
-        - SpaceCadet
-        - SpaceCadetConfig
-    Preonic:
-      plugins:
-        - DefaultLEDModeConfig
-        - DefaultPreonicColormap
-        - DynamicMacros
-        - EEPROMKeymap
-        - EEPROMSettings
-        - EscapeOneShot
-        - EscapeOneShotConfig
-        - FirmwareVersion
-        - Focus
-        - FocusEEPROMCommand
-        - FocusSettingsCommand
-        - Keyclick
-        - LEDBrightnessConfig
-        - LEDControl
-        - LEDIndicators
-        - LEDOff
-        - LEDPaletteTheme
-        - LEDRainbowEffect
-        - LayerNames
-        - Macros
-        - MagicCombo
-        - MouseKeys
-        - MouseKeysConfig
-        - OneShot
-        - OneShotConfig
-        - PreonicBootGreetingEffect
-        - PreonicColormapEffect
-        - Qukeys
-        - SpaceCadet
-        - SpaceCadetConfig
-        - USBAutoSwitcher
     Model100:
       plugins:
         - AlphaSquareEffect
@@ -130,3 +97,36 @@ firmware:
         - SpaceCadetConfig
         - StalkerEffect
         - USBQuirks
+    Preonic:
+      plugins:
+        - DefaultLEDModeConfig
+        - DefaultPreonicColormap
+        - DynamicMacros
+        - EEPROMKeymap
+        - EEPROMSettings
+        - EscapeOneShot
+        - EscapeOneShotConfig
+        - FirmwareVersion
+        - Focus
+        - FocusEEPROMCommand
+        - FocusSettingsCommand
+        - Keyclick
+        - LEDBrightnessConfig
+        - LEDControl
+        - LEDIndicators
+        - LEDOff
+        - LEDPaletteTheme
+        - LEDRainbowEffect
+        - LayerNames
+        - Macros
+        - MagicCombo
+        - MouseKeys
+        - MouseKeysConfig
+        - OneShot
+        - OneShotConfig
+        - PreonicBootGreetingEffect
+        - PreonicColormapEffect
+        - Qukeys
+        - SpaceCadet
+        - SpaceCadetConfig
+        - USBAutoSwitcher

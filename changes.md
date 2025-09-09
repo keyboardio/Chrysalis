@@ -1,4 +1,5 @@
 ## Recent updates
+- 2025-09-08: Kaleidoscope 0.94.0 build with a (hopeful) fix for Windows 11 reconnection issues
 - 2025-08-19: Kaleidoscope 0.93.0 build with significant improvements for the Preonic
 - 2025-08-09: Added Norwegian (macOS) keyboard layout variant - fixes issue where Mac users saw Windows layout characters (backslash instead of acute accent on equals key)
 - 2025-08-07: New firmware build, focusing on Preonic updates - Bluetooth stability, LED effect at boot time, macOS mouse button support, and rotary encoder improvements

@@ -1,3 +1,10 @@
 {
-  "this_translation_language": "简体中文"
+    "this_translation_language": "简体中文",
+    "sanity-check": {
+        "title": "运行环境验证"
+    },
+    "components": {
+        "layerRaw": "层",
+        "none": "无"
+    }
 }

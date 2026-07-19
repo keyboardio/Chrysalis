@@ -17,7 +17,10 @@
             "macroEditor": "Penyunting Makro",
             "connectAKeyboard": "Hubungkan sebuah papan tik",
             "importExport": "Cadangkan dan Pulihkan tata letak",
-            "connectAnotherKeyboard": "Hubungkan papan tik lainnya"
+            "connectAnotherKeyboard": "Hubungkan papan tik lainnya",
+            "editor": "Editor Tata Letak & Peta Warna",
+            "colormapEditor": "Editor Peta Warna",
+            "layoutCard": "Kartu Tata Letak"
         },
         "deviceMenu": {
             "Homepage": "Beranda",
@@ -39,7 +42,7 @@
             "title": "Cadangan dan Pemulihan",
             "loadFromLibrary": "Muat dari pustaka",
             "loadFromBackup": "Muat dari cadangan",
-            "exportToFile": "Ekspor ke berkas...",
+            "exportToFile": "Cadangkan ke file...",
             "import": "Impor",
             "selectLoadFile": "Pilih berkas untuk memuat tata letak",
             "dialog": {
@@ -47,37 +50,62 @@
                 "allFiles": "Semua berkas"
             },
             "errors": {
-                "unableToLoad": "Tidak dapat memuat tata letak dari berkas tersebut."
+                "unableToLoad": "Tidak dapat memuat tata letak dari berkas tersebut.",
+                "parseFail": "Gagal mengurai data tata letak.",
+                "invalidLayoutData": "File tidak berisi data tata letak yang valid."
             },
-            "exporting": "Mengekspor..."
+            "exporting": "Mengekspor...",
+            "loadLayoutFromFile": "Pulihkan tata letak keyboard dari file...",
+            "loadLayoutFromFileOption": "Hanya tata letak keyboard",
+            "loadFullSettingsFromFile": "Pulihkan pengaturan dari file...",
+            "loadFullSettingsFromFileOption": "Pengaturan EEPROM lengkap",
+            "selectExportFile": "Pilih file untuk mengekspor tata letak"
         },
         "sidebar": {
             "blanks": {
-                "title": "Kosong"
+                "title": "Kosong",
+                "help": "Tombol yang diblokir & transparan."
             },
             "secondary": {
-                "title": "Tindakan sekunder",
+                "title": "Aksi sekunder",
                 "type": {
-                    "none": "Tidak ada tindakan sekunder"
+                    "none": "Normal",
+                    "layer": "Perpindahan lapisan",
+                    "modifier": "Pengubah"
                 },
-                "targetLayer": "Lapisan"
+                "targetLayer": "Lapisan",
+                "help": "Saat ditekan, Anda mendapatkan fungsi utama. Saat ditahan Anda mendapatkan aksi sekunder.",
+                "help-layerLimit": "Karena keterbatasan firmware, perpindahan ke lapisan di atas \"{{ layer7 }}\" tidak didukung melalui aksi sekunder.",
+                "whenHeld": "Saat ditahan",
+                "modifier": "Pengubah"
             },
             "colors": {
-                "title": "Warna"
+                "title": "Warna",
+                "help": "Atur warna tombol dengan mengklik palet di bawah. Gunakan pemilih warna untuk menyesuaikan palet."
             },
             "mousekeys": {
                 "title": "Kontrol tetikus",
-                "help": "Tiru tetikus melalui tombol papan tik.",
+                "help": "Gerakkan mouse dengan keyboard Anda",
                 "wheel": {
                     "help": " Pengguliran roda gulir tetikus",
                     "title": "Roda Gulir"
                 },
                 "buttons": {
-                    "title": "Tombol"
+                    "title": "Tombol",
+                    "help": "Tekan tombol mouse dengan keyboard Anda"
+                },
+                "movement": {
+                    "title": "Gerakan",
+                    "help": "Gerakkan mouse dengan keyboard Anda"
+                },
+                "warp": {
+                    "title": "Warp",
+                    "help": "Perbesar mouse Anda melintasi layar dalam beberapa penekanan tombol"
                 }
             },
             "platform_apple": {
-                "title": "Tombol Mac/iPad"
+                "title": "Tombol Mac/iPad",
+                "help": "Kode tombol khusus untuk perangkat Apple."
             },
             "dynmacros": {
                 "usage_overview": {
@@ -89,7 +117,11 @@
                 "help": "Atur dan edit makro dinamis ke tombol."
             },
             "oneshot": {
-                "help": "Klik tombol di bawah ini untuk memilih tombol khusus untuk membatalkan tombol satu bidikan."
+                "help": "Klik tombol di bawah ini untuk memilih tombol khusus untuk membatalkan tombol satu bidikan.",
+                "title": "Lengket",
+                "cancelStickyKey": {
+                    "tooltip": "Tombol khusus untuk membatalkan tombol lengket."
+                }
             },
             "oneshotMetaKeys": {
                 "title": "Tombol meta one-shot",
@@ -103,13 +135,15 @@
             },
             "macros": {
                 "title": "Macro",
-                "help": "Atur makro ke tombol. Untuk membuat atau memodifikasi makro, Anda dapat menggunakan Arduino IDE untuk menyesuaikan file 'Sketsa' Kaleidoskop untuk keyboard Anda."
+                "help": "Tetapkan makro yang dikodekan keras yang terpasang di firmware Anda ke tombol."
             },
             "spacecadet": {
-                "title": "SpaceCadet"
+                "title": "SpaceCadet",
+                "help": "Buat 'Shift' kiri & kanan bertindak sebagai '(' dan ')' saat ditekan"
             },
             "lang_intl": {
-                "title": "Bahasa"
+                "title": "Bahasa / Internasional",
+                "help": "Tombol tambahan khusus bahasa."
             },
             "volume": {
                 "title": "Volume",
@@ -124,6 +158,48 @@
                     "title": "Kecerahan",
                     "help": "Atur kecerahan layar."
                 }
+            },
+            "custom": {
+                "title": "Kode tombol",
+                "help": "Tetapkan kode tombol Kaleidoscope khusus.",
+                "label": "Kode tombol khusus"
+            },
+            "blekeys": {
+                "title": "Bluetooth",
+                "help": "Kontrol koneksi dan pemasangan Bluetooth."
+            },
+            "keypicker": {
+                "mods": "Pengubah",
+                "modsHelp": "Pengubah untuk ditambahkan saat Anda menekan tombol ini.",
+                "specialModsHelp": "Ubah cara pengubah mempengaruhi tombol ini.",
+                "oneshot": {
+                    "label": "Lengket",
+                    "tooltip": "Tekan untuk mengaktifkan penekanan tombol berikutnya, tahan untuk bertindak seperti pengubah biasa, tekan dua kali untuk mengalihkan pengubah."
+                },
+                "topsyturvy": {
+                    "label": "Balik Shift",
+                    "tooltip": "Balik perilaku tombol Shift. (Misalnya, kirim 'A' saat tidak di-shift dan 'a' saat di-shift). Ini tidak dapat digabungkan dengan pengubah lain."
+                }
+            },
+            "layer": {
+                "title": "Lapisan dan peta tombol",
+                "help": "Tombol yang memungkinkan Anda mengubah lapisan."
+            },
+            "leader": {
+                "title": "Leader",
+                "help": "Tetapkan tombol Leader. Untuk mengonfigurasi fitur ini, sesuaikan file sketsa Kaleidoscope untuk keyboard Anda."
+            },
+            "ledkeys": {
+                "title": "Kontrol LED",
+                "help": "Kontrol tema dan efek LED keyboard Anda."
+            },
+            "steno": {
+                "title": "Steno",
+                "help": "Aktifkan input Stenografis GeminiPR alih-alih input QWERTY Plover"
+            },
+            "tapdance": {
+                "title": "TapDance",
+                "help": "Tombol-tombol ini memicu aksi yang berbeda berdasarkan jumlah kali Anda menekan"
             }
         },
         "macros": {
@@ -131,20 +207,34 @@
                 "in_ms": "md",
                 "unknown": "<tidak diketahui>",
                 "WAIT": "Tunggu",
-                "TAP": "Ketuk",
+                "TAP": "Tekan",
                 "unsupported": "Tidak didukung",
                 "time_ms": "{{ value }}md",
                 "INTERVAL": "Jeda antar langkah",
                 "EXPLICIT_REPORT": "Jangan kirim laporan antar langkah",
                 "IMPLICIT_REPORT": "Kirim laporan antar langkah",
-                "SEND_REPORT": "Kirim laporan sekarang"
-            }
+                "SEND_REPORT": "Kirim laporan sekarang",
+                "add": "Tambahkan langkah",
+                "KEYDOWN": "Tahan tombol",
+                "KEYUP": "Lepaskan tombol"
+            },
+            "title": "Makro #{{ index }}",
+            "edit": "Edit makro",
+            "out_of_space": "Makro dinamis menggunakan terlalu banyak ruang, harap kosongkan {{ overflow }} byte."
         },
         "layerswitch": {
-            "type": "Jenis"
+            "type": "Jenis",
+            "shiftTo": "Pindah Ke Lapisan",
+            "lockTo": "Kunci Ke Lapisan",
+            "moveTo": "Beralih Ke Lapisan",
+            "oneshot": "Perpindahan lapisan untuk aksi berikutnya",
+            "target": "Lapisan",
+            "dualuse": "Perpindahan lapisan saat ditahan"
         },
         "onlyCustom": {
-            "openFR": "Buka permintaan fitur"
+            "openFR": "Buka permintaan fitur",
+            "warning": "Chrysalis tidak lagi mendukung konfigurasi yang berisi campuran lapisan yang dikodekan keras dan EEPROM. Jika ini adalah fitur yang Anda perlukan, kami ingin mendengar lebih lanjut tentang kasus penggunaan Anda. Namun, dalam kebanyakan kasus, kami menyarankan untuk beralih ke lapisan khusus saja, yang dapat dilakukan Chrysalis untuk Anda. Saat melakukan peralihan, lapisan yang dikodekan keras tidak akan digunakan, dan set lapisan default - jika ada - akan menjadi lapisan nol.",
+            "fixItButton": "Beralih ke lapisan khusus saja"
         },
         "overview": {
             "color": "Warna",
@@ -152,9 +242,15 @@
             "showEmptyLayers": "Tampilkan lapisan kosong...",
             "copyLayer": "Salin lapisan",
             "pasteLayer": "Tempel lapisan",
-            "sharing": "Cadangkan dan Pulihkan"
+            "sharing": "Cadangkan dan Pulihkan",
+            "key": "Tombol #{{index}}",
+            "help": "Gambaran umum pemetaan untuk tombol yang dipilih saat ini. Untuk mengubah lapisan yang ditampilkan, klik pada barisnya."
         },
-        "plugin_unavailable": "Perangkat tegar papan tik Anda tidak menyediakan dukungan untuk fitur ini."
+        "plugin_unavailable": "Perangkat tegar papan tik Anda tidak menyediakan dukungan untuk fitur ini.",
+        "plugin_unavailable_for_macros": "Fungsi ini tidak tersedia di makro",
+        "layernames": {
+            "out_of_space": "Nama lapisan Anda {{ overflow }} byte terlalu panjang untuk disimpan ke keyboard Anda."
+        }
     },
     "layoutCards": {
         "printTooltip": "Cetak"
@@ -182,7 +278,7 @@
                 "help": "Konsol pengembangan memperbolehkan Anda mengintip ke dalam Chrysalis. Gunakan dengan hati-hati."
             },
             "verboseLogging": {
-                "label": "Aktifkan log lebih banyak",
+                "label": "Aktifkan pencatatan verbose",
                 "help": "Mengaktifkan log lebih banyak, berguna saat pengawakutuan saja."
             }
         },
@@ -204,14 +300,23 @@
             },
             "language": {
                 "label": "Bahasa",
-                "help": "Pilih bahasa yang Chrysalis akan gunakan"
+                "help": "Bahasa apa yang harus digunakan Chrysalis"
             },
             "host": {
                 "label": "Tata letak papan tik",
                 "help": "Pilih tata letak tombol yang Anda gunakan di sistem Anda"
             },
             "hideUnavailableFeatures": {
-                "label": "Sembunyikan fitur yang tidak didukung oleh perangkat tegar papan tik Anda"
+                "label": "Sembunyikan fitur yang tidak didukung oleh perangkat tegar papan tik Anda",
+                "help": "Saat diaktifkan, Chrysalis akan menyembunyikan opsi konfigurasi untuk fitur yang tidak didukung oleh firmware keyboard Anda."
+            },
+            "oneLayerPerPage": {
+                "label": "Cetak satu lapisan per halaman",
+                "help": "Saat diaktifkan, Chrysalis akan mengatur kartu tata letak untuk mencetak satu lapisan per halaman, daripada sebanyak yang muat."
+            },
+            "coloredLayoutCards": {
+                "label": "Tampilkan warna pada kartu tata letak",
+                "help": "Saat diaktifkan, kartu tata letak akan menampilkan warna selain label tombol, jika tersedia."
             }
         },
         "keyboard": {
@@ -221,7 +326,9 @@
                 "description": "Itu adalah alat berbahaya, pastikan Anda tahu apa yang dilakukan mereka sebelum memakainya."
             },
             "defaultLayer": {
-                "noDefault": "Tidak ada yang baku"
+                "noDefault": "Tidak ada yang baku",
+                "label": "Lapisan default",
+                "help": "Lapisan default yang akan digunakan keyboard saat memulai."
             },
             "led": {
                 "idle": {
@@ -235,7 +342,9 @@
                     "twentyMinutes": "20 menit",
                     "thirtyMinutes": "30 menit",
                     "sixtyMinutes": "60 menit",
-                    "label": "Waktu diam sebelum LED dimatikan"
+                    "label": "Waktu diam sebelum LED dimatikan",
+                    "help": "Kecuali dinonaktifkan, LED akan mati setelah waktu yang dikonfigurasi.",
+                    "disabled": "Dinonaktifkan"
                 },
                 "brightness": {
                     "label": "Kecerahan LED",
@@ -244,7 +353,8 @@
                 "default": {
                     "label": "Mode led default",
                     "autoSave": {
-                        "help": "Ketika diaktifkan, kapan pun mode LED diubah, itu akan disimpan sebagai yang baku."
+                        "help": "Ketika diaktifkan, kapan pun mode LED diubah, itu akan disimpan sebagai yang baku.",
+                        "label": "Aktifkan penyimpanan otomatis mode LED default"
                     },
                     "help": "Pilih mode LED pada pemulaian papan tik."
                 },
@@ -254,12 +364,27 @@
                 "mousekeys": {
                     "warp_grid_size": {
                         "2x2": "2x2",
-                        "3x3": "3x3"
+                        "3x3": "3x3",
+                        "label": "Ukuran grid warp",
+                        "help": "Konfigurasikan ukuran grid yang digunakan untuk warping mouse."
                     },
                     "scroll_interval": {
-                        "label": "Kecepatan menggulir"
+                        "label": "Kecepatan menggulir",
+                        "help": "Waktu antara peristiwa gulir. Semakin tinggi penundaan, semakin lambat pengguliran."
                     },
-                    "label": "Tombol tetikus"
+                    "label": "Tombol tetikus",
+                    "init_speed": {
+                        "label": "Kecepatan kursor mouse awal",
+                        "help": "Semakin tinggi nilainya, semakin cepat kecepatan gerakan kursor mouse awal."
+                    },
+                    "base_speed": {
+                        "label": "Kecepatan kursor mouse tertinggi",
+                        "help": "Kecepatan tertinggi yang diizinkan dicapai kursor mouse."
+                    },
+                    "accel_duration": {
+                        "label": "Durasi untuk mencapai kecepatan kursor tertinggi",
+                        "help": "Durasi di mana kursor berpindah dari kecepatan awal ke kecepatan tertinggi."
+                    }
                 },
                 "spacecadet": {
                     "label": "Space-Cadet",
@@ -267,7 +392,12 @@
                         "label": "Aktifkan Shift Space-Cadet",
                         "enabled": "Diaktifkan",
                         "disabled": "Dimatikan",
-                        "enabled_without_delay": "Diaktifkan (tanpa jeda)"
+                        "enabled_without_delay": "Diaktifkan (tanpa jeda)",
+                        "help": "Saat diaktifkan, shift kiri dan kanan pada keyboard Anda akan berubah menjadi tanda kurung saat ditekan, tetapi tetap shift saat ditahan."
+                    },
+                    "timeout": {
+                        "label": "Batas waktu",
+                        "help": "Jumlah milidetik untuk menunggu sebelum menganggap tombol SpaceCadet yang ditahan sebagai shift sendiri."
                     }
                 },
                 "autoshift": {
@@ -285,12 +415,76 @@
                             "help": "Aktifkan shift otomatis untuk tombol huruf. Ini hanya mencakup huruf antara A dan Z pada tata letak QWERTY AS."
                         },
                         "numbers": {
-                            "label": "Tombol angka shift otomatis"
+                            "label": "Tombol angka shift otomatis",
+                            "help": "Aktifkan pergeseran otomatis untuk tombol angka. Tidak termasuk tombol angka pada numpad."
+                        },
+                        "symbols": {
+                            "label": "Pergeseran otomatis simbol",
+                            "help": "Aktifkan pergeseran otomatis untuk simbol: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. Anda mungkin perlu mengaktifkan ini jika Anda menggunakan bahasa atau tata letak selain Inggris AS, jika Anda ingin menggeser secara otomatis huruf yang tidak tercakup oleh pergeseran otomatis huruf."
+                        },
+                        "arrows": {
+                            "label": "Pergeseran otomatis panah",
+                            "help": "Aktifkan pergeseran otomatis untuk tombol panah."
+                        },
+                        "functions": {
+                            "label": "Pergeseran otomatis tombol fungsi",
+                            "help": "Aktifkan pergeseran otomatis untuk tombol fungsi, F1 hingga F24."
+                        },
+                        "all": {
+                            "label": "Pergeseran otomatis semua tombol",
+                            "help": "Aktifkan pergeseran otomatis untuk semua tombol, bahkan yang tidak termasuk dalam kategori di atas."
                         }
                     },
                     "label": "Shift otomatis"
                 },
-                "label": "Plugin"
+                "label": "Plugin",
+                "escOneShot": {
+                    "label": "Biarkan Escape membatalkan tombol lengket",
+                    "help": "Saat diaktifkan, \"Escape\" akan membatalkan tombol lengket, jika tidak tombol batal khusus dapat melakukannya."
+                },
+                "oneshot": {
+                    "label": "Tombol lengket",
+                    "timeout": {
+                        "label": "Batas waktu",
+                        "help": "Waktu hingga tombol lengket tetap aktif setelah ditekan."
+                    },
+                    "hold_timeout": {
+                        "label": "Batas waktu tahan",
+                        "help": "Tombol lengket yang ditahan lebih lama dari ini tidak akan memasuki status lengket mereka, tetapi akan bertindak sebagai tombol normal."
+                    },
+                    "auto_mods": {
+                        "label": "Secara otomatis membuat pengubah menjadi lengket",
+                        "help": "Ubah setiap pengubah pada peta tombol Anda menjadi pengubah Lengket."
+                    },
+                    "auto_layers": {
+                        "label": "Secara otomatis membuat tombol perpindahan lapisan menjadi lengket",
+                        "help": "Ubah setiap tombol perpindahan lapisan pada peta tombol Anda menjadi tombol lapisan Lengket."
+                    },
+                    "stickyness": {
+                        "label": "Perilaku ketukan ganda",
+                        "help": "Pilih apa yang harus dilakukan ketika tombol lengket ditekan dua kali secara cepat berturut-turut.",
+                        "enable": "Kunci untuk semua tombol lengket",
+                        "disable": "Tidak ada",
+                        "layers_only": "Kunci hanya untuk tombol lapisan",
+                        "modifiers_only": "Kunci hanya untuk tombol pengubah"
+                    }
+                }
+            },
+            "layers": {
+                "label": "Lapisan"
+            },
+            "factoryReset": {
+                "button": "Setel ulang EEPROM ke pengaturan pabrik",
+                "dialog": {
+                    "title": "Setel ulang EEPROM ke pengaturan pabrik?",
+                    "contents": "Ini akan menyetel ulang EEPROM ke pengaturan pabrik. Anda akan kehilangan semua kustomisasi yang dibuat."
+                }
+            }
+        },
+        "focus": {
+            "chunked_writes": {
+                "label": "Kirim data dalam potongan kecil",
+                "help": "Sebagai solusi yang mungkin untuk berbagai masalah komunikasi, Chrysalis dapat mengirim data ke keyboard dalam potongan yang lebih kecil. Karena alasan historis, ini diaktifkan secara default. Hanya matikan jika Anda tahu apa yang Anda lakukan, atau diminta oleh pengembang Chrysalis."
             }
         }
     },
@@ -305,7 +499,8 @@
     "sanity-check": {
         "download-latest": "Unduh rilis resmi",
         "header": "Verifikasi lingkungan gagal",
-        "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi."
+        "message": "Chrysalis mendeteksi bahwa ini tidak berjalan di lingkungan yang didukung, seperti Electron dengan versi yang berbeda dengan yang didukung oleh pengembang. Jika Anda menggunakan Chrysalis melalui repositori distributor paket, mohon mempertimbangkan untuk menggunakan distribusi resmi.",
+        "title": "Menjalankan verifikasi lingkungan"
     },
     "errors": {
         "deviceDisconnected": "Papan tik terputus",
@@ -351,7 +546,10 @@
         "installUdevRules": "Perbaiki",
         "noUdev": "Chrysalis memerlukan udev untuk bisa memindai perangkat, tetapi sepertinya itu tidak tersedia.",
         "permissionError": "Sistem Anda tidak memperbolehkan Chrysalis berbicara dengan papan tik Anda. (Anda tidak memiliki izin baca/tulis ke {{path}}.)",
-        "permissionErrorSuggestion": "Chrysalis bisa memperbaiki ini dengan memasang berkas aturan udev ke /etc/udev/rules.d/."
+        "permissionErrorSuggestion": "Chrysalis bisa memperbaiki ini dengan memasang berkas aturan udev ke /etc/udev/rules.d/.",
+        "connectionFailed": "Saya tidak dapat terhubung ke keyboard. Mungkin sudah terhubung di aplikasi atau jendela browser lain. Kesalahan yang saya dapatkan adalah: {{error}}",
+        "dfuConnect": "Setel Ulang Pabrik (Mode USB DFU)",
+        "focusConnectionFailed": "Chrysalis tidak dapat terhubung ke keyboard Anda. Jika keyboard Anda tidak muncul di dialog koneksi, mungkin ada masalah izin, atau mungkin keyboard Model 100 dalam mode bootloader. Untuk menyetel ulang pabrik Model 100 Anda, klik tombol \"Setel Ulang Pabrik\" di bawah ini."
     },
     "firmwareUpdate": {
         "flashing": {
@@ -360,12 +558,27 @@
             "cancelAndDisconnectButton": "Batal dan putuskan sambungan",
             "notifications": {
                 "enter": {
-                    "notFound": "Tidak dapat menemukan papan tik. Silakan laporkan masalah baru."
-                }
+                    "notFound": "Tidak dapat menemukan papan tik. Silakan laporkan masalah baru.",
+                    "stillApplication": "Keyboard belum memasuki mode yang dapat diprogram. Pastikan untuk mengikuti instruksi di bawah ini."
+                },
+                "title": "Masalah ditemui saat flashing",
+                "reconnect": {
+                    "stillBootloader": "Keyboard masih dalam mode yang dapat diprogram. Lepaskan tombol apa pun yang mungkin Anda tahan.",
+                    "notFound": "Tidak dapat menemukan keyboard. Harap ajukan masalah."
+                },
+                "unknownMessage": "Pesan tidak dikenal diterima selama flashing: {{ message }}"
             },
             "steps": {
-                "reconnect": "Menyambungkan ulang"
-            }
+                "reconnect": "Menyambungkan ulang",
+                "factoryRestore": "Memulihkan pengaturan pabrik",
+                "bootloader": "Memasuki mode yang dapat diprogram",
+                "saveEEPROM": "Menyimpan konten EEPROM",
+                "restoreEEPROM": "Memulihkan konten EEPROM",
+                "flash": "Flashing",
+                "reboot": "Memulai ulang"
+            },
+            "error": "Kesalahan saat flashing firmware",
+            "success": "Firmware berhasil di-flash!"
         },
         "firmwareChangelog": {
             "title": "Log Perubahan Perangkat Tegar",
@@ -382,12 +595,40 @@
         "calloutTitle": "Penting!",
         "factoryResetTitle": "Reset pabrik",
         "factoryResetDescription": "Hapus semua di papan tik Anda, mengembalikannya ke bawaan pabrik.",
-        "factoryResetWarning": "Memilih opsi ini tidak akan mencadangkan tata letak atau pengaturan Anda."
+        "factoryResetWarning": "Memilih opsi ini tidak akan mencadangkan tata letak atau pengaturan Anda.",
+        "bootloaderWarning": "Keyboard Anda dalam mode bootloader, jadi Chrysalis tidak dapat mencadangkan pengaturan keyboard. Jika firmware baru tidak kompatibel dengan pengaturan Anda yang ada, tata letak tombol dan pengaturan lainnya mungkin rusak setelah pembaruan. Untuk alasan ini, Chrysalis akan default ke penyetelan ulang pabrik, yang akan memungkinkan Anda memulai dari awal. Anda dapat membatalkan dan keluar dari mode bootloader, sehingga Chrysalis dapat mencadangkan keyboard Anda. Atau, Anda dapat mematikan penyetelan ulang pabrik, jika Anda tahu bahwa firmware baru kompatibel.",
+        "bootloaderConnectDialog": {
+            "title": "Menghubungkan ke keyboard Anda...",
+            "contents": "Chrysalis perlu terhubung ke bootloader keyboard Anda. Klik tombol di bawah ini, lalu pilih keyboard Anda dari daftar yang ditampilkan oleh browser Anda. Jika keyboard Anda tidak muncul, cabut dari komputer Anda dan sambungkan kembali sambil menahan tombol 'bootloader'. Pada Atreus, itu adalah `Esc`. Pada Model 01 dan Model 100, itu adalah `Prog` dan pada Preonic, itu adalah `Hyper`."
+        },
+        "confirmDialog": {
+            "title": "Apakah Anda yakin ingin memperbarui firmware?",
+            "description": "Menginstal firmware baru akan menggantikan yang ada pada perangkat. Setelah firmware baru diinstal, Chrysalis akan membawa Anda kembali ke layar pemilihan keyboard."
+        },
+        "factoryConfirmDialog": {
+            "title": "Ganti firmware dan setel ulang ke pengaturan pabrik?",
+            "contents": "Ini akan mengganti firmware pada perangkat, dan menyetel ulang semua pengaturan ke pengaturan pabrik. Anda akan kehilangan semua kustomisasi yang dibuat. Setelah firmware baru diinstal, Chrysalis akan membawa Anda kembali ke layar pemilihan keyboard."
+        },
+        "reconnectDialog": {
+            "title": "Sambungkan kembali ke keyboard Anda",
+            "contents": "Chrysalis perlu menyambungkan kembali ke keyboard Anda. Setelah Anda mengklik tombol di bawah ini, pilih keyboard Anda dari daftar perangkat yang ditampilkan oleh browser Anda."
+        },
+        "yourFirmware": "Perbarui firmware keyboard Anda",
+        "chooseFirmware": "Perbarui firmware",
+        "defaultFirmwareDescription": "Versi terbaru untuk keyboard Anda",
+        "custom": "Firmware khusus",
+        "customFirmwareExplanation": "Anda dapat menginstal firmware yang telah Anda unduh atau bangun secara lokal.",
+        "currentFirmwareVersion": "Versi firmware saat ini",
+        "currentFirmwareVersionUnavailable": "Versi firmware tidak tersedia",
+        "customFirmwareLinkText": "Pelajari tentang membangun firmware",
+        "description": "Memperbarui firmware keyboard Anda adalah cara kami mengajarinya trik baru. Anda dapat menggunakan Chrysalis untuk menginstal firmware terbaru untuk keyboard Anda atau untuk menginstal firmware yang telah Anda bangun sendiri."
     },
     "focus-not-detected": {
         "title": "Selamat datang di Chrysalis",
         "gotoUpdate": "Perbarui Perangkat Tegar",
-        "reconnect": "Sambungkan ulang"
+        "reconnect": "Sambungkan ulang",
+        "contents": "Chrysalis mengenali keyboard Anda, tetapi perlu memperbarui firmware-nya sebelum Anda dapat melanjutkan.",
+        "reconnectDescription": "Ada kemungkinan bahwa kami salah mendeteksi kemampuan keyboard, atau bahwa keyboard sedang memulai saat kami terhubung. Dalam kasus ini, Anda dapat mencoba mengklik tombol \"{{buttonName}}\" untuk mencoba menyambungkan kembali, dan mencari fitur yang diperlukan lagi. Menyambungkan kembali berguna jika Anda yakin ada kegagalan sementara pada upaya sebelumnya, dan masalahnya telah teratasi."
     },
     "systeminfo": {
         "title": "Laporkan masalah",
@@ -404,7 +645,7 @@
         "available": "Versi baru perangkat tegar tersedia: {{ version }}",
         "error": "Galat ketika mengunduh versi baru perangkat tegar.",
         "warning": "Chrysalis tidak dapat memeriksa versi baru dari perangkat tegar. Versi lebih baru mungkin tersedia secara daring.",
-        "downloaded": "Versi {{ version }} dari perangkat tegar diunduh dan tersedia untuk di-flash"
+        "downloaded": "Firmware versi {{ version }} telah diunduh, dan tersedia untuk flashing"
     },
     "help": {
         "connection": {
@@ -416,5 +657,26 @@
         "saveChanges": "Simpan Perubahan",
         "savingChanges": "Menyimpan Perubahan",
         "savedChanges": "Perubahan yang Tersimpan"
+    },
+    "devices": {
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "Setelah mengklik tombol Lanjutkan, setel ulang keyboard Anda (dengan menekan tombol\nreset kecil di samping port USB) untuk menempatkannya ke dalam mode yang dapat diprogram, dalam waktu sepuluh\ndetik."
+            }
+        },
+        "Keyboardio": {
+            "Preonic": {
+                "updateInstructions": "Klik 'Lanjutkan' dan saat diminta, izinkan Chrysalis untuk menyambungkan kembali ke keyboard Anda."
+            },
+            "Atreus": {
+                "updateInstructions": "Tahan tombol di sudut kiri bawah keyboard (dalam tata letak default, tombol ini adalah tombol ESC). Terus tahan sambil Anda mengklik tombol Lanjutkan."
+            },
+            "Model01": {
+                "updateInstructions": "Tahan tombol di sudut kiri atas keyboard (dalam tata letak default, tombol ini adalah tombol PROG). Terus tahan sambil Anda mengklik tombol Lanjutkan. Setelah tombol mulai berkedip merah di seluruh papan, Anda dapat melepaskan tombol."
+            },
+            "Model100": {
+                "updateInstructions": "Tahan tombol di sudut kiri atas keyboard (dalam tata letak default, tombol ini adalah tombol PROG). Terus tahan sambil Anda mengklik tombol Lanjutkan. Setelah tombol mulai berkedip hijau di kolom pertama papan, harap lepaskan tombol, karena menahannya terlalu lama dapat mencegah flashing berhasil."
+            }
+        }
     }
 }

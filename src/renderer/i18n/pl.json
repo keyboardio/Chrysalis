@@ -89,7 +89,12 @@
             },
             "loadFromBackup": "Wczytaj z kopii zapasowych",
             "exportToFile": "Kopia zapasowa do pliku...",
-            "selectLoadFile": "Wybierz plik, z którego chcesz wczytać układ"
+            "selectLoadFile": "Wybierz plik, z którego chcesz wczytać układ",
+            "loadLayoutFromFile": "Przywróć układ klawiatury z pliku...",
+            "loadLayoutFromFileOption": "Tylko układ klawiatury",
+            "loadFullSettingsFromFile": "Przywróć ustawienia z pliku...",
+            "loadFullSettingsFromFileOption": "Pełne ustawienia EEPROM",
+            "exporting": "Eksportowanie..."
         },
         "sidebar": {
             "secondary": {
@@ -194,7 +199,7 @@
             },
             "keypicker": {
                 "topsyturvy": {
-                    "tooltip": "Odwróć zachowanie Shift. (Na przykład wyślij \"A\", gdy nie jest przesunięty i \"a\" gdy jest przesunięty)",
+                    "tooltip": "Odwróć zachowanie Shift. (Na przykład wyślij \"A\", gdy nie jest przesunięty i \"a\" gdy jest przesunięty). Tego nie można łączyć z innymi modyfikatorami.",
                     "label": "Odwrócenie przesunięcia"
                 },
                 "mods": "Modyfikatorów",
@@ -226,6 +231,10 @@
             "leader": {
                 "title": "Przywódca",
                 "help": "Przypisz klucze linii odniesienia.Aby skonfigurować tę funkcję, dostosuj plik szkicu Kalejdoskop do używanej klawiatury."
+            },
+            "blekeys": {
+                "help": "Kontroluj połączenia z Bluetooth i parowanie.",
+                "title": "Bluetooth"
             }
         },
         "onlyCustom": {
@@ -361,13 +370,24 @@
             "language": {
                 "label": "Język",
                 "help": "W jakim języku powinna mówić Chrysalis"
+            },
+            "coloredLayoutCards": {
+                "label": "Pokaż kolory na kartach układu",
+                "help": "Gdy jest włączona, karty układu będą wyświetlać kolory oprócz etykiet kluczowych, jak są dostępne."
+            },
+            "host": {
+                "label": "Układ klawiatury",
+                "help": "Wybierz układ klawiatury, którego używasz na swoim komputerze"
             }
         },
         "keyboard": {
             "plugins": {
                 "mousekeys": {
                     "warp_grid_size": {
-                        "3x3": "3x3"
+                        "3x3": "3x3",
+                        "label": "Rozmiar siatki warp",
+                        "help": "Skonfiguruj rozmiar siatki używanej do zniekształcania kursora myszy.",
+                        "2x2": "2x2"
                     },
                     "init_speed": {
                         "help": "Im wyższa wartość, tym większa początkowa prędkość ruchu kursora myszy.",
@@ -384,7 +404,8 @@
                     "scroll_interval": {
                         "label": "Szybkość przewijania",
                         "help": "Czas między zdarzeniami przewijania. Im większe opóźnienie, tym wolniejsze przewijanie."
-                    }
+                    },
+                    "label": "Klawisze myszy"
                 },
                 "oneshot": {
                     "timeout": {
@@ -426,16 +447,99 @@
                         "label": "Limit czasu",
                         "help": "Liczba milisekund czekania przed uznaniem przytrzymanego klawisza shift kosmiczny kadet za samodzielną zmianę."
                     }
+                },
+                "label": "Wtyczki",
+                "autoshift": {
+                    "label": "Automatyczne przemieszczanie",
+                    "enabled": {
+                        "label": "Włącz automatyczne przesuwanie",
+                        "help": "Z włączonym automatycznym przestawianiem, przytrzymywane klawisze będą automatycznie wprowadzać swoją wersję jak przytszymane."
+                    },
+                    "timeout": {
+                        "label": "Czas przełączania automatycznego",
+                        "help": "Kontroluje, jak długo klawisz musi być przytrzymywany, zanim osiągnie stan przesunięty."
+                    },
+                    "category": {
+                        "letters": {
+                            "label": "Automatyczne przesuwanie klawiszy literowych",
+                            "help": "Włącz automatyczne przesuwanie dla klawiszy literowych. Obejmuje to tylko litery od A do Z na układzie US QWERTY."
+                        },
+                        "numbers": {
+                            "label": "Automatyczne przesunięcie klawiszy numerycznych",
+                            "help": "Włącz automatyczne przestawianie dla przycisków numerycznych. Nie obejmuje klawiszy numerycznych na klawiaturze numerycznej."
+                        },
+                        "symbols": {
+                            "label": "Automatyczne przesuwanie symboli",
+                            "help": "Włącz automatyczne przesuwanie symboli: -_, =+, [{, ]}, |, ;:, ', `~, ,<, .>, /?. Może być konieczne włączenie tej funkcji, jeśli używasz innego języka lub układu niż angielski amerykański, jeśli chcesz automatycznie przesuwać litery, które nie są objęte automatycznym przesuwaniem liter."
+                        },
+                        "arrows": {
+                            "label": "Automatyczne przesuwanie strzałek",
+                            "help": "Włącz automatyczne przesuwanie dla klawiszy strzałek."
+                        },
+                        "functions": {
+                            "label": "Funkcja automatycznego przełączania klawiszy funkcyjnych",
+                            "help": "Włącz automatyczne przestawianie dla klawiszy funkcyjnych, od F1 do F24."
+                        },
+                        "all": {
+                            "label": "Automatyczne przesunięcie wszystkich klawiszy",
+                            "help": "Włącz automatyczne przestawianie dla wszystkich klawiszy, nawet tych, które nie należą do żadnej z powyższych kategorii."
+                        }
+                    }
+                },
+                "escOneShot": {
+                    "label": "Niech Esc anulować klawisze przylepne",
+                    "help": "Gdy jest włączona, \"Esc\" anuluje klawisze przyklejone, w przeciwnym razie można to zrobić za pomocą dedykowanego klawisza anulowania."
                 }
             },
             "factoryReset": {
                 "dialog": {
                     "contents": "Spowoduje to zresetowanie pamięci EEPROM do ustawień fabrycznych. Utracisz wszystkie wprowadzone dostosowania.",
                     "title": "Przywróć EEPROM do ustawien fabrycznych?"
-                }
+                },
+                "button": "Zresetuj EEPROM do ustawień fabrycznych"
             },
             "led": {
-                "label": "LEDs"
+                "label": "LEDs",
+                "idle": {
+                    "label": "Czas bezczynności przed wyłączeniem diod LED",
+                    "help": "O ile nie są wyłączone, diody LED zgasną po skonfigurowanym czasie.",
+                    "disabled": "Wyłączony",
+                    "oneMinute": "1 minuta",
+                    "twoMinutes": "2 minuty",
+                    "threeMinutes": "3 minuty",
+                    "fourMinutes": "4 minut",
+                    "fiveMinutes": "5 minut",
+                    "tenMinutes": "10 minut",
+                    "fifteenMinutes": "15 minut",
+                    "twentyMinutes": "20 minut",
+                    "thirtyMinutes": "30 minut",
+                    "sixtyMinutes": "60 minut"
+                },
+                "brightness": {
+                    "label": "Jasność LED",
+                    "help": "Dostosuj jasność diod LED na klawiaturze."
+                },
+                "default": {
+                    "autoSave": {
+                        "label": "Włącz automatyczne zapisywanie domyślnego trybu LED",
+                        "help": "Gdy jest włączona, za każdym razem gdy zmienia się tryb diody LED, jest on zapisywany jako domyślny."
+                    },
+                    "label": "Domyślny tryb led",
+                    "help": "Wybierz tryb diod LED, z którym klawiatura powinna się uruchomić."
+                }
+            },
+            "title": "Moja klawiatura",
+            "advanced": {
+                "label": "Zaawansowane narzędzia",
+                "description": "To są niebezpieczne narzędzia, upewnij się, że wiesz, co one robią, zanim użyjesz któregokolwiek z nich."
+            },
+            "layers": {
+                "label": "Warstwy"
+            },
+            "defaultLayer": {
+                "label": "Domyślna warstwa",
+                "noDefault": "Brak domyślnego",
+                "help": "Domyślna warstwa, z którą uruchomi się klawiatura."
             }
         }
     },
@@ -470,6 +574,109 @@
             "title": "Podłączanie do klawiatury...",
             "contents": "Chrysalis musi połączyć się z bootloaderem klawiatury. Kliknij poniższy przycisk, a następnie wybierz klawiaturę z listy wyświetlanej przez przeglądarkę. Jeśli klawiatura się nie pojawi, odłącz ją od komputera i podłącz ponownie, przytrzymując \"bootloader\". Na Atreusie jest to 'Esc'. W modelach Model 01 i Model 100 jest to \"Prog\", a w Preonicu jest to \"Hyper\"."
         },
-        "bootloaderWarning": "Twoja klawiatura jest w trybie bootloadera, więc Chrysalis nie może wykonać kopii zapasowej ustawień klawiatury. Jeśli nowe oprogramowanie układowe jest niezgodne z istniejącymi ustawieniami, układy i inne ustawienia mogą być uszkodzone po aktualizacji. Z tego powodu Chrysalis domyślnie przywróci ustawienia fabryczne, co pozwoli Ci zacząć od czystej karty. Możesz anulować i wyjść z trybu bootloadera, aby Chrysalis mógł wykonać kopię zapasową klawiatury. Alternatywnie możesz wyłączyć przywracanie ustawień fabrycznych, jeśli wiesz, że nowe oprogramowanie układowe jest kompatybilne."
+        "bootloaderWarning": "Twoja klawiatura jest w trybie bootloadera, więc Chrysalis nie może wykonać kopii zapasowej ustawień klawiatury. Jeśli nowe oprogramowanie układowe jest niezgodne z istniejącymi ustawieniami, układy i inne ustawienia mogą być uszkodzone po aktualizacji. Z tego powodu Chrysalis domyślnie przywróci ustawienia fabryczne, co pozwoli Ci zacząć od czystej karty. Możesz anulować i wyjść z trybu bootloadera, aby Chrysalis mógł wykonać kopię zapasową klawiatury. Alternatywnie możesz wyłączyć przywracanie ustawień fabrycznych, jeśli wiesz, że nowe oprogramowanie układowe jest kompatybilne.",
+        "factoryResetDescription": "Usuń wszystko z klawiatury, przywracając ją do ustawień fabrycznych.",
+        "factoryResetWarning": "Wybranie tej opcji nie spowoduje zrobienia kopii zapasowej aktualnego układu ani ustawień.",
+        "dialog": {
+            "selectFirmware": "Wybierz oprogramowanie układowe",
+            "firmwareFiles": "Pliki oprogramowania układowego",
+            "allFiles": "Wszystkie pliki"
+        },
+        "flashing": {
+            "error": "Błąd podczas wgrywania oprogramowania",
+            "success": "Firmware wgrany pomyślnie!",
+            "button": "Aktualizacja",
+            "anywayButton": "aktualizuj mimo wszystko",
+            "cancelAndDisconnectButton": "Anuluj i rozłącz",
+            "notifications": {
+                "title": "Problem napotkany podczas flashowania",
+                "enter": {
+                    "stillApplication": "Klawiatura nie weszła jeszcze w tryb programowania. Proszę upewnić się, że stosujesz się do poniższych instrukcji.",
+                    "notFound": "Nie można znaleźć klawiatury. Proszę zgłosić problem."
+                },
+                "reconnect": {
+                    "stillBootloader": "Klawiatura wciąż jest w trybie programowalnym. Proszę zwolnić wszelkie klawisze, które możesz trzymać.",
+                    "notFound": "Nie można znaleźć klawiatury. Proszę zgłosić problem."
+                },
+                "unknownMessage": "Otrzymano nieznaną wiadomość podczas flashowania: {{ message }}"
+            },
+            "steps": {
+                "factoryRestore": "Przywracanie ustawień fabrycznych",
+                "bootloader": "Wchodzenie w tryb programowalny",
+                "saveEEPROM": "Zapisując zawartość EEPROM",
+                "restoreEEPROM": "Przywracanie zawartości EEPROM",
+                "reconnect": "Ponowne nawiązywanie połączenia",
+                "flash": "Migać",
+                "reboot": "Uruchamianie ponownie"
+            }
+        },
+        "confirmDialog": {
+            "title": "Czy jesteś pewien, że chcesz zaktualizować oprogramowanie?",
+            "description": "Instalacja nowego oprogramowania zastąpi istniejące na urządzeniu. Po zainstalowaniu nowego oprogramowania Chrysalis przeniesie cię z powrotem do ekranu wyboru klawiatury."
+        },
+        "factoryConfirmDialog": {
+            "title": "Czy wymienić oprogramowanie układowe i zresetować do ustawień fabrycznych?",
+            "contents": "To zastąpi oprogramowanie układowe na urządzeniu i zresetuje wszystkie ustawienia do ustawień fabrycznych. Stracisz wszystkie dokonane dostosowania. Gdy nowe oprogramowanie układowe zostanie zainstalowane, Chrysalis przeniesie cię z powrotem do ekranu wyboru klawiatury."
+        },
+        "reconnectDialog": {
+            "title": "Połącz ponownie z klawiaturą",
+            "contents": "Chrysalis musi ponownie połączyć się z twoją klawiaturą. Po kliknięciu przycisku poniżej wybierz swoją klawiaturę z listy urządzeń wyświetlanych przez twoją przeglądarkę."
+        },
+        "yourFirmware": "Zaktualizuj oprogramowanie układowe swojej klawiatury",
+        "chooseFirmware": "Zaktualizuj oprogramowanie układowe",
+        "defaultFirmwareDescription": "Najowsza wersja dla twojej klawiatury",
+        "custom": "Niestandardowe oprogramowanie układowe",
+        "customChooseFile": "Wybierz plik...",
+        "customFirmwareExplanation": "Możesz zainstalować wersję oprogramowania układowego, którą pobrałeś lub zbudowałeś lokalnie.",
+        "currentFirmwareVersion": "Aktualna wersja oprogramowania",
+        "currentFirmwareVersionUnavailable": "Wersja oprogramowania układowego niedostępna",
+        "customFirmwareLinkText": "Poznaj budowanie oprogramowania sprzętowego",
+        "firmwareVersion": "{{version}}",
+        "description": "Aktualizacja oprogramowania układowego klawiatury to sposób, w jaki uczymy ją nowych sztuczek. Możesz użyć Chrysalis, aby zainstalować najnowsze oprogramowanie układowe dla swojej klawiatury lub zainstalować oprogramowanie, które sam stworzyłeś."
+    },
+    "focus-not-detected": {
+        "title": "Witamy w Chrysalis",
+        "contents": "Chrysalis rozpoznaje twoją klawiaturę, ale musi zaktualizować swoje oprogramowanie układowe, zanim będziesz mógł kontynuować.",
+        "gotoUpdate": "Zaktualizuj oprogramowanie układowe",
+        "reconnect": "Połącz się ponownie",
+        "reconnectDescription": "Istnieje możliwość, że błędnie wykryliśmy możliwości klawiatury lub że klawiatura uruchamiała się w momencie, gdy ją podłączyliśmy. W takim przypadku możesz spróbować kliknąć przycisk \"{{buttonName}}\", aby spróbować ponownie się połączyć i sprawdzić dostępne funkcje. Ponowne połączenie jest przydatne, jeśli jesteś pewien, że wystąpiła tymczasowa awaria podczas wcześniejszych prób, a problem został rozwiązany."
+    },
+    "systeminfo": {
+        "title": "Zgłoś problem",
+        "intro": "Jeśli masz problemy z Chrysalis, zespół deweloperów może poprosić cię o przesłanie im informacji dotyczących debugowania. Chrysalis może pomóc ci zebrać i zapakować wszystko, co możesz potrzebować do udostępnienia. Obejmuje to dzienniki błędów, a także trochę informacji o systemie operacyjnym tego komputera, podłączonych urządzeniach i samej Chrysalis. Informacje o klawiaturze będą obejmować informacje o aktualnym oprogramowaniu układowym klawiatury, a także układzie klawiszy i konfiguracji LED.",
+        "bugTracker": "Możesz znaleźć listę znanych problemów (lub zgłosić błąd) na GitHubie",
+        "privacyNote": "Staramy się, aby nie umieszczać informacji prywatnych w tym pakiecie, ale zalecamy przeczytanie go przed udostępnieniem.",
+        "createBundle": "Utwórz pakiet",
+        "saveBundle": "Zapisz pakiet",
+        "dialog": {
+            "title": "Zapisz pakiet debugowania Chrysalis"
+        }
+    },
+    "devices": {
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "Po naciśnięciu przycisku Kontynuuj zresetuj klawiaturę (naciskając mały przycisk reset obok portu USB), aby wprowadzić ją w tryb programowalny w ciągu dziesięciu sekund."
+            }
+        },
+        "Keyboardio": {
+            "Preonic": {
+                "updateInstructions": "Kliknij 'Kontynuuj', a gdy zostaniesz o to poproszony, autoryzuj Chrysalis do ponownego połączenia z twoją klawiaturą."
+            },
+            "Atreus": {
+                "updateInstructions": "Przytrzymaj klawisz w lewym dolnym rogu klawiatury (w domyślnym układzie jest to klawisz ESC). Kontynuuj przytrzymywanie go, gdy klikniesz przycisk Kontynuuj."
+            },
+            "Model01": {
+                "updateInstructions": "Przytrzymaj klawisz w lewym górnym rogu klawiatury (w domyślnym układzie jest to klawisz PROG). Kontynuuj przytrzymywanie go, podczas gdy klikniesz przycisk Kontynuuj. Gdy klawisze zaczną migać na czerwono, możesz puścić klawisz."
+            },
+            "Model100": {
+                "updateInstructions": "Przytrzymaj klawisz w lewym górnym rogu klawiatury (w domyślnym układzie ten klawisz to klawisz PROG). Kontynuuj przytrzymywanie go, gdy klikniesz przycisk Kontynuuj. Gdy klawisze zaczną migać na zielono w pierwszej kolumnie planszy, puść klawisz, ponieważ zbyt długie trzymanie może uniemożliwić pomyślne miganie."
+            }
+        }
+    },
+    "help": {
+        "connection": {
+            "title": "Chrysalis nie mogła połączyć się z twoją klawiaturą",
+            "overview": "<h1>Chrysalis nie mogło połączyć się z twoją klawiaturą.</h1><h2>Możliwe przyczyny</h2><p>Jeśli twoja klawiatura jest podłączona do innej aplikacji (jak stara wersja desktopowa Chrysalis) lub masz otwartą Chrysalis w innym oknie przeglądarki, spróbuj się odłączyć od tego i przeładuj tę stronę internetową.</p>"
+        }
     }
 }

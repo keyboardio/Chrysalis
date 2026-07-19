@@ -1,8 +1,8 @@
 {
     "this_translation_language": "Español",
     "sanity-check": {
-        "title": "Ejecutando la verificación del entorno",
-        "header": "La verificación del entorno ha fallado",
+        "title": "Ejecutando verificación del entorno",
+        "header": "Ha fallado la verificación del entorno",
         "message": "Chrysalis ha detectado que se está ejecutando en un entorno no compatible, por ejemplo, con una versión de Electron distinta al soportado upstream. Si usa Chrysalis a través de un repositorio de distribución de paquetes, por favor considere usar en cambio los builds oficiales.",
         "download-latest": "Descargar la versión oficial"
     },
@@ -11,12 +11,12 @@
     },
     "breakingNews": {
         "firmware0_90_1": {
-            "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el butón de cerrar.",
-            "button": "Instrucciones de actualización",
-            "title": "¡Atención dueños de Keyboardio Modelo 100!"
+            "description": "Firmware antes de la versión 0.90.1 contiene un error que conduce a la pérdida de datos y la corrupción de datos para los datos guardados en el teclado. Si ya está ejecutando el firmware más nuevo, puede descartar esta advertencia con el botón de cerrar.",
+            "button": "Instrucciones de mejora",
+            "title": "¡Atención pertenecientes de Keyboardio Modelo 100!"
         }
     },
-    "language": "Español",
+    "language": "Inglés",
     "firmwareAutoUpdate": {
         "downloaded": "Versión de firmware: {{ version }} descargado, y es disponible para actualizar",
         "available": "Versión nuevo de firmware disponible: {{ version }}",
@@ -25,9 +25,9 @@
     },
     "components": {
         "layer": "Capa {{index}}",
-        "none": "Nada",
+        "none": "Ninguno",
         "layerRaw": "Capa",
-        "loading": "Leyendo datos del dispositivo...",
+        "loading": "Leyendo datos del dispositivo…",
         "logo": {
             "altText": "Logo de Chrysalis"
         }
@@ -38,7 +38,7 @@
     },
     "print": {
         "feedback": {
-            "success": "¡Ha impreso con éxito!",
+            "success": "Se ha impreso correctamente.",
             "error": "Error encontrado al imprimir."
         }
     },
@@ -69,7 +69,11 @@
                 "title": "¿Importar el diseño seleccionado?",
                 "contents": "Esto sobreescribirá su diseño actual, y cualquier cambio sin guardados se perderá. ¿Está seguro de que quiere continuar?"
             },
-            "exporting": "Exportando…"
+            "exporting": "Exportando…",
+            "loadLayoutFromFile": "Restaurar distribución del teclado del archivo...",
+            "loadLayoutFromFileOption": "Solo distribución de teclado",
+            "loadFullSettingsFromFile": "Restaurar ajustes desde archivo…",
+            "loadFullSettingsFromFileOption": "Ajustes completos de EEPROM"
         },
         "sidebar": {
             "custom": {
@@ -89,17 +93,17 @@
                 "whenHeld": "Al mantener",
                 "targetLayer": "Capa",
                 "title": "Acción secundario",
-                "help-layerLimit": "Debido a los limites de firmware, cambiar a capas superiores de la \"{{ layer8 }}\" no es compatible a través de las acciones secundarias.",
+                "help-layerLimit": "Debido a los limites de firmware, mayús para capas superiores de la \"{{ layer7 }}\" no es compatible a través de las acciones secundarias.",
                 "help": "Al pulsarse, se obtiene la función principal. Al mantenerse, se obtiene la acción secundaria.",
                 "modifier": "Modificadora",
                 "type": {
                     "none": "Normal",
-                    "layer": "Capa desplazamiento",
+                    "layer": "Mayús de capa",
                     "modifier": "Modificadora"
                 }
             },
             "colors": {
-                "help": "Asignar un color a la tecla seleccionada haciendo clic en uno de los cuadros de la paleta inferior. Para cambiar el color de una entrada de la paleta, use el selector de color.",
+                "help": "Asignar un color a la tecla pulsando en la paleta inferior. Utilice el color obtenido para ajuste de la paleta.",
                 "title": "Colores"
             },
             "lang_intl": {
@@ -113,13 +117,17 @@
                 }
             },
             "macros": {
-                "title": "Macros"
+                "title": "Macros",
+                "help": "Asignar macros codificadas en su firmware empotado a las teclas."
             },
             "dynmacros": {
                 "title": "Macros dinámicas",
                 "usage_overview": {
-                    "bytes": "bytes"
-                }
+                    "bytes": "bytes",
+                    "label": "Espacio macro utilizado:",
+                    "usage": "{{ used }}/{{ size }}"
+                },
+                "help": "Asignar y editar macros dinámicas a las teclas."
             },
             "volume": {
                 "help": "Teclas de control de volumen.",
@@ -139,21 +147,28 @@
                 "movement": {
                     "title": "Movimiento",
                     "help": "Mueva el ratón con su teclado"
+                },
+                "warp": {
+                    "title": "Deformar",
+                    "help": "Ampliar/reducir su ratón a través de la pantalla en unas pocas pulsaciones de tecla"
                 }
             },
             "keypicker": {
                 "topsyturvy": {
-                    "label": "Invertir Mayús"
+                    "label": "Invertir Mayús",
+                    "tooltip": "Invierte el comportamiento de la tecla Mayús. (Por ejemplo, envíe 'A' cuando no se pulse mayús). Esto no puede combinarse con otros modificadores."
                 },
                 "mods": "Modificadoras",
                 "modsHelp": "Modificadoras que se suman al pulsar esta tecla.",
                 "oneshot": {
-                    "label": "Persistente"
+                    "label": "Persistente",
+                    "tooltip": "Toque para activar para la siguiente pulsación de teclado, presiónelo para actuar como un modificador normal, toque dos veces para activar el modificador."
                 },
                 "specialModsHelp": "Cambie la forma en que las modificadoras afectan esta tecla."
             },
             "layer": {
-                "help": "Teclas que permiten cambiar de capa."
+                "help": "Teclas que permiten cambiar de capa.",
+                "title": "Capas y mapas de teclado"
             },
             "media": {
                 "help": "Teclas de control multimedia.",
@@ -168,6 +183,34 @@
             "ledkeys": {
                 "help": "Controle los temas y efectos LED de su teclado.",
                 "title": "Control de LED"
+            },
+            "blekeys": {
+                "title": "Bluetooth",
+                "help": "Control de conexión y emparejado de Bluetooth."
+            },
+            "leader": {
+                "title": "Líder",
+                "help": "Asignar tecla Líder. Para configurar esta característica, adapte el boceto Calidoscopio para su teclado."
+            },
+            "oneshotMetaKeys": {
+                "metaStickyKey": {
+                    "tooltip": "Hace la tecla siguiente pulsada pinchada bajo la tapa otra vez."
+                },
+                "activeStickyKey": {
+                    "tooltip": "Hace que las teclas pulsadas en ese momento queden fijas hasta que se vuelvan a pulsar."
+                }
+            },
+            "spacecadet": {
+                "title": "Cadete del espacio",
+                "help": "Hace 'Mayús' izq y der actuar como '(' y ')' cuando se toque"
+            },
+            "steno": {
+                "title": "Esteno",
+                "help": "Habilita entrada GeminiPR Stenographic en vez de entrada QWERTY de Plover"
+            },
+            "tapdance": {
+                "help": "Estas teclas desencadenan diferentes acciones basadas en el número de veces que pulsas",
+                "title": "TapDance"
             }
         },
         "overview": {
@@ -184,13 +227,17 @@
         "plugin_unavailable": "El firmware de su teclado no incluye soporte para esta función.",
         "layerswitch": {
             "lockTo": "Bloquear en capa",
-            "shiftTo": "Cambiar a capa",
+            "shiftTo": "Mayús a capa",
             "moveTo": "Mover a capa",
-            "target": "Capa"
+            "target": "Capa",
+            "type": "Tipo",
+            "oneshot": "Capa Mayús para la acción siguiente",
+            "dualuse": "Capa Mayús cuando mantenga"
         },
         "onlyCustom": {
             "fixItButton": "Cambiar solo a capas personalizadas",
-            "openFR": "Solicitar una funcionalidad"
+            "openFR": "Solicitar una funcionalidad",
+            "warning": "Chrysalis ya no admite configuraciones que contienen una mezcla de capas codificadas y EEPROM. Si esto es una característica que necesitas, nos encantaría escuchar más sobre tu caso de uso. En la mayoría de los casos, sin embargo, aconsejamos cambiar a capas personalizadas solamente, que Chrysalis puede hacer por usted. Al hacer el interruptor, las capas codificadas no se utilizarán, y el conjunto de capa predeterminado, si hay, será la capa cero."
         },
         "macros": {
             "title": "Macro n.º {{ index }}",
@@ -200,9 +247,20 @@
                 "WAIT": "Esperar",
                 "KEYDOWN": "Sostener tecla",
                 "KEYUP": "Soltar tecla",
-                "unknown": "<desconocido>"
+                "unknown": "<desconocido>",
+                "time_ms": "{{ value }}ms",
+                "in_ms": "ms",
+                "TAP": "Espita",
+                "EXPLICIT_REPORT": "No enviar un parte entre pasos",
+                "IMPLICIT_REPORT": "Enviar un parte entre pasos",
+                "SEND_REPORT": "Enviar un parte ahora",
+                "unsupported": "No admitido"
             },
-            "edit": "Editar macro"
+            "edit": "Editar macro",
+            "out_of_space": "Las macros dinámicas están usando demasiado espacio, por favor libere {{ overflow }} bytes."
+        },
+        "layernames": {
+            "out_of_space": "Sus nombres de capa son {{ overflow }} bytes demasiado largos para guardar a su teclado."
         }
     },
     "app": {
@@ -248,45 +306,101 @@
         "title": "Registro de cambios"
     },
     "saveChangesButton": {
-        "savedChanges": "Cambios guardados",
-        "saveChanges": "Guardar los cambios",
-        "savingChanges": "Guardando los cambios"
+        "savedChanges": "Cambios Guardados",
+        "saveChanges": "Guardar Cambios",
+        "savingChanges": "Guardando Cambios"
     },
     "firmwareUpdate": {
         "dialog": {
-            "allFiles": "Todos los archivos"
+            "allFiles": "Todos los archivos",
+            "selectFirmware": "Seleccione un firmware",
+            "firmwareFiles": "Archivos de firmware"
         },
         "flashing": {
             "anywayButton": "Actualizar de todos modos",
             "button": "Actualizar",
-            "cancelAndDisconnectButton": "Cancelar y desconectar"
+            "cancelAndDisconnectButton": "Cancelar y desconectar",
+            "error": "Error al flashear el firmware",
+            "success": "¡Firmware flasheado correctamente!",
+            "notifications": {
+                "title": "Se ha encontrado un problema mientras flasheaba",
+                "enter": {
+                    "stillApplication": "El teclado no ha introducido el modo programable todavía. Por favor, asegúrese de seguir las instrucciones a continuación.",
+                    "notFound": "Incapaz de encontrar el teclado. Por favor, envíe una incidencia."
+                },
+                "reconnect": {
+                    "stillBootloader": "El teclado sigue en modo programable. Por favor, suelte cualquier llave que tenga en su poder.",
+                    "notFound": "No es capaz de encontrar el teclado. Envíe una incidencia."
+                },
+                "unknownMessage": "Mensaje desconocido recibido durante el flasheo: {{ message }}"
+            },
+            "steps": {
+                "factoryRestore": "Restaurar predeterminados de fábrica",
+                "bootloader": "Entrando al modo programable",
+                "saveEEPROM": "Guardando contenido de EEPROM",
+                "restoreEEPROM": "Restaurando contenido de EEPROM",
+                "reconnect": "Reconectando",
+                "flash": "Flasheando",
+                "reboot": "Rearrancando"
+            }
         },
         "factoryResetTitle": "Restablecimiento de fábrica",
         "firmwareChangelog": {
-            "view": "¿Qué hay de nuevo en {{version}}?"
+            "view": "¿Qué hay de nuevo en {{version}}?",
+            "title": "Firmware Changelog"
         },
         "bootloaderConnectDialog": {
-            "title": "Conectando con su teclado..."
+            "title": "Conectando con su teclado...",
+            "contents": "Chrysalis necesita conectarse al cargador de arranque del teclado. Pulse en el botón de abajo, luego seleccione su teclado de la lista mostrada por su navegador. Si su teclado no aparece, desenchufe de su computadora y vuelva a conectarlo mientras se mantiene en la tecla 'bootloader'. En el Atreus, eso es `Esc`. En el Modelo 01 y el Modelo 100, es `Prog` y en el Preonic, es `Hyper`."
         },
         "customChooseFile": "Elegir un archivo...",
         "calloutTitle": "¡Importante!",
-        "firmwareSources": "Código fuente"
+        "firmwareSources": "Código fuente",
+        "bootloaderWarning": "Su teclado está en modo cargador de arranque, por lo que Chrysalis no puede respaldar la configuración del teclado. Si el firmware nuevo no es compatible con la configuración existente, los mapas de teclas y otros ajustes pueden estar corruptos tras la actualización. Por esta razón, Chrysalis predeterminará un reajuste de fábrica, que le permitirá comenzar desde una pizarra limpia. Puede cancelar y salir del modo cargador de arranque, por lo que Chrysalis puede respaldar su teclado. Alternativamente, puede apagar el reajuste de fábrica, si sabe que el nuevo firmware es compatible.",
+        "factoryResetDescription": "Borra todo en su teclado, restaurándolo a lo predeterminado de fábrica.",
+        "factoryResetWarning": "Seleccionar esta opción no respaldará su mapa de teclado o ajustes actuales.",
+        "confirmDialog": {
+            "title": "¿Está seguro que desea actualizar el firmware?",
+            "description": "Instalando firmware nuevo remplazará el existente en el dispositivo. Una vez que esté instalado el firmware nuevo, Chrysalis regresará a la pantalla se selección del teclado."
+        },
+        "factoryConfirmDialog": {
+            "title": "¿Reemplazar el firmware y restablecer a los defectos de fábrica?",
+            "contents": "Esto reemplazará el firmware en el dispositivo, y restablecerá todos los ajustes a los predeterminados de fábrica. Perderás todas las personalizaciones hechas. Una vez instalado el firmware nuevo, Chrysalis le llevará de vuelta a la pantalla de selección del teclado."
+        },
+        "reconnectDialog": {
+            "title": "Reconectarse a su teclado",
+            "contents": "Chrysalis necesita volver a conectarse a su teclado. Después de pulsar en el botón de abajo, seleccione el teclado de la lista de dispositivos que muestra su navegador."
+        },
+        "yourFirmware": "Actualice su firmware del teclado",
+        "chooseFirmware": "Actualizar firmware",
+        "defaultFirmwareDescription": "Última versión para su teclado",
+        "custom": "Firmware personalizado",
+        "customFirmwareExplanation": "Puede instalar la versión del firmware que ha descargado o crearlo localmente.",
+        "currentFirmwareVersion": "Versión actual del firmware",
+        "currentFirmwareVersionUnavailable": "Versión de firmware no disponible",
+        "customFirmwareLinkText": "Aprender sobre la creación del firmware",
+        "firmwareVersion": "{{version}}",
+        "description": "Actualizar el firmware del teclado es cómo le enseñamos nuevos trucos. Puede utilizar Chrysalis para instalar el firmware más reciente para su teclado o para instalar firmware que ha construido usted mismo."
     },
     "help": {
         "connection": {
-            "title": "Chrysalis no pudo conectarse con el teclado"
+            "title": "Chrysalis no pudo conectarse con el teclado",
+            "overview": "<h1>Chrysalis no pudo conectarse a tu teclado.</h1><h2>Posibles causas</h2><p>Si tu teclado está conectado a otra aplicación (como la antigua versión de escritorio de Chrysalis) o tienes Chrysalis abierto en otra ventana del navegador, intenta desconectarte de ella y recarga esta página web.</p>"
         }
     },
     "preferences": {
         "devtools": {
             "console": {
-                "label": "Abrir la consola de desarrollo"
+                "label": "Abrir la consola de desarrollo",
+                "help": "La consola de desarrolladores te permite echar un vistazo la anterior Chrysalis. Utilizar con cuidado."
             },
             "main": {
-                "label": "Herramientas de desarrollo"
+                "label": "Herramientas de desarrollo",
+                "description": "Estas preferencias primariamente ayudan a los desarrolladores. Puede ser solicitado encenderlos, o recolectar más información acerca de una incidencia."
             },
             "verboseLogging": {
-                "label": "Activar registros detallados"
+                "label": "Activar registros detallados",
+                "help": "Activa una cantidad considerable de registros adicionales, útiles únicamente para la depuración."
             }
         },
         "ui": {
@@ -294,7 +408,8 @@
                 "label": "Apariencia"
             },
             "language": {
-                "label": "Idioma"
+                "label": "Idioma",
+                "help": "¿Qué idioma debería hablar Chrysalis?"
             },
             "theme": {
                 "system": "Predeterminado del sistema",
@@ -309,7 +424,20 @@
                 "label": "Editor de disposición"
             },
             "host": {
-                "label": "Disposición de teclado"
+                "label": "Disposición de teclado",
+                "help": "Seleccione el diseño de clave que utiliza en su equipo"
+            },
+            "oneLayerPerPage": {
+                "label": "Imprime una capa por página",
+                "help": "Cuando esté habilitado, Chrysalis organizará las tarjetas de diseño para imprimir una capa por página, en lugar de todos los que se quepan."
+            },
+            "hideUnavailableFeatures": {
+                "label": "Ocultar características no compatibles con su firmware actual del teclado",
+                "help": "Cuando esté habilitado, Chrysalis ocultará opciones de configuración para características que su firmware del teclado no admite."
+            },
+            "coloredLayoutCards": {
+                "label": "Mostrar colores en tarjetas de diseño",
+                "help": "Cuando esté habilitado, las tarjetas de diseño mostrarán colores en adición a etiquetas clave, si está disponible."
             }
         },
         "keyboard": {
@@ -324,7 +452,10 @@
                     "oneMinute": "1 minuto",
                     "twoMinutes": "2 minutos",
                     "fourMinutes": "4 minutos",
-                    "fiveMinutes": "5 minutos"
+                    "fiveMinutes": "5 minutos",
+                    "label": "Tiempo de espera antes que los LED se apaguen",
+                    "help": "A menos que esté deshabilitado, los LED se apagarán tras una cantidad configurada de tiempo.",
+                    "disabled": "Deshabilitado"
                 },
                 "brightness": {
                     "help": "Ajuste el brillo de los LED del teclado.",
@@ -332,7 +463,12 @@
                 },
                 "label": "LED",
                 "default": {
-                    "label": "Modo de LED predeterminado"
+                    "label": "Modo de led predeterminado",
+                    "autoSave": {
+                        "label": "Habilita guardando automáticamente el modo led por defecto",
+                        "help": "Cuando habilitado, siempre que sea cambiado el modo led, obtiene guardado como el predeterminado."
+                    },
+                    "help": "Seleccione el modo led con el que debe comenzar el teclado."
                 }
             },
             "layers": {
@@ -340,41 +476,204 @@
             },
             "title": "Mi teclado",
             "advanced": {
-                "label": "Herramientas avanzadas"
+                "label": "Herramientas avanzadas",
+                "description": "Estas son herramientas peligrosas, por favor asegúrese conocer que hacen antes de emplear cualquiera de ellos."
             },
             "defaultLayer": {
-                "label": "Capa predeterminada"
+                "label": "Capa predeterminada",
+                "noDefault": "No predeterminado",
+                "help": "La capa predeterminada con la cual el teclado comenzará."
             },
             "plugins": {
                 "label": "Complementos",
                 "oneshot": {
-                    "label": "Teclas persistentes"
+                    "label": "Teclas persistentes",
+                    "timeout": {
+                        "label": "Vencimiento",
+                        "help": "Tiempo hasta que una tecla pulsada permanezca activo tras ser pulsado."
+                    },
+                    "hold_timeout": {
+                        "label": "Tiempo de espera de mantener pulsada",
+                        "help": "Teclas pinchadas mantenidas más que esto no introducirá su estado de pinchado, pero actuarán como teclas usuales."
+                    },
+                    "auto_mods": {
+                        "label": "Hacer modificadores de pinchado automáticamente",
+                        "help": "Enciende cada modificador en su mapa de teclas en modificadores Chincheta."
+                    },
+                    "auto_layers": {
+                        "label": "Crea capas de teclas de Mayús pinchadas automáticamente",
+                        "help": "Activa cada tecla de capa de Mayús en su mapa de teclas dentro de las teclas de la capa Chincheta."
+                    },
+                    "stickyness": {
+                        "label": "Comportamiento de pulsación doble",
+                        "help": "Seleccione qué hacer cuando una tecla pegajosa se pulsa dos veces en sucesión rápida.",
+                        "enable": "Asegura en todas las teclas pegajosas",
+                        "disable": "Nada",
+                        "layers_only": "Bloquear solo para claves de capa",
+                        "modifiers_only": "Bloquear solo para teclas modificadoras"
+                    }
                 },
                 "mousekeys": {
                     "scroll_interval": {
-                        "label": "Velocidad de desplazamiento"
+                        "label": "Velocidad de desplazamiento",
+                        "help": "Tiempo entre eventos de arrastre. Lo más alto el retardo, el más lento el arrastre."
+                    },
+                    "label": "Teclas de ratón",
+                    "warp_grid_size": {
+                        "label": "Cubre el tamaño de cuadrícula",
+                        "help": "Configura el tamaño de la cuadrícula utilizada para cubrir el ratón.",
+                        "2x2": "2⨯2",
+                        "3x3": "3⨯3"
+                    },
+                    "init_speed": {
+                        "label": "Velocidad inicial del cursor del ratón",
+                        "help": "Cuanto más alto el valor, más rápida la velocidad del movimiento del cursor del ratón inicial."
+                    },
+                    "base_speed": {
+                        "label": "Velocidad del cursor del ratón máxima",
+                        "help": "La velocidad máxima del cursor del ratón está concedida para alcanzar."
+                    },
+                    "accel_duration": {
+                        "label": "Duración de cada velocidad de cursor máxima",
+                        "help": "Duración en la cual el cursor va desde el inicio a la velocidad máxima."
                     }
+                },
+                "autoshift": {
+                    "label": "Cambio Mayús automático",
+                    "enabled": {
+                        "label": "Habilitar auto Mayús",
+                        "help": "Con el Mayús automático habilitado, las teclas seleccionadas introducirán automáticamente su variante de Mayús cuando se mantiene."
+                    },
+                    "timeout": {
+                        "label": "Espera de Mayús automático",
+                        "help": "Controla cuanto tiempo se debe mantener una tecla antes de obtener el estado Mayús."
+                    },
+                    "category": {
+                        "letters": {
+                            "label": "Auto‐Mayús en teclas de letra",
+                            "help": "Habilita auto Mayús para teclas de letra. Solo estas incluyen las letras entre la A y la Z en una distribución de QWERTY de EE. UU."
+                        },
+                        "numbers": {
+                            "label": "Auto Mayús teclas de número",
+                            "help": "Habilita auto Mayús para número de teclas. No incluye el número de teclas en el teclado numérico."
+                        },
+                        "symbols": {
+                            "label": "Símbolos auto Mayús",
+                            "help": "Activar el Mayús automático para los símbolos: -_, =+, [{, ]}, \\|, ;:, '\", `~, ,<, .>, /?. Es posible que necesite activar esto si está usando un idioma o una distribución que no sea el inglés estadounidense, si desea teclas Mayús no cubiertas por la letra de Mayús automático."
+                        },
+                        "arrows": {
+                            "label": "Auto Mayús de flechas",
+                            "help": "Habilita auto Mayús para las teclas de flecha."
+                        },
+                        "functions": {
+                            "label": "Teclas de función de Mayús automático",
+                            "help": "Habilita auto Mayús para las teclas de función, F1 hasta F24."
+                        },
+                        "all": {
+                            "label": "Auto Mayús en todas las teclas",
+                            "help": "Habilita auto Mayús para todas las teclas, incluso aquellas que no están en ninguna de las categorías de arriba."
+                        }
+                    }
+                },
+                "escOneShot": {
+                    "label": "Escape Izq. cancela las teclas pinchadas",
+                    "help": "Cuando habilitado, «Escape» cancelará las teclas fijadas, en otro caso una tecla cancelada dedicada puede hacer eso."
+                },
+                "spacecadet": {
+                    "label": "Cadete espacial",
+                    "mode": {
+                        "label": "Habilitar Mayús del Espacio Cadete",
+                        "help": "Cuando esté habilitado, los Mayús izquierdo y derecho en el teclado se convertirán en anteriores cuando se mantengan, pero permanecen Mayús cuando se mantiene.",
+                        "enabled": "Habilitado",
+                        "disabled": "Deshabilitado",
+                        "enabled_without_delay": "Habilitado (sin retardo)"
+                    },
+                    "timeout": {
+                        "help": "El número de milisegundos de espera antes de considerar una tecla SpaceCadet mantenidas como Mayús en ella misma.",
+                        "label": "Espera"
+                    }
+                }
+            },
+            "factoryReset": {
+                "button": "Restablecer EEPROM a predeterminados de fábrica",
+                "dialog": {
+                    "title": "¿Restablecer EEPROM a predeterminados de fábrica?",
+                    "contents": "Esto restablecerá el EEPROM a los predeterminados de fábrica. Perderás todas las personalizaciones hechas."
                 }
             }
         },
         "autoUpdate": {
             "label": "Actualizaciones automáticas",
             "mode": {
-                "label": "Descargar versiones nuevas de Chrysalis automáticamente"
+                "label": "Descargar versiones nuevas de Chrysalis automáticamente",
+                "help": "Cuando esté habilitado, Chrysalis comprobará las actualizaciones de inicio, y descargará automáticamente versiones nuevas."
+            },
+            "firmwareMode": {
+                "label": "Descargar versiones nuevas de firmware automáticamente",
+                "help": "Cuando esté habilitado, Chrysalis comprobará los archivos de firmware actualizados en el arranque y automáticamente descargará versiones nuevas."
             }
         },
-        "interface": "Interfaz de usuario"
+        "interface": "Interfaz de usuario",
+        "focus": {
+            "chunked_writes": {
+                "label": "Envía datos en cantidades pequeñas",
+                "help": "Como posible remedio a varios problemas de comunicación, Chrysalis puede enviar datos al teclado en pequeños trozos. Por razones históricas, esto está habilitado por defecto. Sólo apágalo si usted sabe lo que está haciendo, o fue pedido por los desarrolladores Chrysalis."
+            }
+        }
     },
     "focus-not-detected": {
-        "title": "Le damos la bienvenida a Chrysalis"
+        "title": "Le damos la bienvenida a Chrysalis",
+        "contents": "Chrysalis reconoce su teclado, pero necesita actualizar su firmware antes de que pueda continuar.",
+        "gotoUpdate": "Actualizar Firmware",
+        "reconnect": "Reconectar",
+        "reconnectDescription": "Hay una posibilidad de que hayamos detectado mal las capacidades del teclado, o que el teclado estaba empezando mientras conectamos. En este caso, puede intentar hacer clic en el botón \"{{buttonName}}\" para intentar una reconexión y buscar las características necesarias de nuevo. La reconexión es útil si estás seguro de que hubo un fracaso temporal en intentos anteriores, y el problema se ha resuelto."
     },
     "keyboardSelect": {
         "connect": "Conectar",
         "disconnect": "Desconectar",
         "installUdevRules": "Corregirlo",
-        "noDevices": "No se encontró ningún teclado."
+        "noDevices": "No se encontró ningún teclado.",
+        "unknown": "Desconocido",
+        "noUdev": "Chysalis requiere udev para ser capaz de analizar dispositivos, pero parece que no está disponible.",
+        "connectionFailed": "No pude conectar al teclado. Puede que ya esté conectado en otra aplicación o explorador de ventana. El error obtenido fue: {{error}}",
+        "permissionError": "Su equipo no quiso que Chrysalis hable a su teclado. (No tiene permisos de lectura/escritura en {{path}}.)",
+        "permissionErrorSuggestion": "Chrysalis puede reparar esto instalando un archivo de reglas udev en /etc/udev/rules.d/.",
+        "dfuConnect": "Establecimiento de Fábrica (Modo USB DFU)",
+        "focusConnectionFailed": "Chrysalis no podía conectarse a tu teclado. Si su teclado no apareció en el diálogo de conexión, puede haber un problema de permisos, o podría ser un teclado Modelo 100 en modo de arranque. Para restaurar la fábrica, haga clic en el botón «Reiniciar la fábrica»."
     },
     "systeminfo": {
-        "title": "Informar de un problema"
+        "title": "Informar de un problema",
+        "intro": "Si usted está teniendo problemas con Chrysalis, el equipo de desarrollo puede pedirle que les envíe información depuradora. Chrysalis puede ayudarte a recoger y empaquetar todo lo que necesites compartir. Esto incluye registros de errores, así como un poco de información sobre el sistema operativo de este equipo, dispositivos conectados, y Chrysalis mismo. La información del teclado incluirá información sobre el firmware actual del teclado, así como diseños clave y configuración LED.",
+        "bugTracker": "Puedes encontrar una lista de incidencias conocidas (o informar un fallo) en GitHub",
+        "privacyNote": "Tratamos de no incluir información privada en este envoltorio, pero te recomendamos que lo leas antes de compartirlo.",
+        "createBundle": "Crear Envoltorio",
+        "saveBundle": "Guardar Envoltorio",
+        "dialog": {
+            "title": "Guardar Envoltorio de Depuración de Chrysalis"
+        }
+    },
+    "layoutCards": {
+        "printTooltip": "Imprimir"
+    },
+    "devices": {
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "Tras pulsar en el botón Continuar, restablecer el teclado (al pulsar el botón de\nreinicio pequeño junto al puerto USB) para ponerlo en modo programable,\ndentro de diez segundos."
+            }
+        },
+        "Keyboardio": {
+            "Preonic": {
+                "updateInstructions": "Pulse 'Continue' y cuando se le solicite, autorice Chrysalis a volver a conectarse a su teclado."
+            },
+            "Atreus": {
+                "updateInstructions": "Mantén pulsada la tecla situada en la esquina inferior izquierda del teclado (en la configuración predeterminada, esta tecla es la ESC). Sigue manteniéndola pulsada mientras haces clic en el botón Continuar."
+            },
+            "Model01": {
+                "updateInstructions": "Mantén pulsada la tecla situada en la esquina superior izquierda del teclado (en la configuración predeterminada, esta tecla es la tecla PROG). Sigue manteniéndola pulsada mientras haces clic en el botón Continuar. Cuando las teclas empiecen a parpadear en rojo, puedes soltar la tecla."
+            },
+            "Model100": {
+                "updateInstructions": "Mantén pulsada la tecla situada en la esquina superior izquierda del teclado (en la configuración predeterminada, esta tecla es la tecla PROG). Sigue manteniéndola pulsada mientras pulsas el botón Continuar. Cuando las teclas empiecen a parpadear en verde en la primera columna del teclado, suelta la tecla, ya que mantenerla pulsada demasiado tiempo podría impedir que el parpadeo se complete correctamente."
+            }
+        }
     }
 }
